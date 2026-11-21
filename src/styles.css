@@ -1,0 +1,324 @@
+/* Palette: a storm over Azeroth. Brass is the game's own UI gold; item names use the game's quality colours. */
+:root {
+	--storm: #141c26;
+	--slate: #1d2936;
+	--slate-raised: #253444;
+	--ridge: #35495e;
+	--mist: #dbe2e9;
+	--haze: #93a4b5;
+	--brass: #d6ae5f;
+	--brass-deep: #a8833c;
+	--ember: #f08a6c;
+
+	--q-uncommon: #4fe04a;
+	--q-rare: #4d9bff;
+	--q-epic: #c079ff;
+	--q-legendary: #ff9a3c;
+
+	--serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+	--sans: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+	color-scheme: dark;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	background: var(--storm);
+	color: var(--mist);
+	font: 16px/1.5 var(--sans);
+}
+
+.page {
+	max-width: 72rem;
+	margin: 0 auto;
+	padding: 1.5rem 1.25rem 3rem;
+}
+
+h1,
+h2 {
+	font-family: var(--serif);
+	font-weight: 600;
+	line-height: 1.15;
+	margin: 0;
+	color: var(--brass);
+}
+h1 {
+	font-size: 2.25rem;
+	letter-spacing: 0.01em;
+}
+h2 {
+	font-size: 1.5rem;
+}
+
+a {
+	color: var(--brass);
+}
+
+:focus-visible {
+	outline: 2px solid var(--brass);
+	outline-offset: 2px;
+}
+
+/* Masthead */
+.masthead {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 1rem 2rem;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid var(--ridge);
+	margin-bottom: 1.5rem;
+}
+.masthead-sub {
+	margin: 0.25rem 0 0;
+	color: var(--haze);
+}
+.tabs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem;
+}
+.tab {
+	font: inherit;
+	color: var(--mist);
+	background: none;
+	border: 0;
+	border-bottom: 3px solid transparent;
+	padding: 0.5rem 0.75rem;
+	cursor: pointer;
+}
+.tab[aria-current='page'] {
+	border-bottom-color: var(--brass);
+	color: var(--brass);
+}
+.tab:disabled {
+	color: var(--haze);
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+/* Form controls */
+.field-label,
+.slot-label {
+	display: block;
+	font-size: 0.8125rem;
+	color: var(--haze);
+	margin: 0.75rem 0 0.25rem;
+}
+select,
+textarea {
+	font: inherit;
+	color: var(--mist);
+	background: var(--storm);
+	border: 1px solid var(--ridge);
+	border-radius: 4px;
+	padding: 0.4rem 0.5rem;
+	width: 100%;
+}
+.button {
+	font: inherit;
+	color: var(--mist);
+	background: var(--slate-raised);
+	border: 1px solid var(--ridge);
+	border-radius: 4px;
+	padding: 0.5rem 0.9rem;
+	cursor: pointer;
+}
+.button:hover:not(:disabled) {
+	border-color: var(--brass-deep);
+}
+.button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+.button-primary {
+	background: var(--brass);
+	border-color: var(--brass);
+	color: #1c1608;
+	font-weight: 600;
+}
+.link {
+	font: inherit;
+	color: var(--brass);
+	background: none;
+	border: 0;
+	padding: 0;
+	text-decoration: underline;
+	cursor: pointer;
+}
+.link-danger {
+	color: var(--ember);
+}
+kbd {
+	font: 0.875em ui-monospace, Consolas, monospace;
+	background: var(--slate-raised);
+	border: 1px solid var(--ridge);
+	border-radius: 3px;
+	padding: 0.05em 0.35em;
+}
+
+/* Notices */
+.notice {
+	background: var(--slate);
+	border-left: 4px solid var(--brass);
+	padding: 0.75rem 1rem;
+	margin-bottom: 1.25rem;
+	max-width: 46rem;
+}
+.notice ul {
+	margin: 0.25rem 0 0.5rem;
+	padding-left: 1.25rem;
+}
+.notice-error {
+	border-left-color: var(--ember);
+}
+
+/* Import */
+.import {
+	max-width: 46rem;
+}
+.import-steps {
+	padding-left: 1.25rem;
+	margin: 0.75rem 0 0;
+}
+.import-text {
+	min-height: 11rem;
+	font: 0.875rem/1.4 ui-monospace, Consolas, monospace;
+	resize: vertical;
+}
+.import-text[aria-invalid='true'] {
+	border-color: var(--ember);
+}
+.field-error {
+	color: var(--ember);
+	margin: 0.4rem 0 0;
+}
+.actions {
+	display: flex;
+	gap: 0.5rem;
+	margin-top: 0.9rem;
+}
+.hint {
+	color: var(--haze);
+	font-size: 0.875rem;
+	margin: 0.6rem 0 0;
+}
+
+/* Character sheet: the in-game character pane. Armor left, identity in the middle, the rest right, weapons below. */
+.sheet {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.9fr) minmax(0, 1fr);
+	gap: 1rem;
+	align-items: start;
+}
+.sheet-column {
+	display: grid;
+	gap: 0.5rem;
+}
+.sheet-weapons {
+	grid-column: 1 / -1;
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 1rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--ridge);
+}
+.slot {
+	background: var(--slate);
+	border: 1px solid var(--ridge);
+	border-radius: 4px;
+	padding: 0.55rem 0.7rem 0.65rem;
+}
+.slot-empty {
+	background: none;
+	border-style: dashed;
+}
+.slot-label {
+	margin: 0;
+}
+.slot-item {
+	display: block;
+	font-weight: 600;
+	overflow-wrap: anywhere;
+}
+.slot-empty .slot-item {
+	color: var(--haze);
+	font-weight: 400;
+}
+.slot-note {
+	display: block;
+	font-size: 0.8125rem;
+	color: var(--ember);
+}
+.slot-enchant {
+	margin-top: 0.4rem;
+	font-size: 0.875rem;
+	padding: 0.25rem 0.4rem;
+}
+.quality-uncommon {
+	color: var(--q-uncommon);
+}
+.quality-rare {
+	color: var(--q-rare);
+}
+.quality-epic {
+	color: var(--q-epic);
+}
+.quality-legendary {
+	color: var(--q-legendary);
+}
+
+.identity {
+	background: var(--slate);
+	border: 1px solid var(--brass-deep);
+	border-radius: 4px;
+	padding: 1.1rem 1.1rem 1.25rem;
+}
+.identity-line {
+	margin: 0.3rem 0 0.5rem;
+	color: var(--haze);
+}
+.identity-talents {
+	margin: 0;
+}
+.talents {
+	font-variant-numeric: tabular-nums;
+	overflow-wrap: anywhere;
+}
+.identity-actions {
+	display: grid;
+	gap: 0.5rem;
+	justify-items: start;
+	margin-top: 1.25rem;
+}
+.identity-actions .button {
+	width: 100%;
+}
+
+.colophon {
+	margin-top: 2.5rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--ridge);
+	color: var(--haze);
+	font-size: 0.875rem;
+}
+
+@media (max-width: 52rem) {
+	.sheet {
+		grid-template-columns: 1fr;
+	}
+	.identity {
+		order: -1;
+	}
+	.sheet-weapons {
+		grid-template-columns: 1fr;
+		gap: 0.5rem;
+	}
+	h1 {
+		font-size: 1.75rem;
+	}
+}

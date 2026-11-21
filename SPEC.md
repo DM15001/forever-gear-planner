@@ -153,7 +153,11 @@ Lessons from the first test run against a real character:
    `randomSuffixes.json`, `meta.json`. Filter: released phase, reqLvl <= 60, uncommon or
    better, equippable by the spec in `src/specs/<spec>.json`. Re-run it to pick up upstream
    changes. See "Generated data" below for the file shapes.
-2. **App shell + import** — project setup, paste box, parser, validation, `localStorage`.
+2. **App shell + import — DONE.** Vite + React + TypeScript. `src/lib/importCharacter.ts`
+   parses both export formats (pure function, tests next to it). The character is saved in
+   `localStorage`. Race, professions and per-slot enchants are editable; "Remove all
+   enchants" clears what a sim export filled in. The page is laid out like the in-game
+   character pane (`SHEET_LAYOUT` in `src/lib/constants.ts`).
 3. **Character tab** — slot grid, Wowhead links (`wowhead.com/forever/item=<id>`, verify the
    URL pattern and the tooltip script).
 4. **Scoring + Upgrades tab** — EP score, alternatives, what-if swap, hit cap handling.

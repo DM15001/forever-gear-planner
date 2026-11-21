@@ -1,41 +1,89 @@
 {
-  "id": "enhancement-shaman",
-  "name": "Enhancement Shaman",
-  "classId": 7,
-  "armorTypes": ["cloth", "leather", "mail"],
-  "weaponTypes": {
-    "oneHand": ["axe", "dagger", "fist", "mace"],
-    "twoHand": ["axe", "mace", "staff"],
-    "offHand": ["shield", "offHand"]
-  },
-  "rangedTypes": ["totem"],
-  "canDualWield": false,
-  "hitCapPercent": 8,
-  "ratingPerPercent": {
-    "hitRating": 10,
-    "critRating": 14,
-    "hasteRating": 10,
-    "expertiseRating": 10
-  },
-  "raceBonuses": {
-    "RaceDwarf": { "hitPercent": 1 }
-  },
-  "weights": {
-    "source": "WoWSims Forever, Enhancement 'Pre-BiS' EP preset (ui/specs/shaman/enhancement/presets.ts)",
-    "mainHandDps": 14.18,
-    "stats": {
-      "strength": 2.2,
-      "agility": 1.32,
-      "intellect": 1.99,
-      "attackPower": 1,
-      "hitRating": 5.2,
-      "critRating": 2.42,
-      "hasteRating": 2.81,
-      "expertiseRating": 3.5,
-      "armorPenetration": 0.37,
-      "spellDamage": 1.27,
-      "natureDamage": 0.72,
-      "spellPiercing": 2.52
-    }
-  }
+	"id": "enhancement-shaman",
+	"name": "Enhancement Shaman",
+	"classId": 7,
+	"className": "shaman",
+	"races": [
+		{
+			"id": "RaceDwarf",
+			"name": "Dwarf",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceOrc",
+			"name": "Orc",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceTauren",
+			"name": "Tauren",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceTroll",
+			"name": "Troll",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceWindshaperSkyborne",
+			"name": "Windshaper Skyborne",
+			"faction": "horde"
+		}
+	],
+	"armorTypes": [
+		"cloth",
+		"leather",
+		"mail"
+	],
+	"weaponTypes": {
+		"oneHand": [
+			"axe",
+			"dagger",
+			"fist",
+			"mace"
+		],
+		"twoHand": [
+			"axe",
+			"mace",
+			"staff"
+		],
+		"offHand": [
+			"shield",
+			"offHand"
+		]
+	},
+	"rangedTypes": [
+		"totem"
+	],
+	"canDualWield": false,
+	"hitCapPercent": 8,
+	"ratingPerPercent": {
+		"hitRating": 10,
+		"critRating": 14,
+		"hasteRating": 10,
+		"expertiseRating": 10
+	},
+	"raceBonuses": {
+		"RaceDwarf": {
+			"hitPercent": 1
+		}
+	},
+	"weights": {
+		"source": "WoWSims Forever, Enhancement 'Pre-BiS' EP preset (ui/specs/shaman/enhancement/presets.ts)",
+		"mainHandDps": 14.18,
+		"stats": {
+			"strength": 2.2,
+			"agility": 1.32,
+			"intellect": 1.99,
+			"attackPower": 1,
+			"hitRating": 5.2,
+			"critRating": 2.42,
+			"hasteRating": 2.81,
+			"expertiseRating": 3.5,
+			"armorPenetration": 0.37,
+			"spellDamage": 1.27,
+			"natureDamage": 0.72,
+			"spellPiercing": 2.52
+		}
+	}
 }

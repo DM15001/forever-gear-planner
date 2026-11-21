@@ -1,0 +1,85 @@
+export type Faction = 'alliance' | 'horde';
+
+export type SlotKind = 'head' | 'neck' | 'shoulder' | 'back' | 'chest' | 'wrist' | 'hands' | 'waist' | 'legs' | 'feet' | 'finger' | 'trinket' | 'weapon' | 'ranged';
+
+export type Stats = Record<string, number>;
+
+export interface ItemSource {
+	kind: 'drop' | 'quest' | 'crafted' | 'rep' | 'vendor' | 'pvp' | 'unknown';
+	zoneId?: number;
+	npcId?: number;
+	npcName?: string;
+	otherName?: string;
+	zoneKind?: 'dungeon' | 'raid' | 'world';
+	name?: string;
+	questId?: number;
+	profession?: string;
+	spellId?: number;
+	repFaction?: string;
+	repLevel?: string;
+	faction?: Faction;
+}
+
+export interface Item {
+	id: number;
+	name: string;
+	icon?: string;
+	slot: SlotKind;
+	armorType?: string;
+	rangedType?: string;
+	quality: string;
+	ilvl?: number;
+	reqLvl?: number;
+	stats?: Stats;
+	weapon?: { type?: string; hand?: string; speed?: number; dps?: number; damageMin?: number; damageMax?: number };
+	unique?: boolean;
+	faction?: Faction;
+	requiredProfession?: string;
+	setId?: number;
+	setName?: string;
+	effects?: { name?: string; kind: string }[];
+	randomSuffixOptions?: number[];
+	randPropPoints?: number;
+	sources?: ItemSource[];
+}
+
+export interface Enchant {
+	effectId: number;
+	itemId?: number;
+	spellId?: number;
+	name: string;
+	icon?: string;
+	slots: SlotKind[];
+	quality?: string;
+	stats?: Stats;
+	hasEffect?: boolean;
+	sources?: ItemSource[];
+}
+
+/** One equipped item. `enchant` is the enchant's effectId, as in the exports. */
+export interface GearPiece {
+	id: number;
+	enchant?: number;
+	randomSuffix?: number;
+}
+
+export interface Character {
+	name?: string;
+	/** Race id from the spec config, e.g. "RaceDwarf". null until the user picks one. */
+	race: string | null;
+	level: number | null;
+	talents: string;
+	/** Up to two profession names. */
+	professions: string[];
+	/** Always GEAR_SLOTS.length entries, in GEAR_SLOTS order. null = empty slot. */
+	gear: (GearPiece | null)[];
+}
+
+export interface SpecConfig {
+	id: string;
+	name: string;
+	classId: number;
+	className: string;
+	races: { id: string; name: string; faction: Faction }[];
+	hitCapPercent: number;
+}

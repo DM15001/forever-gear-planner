@@ -1,0 +1,69 @@
+import { describe, expect, it } from 'vitest';
+
+import specJson from '../specs/enhancement-shaman.json';
+import addonExport from './__fixtures__/addon-export.json';
+import simExport from './__fixtures__/sim-export.json';
+import { GEAR_SLOTS } from './constants';
+import { importCharacter, ImportError } from './importCharacter';
+import type { SpecConfig } from './types';
+
+const spec = specJson as unknown as SpecConfig;
+
+describe('importCharacter', () => {
+	it('reads the sim export', () => {
+		const { character, format, warnings } = importCharacter(JSON.stringify(simExport), spec);
+		expect(format).toBe('sim');
+		expect(character.race).toBe('RaceOrc');
+		expect(character.professions).toEqual(['Engineering', 'Leatherworking']);
+		expect(character.talents).toBe('053303102-053030310051012251-02');
+		expect(character.gear).toHaveLength(GEAR_SLOTS.length);
+		expect(character.gear[0]).toEqual({ id: 17740, enchant: 2543 });
+		expect(character.gear[14]).toEqual({ id: 14531, enchant: 1900 });
+		expect(character.gear[15]).toBeNull(); // off hand is {} with a two-hander
+		expect(character.gear[16]).toEqual({ id: 249443 });
+		expect(character.name).toBeUndefined(); // "Player" is the sim's placeholder
+		expect(warnings.some(w => w.includes('sim export'))).toBe(true);
+	});
+
+	it('reads the addon export and pads missing slots', () => {
+		const { character, format, warnings } = importCharacter(JSON.stringify(addonExport), spec);
+		expect(format).toBe('addon');
+		expect(character.name).toBe('Testchar');
+		expect(character.race).toBe('RaceDwarf');
+		expect(character.level).toBe(60);
+		expect(character.professions).toEqual(['Skinning', 'Leatherworking']);
+		expect(character.gear).toHaveLength(GEAR_SLOTS.length);
+		expect(character.gear[2]).toBeNull();
+		expect(character.gear[3]).toEqual({ id: 11626, enchant: 7667 });
+		expect(character.gear[16]).toBeNull();
+		expect(warnings).toEqual([]);
+	});
+
+	it('rejects text that is not JSON', () => {
+		expect(() => importCharacter('hello', spec)).toThrow(ImportError);
+	});
+
+	it('rejects JSON without a character', () => {
+		expect(() => importCharacter('{"foo": 1}', spec)).toThrow(/no character/);
+		expect(() => importCharacter('[1, 2]', spec)).toThrow(/not a character export/);
+	});
+
+	it('rejects another class', () => {
+		expect(() => importCharacter(JSON.stringify({ ...addonExport, class: 'warrior' }), spec)).toThrow(/warrior/);
+	});
+
+	it('rejects an export from another game version', () => {
+		expect(() => importCharacter(JSON.stringify({ ...addonExport, flavor: 'sod' }), spec)).toThrow(/not from WoW: Forever/);
+	});
+
+	it('asks for the race when the export has one the class cannot be', () => {
+		const { character, warnings } = importCharacter(JSON.stringify({ ...addonExport, race: 'Gnome' }), spec);
+		expect(character.race).toBeNull();
+		expect(warnings.some(w => w.includes('Gnome'))).toBe(true);
+	});
+
+	it('warns below level 60', () => {
+		const { warnings } = importCharacter(JSON.stringify({ ...addonExport, level: 52 }), spec);
+		expect(warnings.some(w => w.includes('level 52'))).toBe(true);
+	});
+});
