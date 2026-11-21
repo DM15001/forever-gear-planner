@@ -1,5 +1,6 @@
 import { GEAR_SLOTS } from './constants';
 import { DEFAULT_FILTER, type SourceFilter } from './scoring';
+import { isThemeChoice, type ThemeChoice } from './theme';
 import type { Character, SpecConfig } from './types';
 
 const KEY = 'forever-gear-planner.character.v1';
@@ -70,5 +71,25 @@ export function saveFilter(filter: SourceFilter): void {
 		localStorage.setItem(FILTER_KEY, JSON.stringify(filter));
 	} catch {
 		// storage blocked or full: the choice just won't survive a reload
+	}
+}
+
+const THEME_KEY = 'forever-gear-planner.theme.v1';
+
+/** The saved look. Follows the character's faction until the user picks one. */
+export function loadTheme(): ThemeChoice {
+	try {
+		const saved = localStorage.getItem(THEME_KEY);
+		return isThemeChoice(saved) ? saved : 'auto';
+	} catch {
+		return 'auto';
+	}
+}
+
+export function saveTheme(choice: ThemeChoice): void {
+	try {
+		localStorage.setItem(THEME_KEY, choice);
+	} catch {
+		// storage blocked or full: the look just won't survive a reload
 	}
 }

@@ -10,7 +10,8 @@ import { UpgradesTab } from './components/UpgradesTab';
 import { type GameData, loadGameData } from './lib/gameData';
 import type { ImportResult } from './lib/importCharacter';
 import type { SourceFilter } from './lib/scoring';
-import { loadCharacter, loadFilter, loadWeights, saveCharacter, saveFilter, saveWeights } from './lib/storage';
+import { loadCharacter, loadFilter, loadTheme, loadWeights, saveCharacter, saveFilter, saveTheme, saveWeights } from './lib/storage';
+import { resolveTheme, THEME_CHOICES, type ThemeChoice } from './lib/theme';
 import type { Character, SpecConfig } from './lib/types';
 import specJson from './specs/enhancement-shaman.json';
 
@@ -42,6 +43,12 @@ export function App() {
 		setFilterState(next);
 		saveFilter(next);
 	};
+	// The look: Alliance, Horde or the neutral Forever one. By default it follows the character's faction.
+	const [themeChoice, setThemeChoice] = useState<ThemeChoice>(loadTheme);
+	const theme = resolveTheme(themeChoice, character, defaultSpec);
+	useEffect(() => {
+		document.documentElement.dataset.theme = theme;
+	}, [theme]);
 	const [data, setData] = useState<GameData | null>(null);
 	const [dataError, setDataError] = useState(false);
 
@@ -68,13 +75,32 @@ export function App() {
 					<h1>Forever Gear Planner</h1>
 					<p className="masthead-sub">{spec.name}, pre-raid</p>
 				</div>
-				<nav className="tabs" aria-label="Sections">
-					{TABS.map(t => (
-						<button key={t.id} className="tab" aria-current={t.id === tab ? 'page' : undefined} onClick={() => setTab(t.id)}>
-							{t.label}
-						</button>
-					))}
-				</nav>
+				<div className="masthead-side">
+					<label className="theme-picker">
+						Theme
+						<select
+							value={themeChoice}
+							onChange={e => {
+								const next = e.target.value as ThemeChoice;
+								setThemeChoice(next);
+								saveTheme(next);
+							}}
+						>
+							{THEME_CHOICES.map(c => (
+								<option key={c.id} value={c.id}>
+									{c.label}
+								</option>
+							))}
+						</select>
+					</label>
+					<nav className="tabs" aria-label="Sections">
+						{TABS.map(t => (
+							<button key={t.id} className="tab" aria-current={t.id === tab ? 'page' : undefined} onClick={() => setTab(t.id)}>
+								{t.label}
+							</button>
+						))}
+					</nav>
+				</div>
 			</header>
 
 			<main>
