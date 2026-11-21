@@ -4,8 +4,9 @@ import { GEAR_SLOTS } from '../lib/constants';
 import type { GameData } from '../lib/gameData';
 import { type Guide, type GuideMark, guideMarks, guidePlan, markLabel, swapDelta } from '../lib/guides';
 import { type Candidate, type Gear, plannedGear, scoreSet, slotCandidates, type SourceFilter, suggestPlan, usableSources } from '../lib/scoring';
-import { iconUrl, sourceLine, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
+import { sourceLine, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
 import { ContentPicker } from './ContentPicker';
+import { ItemIcon } from './ItemIcon';
 import { SimDelta, SimSummary } from './Sim';
 import type { Character, Item, SpecConfig } from '../lib/types';
 
@@ -210,9 +211,7 @@ function CandidateRow({ candidate, marks, base, variant, data, faction, filter, 
 	return (
 		<li className="candidate">
 			<span className={`candidate-delta num ${delta > 0 ? 'delta-up' : 'delta-down'}`}>{formatDelta(delta)}</span>
-			<span className={`slot-icon slot-icon-small quality-border-${item.quality}`} aria-hidden="true">
-				{item.icon && <img src={iconUrl(item.icon)} alt="" loading="lazy" onError={e => (e.currentTarget.style.display = 'none')} />}
-			</span>
+			<ItemIcon icon={item.icon} quality={item.quality} small />
 			<span className="candidate-body">
 				<span className="candidate-name">
 					<ItemName item={item} />

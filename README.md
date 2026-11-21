@@ -71,4 +71,6 @@ data changed. How it measures is described at the top of `scripts/build-sim-valu
   [WoWSims Forever](https://github.com/wowsims/forever) (MIT).
 - `public/sim/wasm_exec.js` is the WebAssembly support file of the Go project (BSD-style
   license, see the file's header).
+- Item icons load from Blizzard's image server (`render.worldofwarcraft.com`), with Wowhead's as a
+  fallback. World of Warcraft and its icons are © Blizzard Entertainment; this is a free fan project.
 - BiS list: [Wowhead's Enhancement Shaman guide](https://www.wowhead.com/forever/guide/classes/shaman/enhancement/bis-gear).

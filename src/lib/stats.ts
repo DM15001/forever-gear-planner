@@ -125,4 +125,3 @@ export function sourceLine(source: ItemSource | undefined, data: GameData): stri
 }
 
 export const wowheadItemUrl = (id: number) => `https://www.wowhead.com/forever/item=${id}`;
-export const iconUrl = (icon: string) => `https://wow.zamimg.com/images/wow/icons/large/${icon}.jpg`;

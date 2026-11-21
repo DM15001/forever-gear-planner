@@ -6,9 +6,10 @@ import type { GameData } from '../lib/gameData';
 import { guideMarks, markLabel } from '../lib/guides';
 import { buildPlan, fallbacks, gotEnchant, gotItem, type PlanStep, planSteps } from '../lib/plan';
 import { EVERYTHING, isUnmeasured, plannedGear, scoreSet, type SourceFilter, usableSources } from '../lib/scoring';
-import { iconUrl, sourceLine, wowheadItemUrl } from '../lib/stats';
+import { sourceLine, wowheadItemUrl } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
 import { ContentPicker } from './ContentPicker';
+import { ItemIcon } from './ItemIcon';
 import { SimSummary } from './Sim';
 
 interface Props {
@@ -120,9 +121,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				<ul className="plain-list plan-slots">
 					{slots.map(({ slot, equippedItem, goalItem, goalEnchant, isChange, enchantOpen, others }) => (
 						<li key={slot.key} className={`plan-slot${isChange ? '' : ' plan-slot-done'}`}>
-							<span className={`slot-icon slot-icon-small quality-border-${goalItem?.quality ?? 'none'}`} aria-hidden="true">
-								{goalItem?.icon && <img src={iconUrl(goalItem.icon)} alt="" loading="lazy" onError={e => (e.currentTarget.style.display = 'none')} />}
-							</span>
+							<ItemIcon icon={goalItem?.icon} quality={goalItem?.quality} small />
 							<div className="plan-slot-body">
 								<span className="slot-label">{slot.label}</span>
 								{goalItem ? (

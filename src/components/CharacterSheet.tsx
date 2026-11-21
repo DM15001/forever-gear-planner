@@ -1,8 +1,9 @@
 import { GEAR_SLOTS, PROFESSIONS, SHEET_LAYOUT } from '../lib/constants';
 import { applicableEnchants } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
-import { gearStats, hitSummary, iconUrl, pieceStats, sourceLine, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
+import { gearStats, hitSummary, pieceStats, sourceLine, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
 import type { Character, GearPiece, SpecConfig, Stats } from '../lib/types';
+import { ItemIcon } from './ItemIcon';
 
 interface Props {
 	spec: SpecConfig;
@@ -185,9 +186,7 @@ function GearSlot({ index, mirrored, piece, data, onChange }: SlotProps) {
 
 	return (
 		<div className={`slot${piece ? '' : ' slot-empty'}${mirrored ? ' slot-mirrored' : ''}`}>
-			<div className={`slot-icon quality-border-${quality}`} aria-hidden="true">
-				{item?.icon && <img src={iconUrl(item.icon)} alt="" loading="lazy" onError={e => (e.currentTarget.style.display = 'none')} />}
-			</div>
+			<ItemIcon icon={item?.icon} quality={quality} />
 			<div className="slot-body">
 				<span className="slot-label">{label}</span>
 				{piece ? (
