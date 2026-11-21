@@ -719,6 +719,75 @@ h3 {
 	color: var(--haze);
 }
 
+/* Guide lists */
+.guide-sets {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem 1.25rem;
+	margin-top: 1rem;
+	padding-top: 0.9rem;
+	border-top: 1px solid var(--ridge);
+}
+.guide-sets .field-label {
+	flex-basis: 100%;
+	margin: 0;
+}
+.guide-set {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.6rem;
+}
+.guide-meta {
+	font-size: 0.8125rem;
+	color: var(--haze);
+}
+.guide-notice {
+	margin: 0.75rem 0 0;
+	font-size: 0.9375rem;
+	max-width: 44rem;
+}
+.guide-picks {
+	margin: 0.5rem 0 0.35rem;
+	font-size: 0.9375rem;
+}
+.guide-pick-row {
+	display: grid;
+	grid-template-columns: 5rem minmax(0, 1fr);
+	gap: 0.75rem;
+	padding: 0.15rem 0;
+}
+.guide-pick-row dt {
+	color: var(--haze);
+}
+.guide-pick-row dd {
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.15rem 1.25rem;
+}
+.guide-pick {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 0.4rem;
+}
+.guide-pick a {
+	font-weight: 600;
+	text-decoration: none;
+}
+.guide-pick a:hover {
+	text-decoration: underline;
+}
+.guide-rank {
+	color: var(--haze);
+	font-size: 0.8125rem;
+}
+.badge-guide {
+	color: var(--mist);
+	border-color: var(--ridge);
+	cursor: default;
+}
+
 .colophon {
 	margin-top: 2.5rem;
 	padding-top: 1rem;

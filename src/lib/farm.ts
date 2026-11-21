@@ -1,5 +1,5 @@
 import { GEAR_SLOTS } from './constants';
-import { type CandidateOptions, filterKey, plannedGear, scoreSet, slotCandidates, usableSources } from './scoring';
+import { type CandidateOptions, EVERYTHING, filterKey, plannedGear, scoreSet, slotCandidates, usableSources } from './scoring';
 import type { Item, ItemSource, Zone } from './types';
 
 export interface FarmDrop {
@@ -114,8 +114,7 @@ export function planShoppingList(options: CandidateOptions): Map<PlanGroupKind, 
 		const item = data.itemById.get(itemId);
 		if (!item || itemId === character.gear[slotIndex]?.id) continue;
 		// The plan is the user's choice, so look at every source kind, not just the filtered ones.
-		const everything = { drop: true, quest: true, crafted: true, vendor: true, rep: true, pvp: true, unknown: true, tier05: true };
-		const source = usableSources(item, faction, everything)[0];
+		const source = usableSources(item, faction, EVERYTHING)[0];
 		const single = character.gear.map((piece, i) => (i === slotIndex ? planned[i] : piece));
 		const entry: PlanEntry = {
 			item,

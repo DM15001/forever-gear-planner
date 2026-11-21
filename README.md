@@ -35,6 +35,12 @@ npm run build-data
 This downloads the current item database from WoWSims and rewrites `src/data/`.
 Use `npm run build-data -- --db path/to/db.json` to build from a local copy.
 
+## Guide lists
+
+- **WoWSims default set**: pulled automatically by `npm run build-data` into `src/data/simSets.json`.
+- **Wowhead BiS guide**: kept by hand in `src/config/guides/enhancement-shaman.wowhead.json`.
+  When the guide changes, update the items there and set `updated` and `checked`.
+
 ## Credits
 
 Item data and stat weights come from [WoWSims Forever](https://github.com/wowsims/forever) (MIT).

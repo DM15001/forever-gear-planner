@@ -77,7 +77,11 @@ export function usableSources(item: Item, faction: Faction | undefined, filter: 
 	return (item.sources ?? []).filter(s => filter[filterKey(s)] && s.zoneKind !== 'raid' && (!s.faction || !faction || s.faction === faction));
 }
 
-function isObtainable(item: Item, character: Character, faction: Faction | undefined, filter: SourceFilter, spec: SpecConfig): boolean {
+/** A filter that lets every source kind through. */
+export const EVERYTHING: SourceFilter = { drop: true, quest: true, crafted: true, vendor: true, rep: true, pvp: true, unknown: true, tier05: true };
+
+/** Can this character get and use the item at all, given faction, professions and the filter? */
+export function isObtainable(item: Item, character: Character, faction: Faction | undefined, filter: SourceFilter, spec: SpecConfig): boolean {
 	if (!filter.tier05 && item.setId !== undefined && item.setId === spec.tier05Set?.setId) return false;
 	if (item.faction && faction && item.faction !== faction) return false;
 	if (item.requiredProfession && !character.professions.includes(item.requiredProfession)) return false;

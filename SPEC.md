@@ -190,6 +190,12 @@ Lessons from the first test run against a real character:
    Source filters now separate vendors from reputation: `rep` covers reputation rewards and
    the battleground quartermasters listed in `src/config/vendors.json` (the item data marks
    those as plain vendors).
+   **Guide lists** (`src/lib/guides.ts`, tested): the Upgrades tab shows what curated lists
+   pick per slot, marks their items in the alternatives and can plan a whole guide set.
+   Two sources: the sim maintainers' preset set (pulled by the data script, `simBuilds` in
+   the spec config) and the Wowhead BiS guide (hand-kept JSON with ranks and source notes
+   in `src/config/guides/`). More lists, e.g. from a class Discord, go into the same folder
+   in the same shape and are registered in `buildGuides`.
 7. **Real sim (optional)** — the repo ships a CLI (`cmd/wowsimcli`) and a WASM build
    (`sim/wasm`). Step one: an "Open in WoWSims" export of the what-if set. Step two: run the
    WASM sim in a web worker for exact DPS deltas.

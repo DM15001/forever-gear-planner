@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import { GEAR_SLOTS } from '../lib/constants';
 import { dungeonRanking, type FarmDungeon, PLAN_GROUP_ORDER, type PlanEntry, type PlanGroupKind, planShoppingList } from '../lib/farm';
 import type { GameData } from '../lib/gameData';
+import { guideMarks } from '../lib/guides';
 import type { SourceFilter } from '../lib/scoring';
 import { sourceLine, wowheadItemUrl } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
@@ -26,13 +27,14 @@ const GROUP_TITLES: Record<PlanGroupKind, string> = {
 };
 const BOSS_DROPS_SHOWN = 4;
 
-const formatDelta = (value: number) => `+${Math.round(value).toLocaleString('en')}`;
+const formatDelta = (value: number) => `${value >= 0 ? '+' : '\u2212'}${Math.abs(Math.round(value)).toLocaleString('en')}`;
 
 export function FarmTab({ spec, character, data, filter }: Props) {
 	const options = useMemo(() => ({ character, data, spec, filter }), [character, data, spec, filter]);
 	const shopping = useMemo(() => planShoppingList(options), [options]);
 	const ranking = useMemo(() => dungeonRanking(options), [options]);
 	const [open, setOpen] = useState<Set<number>>(new Set());
+	const marks = useMemo(() => guideMarks(data.guides), [data]);
 	const planSize = [...shopping.values()].reduce((sum, list) => sum + list.length, 0);
 
 	const toggle = (zoneId: number) =>
@@ -55,7 +57,7 @@ export function FarmTab({ spec, character, data, filter }: Props) {
 								<h3>{GROUP_TITLES[kind]}</h3>
 								<ul className="plain-list">
 									{shopping.get(kind)!.map(entry => (
-										<ShoppingRow key={entry.item.id} entry={entry} data={data} />
+										<ShoppingRow key={entry.item.id} entry={entry} data={data} guideSource={marks.get(entry.item.id)?.find(m => m.source)} />
 									))}
 								</ul>
 							</div>
@@ -89,17 +91,17 @@ function ItemLink({ item }: { item: Item }) {
 	);
 }
 
-function ShoppingRow({ entry, data }: { entry: PlanEntry; data: GameData }) {
+function ShoppingRow({ entry, data, guideSource }: { entry: PlanEntry; data: GameData; guideSource?: { source?: string; guide: { label: string } } }) {
 	return (
 		<li className="shopping-row">
 			<span className="shopping-main">
 				<ItemLink item={entry.item} />
 				<span className="slot-source">
-					{GEAR_SLOTS[entry.slotIndex].label}, {sourceLine(entry.source, data)}
+					{GEAR_SLOTS[entry.slotIndex].label}, {guideSource ? `${guideSource.source} (per ${guideSource.guide.label})` : sourceLine(entry.source, data)}
 					{entry.source?.kind === 'crafted' && (entry.craftable ? ' (your profession)' : ' (not your profession)')}
 				</span>
 			</span>
-			<span className="num delta-up">{formatDelta(entry.delta)}</span>
+			<span className={`num ${entry.delta >= 0 ? 'delta-up' : 'delta-down'}`}>{formatDelta(entry.delta)}</span>
 		</li>
 	);
 }

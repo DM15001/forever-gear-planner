@@ -1,3 +1,4 @@
+import { buildGuides, type Guide, type SimSet } from './guides';
 import type { Enchant, Item, Npc, RandomSuffix, SlotKind, Zone } from './types';
 
 export interface GameData {
@@ -6,6 +7,8 @@ export interface GameData {
 	suffixById: Map<number, RandomSuffix>;
 	zoneById: Map<number, Zone>;
 	npcById: Map<number, Npc>;
+	/** Curated lists: the sim maintainers' sets and hand-kept guide lists. */
+	guides: Guide[];
 	builtAt: string;
 }
 
@@ -13,12 +16,13 @@ const byId = <T extends { id: number }>(list: unknown) => new Map((list as T[]).
 
 /** Loads the generated data as separate chunks, so the page shell appears before the 2 MB item list. */
 export async function loadGameData(): Promise<GameData> {
-	const [items, enchants, suffixes, zones, npcs, meta] = await Promise.all([
+	const [items, enchants, suffixes, zones, npcs, simSets, meta] = await Promise.all([
 		import('../data/items.json'),
 		import('../data/enchants.json'),
 		import('../data/randomSuffixes.json'),
 		import('../data/zones.json'),
 		import('../data/npcs.json'),
+		import('../data/simSets.json'),
 		import('../data/meta.json'),
 	]);
 	const enchantsBySlot = new Map<SlotKind, Enchant[]>();
@@ -35,6 +39,7 @@ export async function loadGameData(): Promise<GameData> {
 		suffixById: byId<RandomSuffix>(suffixes.default),
 		zoneById: byId<Zone>(zones.default),
 		npcById: byId<Npc>(npcs.default),
+		guides: buildGuides(simSets.default as unknown as SimSet[]),
 		builtAt: meta.default.generatedAt,
 	};
 }

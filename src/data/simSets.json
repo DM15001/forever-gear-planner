@@ -1,0 +1,68 @@
+[
+	{
+		"id": "wowsims",
+		"label": "WoWSims",
+		"title": "WoWSims default set",
+		"url": "https://github.com/wowsims/forever/blob/master/ui/specs/shaman/enhancement/builds/default.build.json",
+		"gear": [
+			{
+				"id": 227021,
+				"enchant": 2543
+			},
+			{
+				"id": 15411,
+				"enchant": 856
+			},
+			{
+				"id": 227003
+			},
+			{
+				"id": 272411,
+				"enchant": 7667
+			},
+			{
+				"id": 227024,
+				"enchant": 1891
+			},
+			{
+				"id": 227017,
+				"enchant": 1885
+			},
+			{
+				"id": 227022,
+				"enchant": 931
+			},
+			{
+				"id": 227018
+			},
+			{
+				"id": 252606,
+				"enchant": 2543
+			},
+			{
+				"id": 273336,
+				"enchant": 1887
+			},
+			{
+				"id": 19325
+			},
+			{
+				"id": 272406
+			},
+			{
+				"id": 22321
+			},
+			{
+				"id": 13965
+			},
+			{
+				"id": 13285,
+				"enchant": 1900
+			},
+			null,
+			{
+				"id": 22395
+			}
+		]
+	}
+]

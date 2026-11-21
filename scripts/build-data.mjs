@@ -3,6 +3,7 @@
 //
 //   npm run build-data                         download the latest db.json from GitHub
 //   npm run build-data -- --db path/to/db.json use a local copy instead
+//   npm run build-data -- --repo path/to/forever use a local clone of wowsims/forever for everything
 //   npm run build-data -- --spec <spec-id>     spec config in src/specs/ (default: enhancement-shaman)
 //
 // No dependencies; needs Node 20+. Safe to re-run at any time: it overwrites src/data/.
@@ -16,7 +17,9 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_DIR = join(ROOT, 'src', 'data');
 const REPO = 'wowsims/forever';
 const BRANCH = 'master';
-const DB_URL = `https://raw.githubusercontent.com/${REPO}/${BRANCH}/assets/database/db.json`;
+const RAW_URL = `https://raw.githubusercontent.com/${REPO}/${BRANCH}`;
+const DB_PATH = 'assets/database/db.json';
+const DB_URL = `${RAW_URL}/${DB_PATH}`;
 const COMMIT_URL = `https://api.github.com/repos/${REPO}/commits/${BRANCH}`;
 
 // ---- Enums, copied from proto/common.proto and proto/ui.proto in wowsims/forever ----
@@ -46,10 +49,11 @@ const PHASE_RELEASED = 1; // phase 2 means "unknown" upstream (old PvP ranks, un
 // ---- Helpers ----
 
 function parseArgs(argv) {
-	const args = { spec: 'enhancement-shaman', db: null };
+	const args = { spec: 'enhancement-shaman', db: null, repo: null };
 	for (let i = 0; i < argv.length; i++) {
 		if (argv[i] === '--db') args.db = argv[++i];
 		else if (argv[i] === '--spec') args.spec = argv[++i];
+		else if (argv[i] === '--repo') args.repo = argv[++i];
 		else throw new Error(`Unknown argument: ${argv[i]}`);
 	}
 	return args;
@@ -112,7 +116,19 @@ function compact(obj) {
 
 const args = parseArgs(process.argv.slice(2));
 const spec = JSON.parse(await readFile(join(ROOT, 'src', 'specs', `${args.spec}.json`), 'utf8'));
-const { db, origin, commit } = await loadDb(args.db);
+const { db, origin, commit } = await loadDb(args.db ?? (args.repo ? join(args.repo, DB_PATH) : null));
+
+/** A file from the wowsims repo: from the local clone if --repo was given, else from GitHub. null if unavailable. */
+async function readRepoJson(path) {
+	try {
+		if (args.repo) return JSON.parse(await readFile(join(args.repo, path), 'utf8'));
+		if (args.db) return null; // a bare db.json copy has no builds next to it
+		const res = await fetch(`${RAW_URL}/${path}`);
+		return res.ok ? await res.json() : null;
+	} catch {
+		return null;
+	}
+}
 
 const zoneById = new Map(db.zones.map(z => [z.id, z]));
 const npcById = new Map(db.npcs.map(n => [n.id, n]));
@@ -274,6 +290,24 @@ const randomSuffixes = db.randomSuffixes
 	.map(s => ({ id: s.id, name: s.name, stats: namedStats(s.stats) }))
 	.sort((a, b) => a.id - b.id);
 
+// Gear sets the sim maintainers ship as presets. Kept as-is, even if an item is filtered out above.
+const simSets = [];
+for (const build of spec.simBuilds ?? []) {
+	const json = await readRepoJson(build.path);
+	const gear = json?.player?.equipment?.items;
+	if (!Array.isArray(gear)) {
+		console.warn(`Sim build not read: ${build.path}. Use --repo with a local clone, or run without --db.`);
+		continue;
+	}
+	simSets.push({
+		id: build.id,
+		label: build.label,
+		title: build.title,
+		url: `https://github.com/${REPO}/blob/${BRANCH}/${build.path}`,
+		gear: gear.map(piece => (piece?.id ? compact({ id: piece.id, enchant: piece.enchant }) : null)),
+	});
+}
+
 const count = (list, keyFn) => list.reduce((acc, x) => ((acc[keyFn(x)] = (acc[keyFn(x)] ?? 0) + 1), acc), {});
 const meta = {
 	generatedAt: new Date().toISOString(),
@@ -288,6 +322,7 @@ const meta = {
 		zones: count(zones, z => z.kind),
 		npcs: npcs.length,
 		randomSuffixes: randomSuffixes.length,
+		simSets: simSets.length,
 	},
 };
 
@@ -299,6 +334,7 @@ await Promise.all([
 	write('zones.json', zones),
 	write('npcs.json', npcs),
 	write('randomSuffixes.json', randomSuffixes),
+	...(simSets.length || !(spec.simBuilds ?? []).length ? [write('simSets.json', simSets)] : []),
 	write('meta.json', meta),
 ]);
 

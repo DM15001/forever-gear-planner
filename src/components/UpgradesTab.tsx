@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
 import type { GameData } from '../lib/gameData';
+import { type Guide, type GuideMark, guideMarks, guidePlan, markLabel, swapDelta } from '../lib/guides';
 import { type Candidate, plannedGear, scoreSet, slotCandidates, type SourceFilter, type SourceKindKey, suggestPlan, usableSources } from '../lib/scoring';
 import { iconUrl, sourceLine, statLine, wowheadItemUrl } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
@@ -29,6 +30,8 @@ const LONG_LIST = 25;
 
 export function UpgradesTab({ spec, character, data, onChange, filter, onFilterChange: setFilter }: Props) {
 	const [expanded, setExpanded] = useState<Set<number>>(new Set());
+	const [guideNotice, setGuideNotice] = useState<{ title: string; skipped: string[] } | null>(null);
+	const marks = useMemo(() => guideMarks(data.guides), [data]);
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
 
 	const gear = useMemo(() => plannedGear(character), [character]);
@@ -40,7 +43,15 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 	}, [gear, character, data, spec, filter]);
 
 	const planCount = Object.keys(character.plan ?? {}).length;
-	const setPlan = (plan: Record<number, number>) => onChange({ ...character, plan });
+	const setPlan = (plan: Record<number, number>) => {
+		setGuideNotice(null);
+		onChange({ ...character, plan });
+	};
+	const planGuide = (guide: Guide) => {
+		const { plan, skipped } = guidePlan(guide, character, data, spec);
+		onChange({ ...character, plan });
+		setGuideNotice({ title: guide.title, skipped });
+	};
 	const planItem = (index: number, itemId: number) => setPlan({ ...character.plan, [index]: itemId });
 	const unplan = (index: number) => {
 		const { [index]: _removed, ...rest } = character.plan ?? {};
@@ -82,6 +93,26 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						Clear plan{planCount > 0 ? ` (${planCount})` : ''}
 					</button>
 				</div>
+				<div className="guide-sets">
+					<span className="field-label">Or start from a guide</span>
+					{data.guides.map(guide => (
+						<span key={guide.id} className="guide-set">
+							<button className="button" onClick={() => planGuide(guide)}>
+								Plan the {guide.title}
+							</button>
+							<a className="guide-meta" href={guide.url} target="_blank" rel="noreferrer">
+								{guide.author ? `by ${guide.author}, ` : ''}
+								{guide.updated ? `updated ${guide.updated}` : 'source'}
+							</a>
+						</span>
+					))}
+				</div>
+				{guideNotice && (
+					<p className="guide-notice" role="status">
+						Planned the {guideNotice.title}.
+						{guideNotice.skipped.length > 0 && ` Left out: ${guideNotice.skipped.join('; ')}.`}
+					</p>
+				)}
 				<p className="hint">
 					The score adds up stats with the WoWSims weights for {spec.name}, in attack-power equivalents. Procs, on-use effects and set bonuses are not counted; items marked "sim it" may be better
 					or worse than their number. Each +/- shows how the whole set changes, so hit rating past the cap counts for nothing.
@@ -137,10 +168,18 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 								</span>
 							</p>
 						</header>
+						<GuidePicks
+							guides={data.guides}
+							slotIndex={index}
+							data={data}
+							currentId={gear[index]?.id}
+							deltaOf={itemId => swapDelta(index, itemId, gear, character, data, spec)}
+							onPlan={itemId => planItem(index, itemId)}
+						/>
 						{upgrades > 0 && (
 							<ul className="candidates">
 								{candidates.slice(0, limit).map(candidate => (
-									<CandidateRow key={candidate.item.id} candidate={candidate} data={data} faction={faction} filter={filter} onPlan={() => planItem(index, candidate.item.id)} />
+									<CandidateRow key={candidate.item.id} candidate={candidate} marks={marks.get(candidate.item.id)} data={data} faction={faction} filter={filter} onPlan={() => planItem(index, candidate.item.id)} />
 								))}
 							</ul>
 						)}
@@ -168,13 +207,14 @@ function ItemName({ item }: { item: Item }) {
 
 interface RowProps {
 	candidate: Candidate;
+	marks?: GuideMark[];
 	data: GameData;
 	faction: 'alliance' | 'horde' | undefined;
 	filter: SourceFilter;
 	onPlan: () => void;
 }
 
-function CandidateRow({ candidate, data, faction, filter, onPlan }: RowProps) {
+function CandidateRow({ candidate, marks, data, faction, filter, onPlan }: RowProps) {
 	const { item, delta, incomplete } = candidate;
 	const sources = usableSources(item, faction, filter);
 	const stats = statLine(item.stats ?? {});
@@ -187,6 +227,11 @@ function CandidateRow({ candidate, data, faction, filter, onPlan }: RowProps) {
 			<span className="candidate-body">
 				<span className="candidate-name">
 					<ItemName item={item} />
+					{marks?.map(mark => (
+						<span key={mark.guide.id} className="badge badge-guide">
+							{markLabel(mark)}
+						</span>
+					))}
 					{incomplete && (
 						<span className="badge" title={badgeReason(item)}>
 							sim it
@@ -198,13 +243,14 @@ function CandidateRow({ candidate, data, faction, filter, onPlan }: RowProps) {
 					{stats || (item.weapon?.dps ? '' : 'No stats')}
 				</span>
 				<span className="slot-source">
-					{sources.length === 0
-						? 'Source unknown'
-						: sources
+					{guideSource(marks) ??
+						(sources.length === 0
+							? 'Source unknown'
+							: sources
 								.slice(0, 2)
 								.map(s => sourceLine(s, data))
-								.join(' or ')}
-					{sources.length > 2 ? `, +${sources.length - 2} more` : ''}
+								.join(' or '))}
+					{!guideSource(marks) && sources.length > 2 ? `, +${sources.length - 2} more` : ''}
 				</span>
 			</span>
 			<button className="button button-small" onClick={onPlan}>
@@ -220,4 +266,61 @@ function badgeReason(item: Item): string {
 	if (item.setId) reasons.push(`is part of the set ${item.setName}`);
 	if (item.randomSuffixOptions?.length) reasons.push('has a random suffix that is not counted');
 	return `Score incomplete: ${reasons.join(', ')}.`;
+}
+
+/** A source taken from a guide. It wins over the item data, which is missing or coarser for these items. */
+function guideSource(marks: GuideMark[] | undefined): string | undefined {
+	const mark = marks?.find(m => m.source);
+	return mark ? `${mark.source} (per ${mark.guide.label})` : undefined;
+}
+
+interface GuidePicksProps {
+	guides: Guide[];
+	slotIndex: number;
+	data: GameData;
+	currentId: number | undefined;
+	deltaOf: (itemId: number) => number;
+	onPlan: (itemId: number) => void;
+}
+
+/** What the guides pick for this slot, whatever the filters say. */
+function GuidePicks({ guides, slotIndex, data, currentId, deltaOf, onPlan }: GuidePicksProps) {
+	const kind = GEAR_SLOTS[slotIndex].kind;
+	const rows = guides
+		.map(guide => ({ guide, entries: guide.entries.filter(e => (guide.fixedSet ? e.slotIndex === slotIndex : e.slot === kind)) }))
+		.filter(row => row.entries.length > 0);
+	if (rows.length === 0) return null;
+	return (
+		<dl className="guide-picks">
+			{rows.map(({ guide, entries }) => (
+				<div key={guide.id} className="guide-pick-row">
+					<dt>{guide.label}</dt>
+					<dd>
+						{entries.map(entry => {
+							const item = data.itemById.get(entry.itemId);
+							if (!item) return null;
+							const isCurrent = entry.itemId === currentId;
+							const delta = isCurrent ? 0 : deltaOf(entry.itemId);
+							return (
+								<span key={`${entry.itemId}-${entry.rank}`} className="guide-pick">
+									{!guide.fixedSet && <span className="guide-rank">{entry.rank}</span>}
+									<ItemName item={item} />
+									{isCurrent ? (
+										<span className="guide-rank">in the set</span>
+									) : (
+										<>
+											<span className={`num ${delta > 0 ? 'delta-up' : 'delta-down'}`}>{formatDelta(delta)}</span>
+											<button className="link" onClick={() => onPlan(entry.itemId)}>
+												Plan
+											</button>
+										</>
+									)}
+								</span>
+							);
+						})}
+					</dd>
+				</div>
+			))}
+		</dl>
+	);
 }

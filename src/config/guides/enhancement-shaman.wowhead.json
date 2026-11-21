@@ -1,0 +1,354 @@
+{
+	"id": "wowhead",
+	"label": "Wowhead",
+	"title": "Wowhead BiS guide",
+	"url": "https://www.wowhead.com/forever/guide/classes/shaman/enhancement/bis-gear",
+	"author": "Yebb",
+	"updated": "2026-11-20",
+	"checked": "2026-11-21",
+	"note": "Phase 1 list, transcribed by hand. Ranks are the guide's own (BiS, Great, Good, Option). \"source\" is the guide's source where the item data has none or says something else.",
+	"ranks": [
+		"BiS",
+		"Great",
+		"Good",
+		"Option"
+	],
+	"items": [
+		{
+			"slot": "head",
+			"rank": "BiS",
+			"id": 227002,
+			"name": "Coif of The Five Thunders",
+			"source": "Tier 0.5 questline"
+		},
+		{
+			"slot": "head",
+			"rank": "Great",
+			"id": 252605,
+			"name": "Black Dragonscale Helm"
+		},
+		{
+			"slot": "head",
+			"rank": "Good",
+			"id": 20134,
+			"name": "Skyfury Helm"
+		},
+		{
+			"slot": "head",
+			"rank": "Option",
+			"id": 12587,
+			"name": "Eye of Rend"
+		},
+		{
+			"slot": "shoulder",
+			"rank": "BiS",
+			"id": 227003,
+			"name": "Pauldrons of The Five Thunders",
+			"source": "Tier 0.5 questline"
+		},
+		{
+			"slot": "shoulder",
+			"rank": "Great",
+			"id": 277117,
+			"name": "Savage Gladiator Shoulders",
+			"source": "Grizzle"
+		},
+		{
+			"slot": "shoulder",
+			"rank": "Good",
+			"id": 14503,
+			"name": "Death's Clutch"
+		},
+		{
+			"slot": "shoulder",
+			"rank": "Option",
+			"id": 19050,
+			"name": "Mantle of the Timbermaw"
+		},
+		{
+			"slot": "back",
+			"rank": "BiS",
+			"id": 272411,
+			"name": "Arcanoweave Cloak"
+		},
+		{
+			"slot": "back",
+			"rank": "Great",
+			"id": 272414,
+			"name": "Howler's Furs"
+		},
+		{
+			"slot": "back",
+			"rank": "Good",
+			"id": 13340,
+			"name": "Cape of the Black Baron"
+		},
+		{
+			"slot": "back",
+			"rank": "Option",
+			"id": 18496,
+			"name": "Heliotrope Cloak"
+		},
+		{
+			"slot": "chest",
+			"rank": "BiS",
+			"id": 227024,
+			"name": "Chain of The Five Thunders",
+			"source": "Tier 0.5 questline"
+		},
+		{
+			"slot": "chest",
+			"rank": "Great",
+			"id": 252484,
+			"name": "Timbermaw Tunic"
+		},
+		{
+			"slot": "chest",
+			"rank": "Good",
+			"id": 11726,
+			"name": "Savage Gladiator Chain"
+		},
+		{
+			"slot": "chest",
+			"rank": "Option",
+			"id": 13944,
+			"name": "Tombstone Breastplate"
+		},
+		{
+			"slot": "wrist",
+			"rank": "BiS",
+			"id": 227017,
+			"name": "Bands of The Five Thunders",
+			"source": "Tier 0.5 questline"
+		},
+		{
+			"slot": "wrist",
+			"rank": "Great",
+			"id": 12966,
+			"name": "Blackmist Armguards"
+		},
+		{
+			"slot": "wrist",
+			"rank": "Option",
+			"id": 16714,
+			"name": "Wildheart Bracers"
+		},
+		{
+			"slot": "hands",
+			"rank": "BiS",
+			"id": 227022,
+			"name": "Fists of The Five Thunders",
+			"source": "Tier 0.5 questline"
+		},
+		{
+			"slot": "hands",
+			"rank": "Great",
+			"id": 14615,
+			"name": "Bloodmail Gauntlets"
+		},
+		{
+			"slot": "hands",
+			"rank": "Good",
+			"id": 20133,
+			"name": "Skyfury Gauntlets",
+			"source": "Quest: The Darkreaver Menace"
+		},
+		{
+			"slot": "hands",
+			"rank": "Option",
+			"id": 15063,
+			"name": "Devilsaur Gauntlets"
+		},
+		{
+			"slot": "waist",
+			"rank": "BiS",
+			"id": 227018,
+			"name": "Girdle of The Five Thunders",
+			"source": "Tier 0.5 questline"
+		},
+		{
+			"slot": "waist",
+			"rank": "Great",
+			"id": 18405,
+			"name": "Belt of the Archmage"
+		},
+		{
+			"slot": "waist",
+			"rank": "Good",
+			"id": 272410,
+			"name": "Windseeker's Belt"
+		},
+		{
+			"slot": "waist",
+			"rank": "Option",
+			"id": 13956,
+			"name": "Clutch of Andros"
+		},
+		{
+			"slot": "legs",
+			"rank": "BiS",
+			"id": 252606,
+			"name": "Pristine Scorpid Leggings"
+		},
+		{
+			"slot": "legs",
+			"rank": "Great",
+			"id": 252486,
+			"name": "Ironfeather Leggings"
+		},
+		{
+			"slot": "legs",
+			"rank": "Good",
+			"id": 14612,
+			"name": "Bloodmail Legguards"
+		},
+		{
+			"slot": "legs",
+			"rank": "Option",
+			"id": 15062,
+			"name": "Devilsaur Leggings"
+		},
+		{
+			"slot": "feet",
+			"rank": "BiS",
+			"id": 14616,
+			"name": "Bloodmail Boots"
+		},
+		{
+			"slot": "feet",
+			"rank": "Great",
+			"id": 227023,
+			"name": "Treads of The Five Thunders",
+			"source": "Tier 0.5 questline"
+		},
+		{
+			"slot": "feet",
+			"rank": "Good",
+			"id": 22240,
+			"name": "Greaves of Withering Despair"
+		},
+		{
+			"slot": "feet",
+			"rank": "Option",
+			"id": 22231,
+			"name": "Kayser's Boots of Precision"
+		},
+		{
+			"slot": "neck",
+			"rank": "BiS",
+			"id": 15411,
+			"name": "Mark of Fordring"
+		},
+		{
+			"slot": "neck",
+			"rank": "Great",
+			"id": 22150,
+			"name": "Beads of Ogre Might"
+		},
+		{
+			"slot": "neck",
+			"rank": "Good",
+			"id": 22403,
+			"name": "Nacreous Shell Necklace"
+		},
+		{
+			"slot": "finger",
+			"rank": "BiS",
+			"id": 19325,
+			"name": "Don Julio's Band"
+		},
+		{
+			"slot": "finger",
+			"rank": "Great",
+			"id": 272406,
+			"name": "Channeler's Ring"
+		},
+		{
+			"slot": "finger",
+			"rank": "Good",
+			"id": 17713,
+			"name": "Blackstone Ring"
+		},
+		{
+			"slot": "finger",
+			"rank": "Option",
+			"id": 18314,
+			"name": "Ring of Demonic Guile"
+		},
+		{
+			"slot": "trinket",
+			"rank": "BiS",
+			"id": 13965,
+			"name": "Blackhand's Breadth"
+		},
+		{
+			"slot": "trinket",
+			"rank": "Great",
+			"id": 272437,
+			"name": "Adaptive Combat Assistant"
+		},
+		{
+			"slot": "trinket",
+			"rank": "Good",
+			"id": 11815,
+			"name": "Hand of Justice"
+		},
+		{
+			"slot": "trinket",
+			"rank": "Option",
+			"id": 22321,
+			"name": "Heart of Wyrmthalak"
+		},
+		{
+			"slot": "weapon",
+			"rank": "BiS",
+			"id": 19323,
+			"name": "The Unstoppable Force"
+		},
+		{
+			"slot": "weapon",
+			"rank": "Great",
+			"id": 280056,
+			"name": "Flameslash Crescent",
+			"source": "Impaan the Imprisoner"
+		},
+		{
+			"slot": "weapon",
+			"rank": "Good",
+			"id": 280018,
+			"name": "Hammer of Thundering Hooves",
+			"source": "Thunderhoof"
+		},
+		{
+			"slot": "weapon",
+			"rank": "Option",
+			"id": 250617,
+			"name": "Stormcarver"
+		},
+		{
+			"slot": "ranged",
+			"rank": "BiS",
+			"id": 23199,
+			"name": "Totem of the Storm",
+			"source": "World drop"
+		},
+		{
+			"slot": "ranged",
+			"rank": "Great",
+			"id": 22395,
+			"name": "Totem of Rage"
+		},
+		{
+			"slot": "ranged",
+			"rank": "Good",
+			"id": 272432,
+			"name": "Totem of the Storm"
+		},
+		{
+			"slot": "ranged",
+			"rank": "Option",
+			"id": 249398,
+			"name": "Polished Driftwood Icon"
+		}
+	]
+}

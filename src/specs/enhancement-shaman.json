@@ -61,6 +61,14 @@
 		"setId": 1679,
 		"name": "The Five Thunders"
 	},
+	"simBuilds": [
+		{
+			"id": "wowsims",
+			"label": "WoWSims",
+			"title": "WoWSims default set",
+			"path": "ui/specs/shaman/enhancement/builds/default.build.json"
+		}
+	],
 	"hitCapPercent": 8,
 	"ratingPerPercent": {
 		"hitRating": 10,
