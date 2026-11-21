@@ -545,6 +545,119 @@ h3 {
 	font-size: 0.875rem;
 }
 
+/* Farm plan */
+.farm {
+	display: grid;
+	gap: 2.25rem;
+	max-width: 58rem;
+}
+.farm-empty {
+	color: var(--haze);
+	max-width: 40rem;
+}
+.farm-hint {
+	max-width: 44rem;
+	margin-bottom: 1rem;
+}
+.plain-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.item-link {
+	font-weight: 600;
+	text-decoration: none;
+}
+.item-link:hover {
+	text-decoration: underline;
+}
+.shopping {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+	gap: 1.25rem 2rem;
+	margin-top: 0.9rem;
+}
+.shopping-group h3 {
+	border-bottom: 1px solid var(--ridge);
+	padding-bottom: 0.25rem;
+	margin-bottom: 0.25rem;
+}
+.shopping-row {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 0.35rem 0;
+}
+.shopping-main .slot-source {
+	display: block;
+}
+.dungeons {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 0.5rem;
+}
+.dungeon {
+	background: var(--slate);
+	border: 1px solid var(--ridge);
+	border-radius: 6px;
+}
+.dungeon-head {
+	display: grid;
+	grid-template-columns: minmax(10rem, 1fr) minmax(0, 1.4fr) auto;
+	gap: 1rem;
+	align-items: baseline;
+	width: 100%;
+	font: inherit;
+	color: var(--mist);
+	text-align: left;
+	background: none;
+	border: 0;
+	padding: 0.7rem 1rem;
+	cursor: pointer;
+}
+.dungeon-name {
+	font-family: var(--serif);
+	font-size: 1.1875rem;
+	color: var(--brass);
+}
+.dungeon-meta {
+	color: var(--haze);
+	font-size: 0.9375rem;
+}
+.dungeon-planned {
+	color: var(--mist);
+}
+.dungeon-value {
+	font-weight: 600;
+	color: var(--q-uncommon);
+}
+.bosses {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+	gap: 1rem 1.5rem;
+	padding: 0.25rem 1rem 1rem;
+	border-top: 1px solid var(--ridge);
+}
+.boss h4 {
+	font: 600 0.9375rem var(--sans);
+	margin: 0.75rem 0 0.2rem;
+}
+.boss-drop {
+	display: grid;
+	grid-template-columns: 2.75rem minmax(0, 1fr);
+	gap: 0.5rem;
+	padding: 0.15rem 0;
+	font-size: 0.9375rem;
+}
+.boss-drop .num {
+	text-align: right;
+}
+.badge-plan {
+	cursor: default;
+}
+
 .colophon {
 	margin-top: 2.5rem;
 	padding-top: 1rem;
@@ -554,6 +667,13 @@ h3 {
 }
 
 @media (max-width: 52rem) {
+	.dungeon-head {
+		grid-template-columns: 1fr auto;
+	}
+	.dungeon-meta {
+		grid-column: 1 / -1;
+		order: 3;
+	}
 	.candidate {
 		grid-template-columns: 2.75rem minmax(0, 1fr) auto;
 	}

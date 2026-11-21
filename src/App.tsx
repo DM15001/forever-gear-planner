@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 
 import { CharacterSheet } from './components/CharacterSheet';
+import { FarmTab } from './components/FarmTab';
 import { ImportPanel } from './components/ImportPanel';
 import { UpgradesTab } from './components/UpgradesTab';
 import { type GameData, loadGameData } from './lib/gameData';
 import type { ImportResult } from './lib/importCharacter';
+import { DEFAULT_FILTER, type SourceFilter } from './lib/scoring';
 import { loadCharacter, saveCharacter } from './lib/storage';
 import type { Character, SpecConfig } from './lib/types';
 import specJson from './specs/enhancement-shaman.json';
@@ -14,7 +16,7 @@ const spec = specJson as unknown as SpecConfig;
 const TABS = [
 	{ id: 'character', label: 'Character', ready: true },
 	{ id: 'upgrades', label: 'Upgrades', ready: true },
-	{ id: 'farm', label: 'Farm plan', ready: false },
+	{ id: 'farm', label: 'Farm plan', ready: true },
 	{ id: 'enchants', label: 'Enchants & professions', ready: false },
 ];
 
@@ -23,6 +25,8 @@ export function App() {
 	const [warnings, setWarnings] = useState<string[]>([]);
 	const [importing, setImporting] = useState(false);
 	const [tab, setTab] = useState('character');
+	// Shared by the Upgrades and Farm plan tabs.
+	const [filter, setFilter] = useState<SourceFilter>(DEFAULT_FILTER);
 	const [data, setData] = useState<GameData | null>(null);
 	const [dataError, setDataError] = useState(false);
 
@@ -63,7 +67,9 @@ export function App() {
 
 				{(!character || importing) && <ImportPanel spec={spec} hasCharacter={Boolean(character)} onImported={onImported} onCancel={() => setImporting(false)} />}
 
-				{character && !importing && tab === 'upgrades' && (data ? <UpgradesTab spec={spec} character={character} data={data} onChange={update} /> : <p>Loading item data…</p>)}
+				{character && !importing && tab === 'upgrades' && (data ? <UpgradesTab spec={spec} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
+
+				{character && !importing && tab === 'farm' && (data ? <FarmTab spec={spec} character={character} data={data} filter={filter} /> : <p>Loading item data…</p>)}
 
 				{character && !importing && tab === 'character' && (
 					<>

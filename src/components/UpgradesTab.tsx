@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
 import type { GameData } from '../lib/gameData';
-import { type Candidate, DEFAULT_FILTER, plannedGear, scoreSet, slotCandidates, type SourceFilter, suggestPlan, usableSources } from '../lib/scoring';
+import { type Candidate, plannedGear, scoreSet, slotCandidates, type SourceFilter, suggestPlan, usableSources } from '../lib/scoring';
 import { iconUrl, sourceLine, statLine, wowheadItemUrl } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
 
@@ -11,6 +11,8 @@ interface Props {
 	character: Character;
 	data: GameData;
 	onChange: (next: Character) => void;
+	filter: SourceFilter;
+	onFilterChange: (next: SourceFilter) => void;
 }
 
 const FILTER_LABELS: [Exclude<keyof SourceFilter, 'tier05'>, string][] = [
@@ -24,8 +26,7 @@ const FILTER_LABELS: [Exclude<keyof SourceFilter, 'tier05'>, string][] = [
 const SHORT_LIST = 6;
 const LONG_LIST = 25;
 
-export function UpgradesTab({ spec, character, data, onChange }: Props) {
-	const [filter, setFilter] = useState<SourceFilter>(DEFAULT_FILTER);
+export function UpgradesTab({ spec, character, data, onChange, filter, onFilterChange: setFilter }: Props) {
 	const [expanded, setExpanded] = useState<Set<number>>(new Set());
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
 

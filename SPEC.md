@@ -175,7 +175,12 @@ Lessons from the first test run against a real character:
    includes or excludes the Tier 0.5 set (`tier05Set` in the spec config), so the best set
    can be planned both ways. Not done yet: editing
    the weights in the UI, filtering crafted items to the character's own professions.
-5. **Farm plan tab**.
+5. **Farm plan tab — DONE.** `src/lib/farm.ts` (pure, tested). "How to get your plan" files
+   each planned item under its first usable source (dungeon, quest, crafted with a "your
+   profession" note, vendor/reputation, world drop, PvP, unknown). "Dungeons by upgrades"
+   ranks dungeons by the best upgrade per slot over the equipped gear, grouped by boss, and
+   marks plan items. It shares the source filters with the Upgrades tab. Not done: drop
+   chances (not in the data).
 6. **Enchants & professions tab**.
 7. **Real sim (optional)** — the repo ships a CLI (`cmd/wowsimcli`) and a WASM build
    (`sim/wasm`). Step one: an "Open in WoWSims" export of the what-if set. Step two: run the
