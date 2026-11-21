@@ -1,15 +1,18 @@
 #!/usr/bin/env node
-// Builds the game data files in src/data/ from the WoWSims Forever database.
+// Builds the game data in src/data/ and the simulator files in public/sim/ from WoWSims Forever.
 //
-//   npm run build-data                         download the latest db.json from GitHub
-//   npm run build-data -- --db path/to/db.json use a local copy instead
-//   npm run build-data -- --repo path/to/forever use a local clone of wowsims/forever for everything
-//   npm run build-data -- --spec <spec-id>     spec config in src/specs/ (default: enhancement-shaman)
+//   npm run build-data                             download everything from GitHub
+//   npm run build-data -- --pages path/to/pages-deploy   use a local clone of wowsims/pages-deploy
+//   npm run build-data -- --repo path/to/forever         use a local clone of wowsims/forever
+//   npm run build-data -- --db path/to/db.json           use a local item database only
+//   npm run build-data -- --spec <spec-id>               spec config in src/specs/ (default: enhancement-shaman)
 //
-// No dependencies; needs Node 20+. Safe to re-run at any time: it overwrites src/data/.
+// The item database and the simulator (lib.wasm.gz) come from wowsims/pages-deploy, the files
+// behind wowsims.com, so the two always match. Gear presets come from wowsims/forever.
+// No dependencies; needs Node 20+. Safe to re-run at any time: it overwrites its outputs.
 // Source: https://github.com/wowsims/forever (MIT). Keep the link back to WoWSims in the app.
 
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -17,10 +20,13 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_DIR = join(ROOT, 'src', 'data');
 const REPO = 'wowsims/forever';
 const BRANCH = 'master';
+const SIM_DIR = join(ROOT, 'public', 'sim');
 const RAW_URL = `https://raw.githubusercontent.com/${REPO}/${BRANCH}`;
+const PAGES_REPO = 'wowsims/pages-deploy';
+const PAGES_RAW_URL = `https://raw.githubusercontent.com/${PAGES_REPO}/main/forever`;
 const DB_PATH = 'assets/database/db.json';
-const DB_URL = `${RAW_URL}/${DB_PATH}`;
-const COMMIT_URL = `https://api.github.com/repos/${REPO}/commits/${BRANCH}`;
+const DB_URL = `${PAGES_RAW_URL}/${DB_PATH}`;
+const COMMIT_URL = `https://api.github.com/repos/${PAGES_REPO}/commits/main`;
 
 // ---- Enums, copied from proto/common.proto and proto/ui.proto in wowsims/forever ----
 
@@ -49,11 +55,12 @@ const PHASE_RELEASED = 1; // phase 2 means "unknown" upstream (old PvP ranks, un
 // ---- Helpers ----
 
 function parseArgs(argv) {
-	const args = { spec: 'enhancement-shaman', db: null, repo: null };
+	const args = { spec: 'enhancement-shaman', db: null, repo: null, pages: null };
 	for (let i = 0; i < argv.length; i++) {
 		if (argv[i] === '--db') args.db = argv[++i];
 		else if (argv[i] === '--spec') args.spec = argv[++i];
 		else if (argv[i] === '--repo') args.repo = argv[++i];
+		else if (argv[i] === '--pages') args.pages = argv[++i];
 		else throw new Error(`Unknown argument: ${argv[i]}`);
 	}
 	return args;
@@ -76,7 +83,7 @@ async function loadDb(localPath) {
 		const c = await fetch(COMMIT_URL, { headers: { accept: 'application/vnd.github+json' } });
 		if (c.ok) {
 			const j = await c.json();
-			commit = { sha: j.sha, date: j.commit?.committer?.date ?? null };
+			commit = { sha: j.sha, date: j.commit?.committer?.date ?? null, message: j.commit?.message?.split('\n')[0] ?? null };
 		}
 	} catch {
 		// offline or rate-limited: leave the commit unknown
@@ -116,13 +123,14 @@ function compact(obj) {
 
 const args = parseArgs(process.argv.slice(2));
 const spec = JSON.parse(await readFile(join(ROOT, 'src', 'specs', `${args.spec}.json`), 'utf8'));
-const { db, origin, commit } = await loadDb(args.db ?? (args.repo ? join(args.repo, DB_PATH) : null));
+const localDb = args.db ?? (args.pages ? join(args.pages, 'forever', DB_PATH) : args.repo ? join(args.repo, DB_PATH) : null);
+const { db, origin, commit } = await loadDb(localDb);
 
 /** A file from the wowsims repo: from the local clone if --repo was given, else from GitHub. null if unavailable. */
 async function readRepoJson(path) {
 	try {
 		if (args.repo) return JSON.parse(await readFile(join(args.repo, path), 'utf8'));
-		if (args.db) return null; // a bare db.json copy has no builds next to it
+		if (args.db && !args.pages) return null; // a bare db.json copy has no builds next to it
 		const res = await fetch(`${RAW_URL}/${path}`);
 		return res.ok ? await res.json() : null;
 	} catch {
@@ -308,6 +316,58 @@ for (const build of spec.simBuilds ?? []) {
 	});
 }
 
+// ---- Simulator files (public/sim/) ----
+// The WebAssembly sim carries no item data: every request brings the items it uses. The app
+// builds requests from these raw records, trimmed to the fields the sim's protobuf accepts.
+
+const SIM_ITEM_FIELDS = ['id', 'name', 'type', 'armorType', 'weaponType', 'handType', 'rangedWeaponType', 'qualityModifier', 'weaponSpeed', 'setName', 'setId', 'scalingOptions', 'itemEffects', 'limitCategory', 'unique', 'pseudoStats', 'classAllowlist', 'spellSchool'];
+const SIM_ENCHANT_FIELDS = ['effectId', 'name', 'type', 'stats', 'enchantEffects', 'enchantType', 'extraTypes', 'pseudoStats', 'weaponDamage', 'procKind'];
+const pick = (obj, fields) => Object.fromEntries(fields.filter(f => obj[f] !== undefined).map(f => [f, obj[f]]));
+
+let simTemplate = null;
+const firstBuild = (spec.simBuilds ?? [])[0];
+const buildJson = firstBuild ? await readRepoJson(firstBuild.path) : null;
+if (buildJson?.player) {
+	// The sim's saved settings, reshaped into the request the sim takes. The app swaps in gear, race,
+	// professions and talents.
+	simTemplate = {
+		raid: { parties: [{ players: [buildJson.player], buffs: buildJson.partyBuffs ?? {} }], numActiveParties: 1, buffs: buildJson.raidBuffs ?? {}, debuffs: buildJson.debuffs ?? {} },
+		encounter: buildJson.encounter,
+		type: 'SimTypeIndividual',
+	};
+}
+
+const simItemIds = new Set(items.map(i => i.id));
+for (const set of simSets) for (const piece of set.gear) if (piece) simItemIds.add(piece.id);
+for (const piece of [...(buildJson?.player?.equipment?.items ?? []), ...(buildJson?.player?.itemSwap?.items ?? [])]) if (piece?.id) simItemIds.add(piece.id);
+const simDb = {
+	items: db.items.filter(i => simItemIds.has(i.id)).map(i => pick(i, SIM_ITEM_FIELDS)),
+	enchants: db.enchants.map(e => pick(e, SIM_ENCHANT_FIELDS)),
+	randomSuffixes: db.randomSuffixes.filter(s => usedSuffixes.has(s.id)),
+	itemEffectRandPropPoints: db.itemEffectRandPropPoints,
+	consumables: db.consumables,
+	spellEffects: db.spellEffects,
+};
+
+/** The prebuilt simulator. Copied from a pages-deploy clone or downloaded; kept as is when neither works. */
+async function fetchWasm() {
+	const target = join(SIM_DIR, 'lib.wasm.gz');
+	try {
+		if (args.pages) {
+			await copyFile(join(args.pages, 'forever', 'lib.wasm.gz'), target);
+			return 'copied';
+		}
+		if (args.db || args.repo) return 'kept'; // offline build: do not mix a local database with a downloaded sim
+		const res = await fetch(`${PAGES_RAW_URL}/lib.wasm.gz`);
+		if (!res.ok) throw new Error(`HTTP ${res.status}`);
+		await writeFile(target, Buffer.from(await res.arrayBuffer()));
+		return 'downloaded';
+	} catch (err) {
+		console.warn(`Simulator not updated (${err.message}). The existing public/sim/lib.wasm.gz stays.`);
+		return 'kept';
+	}
+}
+
 const count = (list, keyFn) => list.reduce((acc, x) => ((acc[keyFn(x)] = (acc[keyFn(x)] ?? 0) + 1), acc), {});
 const meta = {
 	generatedAt: new Date().toISOString(),
@@ -323,10 +383,17 @@ const meta = {
 		npcs: npcs.length,
 		randomSuffixes: randomSuffixes.length,
 		simSets: simSets.length,
+		simItems: simDb.items.length,
 	},
 };
 
 await mkdir(OUT_DIR, { recursive: true });
+await mkdir(SIM_DIR, { recursive: true });
+const wasmStatus = await fetchWasm();
+// The sim files are fetched by the browser on demand, so they are written compact.
+await writeFile(join(SIM_DIR, 'db.json'), JSON.stringify(simDb));
+if (simTemplate) await writeFile(join(SIM_DIR, 'template.json'), JSON.stringify(simTemplate));
+else console.warn('Sim template not written: the default build could not be read. The existing file stays.');
 const write = (name, data) => writeFile(join(OUT_DIR, name), JSON.stringify(data, null, '\t') + '\n');
 await Promise.all([
 	write('items.json', items),
@@ -338,5 +405,5 @@ await Promise.all([
 	write('meta.json', meta),
 ]);
 
-console.log(`Wrote ${OUT_DIR}`);
+console.log(`Wrote ${OUT_DIR} and ${SIM_DIR} (simulator: ${wasmStatus})`);
 console.log(JSON.stringify(meta.counts, null, 2));

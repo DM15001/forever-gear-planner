@@ -1,6 +1,9 @@
 import { GEAR_SLOTS } from './constants';
 import type { GameData } from './gameData';
+import quests from '../config/quests.json';
 import { addStats, type HitSummary, hitSummary, pieceStats, vendorReputation } from './stats';
+
+const RAID_QUESTS: Record<string, string> = quests.raidQuests;
 import type { Character, Faction, GearPiece, Item, ItemSource, SpecConfig, Stats } from './types';
 
 export type Gear = (GearPiece | null)[];
@@ -60,11 +63,12 @@ export interface SourceFilter {
 	pvp: boolean;
 	unknown: boolean; // items the data has no source for
 	tier05: boolean; // the class's Tier 0.5 set (spec.tier05Set)
+	ownCraftsOnly: boolean; // crafted items only from the character's own professions
 }
 
-export const DEFAULT_FILTER: SourceFilter = { drop: true, quest: true, crafted: true, vendor: true, rep: true, pvp: false, unknown: true, tier05: true };
+export const DEFAULT_FILTER: SourceFilter = { drop: true, quest: true, crafted: true, vendor: true, rep: true, pvp: false, unknown: true, tier05: true, ownCraftsOnly: false };
 
-export type SourceKindKey = Exclude<keyof SourceFilter, 'tier05'>;
+export type SourceKindKey = Exclude<keyof SourceFilter, 'tier05' | 'ownCraftsOnly'>;
 
 /** The filter switch a source falls under. */
 export const filterKey = (source: ItemSource): SourceKindKey => {
@@ -72,13 +76,24 @@ export const filterKey = (source: ItemSource): SourceKindKey => {
 	return source.kind;
 };
 
-/** Sources this character can actually use, given faction and the filter. */
-export function usableSources(item: Item, faction: Faction | undefined, filter: SourceFilter): ItemSource[] {
-	return (item.sources ?? []).filter(s => filter[filterKey(s)] && s.zoneKind !== 'raid' && (!s.faction || !faction || s.faction === faction));
+/** A quest reward that needs a raid kill; treated like a raid drop. */
+const isRaidQuest = (source: ItemSource) => source.kind === 'quest' && source.questId !== undefined && String(source.questId) in RAID_QUESTS;
+
+/**
+ * Sources this character can actually use, given faction and the filter. Raid drops and raid
+ * quest rewards never count. Pass `professions` to apply the "own crafts only" switch.
+ */
+export function usableSources(item: Item, faction: Faction | undefined, filter: SourceFilter, professions?: string[]): ItemSource[] {
+	return (item.sources ?? []).filter(s => {
+		if (!filter[filterKey(s)] || s.zoneKind === 'raid' || isRaidQuest(s)) return false;
+		if (s.faction && faction && s.faction !== faction) return false;
+		if (s.kind === 'crafted' && filter.ownCraftsOnly && professions && !professions.includes(s.profession ?? '')) return false;
+		return true;
+	});
 }
 
 /** A filter that lets every source kind through. */
-export const EVERYTHING: SourceFilter = { drop: true, quest: true, crafted: true, vendor: true, rep: true, pvp: true, unknown: true, tier05: true };
+export const EVERYTHING: SourceFilter = { drop: true, quest: true, crafted: true, vendor: true, rep: true, pvp: true, unknown: true, tier05: true, ownCraftsOnly: false };
 
 /** Can this character get and use the item at all, given faction, professions and the filter? */
 export function isObtainable(item: Item, character: Character, faction: Faction | undefined, filter: SourceFilter, spec: SpecConfig): boolean {
@@ -86,7 +101,7 @@ export function isObtainable(item: Item, character: Character, faction: Faction 
 	if (item.faction && faction && item.faction !== faction) return false;
 	if (item.requiredProfession && !character.professions.includes(item.requiredProfession)) return false;
 	if (!item.sources?.length) return filter.unknown;
-	return usableSources(item, faction, filter).length > 0;
+	return usableSources(item, faction, filter, character.professions).length > 0;
 }
 
 function fitsSlot(item: Item, slotIndex: number, spec: SpecConfig): boolean {

@@ -3,8 +3,9 @@ import { useMemo, useState } from 'react';
 import { GEAR_SLOTS } from '../lib/constants';
 import type { GameData } from '../lib/gameData';
 import { type Guide, type GuideMark, guideMarks, guidePlan, markLabel, swapDelta } from '../lib/guides';
-import { type Candidate, plannedGear, scoreSet, slotCandidates, type SourceFilter, type SourceKindKey, suggestPlan, usableSources } from '../lib/scoring';
-import { iconUrl, sourceLine, statLine, wowheadItemUrl } from '../lib/stats';
+import { type Candidate, type Gear, plannedGear, scoreSet, slotCandidates, type SourceFilter, type SourceKindKey, suggestPlan, usableSources } from '../lib/scoring';
+import { iconUrl, sourceLine, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
+import { SimDelta, SimSummary } from './Sim';
 import type { Character, Item, SpecConfig } from '../lib/types';
 
 interface Props {
@@ -14,6 +15,9 @@ interface Props {
 	onChange: (next: Character) => void;
 	filter: SourceFilter;
 	onFilterChange: (next: SourceFilter) => void;
+	defaultWeights: SpecConfig['weights'];
+	/** null resets to the defaults. */
+	onWeightsChange: (weights: SpecConfig['weights'] | null) => void;
 }
 
 const FILTER_LABELS: [SourceKindKey, string][] = [
@@ -28,7 +32,7 @@ const FILTER_LABELS: [SourceKindKey, string][] = [
 const SHORT_LIST = 6;
 const LONG_LIST = 25;
 
-export function UpgradesTab({ spec, character, data, onChange, filter, onFilterChange: setFilter }: Props) {
+export function UpgradesTab({ spec, character, data, onChange, filter, onFilterChange: setFilter, defaultWeights, onWeightsChange }: Props) {
 	const [expanded, setExpanded] = useState<Set<number>>(new Set());
 	const [guideNotice, setGuideNotice] = useState<{ title: string; skipped: string[] } | null>(null);
 	const marks = useMemo(() => guideMarks(data.guides), [data]);
@@ -93,6 +97,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						Clear plan{planCount > 0 ? ` (${planCount})` : ''}
 					</button>
 				</div>
+				<SimSummary equipped={character.gear} planned={gear} hasPlan={planCount > 0} />
 				<div className="guide-sets">
 					<span className="field-label">Or start from a guide</span>
 					{data.guides.map(guide => (
@@ -127,6 +132,10 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						{label}
 					</label>
 				))}
+				<label className="check check-set">
+					<input type="checkbox" checked={filter.ownCraftsOnly} onChange={e => setFilter({ ...filter, ownCraftsOnly: e.target.checked })} />
+					Crafted items only from my professions{character.professions.length ? ` (${character.professions.join(', ')})` : ''}
+				</label>
 				{spec.tier05Set && (
 					<label className="check check-set">
 						<input type="checkbox" checked={filter.tier05} onChange={e => setFilter({ ...filter, tier05: e.target.checked })} />
@@ -135,6 +144,8 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				)}
 				{!faction && <p className="field-error">Pick a race on the Character tab to hide the other faction's items.</p>}
 			</fieldset>
+
+			<WeightsEditor weights={spec.weights} defaults={defaultWeights} onChange={onWeightsChange} />
 
 			{slots.map(({ slot, index, candidates }) => {
 				if (!candidates) return null;
@@ -179,7 +190,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						{upgrades > 0 && (
 							<ul className="candidates">
 								{candidates.slice(0, limit).map(candidate => (
-									<CandidateRow key={candidate.item.id} candidate={candidate} marks={marks.get(candidate.item.id)} data={data} faction={faction} filter={filter} onPlan={() => planItem(index, candidate.item.id)} />
+									<CandidateRow key={candidate.item.id} candidate={candidate} marks={marks.get(candidate.item.id)} base={gear} variant={gear.map((piece, i) => (i === index ? (piece?.enchant ? { id: candidate.item.id, enchant: piece.enchant } : { id: candidate.item.id }) : piece))} data={data} faction={faction} filter={filter} onPlan={() => planItem(index, candidate.item.id)} />
 								))}
 							</ul>
 						)}
@@ -208,13 +219,15 @@ function ItemName({ item }: { item: Item }) {
 interface RowProps {
 	candidate: Candidate;
 	marks?: GuideMark[];
+	base: Gear;
+	variant: Gear;
 	data: GameData;
 	faction: 'alliance' | 'horde' | undefined;
 	filter: SourceFilter;
 	onPlan: () => void;
 }
 
-function CandidateRow({ candidate, marks, data, faction, filter, onPlan }: RowProps) {
+function CandidateRow({ candidate, marks, base, variant, data, faction, filter, onPlan }: RowProps) {
 	const { item, delta, incomplete } = candidate;
 	const sources = usableSources(item, faction, filter);
 	const stats = statLine(item.stats ?? {});
@@ -253,9 +266,12 @@ function CandidateRow({ candidate, marks, data, faction, filter, onPlan }: RowPr
 					{!guideSource(marks) && sources.length > 2 ? `, +${sources.length - 2} more` : ''}
 				</span>
 			</span>
-			<button className="button button-small" onClick={onPlan}>
-				Plan this
-			</button>
+			<span className="candidate-actions">
+				<SimDelta base={base} variant={variant} />
+				<button className="button button-small" onClick={onPlan}>
+					Plan this
+				</button>
+			</span>
 		</li>
 	);
 }
@@ -322,5 +338,45 @@ function GuidePicks({ guides, slotIndex, data, currentId, deltaOf, onPlan }: Gui
 				</div>
 			))}
 		</dl>
+	);
+}
+
+type Weights = SpecConfig['weights'];
+const LONG_LABEL = new Map(STAT_LABELS.map(([key, , long]) => [key, long]));
+
+/** Lets the user change the stat weights behind the score. Collapsed by default. */
+function WeightsEditor({ weights, defaults, onChange }: { weights: Weights; defaults: Weights; onChange: (weights: Weights | null) => void }) {
+	const changed = JSON.stringify(weights) !== JSON.stringify(defaults);
+	const field = (id: string, label: string, value: number, apply: (value: number) => Weights) => (
+		<label key={id} className="weight">
+			<span>{label}</span>
+			<input
+				type="number"
+				step="0.01"
+				min="0"
+				value={value}
+				onChange={e => {
+					const next = Number(e.target.value);
+					if (Number.isFinite(next) && next >= 0) onChange(apply(next));
+				}}
+			/>
+		</label>
+	);
+	return (
+		<details className="weights">
+			<summary>Stat weights{changed ? ' (changed)' : ''}</summary>
+			<p className="hint">
+				How much one point of each stat is worth, in attack power. The defaults are the WoWSims weights for this spec. Changing them changes every score on the site; the simulated DPS numbers
+				are not affected.
+			</p>
+			<div className="weights-grid">
+				{field('mainHandDps', 'Weapon DPS', weights.mainHandDps, v => ({ ...weights, mainHandDps: v }))}
+				{Object.keys(defaults.stats).map(key => field(key, LONG_LABEL.get(key) ?? key, weights.stats[key] ?? 0, v => ({ ...weights, stats: { ...weights.stats, [key]: v } })))}
+				{field('hitRatingOverCap', 'Hit rating past the cap', weights.hitRatingOverCap, v => ({ ...weights, hitRatingOverCap: v }))}
+			</div>
+			<button className="button" onClick={() => onChange(null)} disabled={!changed}>
+				Reset to the WoWSims weights
+			</button>
+		</details>
 	);
 }

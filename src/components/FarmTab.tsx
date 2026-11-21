@@ -33,14 +33,14 @@ export function FarmTab({ spec, character, data, filter }: Props) {
 	const options = useMemo(() => ({ character, data, spec, filter }), [character, data, spec, filter]);
 	const shopping = useMemo(() => planShoppingList(options), [options]);
 	const ranking = useMemo(() => dungeonRanking(options), [options]);
-	const [open, setOpen] = useState<Set<number>>(new Set());
+	const [open, setOpen] = useState<Set<string>>(new Set());
 	const marks = useMemo(() => guideMarks(data.guides), [data]);
 	const planSize = [...shopping.values()].reduce((sum, list) => sum + list.length, 0);
 
-	const toggle = (zoneId: number) =>
+	const toggle = (key: string) =>
 		setOpen(old => {
 			const next = new Set(old);
-			if (!next.delete(zoneId)) next.add(zoneId);
+			if (!next.delete(key)) next.add(key);
 			return next;
 		});
 
@@ -69,13 +69,13 @@ export function FarmTab({ spec, character, data, filter }: Props) {
 			<section aria-labelledby="farm-dungeons">
 				<h2 id="farm-dungeons">Dungeons by upgrades</h2>
 				<p className="hint farm-hint">
-					Ranked by the best upgrade per slot over your equipped gear, added up. Drop chances are not in the data, so a high number means "a lot to gain here", not "quick to get". Uses the
-					filters from the Upgrades tab.
+					Ranked by the best upgrade per slot over your equipped gear, added up. Drop chances are not in the data, so a high number means "a lot to gain here", not "quick to get". Blackrock Spire,
+					Dire Maul and Stratholme are split into their wings. Uses the filters from the Upgrades tab.
 				</p>
 				{ranking.length === 0 && <p className="farm-empty">No dungeon drops would improve your equipped gear with the current filters.</p>}
 				<ol className="dungeons">
 					{ranking.map((dungeon, index) => (
-						<DungeonCard key={dungeon.zone.id} dungeon={dungeon} open={open.has(dungeon.zone.id) || (index === 0 && open.size === 0)} onToggle={() => toggle(dungeon.zone.id)} />
+						<DungeonCard key={dungeon.key} dungeon={dungeon} open={open.has(dungeon.key) || (index === 0 && open.size === 0)} onToggle={() => toggle(dungeon.key)} />
 					))}
 				</ol>
 			</section>
@@ -110,7 +110,7 @@ function DungeonCard({ dungeon, open, onToggle }: { dungeon: FarmDungeon; open: 
 	return (
 		<li className="dungeon">
 			<button className="dungeon-head" aria-expanded={open} onClick={onToggle}>
-				<span className="dungeon-name">{dungeon.zone.name}</span>
+				<span className="dungeon-name">{dungeon.name}</span>
 				<span className="dungeon-meta">
 					{dungeon.upgradeCount} upgrade{dungeon.upgradeCount === 1 ? '' : 's'}
 					{dungeon.plannedCount > 0 && <span className="dungeon-planned">, {dungeon.plannedCount} from your plan</span>}

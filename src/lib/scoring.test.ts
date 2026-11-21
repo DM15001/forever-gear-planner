@@ -138,6 +138,34 @@ describe('reputation filter', () => {
 	});
 });
 
+describe('own crafts only', () => {
+	const own = { ...options, filter: { ...DEFAULT_FILTER, ownCraftsOnly: true } };
+	const BELT_OF_THE_ARCHMAGE = 18405; // Tailoring
+	const SPIRITCALLER_TREADS = 273935; // Leatherworking
+
+	it('hides crafts of other professions but keeps the character\u2019s own', () => {
+		expect(slotCandidates(7, dwarf.gear, options).some(c => c.item.id === BELT_OF_THE_ARCHMAGE)).toBe(true);
+		expect(slotCandidates(7, dwarf.gear, own).some(c => c.item.id === BELT_OF_THE_ARCHMAGE)).toBe(false);
+		expect(slotCandidates(9, dwarf.gear, own).some(c => c.item.id === SPIRITCALLER_TREADS)).toBe(true);
+	});
+});
+
+describe('raid quest rewards', () => {
+	it('are never offered, like raid drops', () => {
+		const ONYXIA_TOOTH_PENDANT = 18404;
+		expect(data.itemById.has(ONYXIA_TOOTH_PENDANT)).toBe(true);
+		expect(slotCandidates(1, dwarf.gear, options).some(c => c.item.id === ONYXIA_TOOTH_PENDANT)).toBe(false);
+		expect(Object.values(suggestPlan(options))).not.toContain(ONYXIA_TOOTH_PENDANT);
+	});
+});
+
+describe('custom weights', () => {
+	it('change the score', () => {
+		const strengthOnly = { ...spec, weights: { ...spec.weights, mainHandDps: 0, stats: { strength: 1 } } };
+		expect(scoreSet(dwarf.gear, dwarf, data, strengthOnly).score).toBe(scoreSet(dwarf.gear, dwarf, data, spec).stats.strength);
+	});
+});
+
 describe('plannedGear', () => {
 	it('keeps the enchant of the slot when an item is swapped in', () => {
 		const withEnchant: Character = { ...dwarf, gear: dwarf.gear.map((p, i) => (i === HEAD && p ? { ...p, enchant: 2543 } : p)), plan: { [HEAD]: 13404 } };

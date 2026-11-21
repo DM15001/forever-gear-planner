@@ -196,9 +196,21 @@ Lessons from the first test run against a real character:
    the spec config) and the Wowhead BiS guide (hand-kept JSON with ranks and source notes
    in `src/config/guides/`). More lists, e.g. from a class Discord, go into the same folder
    in the same shape and are registered in `buildGuides`.
-7. **Real sim (optional)** — the repo ships a CLI (`cmd/wowsimcli`) and a WASM build
-   (`sim/wasm`). Step one: an "Open in WoWSims" export of the what-if set. Step two: run the
-   WASM sim in a web worker for exact DPS deltas.
+7. **Simulator in the page — DONE.** The prebuilt WoWSims WebAssembly sim
+   (`public/sim/lib.wasm.gz`, fetched by the data script from wowsims/pages-deploy together
+   with the matching database) runs in a web worker (`public/sim/worker.js`).
+   `src/lib/sim/request.ts` (pure, tested, including a run of the real sim in Node) builds
+   the request: the sim's default settings from `public/sim/template.json` plus the
+   character's race, professions, talents and gear, with the raw item records attached
+   (`public/sim/db.json`; the sim has no item data of its own). `src/lib/sim/client.ts`
+   queues and caches runs. UI in `src/components/Sim.tsx`: "Simulate both sets" in the
+   Upgrades summary, a "Sim" link on every alternative and every enchant that shows the DPS
+   change with its noise margin.
+   Also done in this round: stat weights editable in the UI (saved per spec), a switch for
+   "crafted items only from my professions", raid quest rewards excluded
+   (`src/config/quests.json`), Blackrock Spire, Dire Maul and Stratholme split into wings in
+   the Farm plan (`src/config/dungeonWings.json`).
+   Known gap: the score still ignores procs and set bonuses; the sim is the answer there.
 8. **GitHub Pages** — public repo or paid plan needed for Pages; add the WoWSims attribution.
 
 ## Generated data (`src/data/`, never hand-edited)

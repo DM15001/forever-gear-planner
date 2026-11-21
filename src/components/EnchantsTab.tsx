@@ -3,9 +3,10 @@ import { useMemo } from 'react';
 import { GEAR_SLOTS } from '../lib/constants';
 import { bestEnchants, enchantOverview, professionValues } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
-import { plannedGear, scoreSet, type SourceFilter } from '../lib/scoring';
+import { type Gear, plannedGear, scoreSet, type SourceFilter } from '../lib/scoring';
 import { sourceLine, statLine, wowheadItemUrl } from '../lib/stats';
 import type { Character, Enchant, SpecConfig } from '../lib/types';
+import { SimDelta } from './Sim';
 
 interface Props {
 	spec: SpecConfig;
@@ -35,6 +36,14 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 			}),
 		});
 
+	/** `gear` with the slot's enchant replaced (or removed). */
+	const withEnchant = (slotIndex: number, effectId?: number): Gear =>
+		gear.map((piece, i) => {
+			if (i !== slotIndex || !piece) return piece;
+			const { enchant: _old, ...rest } = piece;
+			return effectId ? { ...rest, enchant: effectId } : rest;
+		});
+
 	const enchanted = overview.filter(s => s.current).length;
 	const best = useMemo(() => bestEnchants(gear, character, data, spec), [gear, character, data, spec]);
 	const bestGain = useMemo(() => {
@@ -49,7 +58,7 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 				<h2 id="enchants-title">Enchants</h2>
 				<p className="hint enchants-hint">
 					{enchanted} of {overview.length} enchantable slots have an enchant. Numbers show the change in set score for your {hasPlan ? 'planned' : 'equipped'} gear. Enchants that only add a
-					proc, such as Crusader, cannot be scored and are listed as "sim it". The source is where the enchant or its recipe comes from.
+					proc, such as Crusader, cannot be scored; "Sim" runs the real simulator for an enchant and shows its DPS against the bare item. The source is where the enchant or its recipe comes from.
 				</p>
 				<div className="actions">
 					<button className="button button-primary" onClick={() => setEnchants(best)} disabled={Object.keys(best).length === 0}>
@@ -91,6 +100,7 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 													{statLine(enchant.stats ?? {})}. {enchantSource(enchant, data)}
 												</span>
 											</span>
+											<SimDelta base={withEnchant(slot.slotIndex)} variant={withEnchant(slot.slotIndex, enchant.effectId)} />
 											{active ? (
 												<span className="badge badge-plan">in use</span>
 											) : (
@@ -103,11 +113,28 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 										</div>
 									);
 								})}
-								{slot.unscored.length > 0 && (
-									<p className="slot-source">
-										<span className="badge">sim it</span> {slot.unscored.map(e => e.name.replace(/^Enchant [^-]+- /, '')).join(', ')}
-									</p>
-								)}
+								{slot.unscored.map(enchant => {
+									const active = enchant.effectId === slot.current?.effectId;
+									return (
+										<div key={`${enchant.effectId}-${enchant.name}`} className="enchant-option">
+											<span className="badge">sim it</span>
+											<span>
+												<span className="enchant-name">{enchant.name}</span>
+												<span className="slot-source">Proc or effect, not in the score. {enchantSource(enchant, data)}</span>
+											</span>
+											<SimDelta base={withEnchant(slot.slotIndex)} variant={withEnchant(slot.slotIndex, enchant.effectId)} />
+											{active ? (
+												<span className="badge badge-plan">in use</span>
+											) : (
+												character.gear[slot.slotIndex] && (
+													<button className="button button-small" onClick={() => setEnchants({ [slot.slotIndex]: enchant.effectId })}>
+														Use
+													</button>
+												)
+											)}
+										</div>
+									);
+								})}
 							</div>
 						</li>
 					))}

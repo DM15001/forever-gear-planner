@@ -111,10 +111,11 @@ export interface ProfessionValue {
 export function professionValues(options: CandidateOptions): ProfessionValue[] {
 	const { character, spec } = options;
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
-	const filter = { ...options.filter, crafted: true };
+	// Every profession is shown here, whatever the "own crafts only" switch says.
+	const filter = { ...options.filter, crafted: true, ownCraftsOnly: false };
 	const byProfession = new Map<string, FarmDrop[]>();
 	for (const drop of allUpgrades({ ...options, filter })) {
-		for (const source of usableSources(drop.item, faction, filter)) {
+		for (const source of usableSources(drop.item, faction, { ...filter, ownCraftsOnly: false })) {
 			if (source.kind !== 'crafted' || !source.profession) continue;
 			if (!byProfession.has(source.profession)) byProfession.set(source.profession, []);
 			if (!byProfession.get(source.profession)!.includes(drop)) byProfession.get(source.profession)!.push(drop);

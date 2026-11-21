@@ -52,6 +52,25 @@ describe('dungeonRanking', () => {
 	});
 });
 
+describe('dungeon wings', () => {
+	const ranking = dungeonRanking(options);
+
+	it('splits Blackrock Spire into Lower and Upper', () => {
+		const names = ranking.map(d => d.name);
+		expect(names).toContain('Blackrock Spire: Lower');
+		expect(names).toContain('Blackrock Spire: Upper');
+		const lower = ranking.find(d => d.name === 'Blackrock Spire: Lower')!;
+		expect(lower.bosses.map(b => b.name)).toContain('Highlord Omokk');
+		expect(lower.bosses.map(b => b.name)).not.toContain('The Beast');
+		expect(new Set(ranking.map(d => d.key)).size).toBe(ranking.length);
+	});
+
+	it('keeps trash under the plain dungeon name', () => {
+		const plain = ranking.find(d => d.name === 'Blackrock Spire');
+		expect(plain?.bosses.every(b => b.name === 'Trash' || b.name === 'Multiple NPCs')).toBe(true);
+	});
+});
+
 describe('planShoppingList', () => {
 	it('files every planned item under exactly one group', () => {
 		const plan = suggestPlan(options);

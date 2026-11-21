@@ -1,3 +1,4 @@
+import wingConfig from '../config/dungeonWings.json';
 import { GEAR_SLOTS } from './constants';
 import { type CandidateOptions, EVERYTHING, filterKey, plannedGear, scoreSet, slotCandidates, usableSources } from './scoring';
 import type { Item, ItemSource, Zone } from './types';
@@ -18,6 +19,10 @@ export interface FarmBoss {
 }
 
 export interface FarmDungeon {
+	/** Unique per ranking entry: a zone, or one wing of it. */
+	key: string;
+	/** "Blackrock Spire: Lower", or the plain zone name. */
+	name: string;
 	zone: Zone;
 	bosses: FarmBoss[];
 	/** Sum of the best upgrade per slot. An upper bound: hit past the cap is not netted out across slots. */
@@ -42,32 +47,45 @@ export function allUpgrades(options: CandidateOptions): FarmDrop[] {
 	return [...best.values()];
 }
 
+const WINGS = wingConfig as unknown as Record<string, Record<string, string[]> | string>;
+
+/** The wing a boss belongs to, or undefined for trash, unknown bosses and dungeons without wings. */
+function wingOf(zoneName: string, bossName: string): string | undefined {
+	const wings = WINGS[zoneName];
+	if (!wings || typeof wings === 'string') return undefined;
+	return Object.keys(wings).find(wing => wings[wing].includes(bossName));
+}
+
 /** Dungeons ranked by how much their drops could improve the equipped gear. */
 export function dungeonRanking(options: CandidateOptions): FarmDungeon[] {
 	const { character, data, spec, filter } = options;
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
-	const dungeons = new Map<number, { zone: Zone; bosses: Map<string, FarmDrop[]> }>();
+	const dungeons = new Map<string, { key: string; name: string; zone: Zone; bosses: Map<string, FarmDrop[]> }>();
 
 	for (const drop of allUpgrades(options)) {
-		for (const source of usableSources(drop.item, faction, filter)) {
+		for (const source of usableSources(drop.item, faction, filter, character.professions)) {
 			if (source.kind !== 'drop' || source.zoneKind !== 'dungeon' || !source.zoneId) continue;
 			const zone = data.zoneById.get(source.zoneId);
 			if (!zone) continue;
-			if (!dungeons.has(zone.id)) dungeons.set(zone.id, { zone, bosses: new Map() });
 			const bossName = ((source.npcId ? data.npcById.get(source.npcId)?.name : undefined) ?? source.otherName ?? 'Unknown').trim();
-			const bosses = dungeons.get(zone.id)!.bosses;
+			const wing = wingOf(zone.name, bossName);
+			const key = `${zone.id}:${wing ?? ''}`;
+			if (!dungeons.has(key)) dungeons.set(key, { key, name: wing ? `${zone.name}: ${wing}` : zone.name, zone, bosses: new Map() });
+			const bosses = dungeons.get(key)!.bosses;
 			if (!bosses.has(bossName)) bosses.set(bossName, []);
 			if (!bosses.get(bossName)!.includes(drop)) bosses.get(bossName)!.push(drop);
 		}
 	}
 
 	return [...dungeons.values()]
-		.map(({ zone, bosses }) => {
+		.map(({ key, name, zone, bosses }) => {
 			const drops = new Set([...bosses.values()].flat());
 			const bestPerSlot = new Map<number, number>();
 			for (const drop of drops) bestPerSlot.set(drop.slotIndex, Math.max(bestPerSlot.get(drop.slotIndex) ?? 0, drop.delta));
 			const bestOf = (list: FarmDrop[]) => Math.max(...list.map(d => d.delta));
 			return {
+				key,
+				name,
 				zone,
 				bosses: [...bosses.entries()]
 					.map(([name, list]) => ({ name, drops: list.sort((a, b) => b.delta - a.delta) }))

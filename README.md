@@ -11,7 +11,7 @@ See [SPEC.md](SPEC.md) for scope, data model and milestones.
 - [x] Milestone 4: scoring + upgrades tab
 - [x] Milestone 5: farm plan tab
 - [x] Milestone 6: enchants & professions tab
-- [ ] Milestone 7: sim integration (optional)
+- [x] Milestone 7: the WoWSims simulator runs in the page
 - [ ] Milestone 8: GitHub Pages
 
 ## Run it locally
@@ -32,8 +32,19 @@ Then open the address Vite prints (usually http://localhost:5173).
 npm run build-data
 ```
 
-This downloads the current item database from WoWSims and rewrites `src/data/`.
-Use `npm run build-data -- --db path/to/db.json` to build from a local copy.
+This downloads the current item database, the gear presets and the simulator from WoWSims and
+rewrites `src/data/` and `public/sim/`. The database and the simulator come from the same
+WoWSims deployment, so they always match. Options for working offline are at the top of
+`scripts/build-data.mjs`.
+
+## The simulator
+
+"Simulate" and "Sim" run the real WoWSims Forever simulator in the browser, in a web worker.
+It is the prebuilt WebAssembly file from wowsims.com (`public/sim/lib.wasm.gz`, about 6 MB,
+loaded on first use). Settings are the simulator's defaults for the spec: full raid buffs, a
+3-minute single-target fight, the default rotation. `npm test` runs the same simulator in Node.
+
+`VITE_NO_SIM=1 npx vite build --outDir dist-preview` builds a copy without the simulator.
 
 ## Guide lists
 
@@ -43,4 +54,8 @@ Use `npm run build-data -- --db path/to/db.json` to build from a local copy.
 
 ## Credits
 
-Item data and stat weights come from [WoWSims Forever](https://github.com/wowsims/forever) (MIT).
+- Item data, stat weights, gear presets and the simulator come from
+  [WoWSims Forever](https://github.com/wowsims/forever) (MIT).
+- `public/sim/wasm_exec.js` is the WebAssembly support file of the Go project (BSD-style
+  license, see the file's header).
+- BiS list: [Wowhead's Enhancement Shaman guide](https://www.wowhead.com/forever/guide/classes/shaman/enhancement/bis-gear).

@@ -1,18 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { CharacterSheet } from './components/CharacterSheet';
 import { EnchantsTab } from './components/EnchantsTab';
 import { FarmTab } from './components/FarmTab';
 import { ImportPanel } from './components/ImportPanel';
+import { SimProvider } from './components/Sim';
 import { UpgradesTab } from './components/UpgradesTab';
 import { type GameData, loadGameData } from './lib/gameData';
 import type { ImportResult } from './lib/importCharacter';
 import { DEFAULT_FILTER, type SourceFilter } from './lib/scoring';
-import { loadCharacter, saveCharacter } from './lib/storage';
+import { loadCharacter, loadWeights, saveCharacter, saveWeights } from './lib/storage';
 import type { Character, SpecConfig } from './lib/types';
 import specJson from './specs/enhancement-shaman.json';
 
-const spec = specJson as unknown as SpecConfig;
+const defaultSpec = specJson as unknown as SpecConfig;
 
 const TABS = [
 	{ id: 'character', label: 'Character' },
@@ -22,6 +23,13 @@ const TABS = [
 ];
 
 export function App() {
+	// The user's own stat weights replace the spec's defaults everywhere a score is computed.
+	const [customWeights, setCustomWeights] = useState(() => loadWeights(defaultSpec.id));
+	const spec = useMemo(() => (customWeights ? { ...defaultSpec, weights: customWeights } : defaultSpec), [customWeights]);
+	const changeWeights = (weights: SpecConfig['weights'] | null) => {
+		setCustomWeights(weights);
+		saveWeights(defaultSpec.id, weights);
+	};
 	const [character, setCharacter] = useState<Character | null>(loadCharacter);
 	const [warnings, setWarnings] = useState<string[]>([]);
 	const [importing, setImporting] = useState(false);
@@ -68,39 +76,43 @@ export function App() {
 
 				{(!character || importing) && <ImportPanel spec={spec} hasCharacter={Boolean(character)} onImported={onImported} onCancel={() => setImporting(false)} />}
 
-				{character && !importing && tab === 'upgrades' && (data ? <UpgradesTab spec={spec} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
+				{character && !importing && (
+					<SimProvider character={character}>
+						{tab === 'upgrades' && (data ? <UpgradesTab spec={spec} defaultWeights={defaultSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
 
-				{character && !importing && tab === 'farm' && (data ? <FarmTab spec={spec} character={character} data={data} filter={filter} /> : <p>Loading item data…</p>)}
+						{tab === 'farm' && (data ? <FarmTab spec={spec} character={character} data={data} filter={filter} /> : <p>Loading item data…</p>)}
 
-				{character && !importing && tab === 'enchants' && (data ? <EnchantsTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
+						{tab === 'enchants' && (data ? <EnchantsTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
 
-				{character && !importing && tab === 'character' && (
-					<>
-						{warnings.length > 0 && (
-							<div className="notice" role="status">
-								<strong>Check after import</strong>
-								<ul>
-									{warnings.map(w => (
-										<li key={w}>{w}</li>
-									))}
-								</ul>
-								<button className="link" onClick={() => setWarnings([])}>
-									Dismiss
-								</button>
-							</div>
+						{tab === 'character' && (
+							<>
+								{warnings.length > 0 && (
+									<div className="notice" role="status">
+										<strong>Check after import</strong>
+										<ul>
+											{warnings.map(w => (
+												<li key={w}>{w}</li>
+											))}
+										</ul>
+										<button className="link" onClick={() => setWarnings([])}>
+											Dismiss
+										</button>
+									</div>
+								)}
+								<CharacterSheet
+									spec={spec}
+									character={character}
+									data={data}
+									onChange={update}
+									onImportAnother={() => setImporting(true)}
+									onRemove={() => {
+										update(null);
+										setWarnings([]);
+									}}
+								/>
+							</>
 						)}
-						<CharacterSheet
-							spec={spec}
-							character={character}
-							data={data}
-							onChange={update}
-							onImportAnother={() => setImporting(true)}
-							onRemove={() => {
-								update(null);
-								setWarnings([]);
-							}}
-						/>
-					</>
+					</SimProvider>
 				)}
 			</main>
 
