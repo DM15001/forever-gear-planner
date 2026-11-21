@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import specJson from '../specs/enhancement-shaman.json';
 import addonExport from './__fixtures__/addon-export.json';
 import simExport from './__fixtures__/sim-export.json';
+import simSettingsExport from './__fixtures__/sim-settings-export.json';
 import { GEAR_SLOTS } from './constants';
 import { importCharacter, ImportError } from './importCharacter';
 import type { SpecConfig } from './types';
@@ -23,6 +24,24 @@ describe('importCharacter', () => {
 		expect(character.gear[16]).toEqual({ id: 249443 });
 		expect(character.name).toBeUndefined(); // "Player" is the sim's placeholder
 		expect(warnings.some(w => w.includes('sim export'))).toBe(true);
+	});
+
+	it('reads the sim settings export (top-level player)', () => {
+		const { character, format, warnings } = importCharacter(JSON.stringify(simSettingsExport), spec);
+		expect(format).toBe('sim');
+		expect(character.race).toBe('RaceOrc');
+		expect(character.professions).toEqual(['Engineering', 'Leatherworking']);
+		expect(character.talents).toBe('053303102-053030310051012251-02');
+		expect(character.gear[0]).toEqual({ id: 17740, enchant: 2543 });
+		expect(character.gear[15]).toBeNull();
+		expect(character.gear[16]).toEqual({ id: 249443 });
+		expect(warnings.some(w => w.includes('sim export'))).toBe(true);
+	});
+
+	it('reads a bare sim player', () => {
+		const { character, format } = importCharacter(JSON.stringify(simSettingsExport.player), spec);
+		expect(format).toBe('sim');
+		expect(character.gear[14]).toEqual({ id: 14531, enchant: 1900 });
 	});
 
 	it('reads the addon export and pads missing slots', () => {

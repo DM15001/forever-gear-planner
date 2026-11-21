@@ -46,7 +46,8 @@ function parseProfessions(names: unknown[], warnings: string[]): string[] {
 /**
  * Reads a character from pasted text. Two formats are accepted:
  * - the WoWSims Exporter addon's JSON (`{ class, race, gear: { items } ... }`)
- * - the sim's own JSON export (`{ raid: { parties: [{ players: [player] }] } }`)
+ * - the sim's own JSON: its settings export (`{ player, raidBuffs, encounter ... }`) or a full
+ *   request (`{ raid: { parties: [{ players: [player] }] } }`)
  * Throws ImportError with a message for the user when the text cannot be used.
  */
 export function importCharacter(text: string, spec: SpecConfig): ImportResult {
@@ -61,7 +62,10 @@ export function importCharacter(text: string, spec: SpecConfig): ImportResult {
 	}
 
 	const warnings: string[] = [];
-	const simPlayer = json.raid?.parties?.[0]?.players?.[0] ?? (json.equipment ? json : null);
+	// The sim has three JSON shapes: a full request (raid > parties > players), its saved settings
+	// (a top-level `player`), and a bare player.
+	const isPlayer = (value: any) => value && typeof value === 'object' && ('equipment' in value || 'class' in value);
+	const simPlayer = json.raid?.parties?.[0]?.players?.[0] ?? (isPlayer(json.player) ? json.player : null) ?? (json.equipment ? json : null);
 	const format: ExportFormat = simPlayer ? 'sim' : 'addon';
 	const source = simPlayer ?? json;
 
