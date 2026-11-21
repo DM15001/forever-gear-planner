@@ -70,7 +70,7 @@ export function FarmTab({ spec, character, data, filter }: Props) {
 				<h2 id="farm-dungeons">Dungeons by upgrades</h2>
 				<p className="hint farm-hint">
 					Ranked by the best upgrade per slot over your equipped gear, added up. Drop chances are not in the data, so a high number means "a lot to gain here", not "quick to get". Blackrock Spire,
-					Dire Maul and Stratholme are split into their wings. Uses the filters from the Upgrades tab.
+					Dire Maul and Stratholme are split into their wings. Uses the content you picked on the Plan tab.
 				</p>
 				{ranking.length === 0 && <p className="farm-empty">No dungeon drops would improve your equipped gear with the current filters.</p>}
 				<ol className="dungeons">

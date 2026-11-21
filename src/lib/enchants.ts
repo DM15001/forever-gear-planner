@@ -37,9 +37,9 @@ export interface SlotEnchants {
 	current?: Enchant;
 	/** Change in set score from the current enchant, against none. */
 	currentDelta: number;
-	/** Enchants with stats, best first. */
+	/** Enchants with a known worth (stats, or an effect the simulator measured), best first. */
 	options: EnchantOption[];
-	/** Enchants that are a proc or effect; the stat score cannot rank them. */
+	/** Proc or effect enchants nobody measured; the score cannot rank them. */
 	unscored: Enchant[];
 }
 
@@ -59,8 +59,10 @@ export function enchantOverview(gear: Gear, character: Character, data: GameData
 		if (!piece || !item || enchants.length === 0) return;
 		const bare = scoreSet(withEnchant(gear, slotIndex, undefined), character, data, spec).score;
 		const deltaOf = (effectId: number) => scoreSet(withEnchant(gear, slotIndex, effectId), character, data, spec).score - bare;
+		const { simValues } = data;
+		const hasStats = (e: Enchant) => Object.keys(e.stats ?? {}).length > 0;
 		const options = enchants
-			.filter(e => Object.keys(e.stats ?? {}).length > 0)
+			.filter(e => hasStats(e) || simValues.enchants.has(e.effectId))
 			.map(enchant => ({ enchant, delta: deltaOf(enchant.effectId) }))
 			.filter(o => o.delta > 0)
 			.sort((a, b) => b.delta - a.delta || a.enchant.name.localeCompare(b.enchant.name));
@@ -71,7 +73,7 @@ export function enchantOverview(gear: Gear, character: Character, data: GameData
 			current,
 			currentDelta: current ? deltaOf(current.effectId) : 0,
 			options,
-			unscored: enchants.filter(e => e.hasEffect && Object.keys(e.stats ?? {}).length === 0),
+			unscored: enchants.filter(e => e.hasEffect && !hasStats(e) && !simValues.measuredEnchants.has(e.effectId)),
 		});
 	});
 	return result;

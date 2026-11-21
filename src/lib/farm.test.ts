@@ -65,8 +65,8 @@ describe('dungeon wings', () => {
 		expect(new Set(ranking.map(d => d.key)).size).toBe(ranking.length);
 	});
 
-	it('keeps trash under the plain dungeon name', () => {
-		const plain = ranking.find(d => d.name === 'Blackrock Spire');
+	it('keeps trash and unsorted bosses in an entry of their own', () => {
+		const plain = ranking.find(d => d.name === 'Blackrock Spire: trash and other');
 		expect(plain?.bosses.every(b => b.name === 'Trash' || b.name === 'Multiple NPCs')).toBe(true);
 	});
 });

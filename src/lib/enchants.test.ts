@@ -31,12 +31,20 @@ describe('applicableEnchants', () => {
 describe('enchantOverview', () => {
 	const overview = enchantOverview(dwarf.gear, dwarf, data, spec);
 
-	it('lists stat enchants best first and keeps procs apart', () => {
+	it('ranks stat enchants and measured procs together, best first', () => {
 		const weapon = overview.find(s => s.slotIndex === 14)!;
 		expect(weapon.options.length).toBeGreaterThan(0);
 		for (let i = 1; i < weapon.options.length; i++) expect(weapon.options[i - 1].delta).toBeGreaterThanOrEqual(weapon.options[i].delta);
-		expect(weapon.unscored.some(e => e.name.includes('Crusader'))).toBe(true);
-		expect(weapon.options.some(o => o.enchant.name.includes('Crusader'))).toBe(false);
+		// Crusader has no stats; its worth comes from the simulator measurement.
+		const crusader = weapon.options.find(o => o.enchant.name.includes('Crusader'))!;
+		expect(crusader.delta).toBeCloseTo(data.simValues.enchants.get(crusader.enchant.effectId)!);
+		expect(crusader.delta).toBeGreaterThan(40);
+	});
+
+	it('keeps procs nobody measured apart', () => {
+		for (const slot of overview) {
+			for (const enchant of slot.unscored) expect(data.simValues.measuredEnchants.has(enchant.effectId)).toBe(false);
+		}
 	});
 
 	it('reports the current enchant and its value', () => {

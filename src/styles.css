@@ -859,6 +859,121 @@ h3 {
 	text-align: right;
 }
 
+/* Guided plan */
+.plan {
+	display: grid;
+	gap: 2.25rem;
+	max-width: 58rem;
+}
+.plan-hint {
+	max-width: 44rem;
+	margin-bottom: 0.9rem;
+}
+.next-step {
+	margin: 0 0 1.25rem;
+}
+.next-step .button {
+	margin-left: 0.5rem;
+}
+.content-picker {
+	display: grid;
+	gap: 1rem;
+}
+.presets {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+.presets .button[aria-pressed='true'] {
+	border-color: var(--brass);
+	color: var(--brass);
+}
+.content-group {
+	border: 0;
+	border-top: 1px solid var(--ridge);
+	padding: 0.6rem 0 0;
+	margin: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+	gap: 0.35rem 1.5rem;
+}
+.content-group legend {
+	padding: 0 0.6rem 0 0;
+	font-family: var(--serif);
+	font-size: 1.0625rem;
+	color: var(--brass);
+}
+.check-disabled {
+	color: var(--haze);
+	cursor: not-allowed;
+}
+.plan-slots {
+	margin-top: 1.25rem;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(26rem, 1fr));
+	gap: 0.2rem 2rem;
+}
+.plan-slot {
+	display: flex;
+	gap: 0.7rem;
+	padding: 0.6rem 0;
+	border-bottom: 1px solid #1c2733;
+}
+.plan-slot-done {
+	opacity: 0.6;
+}
+.plan-slot-body {
+	min-width: 0;
+}
+.plan-goal {
+	display: block;
+}
+.plan-empty {
+	color: var(--haze);
+}
+.plan-others {
+	margin-top: 0.15rem;
+}
+.plan-others .item-link {
+	font-weight: 400;
+}
+.todo {
+	display: grid;
+	gap: 0.75rem;
+}
+.todo-step {
+	background: var(--slate);
+	border: 1px solid var(--ridge);
+	border-radius: 6px;
+	padding: 0.7rem 1rem 0.5rem;
+}
+.todo-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 1rem;
+	border-bottom: 1px solid var(--ridge);
+	padding-bottom: 0.3rem;
+	margin-bottom: 0.2rem;
+	font-weight: 600;
+}
+.todo-item {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 3.5rem auto;
+	gap: 0.9rem;
+	align-items: center;
+	padding: 0.4rem 0;
+}
+.todo-item .num {
+	text-align: right;
+}
+.todo-main .slot-source {
+	display: block;
+}
+.todo-enchant {
+	font-weight: 600;
+}
+
 .colophon {
 	margin-top: 2.5rem;
 	padding-top: 1rem;
@@ -868,6 +983,9 @@ h3 {
 }
 
 @media (max-width: 52rem) {
+	.plan-slots {
+		grid-template-columns: 1fr;
+	}
 	.enchant-slot {
 		grid-template-columns: 1fr;
 	}

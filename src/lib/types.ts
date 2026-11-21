@@ -11,6 +11,10 @@ export interface ItemSource {
 	npcName?: string;
 	otherName?: string;
 	zoneKind?: 'dungeon' | 'raid' | 'world';
+	/** Set when the data is loaded: the dungeon or dungeon wing a drop belongs to, e.g. "1583:Lower". */
+	dungeonKey?: string;
+	/** "Blackrock Spire: Lower" */
+	dungeonName?: string;
 	name?: string;
 	questId?: number;
 	profession?: string;
@@ -77,6 +81,8 @@ export interface Character {
 	gear: (GearPiece | null)[];
 	/** What-if swaps on top of the equipped gear: slot index -> item id. */
 	plan?: Record<number, number>;
+	/** Enchants the plan aims for: slot index -> enchant effectId. They apply to the planned gear only. */
+	planEnchants?: Record<number, number>;
 }
 
 export interface SpecConfig {
@@ -118,4 +124,18 @@ export interface Npc {
 	id: number;
 	name: string;
 	zoneId?: number;
+}
+
+/** What the stat score cannot see, measured with the simulator (scripts/build-sim-values.mjs). In attack-power equivalents. */
+export interface SimValues {
+	/** Item id -> worth of its procs, on-use effects and special stats. */
+	items: Map<number, number>;
+	/** Enchant effectId -> worth of its proc or effect. */
+	enchants: Map<number, number>;
+	/** Set id -> piece count -> worth of the bonuses active at that count. */
+	sets: Map<number, Map<number, number>>;
+	/** What was measured at all; anything else with an effect is still unknown. */
+	measuredItems: Set<number>;
+	measuredEnchants: Set<number>;
+	measuredSets: Set<number>;
 }

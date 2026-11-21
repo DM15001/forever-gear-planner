@@ -1,4 +1,3 @@
-import wingConfig from '../config/dungeonWings.json';
 import { GEAR_SLOTS } from './constants';
 import { type CandidateOptions, EVERYTHING, filterKey, plannedGear, scoreSet, slotCandidates, usableSources } from './scoring';
 import type { Item, ItemSource, Zone } from './types';
@@ -47,15 +46,6 @@ export function allUpgrades(options: CandidateOptions): FarmDrop[] {
 	return [...best.values()];
 }
 
-const WINGS = wingConfig as unknown as Record<string, Record<string, string[]> | string>;
-
-/** The wing a boss belongs to, or undefined for trash, unknown bosses and dungeons without wings. */
-function wingOf(zoneName: string, bossName: string): string | undefined {
-	const wings = WINGS[zoneName];
-	if (!wings || typeof wings === 'string') return undefined;
-	return Object.keys(wings).find(wing => wings[wing].includes(bossName));
-}
-
 /** Dungeons ranked by how much their drops could improve the equipped gear. */
 export function dungeonRanking(options: CandidateOptions): FarmDungeon[] {
 	const { character, data, spec, filter } = options;
@@ -64,13 +54,12 @@ export function dungeonRanking(options: CandidateOptions): FarmDungeon[] {
 
 	for (const drop of allUpgrades(options)) {
 		for (const source of usableSources(drop.item, faction, filter, character.professions)) {
-			if (source.kind !== 'drop' || source.zoneKind !== 'dungeon' || !source.zoneId) continue;
+			if (!source.dungeonKey || !source.zoneId) continue;
 			const zone = data.zoneById.get(source.zoneId);
 			if (!zone) continue;
 			const bossName = ((source.npcId ? data.npcById.get(source.npcId)?.name : undefined) ?? source.otherName ?? 'Unknown').trim();
-			const wing = wingOf(zone.name, bossName);
-			const key = `${zone.id}:${wing ?? ''}`;
-			if (!dungeons.has(key)) dungeons.set(key, { key, name: wing ? `${zone.name}: ${wing}` : zone.name, zone, bosses: new Map() });
+			const key = source.dungeonKey;
+			if (!dungeons.has(key)) dungeons.set(key, { key, name: source.dungeonName ?? zone.name, zone, bosses: new Map() });
 			const bosses = dungeons.get(key)!.bosses;
 			if (!bosses.has(bossName)) bosses.set(bossName, []);
 			if (!bosses.get(bossName)!.includes(drop)) bosses.get(bossName)!.push(drop);
@@ -116,7 +105,8 @@ export const PLAN_GROUP_ORDER: PlanGroupKind[] = ['dungeon', 'quest', 'crafted',
 const groupOf = (source: ItemSource | undefined): PlanGroupKind => {
 	if (!source) return 'unknown';
 	if (source.kind === 'drop') return source.zoneKind === 'dungeon' ? 'dungeon' : 'world';
-	return filterKey(source) as PlanGroupKind;
+	const key = filterKey(source);
+	return key === 'currency' ? 'vendor' : (key as PlanGroupKind);
 };
 
 /** The planned items, grouped by how to get them. Each item is filed under its first usable source. */

@@ -3,8 +3,9 @@ import { useMemo, useState } from 'react';
 import { GEAR_SLOTS } from '../lib/constants';
 import type { GameData } from '../lib/gameData';
 import { type Guide, type GuideMark, guideMarks, guidePlan, markLabel, swapDelta } from '../lib/guides';
-import { type Candidate, type Gear, plannedGear, scoreSet, slotCandidates, type SourceFilter, type SourceKindKey, suggestPlan, usableSources } from '../lib/scoring';
+import { type Candidate, type Gear, plannedGear, scoreSet, slotCandidates, type SourceFilter, suggestPlan, usableSources } from '../lib/scoring';
 import { iconUrl, sourceLine, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
+import { ContentPicker } from './ContentPicker';
 import { SimDelta, SimSummary } from './Sim';
 import type { Character, Item, SpecConfig } from '../lib/types';
 
@@ -20,15 +21,6 @@ interface Props {
 	onWeightsChange: (weights: SpecConfig['weights'] | null) => void;
 }
 
-const FILTER_LABELS: [SourceKindKey, string][] = [
-	['drop', 'Dungeon and world drops'],
-	['quest', 'Quests'],
-	['crafted', 'Crafted'],
-	['vendor', 'Vendors'],
-	['rep', 'Reputation rewards'],
-	['pvp', 'PvP rewards'],
-	['unknown', 'Unknown source'],
-];
 const SHORT_LIST = 6;
 const LONG_LIST = 25;
 
@@ -119,31 +111,15 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 					</p>
 				)}
 				<p className="hint">
-					The score adds up stats with the WoWSims weights for {spec.name}, in attack-power equivalents. Procs, on-use effects and set bonuses are not counted; items marked "sim it" may be better
-					or worse than their number. Each +/- shows how the whole set changes, so hit rating past the cap counts for nothing.
+					The score adds up stats with the WoWSims weights for {spec.name}, in attack-power equivalents, plus what the simulator measured for procs, on-use effects and set bonuses. Items marked
+					"sim it" have an effect nobody measured and may be better or worse than their number. Each +/- shows how the whole set changes, so hit rating past the cap counts for nothing.
 				</p>
 			</section>
 
-			<fieldset className="filters">
-				<legend>Show items from</legend>
-				{FILTER_LABELS.map(([key, label]) => (
-					<label key={key} className="check">
-						<input type="checkbox" checked={filter[key]} onChange={e => setFilter({ ...filter, [key]: e.target.checked })} />
-						{label}
-					</label>
-				))}
-				<label className="check check-set">
-					<input type="checkbox" checked={filter.ownCraftsOnly} onChange={e => setFilter({ ...filter, ownCraftsOnly: e.target.checked })} />
-					Crafted items only from my professions{character.professions.length ? ` (${character.professions.join(', ')})` : ''}
-				</label>
-				{spec.tier05Set && (
-					<label className="check check-set">
-						<input type="checkbox" checked={filter.tier05} onChange={e => setFilter({ ...filter, tier05: e.target.checked })} />
-						Tier 0.5 set ({spec.tier05Set.name})
-					</label>
-				)}
-				{!faction && <p className="field-error">Pick a race on the Character tab to hide the other faction's items.</p>}
-			</fieldset>
+			<details className="weights">
+				<summary>Content (the same choice as on the Plan tab)</summary>
+				<ContentPicker spec={spec} character={character} data={data} filter={filter} onChange={setFilter} />
+			</details>
 
 			<WeightsEditor weights={spec.weights} defaults={defaultWeights} onChange={onWeightsChange} />
 

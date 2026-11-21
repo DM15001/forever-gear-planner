@@ -1,4 +1,5 @@
 import { GEAR_SLOTS } from './constants';
+import { DEFAULT_FILTER, type SourceFilter } from './scoring';
 import type { Character, SpecConfig } from './types';
 
 const KEY = 'forever-gear-planner.character.v1';
@@ -45,5 +46,29 @@ export function saveWeights(specId: string, weights: Weights | null): void {
 		else localStorage.removeItem(weightsKey(specId));
 	} catch {
 		// storage blocked or full: the weights just won't survive a reload
+	}
+}
+
+const FILTER_KEY = 'forever-gear-planner.content.v1';
+
+/** The saved content choice. Settings added in a later version fall back to their defaults. */
+export function loadFilter(): SourceFilter {
+	try {
+		const raw = localStorage.getItem(FILTER_KEY);
+		const saved = raw ? (JSON.parse(raw) as Partial<SourceFilter>) : null;
+		if (!saved || typeof saved !== 'object') return DEFAULT_FILTER;
+		const merged = { ...DEFAULT_FILTER, ...saved };
+		if (!Array.isArray(merged.excludedDungeons) || !Array.isArray(merged.excludedReputations)) return DEFAULT_FILTER;
+		return merged;
+	} catch {
+		return DEFAULT_FILTER;
+	}
+}
+
+export function saveFilter(filter: SourceFilter): void {
+	try {
+		localStorage.setItem(FILTER_KEY, JSON.stringify(filter));
+	} catch {
+		// storage blocked or full: the choice just won't survive a reload
 	}
 }

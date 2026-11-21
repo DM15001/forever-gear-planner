@@ -1,4 +1,4 @@
-import { createContext, type ReactNode, useCallback, useContext, useMemo, useState } from 'react';
+import { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import type { Gear } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
@@ -106,13 +106,26 @@ export function SimDelta({ base, variant, label = 'Sim' }: { base: Gear; variant
 }
 
 /** Simulated DPS of the equipped and the planned gear, side by side. */
-export function SimSummary({ equipped, planned, hasPlan }: { equipped: Gear; planned: Gear; hasPlan: boolean }) {
+export function SimSummary({ equipped, planned, hasPlan, auto = false }: { equipped: Gear; planned: Gear; hasPlan: boolean; auto?: boolean }) {
 	const sim = useSim();
 	const a = sim.result(equipped, SET_ITERATIONS);
 	const b = hasPlan ? sim.result(planned, SET_ITERATIONS) : undefined;
 	const runningNow = sim.isRunning(equipped, SET_ITERATIONS) || sim.isRunning(planned, SET_ITERATIONS);
 	const complete = Boolean(a && (!hasPlan || b));
 	const show = (outcome: typeof a) => (outcome ? `${outcome.dps.toFixed(0)} DPS` : '—');
+
+	// With `auto`, a short pause after the last change starts the missing runs by itself.
+	const { run } = sim;
+	const needsEquipped = !a && !sim.isRunning(equipped, SET_ITERATIONS);
+	const needsPlanned = hasPlan && !b && !sim.isRunning(planned, SET_ITERATIONS);
+	useEffect(() => {
+		if (!auto || !SIM_AVAILABLE || (!needsEquipped && !needsPlanned)) return;
+		const timer = setTimeout(() => {
+			if (needsEquipped) run(equipped, SET_ITERATIONS);
+			if (needsPlanned) run(planned, SET_ITERATIONS);
+		}, 1500);
+		return () => clearTimeout(timer);
+	}, [auto, needsEquipped, needsPlanned, equipped, planned, run]);
 
 	if (!SIM_AVAILABLE) {
 		return (

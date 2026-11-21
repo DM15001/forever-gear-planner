@@ -6,6 +6,9 @@ import type { Character, GearPiece, Item, ItemSource, SpecConfig, Stats } from '
 const REPUTATION_VENDORS: Record<string, string> = vendors.reputationVendors;
 const CURRENCY_VENDORS: Record<string, string> = vendors.currencyVendors;
 
+/** The currency a vendor takes, for vendors that do not sell for gold. */
+export const vendorCurrency = (source: ItemSource): string | undefined => (source.kind === 'vendor' && source.npcId ? CURRENCY_VENDORS[source.npcId] : undefined);
+
 /** The reputation a vendor's goods need, for vendors the data lists without one. */
 export const vendorReputation = (source: ItemSource): string | undefined => (source.kind === 'vendor' && source.npcId ? REPUTATION_VENDORS[source.npcId] : undefined);
 
@@ -110,7 +113,7 @@ export function sourceLine(source: ItemSource | undefined, data: GameData): stri
 			return `Reputation: ${source.repFaction}${source.repLevel ? ` (${source.repLevel})` : ''}`;
 		case 'vendor': {
 			const reputation = vendorReputation(source);
-			const currency = source.npcId ? CURRENCY_VENDORS[source.npcId] : undefined;
+			const currency = vendorCurrency(source);
 			if (reputation) return `Reputation: ${reputation} (${source.npcName})`;
 			return `Vendor: ${source.npcName ?? 'unknown'}${currency ? ` (${currency})` : ''}`;
 		}

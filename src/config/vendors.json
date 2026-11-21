@@ -1,5 +1,5 @@
 {
-	"_comment": "Vendors the item data lists as plain vendors although their goods need a reputation or a currency. Keyed by NPC id. Reputation names are the original game's; check them if Forever renames a faction.",
+	"_comment": "Vendors the item data lists as plain vendors although their goods need a reputation or a currency. Keyed by NPC id. Reputation names are the original game's; check them if Forever renames a faction. battlegroundReputations lists the reputations earned in battlegrounds, for the \"no PvP\" preset.",
 	"reputationVendors": {
 		"13216": "Stormpike Guard",
 		"13217": "Stormpike Guard",
@@ -10,5 +10,13 @@
 	},
 	"currencyVendors": {
 		"227853": "Tarnished Undermine Reals"
-	}
+	},
+	"battlegroundReputations": [
+		"Stormpike Guard",
+		"Frostwolf Clan",
+		"Silverwing Sentinels",
+		"Warsong Outriders",
+		"The League of Arathor",
+		"The Defilers"
+	]
 }

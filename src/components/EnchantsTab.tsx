@@ -97,7 +97,7 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 											<span>
 												<span className="enchant-name">{enchant.name}</span>
 												<span className="slot-source">
-													{statLine(enchant.stats ?? {})}. {enchantSource(enchant, data)}
+													{statLine(enchant.stats ?? {}) || 'Proc, measured with the simulator'}. {enchantSource(enchant, data)}
 												</span>
 											</span>
 											<SimDelta base={withEnchant(slot.slotIndex)} variant={withEnchant(slot.slotIndex, enchant.effectId)} />

@@ -12,7 +12,8 @@ See [SPEC.md](SPEC.md) for scope, data model and milestones.
 - [x] Milestone 5: farm plan tab
 - [x] Milestone 6: enchants & professions tab
 - [x] Milestone 7: the WoWSims simulator runs in the page
-- [ ] Milestone 8: GitHub Pages
+- [x] Milestone 8: guided Plan tab, content picker, effect values measured with the sim
+- [ ] Milestone 9: GitHub Pages
 
 ## Run it locally
 
@@ -45,6 +46,18 @@ loaded on first use). Settings are the simulator's defaults for the spec: full r
 3-minute single-target fight, the default rotation. `npm test` runs the same simulator in Node.
 
 `VITE_NO_SIM=1 npx vite build --outDir dist-preview` builds a copy without the simulator.
+
+## Effect values
+
+The stat score cannot see procs, on-use effects, proc enchants and set bonuses. Their worth is
+measured once with the simulator and stored in `src/data/simValues.json`:
+
+```
+npm run build-sim-values
+```
+
+This takes 30 to 60 minutes. Run it after `npm run build-data` when the simulator or the item
+data changed. How it measures is described at the top of `scripts/build-sim-values.mjs`.
 
 ## Guide lists
 

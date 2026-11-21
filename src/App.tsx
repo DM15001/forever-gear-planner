@@ -4,12 +4,13 @@ import { CharacterSheet } from './components/CharacterSheet';
 import { EnchantsTab } from './components/EnchantsTab';
 import { FarmTab } from './components/FarmTab';
 import { ImportPanel } from './components/ImportPanel';
+import { PlanTab } from './components/PlanTab';
 import { SimProvider } from './components/Sim';
 import { UpgradesTab } from './components/UpgradesTab';
 import { type GameData, loadGameData } from './lib/gameData';
 import type { ImportResult } from './lib/importCharacter';
-import { DEFAULT_FILTER, type SourceFilter } from './lib/scoring';
-import { loadCharacter, loadWeights, saveCharacter, saveWeights } from './lib/storage';
+import type { SourceFilter } from './lib/scoring';
+import { loadCharacter, loadFilter, loadWeights, saveCharacter, saveFilter, saveWeights } from './lib/storage';
 import type { Character, SpecConfig } from './lib/types';
 import specJson from './specs/enhancement-shaman.json';
 
@@ -17,6 +18,7 @@ const defaultSpec = specJson as unknown as SpecConfig;
 
 const TABS = [
 	{ id: 'character', label: 'Character' },
+	{ id: 'plan', label: 'Plan' },
 	{ id: 'upgrades', label: 'Upgrades' },
 	{ id: 'farm', label: 'Farm plan' },
 	{ id: 'enchants', label: 'Enchants & professions' },
@@ -34,8 +36,12 @@ export function App() {
 	const [warnings, setWarnings] = useState<string[]>([]);
 	const [importing, setImporting] = useState(false);
 	const [tab, setTab] = useState('character');
-	// Shared by the Upgrades and Farm plan tabs.
-	const [filter, setFilter] = useState<SourceFilter>(DEFAULT_FILTER);
+	// The content choice, shared by every tab and remembered between visits.
+	const [filter, setFilterState] = useState<SourceFilter>(loadFilter);
+	const setFilter = (next: SourceFilter) => {
+		setFilterState(next);
+		saveFilter(next);
+	};
 	const [data, setData] = useState<GameData | null>(null);
 	const [dataError, setDataError] = useState(false);
 
@@ -78,6 +84,8 @@ export function App() {
 
 				{character && !importing && (
 					<SimProvider character={character}>
+						{tab === 'plan' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} /> : <p>Loading item data…</p>)}
+
 						{tab === 'upgrades' && (data ? <UpgradesTab spec={spec} defaultWeights={defaultSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
 
 						{tab === 'farm' && (data ? <FarmTab spec={spec} character={character} data={data} filter={filter} /> : <p>Loading item data…</p>)}
@@ -99,6 +107,12 @@ export function App() {
 										</button>
 									</div>
 								)}
+								<p className="next-step">
+									Check race, professions and enchants below, then{' '}
+									<button className="button button-primary" onClick={() => setTab('plan')}>
+										Build my gear plan
+									</button>
+								</p>
 								<CharacterSheet
 									spec={spec}
 									character={character}

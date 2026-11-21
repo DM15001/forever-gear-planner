@@ -166,6 +166,40 @@ describe('custom weights', () => {
 	});
 });
 
+describe('measured effects in the score', () => {
+	const BLACKHANDS_BREADTH = 13965;
+	const worth = data.simValues.items.get(BLACKHANDS_BREADTH)!;
+
+	it('adds the worth of an item\u2019s effect', () => {
+		expect(worth).toBeGreaterThan(40);
+		const withTrinket = dwarf.gear.map((p, i) => (i === 13 ? { id: BLACKHANDS_BREADTH } : p));
+		const without = dwarf.gear.map((p, i) => (i === 13 ? null : p));
+		const totals = scoreSet(withTrinket, dwarf, data, spec);
+		expect(totals.effectScore).toBeCloseTo(worth);
+		expect(totals.score - scoreSet(without, dwarf, data, spec).score).toBeCloseTo(worth);
+	});
+
+	it('adds a set bonus once enough pieces are worn', () => {
+		const setId = spec.tier05Set!.setId;
+		const bonus = data.simValues.sets.get(setId)!;
+		const smallest = Math.min(...bonus.keys());
+		const pieces = [...data.itemById.values()].filter(i => i.setId === setId);
+		const bySlot = new Map(pieces.map(i => [i.slot, i]));
+		const slotIndex: Record<string, number> = { head: 0, shoulder: 2, chest: 4, wrist: 5, hands: 6, waist: 7, legs: 8, feet: 9 };
+		const wear = (count: number) => {
+			const chosen = [...bySlot].slice(0, count);
+			return dwarf.gear.map((p, i) => chosen.find(([slot]) => slotIndex[slot] === i)?.[1] ?? p).map(x => (x ? { id: x.id } : null));
+		};
+		expect(scoreSet(wear(smallest - 1), dwarf, data, spec).effectScore).toBe(0);
+		expect(scoreSet(wear(smallest), dwarf, data, spec).effectScore).toBeCloseTo(bonus.get(smallest)!);
+	});
+
+	it('no longer flags a measured item as incomplete', () => {
+		const trinkets = slotCandidates(12, dwarf.gear, options);
+		expect(trinkets.find(c => c.item.id === BLACKHANDS_BREADTH)?.incomplete).toBe(false);
+	});
+});
+
 describe('plannedGear', () => {
 	it('keeps the enchant of the slot when an item is swapped in', () => {
 		const withEnchant: Character = { ...dwarf, gear: dwarf.gear.map((p, i) => (i === HEAD && p ? { ...p, enchant: 2543 } : p)), plan: { [HEAD]: 13404 } };

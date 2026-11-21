@@ -211,7 +211,24 @@ Lessons from the first test run against a real character:
    (`src/config/quests.json`), Blackrock Spire, Dire Maul and Stratholme split into wings in
    the Farm plan (`src/config/dungeonWings.json`).
    Known gap: the score still ignores procs and set bonuses; the sim is the answer there.
-8. **GitHub Pages** — public repo or paid plan needed for Pages; add the WoWSims attribution.
+8. **Guided plan — DONE.** The Plan tab is the main view: pick content, get a plan, tick it off.
+   - `src/lib/content.ts` + `ContentPicker`: every source of gear as a switch (each level 60
+     dungeon and wing, each reputation, Tier 0.5, quests, crafting, own crafts only, currency
+     vendors, other vendors, world drops, PvP ranks, unknown), with presets. The choice is a
+     `SourceFilter` (`excludedDungeons`, `excludedReputations` plus the kind switches), saved
+     in `localStorage` and shared by all tabs. Dungeon drops are tagged with `dungeonKey` /
+     `dungeonName` when the data loads.
+   - `src/lib/plan.ts` (pure, tested): `buildPlan` (items via `suggestPlan`, then enchants via
+     `bestEnchants` into `character.planEnchants`), `planSteps` (to-do list grouped by run,
+     vendor, profession, reputation; enchants last), `fallbacks`, `gotItem`, `gotEnchant`.
+   - `scripts/build-sim-values.mjs` measures item effects, proc enchants and set bonuses with
+     the simulator in the WoWSims default set (item as is vs. the same record with its
+     effects removed, under a different id because the sim caches records by id) and writes
+     `src/data/simValues.json` in attack-power equivalents. `scoreSet` adds these values;
+     an item is only flagged "sim it" when its effect or set was not measured.
+   - Not done: effort per item (drop chance, reputation level, currency price). The plan knows
+     what is best, not what is quick.
+9. **GitHub Pages** — public repo or paid plan needed for Pages; add the WoWSims attribution.
 
 ## Generated data (`src/data/`, never hand-edited)
 
