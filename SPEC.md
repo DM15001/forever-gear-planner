@@ -158,8 +158,14 @@ Lessons from the first test run against a real character:
    `localStorage`. Race, professions and per-slot enchants are editable; "Remove all
    enchants" clears what a sim export filled in. The page is laid out like the in-game
    character pane (`SHEET_LAYOUT` in `src/lib/constants.ts`).
-3. **Character tab** — slot grid, Wowhead links (`wowhead.com/forever/item=<id>`, verify the
-   URL pattern and the tooltip script).
+3. **Character tab — DONE.** Each slot shows icon, name (linked to
+   `wowhead.com/forever/item=<id>`), stats, first source, enchant and random-suffix
+   pickers. The centre panel shows gear stat totals and hit against the cap, including the
+   racial bonus. Logic is in `src/lib/stats.ts` (pure, tested). Icons come from
+   `wow.zamimg.com/images/wow/icons/large/<icon>.jpg`; hover tooltips from Wowhead's
+   `tooltips.js` (loaded in `index.html`). Both are the same sources the WoWSims UI uses.
+   Look and feel: dark, armory-like, the game's quality colours and gold. No Blizzard or
+   Wowhead logos or artwork beyond item icons.
 4. **Scoring + Upgrades tab** — EP score, alternatives, what-if swap, hit cap handling.
 5. **Farm plan tab**.
 6. **Enchants & professions tab**.

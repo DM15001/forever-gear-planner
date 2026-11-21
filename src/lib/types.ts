@@ -82,4 +82,25 @@ export interface SpecConfig {
 	className: string;
 	races: { id: string; name: string; faction: Faction }[];
 	hitCapPercent: number;
+	ratingPerPercent: Record<string, number>;
+	raceBonuses: Record<string, { hitPercent?: number }>;
+}
+
+export interface RandomSuffix {
+	id: number;
+	name: string;
+	/** Share of the item's randPropPoints per stat, in 1/10000. */
+	stats: Stats;
+}
+
+export interface Zone {
+	id: number;
+	name: string;
+	kind: 'dungeon' | 'raid' | 'world';
+}
+
+export interface Npc {
+	id: number;
+	name: string;
+	zoneId?: number;
 }
