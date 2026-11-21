@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
 import type { GameData } from '../lib/gameData';
-import { type Candidate, plannedGear, scoreSet, slotCandidates, type SourceFilter, suggestPlan, usableSources } from '../lib/scoring';
+import { type Candidate, plannedGear, scoreSet, slotCandidates, type SourceFilter, type SourceKindKey, suggestPlan, usableSources } from '../lib/scoring';
 import { iconUrl, sourceLine, statLine, wowheadItemUrl } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
 
@@ -15,11 +15,12 @@ interface Props {
 	onFilterChange: (next: SourceFilter) => void;
 }
 
-const FILTER_LABELS: [Exclude<keyof SourceFilter, 'tier05'>, string][] = [
+const FILTER_LABELS: [SourceKindKey, string][] = [
 	['drop', 'Dungeon and world drops'],
 	['quest', 'Quests'],
 	['crafted', 'Crafted'],
-	['vendor', 'Vendors and reputation'],
+	['vendor', 'Vendors'],
+	['rep', 'Reputation rewards'],
 	['pvp', 'PvP rewards'],
 	['unknown', 'Unknown source'],
 ];
@@ -109,7 +110,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				const equippedItem = character.gear[index] ? data.itemById.get(character.gear[index]!.id) : undefined;
 				const plannedId = character.plan?.[index];
 				const plannedItem = plannedId && plannedId !== character.gear[index]?.id ? data.itemById.get(plannedId) : undefined;
-				const plannedSource = (item: Item) => sourceLine(usableSources(item, faction, { ...filter, pvp: true, unknown: true })[0] ?? item.sources?.[0], data);
+				const plannedSource = (item: Item) => sourceLine(usableSources(item, faction, { ...filter, rep: true, pvp: true, unknown: true })[0] ?? item.sources?.[0], data);
 				const limit = expanded.has(index) ? LONG_LIST : SHORT_LIST;
 				const upgrades = candidates.filter(c => c.delta > 0).length;
 				return (

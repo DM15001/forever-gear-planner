@@ -51,6 +51,8 @@ export interface Enchant {
 	icon?: string;
 	slots: SlotKind[];
 	quality?: string;
+	/** Restricts a weapon enchant to two-handers, shields, staves or off-hand items. */
+	only?: 'twoHand' | 'shield' | 'kit' | 'staff' | 'offHand';
 	stats?: Stats;
 	hasEffect?: boolean;
 	sources?: ItemSource[];

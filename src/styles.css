@@ -658,6 +658,67 @@ h3 {
 	cursor: default;
 }
 
+/* Enchants and professions */
+.enchants {
+	display: grid;
+	gap: 2.25rem;
+	max-width: 58rem;
+}
+.enchants-hint {
+	max-width: 44rem;
+	margin-bottom: 0.9rem;
+}
+.enchant-slots {
+	margin-top: 1.25rem;
+}
+.enchant-slot {
+	display: grid;
+	grid-template-columns: minmax(12rem, 0.8fr) minmax(0, 1.6fr);
+	gap: 0.5rem 1.5rem;
+	padding: 0.85rem 0;
+	border-top: 1px solid var(--ridge);
+}
+.enchant-current {
+	margin: 0.2rem 0 0;
+	font-size: 0.9375rem;
+}
+.enchant-none {
+	color: var(--ember);
+}
+.enchant-option {
+	display: grid;
+	grid-template-columns: 2.75rem minmax(0, 1fr) auto;
+	gap: 0.6rem;
+	align-items: center;
+	padding: 0.25rem 0;
+}
+.enchant-option .num {
+	text-align: right;
+	font-weight: 600;
+}
+.enchant-name {
+	display: block;
+	font-weight: 600;
+}
+.enchant-options .badge {
+	margin-left: 0;
+	margin-right: 0.35rem;
+}
+.professions {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+	gap: 1rem;
+	margin-top: 0.75rem;
+}
+.profession-mine {
+	border-color: var(--brass-deep);
+}
+.profession-value {
+	margin: 0.2rem 0 0.5rem;
+	font-size: 0.9375rem;
+	color: var(--haze);
+}
+
 .colophon {
 	margin-top: 2.5rem;
 	padding-top: 1rem;
@@ -667,6 +728,9 @@ h3 {
 }
 
 @media (max-width: 52rem) {
+	.enchant-slot {
+		grid-template-columns: 1fr;
+	}
 	.dungeon-head {
 		grid-template-columns: 1fr auto;
 	}

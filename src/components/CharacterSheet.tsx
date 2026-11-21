@@ -1,4 +1,5 @@
 import { GEAR_SLOTS, PROFESSIONS, SHEET_LAYOUT } from '../lib/constants';
+import { applicableEnchants } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
 import { gearStats, hitSummary, iconUrl, pieceStats, sourceLine, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
 import type { Character, GearPiece, SpecConfig, Stats } from '../lib/types';
@@ -167,9 +168,9 @@ interface SlotProps {
 }
 
 function GearSlot({ index, mirrored, piece, data, onChange }: SlotProps) {
-	const { label, kind, key } = GEAR_SLOTS[index];
+	const { label, key } = GEAR_SLOTS[index];
 	const item = piece ? data?.itemById.get(piece.id) : undefined;
-	const enchants = data?.enchantsBySlot.get(kind) ?? [];
+	const enchants = data ? applicableEnchants(index, item, data) : [];
 	// An enchant id can be shared between slots, so look it up among this slot's enchants first.
 	const enchantKnown = piece?.enchant ? enchants.some(e => e.effectId === piece.enchant) : true;
 	const suffixes = (item?.randomSuffixOptions ?? []).map(id => data?.suffixById.get(id)).filter(s => s !== undefined);

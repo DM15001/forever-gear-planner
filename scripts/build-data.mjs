@@ -39,6 +39,7 @@ const PROFESSIONS = { 1: 'Alchemy', 2: 'Blacksmithing', 3: 'Enchanting', 4: 'Eng
 const FACTIONS = { 1: 'alliance', 2: 'horde' };
 const REP_LEVELS = [null, 'Hated', 'Hostile', 'Unfriendly', 'Neutral', 'Friendly', 'Honored', 'Revered', 'Exalted'];
 const ARMOR_SLOTS = new Set(['head', 'shoulder', 'chest', 'wrist', 'hands', 'waist', 'legs', 'feet']);
+const ENCHANT_TYPES = [null, 'twoHand', 'shield', 'kit', 'staff', 'offHand']; // unset = any item of the slot
 const DIFFICULTY_RAID = 2; // drop.difficulty: 1 = dungeon, 2 = raid, unset = open world
 const PHASE_RELEASED = 1; // phase 2 means "unknown" upstream (old PvP ranks, unreleased raids)
 
@@ -239,6 +240,8 @@ function convertEnchant(e) {
 		icon: e.icon,
 		slots: [e.type, ...(e.extraTypes ?? [])].map(t => ITEM_TYPES[t]).filter(Boolean),
 		quality: QUALITIES[e.quality],
+		// Restricts a weapon enchant to two-handers, shields, staves or off-hand items.
+		only: ENCHANT_TYPES[e.enchantType ?? 0],
 		stats: namedStats(e.stats),
 		hasEffect: Boolean(e.enchantEffects?.length || e.procKind || e.pseudoStats?.some(Boolean)),
 		effects: (e.enchantEffects ?? []).map(x =>

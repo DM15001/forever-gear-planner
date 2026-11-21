@@ -1,0 +1,14 @@
+{
+	"_comment": "Vendors the item data lists as plain vendors although their goods need a reputation or a currency. Keyed by NPC id. Reputation names are the original game's; check them if Forever renames a faction.",
+	"reputationVendors": {
+		"13216": "Stormpike Guard",
+		"13217": "Stormpike Guard",
+		"13218": "Frostwolf Clan",
+		"13219": "Frostwolf Clan",
+		"14753": "Silverwing Sentinels",
+		"14754": "Warsong Outriders"
+	},
+	"currencyVendors": {
+		"227853": "Tarnished Undermine Reals"
+	}
+}

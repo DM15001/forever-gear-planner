@@ -194,6 +194,7 @@
 			"weapon"
 		],
 		"quality": "common",
+		"only": "twoHand",
 		"hasEffect": true,
 		"sources": [
 			{
@@ -279,6 +280,7 @@
 			"weapon"
 		],
 		"quality": "common",
+		"only": "shield",
 		"hasEffect": true,
 		"sources": [
 			{
@@ -368,6 +370,7 @@
 			"weapon"
 		],
 		"quality": "common",
+		"only": "shield",
 		"stats": {
 			"stamina": 3
 		}
@@ -651,6 +654,7 @@
 			"weapon"
 		],
 		"quality": "common",
+		"only": "shield",
 		"stats": {
 			"spirit": 3
 		}
@@ -679,6 +683,7 @@
 			"weapon"
 		],
 		"quality": "uncommon",
+		"only": "shield",
 		"hasEffect": true,
 		"sources": [
 			{
@@ -752,6 +757,7 @@
 			"weapon"
 		],
 		"quality": "common",
+		"only": "twoHand",
 		"stats": {
 			"intellect": 5
 		},
@@ -862,7 +868,8 @@
 		"slots": [
 			"weapon"
 		],
-		"quality": "common"
+		"quality": "common",
+		"only": "twoHand"
 	},
 	{
 		"effectId": 805,
@@ -1090,6 +1097,7 @@
 			"weapon"
 		],
 		"quality": "uncommon",
+		"only": "shield",
 		"stats": {
 			"bonusArmor": 30
 		},
@@ -1194,6 +1202,7 @@
 			"weapon"
 		],
 		"quality": "uncommon",
+		"only": "twoHand",
 		"stats": {
 			"spirit": 5
 		},
@@ -1215,6 +1224,7 @@
 			"weapon"
 		],
 		"quality": "common",
+		"only": "shield",
 		"stats": {
 			"spirit": 5
 		}
@@ -1257,6 +1267,7 @@
 			"weapon"
 		],
 		"quality": "common",
+		"only": "shield",
 		"stats": {
 			"stamina": 5
 		}
@@ -1365,6 +1376,7 @@
 			"weapon"
 		],
 		"quality": "uncommon",
+		"only": "shield",
 		"hasEffect": true,
 		"sources": [
 			{
@@ -1597,6 +1609,7 @@
 			"weapon"
 		],
 		"quality": "common",
+		"only": "shield",
 		"stats": {
 			"spirit": 7
 		}
@@ -1827,6 +1840,7 @@
 			"weapon"
 		],
 		"quality": "uncommon",
+		"only": "shield",
 		"stats": {
 			"frostResistance": 8
 		},
@@ -1936,6 +1950,7 @@
 			"weapon"
 		],
 		"quality": "uncommon",
+		"only": "shield",
 		"stats": {
 			"stamina": 7
 		},
@@ -1997,7 +2012,8 @@
 		"slots": [
 			"weapon"
 		],
-		"quality": "common"
+		"quality": "common",
+		"only": "twoHand"
 	},
 	{
 		"effectId": 1483,
@@ -2207,6 +2223,7 @@
 			"weapon"
 		],
 		"quality": "uncommon",
+		"only": "shield",
 		"hasEffect": true,
 		"sources": [
 			{
@@ -2312,6 +2329,7 @@
 			"weapon"
 		],
 		"quality": "common",
+		"only": "shield",
 		"stats": {
 			"stamina": 9
 		},
@@ -2447,6 +2465,7 @@
 			"weapon"
 		],
 		"quality": "uncommon",
+		"only": "shield",
 		"stats": {
 			"spirit": 9
 		},
@@ -2558,6 +2577,7 @@
 			"weapon"
 		],
 		"quality": "uncommon",
+		"only": "twoHand",
 		"sources": [
 			{
 				"kind": "drop",
@@ -2576,7 +2596,8 @@
 		"slots": [
 			"weapon"
 		],
-		"quality": "common"
+		"quality": "common",
+		"only": "twoHand"
 	},
 	{
 		"effectId": 1897,
@@ -2713,6 +2734,7 @@
 			"weapon"
 		],
 		"quality": "uncommon",
+		"only": "twoHand",
 		"stats": {
 			"spirit": 9
 		},
@@ -2735,6 +2757,7 @@
 			"weapon"
 		],
 		"quality": "uncommon",
+		"only": "twoHand",
 		"stats": {
 			"intellect": 9
 		},
@@ -3124,6 +3147,7 @@
 			"weapon"
 		],
 		"quality": "uncommon",
+		"only": "twoHand",
 		"stats": {
 			"strength": 15
 		},
@@ -3383,6 +3407,7 @@
 			"weapon"
 		],
 		"quality": "uncommon",
+		"only": "twoHand",
 		"stats": {
 			"agility": 9
 		},
@@ -3471,6 +3496,7 @@
 			"weapon"
 		],
 		"quality": "common",
+		"only": "twoHand",
 		"stats": {
 			"agility": 25
 		},
@@ -3522,6 +3548,7 @@
 			"weapon"
 		],
 		"quality": "common",
+		"only": "shield",
 		"stats": {
 			"healingPower": 55,
 			"spellDamage": 30
@@ -3667,6 +3694,7 @@
 			"weapon"
 		],
 		"quality": "common",
+		"only": "offHand",
 		"stats": {
 			"intellect": 9
 		}
@@ -3681,6 +3709,7 @@
 			"weapon"
 		],
 		"quality": "common",
+		"only": "offHand",
 		"stats": {
 			"spirit": 12
 		}
@@ -3695,6 +3724,7 @@
 			"weapon"
 		],
 		"quality": "common",
+		"only": "offHand",
 		"stats": {
 			"intellect": 6,
 			"spirit": 5
@@ -3726,6 +3756,7 @@
 			"weapon"
 		],
 		"quality": "common",
+		"only": "twoHand",
 		"stats": {
 			"healingPower": 65,
 			"spellDamage": 65
@@ -3757,6 +3788,7 @@
 			"weapon"
 		],
 		"quality": "common",
+		"only": "shield",
 		"stats": {
 			"stamina": 12
 		}
@@ -3771,6 +3803,7 @@
 			"weapon"
 		],
 		"quality": "common",
+		"only": "shield",
 		"hasEffect": true
 	},
 	{
@@ -3865,6 +3898,7 @@
 			"weapon"
 		],
 		"quality": "common",
+		"only": "twoHand",
 		"hasEffect": true,
 		"effects": [
 			{
@@ -4007,7 +4041,8 @@
 		"slots": [
 			"weapon"
 		],
-		"quality": "common"
+		"quality": "common",
+		"only": "twoHand"
 	},
 	{
 		"effectId": 8206,
@@ -4139,6 +4174,7 @@
 			"weapon"
 		],
 		"quality": "uncommon",
+		"only": "twoHand",
 		"stats": {
 			"healingPower": 55,
 			"spellDamage": 55
@@ -4170,6 +4206,7 @@
 			"weapon"
 		],
 		"quality": "uncommon",
+		"only": "twoHand",
 		"stats": {
 			"healingPower": 100,
 			"spellDamage": 34
@@ -4261,6 +4298,7 @@
 			"weapon"
 		],
 		"quality": "uncommon",
+		"only": "twoHand",
 		"stats": {
 			"strength": 25
 		}

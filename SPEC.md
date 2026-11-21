@@ -181,7 +181,15 @@ Lessons from the first test run against a real character:
    ranks dungeons by the best upgrade per slot over the equipped gear, grouped by boss, and
    marks plan items. It shares the source filters with the Upgrades tab. Not done: drop
    chances (not in the data).
-6. **Enchants & professions tab**.
+6. **Enchants & professions tab — DONE.** `src/lib/enchants.ts` (pure, tested).
+   `applicableEnchants` respects two-hand, shield, staff and off-hand restrictions and
+   offers nothing for totems. `enchantOverview` ranks stat enchants per slot by set-score
+   change; proc-only enchants are listed as "sim it". `bestEnchants` fills all slots without
+   stacking hit past the cap. `professionValues` shows what each crafting profession can
+   make that beats the equipped gear.
+   Source filters now separate vendors from reputation: `rep` covers reputation rewards and
+   the battleground quartermasters listed in `src/config/vendors.json` (the item data marks
+   those as plain vendors).
 7. **Real sim (optional)** — the repo ships a CLI (`cmd/wowsimcli`) and a WASM build
    (`sim/wasm`). Step one: an "Open in WoWSims" export of the what-if set. Step two: run the
    WASM sim in a web worker for exact DPS deltas.

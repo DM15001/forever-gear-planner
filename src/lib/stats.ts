@@ -1,6 +1,14 @@
 import { GEAR_SLOTS } from './constants';
 import type { GameData } from './gameData';
+import vendors from '../config/vendors.json';
 import type { Character, GearPiece, Item, ItemSource, SpecConfig, Stats } from './types';
+
+const REPUTATION_VENDORS: Record<string, string> = vendors.reputationVendors;
+const CURRENCY_VENDORS: Record<string, string> = vendors.currencyVendors;
+
+/** The reputation a vendor's goods need, for vendors the data lists without one. */
+export const vendorReputation = (source: ItemSource): string | undefined => (source.kind === 'vendor' && source.npcId ? REPUTATION_VENDORS[source.npcId] : undefined);
+
 
 /** Short labels for item stat lines, in display order. */
 export const STAT_LABELS: [key: string, short: string, long: string][] = [
@@ -91,7 +99,8 @@ export function sourceLine(source: ItemSource | undefined, data: GameData): stri
 		case 'drop': {
 			const zone = source.zoneId ? data.zoneById.get(source.zoneId)?.name : undefined;
 			const from = (source.npcId ? data.npcById.get(source.npcId)?.name : undefined) ?? source.otherName;
-			return [zone ?? 'World drop', from?.trim()].filter(Boolean).join(': ');
+			if (!zone) return from && !/^world drop$/i.test(from.trim()) ? `World drop: ${from.trim()}` : 'World drop';
+			return [zone, from?.trim()].filter(Boolean).join(': ');
 		}
 		case 'quest':
 			return `Quest: ${source.name ?? 'unknown'}`;
@@ -99,8 +108,12 @@ export function sourceLine(source: ItemSource | undefined, data: GameData): stri
 			return `Crafted: ${source.profession}`;
 		case 'rep':
 			return `Reputation: ${source.repFaction}${source.repLevel ? ` (${source.repLevel})` : ''}`;
-		case 'vendor':
-			return `Vendor: ${source.npcName ?? 'unknown'}`;
+		case 'vendor': {
+			const reputation = vendorReputation(source);
+			const currency = source.npcId ? CURRENCY_VENDORS[source.npcId] : undefined;
+			if (reputation) return `Reputation: ${reputation} (${source.npcName})`;
+			return `Vendor: ${source.npcName ?? 'unknown'}${currency ? ` (${currency})` : ''}`;
+		}
 		case 'pvp':
 			return 'PvP reward';
 		default:

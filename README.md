@@ -10,7 +10,9 @@ See [SPEC.md](SPEC.md) for scope, data model and milestones.
 - [x] Milestone 3: character tab (icons, stats, Wowhead links)
 - [x] Milestone 4: scoring + upgrades tab
 - [x] Milestone 5: farm plan tab
-- [ ] Milestone 6: enchants & professions tab
+- [x] Milestone 6: enchants & professions tab
+- [ ] Milestone 7: sim integration (optional)
+- [ ] Milestone 8: GitHub Pages
 
 ## Run it locally
 

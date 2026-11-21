@@ -1,5 +1,5 @@
 import { GEAR_SLOTS } from './constants';
-import { type CandidateOptions, plannedGear, scoreSet, slotCandidates, usableSources } from './scoring';
+import { type CandidateOptions, filterKey, plannedGear, scoreSet, slotCandidates, usableSources } from './scoring';
 import type { Item, ItemSource, Zone } from './types';
 
 export interface FarmDrop {
@@ -27,7 +27,7 @@ export interface FarmDungeon {
 }
 
 /** Every upgrade over the equipped gear, once per item, in the slot where it gains most. */
-function allUpgrades(options: CandidateOptions): FarmDrop[] {
+export function allUpgrades(options: CandidateOptions): FarmDrop[] {
 	const { character, spec } = options;
 	const planned = new Set(Object.values(character.plan ?? {}));
 	const best = new Map<number, FarmDrop>();
@@ -80,7 +80,7 @@ export function dungeonRanking(options: CandidateOptions): FarmDungeon[] {
 		.sort((a, b) => b.value - a.value);
 }
 
-export type PlanGroupKind = 'dungeon' | 'world' | 'quest' | 'crafted' | 'vendor' | 'pvp' | 'unknown';
+export type PlanGroupKind = 'dungeon' | 'world' | 'quest' | 'crafted' | 'vendor' | 'rep' | 'pvp' | 'unknown';
 
 export interface PlanEntry {
 	item: Item;
@@ -93,13 +93,12 @@ export interface PlanEntry {
 	craftable: boolean;
 }
 
-export const PLAN_GROUP_ORDER: PlanGroupKind[] = ['dungeon', 'quest', 'crafted', 'vendor', 'world', 'pvp', 'unknown'];
+export const PLAN_GROUP_ORDER: PlanGroupKind[] = ['dungeon', 'quest', 'crafted', 'vendor', 'rep', 'world', 'pvp', 'unknown'];
 
 const groupOf = (source: ItemSource | undefined): PlanGroupKind => {
 	if (!source) return 'unknown';
 	if (source.kind === 'drop') return source.zoneKind === 'dungeon' ? 'dungeon' : 'world';
-	if (source.kind === 'rep' || source.kind === 'vendor') return 'vendor';
-	return source.kind as PlanGroupKind;
+	return filterKey(source) as PlanGroupKind;
 };
 
 /** The planned items, grouped by how to get them. Each item is filed under its first usable source. */
@@ -115,7 +114,7 @@ export function planShoppingList(options: CandidateOptions): Map<PlanGroupKind, 
 		const item = data.itemById.get(itemId);
 		if (!item || itemId === character.gear[slotIndex]?.id) continue;
 		// The plan is the user's choice, so look at every source kind, not just the filtered ones.
-		const everything = { drop: true, quest: true, crafted: true, vendor: true, pvp: true, unknown: true, tier05: true };
+		const everything = { drop: true, quest: true, crafted: true, vendor: true, rep: true, pvp: true, unknown: true, tier05: true };
 		const source = usableSources(item, faction, everything)[0];
 		const single = character.gear.map((piece, i) => (i === slotIndex ? planned[i] : piece));
 		const entry: PlanEntry = {

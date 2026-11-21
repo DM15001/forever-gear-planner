@@ -1,6 +1,6 @@
 import { GEAR_SLOTS } from './constants';
 import type { GameData } from './gameData';
-import { addStats, type HitSummary, hitSummary, pieceStats } from './stats';
+import { addStats, type HitSummary, hitSummary, pieceStats, vendorReputation } from './stats';
 import type { Character, Faction, GearPiece, Item, ItemSource, SpecConfig, Stats } from './types';
 
 export type Gear = (GearPiece | null)[];
@@ -55,16 +55,20 @@ export interface SourceFilter {
 	drop: boolean;
 	quest: boolean;
 	crafted: boolean;
-	vendor: boolean; // vendors and reputation rewards
+	vendor: boolean; // plain and currency vendors
+	rep: boolean; // reputation rewards, including battleground quartermasters
 	pvp: boolean;
 	unknown: boolean; // items the data has no source for
 	tier05: boolean; // the class's Tier 0.5 set (spec.tier05Set)
 }
 
-export const DEFAULT_FILTER: SourceFilter = { drop: true, quest: true, crafted: true, vendor: true, pvp: false, unknown: true, tier05: true };
+export const DEFAULT_FILTER: SourceFilter = { drop: true, quest: true, crafted: true, vendor: true, rep: true, pvp: false, unknown: true, tier05: true };
 
-const filterKey = (source: ItemSource): Exclude<keyof SourceFilter, 'tier05'> => {
-	if (source.kind === 'rep' || source.kind === 'vendor') return 'vendor';
+export type SourceKindKey = Exclude<keyof SourceFilter, 'tier05'>;
+
+/** The filter switch a source falls under. */
+export const filterKey = (source: ItemSource): SourceKindKey => {
+	if (source.kind === 'rep' || vendorReputation(source)) return 'rep';
 	return source.kind;
 };
 

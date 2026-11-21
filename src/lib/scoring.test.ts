@@ -6,6 +6,7 @@ import { GEAR_SLOTS } from './constants';
 import { loadGameData } from './gameData';
 import { importCharacter } from './importCharacter';
 import { DEFAULT_FILTER, plannedGear, scoreSet, slotCandidates, suggestPlan } from './scoring';
+import { vendorReputation } from './stats';
 import type { Character, SpecConfig } from './types';
 
 const spec = specJson as unknown as SpecConfig;
@@ -111,6 +112,29 @@ describe('Tier 0.5 filter', () => {
 		const plan = suggestPlan(without);
 		expect(Object.values(plan).some(id => data.itemById.get(id)?.setId === setId)).toBe(false);
 		expect(Object.values(suggestPlan(options)).some(id => data.itemById.get(id)?.setId === setId)).toBe(true);
+	});
+});
+
+describe('reputation filter', () => {
+	const noRep = { ...options, filter: { ...DEFAULT_FILTER, rep: false } };
+	const DON_JULIOS_BAND = 19325; // sold by the Alterac Valley quartermasters, listed as a plain vendor item
+
+	it('treats battleground quartermasters as reputation', () => {
+		expect(slotCandidates(10, dwarf.gear, options).some(c => c.item.id === DON_JULIOS_BAND)).toBe(true);
+		expect(slotCandidates(10, dwarf.gear, noRep).some(c => c.item.id === DON_JULIOS_BAND)).toBe(false);
+	});
+
+	it('keeps plain vendors when reputation is off', () => {
+		const ARCANOWEAVE_CLOAK = 272411; // Pix Xizzix, a currency vendor
+		expect(slotCandidates(3, dwarf.gear, noRep).some(c => c.item.id === ARCANOWEAVE_CLOAK)).toBe(true);
+	});
+
+	it('plans a set without reputation rewards when switched off', () => {
+		const plan = suggestPlan(noRep);
+		for (const id of Object.values(plan)) {
+			const sources = data.itemById.get(id)?.sources ?? [];
+			if (sources.length) expect(sources.some(s => s.kind !== 'rep' && !vendorReputation(s))).toBe(true);
+		}
 	});
 });
 

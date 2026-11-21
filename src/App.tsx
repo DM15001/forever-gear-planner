@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { CharacterSheet } from './components/CharacterSheet';
+import { EnchantsTab } from './components/EnchantsTab';
 import { FarmTab } from './components/FarmTab';
 import { ImportPanel } from './components/ImportPanel';
 import { UpgradesTab } from './components/UpgradesTab';
@@ -14,10 +15,10 @@ import specJson from './specs/enhancement-shaman.json';
 const spec = specJson as unknown as SpecConfig;
 
 const TABS = [
-	{ id: 'character', label: 'Character', ready: true },
-	{ id: 'upgrades', label: 'Upgrades', ready: true },
-	{ id: 'farm', label: 'Farm plan', ready: true },
-	{ id: 'enchants', label: 'Enchants & professions', ready: false },
+	{ id: 'character', label: 'Character' },
+	{ id: 'upgrades', label: 'Upgrades' },
+	{ id: 'farm', label: 'Farm plan' },
+	{ id: 'enchants', label: 'Enchants & professions' },
 ];
 
 export function App() {
@@ -55,7 +56,7 @@ export function App() {
 				</div>
 				<nav className="tabs" aria-label="Sections">
 					{TABS.map(t => (
-						<button key={t.id} className="tab" aria-current={t.id === tab ? 'page' : undefined} disabled={!t.ready} title={t.ready ? undefined : 'Not built yet'} onClick={() => setTab(t.id)}>
+						<button key={t.id} className="tab" aria-current={t.id === tab ? 'page' : undefined} onClick={() => setTab(t.id)}>
 							{t.label}
 						</button>
 					))}
@@ -70,6 +71,8 @@ export function App() {
 				{character && !importing && tab === 'upgrades' && (data ? <UpgradesTab spec={spec} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
 
 				{character && !importing && tab === 'farm' && (data ? <FarmTab spec={spec} character={character} data={data} filter={filter} /> : <p>Loading item data…</p>)}
+
+				{character && !importing && tab === 'enchants' && (data ? <EnchantsTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
 
 				{character && !importing && tab === 'character' && (
 					<>
