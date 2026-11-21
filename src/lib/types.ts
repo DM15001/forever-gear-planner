@@ -88,6 +88,8 @@ export interface SpecConfig {
 	raceBonuses: Record<string, { hitPercent?: number }>;
 	/** 'twoHand': the main hand takes two-handers only and the off hand stays empty. */
 	weaponSetup: 'twoHand' | 'oneHand';
+	/** The class's Tier 0.5 set, which pre-raid lists often show with and without. */
+	tier05Set?: { setId: number; name: string };
 	weights: {
 		source: string;
 		mainHandDps: number;

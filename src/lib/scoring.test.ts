@@ -97,6 +97,23 @@ describe('suggestPlan', () => {
 	});
 });
 
+describe('Tier 0.5 filter', () => {
+	const setId = spec.tier05Set!.setId;
+	const without = { ...options, filter: { ...DEFAULT_FILTER, tier05: false } };
+
+	it('offers the set by default and hides it when switched off', () => {
+		const SHOULDER = 2;
+		expect(slotCandidates(SHOULDER, dwarf.gear, options).some(c => c.item.setId === setId)).toBe(true);
+		expect(slotCandidates(SHOULDER, dwarf.gear, without).some(c => c.item.setId === setId)).toBe(false);
+	});
+
+	it('plans a set without any Tier 0.5 piece when switched off', () => {
+		const plan = suggestPlan(without);
+		expect(Object.values(plan).some(id => data.itemById.get(id)?.setId === setId)).toBe(false);
+		expect(Object.values(suggestPlan(options)).some(id => data.itemById.get(id)?.setId === setId)).toBe(true);
+	});
+});
+
 describe('plannedGear', () => {
 	it('keeps the enchant of the slot when an item is swapped in', () => {
 		const withEnchant: Character = { ...dwarf, gear: dwarf.gear.map((p, i) => (i === HEAD && p ? { ...p, enchant: 2543 } : p)), plan: { [HEAD]: 13404 } };

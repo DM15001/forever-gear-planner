@@ -57,6 +57,10 @@
 	],
 	"canDualWield": false,
 	"weaponSetup": "twoHand",
+	"tier05Set": {
+		"setId": 1679,
+		"name": "The Five Thunders"
+	},
 	"hitCapPercent": 8,
 	"ratingPerPercent": {
 		"hitRating": 10,

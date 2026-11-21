@@ -58,11 +58,12 @@ export interface SourceFilter {
 	vendor: boolean; // vendors and reputation rewards
 	pvp: boolean;
 	unknown: boolean; // items the data has no source for
+	tier05: boolean; // the class's Tier 0.5 set (spec.tier05Set)
 }
 
-export const DEFAULT_FILTER: SourceFilter = { drop: true, quest: true, crafted: true, vendor: true, pvp: false, unknown: true };
+export const DEFAULT_FILTER: SourceFilter = { drop: true, quest: true, crafted: true, vendor: true, pvp: false, unknown: true, tier05: true };
 
-const filterKey = (source: ItemSource): keyof SourceFilter => {
+const filterKey = (source: ItemSource): Exclude<keyof SourceFilter, 'tier05'> => {
 	if (source.kind === 'rep' || source.kind === 'vendor') return 'vendor';
 	return source.kind;
 };
@@ -72,7 +73,8 @@ export function usableSources(item: Item, faction: Faction | undefined, filter: 
 	return (item.sources ?? []).filter(s => filter[filterKey(s)] && s.zoneKind !== 'raid' && (!s.faction || !faction || s.faction === faction));
 }
 
-function isObtainable(item: Item, character: Character, faction: Faction | undefined, filter: SourceFilter): boolean {
+function isObtainable(item: Item, character: Character, faction: Faction | undefined, filter: SourceFilter, spec: SpecConfig): boolean {
+	if (!filter.tier05 && item.setId !== undefined && item.setId === spec.tier05Set?.setId) return false;
 	if (item.faction && faction && item.faction !== faction) return false;
 	if (item.requiredProfession && !character.professions.includes(item.requiredProfession)) return false;
 	if (!item.sources?.length) return filter.unknown;
@@ -112,7 +114,7 @@ export function slotCandidates(slotIndex: number, gear: Gear, { character, data,
 	for (const item of data.itemById.values()) {
 		if (!fitsSlot(item, slotIndex, spec) || item.id === current?.id) continue;
 		if (item.unique && item.id === pairedId) continue;
-		if (!isObtainable(item, character, faction, filter)) continue;
+		if (!isObtainable(item, character, faction, filter, spec)) continue;
 		const swapped = gear.map((piece, i) => (i === slotIndex ? (current?.enchant ? { id: item.id, enchant: current.enchant } : { id: item.id }) : piece));
 		result.push({
 			item,

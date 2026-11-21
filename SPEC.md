@@ -171,7 +171,9 @@ Lessons from the first test run against a real character:
    config); `slotCandidates` ranks every obtainable item for a slot by set-score change;
    `suggestPlan` makes the single best swap repeatedly until none helps. The plan
    (`character.plan`, slot index -> item id) is saved with the character. Filters by source
-   kind; faction and required profession are applied automatically. Not done yet: editing
+   kind; faction and required profession are applied automatically. A separate switch
+   includes or excludes the Tier 0.5 set (`tier05Set` in the spec config), so the best set
+   can be planned both ways. Not done yet: editing
    the weights in the UI, filtering crafted items to the character's own professions.
 5. **Farm plan tab**.
 6. **Enchants & professions tab**.

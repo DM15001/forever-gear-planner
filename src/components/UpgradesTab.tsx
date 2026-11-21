@@ -13,7 +13,7 @@ interface Props {
 	onChange: (next: Character) => void;
 }
 
-const FILTER_LABELS: [keyof SourceFilter, string][] = [
+const FILTER_LABELS: [Exclude<keyof SourceFilter, 'tier05'>, string][] = [
 	['drop', 'Dungeon and world drops'],
 	['quest', 'Quests'],
 	['crafted', 'Crafted'],
@@ -94,6 +94,12 @@ export function UpgradesTab({ spec, character, data, onChange }: Props) {
 						{label}
 					</label>
 				))}
+				{spec.tier05Set && (
+					<label className="check check-set">
+						<input type="checkbox" checked={filter.tier05} onChange={e => setFilter({ ...filter, tier05: e.target.checked })} />
+						Tier 0.5 set ({spec.tier05Set.name})
+					</label>
+				)}
 				{!faction && <p className="field-error">Pick a race on the Character tab to hide the other faction's items.</p>}
 			</fieldset>
 
