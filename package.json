@@ -1,0 +1,13 @@
+{
+  "name": "forever-gear-planner",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Gear planner for World of Warcraft: Forever. Data and stat weights from WoWSims.",
+  "scripts": {
+    "build-data": "node scripts/build-data.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

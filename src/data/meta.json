@@ -1,0 +1,38 @@
+{
+	"generatedAt": "2026-11-21T19:37:16.831Z",
+	"spec": "enhancement-shaman",
+	"source": {
+		"repo": "https://github.com/wowsims/forever",
+		"license": "MIT",
+		"origin": "local file /tmp/db.json",
+		"commit": null
+	},
+	"counts": {
+		"items": 4639,
+		"itemsBySlot": {
+			"hands": 364,
+			"trinket": 161,
+			"weapon": 925,
+			"finger": 269,
+			"chest": 424,
+			"feet": 392,
+			"neck": 178,
+			"head": 351,
+			"legs": 352,
+			"wrist": 265,
+			"back": 266,
+			"shoulder": 309,
+			"waist": 372,
+			"ranged": 11
+		},
+		"itemsWithoutSource": 1744,
+		"itemsWithEffects": 471,
+		"enchants": 223,
+		"zones": {
+			"world": 44,
+			"dungeon": 22
+		},
+		"npcs": 419,
+		"randomSuffixes": 251
+	}
+}
