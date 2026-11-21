@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { CharacterSheet } from './components/CharacterSheet';
 import { ImportPanel } from './components/ImportPanel';
+import { UpgradesTab } from './components/UpgradesTab';
 import { type GameData, loadGameData } from './lib/gameData';
 import type { ImportResult } from './lib/importCharacter';
 import { loadCharacter, saveCharacter } from './lib/storage';
@@ -12,7 +13,7 @@ const spec = specJson as unknown as SpecConfig;
 
 const TABS = [
 	{ id: 'character', label: 'Character', ready: true },
-	{ id: 'upgrades', label: 'Upgrades', ready: false },
+	{ id: 'upgrades', label: 'Upgrades', ready: true },
 	{ id: 'farm', label: 'Farm plan', ready: false },
 	{ id: 'enchants', label: 'Enchants & professions', ready: false },
 ];
@@ -21,6 +22,7 @@ export function App() {
 	const [character, setCharacter] = useState<Character | null>(loadCharacter);
 	const [warnings, setWarnings] = useState<string[]>([]);
 	const [importing, setImporting] = useState(false);
+	const [tab, setTab] = useState('character');
 	const [data, setData] = useState<GameData | null>(null);
 	const [dataError, setDataError] = useState(false);
 
@@ -35,6 +37,7 @@ export function App() {
 
 	const onImported = (result: ImportResult) => {
 		update(result.character);
+		setTab('character');
 		setWarnings(result.warnings);
 		setImporting(false);
 	};
@@ -47,9 +50,9 @@ export function App() {
 					<p className="masthead-sub">{spec.name}, pre-raid</p>
 				</div>
 				<nav className="tabs" aria-label="Sections">
-					{TABS.map(tab => (
-						<button key={tab.id} className="tab" aria-current={tab.id === 'character' ? 'page' : undefined} disabled={!tab.ready} title={tab.ready ? undefined : 'Not built yet'}>
-							{tab.label}
+					{TABS.map(t => (
+						<button key={t.id} className="tab" aria-current={t.id === tab ? 'page' : undefined} disabled={!t.ready} title={t.ready ? undefined : 'Not built yet'} onClick={() => setTab(t.id)}>
+							{t.label}
 						</button>
 					))}
 				</nav>
@@ -60,7 +63,9 @@ export function App() {
 
 				{(!character || importing) && <ImportPanel spec={spec} hasCharacter={Boolean(character)} onImported={onImported} onCancel={() => setImporting(false)} />}
 
-				{character && !importing && (
+				{character && !importing && tab === 'upgrades' && (data ? <UpgradesTab spec={spec} character={character} data={data} onChange={update} /> : <p>Loading item data…</p>)}
+
+				{character && !importing && tab === 'character' && (
 					<>
 						{warnings.length > 0 && (
 							<div className="notice" role="status">

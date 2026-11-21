@@ -166,7 +166,13 @@ Lessons from the first test run against a real character:
    `tooltips.js` (loaded in `index.html`). Both are the same sources the WoWSims UI uses.
    Look and feel: dark, armory-like, the game's quality colours and gold. No Blizzard or
    Wowhead logos or artwork beyond item icons.
-4. **Scoring + Upgrades tab** — EP score, alternatives, what-if swap, hit cap handling.
+4. **Scoring + Upgrades tab — DONE.** `src/lib/scoring.ts` (pure, tested): `scoreSet`
+   scores a whole set with hit capped (racial included, over-cap weight from the spec
+   config); `slotCandidates` ranks every obtainable item for a slot by set-score change;
+   `suggestPlan` makes the single best swap repeatedly until none helps. The plan
+   (`character.plan`, slot index -> item id) is saved with the character. Filters by source
+   kind; faction and required profession are applied automatically. Not done yet: editing
+   the weights in the UI, filtering crafted items to the character's own professions.
 5. **Farm plan tab**.
 6. **Enchants & professions tab**.
 7. **Real sim (optional)** — the repo ships a CLI (`cmd/wowsimcli`) and a WASM build

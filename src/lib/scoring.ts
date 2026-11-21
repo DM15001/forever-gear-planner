@@ -1,0 +1,148 @@
+import { GEAR_SLOTS } from './constants';
+import type { GameData } from './gameData';
+import { addStats, type HitSummary, hitSummary, pieceStats } from './stats';
+import type { Character, Faction, GearPiece, Item, ItemSource, SpecConfig, Stats } from './types';
+
+export type Gear = (GearPiece | null)[];
+
+const MAIN_HAND = GEAR_SLOTS.findIndex(s => s.key === 'mainHand');
+const OFF_HAND = GEAR_SLOTS.findIndex(s => s.key === 'offHand');
+/** Slots that come in pairs; a unique item can only sit in one of them. */
+const PAIRED: Record<number, number> = { 10: 11, 11: 10, 12: 13, 13: 12 };
+
+/** Equipped gear with the what-if swaps applied. A swapped-in item keeps the slot's enchant. */
+export function plannedGear(character: Character): Gear {
+	return character.gear.map((piece, index) => {
+		const plannedId = character.plan?.[index];
+		if (!plannedId || plannedId === piece?.id) return piece;
+		return piece?.enchant ? { id: plannedId, enchant: piece.enchant } : { id: plannedId };
+	});
+}
+
+export interface SetTotals {
+	stats: Stats;
+	hit: HitSummary;
+	/** Attack-power equivalents. Procs, on-use effects and set bonuses are not counted. */
+	score: number;
+}
+
+/** Scores a whole set, so hit rating beyond the cap is valued at the over-cap weight. */
+export function scoreSet(gear: Gear, character: Character, data: GameData, spec: SpecConfig): SetTotals {
+	const stats: Stats = {};
+	let mainHandDps = 0;
+	gear.forEach((piece, index) => {
+		if (!piece) return;
+		const item = data.itemById.get(piece.id);
+		if (item) {
+			addStats(stats, pieceStats(item, piece, data));
+			if (index === MAIN_HAND) mainHandDps = item.weapon?.dps ?? 0;
+		}
+		if (piece.enchant) addStats(stats, data.enchantsBySlot.get(GEAR_SLOTS[index].kind)?.find(e => e.effectId === piece.enchant)?.stats);
+	});
+
+	const hit = hitSummary(stats, character, spec);
+	const { weights } = spec;
+	let score = mainHandDps * weights.mainHandDps;
+	for (const [key, value] of Object.entries(stats)) {
+		if (key === 'hitRating') score += (value - hit.ratingOver) * (weights.stats.hitRating ?? 0) + hit.ratingOver * weights.hitRatingOverCap;
+		else score += value * (weights.stats[key] ?? 0);
+	}
+	return { stats, hit, score };
+}
+
+/** Which kinds of item sources the upgrade lists include. */
+export interface SourceFilter {
+	drop: boolean;
+	quest: boolean;
+	crafted: boolean;
+	vendor: boolean; // vendors and reputation rewards
+	pvp: boolean;
+	unknown: boolean; // items the data has no source for
+}
+
+export const DEFAULT_FILTER: SourceFilter = { drop: true, quest: true, crafted: true, vendor: true, pvp: false, unknown: true };
+
+const filterKey = (source: ItemSource): keyof SourceFilter => {
+	if (source.kind === 'rep' || source.kind === 'vendor') return 'vendor';
+	return source.kind;
+};
+
+/** Sources this character can actually use, given faction and the filter. */
+export function usableSources(item: Item, faction: Faction | undefined, filter: SourceFilter): ItemSource[] {
+	return (item.sources ?? []).filter(s => filter[filterKey(s)] && s.zoneKind !== 'raid' && (!s.faction || !faction || s.faction === faction));
+}
+
+function isObtainable(item: Item, character: Character, faction: Faction | undefined, filter: SourceFilter): boolean {
+	if (item.faction && faction && item.faction !== faction) return false;
+	if (item.requiredProfession && !character.professions.includes(item.requiredProfession)) return false;
+	if (!item.sources?.length) return filter.unknown;
+	return usableSources(item, faction, filter).length > 0;
+}
+
+function fitsSlot(item: Item, slotIndex: number, spec: SpecConfig): boolean {
+	if (item.slot !== GEAR_SLOTS[slotIndex].kind) return false;
+	if (item.slot !== 'weapon') return true;
+	if (spec.weaponSetup === 'twoHand') return slotIndex === MAIN_HAND && item.weapon?.hand === 'twoHand';
+	if (slotIndex === OFF_HAND) return item.weapon?.hand === 'offHand';
+	return item.weapon?.hand === 'mainHand' || item.weapon?.hand === 'oneHand';
+}
+
+export interface Candidate {
+	item: Item;
+	/** Change in set score when this item replaces the slot's current one. */
+	delta: number;
+	/** The score leaves out a proc, on-use effect, set bonus or unpicked random suffix. */
+	incomplete: boolean;
+}
+
+export interface CandidateOptions {
+	character: Character;
+	data: GameData;
+	spec: SpecConfig;
+	filter: SourceFilter;
+}
+
+/** All items that could go into a slot of `gear`, best first. */
+export function slotCandidates(slotIndex: number, gear: Gear, { character, data, spec, filter }: CandidateOptions): Candidate[] {
+	const faction = spec.races.find(r => r.id === character.race)?.faction;
+	const base = scoreSet(gear, character, data, spec).score;
+	const current = gear[slotIndex];
+	const pairedId = PAIRED[slotIndex] !== undefined ? gear[PAIRED[slotIndex]]?.id : undefined;
+	const result: Candidate[] = [];
+	for (const item of data.itemById.values()) {
+		if (!fitsSlot(item, slotIndex, spec) || item.id === current?.id) continue;
+		if (item.unique && item.id === pairedId) continue;
+		if (!isObtainable(item, character, faction, filter)) continue;
+		const swapped = gear.map((piece, i) => (i === slotIndex ? (current?.enchant ? { id: item.id, enchant: current.enchant } : { id: item.id }) : piece));
+		result.push({
+			item,
+			delta: scoreSet(swapped, character, data, spec).score - base,
+			incomplete: Boolean(item.effects?.length || item.setId || item.randomSuffixOptions?.length),
+		});
+	}
+	return result.sort((a, b) => b.delta - a.delta || a.item.name.localeCompare(b.item.name));
+}
+
+/**
+ * Builds a plan by repeatedly making the single best swap until none helps. Because every
+ * swap is scored on the whole set, the result does not stack hit rating past the cap.
+ */
+export function suggestPlan(options: CandidateOptions): Record<number, number> {
+	const { character, spec } = options;
+	let gear: Gear = character.gear.map(piece => piece);
+	const plan: Record<number, number> = {};
+	for (let round = 0; round < 60; round++) {
+		let best: { slot: number; candidate: Candidate } | null = null;
+		for (let slot = 0; slot < GEAR_SLOTS.length; slot++) {
+			if (spec.weaponSetup === 'twoHand' && slot === OFF_HAND) continue;
+			const top = slotCandidates(slot, gear, options)[0];
+			if (top && top.delta > 0.01 && (!best || top.delta > best.candidate.delta)) best = { slot, candidate: top };
+		}
+		if (!best) break;
+		const { slot, candidate } = best;
+		const enchant = gear[slot]?.enchant;
+		gear = gear.map((piece, i) => (i === slot ? (enchant ? { id: candidate.item.id, enchant } : { id: candidate.item.id }) : piece));
+		plan[slot] = candidate.item.id;
+	}
+	return plan;
+}

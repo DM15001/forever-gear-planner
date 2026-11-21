@@ -8,7 +8,8 @@ See [SPEC.md](SPEC.md) for scope, data model and milestones.
 - [x] Milestone 1: data script
 - [x] Milestone 2: app shell + character import
 - [x] Milestone 3: character tab (icons, stats, Wowhead links)
-- [ ] Milestone 4: scoring + upgrades tab
+- [x] Milestone 4: scoring + upgrades tab
+- [ ] Milestone 5: farm plan tab
 
 ## Run it locally
 

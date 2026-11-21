@@ -417,6 +417,131 @@ h3 {
 	margin: 0;
 }
 
+/* Upgrades */
+.upgrades {
+	display: grid;
+	gap: 1.5rem;
+	max-width: 58rem;
+}
+.summary-scores {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem 3rem;
+}
+.summary-scores .field-label {
+	margin-top: 0;
+}
+.score {
+	display: block;
+	font-family: var(--serif);
+	font-size: 2rem;
+	line-height: 1.1;
+	color: var(--mist);
+}
+.score .delta-up,
+.score .delta-down {
+	font-size: 1.125rem;
+}
+.summary-hit {
+	display: block;
+	font-size: 0.875rem;
+	color: var(--haze);
+}
+.summary .hint {
+	max-width: 44rem;
+}
+.delta-up {
+	color: var(--q-uncommon);
+}
+.delta-down {
+	color: var(--ember);
+}
+.filters {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem 1.25rem;
+}
+.filters legend {
+	padding: 0;
+	margin-bottom: 0.4rem;
+	color: var(--haze);
+	font-size: 0.8125rem;
+}
+.check {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	cursor: pointer;
+}
+.check input {
+	accent-color: var(--brass);
+	width: 1rem;
+	height: 1rem;
+}
+.upgrade-head {
+	border-bottom: 1px solid var(--ridge);
+	padding-bottom: 0.4rem;
+	margin-bottom: 0.25rem;
+}
+.upgrade-current {
+	margin: 0.15rem 0 0;
+	font-size: 0.9375rem;
+}
+.upgrade-current a {
+	text-decoration: none;
+	font-weight: 600;
+}
+.upgrade-count {
+	color: var(--haze);
+	margin-left: 0.75rem;
+}
+.candidates {
+	list-style: none;
+	margin: 0 0 0.4rem;
+	padding: 0;
+}
+.candidate {
+	display: grid;
+	grid-template-columns: 3.5rem 2.25rem minmax(0, 1fr) auto;
+	gap: 0.75rem;
+	align-items: center;
+	padding: 0.45rem 0;
+	border-bottom: 1px solid #1c2733;
+}
+.candidate-delta {
+	text-align: right;
+	font-weight: 600;
+}
+.slot-icon-small {
+	width: 2.25rem;
+	height: 2.25rem;
+	border-radius: 4px;
+}
+.candidate-name a {
+	font-weight: 600;
+	text-decoration: none;
+}
+.candidate-name a:hover,
+.upgrade-current a:hover {
+	text-decoration: underline;
+}
+.badge {
+	margin-left: 0.5rem;
+	font-size: 0.75rem;
+	color: var(--brass);
+	border: 1px solid var(--brass-deep);
+	border-radius: 3px;
+	padding: 0 0.3rem;
+	cursor: help;
+}
+.button-small {
+	padding: 0.25rem 0.6rem;
+	font-size: 0.875rem;
+}
+
 .colophon {
 	margin-top: 2.5rem;
 	padding-top: 1rem;
@@ -426,6 +551,12 @@ h3 {
 }
 
 @media (max-width: 52rem) {
+	.candidate {
+		grid-template-columns: 2.75rem minmax(0, 1fr) auto;
+	}
+	.candidate .slot-icon {
+		display: none;
+	}
 	.sheet {
 		grid-template-columns: 1fr;
 	}

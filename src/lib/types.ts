@@ -73,6 +73,8 @@ export interface Character {
 	professions: string[];
 	/** Always GEAR_SLOTS.length entries, in GEAR_SLOTS order. null = empty slot. */
 	gear: (GearPiece | null)[];
+	/** What-if swaps on top of the equipped gear: slot index -> item id. */
+	plan?: Record<number, number>;
 }
 
 export interface SpecConfig {
@@ -84,6 +86,15 @@ export interface SpecConfig {
 	hitCapPercent: number;
 	ratingPerPercent: Record<string, number>;
 	raceBonuses: Record<string, { hitPercent?: number }>;
+	/** 'twoHand': the main hand takes two-handers only and the off hand stays empty. */
+	weaponSetup: 'twoHand' | 'oneHand';
+	weights: {
+		source: string;
+		mainHandDps: number;
+		/** Value of hit rating beyond the cap. */
+		hitRatingOverCap: number;
+		stats: Record<string, number>;
+	};
 }
 
 export interface RandomSuffix {
