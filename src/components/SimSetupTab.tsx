@@ -27,7 +27,7 @@ import {
 	talentPointsAt,
 	talentPointsSpent,
 } from '../lib/sim/setup';
-import { wowheadSpellUrl } from '../lib/stats';
+import { wowheadItemUrl, wowheadSpellUrl } from '../lib/stats';
 import type { Character, SpecConfig } from '../lib/types';
 import { ICON_SOURCES } from './ItemIcon';
 
@@ -89,6 +89,8 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 	// The talent string is typed into a field of its own, so a half-typed string never reaches the sim.
 	const [typed, setTyped] = useState<string | null>(null);
 	const [showRaw, setShowRaw] = useState(false);
+	// The buff under the pointer, in words.
+	const [pointed, setPointed] = useState<string | null>(null);
 	const [copied, setCopied] = useState<string | null>(null);
 	// What the simulator says about each rotation step for this character.
 	const [checks, setChecks] = useState<RotationChecks | null>(null);
@@ -423,38 +425,10 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 				{BUFF_SCOPES.map(({ scope, title }) => (
 					<fieldset key={scope} className="buff-set">
 						<legend>{title}</legend>
-						<div className="buff-grid">
-							{buffFields(scope).map(field => {
-								const value = buffOf(scope, field.key);
-								if (field.steps) {
-									return (
-										<label key={field.key} className={value ? 'buff buff-on' : 'buff'}>
-											<span>{field.label}</span>
-											<select value={Math.min(value, field.steps.length)} onChange={e => setBuff(scope, field, Number(e.target.value))}>
-												<option value={0}>Off</option>
-												{field.steps.map((step, index) => (
-													<option key={step} value={index + 1}>
-														{step}
-													</option>
-												))}
-											</select>
-										</label>
-									);
-								}
-								if (field.count) {
-									return (
-										<label key={field.key} className={value ? 'buff buff-on' : 'buff'}>
-											<span>{field.label}</span>
-											<input type="number" min={0} max={20} value={value} onChange={e => setBuff(scope, field, Math.max(0, Math.round(Number(e.target.value) || 0)))} />
-										</label>
-									);
-								}
-								return (
-									<label key={field.key} className={value ? 'buff buff-on check' : 'buff check'}>
-										<input type="checkbox" checked={value > 0} onChange={e => setBuff(scope, field, e.target.checked ? 1 : 0)} /> {field.label}
-									</label>
-								);
-							})}
+						<div className="buff-icons">
+							{buffFields(scope).map(field => (
+								<BuffIcon key={field.key} field={field} value={buffOf(scope, field.key)} onChange={value => setBuff(scope, field, value)} onPoint={() => setPointed(describeBuff(field, buffOf(scope, field.key)))} />
+							))}
 						</div>
 					</fieldset>
 				))}
@@ -477,6 +451,9 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 						</div>
 					</dl>
 				)}
+				<p className="buff-pointed" aria-live="polite">
+					{pointed ?? 'Point at an icon to see what it is. Click switches it on or to the next level, right-click back.'}
+				</p>
 				<p className="hint">Every buff and debuff WoWSims knows is listed, and each can be switched on its own. The fight and the class options come from the build and cannot be changed here yet.</p>
 			</section>
 
@@ -586,11 +563,15 @@ function TalentTreeView({ tree, points, pointsLeft, onStep, onReset }: { tree: T
 					const state = value >= talent.max ? 'talent-full' : value > 0 ? 'talent-some' : blocked ? 'talent-closed' : 'talent-open';
 					return (
 						<div key={talent.name} className="talent-cell" style={{ left: `${talent.col * (CELL + GAP)}rem`, top: `${talent.row * (CELL + GAP)}rem` }}>
-							<button
+							<a
+								role="button"
+								href={talent.spellId ? wowheadSpellUrl(talent.spellId) : '#'}
 								className={`talent-button ${state}`}
 								aria-label={`${talent.name}, ${value} of ${talent.max} points${blocked && value < talent.max ? `. ${blocked}` : ''}`}
 								aria-disabled={Boolean(blocked)}
 								onClick={event => {
+									// The link is only there for the Wowhead tooltip; a click spends a point.
+									event.preventDefault();
 									if (event.shiftKey) {
 										if (!locked) onStep(index, -1);
 									} else if (!blocked) onStep(index, 1);
@@ -608,7 +589,7 @@ function TalentTreeView({ tree, points, pointsLeft, onStep, onReset }: { tree: T
 								<span className="talent-rank num">
 									{value}/{talent.max}
 								</span>
-							</button>
+							</a>
 							{value > 0 && !locked && (
 								<button className="talent-minus" aria-label={`One point less in ${talent.name}`} onClick={() => onStep(index, -1)}>
 									−
@@ -638,5 +619,55 @@ function TalentTreeView({ tree, points, pointsLeft, onStep, onReset }: { tree: T
 				)}
 			</p>
 		</div>
+	);
+}
+
+/** "Arcane Intellect: on", "Battle Shout: Rank 7", "Windfury Totem: off". */
+function describeBuff(field: BuffField, value: number): string {
+	const state = value <= 0 ? 'off' : field.steps ? (field.steps[Math.min(value, field.steps.length) - 1] ?? 'on') : field.count ? `${value}` : 'on';
+	return `${field.label}: ${state}`;
+}
+
+/** One buff as its icon: lit when on, with the level as a small number. Click steps up, right-click down. */
+function BuffIcon({ field, value, onChange, onPoint }: { field: BuffField; value: number; onChange: (value: number) => void; onPoint: () => void }) {
+	const [attempt, setAttempt] = useState(0);
+	const most = field.steps ? field.steps.length : field.count ? 20 : 1;
+	const up = () => onChange(field.count ? Math.min(most, value + 1) : value >= most ? 0 : value + 1);
+	const down = () => onChange(Math.max(0, value - 1));
+	const href = field.spellId ? wowheadSpellUrl(field.spellId) : field.itemId ? wowheadItemUrl(field.itemId) : undefined;
+	const body = (
+		<>
+			{field.icon && attempt < ICON_SOURCES.length ? <img src={ICON_SOURCES[attempt](field.icon)} alt="" loading="lazy" onError={() => setAttempt(attempt + 1)} /> : <span className="buff-letters">{field.label.replace(/[^A-Z]/g, '').slice(0, 3) || field.label.slice(0, 2)}</span>}
+			{value > 0 && most > 1 && <span className="buff-level num">{field.steps ? value : `×${value}`}</span>}
+		</>
+	);
+	const shared = {
+		className: value > 0 ? 'buff-icon buff-icon-on' : 'buff-icon',
+		'aria-label': describeBuff(field, value),
+		'aria-pressed': value > 0,
+		onMouseEnter: onPoint,
+		onFocus: onPoint,
+		onContextMenu: (event: { preventDefault: () => void }) => {
+			event.preventDefault();
+			down();
+		},
+	};
+	// With a spell or item behind it, the icon is a link so Wowhead's tooltip shows on hover.
+	return href ? (
+		<a
+			{...shared}
+			role="button"
+			href={href}
+			onClick={event => {
+				event.preventDefault();
+				if (event.shiftKey) down();
+				else up();
+			}}>
+			{body}
+		</a>
+	) : (
+		<button {...shared} title={field.label} onClick={event => (event.shiftKey ? down() : up())}>
+			{body}
+		</button>
 	);
 }

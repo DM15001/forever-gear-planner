@@ -527,6 +527,7 @@ if (unnamedSpells.length) {
 }
 // Every buff and debuff the sim knows, from its proto definition, with the labels and steps of the
 // sim's own settings page.
+const itemIconById = new Map([...(db.itemIcons ?? []), ...db.items].filter(item => item.icon).map(item => [item.id, item.icon]));
 const buffsProto = await readRepoText('proto/buffs.proto');
 const buffInputs = await readRepoText('ui/features/settings/model/buffs_debuffs_auto_gen.ts');
 const buffLabels = new Map();
@@ -535,7 +536,10 @@ for (const block of buffInputs.split(/\nexport const /).slice(1)) {
 	if (!fieldName) continue;
 	const ranks = [...block.matchAll(/\{ actionId: [^}]*label: (['"])(.*?)\1 \}/g)].map(m => m[2]);
 	const label = [...block.matchAll(/\n\tlabel: (['"])(.*?)\1/g)].pop()?.[2];
-	buffLabels.set(fieldName, { label, ranks, numStates: Number(block.match(/numStates: (\d+)/)?.[1] ?? 0) });
+	// The spell or item the sim's own page shows for the buff: its icon, and the tooltip on hover.
+	const spellId = Number(block.match(/ActionId\.fromSpellId\((\d+)\)/)?.[1] ?? 0) || undefined;
+	const itemId = spellId ? undefined : Number(block.match(/ActionId\.fromItemId\((\d+)\)/)?.[1] ?? 0) || undefined;
+	buffLabels.set(fieldName, { label, ranks, numStates: Number(block.match(/numStates: (\d+)/)?.[1] ?? 0), spellId, itemId });
 }
 const HAND_KEPT_STEPS = {
 	battleShout: ['Rank 6', 'Rank 7 (Manual of Battle Shout VII)', 'Rank 7 with three pieces of Battlegear of Wrath'],
@@ -549,10 +553,11 @@ const buffFields = message => {
 		const key = camel(name);
 		const known = buffLabels.get(key);
 		const label = known?.label ?? titled(key);
-		if (type === 'bool') return { key, label };
-		if (type === 'TristateEffect') return { key, label, steps: ['On', 'Improved'] };
+		const shown = compact({ spellId: known?.spellId, itemId: known?.itemId, icon: known?.spellId ? talentIcons.get(known.spellId) : known?.itemId ? itemIconById.get(known.itemId) : undefined });
+		if (type === 'bool') return { key, label, ...shown };
+		if (type === 'TristateEffect') return { key, label, steps: ['On', 'Improved'], ...shown };
 		const steps = HAND_KEPT_STEPS[key] ?? (known?.ranks.length ? known.ranks.map(rank => rank.replace(`${label} `, '')) : known?.numStates ? Array.from({ length: known.numStates - 1 }, (_, i) => String(i + 1)) : null);
-		return steps ? { key, label, steps } : { key, label, count: true };
+		return steps ? { key, label, steps, ...shown } : { key, label, count: true, ...shown };
 	});
 };
 const simBuffs = { raid: buffFields('RaidBuffs'), party: buffFields('PartyBuffs'), player: buffFields('IndividualBuffs'), debuffs: buffFields('Debuffs') };
@@ -569,6 +574,8 @@ const simSetup = {
 	buffs: simBuffs,
 	trees: talentTrees,
 	spells: spellNames,
+	// Icon names for the spells a result or a buff can show.
+	spellIcons: Object.fromEntries((db.spellIcons ?? []).filter(spell => spell.icon).map(spell => [spell.id, spell.icon])),
 	items: Object.fromEntries(Object.entries(itemNames).filter(([, name]) => name)),
 	consumables: (db.consumables ?? [])
 		.filter(c => CONSUMABLE_KINDS[c.type])

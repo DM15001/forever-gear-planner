@@ -4,7 +4,9 @@ import type { Gear } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
 import { type SimActionId, simKey, type SimOutcome } from '../lib/sim/request';
 import type { SimSetupData } from '../lib/sim/setup';
+import { wowheadSpellUrl } from '../lib/stats';
 import type { Character } from '../lib/types';
+import { ICON_SOURCES } from './ItemIcon';
 
 /** Set VITE_NO_SIM=1 at build time for a copy of the site without the simulator files. */
 const SIM_AVAILABLE = !import.meta.env.VITE_NO_SIM;
@@ -20,6 +22,8 @@ interface SimApi {
 	run: (gear: Gear, iterations: number) => void;
 	/** True while any run is queued or in progress. */
 	busy: boolean;
+	/** Runs finished and runs asked for since the queue was last empty. */
+	progress: { done: number; total: number };
 	error: string | null;
 }
 
@@ -29,11 +33,14 @@ export function SimProvider({ character, children }: { character: Character; chi
 	const [results, setResults] = useState<Record<string, SimOutcome>>({});
 	const [running, setRunning] = useState<Set<string>>(new Set());
 	const [error, setError] = useState<string | null>(null);
+	const [progress, setProgress] = useState({ done: 0, total: 0 });
 
 	const run = useCallback(
 		(gear: Gear, iterations: number) => {
 			const key = simKey(character, gear, iterations);
 			setRunning(old => new Set(old).add(key));
+			// A run that joins a finished queue starts the count again.
+			setProgress(old => (old.done >= old.total ? { done: 0, total: 1 } : { ...old, total: old.total + 1 }));
 			setError(null);
 			simClient
 				.run(character, gear, iterations)
@@ -41,13 +48,14 @@ export function SimProvider({ character, children }: { character: Character; chi
 					outcome => setResults(old => ({ ...old, [key]: outcome })),
 					(err: Error) => setError(err.message),
 				)
-				.finally(() =>
+				.finally(() => {
+					setProgress(old => ({ ...old, done: old.done + 1 }));
 					setRunning(old => {
 						const next = new Set(old);
 						next.delete(key);
 						return next;
-					}),
-				);
+					});
+				});
 		},
 		[character],
 	);
@@ -59,9 +67,10 @@ export function SimProvider({ character, children }: { character: Character; chi
 			isRunning: (gear, iterations) => running.has(simKey(character, gear, iterations)),
 			run,
 			busy: running.size > 0,
+			progress,
 			error,
 		}),
-		[character, results, running, run, error],
+		[character, results, running, run, progress, error],
 	);
 	return <SimContext.Provider value={api}>{children}</SimContext.Provider>;
 }
@@ -108,8 +117,46 @@ export function SimDelta({ base, variant, label = 'Sim this' }: { base: Gear; va
 
 const percent = (value: number, digits = 0) => `${(value * 100).toFixed(digits)}%`;
 
-/** What a run is made of: damage per spell, effects with their uptime, and the spread of the result. */
+const thousands = (value: number) => (value >= 1000 ? `${(value / 1000).toFixed(value >= 10000 ? 1 : 2)}K` : value.toFixed(value >= 100 ? 0 : 1));
+
+function ActionIcon({ icon }: { icon?: string }) {
+	const [attempt, setAttempt] = useState(0);
+	if (!icon || attempt >= ICON_SOURCES.length) return <span className="result-icon result-icon-empty" aria-hidden="true" />;
+	return <img className="result-icon" src={ICON_SOURCES[attempt](icon)} alt="" loading="lazy" onError={() => setAttempt(attempt + 1)} />;
+}
+
+/** A bar for the runs in the queue: how many are done, and roughly how long the rest takes. */
+export function SimProgress() {
+	const sim = useSim();
+	const [started, setStarted] = useState<number | null>(null);
+	const { done, total } = sim.progress;
+	useEffect(() => {
+		if (sim.busy && started === null) setStarted(Date.now());
+		if (!sim.busy && started !== null) setStarted(null);
+	}, [sim.busy, started]);
+	if (!sim.busy || total === 0) return null;
+	const left = started !== null && done > 0 ? Math.round((((Date.now() - started) / done) * (total - done)) / 1000) : null;
+	return <ProgressBar done={done} total={total} label={`Simulating ${Math.min(done + 1, total)} of ${total}`} detail={left !== null ? (left >= 90 ? `about ${Math.round(left / 60)} min left` : `about ${Math.max(1, left)} s left`) : undefined} />;
+}
+
+export function ProgressBar({ done, total, label, detail }: { done: number; total: number; label: string; detail?: string }) {
+	return (
+		<div className="progress" role="status">
+			<div className="progress-text">
+				<span>{label}</span>
+				{detail && <span className="slot-source">{detail}</span>}
+			</div>
+			<div className="progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={total} aria-valuenow={done}>
+				<div style={{ width: `${Math.max(3, (done / Math.max(1, total)) * 100)}%` }} />
+			</div>
+		</div>
+	);
+}
+
+/** What a run is made of: damage per spell with bars, effects with their uptime, and how the fights spread. */
 function Breakdown({ title, outcome, names }: { title: string; outcome: SimOutcome; names: SimSetupData | null }) {
+	// The damage source under the pointer: its row, its bar and its part of the strip light up together.
+	const [lit, setLit] = useState<number | null>(null);
 	const breakdown = outcome.breakdown;
 	if (!breakdown) return null;
 	const nameOf = (id: SimActionId) => {
@@ -120,51 +167,119 @@ function Breakdown({ title, outcome, names }: { title: string; outcome: SimOutco
 	const timed = (list: typeof breakdown.auras) => list.filter(aura => aura.uptime < 0.995);
 	const buffs = timed(breakdown.auras);
 	const debuffs = timed(breakdown.targetAuras);
+	const top = breakdown.actions[0]?.share || 1;
+	const fights = Math.max(1, ...breakdown.histogram.map(([, count]) => count));
+	const step = breakdown.histogram.length > 1 ? breakdown.histogram[1][0] - breakdown.histogram[0][0] : 1;
 	return (
 		<div className="breakdown">
 			<h4>{title}</h4>
-			<p className="slot-source">
-				{outcome.dps.toFixed(1)} DPS on average over {outcome.iterations.toLocaleString('en')} fights of about {breakdown.seconds.toFixed(0)} seconds. Single fights ran from {breakdown.min.toFixed(0)} to{' '}
-				{breakdown.max.toFixed(0)} DPS (standard deviation {breakdown.stdev.toFixed(0)}).
-				{breakdown.oomSeconds >= 0.5 && ` Out of mana for ${breakdown.oomSeconds.toFixed(1)} seconds per fight.`}
-			</p>
-			<table className="breakdown-table">
-				<thead>
-					<tr>
-						<th scope="col">Damage from</th>
-						<th scope="col" className="num">
-							DPS
-						</th>
-						<th scope="col" className="num">
-							Share
-						</th>
-						<th scope="col" className="num">
-							Casts
-						</th>
-						<th scope="col" className="num">
-							Crit
-						</th>
-						<th scope="col" className="num">
-							Miss
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					{breakdown.actions.map((row, index) => (
-						<tr key={index}>
-							<th scope="row">
-								{nameOf(row.id)}
-								{row.pet && <span className="slot-source"> ({row.pet})</span>}
+			<dl className="result-tiles">
+				<div>
+					<dt>DPS</dt>
+					<dd className="num">{outcome.dps.toFixed(2)}</dd>
+					<dd className="result-sub">± {breakdown.stdev.toFixed(0)} between fights</dd>
+				</div>
+				<div>
+					<dt>Casts per minute</dt>
+					<dd className="num">{breakdown.apm.toFixed(2)}</dd>
+				</div>
+				<div>
+					<dt>Out of mana</dt>
+					<dd className={breakdown.oomSeconds >= 0.5 ? 'num result-warn' : 'num'}>{breakdown.oomSeconds.toFixed(2)}s</dd>
+				</div>
+				<div>
+					<dt>Fights</dt>
+					<dd className="num">{outcome.iterations.toLocaleString('en')}</dd>
+					<dd className="result-sub">about {breakdown.seconds.toFixed(0)} s each</dd>
+				</div>
+			</dl>
+			<div className="result-strip" role="img" aria-label="Share of the damage per source">
+				{breakdown.actions.map((row, index) => (
+					<span key={index} className={lit === index ? 'result-strip-part result-lit' : 'result-strip-part'} style={{ width: `${row.share * 100}%`, opacity: lit === null || lit === index ? 1 : 0.3 }} title={`${nameOf(row.id)}: ${percent(row.share, 1)}`} onMouseEnter={() => setLit(index)} onMouseLeave={() => setLit(null)} />
+				))}
+			</div>
+			<div className="result-scroll">
+				<table className="result-table" onMouseLeave={() => setLit(null)}>
+					<thead>
+						<tr>
+							<th scope="col">Name</th>
+							<th scope="col">Damage done</th>
+							<th scope="col" className="num">
+								Casts
 							</th>
-							<td className="num">{row.dps.toFixed(1)}</td>
-							<td className="num">{percent(row.share, 1)}</td>
-							<td className="num">{row.casts >= 0.05 ? row.casts.toFixed(1) : ''}</td>
-							<td className="num">{percent(row.crit)}</td>
-							<td className="num">{row.miss !== undefined ? percent(row.miss) : ''}</td>
+							<th scope="col" className="num">
+								Avg cast
+							</th>
+							<th scope="col" className="num">
+								Hits
+							</th>
+							<th scope="col" className="num">
+								Avg hit
+							</th>
+							<th scope="col" className="num">
+								Crit %
+							</th>
+							<th scope="col" className="num">
+								Miss %
+							</th>
+							<th scope="col" className="num" title="Damage per second of cast time">
+								DPET
+							</th>
+							<th scope="col" className="num">
+								DPS
+							</th>
 						</tr>
-					))}
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						{breakdown.actions.map((row, index) => (
+							<tr key={index} className={lit === index ? 'result-lit' : lit !== null ? 'result-dim' : undefined} onMouseEnter={() => setLit(index)}>
+								<th scope="row">
+									<ActionIcon icon={row.id.spellId ? names?.spellIcons?.[row.id.spellId] : undefined} />
+									{row.id.spellId ? (
+										<a href={wowheadSpellUrl(row.id.spellId)} target="_blank" rel="noreferrer">
+											{nameOf(row.id)}
+										</a>
+									) : (
+										nameOf(row.id)
+									)}
+									{row.pet && <span className="slot-source"> ({row.pet})</span>}
+								</th>
+								<td className="result-bar-cell">
+									<span className="num result-share">{percent(row.share, 2)}</span>
+									<span className="result-bar">
+										<span style={{ width: `${(row.share / top) * 100}%` }} />
+									</span>
+									<span className="num result-total">{thousands(row.damage)}</span>
+								</td>
+								<td className="num">{row.casts >= 0.005 ? row.casts.toFixed(2) : ''}</td>
+								<td className="num">{row.casts >= 0.005 ? thousands(row.damage / row.casts) : ''}</td>
+								<td className="num">{row.hits.toFixed(2)}</td>
+								<td className="num">{row.hits ? thousands(row.damage / row.hits) : ''}</td>
+								<td className="num">{percent(row.crit, 2)}</td>
+								<td className="num">{row.miss !== undefined ? percent(row.miss, 2) : ''}</td>
+								<td className="num">{row.dpet !== undefined ? thousands(row.dpet) : ''}</td>
+								<td className="num result-dps">{row.dps.toFixed(2)}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+			{breakdown.histogram.length > 1 && (
+				<figure className="result-histogram">
+					<figcaption>How the single fights spread, in DPS</figcaption>
+					<div className="result-bars">
+						{breakdown.histogram.map(([bucket, count]) => {
+							const typical = Math.abs(bucket + step / 2 - outcome.dps) <= breakdown.stdev;
+							return <span key={bucket} className={typical ? 'result-column result-column-typical' : 'result-column'} style={{ height: `${(count / fights) * 100}%` }} title={`${bucket} to ${bucket + step} DPS: ${count} fight${count === 1 ? '' : 's'}`} />;
+						})}
+					</div>
+					<div className="result-axis num">
+						<span>{breakdown.histogram[0][0]}</span>
+						<span>{Math.round(outcome.dps)}</span>
+						<span>{breakdown.histogram[breakdown.histogram.length - 1][0] + step}</span>
+					</div>
+				</figure>
+			)}
 			{buffs.length > 0 && (
 				<p className="slot-source">
 					<strong>Procs and timed effects on you:</strong> {buffs.map(aura => `${nameOf(aura.id)} ${percent(aura.uptime)}`).join(', ')}.
@@ -240,6 +355,7 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false }: { equip
 					</button>
 				)}
 			</div>
+			<SimProgress />
 			{sim.error && (
 				<p className="field-error" role="alert">
 					The simulator failed: {sim.error}

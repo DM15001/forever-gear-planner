@@ -19,10 +19,9 @@ import type { Character, SpecConfig } from './lib/types';
 
 
 const TABS = [
-	{ id: 'character', label: 'Character' },
-	{ id: 'plan', label: 'Plan' },
-	{ id: 'upgrades', label: 'Upgrades' },
-	{ id: 'farm', label: 'Farm plan' },
+	{ id: 'character', label: 'Character', step: 1 },
+	{ id: 'upgrades', label: 'Upgrades', step: 2 },
+	{ id: 'farm', label: 'Farm plan', step: 3 },
 	{ id: 'enchants', label: 'Enchants & professions' },
 	{ id: 'sim', label: 'Sim setup' },
 ];
@@ -57,6 +56,8 @@ export function App() {
 	const [warnings, setWarnings] = useState<string[]>([]);
 	const [importing, setImporting] = useState(false);
 	const [tab, setTab] = useState('character');
+	// Step 2 has two ways in: the automatic plan, or every slot by hand.
+	const [upgradeView, setUpgradeView] = useState<'plan' | 'slots'>(() => (Object.keys(character?.plan ?? {}).length > 0 ? 'slots' : 'plan'));
 	// Stat weights, the sim comparison and raw rotation rules stay out of the way unless asked for.
 	const [expert, setExpertState] = useState(() => {
 		try {
@@ -123,6 +124,7 @@ export function App() {
 						<nav className="tabs" aria-label="Sections">
 							{TABS.map(t => (
 								<button key={t.id} className="tab" aria-current={t.id === tab ? 'page' : undefined} onClick={() => setTab(t.id)}>
+									{'step' in t && <span className="tab-step">{t.step}</span>}
 									{t.label}
 								</button>
 							))}
@@ -144,9 +146,20 @@ export function App() {
 
 				{character && !importing && (
 					<SimProvider character={character}>
-						{tab === 'plan' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} /> : <p>Loading item data…</p>)}
+						{tab === 'upgrades' && (
+							<div className="view-switch" role="group" aria-label="How to pick upgrades">
+								<button className="button button-small" aria-pressed={upgradeView === 'plan'} onClick={() => setUpgradeView('plan')}>
+									Plan for me
+								</button>
+								<button className="button button-small" aria-pressed={upgradeView === 'slots'} onClick={() => setUpgradeView('slots')}>
+									Slot by slot
+								</button>
+								<span className="slot-source">{upgradeView === 'plan' ? 'Say what content you do and get the best set with a to-do list.' : 'Every slot with its upgrades and alternatives, to pick by hand.'}</span>
+							</div>
+						)}
+						{tab === 'upgrades' && upgradeView === 'plan' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} /> : <p>Loading item data…</p>)}
 
-						{tab === 'upgrades' && (data ? <UpgradesTab spec={spec} defaultWeights={baseSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
+						{tab === 'upgrades' && upgradeView === 'slots' && (data ? <UpgradesTab spec={spec} defaultWeights={baseSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
 
 						{tab === 'farm' && (data ? <FarmTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
 
@@ -170,7 +183,10 @@ export function App() {
 								)}
 								<p className="next-step">
 									Check race, professions and enchants below, then{' '}
-									<button className="button button-primary" onClick={() => setTab('plan')}>
+									<button className="button button-primary" onClick={() => {
+											setUpgradeView('plan');
+											setTab('upgrades');
+										}}>
 										Build my gear plan
 									</button>
 								</p>

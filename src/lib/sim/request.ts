@@ -148,6 +148,12 @@ export interface SimActionRow {
 	crit: number;
 	/** Misses per cast, 0 to 1; undefined for effects that are not cast. */
 	miss?: number;
+	/** Damage per fight, on average. */
+	damage: number;
+	/** Hits and ticks that landed per fight, on average. */
+	hits: number;
+	/** Damage per second of cast time; undefined for effects without one. */
+	dpet?: number;
 }
 
 export interface SimAuraRow {
@@ -165,6 +171,10 @@ export interface SimBreakdown {
 	seconds: number;
 	/** Seconds per fight spent out of mana. */
 	oomSeconds: number;
+	/** Casts per minute, damaging or not. */
+	apm: number;
+	/** How many fights ended in each DPS bucket: [lower edge of the bucket, fights]. */
+	histogram: [dps: number, fights: number][];
 	actions: SimActionRow[];
 	/** Buffs and procs on the character. */
 	auras: SimAuraRow[];
@@ -189,11 +199,13 @@ function readBreakdown(result: any, iterations: number): SimBreakdown | undefine
 	const player: RawUnit | undefined = result.raidMetrics?.parties?.[0]?.players?.[0];
 	const seconds: number = result.avgIterationDuration;
 	if (!player || !seconds) return undefined;
-	const rows: (SimActionRow & { damage: number })[] = [];
+	const rows: SimActionRow[] = [];
+	let allCasts = 0;
 	const collect = (unit: RawUnit, pet?: string) => {
 		for (const action of unit.actions ?? []) {
 			const sum = (field: string) => (action.targets ?? []).reduce((total, target) => total + (target[field] ?? 0), 0);
 			const damage = sum('damage');
+			if (!pet) allCasts += sum('casts');
 			if (damage <= 0) continue;
 			const landed = sum('hits') + sum('crits') + sum('ticks') + sum('critTicks');
 			const casts = sum('casts');
@@ -201,7 +213,9 @@ function readBreakdown(result: any, iterations: number): SimBreakdown | undefine
 				id: action.id,
 				...(pet ? { pet } : {}),
 				casts: casts / iterations,
-				damage,
+				damage: damage / iterations,
+				hits: landed / iterations,
+				...(sum('castTimeMs') > 0 ? { dpet: damage / (sum('castTimeMs') / 1000) } : {}),
 				dps: damage / iterations / seconds,
 				share: 0,
 				crit: landed ? (sum('crits') + sum('critTicks')) / landed : 0,
@@ -223,7 +237,11 @@ function readBreakdown(result: any, iterations: number): SimBreakdown | undefine
 		stdev: dps.stdev ?? 0,
 		seconds,
 		oomSeconds: player.secondsOomAvg ?? 0,
-		actions: rows.sort((x, y) => y.damage - x.damage).map(({ damage, ...row }) => ({ ...row, share: damage / total })),
+		apm: allCasts / iterations / (seconds / 60),
+		histogram: Object.entries((dps.hist ?? {}) as Record<string, number>)
+			.map(([bucket, fights]): [number, number] => [Number(bucket), fights])
+			.sort((x, y) => x[0] - y[0]),
+		actions: rows.sort((x, y) => y.damage - x.damage).map(row => ({ ...row, share: row.damage / total })),
 		auras: auras(player.auras),
 		targetAuras: auras(result.encounterMetrics?.targets?.[0]?.auras),
 	};

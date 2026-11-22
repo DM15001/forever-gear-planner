@@ -72,6 +72,10 @@ export interface BuffField {
 	steps?: string[];
 	/** A plain count, e.g. how many of something the raid brings. */
 	count?: boolean;
+	/** The spell or item that stands for the buff: its icon and its Wowhead tooltip. */
+	spellId?: number;
+	itemId?: number;
+	icon?: string;
 }
 
 export type BuffScope = 'raid' | 'party' | 'player' | 'debuffs';
@@ -89,6 +93,8 @@ export interface SimSetupData {
 	/** Talent trees by class name in lower case. */
 	trees: Record<string, TalentTree[]>;
 	spells: Record<string, string>;
+	/** Icon names by spell id. */
+	spellIcons?: Record<string, string>;
 	items: Record<string, string>;
 	consumables: ConsumableOption[];
 	/** The wowsims/forever commit the simulator copy was built from, and the day it was fetched. */

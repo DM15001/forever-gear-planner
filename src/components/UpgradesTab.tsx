@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
 import { sourceKind } from '../lib/farm';
@@ -6,7 +6,7 @@ import { FightPicker } from './FightPicker';
 import { formatDps } from '../lib/format';
 import type { GameData } from '../lib/gameData';
 import { type Guide, type GuideMark, guideMarks, guidePlan, markLabel, swapDelta } from '../lib/guides';
-import { type Candidate, clash, type Gear, pairedSlot, plannedGear, scoreSet, slotCandidates, slotInUse, type SourceFilter, suggestPlan, usableSources, withItem } from '../lib/scoring';
+import { EVERYTHING, type Candidate, clash, type Gear, pairedSlot, plannedGear, scoreSet, slotCandidates, slotInUse, type SourceFilter, suggestPlan, usableSources, withItem } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
 import { measureWeights, weightRuns } from '../lib/sim/live';
 import { conditionalLines, matchesFight, pieceStats, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
@@ -100,6 +100,26 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 		}
 		return [...best.values()].sort((a, b) => b.candidate.delta - a.candidate.delta);
 	}, [slots, data.fight]);
+
+	// Slots with nothing better in the lists: what the content choice leaves out there. Worked out after
+	// the page is drawn, since it looks at every item again.
+	const [outside, setOutside] = useState<Map<number, Candidate[]>>(new Map());
+	const [shownOutside, setShownOutside] = useState<Set<number>>(new Set());
+	useEffect(() => {
+		setOutside(new Map());
+		const timer = setTimeout(() => {
+			const wide = { character, data, spec, filter: { ...EVERYTHING, unknown: true, hiddenItems: filter.hiddenItems } };
+			const found = new Map<number, Candidate[]>();
+			for (const { index, candidates } of slots) {
+				if (!candidates || candidates.some(c => c.delta > 0)) continue;
+				const listed = new Set(candidates.map(c => c.item.id));
+				const better = slotCandidates(index, gear, wide).filter(c => c.delta > 0 && !listed.has(c.item.id));
+				if (better.length) found.set(index, better);
+			}
+			setOutside(found);
+		}, 60);
+		return () => clearTimeout(timer);
+	}, [slots, gear, character, data, spec, filter.hiddenItems]);
 
 	const planCount = Object.keys(character.plan ?? {}).length;
 	const setPlan = (plan: Record<number, number>, label?: string) => {
@@ -437,6 +457,38 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 							<button className="link" onClick={() => toggle(index)}>
 								{expanded.has(index) ? 'Show fewer' : `Show ${Math.min(LONG_LIST, candidates.length)} items`}
 							</button>
+						)}
+						{outside.has(index) && (
+							<div className="outside">
+								<p className="outside-note">
+									{outside.get(index)!.length} better item{outside.get(index)!.length === 1 ? ' exists' : 's exist'} outside your content choice.{' '}
+									<button className="link" onClick={() => setShownOutside(old => new Set(old.has(index) ? [...old].filter(i => i !== index) : [...old, index]))}>
+										{shownOutside.has(index) ? 'Hide them' : 'Show them'}
+									</button>
+								</p>
+								{shownOutside.has(index) && (
+									<ul className="candidates">
+										{outside
+											.get(index)!
+											.slice(0, ALTERNATIVES)
+											.map(candidate => (
+												<CandidateRow
+													key={candidate.item.id}
+													current={currentStats}
+													candidate={candidate}
+													marks={marks.get(candidate.item.id)}
+													base={gear}
+													variant={withItem(gear, index, candidate.item.id, data)}
+													data={data}
+													faction={faction}
+													filter={{ ...EVERYTHING, unknown: true }}
+													onPlan={() => planItem(index, candidate.item.id)}
+													onHide={() => hide(candidate.item)}
+												/>
+											))}
+									</ul>
+								)}
+							</div>
 						)}
 						{alternatives.length > 0 && (
 							<details className="alternatives" open={Boolean(plannedItem)}>

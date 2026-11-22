@@ -16,7 +16,7 @@ import { ItemIcon } from './ItemIcon';
 import { SuffixNote, suffixText } from './SuffixNote';
 import { SourceLabel } from './SourceLabel';
 import { ItemPicker } from './ItemPicker';
-import { SimSummary } from './Sim';
+import { SimSummary, ProgressBar } from './Sim';
 
 interface Props {
 	spec: SpecConfig;
@@ -47,6 +47,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 	const gear = useMemo(() => plannedGear(character, data), [character, data]);
 	// Checking the plan with the simulator, slot by slot.
 	const [refining, setRefining] = useState<string | null>(null);
+	const [refineSteps, setRefineSteps] = useState({ done: 0, total: 1 });
 	const [refineNote, setRefineNote] = useState<string | null>(null);
 	const stopRefine = useRef(false);
 	const refine = async () => {
@@ -57,7 +58,10 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 			const result = await refinePlan(
 				{ character, data, spec, filter },
 				simClient,
-				p => setRefining(`${p.slot}, slot ${p.done + 1} of ${p.total} (${p.dps.toFixed(0)} DPS so far)`),
+				p => {
+					setRefineSteps({ done: p.done, total: p.total });
+					setRefining(`${p.slot}, slot ${p.done + 1} of ${p.total} (${p.dps.toFixed(0)} DPS so far)`);
+				},
 				() => stopRefine.current,
 			);
 			onChange({ ...character, plan: result.plan });
@@ -147,11 +151,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 							</button>
 						)}
 					</div>
-					{refining && (
-						<p className="hint" role="status">
-							Simulating: {refining}
-						</p>
-					)}
+					{refining && <ProgressBar done={refineSteps.done} total={refineSteps.total} label={`Checking the plan: ${refining}`} />}
 					{refineNote && (
 						<p className="refine-note" role="status">
 							{refineNote}

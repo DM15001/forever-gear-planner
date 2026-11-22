@@ -66,7 +66,7 @@ describe('buffs in the request', () => {
 
 	it('lists every buff WoWSims knows, with its steps', () => {
 		expect(setup.buffs!.raid.find(f => f.key === 'battleShout')!.steps).toHaveLength(3);
-		expect(setup.buffs!.debuffs.find(f => f.key === 'curseOfElements')).toEqual({ key: 'curseOfElements', label: 'Curse of the Elements' });
+		expect(setup.buffs!.debuffs.find(f => f.key === 'curseOfElements')).toMatchObject({ key: 'curseOfElements', label: 'Curse of the Elements' });
 		for (const s of SPECS) {
 			const t = template(s.id);
 			const used = { raid: t.raid.buffs, party: t.raid.parties[0].buffs, player: t.raid.parties[0].players[0].buffs, debuffs: t.raid.debuffs };
