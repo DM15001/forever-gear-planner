@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
+import { formatDps } from '../lib/format';
 import type { GameData } from '../lib/gameData';
 import { type Guide, type GuideMark, guideMarks, guidePlan, markLabel, swapDelta } from '../lib/guides';
-import { type Candidate, type Gear, plannedGear, scoreSet, slotCandidates, slotInUse, type SourceFilter, suggestPlan, usableSources, withItem } from '../lib/scoring';
+import { type Candidate, clash, type Gear, pairedSlot, plannedGear, scoreSet, slotCandidates, slotInUse, type SourceFilter, suggestPlan, usableSources, withItem } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
 import { measureWeights, weightRuns } from '../lib/sim/live';
 import { pieceStats, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
@@ -68,7 +69,18 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 		onChange({ ...character, plan });
 		setGuideNotice({ title: guide.title, skipped });
 	};
-	const planItem = (index: number, itemId: number) => setPlan({ ...character.plan, [index]: itemId });
+	const planItem = (index: number, itemId: number) => {
+		const next: Record<number, number> = { ...character.plan, [index]: itemId };
+		// A ring or trinket that excludes the planned one in the other slot takes its place.
+		const other = pairedSlot(index);
+		if (other !== undefined && next[other] !== undefined && clash(data.itemById.get(itemId), data.itemById.get(next[other]))) delete next[other];
+		setPlan(next);
+	};
+	/** True if the item cannot go into the slot because of what is worn in the other ring or trinket slot. */
+	const blocked = (index: number, itemId: number) => {
+		const other = pairedSlot(index);
+		return other !== undefined && character.plan?.[other] === undefined && clash(data.itemById.get(itemId), data.itemById.get(character.gear[other]?.id ?? -1));
+	};
 	const unplan = (index: number) => {
 		const { [index]: _removed, ...rest } = character.plan ?? {};
 		setPlan(rest);
@@ -88,17 +100,11 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 			<section className="panel summary" aria-label="Plan summary">
 				<div className="summary-scores">
 					<div>
-						<span className="field-label">Equipped</span>
-						<span className="score num">{Math.round(equipped.score).toLocaleString('en')}</span>
-						<span className="summary-hit">{hitText(equipped.hit)}</span>
-					</div>
-					<div>
-						<span className="field-label">Planned</span>
-						<span className="score num">
-							{Math.round(planned.score).toLocaleString('en')}
-							{planCount > 0 && <span className={gain >= 0 ? 'delta-up' : 'delta-down'}> {formatDelta(gain)}</span>}
+						<span className="field-label">Your plan, estimated</span>
+						<span className={`score num ${gain >= 0 ? 'delta-up' : 'delta-down'}`}>{planCount > 0 ? formatDelta(gain) : 'No plan yet'}</span>
+						<span className="summary-hit">
+							{hitText(equipped.hit)} now{planCount > 0 ? `, ${hitText(planned.hit)} planned` : ''}
 						</span>
-						<span className="summary-hit">{hitText(planned.hit)}</span>
 					</div>
 				</div>
 				<div className="actions">
@@ -109,6 +115,18 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						Clear plan{planCount > 0 ? ` (${planCount})` : ''}
 					</button>
 				</div>
+				<p className="hidden-note">
+					Too expensive, or you just do not want it? "Hide" next to an item leaves it out of every list and out of "Plan the best set".
+					{filter.hiddenItems.length > 0 && (
+						<>
+							{' '}
+							{filter.hiddenItems.length} hidden.{' '}
+							<button className="link" onClick={() => setFilter({ ...filter, hiddenItems: [] })}>
+								Show them again
+							</button>
+						</>
+					)}
+				</p>
 				<SimSummary equipped={character.gear} planned={gear} hasPlan={planCount > 0} />
 				<div className="guide-sets">
 					<span className="field-label">Or start from a guide</span>
@@ -131,7 +149,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 					</p>
 				)}
 				<p className="hint">
-					The score adds up stats with the WoWSims weights for {spec.name}, in points (see Stat weights below), plus what the simulator measured for procs, on-use effects and set bonuses. Items marked
+					Every "DPS" number in the lists is an estimate: the item's stats times what each stat is worth for {spec.name} (see Stat weights below), plus what the simulator measured for procs, on-use effects and set bonuses. Items marked
 					"sim it" have an effect nobody measured and may be better or worse than their number. Each +/- shows how the whole set changes, so hit rating past the cap counts for nothing.
 				</p>
 				<p className="hint">
@@ -185,6 +203,8 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 							currentId={gear[index]?.id}
 							deltaOf={itemId => swapDelta(index, itemId, gear, character, data, spec)}
 							onPlan={itemId => planItem(index, itemId)}
+							blocked={itemId => blocked(index, itemId)}
+							otherId={pairedSlot(index) !== undefined ? gear[pairedSlot(index)!]?.id : undefined}
 						/>
 						{upgrades > 0 && (
 							<ul className="candidates">
@@ -205,7 +225,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 	);
 }
 
-const formatDelta = (value: number) => `${value >= 0 ? '+' : '−'}${Math.abs(Math.round(value)).toLocaleString('en')}`;
+const formatDelta = formatDps;
 
 function ItemName({ item, icon = false, worn = false }: { item: Item; icon?: boolean; worn?: boolean }) {
 	return (
@@ -268,7 +288,7 @@ function CandidateRow({ candidate, marks, base, variant, data, faction, filter, 
 				<button className="button button-small" onClick={onPlan}>
 					Plan this
 				</button>
-				<button className="link hide-item" onClick={onHide} title="Leave this item out of every list, for example because it is not in the game yet. Bring it back under Content.">
+				<button className="link hide-item" onClick={onHide} title="Leave this item out of every list and out of 'Plan the best set', for example because it is too expensive or not in the game yet. Bring it back under Plan, Content.">
 					Hide
 				</button>
 			</span>
@@ -297,10 +317,13 @@ interface GuidePicksProps {
 	currentId: number | undefined;
 	deltaOf: (itemId: number) => number;
 	onPlan: (itemId: number) => void;
+	blocked: (itemId: number) => boolean;
+	/** What sits in the other ring or trinket slot. */
+	otherId: number | undefined;
 }
 
 /** What the guides pick for this slot, whatever the filters say. */
-function GuidePicks({ guides, slotIndex, data, currentId, deltaOf, onPlan }: GuidePicksProps) {
+function GuidePicks({ guides, slotIndex, data, currentId, deltaOf, onPlan, blocked, otherId }: GuidePicksProps) {
 	const kind = GEAR_SLOTS[slotIndex].kind;
 	const rows = guides
 		.map(guide => ({ guide, entries: guide.entries.filter(e => (guide.fixedSet ? e.slotIndex === slotIndex : e.slot === kind)) }))
@@ -323,6 +346,18 @@ function GuidePicks({ guides, slotIndex, data, currentId, deltaOf, onPlan }: Gui
 									<ItemName item={item} icon />
 									{isCurrent ? (
 										<span className="guide-rank">in the set</span>
+									) : clash(item, data.itemById.get(otherId ?? -1)) ? (
+										<span className="guide-rank" title="Only one of these can be worn at a time.">
+											{entry.itemId === otherId ? 'in the other slot' : 'excluded by the other slot'}
+											{!blocked(entry.itemId) && (
+												<>
+													{' '}
+													<button className="link" onClick={() => onPlan(entry.itemId)}>
+														Move here
+													</button>
+												</>
+											)}
+										</span>
 									) : (
 										<>
 											<span className={`num ${delta > 0 ? 'delta-up' : 'delta-down'}`}>{formatDelta(delta)}</span>
@@ -382,7 +417,7 @@ function WeightsEditor({
 		<details className="weights">
 			<summary>Stat weights{changed ? ' (changed)' : ''}</summary>
 			<p className="hint">
-				How much one point of each stat is worth. The defaults are the weights of the build (see "source" in its file). Changing them changes every score on the site; the simulated DPS numbers
+				How much DPS one point of each stat is worth. The defaults are the weights of the build, turned into DPS with one simulator measurement on its preset gear. Changing them changes every score on the site; the simulated DPS numbers
 				are not affected.
 			</p>
 			<div className="weights-grid">

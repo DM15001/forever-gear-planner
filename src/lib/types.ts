@@ -48,6 +48,8 @@ export interface Item {
 	stats?: Stats;
 	weapon?: { type?: string; hand?: string; speed?: number; dps?: number; damageMin?: number; damageMax?: number };
 	unique?: boolean;
+	/** Items with the same limit category cannot be worn together. */
+	limitCategory?: number;
 	/** Class ids that may use the item; unset = every class. */
 	classes?: number[];
 	faction?: Faction;
@@ -141,6 +143,8 @@ export interface SpecConfig {
 	weights: {
 		source: string;
 		mainHandDps: number;
+		/** DPS that one point of the spec file's own unit is worth; the loaded weights are already multiplied by it. */
+		dpsPerPoint?: number;
 		/** Worth of one point of off-hand weapon DPS, for dual wielders. */
 		offHandDps?: number;
 		/** Value of hit rating beyond the cap. */

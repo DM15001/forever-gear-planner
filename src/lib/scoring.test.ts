@@ -5,9 +5,9 @@ import simExport from './__fixtures__/sim-export.json';
 import { GEAR_SLOTS } from './constants';
 import { loadGameData } from './gameData';
 import { importCharacter } from './importCharacter';
-import { DEFAULT_FILTER, notYetAvailable, plannedGear, scoreSet, slotCandidates, type SourceFilter, suggestPlan } from './scoring';
+import { clash, DEFAULT_FILTER, notYetAvailable, plannedGear, scoreSet, slotCandidates, type SourceFilter, suggestPlan } from './scoring';
 import { vendorReputation } from './stats';
-import type { Character, SpecConfig } from './types';
+import type { Character, Item, SpecConfig } from './types';
 
 const spec = specJson as unknown as SpecConfig;
 const data = await loadGameData();
@@ -173,7 +173,7 @@ describe('measured effects in the score', () => {
 	const worth = data.simValues.items.get(BLACKHANDS_BREADTH)!;
 
 	it('adds the worth of an item\u2019s effect', () => {
-		expect(worth).toBeGreaterThan(40);
+		expect(worth).toBeGreaterThan(8);
 		const withTrinket = dwarf.gear.map((p, i) => (i === 13 ? { id: BLACKHANDS_BREADTH } : p));
 		const without = dwarf.gear.map((p, i) => (i === 13 ? null : p));
 		const totals = scoreSet(withTrinket, dwarf, data, spec);
@@ -220,7 +220,7 @@ describe('random suffix items', () => {
 		const lock: Character = { specId: warlock.id, race: 'RaceHuman', level: 60, talents: '', professions: [], gear: GEAR_SLOTS.map(() => null) };
 		const wrist = GEAR_SLOTS.findIndex(s => s.kind === 'wrist');
 		const ids = (filter: SourceFilter) => slotCandidates(wrist, lock.gear, { character: lock, data: lockData, spec: warlock, filter }).map(c => c.item.id);
-		expect(ids(DEFAULT_FILTER)).not.toContain(TEARFALL_BRACERS);
+		expect(ids({ ...DEFAULT_FILTER, randomSuffix: false })).not.toContain(TEARFALL_BRACERS);
 		expect(ids({ ...DEFAULT_FILTER, randomSuffix: true })).toContain(TEARFALL_BRACERS);
 		const planned = plannedGear({ ...lock, plan: { [wrist]: TEARFALL_BRACERS } }, lockData);
 		expect(planned[wrist]).toEqual({ id: TEARFALL_BRACERS, randomSuffix: bracers.bestSuffix });
@@ -252,5 +252,16 @@ describe('items that are not in the game yet', () => {
 		expect(closed.filter(item => item.tag === 'Crafted').every(item => item.setId !== undefined && item.quality === 'epic')).toBe(true);
 		const plan = suggestPlan({ character: dwarf, data, spec, filter: DEFAULT_FILTER });
 		for (const id of Object.values(plan)) expect(notYetAvailable(data.itemById.get(id)!) ?? '', data.itemById.get(id)?.name).toBe('');
+	});
+});
+
+describe('items that exclude each other', () => {
+	it('treats two rings of one limit category as a clash', () => {
+		const ring = (id: number, limitCategory?: number, unique?: boolean) => ({ id, limitCategory, unique }) as Item;
+		expect(clash(ring(1, 710), ring(2, 710))).toBe(true);
+		expect(clash(ring(1, 710), ring(1, 710))).toBe(true);
+		expect(clash(ring(1, 710), ring(2, 475))).toBe(false);
+		expect(clash(ring(1), ring(1))).toBe(false);
+		expect(clash(ring(1, undefined, true), ring(1, undefined, true))).toBe(true);
 	});
 });

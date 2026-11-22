@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
+import { formatDps } from '../lib/format';
 import { byDungeon, dungeonRanking, type FarmDungeon, PLAN_GROUP_ORDER, type PlanEntry, type PlanGroupKind, planShoppingList } from '../lib/farm';
 import type { GameData } from '../lib/gameData';
 import { guideMarks } from '../lib/guides';
-import { effortLine, LOOT_DATE } from '../lib/loot';
+import { effortLine, effortParts, LOOT_DATE } from '../lib/loot';
 import type { SourceFilter } from '../lib/scoring';
 import { sourceLine, wowheadItemUrl } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
@@ -31,8 +32,8 @@ const GROUP_TITLES: Record<PlanGroupKind, string> = {
 };
 const BOSS_DROPS_SHOWN = 4;
 
-const formatPerRun = (value: number) => `+${value >= 10 ? Math.round(value) : value.toFixed(1)}`;
-const formatDelta = (value: number) => `${value >= 0 ? '+' : '\u2212'}${Math.abs(Math.round(value)).toLocaleString('en')}`;
+const formatPerRun = (value: number) => `+${value >= 10 ? Math.round(value) : value.toFixed(value >= 1 ? 1 : 2)} DPS`;
+const formatDelta = formatDps;
 
 export function FarmTab({ spec, character, data, filter }: Props) {
 	const options = useMemo(() => ({ character, data, spec, filter }), [character, data, spec, filter]);
@@ -61,36 +62,44 @@ export function FarmTab({ spec, character, data, filter }: Props) {
 					<p className="farm-empty">No plan yet. On the Upgrades tab, pick items with "Plan this" or use "Plan the best set". They show up here, sorted by where to get them.</p>
 				) : (
 					<div className="shopping">
-						{PLAN_GROUP_ORDER.filter(kind => shopping.has(kind)).map(kind => (
-							<div key={kind} className="shopping-group">
-								<h3>
-									<SourceSymbol kind={kind} /> {GROUP_TITLES[kind]}
-								</h3>
-								{kind === 'dungeon' ? (
-									byDungeon(shopping.get(kind)!, zoneId => data.zoneById.get(zoneId)?.name).map(group => (
-										<div key={group.key} className="shopping-dungeon">
-											<h4>
-												<span>
-													<SourceSymbol kind="dungeon" /> {group.name}
-												</span>
-												<span className="num">{group.entries.length}</span>
-											</h4>
-											<ul className="plain-list">
-												{group.entries.map(entry => (
-													<ShoppingRow key={entry.item.id} entry={entry} data={data} guideSource={marks.get(entry.item.id)?.find(m => m.source)} />
-												))}
-											</ul>
-										</div>
-									))
-								) : (
-									<ul className="plain-list">
-										{shopping.get(kind)!.map(entry => (
-											<ShoppingRow key={entry.item.id} entry={entry} data={data} guideSource={marks.get(entry.item.id)?.find(m => m.source)} />
+						{PLAN_GROUP_ORDER.filter(kind => shopping.has(kind)).map(kind => {
+							const entries = shopping.get(kind)!;
+							const cards = kind === 'dungeon' ? byDungeon(entries, zoneId => data.zoneById.get(zoneId)?.name) : [{ key: kind, name: '', entries }];
+							return (
+								<div key={kind} className={`shopping-group shopping-group-${kind}`}>
+									<h3>
+										<span>
+											<SourceSymbol kind={kind} /> {GROUP_TITLES[kind]}
+										</span>
+										<span className="shopping-count">
+											{entries.length} item{entries.length === 1 ? '' : 's'}
+										</span>
+									</h3>
+									<div className="shopping-cards">
+										{cards.map(card => (
+											<div key={card.key} className="shopping-card">
+												{card.name && (
+													<h4>
+														<span>
+															<SourceSymbol kind="dungeon" /> {card.name}
+														</span>
+														<span className="num delta-up">{formatDelta(card.entries.reduce((sum, entry) => sum + entry.delta, 0))}</span>
+													</h4>
+												)}
+												<ul className="plain-list">
+													{card.entries.map(entry => (
+														<ShoppingRow key={`${entry.slotIndex}-${entry.item.id}`} entry={entry} data={data} inDungeon={kind === 'dungeon'} guideSource={marks.get(entry.item.id)?.find(m => m.source)} />
+													))}
+												</ul>
+											</div>
 										))}
-									</ul>
-								)}
-							</div>
-						))}
+									</div>
+								</div>
+							);
+						})}
+						{[...shopping.values()].some(list => list.some(entry => entry.source?.kind === 'drop' && entry.source.dropBasis === 'classic')) && (
+							<p className="hint">* Drop chance from WoW Classic; Forever may have changed it.</p>
+						)}
 					</div>
 				)}
 			</section>
@@ -134,20 +143,40 @@ function ItemLink({ item }: { item: Item }) {
 	);
 }
 
-function ShoppingRow({ entry, data, guideSource }: { entry: PlanEntry; data: GameData; guideSource?: { source?: string; guide: { label: string } } }) {
+/** Where to get the item, without repeating the dungeon the row already sits under. */
+function whereText(entry: PlanEntry, data: GameData, inDungeon: boolean): string {
+	const source = entry.source;
+	if (inDungeon && source?.kind === 'drop') {
+		const boss = (source.npcId ? data.npcById.get(source.npcId)?.name : undefined) ?? source.otherName;
+		return boss?.trim() || 'Any enemy in the dungeon';
+	}
+	return sourceLine(source, data);
+}
+
+function ShoppingRow({ entry, data, inDungeon, guideSource }: { entry: PlanEntry; data: GameData; inDungeon: boolean; guideSource?: { source?: string; guide: { label: string } } }) {
+	const effort = guideSource ? {} : effortParts(entry.source);
 	return (
-		<li className="shopping-row">
+		<li className="shopping-row" title={guideSource ? undefined : effortLine(entry.source)}>
 			<ItemIcon icon={entry.item.icon} quality={entry.item.quality} small />
 			<span className="shopping-main">
-				<ItemLink item={entry.item} />
-				<SuffixNote item={entry.item} />
-				<span className="slot-source">
-					{GEAR_SLOTS[entry.slotIndex].label}, {guideSource ? `${guideSource.source} (per ${guideSource.guide.label})` : sourceLine(entry.source, data)}
+				<span className="shopping-name">
+					<ItemLink item={entry.item} />
+					<SuffixNote item={entry.item} />
+				</span>
+				<span className="shopping-where">
+					<span className="shopping-slot">{GEAR_SLOTS[entry.slotIndex].label}</span>
+					{guideSource ? `${guideSource.source} (per ${guideSource.guide.label})` : whereText(entry, data, inDungeon)}
 					{entry.source?.kind === 'crafted' && (entry.craftable ? ' (your profession)' : ' (not your profession)')}
-					{!guideSource && effortLine(entry.source) && <span className="effort"> {effortLine(entry.source)}</span>}
 				</span>
 			</span>
-			<span className={`num ${entry.delta >= 0 ? 'delta-up' : 'delta-down'}`}>{formatDelta(entry.delta)}</span>
+			<span className="shopping-numbers">
+				<span className={`num shopping-gain ${entry.delta >= 0 ? 'delta-up' : 'delta-down'}`}>{formatDelta(entry.delta)}</span>
+				{effort.chance && (
+					<span className="shopping-effort">
+						{effort.chance}, {effort.runs}
+					</span>
+				)}
+			</span>
 		</li>
 	);
 }

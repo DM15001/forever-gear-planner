@@ -32,7 +32,7 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 		<div className="content-picker">
 			<div className="presets" role="group" aria-label="Presets">
 				{options.map(preset => (
-					<button key={preset.id} className="button button-small" aria-pressed={sameFilter({ ...filter, hiddenItems: [], randomSuffix: false, notYetAvailable: false }, preset.filter)} title={preset.hint} onClick={() => onChange({ ...preset.filter, hiddenItems: filter.hiddenItems, randomSuffix: filter.randomSuffix, notYetAvailable: filter.notYetAvailable })}>
+					<button key={preset.id} className="button button-small" aria-pressed={sameFilter({ ...filter, hiddenItems: [], randomSuffix: true, notYetAvailable: false }, preset.filter)} title={preset.hint} onClick={() => onChange({ ...preset.filter, hiddenItems: filter.hiddenItems, randomSuffix: filter.randomSuffix, notYetAvailable: filter.notYetAvailable })}>
 						{preset.label}
 					</button>
 				))}

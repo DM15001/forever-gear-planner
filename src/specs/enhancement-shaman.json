@@ -101,6 +101,7 @@
 			"natureDamage": 0.72,
 			"spellPiercing": 2.52
 		},
-		"hitRatingOverCap": 0
+		"hitRatingOverCap": 0,
+		"dpsPerPoint": 0.205
 	}
 }

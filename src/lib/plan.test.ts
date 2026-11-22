@@ -147,6 +147,6 @@ describe('buildPlan and item sets', () => {
 		// Without battleground reputations the planner used to find a Tier 0.5 set that the full
 		// content choice missed, because set bonuses need several pieces at once.
 		const withoutBattlegrounds = scoreWith({ ...DEFAULT_FILTER, excludedReputations: ['Silverwing Sentinels', 'Stormpike Guard', 'The League of Arathor'] });
-		expect(scoreWith(DEFAULT_FILTER)).toBeGreaterThanOrEqual(withoutBattlegrounds - 0.5);
+		expect(scoreWith(DEFAULT_FILTER)).toBeGreaterThanOrEqual(withoutBattlegrounds * 0.995);
 	}, 60000);
 });

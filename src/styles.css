@@ -531,7 +531,7 @@ h3 {
 }
 .candidate {
 	display: grid;
-	grid-template-columns: 3.5rem 2.25rem minmax(0, 1fr) auto;
+	grid-template-columns: 5.25rem 2.25rem minmax(0, 1fr) auto;
 	gap: 0.75rem;
 	align-items: center;
 	padding: 0.45rem 0;
@@ -710,7 +710,7 @@ h3 {
 }
 .enchant-option {
 	display: grid;
-	grid-template-columns: 2.75rem auto minmax(0, 1fr) auto auto;
+	grid-template-columns: 5.25rem auto minmax(0, 1fr) auto auto;
 	gap: 0.6rem;
 	align-items: center;
 	padding: 0.25rem 0;
@@ -1679,7 +1679,7 @@ textarea {
 	min-width: 0;
 }
 .boss-drop {
-	grid-template-columns: 2.75rem auto minmax(0, 1fr);
+	grid-template-columns: 5.25rem auto minmax(0, 1fr);
 	align-items: center;
 }
 .shopping-dungeon h4 .source-symbol,
@@ -1923,4 +1923,133 @@ a.enchant-name {
 	display: block;
 	color: var(--ember);
 	font-size: 0.875rem;
+}
+
+/* Farm plan: where the planned items come from */
+.shopping {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+	gap: 1.5rem 1.25rem;
+	align-items: start;
+}
+.shopping-group-dungeon,
+.shopping > .hint {
+	grid-column: 1 / -1;
+}
+.shopping-group h3 {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 1rem;
+}
+.shopping-count {
+	font-family: system-ui, sans-serif;
+	font-size: 0.8125rem;
+	font-weight: 400;
+	letter-spacing: 0;
+	color: var(--haze);
+}
+.shopping-cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+	gap: 0.75rem 1.25rem;
+	margin-top: 0.6rem;
+	align-items: start;
+}
+.shopping-card {
+	background: var(--well);
+	border: 1px solid var(--hairline);
+	border-radius: 4px;
+	padding: 0.2rem 0.85rem;
+}
+.shopping-card h4 {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 1rem;
+	margin: 0;
+	padding: 0.5rem 0 0.45rem;
+	border-bottom: 1px solid var(--ridge);
+	font-size: 0.9375rem;
+	color: var(--metal-light, inherit);
+}
+.shopping-row {
+	display: grid;
+	grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+	gap: 0.7rem;
+	align-items: center;
+	padding: 0.5rem 0;
+}
+.shopping-row + .shopping-row {
+	border-top: 1px solid var(--hairline);
+}
+.shopping-name a {
+	font-weight: 600;
+}
+.shopping-where {
+	display: block;
+	font-size: 0.8125rem;
+	line-height: 1.35;
+	color: var(--haze);
+}
+.shopping-slot {
+	color: var(--mist);
+}
+.shopping-slot::after {
+	content: '\00b7';
+	margin: 0 0.4em;
+	color: var(--haze);
+}
+.shopping-numbers {
+	display: grid;
+	justify-items: end;
+	text-align: right;
+	white-space: nowrap;
+}
+.shopping-gain {
+	font-weight: 600;
+}
+.shopping-effort {
+	font-size: 0.75rem;
+	color: var(--brass);
+}
+.hide-item {
+	font-size: 0.75rem;
+	color: var(--haze);
+	border: 1px solid var(--hairline);
+	border-radius: 3px;
+	padding: 0.15rem 0.45rem;
+	text-decoration: none;
+}
+.hide-item:hover {
+	color: var(--brass);
+	border-color: var(--brass-deep);
+}
+.hidden-note {
+	font-size: 0.8125rem;
+	color: var(--haze);
+}
+@media (max-width: 30rem) {
+	.shopping-row {
+		grid-template-columns: 2.25rem minmax(0, 1fr);
+	}
+	.shopping-numbers {
+		grid-column: 2;
+		justify-items: start;
+		text-align: left;
+		grid-auto-flow: column;
+		justify-content: start;
+		gap: 0.6rem;
+		align-items: baseline;
+	}
+}
+
+/* Large screens: everything is sized in rem, so the whole page grows a little with the window. */
+@media (min-width: 100rem) {
+	html {
+		font-size: clamp(100%, 0.5vw + 0.5rem, 125%);
+	}
+}
+.boss-drop .effort {
+	white-space: normal;
 }

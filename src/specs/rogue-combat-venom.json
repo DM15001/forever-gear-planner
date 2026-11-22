@@ -107,6 +107,7 @@
 			"spellPiercing": 0.19,
 			"attackPower": 1
 		},
-		"hitRatingOverCap": 0
+		"hitRatingOverCap": 0,
+		"dpsPerPoint": 0.2956
 	}
 }

@@ -94,7 +94,8 @@
 			"hasteRating": 1.23,
 			"mp5": 0.04
 		},
-		"hitRatingOverCap": 0
+		"hitRatingOverCap": 0,
+		"dpsPerPoint": 0.6343
 	},
 	"hitBonusPercent": 5.0
 }

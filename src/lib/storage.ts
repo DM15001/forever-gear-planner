@@ -28,7 +28,7 @@ export function saveCharacter(character: Character | null): void {
 }
 
 type Weights = SpecConfig['weights'];
-const weightsKey = (specId: string) => `forever-gear-planner.weights.${specId}.v1`;
+const weightsKey = (specId: string) => `forever-gear-planner.weights.${specId}.v2`;
 
 /** The user's own stat weights for a spec, or null to use the spec's defaults. */
 export function loadWeights(specId: string): Weights | null {

@@ -83,6 +83,7 @@
 			"armorPenetration": 0.3,
 			"expertiseRating": 2.01
 		},
-		"hitRatingOverCap": 0
+		"hitRatingOverCap": 0,
+		"dpsPerPoint": 0.2678
 	}
 }

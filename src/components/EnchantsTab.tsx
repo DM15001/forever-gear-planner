@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
+import { formatDps } from '../lib/format';
 import { bestEnchants, enchantOverview, professionValues } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
 import { type Gear, plannedGear, scoreSet, type SourceFilter } from '../lib/scoring';
@@ -21,7 +22,7 @@ interface Props {
 
 const OPTIONS_SHOWN = 3;
 const CRAFTS_SHOWN = 6;
-const formatDelta = (value: number) => `+${Math.round(value).toLocaleString('en')}`;
+const formatDelta = formatDps;
 
 export function EnchantsTab({ spec, character, data, filter, onChange }: Props) {
 	const gear = useMemo(() => plannedGear(character, data), [character, data]);

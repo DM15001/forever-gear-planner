@@ -60461,6 +60461,7 @@
 		"slot": "trinket",
 		"quality": "rare",
 		"ilvl": 61,
+		"limitCategory": 498,
 		"effects": [
 			{
 				"name": "Seal of the Dawn (23930)",
@@ -109833,6 +109834,7 @@
 		"stats": {
 			"stamina": 7
 		},
+		"limitCategory": 718,
 		"effects": [
 			{
 				"name": "Arena Master (1317285)",
@@ -111290,6 +111292,7 @@
 		"stats": {
 			"dodgeRating": 12
 		},
+		"limitCategory": 718,
 		"effects": [
 			{
 				"name": "Aura of Protection (23506)",
@@ -116048,6 +116051,7 @@
 		"slot": "trinket",
 		"quality": "rare",
 		"ilvl": 61,
+		"limitCategory": 498,
 		"effects": [
 			{
 				"name": "Rune of the Dawn (24198)",
@@ -117344,6 +117348,7 @@
 		"stats": {
 			"stamina": 12
 		},
+		"limitCategory": 716,
 		"faction": "alliance",
 		"effects": [
 			{
@@ -117379,6 +117384,7 @@
 		"stats": {
 			"stamina": 12
 		},
+		"limitCategory": 716,
 		"faction": "horde",
 		"effects": [
 			{
@@ -123362,6 +123368,7 @@
 		"stats": {
 			"stamina": 10
 		},
+		"limitCategory": 716,
 		"faction": "horde",
 		"effects": [
 			{
@@ -123400,6 +123407,7 @@
 		"stats": {
 			"stamina": 8
 		},
+		"limitCategory": 716,
 		"faction": "horde",
 		"effects": [
 			{
@@ -123438,6 +123446,7 @@
 		"stats": {
 			"stamina": 10
 		},
+		"limitCategory": 716,
 		"faction": "alliance",
 		"effects": [
 			{
@@ -123473,6 +123482,7 @@
 		"stats": {
 			"stamina": 8
 		},
+		"limitCategory": 716,
 		"faction": "alliance",
 		"effects": [
 			{
@@ -123508,6 +123518,7 @@
 		"stats": {
 			"stamina": 6
 		},
+		"limitCategory": 716,
 		"faction": "alliance",
 		"effects": [
 			{
@@ -123543,6 +123554,7 @@
 		"stats": {
 			"stamina": 6
 		},
+		"limitCategory": 716,
 		"faction": "horde",
 		"effects": [
 			{
@@ -123872,6 +123884,7 @@
 			"stamina": 8,
 			"spellPiercing": 3
 		},
+		"limitCategory": 714,
 		"sources": [
 			{
 				"kind": "vendor",
@@ -123901,6 +123914,7 @@
 			"stamina": 4,
 			"spellPiercing": 2
 		},
+		"limitCategory": 714,
 		"sources": [
 			{
 				"kind": "vendor",
@@ -123934,6 +123948,7 @@
 			"natureResistance": 3,
 			"shadowResistance": 3
 		},
+		"limitCategory": 714,
 		"sources": [
 			{
 				"kind": "vendor",
@@ -123967,6 +123982,7 @@
 			"natureResistance": 2,
 			"shadowResistance": 2
 		},
+		"limitCategory": 714,
 		"sources": [
 			{
 				"kind": "vendor",
@@ -145375,6 +145391,7 @@
 			"stamina": 10,
 			"mp5": 5
 		},
+		"limitCategory": 715,
 		"faction": "alliance",
 		"sources": [
 			{
@@ -145401,6 +145418,7 @@
 			"natureResistance": 3,
 			"shadowResistance": 3
 		},
+		"limitCategory": 715,
 		"faction": "alliance",
 		"sources": [
 			{
@@ -145423,6 +145441,7 @@
 			"stamina": 7,
 			"mp5": 3
 		},
+		"limitCategory": 715,
 		"faction": "alliance",
 		"sources": [
 			{
@@ -145449,6 +145468,7 @@
 			"natureResistance": 4,
 			"shadowResistance": 4
 		},
+		"limitCategory": 715,
 		"faction": "alliance",
 		"sources": [
 			{
@@ -146547,6 +146567,7 @@
 			"stamina": 7,
 			"mp5": 3
 		},
+		"limitCategory": 715,
 		"faction": "horde",
 		"sources": [
 			{
@@ -146580,6 +146601,7 @@
 			"natureResistance": 4,
 			"shadowResistance": 4
 		},
+		"limitCategory": 715,
 		"faction": "horde",
 		"sources": [
 			{
@@ -146609,6 +146631,7 @@
 			"stamina": 10,
 			"mp5": 5
 		},
+		"limitCategory": 715,
 		"faction": "horde",
 		"sources": [
 			{
@@ -146642,6 +146665,7 @@
 			"natureResistance": 3,
 			"shadowResistance": 3
 		},
+		"limitCategory": 715,
 		"faction": "horde",
 		"sources": [
 			{
@@ -148793,6 +148817,7 @@
 		"stats": {
 			"expertiseRating": 11
 		},
+		"limitCategory": 707,
 		"effects": [
 			{
 				"name": "Damage Sigmoid (1291097)",
@@ -148821,6 +148846,7 @@
 			"healingPower": 18,
 			"spellDamage": 18
 		},
+		"limitCategory": 707,
 		"effects": [
 			{
 				"name": "Analyzing Weaknesses (1291101)",
@@ -148849,6 +148875,7 @@
 			"healingPower": 21,
 			"spellDamage": 7
 		},
+		"limitCategory": 707,
 		"effects": [
 			{
 				"name": "Serenity (1291103)",
@@ -148879,6 +148906,7 @@
 		"stats": {
 			"defenseRating": 13
 		},
+		"limitCategory": 707,
 		"effects": [
 			{
 				"name": "Stabilized (1291105)",
@@ -161395,6 +161423,7 @@
 			"armor": 162,
 			"natureResistance": 9
 		},
+		"limitCategory": 708,
 		"classes": [
 			11
 		],
@@ -161425,6 +161454,7 @@
 			"armor": 115,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			11
 		],
@@ -161456,6 +161486,7 @@
 			"armor": 138,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			11
 		],
@@ -161488,6 +161519,7 @@
 			"armor": 127,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			11
 		],
@@ -161520,6 +161552,7 @@
 			"armor": 162,
 			"natureResistance": 9
 		},
+		"limitCategory": 708,
 		"classes": [
 			11
 		],
@@ -161550,6 +161583,7 @@
 			"armor": 115,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			11
 		],
@@ -161581,6 +161615,7 @@
 			"armor": 138,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			11
 		],
@@ -161611,6 +161646,7 @@
 			"armor": 127,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			11
 		],
@@ -161642,6 +161678,7 @@
 			"armor": 162,
 			"natureResistance": 9
 		},
+		"limitCategory": 708,
 		"classes": [
 			11
 		],
@@ -161674,6 +161711,7 @@
 			"armor": 115,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			11
 		],
@@ -161706,6 +161744,7 @@
 			"mp5": 4,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			11
 		],
@@ -161736,6 +161775,7 @@
 			"armor": 127,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			11
 		],
@@ -161766,6 +161806,7 @@
 			"armor": 162,
 			"natureResistance": 9
 		},
+		"limitCategory": 708,
 		"classes": [
 			11
 		],
@@ -161795,6 +161836,7 @@
 			"armor": 115,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			11
 		],
@@ -161825,6 +161867,7 @@
 			"armor": 138,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			11
 		],
@@ -161855,6 +161898,7 @@
 			"armor": 127,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			11
 		],
@@ -161887,6 +161931,7 @@
 			"armor": 81,
 			"natureResistance": 9
 		},
+		"limitCategory": 708,
 		"classes": [
 			8
 		],
@@ -161919,6 +161964,7 @@
 			"armor": 58,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			8
 		],
@@ -161951,6 +161997,7 @@
 			"armor": 70,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			8
 		],
@@ -161981,6 +162028,7 @@
 			"armor": 64,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			8
 		],
@@ -162013,6 +162061,7 @@
 			"armor": 81,
 			"natureResistance": 9
 		},
+		"limitCategory": 708,
 		"classes": [
 			5
 		],
@@ -162044,6 +162093,7 @@
 			"armor": 58,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			5
 		],
@@ -162075,6 +162125,7 @@
 			"armor": 70,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			5
 		],
@@ -162107,6 +162158,7 @@
 			"armor": 64,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			5
 		],
@@ -162138,6 +162190,7 @@
 			"armor": 81,
 			"natureResistance": 9
 		},
+		"limitCategory": 708,
 		"classes": [
 			5
 		],
@@ -162170,6 +162223,7 @@
 			"mp5": 5,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			5
 		],
@@ -162201,6 +162255,7 @@
 			"armor": 70,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			5
 		],
@@ -162231,6 +162286,7 @@
 			"armor": 64,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			5
 		],
@@ -162261,6 +162317,7 @@
 			"armor": 162,
 			"natureResistance": 9
 		},
+		"limitCategory": 708,
 		"classes": [
 			4
 		],
@@ -162291,6 +162348,7 @@
 			"armor": 115,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			4
 		],
@@ -162321,6 +162379,7 @@
 			"armor": 138,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			4
 		],
@@ -162350,6 +162409,7 @@
 			"armor": 127,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			4
 		],
@@ -162382,6 +162442,7 @@
 			"armor": 338,
 			"natureResistance": 9
 		},
+		"limitCategory": 708,
 		"classes": [
 			7
 		],
@@ -162413,6 +162474,7 @@
 			"armor": 242,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			7
 		],
@@ -162443,6 +162505,7 @@
 			"armor": 290,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			7
 		],
@@ -162475,6 +162538,7 @@
 			"armor": 266,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			7
 		],
@@ -162508,6 +162572,7 @@
 			"armor": 338,
 			"natureResistance": 9
 		},
+		"limitCategory": 708,
 		"classes": [
 			7
 		],
@@ -162539,6 +162604,7 @@
 			"armor": 242,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			7
 		],
@@ -162571,6 +162637,7 @@
 			"armor": 290,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			7
 		],
@@ -162603,6 +162670,7 @@
 			"armor": 266,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			7
 		],
@@ -162635,6 +162703,7 @@
 			"armor": 81,
 			"natureResistance": 9
 		},
+		"limitCategory": 708,
 		"classes": [
 			9
 		],
@@ -162666,6 +162735,7 @@
 			"armor": 58,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			9
 		],
@@ -162698,6 +162768,7 @@
 			"armor": 70,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			9
 		],
@@ -162728,6 +162799,7 @@
 			"armor": 64,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			9
 		],
@@ -162758,6 +162830,7 @@
 			"armor": 598,
 			"natureResistance": 9
 		},
+		"limitCategory": 708,
 		"classes": [
 			1
 		],
@@ -162788,6 +162861,7 @@
 			"armor": 427,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			1
 		],
@@ -162818,6 +162892,7 @@
 			"armor": 513,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			1
 		],
@@ -162847,6 +162922,7 @@
 			"armor": 470,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			1
 		],
@@ -162877,6 +162953,7 @@
 			"armor": 598,
 			"natureResistance": 9
 		},
+		"limitCategory": 708,
 		"classes": [
 			1
 		],
@@ -162907,6 +162984,7 @@
 			"armor": 427,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			1
 		],
@@ -162937,6 +163015,7 @@
 			"armor": 513,
 			"natureResistance": 6
 		},
+		"limitCategory": 708,
 		"classes": [
 			1
 		],
@@ -162967,6 +163046,7 @@
 			"armor": 470,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			1
 		],
@@ -166752,6 +166832,7 @@
 		"stats": {
 			"natureResistance": 20
 		},
+		"limitCategory": 709,
 		"effects": [
 			{
 				"name": "Prototype Pathcarver (1295270)",
@@ -166783,6 +166864,7 @@
 		"stats": {
 			"frostResistance": 20
 		},
+		"limitCategory": 709,
 		"effects": [
 			{
 				"name": "Everlook Delivery Bot (1295271)",
@@ -166815,6 +166897,7 @@
 		"stats": {
 			"shadowResistance": 20
 		},
+		"limitCategory": 709,
 		"effects": [
 			{
 				"name": "Parachute-Priest Pager (1295272)",
@@ -169116,6 +169199,7 @@
 			"rangedAttackPower": 20,
 			"hitRating": 10
 		},
+		"limitCategory": 710,
 		"sources": [
 			{
 				"kind": "rep",
@@ -169138,6 +169222,7 @@
 			"spellDamage": 8,
 			"critRating": 14
 		},
+		"limitCategory": 710,
 		"sources": [
 			{
 				"kind": "rep",
@@ -169160,6 +169245,7 @@
 			"spellDamage": 7,
 			"spirit": 10
 		},
+		"limitCategory": 710,
 		"sources": [
 			{
 				"kind": "rep",
@@ -169181,6 +169267,7 @@
 			"expertiseRating": 10,
 			"defenseRating": 6
 		},
+		"limitCategory": 710,
 		"sources": [
 			{
 				"kind": "rep",
@@ -169203,6 +169290,7 @@
 			"rangedAttackPower": 24,
 			"hitRating": 10
 		},
+		"limitCategory": 710,
 		"sources": [
 			{
 				"kind": "rep",
@@ -169225,6 +169313,7 @@
 			"spellDamage": 10,
 			"critRating": 14
 		},
+		"limitCategory": 710,
 		"sources": [
 			{
 				"kind": "rep",
@@ -169247,6 +169336,7 @@
 			"spellDamage": 9,
 			"spirit": 11
 		},
+		"limitCategory": 710,
 		"sources": [
 			{
 				"kind": "rep",
@@ -169268,6 +169358,7 @@
 			"expertiseRating": 10,
 			"defenseRating": 7
 		},
+		"limitCategory": 710,
 		"sources": [
 			{
 				"kind": "rep",
@@ -169290,6 +169381,7 @@
 			"rangedAttackPower": 30,
 			"hitRating": 10
 		},
+		"limitCategory": 710,
 		"sources": [
 			{
 				"kind": "rep",
@@ -169312,6 +169404,7 @@
 			"spellDamage": 15,
 			"critRating": 14
 		},
+		"limitCategory": 710,
 		"sources": [
 			{
 				"kind": "rep",
@@ -169334,6 +169427,7 @@
 			"spellDamage": 11,
 			"spirit": 13
 		},
+		"limitCategory": 710,
 		"sources": [
 			{
 				"kind": "rep",
@@ -169355,6 +169449,7 @@
 			"expertiseRating": 10,
 			"defenseRating": 8
 		},
+		"limitCategory": 710,
 		"sources": [
 			{
 				"kind": "rep",
@@ -169377,6 +169472,7 @@
 			"rangedAttackPower": 34,
 			"hitRating": 10
 		},
+		"limitCategory": 710,
 		"sources": [
 			{
 				"kind": "rep",
@@ -169399,6 +169495,7 @@
 			"spellDamage": 17,
 			"critRating": 14
 		},
+		"limitCategory": 710,
 		"sources": [
 			{
 				"kind": "rep",
@@ -169421,6 +169518,7 @@
 			"spellDamage": 12,
 			"spirit": 14
 		},
+		"limitCategory": 710,
 		"sources": [
 			{
 				"kind": "rep",
@@ -169442,6 +169540,7 @@
 			"expertiseRating": 10,
 			"defenseRating": 8
 		},
+		"limitCategory": 710,
 		"sources": [
 			{
 				"kind": "rep",
@@ -170283,6 +170382,7 @@
 			"armor": 338,
 			"natureResistance": 9
 		},
+		"limitCategory": 708,
 		"classes": [
 			7
 		],
@@ -170316,6 +170416,7 @@
 			"armor": 242,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			7
 		],
@@ -170348,6 +170449,7 @@
 			"armor": 290,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			7
 		],
@@ -170379,6 +170481,7 @@
 			"armor": 266,
 			"natureResistance": 7
 		},
+		"limitCategory": 708,
 		"classes": [
 			7
 		],

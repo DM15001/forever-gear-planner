@@ -43,7 +43,7 @@ export const weightRuns = (spec: SpecConfig) => 1 + Object.keys(spec.weights.sta
 
 /**
  * Stat weights for this character as it stands: one run per stat with a little of that stat added,
- * each compared with the plain run. The stat the spec counts in (weight 1) stays the unit. Hit is
+ * each compared with the plain run. The result is DPS per point of each stat. Hit is
  * measured by taking some away, so a character at the cap still gets its value below the cap.
  */
 export async function measureWeights(character: Character, spec: SpecConfig, runner: SimRunner, onProgress: (done: number, total: number) => void): Promise<SpecConfig['weights']> {
@@ -67,11 +67,8 @@ export async function measureWeights(character: Character, spec: SpecConfig, run
 	const mainHand = spec.weights.mainHandDps ? await perPoint({ pseudoStats: { [MAIN_HAND_DPS]: 5 } }, 5) : 0;
 	const offHand = spec.weights.offHandDps ? await perPoint({ pseudoStats: { [OFF_HAND_DPS]: 5 } }, 5) : 0;
 
-	// The unit: the stat the spec's own weights count as 1.
-	const unitKey = Object.entries(spec.weights.stats).find(([key, weight]) => weight === 1 && raw[key] > 0)?.[0];
-	const unit = unitKey ? raw[unitKey] : 0;
-	if (!unit) throw new Error('The run gave no usable value for the reference stat.');
-	const scaled = (value: number) => Math.max(0, Math.round((value / unit) * 100) / 100);
+	// The weights are DPS per point of each stat, as the simulator gave them.
+	const scaled = (value: number) => Math.max(0, Math.round(value * 1000) / 1000);
 	const stats: Record<string, number> = { ...spec.weights.stats };
 	for (const [key, value] of Object.entries(raw)) stats[key] = scaled(value);
 	return {

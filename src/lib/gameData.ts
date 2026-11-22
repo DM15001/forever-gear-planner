@@ -73,7 +73,7 @@ export async function loadGameData(spec: SpecConfig = DEFAULT_SPEC): Promise<Gam
 		npcById,
 		guides: buildGuides((simSets.default as unknown as SimSet[]).filter(set => set.spec === spec.id), spec.id),
 		// Effects, proc enchants and set bonuses have only been measured for the Enhancement Shaman so far.
-		simValues: readSimValues(spec.id === DEFAULT_SPEC.id ? (simValuesJson.default as unknown as RawSimValues) : EMPTY_SIM_VALUES),
+		simValues: readSimValues(spec.id === DEFAULT_SPEC.id ? (simValuesJson.default as unknown as RawSimValues) : EMPTY_SIM_VALUES, spec.weights.dpsPerPoint ?? 1),
 		builtAt: meta.default.generatedAt,
 	};
 }
@@ -109,8 +109,9 @@ interface RawSimValues {
 	measured: { items: number[]; enchants: number[]; sets: number[] };
 }
 
-function readSimValues(raw: RawSimValues): SimValues {
-	const epMap = (record: Record<string, { ep: number }>) => new Map(Object.entries(record).map(([id, value]) => [Number(id), value.ep]));
+/** The measured values are stored in the spec's points; `factor` turns them into estimated DPS like the weights. */
+function readSimValues(raw: RawSimValues, factor: number): SimValues {
+	const epMap = (record: Record<string, { ep: number }>) => new Map(Object.entries(record).map(([id, value]) => [Number(id), value.ep * factor]));
 	return {
 		items: epMap(raw.items),
 		enchants: epMap(raw.enchants),

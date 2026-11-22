@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
+import { formatDps } from '../lib/format';
 import { applicableEnchants } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
 import { guideMarks, markLabel } from '../lib/guides';
@@ -26,7 +27,7 @@ interface Props {
 	onChange: (next: Character) => void;
 }
 
-const formatGain = (value: number) => `${value >= 0 ? '+' : '−'}${Math.abs(Math.round(value)).toLocaleString('en')}`;
+const formatGain = formatDps;
 
 /** The guided view: pick your content, get one plan, tick it off. */
 export function PlanTab({ spec, character, data, filter, onFilterChange, onChange }: Props) {
@@ -118,18 +119,10 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				<div className="panel summary">
 					<div className="summary-scores">
 						<div>
-							<span className="field-label">Now</span>
-							<span className="score num">{Math.round(equipped.score).toLocaleString('en')}</span>
-							<span className="summary-hit">{equipped.hit.total.toFixed(1)}% hit</span>
-						</div>
-						<div>
-							<span className="field-label">With the plan</span>
-							<span className="score num">
-								{Math.round(planned.score).toLocaleString('en')}
-								{hasPlan && <span className="delta-up"> {formatGain(planned.score - equipped.score)}</span>}
-							</span>
+							<span className="field-label">The plan, estimated</span>
+							<span className="score num delta-up">{hasPlan ? formatGain(planned.score - equipped.score) : 'Nothing to change'}</span>
 							<span className="summary-hit">
-								{planned.hit.total.toFixed(1)}% of {planned.hit.cap}% hit
+								{equipped.hit.total.toFixed(1)}% hit now, {planned.hit.total.toFixed(1)}% of {planned.hit.cap}% planned
 							</span>
 						</div>
 						<div>
@@ -169,7 +162,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						trinkets or set bonuses matter, which the quick score only knows for the Enhancement Shaman. It takes a few minutes.
 					</p>
 					<p className="hint">
-						The score is in points: stats by the build's stat weights, plus what the simulator measured for procs, on-use effects, proc enchants and set bonuses. To change a
+						The estimate is stats times the build's stat weights, in DPS, plus what the simulator measured for procs, on-use effects, proc enchants and set bonuses. To change a
 						single slot by hand, click its icon.
 					</p>
 				</div>

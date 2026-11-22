@@ -31,6 +31,13 @@ const OFF_HAND = GEAR_SLOTS.findIndex(s => s.key === 'offHand');
 /** Slots that come in pairs; a unique item can only sit in one of them. */
 const PAIRED: Record<number, number> = { 10: 11, 11: 10, 12: 13, 13: 12 };
 
+/** True if the two items cannot be worn at the same time: the same unique item, or one limit category. */
+export function clash(a: Item | undefined, b: Item | undefined): boolean {
+	if (!a || !b) return false;
+	if (a.id === b.id) return Boolean(a.unique || a.limitCategory);
+	return a.limitCategory !== undefined && a.limitCategory === b.limitCategory;
+}
+
 /**
  * The gear the plan aims for: equipped gear with the planned items swapped in and the planned
  * enchants applied. A swapped-in item keeps the slot's enchant unless the plan names another.
@@ -39,7 +46,7 @@ const PAIRED: Record<number, number> = { 10: 11, 11: 10, 12: 13, 13: 12 };
 export const EMPTY_SLOT = 0;
 
 export function plannedGear(character: Character, data?: Pick<GameData, 'itemById'>): Gear {
-	return character.gear.map((piece, index) => {
+	const gear = character.gear.map((piece, index) => {
 		const plannedId = character.plan?.[index];
 		if (plannedId === EMPTY_SLOT) return null;
 		const id = plannedId ?? piece?.id;
@@ -49,7 +56,22 @@ export function plannedGear(character: Character, data?: Pick<GameData, 'itemByI
 		const randomSuffix = id === piece?.id ? piece?.randomSuffix : data?.itemById.get(id)?.bestSuffix;
 		return { id, ...(enchant ? { enchant } : {}), ...(randomSuffix ? { randomSuffix } : {}) };
 	});
+	if (!data) return gear;
+	// Two rings or trinkets that cannot be worn together: the second slot falls back to what is equipped.
+	for (const [first, second] of [
+		[10, 11],
+		[12, 13],
+	]) {
+		const itemOf = (index: number) => data.itemById.get(gear[index]?.id ?? -1);
+		if (!clash(itemOf(first), itemOf(second))) continue;
+		const revert = character.plan?.[second] !== undefined ? second : character.plan?.[first] !== undefined ? first : undefined;
+		if (revert !== undefined) gear[revert] = character.gear[revert];
+	}
+	return gear;
 }
+
+/** The slot paired with a ring or trinket slot, if any. */
+export const pairedSlot = (slotIndex: number): number | undefined => PAIRED[slotIndex];
 
 export interface SetTotals {
 	stats: Stats;
@@ -140,7 +162,7 @@ export const DEFAULT_FILTER: SourceFilter = {
 	pvp: false,
 	unknown: true,
 	tier05: true,
-	randomSuffix: false,
+	randomSuffix: true,
 	notYetAvailable: false,
 	hiddenItems: [],
 	ownCraftsOnly: false,
@@ -255,10 +277,11 @@ export function slotCandidates(slotIndex: number, gear: Gear, { character, data,
 	const base = scoreSet(gear, character, data, spec).score;
 	const current = gear[slotIndex];
 	const pairedId = PAIRED[slotIndex] !== undefined ? gear[PAIRED[slotIndex]]?.id : undefined;
+	const paired = pairedId !== undefined ? data.itemById.get(pairedId) : undefined;
 	const result: Candidate[] = [];
 	for (const item of data.itemById.values()) {
 		if (!fitsSlot(item, slotIndex, spec) || item.id === current?.id) continue;
-		if (item.unique && item.id === pairedId) continue;
+		if (clash(item, paired)) continue;
 		if (!isObtainable(item, character, faction, filter, spec)) continue;
 		const swapped = withItem(gear, slotIndex, item.id, data);
 		result.push({
@@ -272,8 +295,8 @@ export function slotCandidates(slotIndex: number, gear: Gear, { character, data,
 
 /** How many of a slot's best candidates the pair search looks at. */
 const PAIR_DEPTH = 6;
-/** A set-seeded start is only followed up when it scores within this many points of the best set so far. */
-const SEED_MARGIN = 60;
+/** A set-seeded start is only followed up when it scores within this many DPS of the best set so far. */
+const SEED_MARGIN = 20;
 /** How many set-seeded starts get a full improvement pass. */
 const SEED_STARTS = 3;
 
@@ -312,7 +335,7 @@ export function suggestPlan(options: CandidateOptions): Record<number, number> {
 					for (const first of tops.get(a)!) {
 						for (const second of tops.get(b)!) {
 							// The same unique ring or trinket cannot sit in both slots of a pair.
-							if (PAIRED[a] === b && first.item.id === second.item.id && first.item.unique) continue;
+							if (PAIRED[a] === b && clash(first.item, second.item)) continue;
 							const tried = put(put(gear, a, first.item.id), b, second.item.id);
 							const score = scoreOf(tried);
 							if (score > base + 0.01 && (!best || score > best.score)) best = { gear: tried, score };

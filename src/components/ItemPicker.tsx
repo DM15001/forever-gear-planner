@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
+import { formatDps } from '../lib/format';
 import type { GameData } from '../lib/gameData';
 import { effortLine } from '../lib/loot';
 import { EVERYTHING, type Gear, slotCandidates, type SourceFilter, usableSources } from '../lib/scoring';
@@ -27,7 +28,7 @@ interface Props {
 }
 
 const ROWS_SHOWN = 60;
-const formatDelta = (value: number) => `${value >= 0 ? '+' : '−'}${Math.abs(Math.round(value)).toLocaleString('en')}`;
+const formatDelta = formatDps;
 
 /** A list of everything that fits a slot, best first, to swap one item by hand. */
 export function ItemPicker({ slotIndex, gear, character, data, spec, filter, startWithAll = false, allowEmpty = false, onPick, onClose }: Props) {

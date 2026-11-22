@@ -38,7 +38,7 @@ describe('enchantOverview', () => {
 		// Crusader has no stats; its worth comes from the simulator measurement.
 		const crusader = weapon.options.find(o => o.enchant.name.includes('Crusader'))!;
 		expect(crusader.delta).toBeCloseTo(data.simValues.enchants.get(crusader.enchant.effectId)!);
-		expect(crusader.delta).toBeGreaterThan(40);
+		expect(crusader.delta).toBeGreaterThan(8);
 	});
 
 	it('keeps procs nobody measured apart', () => {

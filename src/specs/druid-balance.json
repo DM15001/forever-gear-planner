@@ -81,6 +81,7 @@
 			"critRating": 0.76,
 			"hasteRating": 0.95
 		},
-		"hitRatingOverCap": 0
+		"hitRatingOverCap": 0,
+		"dpsPerPoint": 0.663
 	}
 }

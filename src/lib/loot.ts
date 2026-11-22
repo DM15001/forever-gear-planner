@@ -124,6 +124,15 @@ const percent = (value: number) => (value >= 0.1 ? `${Math.round(value * 100)}%`
 const oneIn = (chance: number) => `1 in ${Math.max(1, Math.round(1 / chance))}`;
 
 /** "20% drop, about 5 runs", with the spawn chance for bosses that are not always there. Undefined when nothing is known. */
+/** The short form for narrow rows: "4.3% drop" and "about 23 runs", each undefined when unknown. */
+export function effortParts(source: ItemSource | undefined): { chance?: string; runs?: string } {
+	if (!source || source.kind !== 'drop') return {};
+	const chance = runChance(source);
+	if (chance === undefined) return {};
+	const runs = Math.max(1, Math.round(1 / chance));
+	return { chance: `${percent(source.dropChance!)} drop${source.dropBasis === 'classic' ? '*' : ''}`, runs: `about ${runs.toLocaleString('en')} run${runs === 1 ? '' : 's'}` };
+}
+
 export function effortLine(source: ItemSource | undefined): string | undefined {
 	if (!source || source.kind !== 'drop') return undefined;
 	const spawn = source.spawnChance !== undefined ? `boss there ${oneIn(source.spawnChance)} runs${source.spawnBasis === 'estimate' ? ' (estimate)' : ''}` : undefined;

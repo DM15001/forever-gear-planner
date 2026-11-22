@@ -26,7 +26,27 @@ import warlockSmRuin from '../specs/warlock-sm-ruin.json';
 import type { Character, Enchant, Item, SpecConfig } from './types';
 
 /** Every spec the planner knows, in the order they are offered. */
-export const SPECS = [enhancementShaman, elementalShaman, warlockSmRuin, warlockDestruction, warlockAffliction, warlockDemoFire, warlockDemoShadow, priestShadow, priestSmite, mageFire, mageFrost, mageFrostIncin, mageArcane, mageArcaneFire, mageFfb, warriorFury, warriorArms, rogueCombatSs, rogueCombatBs, rogueCombatVenom, rogueAsnMuti, rogueSubHemo, rogueHemoSf, druidBalance, druidCat] as unknown as SpecConfig[];
+/**
+ * The spec files count in "points", where one point is one attack power or one spell damage.
+ * The planner counts in estimated DPS instead: every weight is multiplied by what one point is
+ * worth in DPS for the build (`dpsPerPoint`, measured with the simulator on the preset gear).
+ */
+function inDps(spec: SpecConfig): SpecConfig {
+	const factor = spec.weights.dpsPerPoint ?? 1;
+	const scale = (value: number) => Math.round(value * factor * 1000) / 1000;
+	return {
+		...spec,
+		weights: {
+			...spec.weights,
+			mainHandDps: scale(spec.weights.mainHandDps),
+			...(spec.weights.offHandDps !== undefined ? { offHandDps: scale(spec.weights.offHandDps) } : {}),
+			hitRatingOverCap: scale(spec.weights.hitRatingOverCap),
+			stats: Object.fromEntries(Object.entries(spec.weights.stats).map(([key, value]) => [key, scale(value)])),
+		},
+	};
+}
+
+export const SPECS = ([enhancementShaman, elementalShaman, warlockSmRuin, warlockDestruction, warlockAffliction, warlockDemoFire, warlockDemoShadow, priestShadow, priestSmite, mageFire, mageFrost, mageFrostIncin, mageArcane, mageArcaneFire, mageFfb, warriorFury, warriorArms, rogueCombatSs, rogueCombatBs, rogueCombatVenom, rogueAsnMuti, rogueSubHemo, rogueHemoSf, druidBalance, druidCat] as unknown as SpecConfig[]).map(inDps);
 
 export const DEFAULT_SPEC = SPECS[0];
 

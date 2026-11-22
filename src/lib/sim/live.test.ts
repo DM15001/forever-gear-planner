@@ -13,7 +13,7 @@ const character: Character = { specId: spec.id, race: 'RaceOrc', level: 60, tale
 const outcome = (dps: number) => ({ dps, error: 0.5, iterations: 1 });
 
 describe('measuring stat weights with the simulator', () => {
-	it('turns DPS differences into weights, with attack power as the unit', async () => {
+	it('turns DPS differences into DPS per point of each stat', async () => {
 		// A stand-in simulator: 2 DPS per strength, 0.5 per attack power, 1.5 per hit rating, 6 per point of main hand DPS.
 		const truth: Record<number, number> = { 0: 2, 14: 0.5, 17: 1.5 };
 		const runner: SimRunner = {
@@ -26,11 +26,11 @@ describe('measuring stat weights with the simulator', () => {
 			last = done;
 		});
 		expect(last).toBe(weightRuns(spec));
-		expect(weights.stats.attackPower).toBe(1);
-		expect(weights.stats.strength).toBe(4);
-		expect(weights.stats.hitRating).toBe(3);
+		expect(weights.stats.attackPower).toBe(0.5);
+		expect(weights.stats.strength).toBe(2);
+		expect(weights.stats.hitRating).toBe(1.5);
 		expect(weights.stats.critRating).toBe(0);
-		expect(weights.mainHandDps).toBe(12);
+		expect(weights.mainHandDps).toBe(6);
 		expect(weights.offHandDps).toBe(0);
 	});
 });

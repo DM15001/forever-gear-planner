@@ -244,6 +244,8 @@ function convertItem(item) {
 		stats: namedStats(scaling.stats),
 		weapon,
 		unique: item.unique,
+		// Items sharing a limit category cannot be worn together (the four Warden's Signets, for example).
+		limitCategory: item.limitCategory || undefined,
 		// Class ids that may use the item; unset = every class.
 		classes: item.classAllowlist?.length ? item.classAllowlist : undefined,
 		faction: FACTIONS[item.factionRestriction],
