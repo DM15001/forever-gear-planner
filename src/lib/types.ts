@@ -22,6 +22,15 @@ export interface ItemSource {
 	repFaction?: string;
 	repLevel?: string;
 	faction?: Faction;
+	/** Share of kills or openings that gave this item, from Wowhead's loot records. */
+	dropChance?: number;
+	/** How many kills or openings the drop chance rests on. */
+	dropSample?: number;
+	/** Set for a boss that is not there on every run: the share of runs in which it is. */
+	spawnChance?: number;
+	/** Where the spawn chance comes from: the encounter's rules, Wowhead kill counts, or a guess. */
+	spawnBasis?: 'mechanic' | 'kills' | 'estimate';
+	spawnNote?: string;
 }
 
 export interface Item {

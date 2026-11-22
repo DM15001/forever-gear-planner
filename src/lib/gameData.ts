@@ -1,5 +1,6 @@
 import { buildGuides, type Guide, type SimSet } from './guides';
 import wingConfig from '../config/dungeonWings.json';
+import { applyLoot } from './loot';
 import type { Enchant, Item, Npc, RandomSuffix, SimValues, SlotKind, Zone } from './types';
 
 export interface GameData {
@@ -39,6 +40,7 @@ export async function loadGameData(): Promise<GameData> {
 	const itemById = byId<Item>(items.default);
 	const zoneById = byId<Zone>(zones.default);
 	const npcById = byId<Npc>(npcs.default);
+	applyLoot(itemById, npcById, zoneById);
 	tagDungeons([...itemById.values(), ...(enchants.default as unknown as Enchant[])], zoneById, npcById);
 	return {
 		itemById,

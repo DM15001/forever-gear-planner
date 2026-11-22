@@ -23997,6 +23997,7 @@
 	{
 		"id": 10008,
 		"name": "White Bandit Mask",
+		"icon": "inv_helmet_30",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -88552,6 +88553,7 @@
 	{
 		"id": 19972,
 		"name": "Lucky Fishing Hat",
+		"icon": "inv_helmet_50",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -93736,6 +93738,7 @@
 	{
 		"id": 20583,
 		"name": "Sturdy Female Dwarf Mask",
+		"icon": "achievement_character_dwarf_female",
 		"slot": "head",
 		"quality": "uncommon",
 		"ilvl": 45
@@ -93743,6 +93746,7 @@
 	{
 		"id": 20584,
 		"name": "Sturdy Female Gnome Mask",
+		"icon": "achievement_character_gnome_female",
 		"slot": "head",
 		"quality": "uncommon",
 		"ilvl": 45
@@ -93750,6 +93754,7 @@
 	{
 		"id": 20585,
 		"name": "Sturdy Female Human Mask",
+		"icon": "achievement_character_human_female",
 		"slot": "head",
 		"quality": "uncommon",
 		"ilvl": 45
@@ -93757,6 +93762,7 @@
 	{
 		"id": 20586,
 		"name": "Sturdy Female Night Elf Mask",
+		"icon": "achievement_character_nightelf_female",
 		"slot": "head",
 		"quality": "uncommon",
 		"ilvl": 45
@@ -93764,6 +93770,7 @@
 	{
 		"id": 20587,
 		"name": "Sturdy Female Orc Mask",
+		"icon": "achievement_character_orc_female",
 		"slot": "head",
 		"quality": "uncommon",
 		"ilvl": 45
@@ -93771,6 +93778,7 @@
 	{
 		"id": 20588,
 		"name": "Sturdy Female Tauren Mask",
+		"icon": "achievement_character_tauren_female",
 		"slot": "head",
 		"quality": "uncommon",
 		"ilvl": 45
@@ -93778,6 +93786,7 @@
 	{
 		"id": 20589,
 		"name": "Sturdy Female Troll Mask",
+		"icon": "achievement_character_troll_female",
 		"slot": "head",
 		"quality": "uncommon",
 		"ilvl": 45
@@ -93785,6 +93794,7 @@
 	{
 		"id": 20590,
 		"name": "Sturdy Female Undead Mask",
+		"icon": "achievement_character_undead_female",
 		"slot": "head",
 		"quality": "uncommon",
 		"ilvl": 45
@@ -93792,6 +93802,7 @@
 	{
 		"id": 20591,
 		"name": "Sturdy Male Dwarf Mask",
+		"icon": "achievement_character_dwarf_male",
 		"slot": "head",
 		"quality": "uncommon",
 		"ilvl": 45
@@ -93799,6 +93810,7 @@
 	{
 		"id": 20592,
 		"name": "Sturdy Male Gnome Mask",
+		"icon": "achievement_character_gnome_male",
 		"slot": "head",
 		"quality": "uncommon",
 		"ilvl": 45
@@ -93806,6 +93818,7 @@
 	{
 		"id": 20593,
 		"name": "Sturdy Male Human Mask",
+		"icon": "achievement_character_human_male",
 		"slot": "head",
 		"quality": "uncommon",
 		"ilvl": 45
@@ -93813,6 +93826,7 @@
 	{
 		"id": 20594,
 		"name": "Sturdy Male Night Elf Mask",
+		"icon": "achievement_character_nightelf_male",
 		"slot": "head",
 		"quality": "uncommon",
 		"ilvl": 45
@@ -93820,6 +93834,7 @@
 	{
 		"id": 20595,
 		"name": "Sturdy Male Orc Mask",
+		"icon": "achievement_character_orc_male",
 		"slot": "head",
 		"quality": "uncommon",
 		"ilvl": 45
@@ -93827,6 +93842,7 @@
 	{
 		"id": 20596,
 		"name": "Sturdy Male Tauren Mask",
+		"icon": "achievement_character_tauren_male",
 		"slot": "head",
 		"quality": "uncommon",
 		"ilvl": 45
@@ -93834,6 +93850,7 @@
 	{
 		"id": 20597,
 		"name": "Sturdy Male Troll Mask",
+		"icon": "achievement_character_troll_male",
 		"slot": "head",
 		"quality": "uncommon",
 		"ilvl": 45
@@ -93841,6 +93858,7 @@
 	{
 		"id": 20598,
 		"name": "Sturdy Male Undead Mask",
+		"icon": "achievement_character_undead_male",
 		"slot": "head",
 		"quality": "uncommon",
 		"ilvl": 45
@@ -98022,6 +98040,7 @@
 	{
 		"id": 250482,
 		"name": "Glowing Copper Boots",
+		"icon": "inv_boots_01",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98044,6 +98063,7 @@
 	{
 		"id": 250488,
 		"name": "Veteran's Chain Shirt",
+		"icon": "inv_chest_chain_07",
 		"slot": "chest",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98066,6 +98086,7 @@
 	{
 		"id": 250489,
 		"name": "Guard's Chain Shirt",
+		"icon": "inv_chest_chain_09",
 		"slot": "chest",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98088,6 +98109,7 @@
 	{
 		"id": 250490,
 		"name": "Protector's Chain Shirt",
+		"icon": "inv_chest_chain_07",
 		"slot": "chest",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98111,6 +98133,7 @@
 	{
 		"id": 250491,
 		"name": "Acolyte's Chain Shirt",
+		"icon": "inv_chest_chain_08",
 		"slot": "chest",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98134,6 +98157,7 @@
 	{
 		"id": 250492,
 		"name": "Crusader's Chain Shirt",
+		"icon": "inv_chest_chain_09",
 		"slot": "chest",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98157,6 +98181,7 @@
 	{
 		"id": 250493,
 		"name": "Veteran's Chain Leggings",
+		"icon": "inv_pants_mail_05",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98179,6 +98204,7 @@
 	{
 		"id": 250494,
 		"name": "Guard's Chain Leggings",
+		"icon": "inv_pants_mail_16",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98201,6 +98227,7 @@
 	{
 		"id": 250495,
 		"name": "Protector's Chain Leggings",
+		"icon": "inv_pants_mail_05",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98248,6 +98275,7 @@
 	{
 		"id": 250497,
 		"name": "Crusader's Chain Leggings",
+		"icon": "inv_pants_mail_13",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98271,6 +98299,7 @@
 	{
 		"id": 250498,
 		"name": "Veteran's Chain Helm",
+		"icon": "inv_helmet_39",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98292,6 +98321,7 @@
 	{
 		"id": 250499,
 		"name": "Guard's Chain Helm",
+		"icon": "inv_helmet_38",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98313,6 +98343,7 @@
 	{
 		"id": 250500,
 		"name": "Protector's Chain Helm",
+		"icon": "inv_helmet_39",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98334,6 +98365,7 @@
 	{
 		"id": 250501,
 		"name": "Acolyte's Chain Helm",
+		"icon": "inv_helmet_36",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98356,6 +98388,7 @@
 	{
 		"id": 250502,
 		"name": "Crusader's Chain Helm",
+		"icon": "inv_helmet_37",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98378,6 +98411,7 @@
 	{
 		"id": 250503,
 		"name": "Veteran's Boots",
+		"icon": "inv_boots_chain_03",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98400,6 +98434,7 @@
 	{
 		"id": 250504,
 		"name": "Guard's Boots",
+		"icon": "inv_boots_chain_01",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98422,6 +98457,7 @@
 	{
 		"id": 250505,
 		"name": "Protector's Boots",
+		"icon": "inv_boots_chain_03",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98445,6 +98481,7 @@
 	{
 		"id": 250506,
 		"name": "Acolyte's Boots",
+		"icon": "inv_boots_chain_02",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98468,6 +98505,7 @@
 	{
 		"id": 250507,
 		"name": "Crusader's Boots",
+		"icon": "inv_boots_chain_05",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98491,6 +98529,7 @@
 	{
 		"id": 250508,
 		"name": "Veteran's Gloves",
+		"icon": "inv_gauntlets_26",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98513,6 +98552,7 @@
 	{
 		"id": 250509,
 		"name": "Guard's Gloves",
+		"icon": "inv_gauntlets_15",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98535,6 +98575,7 @@
 	{
 		"id": 250510,
 		"name": "Protector's Gloves",
+		"icon": "inv_gauntlets_26",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98558,6 +98599,7 @@
 	{
 		"id": 250511,
 		"name": "Acolyte's Gloves",
+		"icon": "inv_gauntlets_11",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98581,6 +98623,7 @@
 	{
 		"id": 250512,
 		"name": "Crusader's Gloves",
+		"icon": "inv_gauntlets_12",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98604,6 +98647,7 @@
 	{
 		"id": 250513,
 		"name": "Veteran's Chain Belt",
+		"icon": "inv_belt_17",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98626,6 +98670,7 @@
 	{
 		"id": 250514,
 		"name": "Guard's Chain Belt",
+		"icon": "inv_belt_15",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98648,6 +98693,7 @@
 	{
 		"id": 250515,
 		"name": "Protector's Chain Belt",
+		"icon": "inv_belt_17",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98671,6 +98717,7 @@
 	{
 		"id": 250516,
 		"name": "Acolyte's Chain Belt",
+		"icon": "inv_belt_23",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98694,6 +98741,7 @@
 	{
 		"id": 250517,
 		"name": "Crusader's Chain Belt",
+		"icon": "inv_belt_22",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98717,6 +98765,7 @@
 	{
 		"id": 250518,
 		"name": "Veteran's Silvered Chain Shirt",
+		"icon": "inv_chest_chain_07",
 		"slot": "chest",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98739,6 +98788,7 @@
 	{
 		"id": 250519,
 		"name": "Guard's Silvered Chain Shirt",
+		"icon": "inv_chest_chain_09",
 		"slot": "chest",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98761,6 +98811,7 @@
 	{
 		"id": 250520,
 		"name": "Protector's Silvered Chain Shirt",
+		"icon": "inv_chest_chain_07",
 		"slot": "chest",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98784,6 +98835,7 @@
 	{
 		"id": 250521,
 		"name": "Acolyte's Silvered Chain Shirt",
+		"icon": "inv_chest_chain_08",
 		"slot": "chest",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98807,6 +98859,7 @@
 	{
 		"id": 250522,
 		"name": "Crusader's Silvered Chain Shirt",
+		"icon": "inv_chest_chain_09",
 		"slot": "chest",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98830,6 +98883,7 @@
 	{
 		"id": 250523,
 		"name": "Veteran's Silvered Chain Leggings",
+		"icon": "inv_pants_mail_05",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98852,6 +98906,7 @@
 	{
 		"id": 250524,
 		"name": "Guard's Silvered Chain Leggings",
+		"icon": "inv_pants_mail_16",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98874,6 +98929,7 @@
 	{
 		"id": 250525,
 		"name": "Protector's Silvered Chain Leggings",
+		"icon": "inv_pants_mail_05",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98897,6 +98953,7 @@
 	{
 		"id": 250526,
 		"name": "Acolyte's Silvered Chain Leggings",
+		"icon": "inv_pants_mail_10",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98920,6 +98977,7 @@
 	{
 		"id": 250527,
 		"name": "Crusader's Silvered Chain Leggings",
+		"icon": "inv_pants_mail_13",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98943,6 +99001,7 @@
 	{
 		"id": 250528,
 		"name": "Veteran's Silvered Chain Helm",
+		"icon": "inv_helmet_39",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98964,6 +99023,7 @@
 	{
 		"id": 250529,
 		"name": "Guard's Silvered Chain Helm",
+		"icon": "inv_helmet_38",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "rare",
@@ -98985,6 +99045,7 @@
 	{
 		"id": 250530,
 		"name": "Protector's Silvered Chain Helm",
+		"icon": "inv_helmet_39",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "rare",
@@ -99006,6 +99067,7 @@
 	{
 		"id": 250531,
 		"name": "Acolyte's Silvered Chain Helm",
+		"icon": "inv_helmet_36",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "rare",
@@ -99028,6 +99090,7 @@
 	{
 		"id": 250532,
 		"name": "Crusader's Silvered Chain Helm",
+		"icon": "inv_helmet_37",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "rare",
@@ -99050,6 +99113,7 @@
 	{
 		"id": 250537,
 		"name": "Hard Gold Coif",
+		"icon": "inv_helmet_39",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -99072,6 +99136,7 @@
 	{
 		"id": 250538,
 		"name": "Hard Gold Gauntlet",
+		"icon": "inv_gauntlets_29",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -99094,6 +99159,7 @@
 	{
 		"id": 250539,
 		"name": "Hard Gold Pauldrons",
+		"icon": "inv_shoulder_28",
 		"slot": "shoulder",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -99116,6 +99182,7 @@
 	{
 		"id": 250556,
 		"name": "Officer's Belt",
+		"icon": "inv_belt_20",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -99138,6 +99205,7 @@
 	{
 		"id": 250557,
 		"name": "Sentinel's Belt",
+		"icon": "inv_belt_37a",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -99160,6 +99228,7 @@
 	{
 		"id": 250558,
 		"name": "Warder's Belt",
+		"icon": "inv_belt_29",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -99183,6 +99252,7 @@
 	{
 		"id": 250559,
 		"name": "Prefect's Belt",
+		"icon": "inv_belt_08",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -99206,6 +99276,7 @@
 	{
 		"id": 250560,
 		"name": "Justicar's Belt",
+		"icon": "inv_belt_13",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -99229,6 +99300,7 @@
 	{
 		"id": 250566,
 		"name": "Officer's Gauntlet",
+		"icon": "inv_gauntlets_51",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "rare",
@@ -99251,6 +99323,7 @@
 	{
 		"id": 250567,
 		"name": "Sentinel's Gauntlet",
+		"icon": "inv_gauntlets_22",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "rare",
@@ -99273,6 +99346,7 @@
 	{
 		"id": 250568,
 		"name": "Warder's Gauntlet",
+		"icon": "inv_gauntlets_50",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "rare",
@@ -99296,6 +99370,7 @@
 	{
 		"id": 250569,
 		"name": "Prefect's Gauntlet",
+		"icon": "inv_gauntlets_26",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "rare",
@@ -99319,6 +99394,7 @@
 	{
 		"id": 250570,
 		"name": "Justicar's Gauntlet",
+		"icon": "inv_gauntlets_30",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "rare",
@@ -99342,6 +99418,7 @@
 	{
 		"id": 250607,
 		"name": "Mithril Shortsword",
+		"icon": "inv_weapon_shortblade_05",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 41,
@@ -99369,6 +99446,7 @@
 	{
 		"id": 250608,
 		"name": "Mithril Warhammer",
+		"icon": "inv_hammer_03",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 43,
@@ -99424,6 +99502,7 @@
 	{
 		"id": 250611,
 		"name": "Mithril Stiletto",
+		"icon": "inv_weapon_shortblade_05",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 47,
@@ -99450,6 +99529,7 @@
 	{
 		"id": 250612,
 		"name": "Charged Mithril Battleaxe",
+		"icon": "inv_axe_09",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 48,
@@ -99478,6 +99558,7 @@
 	{
 		"id": 250613,
 		"name": "Thorium Greatmace",
+		"icon": "inv_hammer_10",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 55,
@@ -99506,6 +99587,7 @@
 	{
 		"id": 250614,
 		"name": "Thorium Cestus",
+		"icon": "inv_gauntlets_11",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 55,
@@ -99534,6 +99616,7 @@
 	{
 		"id": 250616,
 		"name": "Bold Dirk",
+		"icon": "inv_weapon_shortblade_01",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 57,
@@ -99562,6 +99645,7 @@
 	{
 		"id": 250617,
 		"name": "Stormcarver",
+		"icon": "inv_axe_04",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 63,
@@ -99619,6 +99703,7 @@
 	{
 		"id": 250620,
 		"name": "Gemmed Copper Boots",
+		"icon": "inv_boots_chain_11",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -99640,6 +99725,7 @@
 	{
 		"id": 250621,
 		"name": "Strange Copper Boots",
+		"icon": "inv_boots_plate_01",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -99733,6 +99819,7 @@
 	{
 		"id": 252424,
 		"name": "Black Whelp Slippers",
+		"icon": "inv_boots_leather_05red",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -99755,6 +99842,7 @@
 	{
 		"id": 252425,
 		"name": "Dark Leather Boots",
+		"icon": "inv_boots_05",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -99776,6 +99864,7 @@
 	{
 		"id": 252426,
 		"name": "Murloc Scale Shoes",
+		"icon": "inv_boots_cloth_14",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -99797,6 +99886,7 @@
 	{
 		"id": 252427,
 		"name": "Moonglow Boots",
+		"icon": "inv_boots_cloth_03",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -99819,6 +99909,7 @@
 	{
 		"id": 252428,
 		"name": "Brawler's Leather Belt",
+		"icon": "inv_belt_04",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -99841,6 +99932,7 @@
 	{
 		"id": 252429,
 		"name": "Trapper's Leather Belt",
+		"icon": "inv_belt_05",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -99863,6 +99955,7 @@
 	{
 		"id": 252430,
 		"name": "Defender's Leather Belt",
+		"icon": "inv_belt_24",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -99885,6 +99978,7 @@
 	{
 		"id": 252431,
 		"name": "Totemic Leather Belt",
+		"icon": "inv_belt_06",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -99908,6 +100002,7 @@
 	{
 		"id": 252432,
 		"name": "Stormrider's Leather Belt",
+		"icon": "inv_belt_16",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -99931,6 +100026,7 @@
 	{
 		"id": 252433,
 		"name": "Wisdom's Leather Belt",
+		"icon": "inv_belt_06",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -99954,6 +100050,7 @@
 	{
 		"id": 252434,
 		"name": "Defender's Leather Armor",
+		"icon": "inv_chest_leather_10",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "rare",
@@ -99977,6 +100074,7 @@
 	{
 		"id": 252435,
 		"name": "Totemic Leather Armor",
+		"icon": "inv_chest_leather_01",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100001,6 +100099,7 @@
 	{
 		"id": 252439,
 		"name": "Brawler's Leather Boots",
+		"icon": "inv_boots_09",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100023,6 +100122,7 @@
 	{
 		"id": 252440,
 		"name": "Trapper's Leather Boots",
+		"icon": "inv_boots_cloth_04",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100045,6 +100145,7 @@
 	{
 		"id": 252441,
 		"name": "Defender's Leather Boots",
+		"icon": "inv_boots_cloth_07",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100067,6 +100168,7 @@
 	{
 		"id": 252442,
 		"name": "Totemic Leather Boots",
+		"icon": "inv_boots_chain_12",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100090,6 +100192,7 @@
 	{
 		"id": 252443,
 		"name": "Stormrider's Leather Boots",
+		"icon": "inv_boots_chain_05",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100113,6 +100216,7 @@
 	{
 		"id": 252444,
 		"name": "Wisdom's Leather Boots",
+		"icon": "inv_boots_chain_03",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100136,6 +100240,7 @@
 	{
 		"id": 252445,
 		"name": "Defender's Leather Pants",
+		"icon": "inv_pants_leather_01",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100159,6 +100264,7 @@
 	{
 		"id": 252446,
 		"name": "Totemic Leather Pants",
+		"icon": "inv_pants_01",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100183,6 +100289,7 @@
 	{
 		"id": 252447,
 		"name": "Defender's Leather Hood",
+		"icon": "inv_helmet_48",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100204,6 +100311,7 @@
 	{
 		"id": 252448,
 		"name": "Totemic Leather Hood",
+		"icon": "inv_helmet_15",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100226,6 +100334,7 @@
 	{
 		"id": 252450,
 		"name": "Defender's Leather Tunic",
+		"icon": "inv_chest_leather_07",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100249,6 +100358,7 @@
 	{
 		"id": 252451,
 		"name": "Totemic Leather Tunic",
+		"icon": "inv_chest_leather_02",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100273,6 +100383,7 @@
 	{
 		"id": 252455,
 		"name": "Defender's Leather Helm",
+		"icon": "inv_helmet_33",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100299,6 +100410,7 @@
 	{
 		"id": 252456,
 		"name": "Totemic Leather Helm",
+		"icon": "inv_helmet_24",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100326,6 +100438,7 @@
 	{
 		"id": 252457,
 		"name": "Defender's Leather Kilt",
+		"icon": "inv_kilt_cloth_04v4",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100349,6 +100462,7 @@
 	{
 		"id": 252458,
 		"name": "Totemic Leather Leggings",
+		"icon": "inv_pants_01",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100373,6 +100487,7 @@
 	{
 		"id": 252459,
 		"name": "Prowler's Leather Belt",
+		"icon": "inv_belt_43",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100396,6 +100511,7 @@
 	{
 		"id": 252460,
 		"name": "Warden's Leather Belt",
+		"icon": "inv_belt_06",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100419,6 +100535,7 @@
 	{
 		"id": 252461,
 		"name": "Skirmisher's Leather Belt",
+		"icon": "inv_belt_37a",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100443,6 +100560,7 @@
 	{
 		"id": 252465,
 		"name": "Prowler's Leather Shoes",
+		"icon": "inv_boots_cloth_19",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100466,6 +100584,7 @@
 	{
 		"id": 252466,
 		"name": "Warden's Leather Shoes",
+		"icon": "inv_boots_cloth_20",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100489,6 +100608,7 @@
 	{
 		"id": 252467,
 		"name": "Blue Suede Shoes",
+		"icon": "inv_boots_leather_12",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -100511,6 +100631,7 @@
 	{
 		"id": 252468,
 		"name": "Prowler's Leather Boots",
+		"icon": "inv_boots_chain_06",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100533,6 +100654,7 @@
 	{
 		"id": 252469,
 		"name": "Skulker's Leather Boots",
+		"icon": "inv_boots_cloth_25purple",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100555,6 +100677,7 @@
 	{
 		"id": 252470,
 		"name": "Warden's Leather Boots",
+		"icon": "inv_boots_04",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100577,6 +100700,7 @@
 	{
 		"id": 252471,
 		"name": "Skycaller's Leather Boots",
+		"icon": "inv_boots_leather_cataclysm_b_02",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100600,6 +100724,7 @@
 	{
 		"id": 252472,
 		"name": "Mender's Leather Boots",
+		"icon": "inv_boots_cloth_03",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100623,6 +100748,7 @@
 	{
 		"id": 252473,
 		"name": "Prowler's Leather Waistguard",
+		"icon": "inv_belt_37b",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100645,6 +100771,7 @@
 	{
 		"id": 252474,
 		"name": "Skulker's Leather Waistguard",
+		"icon": "inv_belt_43",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100667,6 +100794,7 @@
 	{
 		"id": 252475,
 		"name": "Warden's Leather Waistguard",
+		"icon": "inv_belt_04",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100689,6 +100817,7 @@
 	{
 		"id": 252476,
 		"name": "Skycaller's Leather Waistguard",
+		"icon": "inv_belt_43a",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100712,6 +100841,7 @@
 	{
 		"id": 252477,
 		"name": "Mender's Leather Waistguard",
+		"icon": "inv_belt_16",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100735,6 +100865,7 @@
 	{
 		"id": 252478,
 		"name": "Blue Suede Pants",
+		"icon": "inv_pants_leather_21",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -100757,6 +100888,7 @@
 	{
 		"id": 252479,
 		"name": "Wicked Leather Boots",
+		"icon": "inv_boots_chain_05",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -100778,6 +100910,7 @@
 	{
 		"id": 252480,
 		"name": "Blue Suede Armor",
+		"icon": "inv_chest_leather_07",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -100800,6 +100933,7 @@
 	{
 		"id": 252481,
 		"name": "Blue Suede Belt",
+		"icon": "inv_belt_03",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -100822,6 +100956,7 @@
 	{
 		"id": 252482,
 		"name": "Blue Suede Hat",
+		"icon": "inv_helm_armor_buckledhat_b_01_blue",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -100844,6 +100979,7 @@
 	{
 		"id": 252483,
 		"name": "Dawn Armor",
+		"icon": "inv_chest_leather_08",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "epic",
@@ -100866,6 +101002,7 @@
 	{
 		"id": 252484,
 		"name": "Timbermaw Tunic",
+		"icon": "inv_chest_fur",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "epic",
@@ -100888,6 +101025,7 @@
 	{
 		"id": 252485,
 		"name": "Warbear Helm",
+		"icon": "inv_helmet_31",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "epic",
@@ -100910,6 +101048,7 @@
 	{
 		"id": 252486,
 		"name": "Ironfeather Leggings",
+		"icon": "inv_pants_leather_26",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "epic",
@@ -100933,6 +101072,7 @@
 	{
 		"id": 252490,
 		"name": "Brawler's Leather Armor",
+		"icon": "inv_chest_leather_07",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100956,6 +101096,7 @@
 	{
 		"id": 252491,
 		"name": "Trapper's Leather Armor",
+		"icon": "inv_chest_leather_08",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "rare",
@@ -100979,6 +101120,7 @@
 	{
 		"id": 252492,
 		"name": "Stormrider's Leather Armor",
+		"icon": "inv_chest_leather_03",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101003,6 +101145,7 @@
 	{
 		"id": 252493,
 		"name": "Wisdom's Leather Armor",
+		"icon": "inv_chest_fur",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101027,6 +101170,7 @@
 	{
 		"id": 252494,
 		"name": "Brawler's Leather Gloves",
+		"icon": "inv_gauntlets_21",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101049,6 +101193,7 @@
 	{
 		"id": 252495,
 		"name": "Trapper's Leather Gloves",
+		"icon": "inv_gauntlets_10",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101071,6 +101216,7 @@
 	{
 		"id": 252496,
 		"name": "Defender's Leather Gloves",
+		"icon": "inv_gauntlets_24",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101093,6 +101239,7 @@
 	{
 		"id": 252497,
 		"name": "Totemic Leather Gloves",
+		"icon": "inv_gauntlets_12",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101116,6 +101263,7 @@
 	{
 		"id": 252498,
 		"name": "Stormrider's Leather Gloves",
+		"icon": "inv_gauntlets_24",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101139,6 +101287,7 @@
 	{
 		"id": 252499,
 		"name": "Wisdom's Leather Gloves",
+		"icon": "inv_gauntlets_60",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101162,6 +101311,7 @@
 	{
 		"id": 252500,
 		"name": "Brawler's Leather Pants",
+		"icon": "inv_pants_06",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101185,6 +101335,7 @@
 	{
 		"id": 252501,
 		"name": "Trapper's Leather Pants",
+		"icon": "inv_pants_14",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101208,6 +101359,7 @@
 	{
 		"id": 252502,
 		"name": "Stormrider's Leather Pants",
+		"icon": "inv_pants_10",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101232,6 +101384,7 @@
 	{
 		"id": 252503,
 		"name": "Wisdom's Leather Pants",
+		"icon": "inv_pants_06",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101256,6 +101409,7 @@
 	{
 		"id": 252504,
 		"name": "Brawler's Leather Hood",
+		"icon": "inv_helmet_31",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101277,6 +101431,7 @@
 	{
 		"id": 252505,
 		"name": "Trapper's Leather Hood",
+		"icon": "inv_helmet_33",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101298,6 +101453,7 @@
 	{
 		"id": 252506,
 		"name": "Stormrider's Leather Hood",
+		"icon": "inv_helmet_29",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101319,6 +101475,7 @@
 	{
 		"id": 252507,
 		"name": "Wisdom's Leather Hood",
+		"icon": "inv_helmet_33",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101341,6 +101498,7 @@
 	{
 		"id": 252508,
 		"name": "Brawler's Leather Tunic",
+		"icon": "inv_chest_leather_02",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101364,6 +101522,7 @@
 	{
 		"id": 252509,
 		"name": "Trapper's Leather Tunic",
+		"icon": "inv_chest_leather_01",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101387,6 +101546,7 @@
 	{
 		"id": 252510,
 		"name": "Stormrider's Leather Tunic",
+		"icon": "inv_chest_leather_02",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101411,6 +101571,7 @@
 	{
 		"id": 252511,
 		"name": "Wisdom's Leather Tunic",
+		"icon": "inv_chest_leather_01",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101435,6 +101596,7 @@
 	{
 		"id": 252512,
 		"name": "Brawler's Leather Helm",
+		"icon": "inv_helmet_15",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101461,6 +101623,7 @@
 	{
 		"id": 252513,
 		"name": "Trapper's Leather Helm",
+		"icon": "inv_helmet_32",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101482,6 +101645,7 @@
 	{
 		"id": 252514,
 		"name": "Stormrider's Leather Helm",
+		"icon": "inv_helmet_30",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101527,6 +101691,7 @@
 	{
 		"id": 252515,
 		"name": "Wisdom's Leather Helm",
+		"icon": "inv_helmet_26",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101561,6 +101726,7 @@
 	{
 		"id": 252516,
 		"name": "Brawler's Leather Legguards",
+		"icon": "inv_pants_leather_19",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101584,6 +101750,7 @@
 	{
 		"id": 252517,
 		"name": "Trapper's Leather Legguards",
+		"icon": "inv_pants_05",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101607,6 +101774,7 @@
 	{
 		"id": 252518,
 		"name": "Stormrider's Leather Kilt",
+		"icon": "inv_kilt_cloth_01",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101630,6 +101798,7 @@
 	{
 		"id": 252519,
 		"name": "Wisdom's Leather Leggings",
+		"icon": "inv_pants_02",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101654,6 +101823,7 @@
 	{
 		"id": 252520,
 		"name": "Skulker's Leather Belt",
+		"icon": "inv_belt_37b",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101677,6 +101847,7 @@
 	{
 		"id": 252521,
 		"name": "Stalker's Leather Belt",
+		"icon": "inv_belt_25",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101700,6 +101871,7 @@
 	{
 		"id": 252522,
 		"name": "Skycaller's Leather Belt",
+		"icon": "inv_belt_39a",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101724,6 +101896,7 @@
 	{
 		"id": 252523,
 		"name": "Mender's Leather Belt",
+		"icon": "inv_belt_26",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101748,6 +101921,7 @@
 	{
 		"id": 252524,
 		"name": "Prowler's Leather Gloves",
+		"icon": "inv_gauntlets_18",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101770,6 +101944,7 @@
 	{
 		"id": 252525,
 		"name": "Skulker's Leather Gloves",
+		"icon": "inv_gauntlets_22",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101792,6 +101967,7 @@
 	{
 		"id": 252526,
 		"name": "Stalker's Leather Gloves",
+		"icon": "inv_gauntlets_51",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101814,6 +101990,7 @@
 	{
 		"id": 252527,
 		"name": "Warden's Leather Gloves",
+		"icon": "inv_gauntlets_18",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101836,6 +102013,7 @@
 	{
 		"id": 252528,
 		"name": "Skirmisher's Leather Gloves",
+		"icon": "inv_gauntlets_22",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101859,6 +102037,7 @@
 	{
 		"id": 252529,
 		"name": "Skycaller's Leather Gloves",
+		"icon": "inv_gauntlets_14",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101882,6 +102061,7 @@
 	{
 		"id": 252530,
 		"name": "Mender's Leather Gloves",
+		"icon": "inv_gauntlets_20",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101905,6 +102085,7 @@
 	{
 		"id": 252531,
 		"name": "Skulker's Leather Shoes",
+		"icon": "inv_boots_05",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101928,6 +102109,7 @@
 	{
 		"id": 252532,
 		"name": "Skycaller's Leather Shoes",
+		"icon": "inv_boots_cloth_14",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101952,6 +102134,7 @@
 	{
 		"id": 252533,
 		"name": "Mender's Leather Shoes",
+		"icon": "inv_boots_cloth_14",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101976,6 +102159,7 @@
 	{
 		"id": 252534,
 		"name": "Prowler's Leather Shoulders",
+		"icon": "inv_shoulder_17",
 		"slot": "shoulder",
 		"armorType": "leather",
 		"quality": "rare",
@@ -101999,6 +102183,7 @@
 	{
 		"id": 252535,
 		"name": "Skulker's Leather Shoulder",
+		"icon": "inv_shoulders_mail_warfrontsforsaken_d_01",
 		"slot": "shoulder",
 		"armorType": "leather",
 		"quality": "rare",
@@ -102022,6 +102207,7 @@
 	{
 		"id": 252536,
 		"name": "Warden's Leather Shoulders",
+		"icon": "inv_shoulder_06",
 		"slot": "shoulder",
 		"armorType": "leather",
 		"quality": "rare",
@@ -102045,6 +102231,7 @@
 	{
 		"id": 252537,
 		"name": "Skycaller's Leather Shoulders",
+		"icon": "inv_shoulder_25",
 		"slot": "shoulder",
 		"armorType": "leather",
 		"quality": "rare",
@@ -102069,6 +102256,7 @@
 	{
 		"id": 252538,
 		"name": "Mender's Leather Shoulders",
+		"icon": "inv_shoulder_17",
 		"slot": "shoulder",
 		"armorType": "leather",
 		"quality": "rare",
@@ -102093,6 +102281,7 @@
 	{
 		"id": 252539,
 		"name": "Prowler's Leather Bracers",
+		"icon": "inv_bracer_21c",
 		"slot": "wrist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -102116,6 +102305,7 @@
 	{
 		"id": 252540,
 		"name": "Skulker's Leather Bracers",
+		"icon": "inv_bracer_21c",
 		"slot": "wrist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -102139,6 +102329,7 @@
 	{
 		"id": 252541,
 		"name": "Warden's Leather Bracers",
+		"icon": "inv_bracer_22",
 		"slot": "wrist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -102162,6 +102353,7 @@
 	{
 		"id": 252542,
 		"name": "Skycaller's Leather Bracers",
+		"icon": "inv_bracer_22a",
 		"slot": "wrist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -102186,6 +102378,7 @@
 	{
 		"id": 252543,
 		"name": "Mender's Leather Bracers",
+		"icon": "inv_bracer_07",
 		"slot": "wrist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -102210,6 +102403,7 @@
 	{
 		"id": 252544,
 		"name": "Tooled Leather Belt",
+		"icon": "inv_belt_04",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -102233,6 +102427,7 @@
 	{
 		"id": 252545,
 		"name": "Tooled Leather Boots",
+		"icon": "inv_boots_chain_06",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -102256,6 +102451,7 @@
 	{
 		"id": 252546,
 		"name": "Blue Suede Gloves",
+		"icon": "inv_gauntlets_17",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -102278,6 +102474,7 @@
 	{
 		"id": 252547,
 		"name": "Prowler's Leather Gauntlets",
+		"icon": "inv_gauntlets_17",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -102301,6 +102498,7 @@
 	{
 		"id": 252548,
 		"name": "Skulker's Leather Gauntlets",
+		"icon": "inv_gauntlets_15",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -102324,6 +102522,7 @@
 	{
 		"id": 252549,
 		"name": "Warden's Leather Gauntlets",
+		"icon": "inv_gauntlets_21",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -102347,6 +102546,7 @@
 	{
 		"id": 252550,
 		"name": "Skycaller's Leather Gauntlets",
+		"icon": "inv_gauntlets_30",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -102371,6 +102571,7 @@
 	{
 		"id": 252551,
 		"name": "Mender's Leather Gauntlets",
+		"icon": "inv_gauntlets_29",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -102395,6 +102596,7 @@
 	{
 		"id": 252552,
 		"name": "Tooled Leather Armor",
+		"icon": "inv_chest_leather_08",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -102418,6 +102620,7 @@
 	{
 		"id": 252553,
 		"name": "Tooled Leather Gauntlets",
+		"icon": "inv_gauntlets_27",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -102441,6 +102644,7 @@
 	{
 		"id": 252554,
 		"name": "Blue Suede Shoulders",
+		"icon": "inv_shoulder_25",
 		"slot": "shoulder",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -102463,6 +102667,7 @@
 	{
 		"id": 252555,
 		"name": "Tooled Leather Crown",
+		"icon": "inv_helmet_33",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -102486,6 +102691,7 @@
 	{
 		"id": 252556,
 		"name": "Wicked Leather Shoulders",
+		"icon": "inv_shoulder_09",
 		"slot": "shoulder",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -102507,6 +102713,7 @@
 	{
 		"id": 252557,
 		"name": "Tooled Leather Bracers",
+		"icon": "inv_bracer_23b",
 		"slot": "wrist",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -102530,6 +102737,7 @@
 	{
 		"id": 252558,
 		"name": "Tooled Leather Epaulets",
+		"icon": "inv_shoulder_08",
 		"slot": "shoulder",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -102553,6 +102761,7 @@
 	{
 		"id": 252559,
 		"name": "Blue Suede Bracers",
+		"icon": "inv_bracer_22a",
 		"slot": "wrist",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -102575,6 +102784,7 @@
 	{
 		"id": 252560,
 		"name": "Tooled Leather Pants",
+		"icon": "inv_pants_10",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -102598,6 +102808,7 @@
 	{
 		"id": 252561,
 		"name": "Living Crown",
+		"icon": "inv_helmet_32",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "epic",
@@ -102621,6 +102832,7 @@
 	{
 		"id": 252562,
 		"name": "Stalker's Mail Boots",
+		"icon": "inv_boots_mail_15v2",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -102644,6 +102856,7 @@
 	{
 		"id": 252563,
 		"name": "Skycaller's Mail Boots",
+		"icon": "inv_boots_mail_15v2",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -102693,6 +102906,7 @@
 	{
 		"id": 252565,
 		"name": "Mender's Mail Boots",
+		"icon": "inv_boots_chain_05",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -102717,6 +102931,7 @@
 	{
 		"id": 252566,
 		"name": "Stalker's Mail Shoulders",
+		"icon": "inv_shoulder_18",
 		"slot": "shoulder",
 		"armorType": "mail",
 		"quality": "rare",
@@ -102740,6 +102955,7 @@
 	{
 		"id": 252567,
 		"name": "Skycaller's Mail Shoulders",
+		"icon": "inv_shoulder_12",
 		"slot": "shoulder",
 		"armorType": "mail",
 		"quality": "rare",
@@ -102764,6 +102980,7 @@
 	{
 		"id": 252568,
 		"name": "Skirmisher's Mail Shoulders",
+		"icon": "inv_shoulder_23",
 		"slot": "shoulder",
 		"armorType": "mail",
 		"quality": "rare",
@@ -102788,6 +103005,7 @@
 	{
 		"id": 252569,
 		"name": "Mender's Mail Shoulders",
+		"icon": "inv_shoulder_08",
 		"slot": "shoulder",
 		"armorType": "mail",
 		"quality": "rare",
@@ -102812,6 +103030,7 @@
 	{
 		"id": 252570,
 		"name": "Stalker's Mail Bracers",
+		"icon": "inv_bracer_31a",
 		"slot": "wrist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -102835,6 +103054,7 @@
 	{
 		"id": 252571,
 		"name": "Skycaller's Mail Bracers",
+		"icon": "inv_bracer_25",
 		"slot": "wrist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -102859,6 +103079,7 @@
 	{
 		"id": 252572,
 		"name": "Skirmisher's Mail Bracers",
+		"icon": "inv_bracer_31",
 		"slot": "wrist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -102883,6 +103104,7 @@
 	{
 		"id": 252573,
 		"name": "Mender's Mail Bracers",
+		"icon": "inv_bracer_02",
 		"slot": "wrist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -102907,6 +103129,7 @@
 	{
 		"id": 252574,
 		"name": "Supple Scorpid Boots",
+		"icon": "inv_boots_chain_07",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -102930,6 +103153,7 @@
 	{
 		"id": 252575,
 		"name": "Charged Scorpid Belt",
+		"icon": "inv_belt_22",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -102953,6 +103177,7 @@
 	{
 		"id": 252576,
 		"name": "Stalker's Mail Sabatons",
+		"icon": "inv_boots_chain_12",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -102975,6 +103200,7 @@
 	{
 		"id": 252577,
 		"name": "Skycaller's Mail Sabatons",
+		"icon": "inv_boots_chain_12",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -102998,6 +103224,7 @@
 	{
 		"id": 252578,
 		"name": "Skirmisher's Mail Sabatons",
+		"icon": "inv_boots_chain_13",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -103021,6 +103248,7 @@
 	{
 		"id": 252579,
 		"name": "Mender's Mail Sabatons",
+		"icon": "inv_boots_chain_02",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -103044,6 +103272,7 @@
 	{
 		"id": 252580,
 		"name": "Supple Scorpid Leggings",
+		"icon": "inv_pants_mail_09",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -103067,6 +103296,7 @@
 	{
 		"id": 252581,
 		"name": "Charged Scorpid Helm",
+		"icon": "inv_helmet_39",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -103090,6 +103320,7 @@
 	{
 		"id": 252582,
 		"name": "Supple Scorpid Bracers",
+		"icon": "inv_bracer_23a",
 		"slot": "wrist",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -103113,6 +103344,7 @@
 	{
 		"id": 252583,
 		"name": "Charged Scorpid Shoulders",
+		"icon": "inv_shoulder_14",
 		"slot": "shoulder",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -103136,6 +103368,7 @@
 	{
 		"id": 252584,
 		"name": "Stalker's Mail Gauntlets",
+		"icon": "inv_gauntlets_29",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "rare",
@@ -103159,6 +103392,7 @@
 	{
 		"id": 252585,
 		"name": "Skycaller's Mail Gauntlets",
+		"icon": "inv_gauntlets_30",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "rare",
@@ -103183,6 +103417,7 @@
 	{
 		"id": 252586,
 		"name": "Skirmisher's Mail Gauntlets",
+		"icon": "inv_gauntlets_19",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "rare",
@@ -103207,6 +103442,7 @@
 	{
 		"id": 252587,
 		"name": "Mender's Mail Gauntlets",
+		"icon": "inv_gauntlets_25",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "rare",
@@ -103231,6 +103467,7 @@
 	{
 		"id": 252588,
 		"name": "Stalker's Mail Belt",
+		"icon": "inv_belt_17",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -103253,6 +103490,7 @@
 	{
 		"id": 252589,
 		"name": "Skycaller's Mail Belt",
+		"icon": "inv_belt_22",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -103276,6 +103514,7 @@
 	{
 		"id": 252590,
 		"name": "Skirmisher's Mail Belt",
+		"icon": "inv_belt_39c",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -103299,6 +103538,7 @@
 	{
 		"id": 252591,
 		"name": "Mender's Mail Belt",
+		"icon": "inv_belt_37c",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -103322,6 +103562,7 @@
 	{
 		"id": 252592,
 		"name": "Supple Scorpid Shoulders",
+		"icon": "inv_shoulder_03",
 		"slot": "shoulder",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -103345,6 +103586,7 @@
 	{
 		"id": 252593,
 		"name": "Charged Scorpid Bracers",
+		"icon": "inv_bracer_30",
 		"slot": "wrist",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -103368,6 +103610,7 @@
 	{
 		"id": 252594,
 		"name": "Heavy Scorpid Boots",
+		"icon": "inv_boots_cloth_21",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -103389,6 +103632,7 @@
 	{
 		"id": 252595,
 		"name": "Supple Scorpid Belt",
+		"icon": "inv_belt_38b",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -103411,6 +103655,7 @@
 	{
 		"id": 252596,
 		"name": "Charged Scorpid Gauntlets",
+		"icon": "inv_gauntlets_30",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -103434,6 +103679,7 @@
 	{
 		"id": 252597,
 		"name": "Supple Scorpid Helm",
+		"icon": "inv_helmet_34",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -103457,6 +103703,7 @@
 	{
 		"id": 252598,
 		"name": "Charged Scorpid Vest",
+		"icon": "inv_chest_chain_06",
 		"slot": "chest",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -103480,6 +103727,7 @@
 	{
 		"id": 252599,
 		"name": "Supple Scorpid Vest",
+		"icon": "inv_chest_mail_17v1",
 		"slot": "chest",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -103503,6 +103751,7 @@
 	{
 		"id": 252600,
 		"name": "Charged Scorpid Leggings",
+		"icon": "inv_pants_mail_15",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -103526,6 +103775,7 @@
 	{
 		"id": 252601,
 		"name": "Supple Scorpid Sabatons",
+		"icon": "inv_boots_chain_04",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -103549,6 +103799,7 @@
 	{
 		"id": 252602,
 		"name": "Charged Scorpid Boots",
+		"icon": "inv_boots_chain_06",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -103572,6 +103823,7 @@
 	{
 		"id": 252603,
 		"name": "Red Dragonscale Leggings",
+		"icon": "inv_pants_mail_09",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "epic",
@@ -103594,6 +103846,7 @@
 	{
 		"id": 252604,
 		"name": "Blue Dragonscale Helm",
+		"icon": "inv_helmet_09",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "epic",
@@ -103617,6 +103870,7 @@
 	{
 		"id": 252605,
 		"name": "Black Dragonscale Helm",
+		"icon": "inv_helmet_09",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "epic",
@@ -103639,6 +103893,7 @@
 	{
 		"id": 252606,
 		"name": "Pristine Scorpid Leggings",
+		"icon": "inv_pants_mail_36",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "epic",
@@ -103674,6 +103929,7 @@
 	{
 		"id": 253885,
 		"name": "Novice Arcanist's Sash",
+		"icon": "inv_belt_43a",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -103697,6 +103953,7 @@
 	{
 		"id": 253887,
 		"name": "Novice Ardent's Sash",
+		"icon": "inv_belt_43",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -103720,6 +103977,7 @@
 	{
 		"id": 253889,
 		"name": "Pristine Boots",
+		"icon": "inv_boots_cloth_03",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -103743,6 +104001,7 @@
 	{
 		"id": 253891,
 		"name": "Silky Boots",
+		"icon": "inv_boots_cloth_01",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -103765,6 +104024,7 @@
 	{
 		"id": 253893,
 		"name": "Flame Boots",
+		"icon": "inv_boots_cloth_02",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -103787,6 +104047,7 @@
 	{
 		"id": 253895,
 		"name": "Shadow Boots",
+		"icon": "inv_boots_cloth_05",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -103809,6 +104070,7 @@
 	{
 		"id": 253897,
 		"name": "Pearly Boots",
+		"icon": "inv_boots_05",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -103831,6 +104093,7 @@
 	{
 		"id": 253899,
 		"name": "Shining Boots",
+		"icon": "inv_boots_cloth_08",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -103853,6 +104116,7 @@
 	{
 		"id": 253901,
 		"name": "Filigreed Pristine Gown",
+		"icon": "inv_chest_cloth_32",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -103877,6 +104141,7 @@
 	{
 		"id": 253903,
 		"name": "Filigreed Silky Gown",
+		"icon": "inv_chest_cloth_03",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -103900,6 +104165,7 @@
 	{
 		"id": 253905,
 		"name": "Filigreed Flame Gown",
+		"icon": "inv_chest_cloth_02",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -103923,6 +104189,7 @@
 	{
 		"id": 253907,
 		"name": "Filigreed Shadow Gown",
+		"icon": "inv_chest_cloth_48",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -103946,6 +104213,7 @@
 	{
 		"id": 253909,
 		"name": "Filigreed Pearly Gown",
+		"icon": "inv_chest_cloth_51",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -103969,6 +104237,7 @@
 	{
 		"id": 253911,
 		"name": "Filigreed Shining Gown",
+		"icon": "inv_chest_cloth_26",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -103992,6 +104261,7 @@
 	{
 		"id": 253913,
 		"name": "Pristine Gloves",
+		"icon": "inv_gauntlets_16",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104015,6 +104285,7 @@
 	{
 		"id": 253915,
 		"name": "Silky Gloves",
+		"icon": "inv_gauntlets_17",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104037,6 +104308,7 @@
 	{
 		"id": 253917,
 		"name": "Flame Gloves",
+		"icon": "inv_gauntlets_19",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104059,6 +104331,7 @@
 	{
 		"id": 253919,
 		"name": "Shadow Gloves",
+		"icon": "inv_gauntlets_27",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104081,6 +104354,7 @@
 	{
 		"id": 253921,
 		"name": "Pearly Gloves",
+		"icon": "inv_gauntlets_20",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104103,6 +104377,7 @@
 	{
 		"id": 253923,
 		"name": "Shining Gloves",
+		"icon": "inv_gauntlets_21",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104125,6 +104400,7 @@
 	{
 		"id": 253925,
 		"name": "Pristine Sash",
+		"icon": "inv_belt_43",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104148,6 +104424,7 @@
 	{
 		"id": 253927,
 		"name": "Silky Sash",
+		"icon": "inv_belt_43a",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104170,6 +104447,7 @@
 	{
 		"id": 253929,
 		"name": "Flame Sash",
+		"icon": "inv_belt_43c",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104192,6 +104470,7 @@
 	{
 		"id": 253931,
 		"name": "Shadow Sash",
+		"icon": "inv_belt_43",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104214,6 +104493,7 @@
 	{
 		"id": 253933,
 		"name": "Pearly Sash",
+		"icon": "inv_belt_43a",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104236,6 +104516,7 @@
 	{
 		"id": 253935,
 		"name": "Shining Sash",
+		"icon": "inv_belt_43b",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104258,6 +104539,7 @@
 	{
 		"id": 253937,
 		"name": "Filigreed Pristine Leggings",
+		"icon": "inv_pants_01",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104282,6 +104564,7 @@
 	{
 		"id": 253939,
 		"name": "Filigreed Silky Leggings",
+		"icon": "inv_pants_08",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104305,6 +104588,7 @@
 	{
 		"id": 253941,
 		"name": "Filigreed Flame Leggings",
+		"icon": "inv_pants_06",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104328,6 +104612,7 @@
 	{
 		"id": 253943,
 		"name": "Filigreed Shadow Leggings",
+		"icon": "inv_pants_11",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104351,6 +104636,7 @@
 	{
 		"id": 253945,
 		"name": "Filigreed Pearly Leggings",
+		"icon": "inv_pants_10",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104374,6 +104660,7 @@
 	{
 		"id": 253947,
 		"name": "Filigreed Shining Leggings",
+		"icon": "inv_pants_cloth_01",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104397,6 +104684,7 @@
 	{
 		"id": 253949,
 		"name": "Pristine Circlet",
+		"icon": "inv_crown_01",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104419,6 +104707,7 @@
 	{
 		"id": 253951,
 		"name": "Silky Circlet",
+		"icon": "inv_crown_01",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104440,6 +104729,7 @@
 	{
 		"id": 253953,
 		"name": "Flame Circlet",
+		"icon": "inv_crown_01",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104461,6 +104751,7 @@
 	{
 		"id": 253955,
 		"name": "Shadow Circlet",
+		"icon": "inv_crown_01",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104482,6 +104773,7 @@
 	{
 		"id": 253957,
 		"name": "Pearly Circlet",
+		"icon": "inv_crown_01",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104503,6 +104795,7 @@
 	{
 		"id": 253959,
 		"name": "Shining Circlet",
+		"icon": "inv_crown_01",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104524,6 +104817,7 @@
 	{
 		"id": 253961,
 		"name": "Pristine Gown",
+		"icon": "inv_chest_cloth_32",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104548,6 +104842,7 @@
 	{
 		"id": 253963,
 		"name": "Silky Gown",
+		"icon": "inv_chest_cloth_03",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104571,6 +104866,7 @@
 	{
 		"id": 253965,
 		"name": "Flame Gown",
+		"icon": "inv_chest_cloth_02",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104594,6 +104890,7 @@
 	{
 		"id": 253967,
 		"name": "Shadow Gown",
+		"icon": "inv_chest_cloth_48",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104617,6 +104914,7 @@
 	{
 		"id": 253969,
 		"name": "Pearly Gown",
+		"icon": "inv_chest_cloth_51",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104640,6 +104938,7 @@
 	{
 		"id": 253971,
 		"name": "Shining Gown",
+		"icon": "inv_chest_cloth_26",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104663,6 +104962,7 @@
 	{
 		"id": 253975,
 		"name": "Filigreed Pristine Circlet",
+		"icon": "inv_crown_01",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104685,6 +104985,7 @@
 	{
 		"id": 253977,
 		"name": "Filigreed Silky Circlet",
+		"icon": "inv_crown_01",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104706,6 +105007,7 @@
 	{
 		"id": 253979,
 		"name": "Filigreed Flame Circlet",
+		"icon": "inv_crown_01",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104727,6 +105029,7 @@
 	{
 		"id": 253981,
 		"name": "Filigreed Shadow Circlet",
+		"icon": "inv_crown_01",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104748,6 +105051,7 @@
 	{
 		"id": 253983,
 		"name": "Filigreed Pearly Circlet",
+		"icon": "inv_crown_01",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104769,6 +105073,7 @@
 	{
 		"id": 253985,
 		"name": "Filigreed Shining Circlet",
+		"icon": "inv_crown_01",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104790,6 +105095,7 @@
 	{
 		"id": 253987,
 		"name": "Pristine Leggings",
+		"icon": "inv_pants_01",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104814,6 +105120,7 @@
 	{
 		"id": 253989,
 		"name": "Silky Leggings",
+		"icon": "inv_pants_08",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104837,6 +105144,7 @@
 	{
 		"id": 253991,
 		"name": "Flame Leggings",
+		"icon": "inv_pants_06",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104860,6 +105168,7 @@
 	{
 		"id": 253993,
 		"name": "Shadow Leggings",
+		"icon": "inv_pants_11",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104883,6 +105192,7 @@
 	{
 		"id": 253995,
 		"name": "Pearly Leggings",
+		"icon": "inv_pants_10",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104906,6 +105216,7 @@
 	{
 		"id": 253997,
 		"name": "Shining Leggings",
+		"icon": "inv_pants_cloth_01",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104929,6 +105240,7 @@
 	{
 		"id": 254001,
 		"name": "Gilded Slippers",
+		"icon": "inv_boots_cloth_08",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104953,6 +105265,7 @@
 	{
 		"id": 254003,
 		"name": "Frothing Slippers",
+		"icon": "inv_boots_cloth_03",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104976,6 +105289,7 @@
 	{
 		"id": 254005,
 		"name": "Fiery Slippers",
+		"icon": "inv_boots_cloth_02",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -104999,6 +105313,7 @@
 	{
 		"id": 254007,
 		"name": "Black Slippers",
+		"icon": "inv_boots_cloth_21",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105022,6 +105337,7 @@
 	{
 		"id": 254009,
 		"name": "Golden Slippers",
+		"icon": "inv_boots_cloth_06",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105045,6 +105361,7 @@
 	{
 		"id": 254011,
 		"name": "Radiant Slippers",
+		"icon": "inv_boots_cloth_26",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105068,6 +105385,7 @@
 	{
 		"id": 254019,
 		"name": "Earthen Silk Cuffs",
+		"icon": "inv_bracer_09",
 		"slot": "wrist",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -105090,6 +105408,7 @@
 	{
 		"id": 254021,
 		"name": "Gilded Handwraps",
+		"icon": "inv_gauntlets_29",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105113,6 +105432,7 @@
 	{
 		"id": 254023,
 		"name": "Frothing Handwraps",
+		"icon": "inv_gauntlets_30",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105135,6 +105455,7 @@
 	{
 		"id": 254025,
 		"name": "Fiery Handwraps",
+		"icon": "inv_gauntlets_13",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105157,6 +105478,7 @@
 	{
 		"id": 254027,
 		"name": "Black Handwraps",
+		"icon": "inv_gauntlets_27",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105179,6 +105501,7 @@
 	{
 		"id": 254029,
 		"name": "Golden Handwraps",
+		"icon": "inv_gauntlets_23",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105201,6 +105524,7 @@
 	{
 		"id": 254031,
 		"name": "Radiant Handwraps",
+		"icon": "inv_gauntlets_16",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105223,6 +105547,7 @@
 	{
 		"id": 254033,
 		"name": "Earthen Silk Shoulders",
+		"icon": "inv_shoulder_25",
 		"slot": "shoulder",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -105245,6 +105570,7 @@
 	{
 		"id": 254037,
 		"name": "Gilded Cord",
+		"icon": "inv_belt_08",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105269,6 +105595,7 @@
 	{
 		"id": 254039,
 		"name": "Frothing Cord",
+		"icon": "inv_belt_03",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105292,6 +105619,7 @@
 	{
 		"id": 254041,
 		"name": "Fiery Cord",
+		"icon": "inv_belt_39c",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105315,6 +105643,7 @@
 	{
 		"id": 254043,
 		"name": "Black Cord",
+		"icon": "inv_belt_09",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105338,6 +105667,7 @@
 	{
 		"id": 254045,
 		"name": "Golden Cord",
+		"icon": "inv_belt_34",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105361,6 +105691,7 @@
 	{
 		"id": 254047,
 		"name": "Radiant Cord",
+		"icon": "inv_belt_37b",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105384,6 +105715,7 @@
 	{
 		"id": 254049,
 		"name": "Nethergeld Shoulders",
+		"icon": "inv_shoulder_22",
 		"slot": "shoulder",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105408,6 +105740,7 @@
 	{
 		"id": 254051,
 		"name": "Netherfroth Shoulders",
+		"icon": "inv_shoulder_02",
 		"slot": "shoulder",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105431,6 +105764,7 @@
 	{
 		"id": 254053,
 		"name": "Netherflame Shoulders",
+		"icon": "inv_shoulder_23",
 		"slot": "shoulder",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105454,6 +105788,7 @@
 	{
 		"id": 254055,
 		"name": "Netherpearl Shoulders",
+		"icon": "inv_shoulder_25",
 		"slot": "shoulder",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105477,6 +105812,7 @@
 	{
 		"id": 254057,
 		"name": "Nethershine Shoulders",
+		"icon": "inv_shoulder_09",
 		"slot": "shoulder",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105500,6 +105836,7 @@
 	{
 		"id": 254059,
 		"name": "Netherlight Shoulders",
+		"icon": "inv_shoulder_05",
 		"slot": "shoulder",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105523,6 +105860,7 @@
 	{
 		"id": 254061,
 		"name": "Nethergeld Cuffs",
+		"icon": "inv_bracer_23b",
 		"slot": "wrist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105547,6 +105885,7 @@
 	{
 		"id": 254063,
 		"name": "Netherfroth Cuffs",
+		"icon": "inv_bracer_22a",
 		"slot": "wrist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105570,6 +105909,7 @@
 	{
 		"id": 254065,
 		"name": "Netherflame Cuffs",
+		"icon": "inv_bracer_23a",
 		"slot": "wrist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105593,6 +105933,7 @@
 	{
 		"id": 254067,
 		"name": "Netherpearl Cuffs",
+		"icon": "inv_bracer_13",
 		"slot": "wrist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105616,6 +105957,7 @@
 	{
 		"id": 254069,
 		"name": "Nethershine Cuffs",
+		"icon": "inv_bracer_21b",
 		"slot": "wrist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105639,6 +105981,7 @@
 	{
 		"id": 254071,
 		"name": "Netherlight Cuffs",
+		"icon": "inv_bracer_20b",
 		"slot": "wrist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105662,6 +106005,7 @@
 	{
 		"id": 254073,
 		"name": "Ghostweave Cord",
+		"icon": "inv_belt_16",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -105684,6 +106028,7 @@
 	{
 		"id": 254075,
 		"name": "Earthenweave Gloves",
+		"icon": "inv_gauntlets_21",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -105706,6 +106051,7 @@
 	{
 		"id": 254077,
 		"name": "Earthenweave Cord",
+		"icon": "inv_belt_39c",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -105728,6 +106074,7 @@
 	{
 		"id": 254081,
 		"name": "Gilded Waistcord",
+		"icon": "inv_belt_07",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105751,6 +106098,7 @@
 	{
 		"id": 254083,
 		"name": "Frothing Waistcord",
+		"icon": "inv_belt_39a",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105773,6 +106121,7 @@
 	{
 		"id": 254085,
 		"name": "Fiery Waistcord",
+		"icon": "inv_belt_37a",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105795,6 +106144,7 @@
 	{
 		"id": 254087,
 		"name": "Black Waistcord",
+		"icon": "inv_belt_04",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105817,6 +106167,7 @@
 	{
 		"id": 254089,
 		"name": "Golden Waistcord",
+		"icon": "inv_belt_32",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105839,6 +106190,7 @@
 	{
 		"id": 254091,
 		"name": "Radiant Waistcord",
+		"icon": "inv_belt_43",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105861,6 +106213,7 @@
 	{
 		"id": 254093,
 		"name": "Earthenweave Boots",
+		"icon": "inv_boots_07",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -105883,6 +106236,7 @@
 	{
 		"id": 254095,
 		"name": "Gilded Gloves",
+		"icon": "inv_gauntlets_11",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105907,6 +106261,7 @@
 	{
 		"id": 254097,
 		"name": "Frothing Gloves",
+		"icon": "inv_gauntlets_17",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105930,6 +106285,7 @@
 	{
 		"id": 254099,
 		"name": "Fiery Gloves",
+		"icon": "inv_gauntlets_19",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105953,6 +106309,7 @@
 	{
 		"id": 254101,
 		"name": "Black Gloves",
+		"icon": "inv_gauntlets_32",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105976,6 +106333,7 @@
 	{
 		"id": 254103,
 		"name": "Golden Gloves",
+		"icon": "inv_gauntlets_21",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -105999,6 +106357,7 @@
 	{
 		"id": 254105,
 		"name": "Radiant Gloves",
+		"icon": "inv_gauntlets_20",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -106022,6 +106381,7 @@
 	{
 		"id": 254107,
 		"name": "Gilded Sandals",
+		"icon": "inv_boots_cloth_06",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -106045,6 +106405,7 @@
 	{
 		"id": 254109,
 		"name": "Frothing Sandals",
+		"icon": "inv_boots_07",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -106067,6 +106428,7 @@
 	{
 		"id": 254111,
 		"name": "Fiery Sandals",
+		"icon": "inv_boots_05",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -106089,6 +106451,7 @@
 	{
 		"id": 254113,
 		"name": "Black Sandals",
+		"icon": "inv_boots_05",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -106111,6 +106474,7 @@
 	{
 		"id": 254115,
 		"name": "Golden Sandals",
+		"icon": "inv_boots_cloth_11",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -106133,6 +106497,7 @@
 	{
 		"id": 254117,
 		"name": "Radiant Sandals",
+		"icon": "inv_boots_cloth_03",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -106155,6 +106520,7 @@
 	{
 		"id": 254119,
 		"name": "Earthenweave Mantle",
+		"icon": "inv_shoulder_05",
 		"slot": "shoulder",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -106177,6 +106543,7 @@
 	{
 		"id": 254121,
 		"name": "Earthenweave Vest",
+		"icon": "inv_chest_cloth_20",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -106199,6 +106566,7 @@
 	{
 		"id": 254123,
 		"name": "Runecloth Cuffs",
+		"icon": "inv_bracer_13",
 		"slot": "wrist",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -106221,6 +106589,7 @@
 	{
 		"id": 254125,
 		"name": "Earthenweave Leggings",
+		"icon": "inv_pants_06",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -106243,6 +106612,7 @@
 	{
 		"id": 254127,
 		"name": "Ghostweave Mantle",
+		"icon": "inv_shoulder_09",
 		"slot": "shoulder",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -106265,6 +106635,7 @@
 	{
 		"id": 254129,
 		"name": "Ghostweave Boots",
+		"icon": "inv_boots_cloth_17",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -106287,6 +106658,7 @@
 	{
 		"id": 254131,
 		"name": "Earthenweave Cuffs",
+		"icon": "inv_bracer_13",
 		"slot": "wrist",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -106309,6 +106681,7 @@
 	{
 		"id": 254135,
 		"name": "Ghostweave Hood",
+		"icon": "inv_helmet_26",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -106331,6 +106704,7 @@
 	{
 		"id": 254137,
 		"name": "Earthenweave Crown",
+		"icon": "inv_crown_02",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -106353,6 +106727,7 @@
 	{
 		"id": 259846,
 		"name": "Wide-Brimmed Fishing Hat",
+		"icon": "inv_helm_armor_buckledhat_b_01_black",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -106393,6 +106768,7 @@
 	{
 		"id": 260166,
 		"name": "Rageroar's Best Club",
+		"icon": "inv_hammer_2h_maul_a_01_hd",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 52,
@@ -106412,6 +106788,7 @@
 	{
 		"id": 260167,
 		"name": "Adventurer's Lost Boots",
+		"icon": "inv_boots_chain_07",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -106440,6 +106817,7 @@
 	{
 		"id": 260169,
 		"name": "Amice of Sorrow",
+		"icon": "inv_shoulder_09",
 		"slot": "shoulder",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -106466,6 +106844,7 @@
 	{
 		"id": 260172,
 		"name": "Assassin's Dagger",
+		"icon": "inv_weapon_shortblade_12",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 52,
@@ -106485,6 +106864,7 @@
 	{
 		"id": 260179,
 		"name": "Barkwoven Belt",
+		"icon": "inv_belt_24",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -106499,6 +106879,7 @@
 	{
 		"id": 260180,
 		"name": "Scout's Dagger",
+		"icon": "inv_weapon_shortblade_01",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 52,
@@ -106518,6 +106899,7 @@
 	{
 		"id": 260182,
 		"name": "Elunar Belt",
+		"icon": "inv_belt_15",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -106532,6 +106914,7 @@
 	{
 		"id": 260183,
 		"name": "Sacred Bangle",
+		"icon": "inv_jewelry_ring_13",
 		"slot": "wrist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -106547,6 +106930,7 @@
 	{
 		"id": 260185,
 		"name": "Hippogryph Hide Boots",
+		"icon": "inv_boots_chain_04",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -106562,6 +106946,7 @@
 	{
 		"id": 260195,
 		"name": "Headdress of the Damned",
+		"icon": "inv_helmet_04",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -106589,6 +106974,7 @@
 	{
 		"id": 260201,
 		"name": "Highborne Memory Crystal",
+		"icon": "inv_chaos_orb",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 55,
@@ -106642,6 +107028,7 @@
 	{
 		"id": 260208,
 		"name": "Prelate's Orb",
+		"icon": "inv_misc_orb_yellow",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 55,
@@ -106656,6 +107043,7 @@
 	{
 		"id": 260209,
 		"name": "Truesong's Hammer",
+		"icon": "inv_hammer_12",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 55,
@@ -106674,6 +107062,7 @@
 	{
 		"id": 260210,
 		"name": "A Bigger Shield",
+		"icon": "inv_shield_11",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 56,
@@ -106692,6 +107081,7 @@
 	{
 		"id": 260211,
 		"name": "Panic Hands",
+		"icon": "inv_gauntlets_19",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -106722,6 +107112,7 @@
 	{
 		"id": 260213,
 		"name": "Great Bear Claw",
+		"icon": "inv_misc_monsterclaw_04",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 60,
@@ -106764,6 +107155,7 @@
 	{
 		"id": 260215,
 		"name": "Wild Malleus",
+		"icon": "inv_mace_01",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 60,
@@ -108451,6 +108843,7 @@
 	{
 		"id": 271201,
 		"name": "Atrophic Girdle",
+		"icon": "inv_belt_21",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -108473,6 +108866,7 @@
 	{
 		"id": 271202,
 		"name": "Witherbite Bracers",
+		"icon": "inv_bracer_07",
 		"slot": "wrist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -108553,6 +108947,7 @@
 	{
 		"id": 271205,
 		"name": "Abomination Bones",
+		"icon": "inv_chest_chain_15",
 		"slot": "chest",
 		"armorType": "mail",
 		"quality": "rare",
@@ -108575,6 +108970,7 @@
 	{
 		"id": 271206,
 		"name": "Leftover Abomination Skin",
+		"icon": "inv_chest_cloth_46",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -108597,6 +108993,7 @@
 	{
 		"id": 271207,
 		"name": "Rotmender's Leggings",
+		"icon": "inv_pants_cloth_05",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -108621,6 +109018,7 @@
 	{
 		"id": 271208,
 		"name": "Grip of Fear",
+		"icon": "inv_gauntlets_04",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "rare",
@@ -108643,6 +109041,7 @@
 	{
 		"id": 271209,
 		"name": "Bonerust Leggings",
+		"icon": "inv_pants_mail_01",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "rare",
@@ -108657,6 +109056,7 @@
 	{
 		"id": 271210,
 		"name": "Tuskwrap Belt",
+		"icon": "inv_belt_26",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -108672,6 +109072,7 @@
 	{
 		"id": 271211,
 		"name": "Vilewalkers",
+		"icon": "inv_boots_chain_08",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -108717,6 +109118,7 @@
 	{
 		"id": 271213,
 		"name": "Mirror of Rath'mael",
+		"icon": "inv_shield_02",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 24,
@@ -108743,6 +109145,7 @@
 	{
 		"id": 271214,
 		"name": "Rotmender's Treads",
+		"icon": "inv_boots_05",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -108768,6 +109171,7 @@
 	{
 		"id": 271215,
 		"name": "Coldspire Staff",
+		"icon": "inv_staff_07",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 24,
@@ -108796,6 +109200,7 @@
 	{
 		"id": 271216,
 		"name": "Scepter of the Abandoned",
+		"icon": "inv_misc_bone_dwarfskull_01",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 22,
@@ -108825,6 +109230,7 @@
 	{
 		"id": 271217,
 		"name": "Corpse Chopper",
+		"icon": "inv_axe_21",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 21,
@@ -108981,6 +109387,7 @@
 	{
 		"id": 271801,
 		"name": "Abandoned Ferocity",
+		"icon": "inv_axe_17",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 42,
@@ -109002,6 +109409,7 @@
 	{
 		"id": 271802,
 		"name": "Bludgeon of Betrayed Virtues",
+		"icon": "inv_hammer_08",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 42,
@@ -109031,6 +109439,7 @@
 	{
 		"id": 271803,
 		"name": "Greatstaff of the Necrokhans",
+		"icon": "inv_staff_08",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 42,
@@ -109054,6 +109463,7 @@
 	{
 		"id": 271804,
 		"name": "Soulsplatter Mace",
+		"icon": "inv_mace_01",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 42,
@@ -109084,6 +109494,7 @@
 	{
 		"id": 271805,
 		"name": "Thrice-Damned Effigy",
+		"icon": "inv_misc_orb_01",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 42,
@@ -109153,6 +109564,7 @@
 	{
 		"id": 271810,
 		"name": "Corpsefeeder's Shedding",
+		"icon": "inv_misc_cape_11",
 		"slot": "back",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -109168,6 +109580,7 @@
 	{
 		"id": 271811,
 		"name": "Clacking Carapace Spaulders",
+		"icon": "inv_shoulder_29",
 		"slot": "shoulder",
 		"armorType": "mail",
 		"quality": "rare",
@@ -111629,6 +112042,7 @@
 	{
 		"id": 272181,
 		"name": "Phantasmal Shiv",
+		"icon": "inv_weapon_shortblade_05",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 43,
@@ -111677,6 +112091,7 @@
 	{
 		"id": 272186,
 		"name": "Overgrown Cuffs",
+		"icon": "inv_bracer_02",
 		"slot": "wrist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -113695,6 +114110,7 @@
 	{
 		"id": 273023,
 		"name": "Saltscale Girdle",
+		"icon": "inv_belt_21",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -113709,6 +114125,7 @@
 	{
 		"id": 273024,
 		"name": "Glinteye Slippers",
+		"icon": "inv_boots_05",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -113725,6 +114142,7 @@
 	{
 		"id": 273025,
 		"name": "Raptorclaw Greaves",
+		"icon": "inv_boots_chain_08",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -113859,6 +114277,7 @@
 	{
 		"id": 273034,
 		"name": "Ephemeral Grips",
+		"icon": "inv_gauntlets_24",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -113875,6 +114294,7 @@
 	{
 		"id": 273035,
 		"name": "Mana-Warped Chain Shirt",
+		"icon": "inv_chest_chain_04",
 		"slot": "chest",
 		"armorType": "mail",
 		"quality": "rare",
@@ -113907,6 +114327,7 @@
 	{
 		"id": 273038,
 		"name": "Garb of Fallen Felbark",
+		"icon": "inv_shirt_09",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "rare",
@@ -113930,6 +114351,7 @@
 	{
 		"id": 273039,
 		"name": "Blightleaf Rope",
+		"icon": "inv_belt_10",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -113953,6 +114375,7 @@
 	{
 		"id": 273040,
 		"name": "Spine of the Devourer",
+		"icon": "inv_staff_07",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 33,
@@ -113983,6 +114406,7 @@
 	{
 		"id": 273041,
 		"name": "Slitherwrap Girdle",
+		"icon": "inv_belt_15",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -114011,6 +114435,7 @@
 	{
 		"id": 273042,
 		"name": "Manascale Treads",
+		"icon": "inv_boots_chain_08",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -114034,6 +114459,7 @@
 	{
 		"id": 273044,
 		"name": "Violet Sorcerer's Robes",
+		"icon": "inv_chest_cloth_17",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -114120,6 +114546,7 @@
 	{
 		"id": 273047,
 		"name": "Unstable Crystalline Shoulderpads",
+		"icon": "inv_shoulder_07",
 		"slot": "shoulder",
 		"armorType": "leather",
 		"quality": "rare",
@@ -114135,6 +114562,7 @@
 	{
 		"id": 273048,
 		"name": "Refractory Scaleguards",
+		"icon": "inv_pants_mail_12",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "rare",
@@ -114172,6 +114600,7 @@
 	{
 		"id": 273051,
 		"name": "Violet Sorcerer's Mantle",
+		"icon": "inv_shoulder_02",
 		"slot": "shoulder",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -114253,6 +114682,7 @@
 	{
 		"id": 273054,
 		"name": "Cartilage Shapers",
+		"icon": "inv_gauntlets_18",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -114275,6 +114705,7 @@
 	{
 		"id": 273055,
 		"name": "Bonepile Gaze",
+		"icon": "inv_shield_02",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 33,
@@ -115819,6 +116250,7 @@
 	{
 		"id": 273932,
 		"name": "Spiritcaller Leggings",
+		"icon": "inv_pant_mail_raidshamanhyjalc60_d_01",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "epic",
@@ -115846,6 +116278,7 @@
 	{
 		"id": 273933,
 		"name": "Spiritcaller Grips",
+		"icon": "inv_glove_mail_raidshamanhyjalc60_d_01",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "epic",
@@ -115872,6 +116305,7 @@
 	{
 		"id": 273934,
 		"name": "Spiritcaller Spaulders",
+		"icon": "inv_shoulder_mail_raidshamanhyjalc60_d_01",
 		"slot": "shoulder",
 		"armorType": "mail",
 		"quality": "epic",
@@ -115897,6 +116331,7 @@
 	{
 		"id": 273935,
 		"name": "Spiritcaller Treads",
+		"icon": "inv_boot_mail_raidshamanhyjalc60_d_01",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "epic",
@@ -115924,6 +116359,7 @@
 	{
 		"id": 273936,
 		"name": "Spiritcaller Pants",
+		"icon": "inv_pant_mail_raidshamanhyjalc60_d_01",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "epic",
@@ -115952,6 +116388,7 @@
 	{
 		"id": 273937,
 		"name": "Spiritcaller Gauntlets",
+		"icon": "inv_glove_mail_raidshamanhyjalc60_d_01",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "epic",
@@ -115978,6 +116415,7 @@
 	{
 		"id": 273938,
 		"name": "Spiritcaller Epaulets",
+		"icon": "inv_shoulder_mail_raidshamanhyjalc60_d_01",
 		"slot": "shoulder",
 		"armorType": "mail",
 		"quality": "epic",
@@ -116005,6 +116443,7 @@
 	{
 		"id": 273939,
 		"name": "Spiritcaller Greaves",
+		"icon": "inv_boot_mail_raidshamanhyjalc60_d_01",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "epic",
@@ -116032,6 +116471,7 @@
 	{
 		"id": 274021,
 		"name": "Barrens Headband",
+		"icon": "inv_misc_bandana_01",
 		"slot": "head",
 		"quality": "rare",
 		"ilvl": 1,
@@ -116053,6 +116493,7 @@
 	{
 		"id": 274022,
 		"name": "Tough Guy's Eyepatch",
+		"icon": "inv_helmet_45",
 		"slot": "head",
 		"quality": "rare",
 		"ilvl": 1,
@@ -116074,6 +116515,7 @@
 	{
 		"id": 274023,
 		"name": "Stolen Wastewander Cowl",
+		"icon": "inv_helmet_26",
 		"slot": "head",
 		"quality": "rare",
 		"ilvl": 1,
@@ -116095,6 +116537,7 @@
 	{
 		"id": 274024,
 		"name": "Fizzbolt's Fashionable Fedora",
+		"icon": "inv_helmet_51",
 		"slot": "head",
 		"quality": "rare",
 		"ilvl": 1,
@@ -117857,6 +118300,7 @@
 	{
 		"id": 274417,
 		"name": "Barkskin Baubles",
+		"icon": "inv_misc_bag_10_black",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 58,
@@ -117875,6 +118319,7 @@
 	{
 		"id": 274418,
 		"name": "Burrow Barricade",
+		"icon": "inv_shield_16",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 58,
@@ -117893,6 +118338,7 @@
 	{
 		"id": 274420,
 		"name": "Wisepaw Totem",
+		"icon": "inv_staff_51",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 58,
@@ -118144,6 +118590,7 @@
 	{
 		"id": 274599,
 		"name": "Oathbound Bracers",
+		"icon": "inv_bracer_12",
 		"slot": "wrist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -118158,6 +118605,7 @@
 	{
 		"id": 274600,
 		"name": "Berserker Shackles",
+		"icon": "inv_bracer_15",
 		"slot": "wrist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -118172,6 +118620,7 @@
 	{
 		"id": 274602,
 		"name": "Brinebelly Leggings",
+		"icon": "inv_pants_leather_11",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "rare",
@@ -118187,6 +118636,7 @@
 	{
 		"id": 274605,
 		"name": "Briny Sash",
+		"icon": "inv_belt_07",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -118227,6 +118677,7 @@
 	{
 		"id": 274607,
 		"name": "Viscera Spaulders",
+		"icon": "inv_shoulder_16",
 		"slot": "shoulder",
 		"armorType": "mail",
 		"quality": "rare",
@@ -118268,6 +118719,7 @@
 	{
 		"id": 274609,
 		"name": "Serpentbane Crown",
+		"icon": "inv_helmet_19",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "rare",
@@ -118289,6 +118741,7 @@
 	{
 		"id": 274610,
 		"name": "Ritual-Binder's Gloves",
+		"icon": "inv_gauntlets_15",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -118305,6 +118758,7 @@
 	{
 		"id": 274611,
 		"name": "Robe of the Drowned",
+		"icon": "inv_chest_cloth_10",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -118320,6 +118774,7 @@
 	{
 		"id": 274612,
 		"name": "Waterlogged Burial Shroud",
+		"icon": "inv_misc_cape_15",
 		"slot": "back",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -118336,6 +118791,7 @@
 	{
 		"id": 274613,
 		"name": "Priestess Cloak",
+		"icon": "inv_misc_cape_15",
 		"slot": "back",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -118797,6 +119253,7 @@
 	{
 		"id": 274743,
 		"name": "Defective Samophlange",
+		"icon": "inv_gizmo_06",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 25,
@@ -118826,6 +119283,7 @@
 	{
 		"id": 274744,
 		"name": "Barrens Basher",
+		"icon": "inv_hammer_09",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 25,
@@ -118884,6 +119342,7 @@
 	{
 		"id": 274751,
 		"name": "Sunburn Spaulders",
+		"icon": "inv_shoulder_08",
 		"slot": "shoulder",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -118912,6 +119371,7 @@
 	{
 		"id": 274752,
 		"name": "Sandstorm Cover",
+		"icon": "inv_misc_cape_06",
 		"slot": "back",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -118940,6 +119400,7 @@
 	{
 		"id": 274753,
 		"name": "Jhordy's Misplaced Screwdriver",
+		"icon": "inv_weapon_shortblade_14",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 45,
@@ -119000,6 +119461,7 @@
 	{
 		"id": 274755,
 		"name": "Steamwheedle Grips",
+		"icon": "inv_gauntlets_18",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -119027,6 +119489,7 @@
 	{
 		"id": 274756,
 		"name": "Impractical Headwarmer",
+		"icon": "inv_misc_bandana_01",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -119055,6 +119518,7 @@
 	{
 		"id": 274757,
 		"name": "Substandard Belt Chain",
+		"icon": "inv_belt_18",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -119397,6 +119861,7 @@
 	{
 		"id": 274995,
 		"name": "Slavecrusher Scepter",
+		"icon": "inv_mace_12",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 44,
@@ -119417,6 +119882,7 @@
 	{
 		"id": 274996,
 		"name": "Resistance Breaker Spaulder",
+		"icon": "inv_shoulder_07",
 		"slot": "shoulder",
 		"armorType": "mail",
 		"quality": "rare",
@@ -119431,6 +119897,7 @@
 	{
 		"id": 274997,
 		"name": "Chain of Binding",
+		"icon": "inv_belt_25",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -119446,6 +119913,7 @@
 	{
 		"id": 274998,
 		"name": "Shadowlight Athame",
+		"icon": "inv_weapon_shortblade_20",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 45,
@@ -119468,6 +119936,7 @@
 	{
 		"id": 274999,
 		"name": "Shadecaster's Leggings",
+		"icon": "inv_pants_10",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -119498,6 +119967,7 @@
 	{
 		"id": 275002,
 		"name": "War Handler's Gaze",
+		"icon": "inv_helmet_117",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "rare",
@@ -119591,6 +120061,7 @@
 	{
 		"id": 275010,
 		"name": "Strongly Scented Hood",
+		"icon": "inv_helmet_62",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -119951,6 +120422,7 @@
 	{
 		"id": 275604,
 		"name": "Venomspew Gloves",
+		"icon": "inv_gauntlets_18",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -119973,6 +120445,7 @@
 	{
 		"id": 275605,
 		"name": "Venomspew Cord",
+		"icon": "inv_belt_25",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -119995,6 +120468,7 @@
 	{
 		"id": 275606,
 		"name": "Venomspew Footpads",
+		"icon": "inv_boots_cloth_04",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -120018,6 +120492,7 @@
 	{
 		"id": 275607,
 		"name": "Swarmtender's Gloves",
+		"icon": "inv_gauntlets_17",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -120041,6 +120516,7 @@
 	{
 		"id": 275608,
 		"name": "Swarmtender's Cord",
+		"icon": "inv_belt_03",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -120064,6 +120540,7 @@
 	{
 		"id": 275609,
 		"name": "Swarmtender's Footpads",
+		"icon": "inv_boots_cloth_01",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -120087,6 +120564,7 @@
 	{
 		"id": 275610,
 		"name": "Bileblister Claws",
+		"icon": "inv_gauntlets_25",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -120109,6 +120587,7 @@
 	{
 		"id": 275611,
 		"name": "Bileblister Girdle",
+		"icon": "inv_belt_09",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -120131,6 +120610,7 @@
 	{
 		"id": 275612,
 		"name": "Bileblister Boots",
+		"icon": "inv_boots_06",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -120154,6 +120634,7 @@
 	{
 		"id": 275613,
 		"name": "Hivethrasher's Claws",
+		"icon": "inv_gauntlets_24",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -120176,6 +120657,7 @@
 	{
 		"id": 275614,
 		"name": "Hivethrasher's Girdle",
+		"icon": "inv_belt_15",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -120198,6 +120680,7 @@
 	{
 		"id": 275615,
 		"name": "Hivethrasher's Boots",
+		"icon": "inv_boots_07",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -120220,6 +120703,7 @@
 	{
 		"id": 275616,
 		"name": "Scalegut Clenchers",
+		"icon": "inv_gauntlets_12",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "rare",
@@ -120242,6 +120726,7 @@
 	{
 		"id": 275617,
 		"name": "Scalegut Belt",
+		"icon": "inv_belt_20",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -120264,6 +120749,7 @@
 	{
 		"id": 275618,
 		"name": "Scalegut Treaders",
+		"icon": "inv_boots_chain_11",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -120287,6 +120773,7 @@
 	{
 		"id": 275619,
 		"name": "Broodwatcher's Clenchers",
+		"icon": "inv_gauntlets_13",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "rare",
@@ -120310,6 +120797,7 @@
 	{
 		"id": 275620,
 		"name": "Broodwatcher's Belt",
+		"icon": "inv_belt_18",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -120333,6 +120821,7 @@
 	{
 		"id": 275621,
 		"name": "Broodwatcher's Treaders",
+		"icon": "inv_boots_chain_12",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -121317,6 +121806,7 @@
 	{
 		"id": 276199,
 		"name": "Haughty Fellow's Monocle",
+		"icon": "inv_helmet_44",
 		"slot": "head",
 		"quality": "rare",
 		"ilvl": 1,
@@ -121338,6 +121828,7 @@
 	{
 		"id": 276201,
 		"name": "Misplaced Pantaloons",
+		"icon": "inv_misc_desecrated_mailpants",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -121391,6 +121882,7 @@
 	{
 		"id": 276204,
 		"name": "Thrash's Trash",
+		"icon": "inv_shield_02",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 45,
@@ -121423,6 +121915,7 @@
 	{
 		"id": 276272,
 		"name": "Master Angler's Fishing Hat",
+		"icon": "inv_helmet_50",
 		"slot": "head",
 		"quality": "rare",
 		"ilvl": 1,
@@ -121439,6 +121932,7 @@
 	{
 		"id": 276273,
 		"name": "Empty Fish Bucket",
+		"icon": "inv_misc_1h_bucket_b_01",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 1,
@@ -121459,6 +121953,7 @@
 	{
 		"id": 276274,
 		"name": "Surfer Shoes",
+		"icon": "inv_boots_05",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -121882,6 +122377,7 @@
 	{
 		"id": 276538,
 		"name": "Spiritcaller Kilt",
+		"icon": "inv_pant_mail_raidshamanhyjalc60_d_01",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "epic",
@@ -121908,6 +122404,7 @@
 	{
 		"id": 276539,
 		"name": "Spiritcaller Gloves",
+		"icon": "inv_glove_mail_raidshamanhyjalc60_d_01",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "epic",
@@ -121936,6 +122433,7 @@
 	{
 		"id": 276540,
 		"name": "Spiritcaller Mantle",
+		"icon": "inv_shoulder_mail_raidshamanhyjalc60_d_01",
 		"slot": "shoulder",
 		"armorType": "mail",
 		"quality": "epic",
@@ -121963,6 +122461,7 @@
 	{
 		"id": 276541,
 		"name": "Spiritcaller Boots",
+		"icon": "inv_boot_mail_raidshamanhyjalc60_d_01",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "epic",
@@ -121989,6 +122488,7 @@
 	{
 		"id": 276732,
 		"name": "Alcaz Willcrusher",
+		"icon": "inv_mace_04",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 52,
@@ -122024,6 +122524,7 @@
 	{
 		"id": 276736,
 		"name": "Seascale Bracers",
+		"icon": "inv_bracer_07",
 		"slot": "wrist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -122076,6 +122577,7 @@
 	{
 		"id": 276739,
 		"name": "Cutthroat Chestguard",
+		"icon": "inv_chest_plate12",
 		"slot": "chest",
 		"armorType": "mail",
 		"quality": "rare",
@@ -122106,6 +122608,7 @@
 	{
 		"id": 276741,
 		"name": "Defias Enforcer's Shoulderpads",
+		"icon": "inv_shoulder_08",
 		"slot": "shoulder",
 		"armorType": "leather",
 		"quality": "rare",
@@ -122185,6 +122688,7 @@
 	{
 		"id": 276746,
 		"name": "Defias Enforcer's Legguards",
+		"icon": "inv_pants_06",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "rare",
@@ -122281,6 +122785,7 @@
 	{
 		"id": 276897,
 		"name": "A Lesson in Destruction",
+		"icon": "inv_misc_book_06",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 38,
@@ -122299,6 +122804,7 @@
 	{
 		"id": 276898,
 		"name": "Salve and Salvation",
+		"icon": "inv_misc_book_01",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 38,
@@ -122343,6 +122849,7 @@
 	{
 		"id": 276901,
 		"name": "Uncle's Heroism",
+		"icon": "inv_misc_cape_02",
 		"slot": "back",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -122357,6 +122864,7 @@
 	{
 		"id": 276903,
 		"name": "Shimmerwine Shanker",
+		"icon": "inv_drink_11",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 52,
@@ -122385,6 +122893,7 @@
 	{
 		"id": 276904,
 		"name": "Shimmerwine Spirits",
+		"icon": "inv_cooking_100_foamybottle",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 52,
@@ -122432,6 +122941,7 @@
 	{
 		"id": 277206,
 		"name": "Brilliant Cloak",
+		"icon": "inv_misc_cape_16",
 		"slot": "back",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -122454,6 +122964,7 @@
 	{
 		"id": 277207,
 		"name": "Well-Weathered Cloak",
+		"icon": "inv_misc_cape_07",
 		"slot": "back",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -122491,6 +123002,7 @@
 	{
 		"id": 277211,
 		"name": "Dudd's Thinkin' Cap",
+		"icon": "inv_helmet_27",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -122504,6 +123016,7 @@
 	{
 		"id": 277212,
 		"name": "Soulwoven Epaulets",
+		"icon": "inv_shoulder_03",
 		"slot": "shoulder",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -122518,6 +123031,7 @@
 	{
 		"id": 277213,
 		"name": "Dro'zem's Tunic",
+		"icon": "inv_misc_cape_13",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -122541,6 +123055,7 @@
 	{
 		"id": 277215,
 		"name": "Plain Handwraps",
+		"icon": "inv_gauntlets_23",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -122555,6 +123070,7 @@
 	{
 		"id": 277216,
 		"name": "Cross-Stitched Cord",
+		"icon": "inv_belt_26",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -122569,6 +123085,7 @@
 	{
 		"id": 277217,
 		"name": "Patchy Pants",
+		"icon": "inv_pants_02",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -122583,6 +123100,7 @@
 	{
 		"id": 277220,
 		"name": "Shabby Spaulders",
+		"icon": "inv_shoulder_08",
 		"slot": "shoulder",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -122596,6 +123114,7 @@
 	{
 		"id": 277221,
 		"name": "Grimtotem Naturalist's Tunic",
+		"icon": "inv_chest_leather_06",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -122609,6 +123128,7 @@
 	{
 		"id": 277222,
 		"name": "War Painted Cuffs",
+		"icon": "inv_bracer_08",
 		"slot": "wrist",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -122622,6 +123142,7 @@
 	{
 		"id": 277223,
 		"name": "Traveled Gloves",
+		"icon": "inv_gauntlets_23",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -122636,6 +123157,7 @@
 	{
 		"id": 277225,
 		"name": "Feathered Leggings",
+		"icon": "inv_pants_02",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -122651,6 +123173,7 @@
 	{
 		"id": 277228,
 		"name": "Snakescale Pauldrons",
+		"icon": "inv_shoulder_07",
 		"slot": "shoulder",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -122665,6 +123188,7 @@
 	{
 		"id": 277229,
 		"name": "Enduring Chain Vest",
+		"icon": "inv_chest_chain_07",
 		"slot": "chest",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -122678,6 +123202,7 @@
 	{
 		"id": 277230,
 		"name": "Grayscale Bracers",
+		"icon": "inv_bracer_07",
 		"slot": "wrist",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -122692,6 +123217,7 @@
 	{
 		"id": 277231,
 		"name": "Conductive Gauntlets",
+		"icon": "inv_gauntlets_04",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -122707,6 +123233,7 @@
 	{
 		"id": 277233,
 		"name": "Clinking Mail Legguards",
+		"icon": "inv_pants_04",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -122721,6 +123248,7 @@
 	{
 		"id": 277243,
 		"name": "Silverbane Slicer",
+		"icon": "inv_axe_01",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 45,
@@ -122741,6 +123269,7 @@
 	{
 		"id": 277244,
 		"name": "Guardian's Maulers",
+		"icon": "inv_misc_monsterclaw_04",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 45,
@@ -122761,6 +123290,7 @@
 	{
 		"id": 277245,
 		"name": "Swampspine Crusher",
+		"icon": "inv_hammer_03",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 45,
@@ -122781,6 +123311,7 @@
 	{
 		"id": 277248,
 		"name": "Notched Ritual Rib",
+		"icon": "inv_weapon_shortblade_15",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 45,
@@ -122803,6 +123334,7 @@
 	{
 		"id": 277250,
 		"name": "The Skullcracker",
+		"icon": "inv_hammer_03",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 45,
@@ -122844,6 +123376,7 @@
 	{
 		"id": 277257,
 		"name": "Raven Hill Crest",
+		"icon": "inv_shield_06",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 29,
@@ -122860,6 +123393,7 @@
 	{
 		"id": 277258,
 		"name": "Crest of Elucidation",
+		"icon": "spell_holy_powerwordshield",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 45,
@@ -122886,6 +123420,7 @@
 	{
 		"id": 277259,
 		"name": "Fermented Restoration Potion",
+		"icon": "inv_potion_19",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 45,
@@ -122902,6 +123437,7 @@
 	{
 		"id": 277260,
 		"name": "Researcher's Night Light",
+		"icon": "inv_torch_lit",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 45,
@@ -123037,6 +123573,7 @@
 	{
 		"id": 277979,
 		"name": "Mauler's Mutton",
+		"icon": "inv_misc_food_18",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 44,
@@ -123057,6 +123594,7 @@
 	{
 		"id": 277980,
 		"name": "Ogre Bone",
+		"icon": "inv_misc_bone_01",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 44,
@@ -123226,6 +123764,7 @@
 	{
 		"id": 279252,
 		"name": "Elderwild Waistcord",
+		"icon": "inv_belt_leather_raiddruidhyjalc60_d_01",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "epic",
@@ -123571,6 +124110,7 @@
 	{
 		"id": 279448,
 		"name": "Bloodsplattered Bandana",
+		"icon": "inv_misc_bandana_03",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -123618,6 +124158,7 @@
 	{
 		"id": 279474,
 		"name": "Dustwallow Dirk",
+		"icon": "inv_sword_13",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 55,
@@ -123652,6 +124193,7 @@
 	{
 		"id": 279480,
 		"name": "Bigger Rock on Bigger Stick",
+		"icon": "inv_mace_04",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 47,
@@ -123693,6 +124235,7 @@
 	{
 		"id": 279826,
 		"name": "Marshdweller's Pants",
+		"icon": "inv_pants_10",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -123724,6 +124267,7 @@
 	{
 		"id": 279829,
 		"name": "Naga Scale Spaulders",
+		"icon": "inv_shoulder_07",
 		"slot": "shoulder",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -123753,6 +124297,7 @@
 	{
 		"id": 279831,
 		"name": "Fatebound Buckler",
+		"icon": "inv_shield_02",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 55,
@@ -123815,6 +124360,7 @@
 	{
 		"id": 279839,
 		"name": "Spellguard Pauldrons",
+		"icon": "inv_shoulder_12",
 		"slot": "shoulder",
 		"armorType": "mail",
 		"quality": "rare",
@@ -123838,6 +124384,7 @@
 	{
 		"id": 279840,
 		"name": "Renewing Footpads",
+		"icon": "inv_boots_03",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -123862,6 +124409,7 @@
 	{
 		"id": 279841,
 		"name": "Defender of Dalaran",
+		"icon": "inv_hammer_04",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 36,
@@ -123891,6 +124439,7 @@
 	{
 		"id": 279842,
 		"name": "Battle Spaulders",
+		"icon": "inv_shoulder_23",
 		"slot": "shoulder",
 		"armorType": "mail",
 		"quality": "rare",
@@ -123914,6 +124463,7 @@
 	{
 		"id": 279843,
 		"name": "Enchanted Sandals",
+		"icon": "inv_boots_05",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -123938,6 +124488,7 @@
 	{
 		"id": 279844,
 		"name": "Striking Staff",
+		"icon": "inv_staff_28",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 36,
@@ -123990,6 +124541,7 @@
 	{
 		"id": 279852,
 		"name": "Rock on Stick",
+		"icon": "inv_hammer_09",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 47,
@@ -124068,6 +124620,7 @@
 	{
 		"id": 279854,
 		"name": "Twilight Initiate's Belt",
+		"icon": "inv_belt_26",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -124113,6 +124666,7 @@
 	{
 		"id": 279857,
 		"name": "Kroog's Backscratcher",
+		"icon": "inv_weapon_shortblade_29",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 43,
@@ -124157,6 +124711,7 @@
 	{
 		"id": 279860,
 		"name": "Convert's Bindings",
+		"icon": "inv_bracer_07",
 		"slot": "wrist",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -124196,6 +124751,7 @@
 	{
 		"id": 279878,
 		"name": "Apprentice Sorcerer's Slacks",
+		"icon": "inv_pants_10",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -124219,6 +124775,7 @@
 	{
 		"id": 279879,
 		"name": "Rune-Etched Epaulets",
+		"icon": "inv_shoulder_25",
 		"slot": "shoulder",
 		"armorType": "leather",
 		"quality": "rare",
@@ -124267,6 +124824,7 @@
 	{
 		"id": 279881,
 		"name": "Intrepid Explorer's Chainmail",
+		"icon": "inv_chest_chain",
 		"slot": "chest",
 		"armorType": "mail",
 		"quality": "rare",
@@ -124314,6 +124872,7 @@
 	{
 		"id": 279883,
 		"name": "Mutinous Cuffs",
+		"icon": "inv_bracer_07",
 		"slot": "wrist",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -124336,6 +124895,7 @@
 	{
 		"id": 279884,
 		"name": "South Seas Shroud",
+		"icon": "inv_misc_cape_02",
 		"slot": "back",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -124358,6 +124918,7 @@
 	{
 		"id": 279885,
 		"name": "Ceremonial Mallet",
+		"icon": "inv_hammer_06",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 42,
@@ -124441,6 +125002,7 @@
 	{
 		"id": 279889,
 		"name": "Naga Priestess's Mantle",
+		"icon": "inv_shoulder_18",
 		"slot": "shoulder",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -124465,6 +125027,7 @@
 	{
 		"id": 279891,
 		"name": "Guidance of Ursoc",
+		"icon": "inv_misc_cape_08",
 		"slot": "back",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -124486,6 +125049,7 @@
 	{
 		"id": 279892,
 		"name": "Wisdom of Ursol",
+		"icon": "inv_misc_cape_05",
 		"slot": "back",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -124597,6 +125161,7 @@
 	{
 		"id": 279905,
 		"name": "Ravasaur Hide Footpads",
+		"icon": "inv_boots_05",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -124621,6 +125186,7 @@
 	{
 		"id": 279906,
 		"name": "Potent Treads",
+		"icon": "inv_boots_05",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -124675,6 +125241,7 @@
 	{
 		"id": 279912,
 		"name": "Faintly Glowing Orb",
+		"icon": "inv_misc_orb_01",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 62,
@@ -124701,6 +125268,7 @@
 	{
 		"id": 279930,
 		"name": "Saltseer's Helm",
+		"icon": "inv_helmet_15",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -124778,6 +125346,7 @@
 	{
 		"id": 280011,
 		"name": "Deeproar Cord",
+		"icon": "inv_belt_24",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -124793,6 +125362,7 @@
 	{
 		"id": 280013,
 		"name": "Frostfang Mail Vest",
+		"icon": "inv_chest_chain_07",
 		"slot": "chest",
 		"armorType": "mail",
 		"quality": "rare",
@@ -124809,6 +125379,7 @@
 	{
 		"id": 280014,
 		"name": "Raptorscale Bulwark",
+		"icon": "inv_shield_21",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 63,
@@ -124843,6 +125414,7 @@
 	{
 		"id": 280016,
 		"name": "Spiderchitin Wrap",
+		"icon": "inv_chest_plate07",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "rare",
@@ -124857,6 +125429,7 @@
 	{
 		"id": 280017,
 		"name": "Octoclaw Chain Boots",
+		"icon": "inv_boots_fabric_01",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "rare",
@@ -124894,6 +125467,7 @@
 	{
 		"id": 280019,
 		"name": "Dinofrill Casque",
+		"icon": "inv_helmet_56",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "rare",
@@ -124955,6 +125529,7 @@
 	{
 		"id": 280025,
 		"name": "Leggings of Curation",
+		"icon": "inv_pants_cloth_18",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -124971,6 +125546,7 @@
 	{
 		"id": 280026,
 		"name": "Albinofur Grips",
+		"icon": "inv_gauntlets_26",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "rare",
@@ -124985,6 +125561,7 @@
 	{
 		"id": 280029,
 		"name": "Cinderedge Crescent",
+		"icon": "inv_axe_09",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 63,
@@ -125023,6 +125600,7 @@
 	{
 		"id": 280045,
 		"name": "Regal Direhorn Drape",
+		"icon": "inv_misc_cape_18",
 		"slot": "back",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -125040,6 +125618,7 @@
 	{
 		"id": 280056,
 		"name": "Flameslash Crescent",
+		"icon": "inv_weapon_halberd_10",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 59,
@@ -125062,6 +125641,7 @@
 	{
 		"id": 280057,
 		"name": "Robes of Dark Summons",
+		"icon": "inv_chest_cloth_25",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -125078,6 +125658,7 @@
 	{
 		"id": 280058,
 		"name": "Impish Chain Hood",
+		"icon": "inv_helmet_17",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "rare",
@@ -125115,6 +125696,7 @@
 	{
 		"id": 280062,
 		"name": "Cloak of the Fleshborer",
+		"icon": "inv_misc_cape_11",
 		"slot": "back",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -125132,6 +125714,7 @@
 	{
 		"id": 280063,
 		"name": "Bloodfur Bulwark",
+		"icon": "inv_shield_13",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 60,
@@ -125150,6 +125733,7 @@
 	{
 		"id": 280064,
 		"name": "Withering Grips",
+		"icon": "inv_gauntlets_04",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -125186,6 +125770,7 @@
 	{
 		"id": 280066,
 		"name": "Trousers of the Ebon Giant",
+		"icon": "inv_pants_06",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -125202,6 +125787,7 @@
 	{
 		"id": 280067,
 		"name": "Blackmaw Chain Belt",
+		"icon": "inv_belt_12",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -125217,6 +125803,7 @@
 	{
 		"id": 280068,
 		"name": "Bloody Claws of Attack",
+		"icon": "inv_misc_monsterclaw_01",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 61,
@@ -125238,6 +125825,7 @@
 	{
 		"id": 280069,
 		"name": "Shamanic Wristguards",
+		"icon": "inv_bracer_08",
 		"slot": "wrist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -125253,6 +125841,7 @@
 	{
 		"id": 280070,
 		"name": "Veilpiercer Girdle",
+		"icon": "inv_belt_26",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -125292,6 +125881,7 @@
 	{
 		"id": 280072,
 		"name": "Cowl of Dark Ambition",
+		"icon": "inv_helmet_52",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -125331,6 +125921,7 @@
 	{
 		"id": 280076,
 		"name": "Horns of Varrox",
+		"icon": "inv_helmet_55",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "rare",
@@ -125347,6 +125938,7 @@
 	{
 		"id": 280077,
 		"name": "Fist of Revelation",
+		"icon": "inv_gauntlets_13",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 57,
@@ -125370,6 +125962,7 @@
 	{
 		"id": 280078,
 		"name": "Apprentice's Protective Treads",
+		"icon": "inv_boots_08",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -125385,6 +125978,7 @@
 	{
 		"id": 280079,
 		"name": "Lunarlight Robe",
+		"icon": "inv_chest_leather_03",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "rare",
@@ -125400,6 +125994,7 @@
 	{
 		"id": 280081,
 		"name": "Sad-Sack Sandals",
+		"icon": "inv_boots_02",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -125420,6 +126015,7 @@
 	{
 		"id": 280082,
 		"name": "Staff of Sorrow",
+		"icon": "inv_staff_29",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 57,
@@ -125443,6 +126039,7 @@
 	{
 		"id": 280084,
 		"name": "Furbolg Rib Protector",
+		"icon": "inv_chest_leather_06",
 		"slot": "chest",
 		"armorType": "mail",
 		"quality": "rare",
@@ -125458,6 +126055,7 @@
 	{
 		"id": 280085,
 		"name": "Tunnelweb Pincer",
+		"icon": "inv_sword_13",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 57,
@@ -125479,6 +126077,7 @@
 	{
 		"id": 280310,
 		"name": "Floppy Goggles",
+		"icon": "inv_helmet_47",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -125525,6 +126124,7 @@
 	{
 		"id": 280311,
 		"name": "Bent Goggles",
+		"icon": "inv_helmet_47",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -125582,6 +126182,7 @@
 	{
 		"id": 280312,
 		"name": "Stuckbutton Goggles",
+		"icon": "inv_helmet_47",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -125754,6 +126355,7 @@
 	{
 		"id": 281260,
 		"name": "Ancestral Waistcord",
+		"icon": "inv_belt_24",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -125767,6 +126369,7 @@
 	{
 		"id": 281261,
 		"name": "Crystal-flecked Cord",
+		"icon": "inv_belt_26",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -125780,6 +126383,7 @@
 	{
 		"id": 281262,
 		"name": "Crystal-flecked Waistguard",
+		"icon": "inv_belt_23",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -125793,6 +126397,7 @@
 	{
 		"id": 281275,
 		"name": "Mantle of Scaleslaying",
+		"icon": "inv_shoulder_05",
 		"slot": "shoulder",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -125806,6 +126411,7 @@
 	{
 		"id": 281276,
 		"name": "Pauldrons of Scaleslaying",
+		"icon": "inv_shoulder_06",
 		"slot": "shoulder",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -125819,6 +126425,7 @@
 	{
 		"id": 281277,
 		"name": "Shoulders of Scaleslaying",
+		"icon": "inv_shoulder_27",
 		"slot": "shoulder",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -125832,6 +126439,7 @@
 	{
 		"id": 281280,
 		"name": "Mountain Climbers",
+		"icon": "inv_gauntlets_17",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -125896,6 +126504,7 @@
 	{
 		"id": 281291,
 		"name": "Mathystra Channeling Orb",
+		"icon": "inv_misc_orb_01",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 21,
@@ -125919,6 +126528,7 @@
 	{
 		"id": 281292,
 		"name": "Onu's Patience",
+		"icon": "inv_jewelry_talisman_03",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 21,
@@ -125942,6 +126552,7 @@
 	{
 		"id": 281298,
 		"name": "Ti'ik's Tattered Trousers",
+		"icon": "inv_pants_wolf",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -125955,6 +126566,7 @@
 	{
 		"id": 281299,
 		"name": "Profane Ritual Robes",
+		"icon": "inv_chest_cloth_05",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -125980,6 +126592,7 @@
 	{
 		"id": 281303,
 		"name": "Bleached Scale Vest",
+		"icon": "inv_chest_chain_12",
 		"slot": "chest",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -125993,6 +126606,7 @@
 	{
 		"id": 281312,
 		"name": "Fallen Dragon's Scepter",
+		"icon": "inv_staff_08",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 32,
@@ -126022,6 +126636,7 @@
 	{
 		"id": 281314,
 		"name": "Subdued Dragon's Fang",
+		"icon": "inv_weapon_shortblade_01",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 32,
@@ -126041,6 +126656,7 @@
 	{
 		"id": 281316,
 		"name": "Glimmerchain Trousers",
+		"icon": "inv_pants_03",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -126054,6 +126670,7 @@
 	{
 		"id": 281319,
 		"name": "Golem War Cloak",
+		"icon": "inv_misc_cape_20",
 		"slot": "back",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -126097,6 +126714,7 @@
 	{
 		"id": 281538,
 		"name": "Matriarch's Mantle",
+		"icon": "inv_shoulder_27",
 		"slot": "shoulder",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -126110,6 +126728,7 @@
 	{
 		"id": 281539,
 		"name": "Bear Fur Cowl",
+		"icon": "inv_helmet_16",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -126123,6 +126742,7 @@
 	{
 		"id": 281586,
 		"name": "Elderwild Construction Hammer",
+		"icon": "inv_hammer_08",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 60,
@@ -126234,6 +126854,7 @@
 	{
 		"id": 281637,
 		"name": "Antique Bulwark",
+		"icon": "inv_shield_02",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 58,
@@ -126855,6 +127476,7 @@
 	{
 		"id": 282094,
 		"name": "Blackheart's Vest",
+		"icon": "inv_chest_leather_03",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -127044,6 +127666,7 @@
 	{
 		"id": 282632,
 		"name": "Scalding Staff",
+		"icon": "inv_staff_03",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 51,
@@ -127077,6 +127700,7 @@
 	{
 		"id": 282633,
 		"name": "Mastrogonde's Sinister Gown",
+		"icon": "inv_chest_cloth_17",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -127438,6 +128062,7 @@
 	{
 		"id": 284065,
 		"name": "Crown of Maldazzar",
+		"icon": "inv_helmet_12",
 		"slot": "head",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -127508,6 +128133,7 @@
 	{
 		"id": 284086,
 		"name": "Scarlet Executioner's Guise",
+		"icon": "inv_helmet_41",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "rare",
@@ -127619,6 +128245,7 @@
 	{
 		"id": 284161,
 		"name": "Treads of Rotting Flesh",
+		"icon": "inv_boots_07",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -127874,6 +128501,7 @@
 	{
 		"id": 284268,
 		"name": "Furbolg Shaman's Girdle",
+		"icon": "inv_belt_22",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -127925,6 +128553,7 @@
 	{
 		"id": 284283,
 		"name": "Horn of Antilos",
+		"icon": "inv_weapon_shortblade_14",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 52,
@@ -128026,6 +128655,7 @@
 	{
 		"id": 284399,
 		"name": "Seared Grove Shoulderpads",
+		"icon": "inv_shoulder_09",
 		"slot": "shoulder",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -128049,6 +128679,7 @@
 	{
 		"id": 284400,
 		"name": "Foreman's Helm",
+		"icon": "inv_helmet_18",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "rare",
@@ -128235,6 +128866,7 @@
 	{
 		"id": 284847,
 		"name": "Hippogryph Down Leggings",
+		"icon": "inv_pants_13",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -128312,6 +128944,7 @@
 	{
 		"id": 285043,
 		"name": "Snarling Fang",
+		"icon": "inv_misc_monsterfang_01",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 47,
@@ -128341,6 +128974,7 @@
 	{
 		"id": 285047,
 		"name": "Yeti Hide Stompers",
+		"icon": "inv_boots_06",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -128363,6 +128997,7 @@
 	{
 		"id": 285066,
 		"name": "Ooze Rummagers",
+		"icon": "inv_gauntlets_15",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -128383,6 +129018,7 @@
 	{
 		"id": 285088,
 		"name": "Ooze Dripping Robes",
+		"icon": "inv_chest_cloth_01",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "uncommon",
@@ -128398,6 +129034,7 @@
 	{
 		"id": 285093,
 		"name": "Ripscaled Cuffs",
+		"icon": "inv_bracer_06",
 		"slot": "wrist",
 		"armorType": "leather",
 		"quality": "uncommon",
@@ -128432,6 +129069,7 @@
 	{
 		"id": 285101,
 		"name": "Rot-Fused Greaves",
+		"icon": "inv_boots_01",
 		"slot": "feet",
 		"armorType": "mail",
 		"quality": "uncommon",
@@ -128447,6 +129085,7 @@
 	{
 		"id": 285102,
 		"name": "Darkmist Dirk",
+		"icon": "inv_misc_monsterfang_01",
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 42,
@@ -128582,6 +129221,7 @@
 	{
 		"id": 285329,
 		"name": "Raptor Hide Cloak",
+		"icon": "inv_misc_cape_17",
 		"slot": "back",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -128677,6 +129317,7 @@
 	{
 		"id": 285339,
 		"name": "Centaur War Chain",
+		"icon": "inv_belt_22",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -128751,6 +129392,7 @@
 	{
 		"id": 285348,
 		"name": "Alliance Outrunner Healing Rod",
+		"icon": "inv_wand_04",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 26,
@@ -128806,6 +129448,7 @@
 	{
 		"id": 285353,
 		"name": "Eternal Explorer's Backpack",
+		"icon": "inv_cape_special_camping_d_01_green",
 		"slot": "back",
 		"quality": "rare",
 		"ilvl": 1,
@@ -128847,6 +129490,7 @@
 	{
 		"id": 286430,
 		"name": "Toofbreaker",
+		"icon": "inv_mace_13",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 45,
@@ -128874,6 +129518,7 @@
 	{
 		"id": 286552,
 		"name": "Sandcaster's Mantle",
+		"icon": "inv_shoulder_13",
 		"slot": "shoulder",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -129168,6 +129813,7 @@
 	{
 		"id": 286639,
 		"name": "Ambassador's Bloodrobes",
+		"icon": "inv_chest_cloth_18",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -129311,6 +129957,7 @@
 	{
 		"id": 286658,
 		"name": "Umbral Scaled Belt",
+		"icon": "inv_belt_30",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -129326,6 +129973,7 @@
 	{
 		"id": 286662,
 		"name": "Deep-Dweller's Grips",
+		"icon": "inv_gauntlets_17",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -129341,6 +129989,7 @@
 	{
 		"id": 286978,
 		"name": "Rotmender's Garb",
+		"icon": "inv_shirt_04",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -129366,6 +130015,7 @@
 	{
 		"id": 286979,
 		"name": "Rotmender's Gloves",
+		"icon": "inv_gauntlets_22",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -129390,6 +130040,7 @@
 	{
 		"id": 286980,
 		"name": "Rotmender's Sash",
+		"icon": "inv_belt_11",
 		"slot": "waist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -129455,6 +130106,7 @@
 	{
 		"id": 286982,
 		"name": "Unearthed Barrier",
+		"icon": "inv_shield_02",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 32,
@@ -129485,6 +130137,7 @@
 	{
 		"id": 286983,
 		"name": "Ancient Cleaver",
+		"icon": "inv_weapon_halbard_01",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 33,
@@ -129552,6 +130205,7 @@
 	{
 		"id": 286985,
 		"name": "Thicket Bindings",
+		"icon": "inv_bracer_12",
 		"slot": "wrist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -129573,6 +130227,7 @@
 	{
 		"id": 286986,
 		"name": "Abandoned Leggings",
+		"icon": "inv_pants_09",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -129620,6 +130275,7 @@
 	{
 		"id": 286987,
 		"name": "Violet Sorcerer's Sandals",
+		"icon": "inv_boots_05",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -129650,6 +130306,7 @@
 	{
 		"id": 286988,
 		"name": "Violet Sorcerer's Leggings",
+		"icon": "inv_pants_cloth_18",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -129713,6 +130370,7 @@
 	{
 		"id": 286990,
 		"name": "Arcane Remnant Leggings",
+		"icon": "inv_pants_leather_05",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "rare",
@@ -129741,6 +130399,7 @@
 	{
 		"id": 286991,
 		"name": "Roused Nature Footwraps",
+		"icon": "inv_boots_09",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -129771,6 +130430,7 @@
 	{
 		"id": 286992,
 		"name": "Construct's Grips",
+		"icon": "inv_gauntlets_04",
 		"slot": "hands",
 		"armorType": "mail",
 		"quality": "rare",
@@ -129785,6 +130445,7 @@
 	{
 		"id": 286993,
 		"name": "Suffused Bindings",
+		"icon": "inv_belt_15",
 		"slot": "waist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -129809,6 +130470,7 @@
 	{
 		"id": 286994,
 		"name": "Tattered Kirin Tor Cloak",
+		"icon": "inv_misc_cape_05",
 		"slot": "back",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -129851,6 +130513,7 @@
 	{
 		"id": 286997,
 		"name": "Depth-Risen Leggings",
+		"icon": "inv_pants_13",
 		"slot": "legs",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -129867,6 +130530,7 @@
 	{
 		"id": 286998,
 		"name": "Deep Flora Bindings",
+		"icon": "inv_bracer_06",
 		"slot": "wrist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -129888,6 +130552,7 @@
 	{
 		"id": 286999,
 		"name": "Deathcrawler's Chest",
+		"icon": "inv_chest_leather_07",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "rare",
@@ -129904,6 +130569,7 @@
 	{
 		"id": 287000,
 		"name": "Skin-Flayed Footguards",
+		"icon": "inv_boots_09",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -129920,6 +130586,7 @@
 	{
 		"id": 287001,
 		"name": "Waterlogged Shoulderpads",
+		"icon": "inv_shoulder_08",
 		"slot": "shoulder",
 		"armorType": "leather",
 		"quality": "rare",
@@ -129935,6 +130602,7 @@
 	{
 		"id": 287002,
 		"name": "Risen Sentry's Links",
+		"icon": "inv_pants_03",
 		"slot": "legs",
 		"armorType": "mail",
 		"quality": "rare",
@@ -129965,6 +130633,7 @@
 	{
 		"id": 287006,
 		"name": "Resurged Axe",
+		"icon": "inv_axe_22",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 40,
@@ -129985,6 +130654,7 @@
 	{
 		"id": 287007,
 		"name": "Stretched Footpads",
+		"icon": "inv_boots_05",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -130001,6 +130671,7 @@
 	{
 		"id": 287008,
 		"name": "Ogre Magi's Mantle",
+		"icon": "inv_shoulder_05",
 		"slot": "shoulder",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -130016,6 +130687,7 @@
 	{
 		"id": 287009,
 		"name": "Twilight Enforcer's Legs",
+		"icon": "inv_pants_08",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "rare",
@@ -130032,6 +130704,7 @@
 	{
 		"id": 287010,
 		"name": "Outrider's Gloves",
+		"icon": "inv_gauntlets_19",
 		"slot": "hands",
 		"armorType": "leather",
 		"quality": "rare",
@@ -130058,6 +130731,7 @@
 	{
 		"id": 287011,
 		"name": "Guise of Battle",
+		"icon": "inv_helmet_19",
 		"slot": "head",
 		"armorType": "mail",
 		"quality": "rare",
@@ -130073,6 +130747,7 @@
 	{
 		"id": 287015,
 		"name": "Supreme Smasher",
+		"icon": "inv_hammer_09",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 47,
@@ -130094,6 +130769,7 @@
 	{
 		"id": 287016,
 		"name": "Shadow-Seer Orb",
+		"icon": "inv_misc_orb_04",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 45,
@@ -130126,6 +130802,7 @@
 	{
 		"id": 287018,
 		"name": "Compound Gloves",
+		"icon": "inv_gauntlets_17",
 		"slot": "hands",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -130142,6 +130819,7 @@
 	{
 		"id": 287019,
 		"name": "Defias Enforcer's Mask",
+		"icon": "inv_misc_bandana_03",
 		"slot": "head",
 		"armorType": "leather",
 		"quality": "rare",
@@ -130160,6 +130838,7 @@
 	{
 		"id": 287020,
 		"name": "Defias Enforcer's Chest",
+		"icon": "inv_chest_leather_08",
 		"slot": "chest",
 		"armorType": "leather",
 		"quality": "rare",
@@ -130177,6 +130856,7 @@
 	{
 		"id": 287021,
 		"name": "Defias Enforcer's Prowlers",
+		"icon": "inv_boots_05",
 		"slot": "feet",
 		"armorType": "leather",
 		"quality": "rare",
@@ -130225,6 +130905,7 @@
 	{
 		"id": 287025,
 		"name": "Enchantresses' Spire",
+		"icon": "inv_staff_03",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 54,
@@ -130254,6 +130935,7 @@
 	{
 		"id": 287028,
 		"name": "Tormented Cuffs",
+		"icon": "inv_bracer_13",
 		"slot": "wrist",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -130269,6 +130951,7 @@
 	{
 		"id": 287029,
 		"name": "Nature Guardian's Legguards",
+		"icon": "inv_pants_06",
 		"slot": "legs",
 		"armorType": "leather",
 		"quality": "rare",
@@ -130284,6 +130967,7 @@
 	{
 		"id": 287030,
 		"name": "Blackmaw Bindings",
+		"icon": "inv_bracer_10",
 		"slot": "wrist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -130324,6 +131008,7 @@
 	{
 		"id": 287034,
 		"name": "Grove Subjugator's Blade",
+		"icon": "inv_weapon_shortblade_25",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 60,
@@ -130388,6 +131073,7 @@
 	{
 		"id": 287037,
 		"name": "Shaper's Robe",
+		"icon": "inv_chest_cloth_51",
 		"slot": "chest",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -130404,6 +131090,7 @@
 	{
 		"id": 287038,
 		"name": "Naturopathy Footpads",
+		"icon": "inv_boots_05",
 		"slot": "feet",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -130436,6 +131123,7 @@
 	{
 		"id": 287040,
 		"name": "Dinosaur Hide Belt",
+		"icon": "inv_belt_09",
 		"slot": "waist",
 		"armorType": "leather",
 		"quality": "rare",
@@ -130451,6 +131139,7 @@
 	{
 		"id": 287041,
 		"name": "Time-Forgotten Bindings",
+		"icon": "inv_bracer_07",
 		"slot": "wrist",
 		"armorType": "mail",
 		"quality": "rare",
@@ -130485,6 +131174,7 @@
 	{
 		"id": 287044,
 		"name": "Predator's Shroud",
+		"icon": "inv_misc_cape_17",
 		"slot": "back",
 		"armorType": "cloth",
 		"quality": "rare",
@@ -130501,6 +131191,7 @@
 	{
 		"id": 287045,
 		"name": "Ancient Mattock",
+		"icon": "inv_axe_1h_raidbarrowc60_d_01",
 		"slot": "weapon",
 		"quality": "rare",
 		"ilvl": 61,

@@ -1087,3 +1087,37 @@ h3 {
 		font-size: 1.75rem;
 	}
 }
+
+/* Drop chances and runs */
+.effort {
+	color: var(--brass);
+	white-space: nowrap;
+}
+.effort::before {
+	content: '\00b7\00a0';
+	color: var(--haze);
+}
+.dungeon-value {
+	text-align: right;
+}
+.dungeon-per-run {
+	display: block;
+	font-weight: 400;
+	font-size: 0.8125rem;
+	color: var(--haze);
+}
+.boss-spawn {
+	display: block;
+	font-weight: 400;
+	font-size: 0.8125rem;
+	color: var(--ember);
+}
+.farm-order {
+	margin: 0 0 0.75rem;
+	color: var(--haze);
+	font-size: 0.875rem;
+}
+.farm-order .button[aria-pressed='true'] {
+	border-color: var(--brass);
+	color: var(--brass);
+}

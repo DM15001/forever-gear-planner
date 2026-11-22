@@ -1,10 +1,10 @@
 {
-	"generatedAt": "2026-11-21T21:18:42.810Z",
+	"generatedAt": "2026-11-21T23:57:56.546Z",
 	"spec": "enhancement-shaman",
 	"source": {
 		"repo": "https://github.com/wowsims/forever",
 		"license": "MIT",
-		"origin": "https://raw.githubusercontent.com/wowsims/pages-deploy/main/forever/assets/database/db.json",
+		"origin": "local file /home/claude/simbin/pages-deploy/forever/assets/database/db.json",
 		"commit": null
 	},
 	"counts": {

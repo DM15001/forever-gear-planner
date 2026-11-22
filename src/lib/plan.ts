@@ -1,6 +1,7 @@
 import { applicableEnchants, bestEnchants } from './enchants';
 import type { GameData } from './gameData';
 import { type Candidate, type CandidateOptions, EVERYTHING, filterKey, plannedGear, reputationOf, scoreSet, slotCandidates, suggestPlan, usableSources } from './scoring';
+import { effortLine } from './loot';
 import { sourceLine, vendorCurrency } from './stats';
 import type { Character, Enchant, Item, ItemSource } from './types';
 
@@ -28,6 +29,8 @@ export interface StepItem {
 	enchant?: Enchant;
 	/** Where exactly: boss, quest, vendor... */
 	detail: string;
+	/** For drops with known numbers: "20% drop, about 5 runs". */
+	effort?: string;
 	/** Score gained by this one change on top of the equipped gear. */
 	gain: number;
 	/** False when the step cannot be ticked off yet (an enchant for an item not equipped). */
@@ -96,7 +99,7 @@ export function planSteps(options: CandidateOptions): PlanStep[] {
 		const swapped = character.gear.map((piece, i) => (i === slotIndex ? (current?.enchant ? { id: itemId, enchant: current.enchant } : { id: itemId }) : piece));
 		const { kind, title } = stepOf(source, character, item, spec.tier05Set?.setId);
 		const isTier05 = title === 'Tier 0.5 questline';
-		add(kind, title, { slotIndex, item, detail: isTier05 ? (spec.tier05Set?.name ?? '') : sourceLine(source, data), gain: scoreSet(swapped, character, data, spec).score - equipped, ready: true });
+		add(kind, title, { slotIndex, item, detail: isTier05 ? (spec.tier05Set?.name ?? '') : sourceLine(source, data), effort: isTier05 ? undefined : effortLine(source), gain: scoreSet(swapped, character, data, spec).score - equipped, ready: true });
 	}
 
 	const planned = plannedGear(character);

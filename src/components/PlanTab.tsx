@@ -209,6 +209,7 @@ function TodoStep({ step, onGotItem, onGotEnchant }: { step: PlanStep; onGotItem
 							<span className="slot-source">
 								{GEAR_SLOTS[entry.slotIndex].label}
 								{entry.enchant && entry.item ? ` (${entry.item.name})` : ''}, {entry.detail}
+								{entry.effort && <span className="effort"> {entry.effort}</span>}
 							</span>
 						</span>
 						<span className={`num ${entry.gain >= 0 ? 'delta-up' : 'delta-down'}`}>{formatGain(entry.gain)}</span>

@@ -13,6 +13,7 @@
 // Source: https://github.com/wowsims/forever (MIT). Keep the link back to WoWSims in the app.
 
 import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -122,6 +123,9 @@ function compact(obj) {
 // ---- Main ----
 
 const args = parseArgs(process.argv.slice(2));
+
+// Icon names the WoWSims database lacks, looked up on Wowhead (see the file's comment).
+const ICON_OVERRIDES = JSON.parse(readFileSync(new URL('../src/config/wowhead/icons.json', import.meta.url), 'utf8')).icons;
 const spec = JSON.parse(await readFile(join(ROOT, 'src', 'specs', `${args.spec}.json`), 'utf8'));
 const localDb = args.db ?? (args.pages ? join(args.pages, 'forever', DB_PATH) : args.repo ? join(args.repo, DB_PATH) : null);
 const { db, origin, commit } = await loadDb(localDb);
@@ -222,7 +226,7 @@ function convertItem(item) {
 	return compact({
 		id: item.id,
 		name: item.name,
-		icon: item.icon,
+		icon: item.icon || ICON_OVERRIDES[item.id],
 		slot,
 		armorType: ARMOR_TYPES[item.armorType ?? 0],
 		rangedType: RANGED_TYPES[item.rangedWeaponType ?? 0],

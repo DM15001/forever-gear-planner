@@ -1,4 +1,5 @@
 import { GEAR_SLOTS } from './constants';
+import { runChance } from './loot';
 import { type CandidateOptions, EVERYTHING, filterKey, plannedGear, scoreSet, slotCandidates, usableSources } from './scoring';
 import type { Item, ItemSource, Zone } from './types';
 
@@ -15,6 +16,12 @@ export interface FarmDrop {
 export interface FarmBoss {
 	name: string;
 	drops: FarmDrop[];
+	/** Per item id: the source of the drop at this boss, with drop and spawn chances where known. */
+	sources: Map<number, ItemSource>;
+	/** Set when the boss is not there on every run. */
+	spawnChance?: number;
+	spawnBasis?: ItemSource['spawnBasis'];
+	spawnNote?: string;
 }
 
 export interface FarmDungeon {
@@ -26,6 +33,13 @@ export interface FarmDungeon {
 	bosses: FarmBoss[];
 	/** Sum of the best upgrade per slot. An upper bound: hit past the cap is not netted out across slots. */
 	value: number;
+	/**
+	 * Expected gain from one run: per slot, the best of (gain x chance to see the item), added up.
+	 * Counts only drops with a known drop chance, so it is a lower bound where chances are missing.
+	 */
+	perRun: number;
+	/** How many of the upgrades have a known drop chance. */
+	knownChances: number;
 	upgradeCount: number;
 	plannedCount: number;
 }
@@ -50,7 +64,7 @@ export function allUpgrades(options: CandidateOptions): FarmDrop[] {
 export function dungeonRanking(options: CandidateOptions): FarmDungeon[] {
 	const { character, data, spec, filter } = options;
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
-	const dungeons = new Map<string, { key: string; name: string; zone: Zone; bosses: Map<string, FarmDrop[]> }>();
+	const dungeons = new Map<string, { key: string; name: string; zone: Zone; bosses: Map<string, FarmDrop[]>; sources: Map<string, Map<number, ItemSource>> }>();
 
 	for (const drop of allUpgrades(options)) {
 		for (const source of usableSources(drop.item, faction, filter, character.professions)) {
@@ -59,27 +73,46 @@ export function dungeonRanking(options: CandidateOptions): FarmDungeon[] {
 			if (!zone) continue;
 			const bossName = ((source.npcId ? data.npcById.get(source.npcId)?.name : undefined) ?? source.otherName ?? 'Unknown').trim();
 			const key = source.dungeonKey;
-			if (!dungeons.has(key)) dungeons.set(key, { key, name: source.dungeonName ?? zone.name, zone, bosses: new Map() });
-			const bosses = dungeons.get(key)!.bosses;
+			if (!dungeons.has(key)) dungeons.set(key, { key, name: source.dungeonName ?? zone.name, zone, bosses: new Map(), sources: new Map() });
+			const { bosses, sources } = dungeons.get(key)!;
 			if (!bosses.has(bossName)) bosses.set(bossName, []);
+			if (!sources.has(bossName)) sources.set(bossName, new Map());
+			sources.get(bossName)!.set(drop.item.id, source);
 			if (!bosses.get(bossName)!.includes(drop)) bosses.get(bossName)!.push(drop);
 		}
 	}
 
 	return [...dungeons.values()]
-		.map(({ key, name, zone, bosses }) => {
+		.map(({ key, name, zone, bosses, sources }) => {
 			const drops = new Set([...bosses.values()].flat());
 			const bestPerSlot = new Map<number, number>();
 			for (const drop of drops) bestPerSlot.set(drop.slotIndex, Math.max(bestPerSlot.get(drop.slotIndex) ?? 0, drop.delta));
 			const bestOf = (list: FarmDrop[]) => Math.max(...list.map(d => d.delta));
+			// Per slot only one item ends up worn, so a run is worth the best expected gain per slot.
+			const perRunBySlot = new Map<number, number>();
+			const known = new Set<number>();
+			for (const [bossName, list] of bosses) {
+				for (const drop of list) {
+					const chance = runChance(sources.get(bossName)!.get(drop.item.id));
+					if (chance === undefined) continue;
+					known.add(drop.item.id);
+					perRunBySlot.set(drop.slotIndex, Math.max(perRunBySlot.get(drop.slotIndex) ?? 0, drop.delta * chance));
+				}
+			}
 			return {
 				key,
 				name,
 				zone,
 				bosses: [...bosses.entries()]
-					.map(([name, list]) => ({ name, drops: list.sort((a, b) => b.delta - a.delta) }))
+					.map(([name, list]) => {
+						const bossSources = sources.get(name)!;
+						const random = [...bossSources.values()].find(source => source.spawnChance !== undefined);
+						return { name, drops: list.sort((a, b) => b.delta - a.delta), sources: bossSources, spawnChance: random?.spawnChance, spawnBasis: random?.spawnBasis, spawnNote: random?.spawnNote };
+					})
 					.sort((a, b) => bestOf(b.drops) - bestOf(a.drops)),
 				value: [...bestPerSlot.values()].reduce((sum, v) => sum + v, 0),
+				perRun: [...perRunBySlot.values()].reduce((sum, v) => sum + v, 0),
+				knownChances: known.size,
 				upgradeCount: drops.size,
 				plannedCount: [...drops].filter(d => d.planned).length,
 			};
