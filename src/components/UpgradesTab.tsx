@@ -162,6 +162,8 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 		});
 
 	const gain = planned.score - equipped.score;
+	// For a healer, each row says how much of its worth is output and how much is mana.
+	const healWeights = spec.role === 'healer' ? spec.weights.stats : undefined;
 	const sim = useSim();
 	const simEquipped = sim.result(character.gear, SET_ITERATIONS);
 	const simPlanned = sim.result(gear, SET_ITERATIONS);
@@ -277,6 +279,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 							<ul className="candidates">
 								{fightPicks.slice(0, FIGHT_PICKS).map(({ index, candidate }) => (
 									<CandidateRow
+											healWeights={healWeights}
 										key={`${index}-${candidate.item.id}`}
 										candidate={candidate}
 										note={GEAR_SLOTS[index].label}
@@ -396,7 +399,9 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				const currentItemNow = currentPiece ? data.itemById.get(currentPiece.id) : undefined;
 				const currentStats = currentItemNow && currentPiece ? pieceStats(currentItemNow, currentPiece, data) : {};
 				// What comes next if the planned or worn item stays out of reach: the best items that are not upgrades over it.
-				const alternatives = candidates.filter(c => c.delta <= 0 && c.item.id !== character.gear[index]?.id && usableSources(c.item, faction, filter).some(source => sourceKind(source) !== 'unknown')).slice(0, ALTERNATIVES);
+				// With something else planned, the worn item is one of them: it is what you fall back to.
+				const wornId = character.gear[index]?.id;
+				const alternatives = candidates.filter(c => c.delta <= 0 && (c.item.id === wornId || usableSources(c.item, faction, filter).some(source => sourceKind(source) !== 'unknown'))).slice(0, ALTERNATIVES);
 				const wornScore = plannedItem
 					? scoreSet(
 							gear.map((piece, i) => (i === index ? character.gear[index] : piece)),
@@ -439,8 +444,12 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						/>
 						{upgrades > 0 && (
 							<ul className="candidates">
-								{candidates.slice(0, limit).map(candidate => (
+								{candidates
+									.filter(c => c.delta > 0)
+									.slice(0, limit)
+									.map(candidate => (
 									<CandidateRow
+											healWeights={healWeights}
 												current={currentStats}
 										key={candidate.item.id}
 										candidate={candidate}
@@ -458,7 +467,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						)}
 						{upgrades > SHORT_LIST && (
 							<button className="link" onClick={() => toggle(index)}>
-								{expanded.has(index) ? 'Show fewer' : `Show ${Math.min(LONG_LIST, candidates.length)} items`}
+								{expanded.has(index) ? 'Show fewer' : `Show all ${Math.min(LONG_LIST, upgrades)} upgrades`}
 							</button>
 						)}
 						{outside.has(index) && (
@@ -476,6 +485,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 											.slice(0, ALTERNATIVES)
 											.map(candidate => (
 												<CandidateRow
+											healWeights={healWeights}
 													key={candidate.item.id}
 													current={currentStats}
 													candidate={candidate}
@@ -505,10 +515,11 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 										const overWorn = plannedItem ? scoreSet(variant, character, data, spec).score - wornScore : undefined;
 										return (
 											<CandidateRow
+											healWeights={healWeights}
 												current={currentStats}
 												key={candidate.item.id}
 												candidate={candidate}
-												note={overWorn !== undefined ? `${formatDelta(overWorn)} over what you wear` : undefined}
+												note={candidate.item.id === wornId ? 'what you wear now' : overWorn !== undefined ? `${formatDelta(overWorn)} over what you wear` : undefined}
 												marks={marks.get(candidate.item.id)}
 												base={gear}
 												variant={variant}
@@ -551,6 +562,8 @@ interface RowProps {
 	note?: string;
 	/** The stats of the item in the slot now, to show what changes. */
 	current?: Stats;
+	/** A healer's stat weights: splits the row's worth into output and mana. */
+	healWeights?: Record<string, number>;
 	marks?: GuideMark[];
 	base: Gear;
 	variant: Gear;
@@ -561,7 +574,7 @@ interface RowProps {
 	onHide: () => void;
 }
 
-function CandidateRow({ candidate, note, current, marks, base, variant, data, faction, filter, onPlan, onHide }: RowProps) {
+function CandidateRow({ candidate, note, current, healWeights, marks, base, variant, data, faction, filter, onPlan, onHide }: RowProps) {
 	const { item, delta, incomplete } = candidate;
 	const sources = usableSources(item, faction, filter);
 	const stats = statLine(
@@ -602,6 +615,7 @@ function CandidateRow({ candidate, note, current, marks, base, variant, data, fa
 				{current && statChange(pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data), current) && (
 					<span className="stat-diff">Against your item: {statChange(pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data), current)}</span>
 				)}
+				{current && healWeights && <HealSplit next={pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data)} now={current} weights={healWeights} />}
 				{conditionalLines(item, data.fight).map(line => (
 					<span key={line.text} className={line.active ? 'slot-versus slot-versus-on' : 'slot-versus'} title={line.active ? 'Counted: it matches the enemy type or terrain you picked.' : 'Not counted. Pick this enemy type or terrain at the top of the page to count it.'}>
 						{line.text}
@@ -634,6 +648,31 @@ function statChange(next: Stats, now: Stats): string {
 			return `${change > 0 ? '+' : '−'}${Math.abs(change)} ${short}`;
 		})
 		.join(', ');
+}
+
+const OUTPUT_STATS = ['healingPower', 'critRating', 'hasteRating'];
+const MANA_STATS = ['intellect', 'spirit', 'mp5'];
+
+/**
+ * For a healer: how much of an item's worth comes from healing more per cast (healing power, crit,
+ * haste) and how much from having more mana to cast with (intellect, spirit, MP5). Intellect is
+ * filed under mana, though a little of its worth is the crit it gives.
+ */
+function HealSplit({ next, now, weights }: { next: Stats; now: Stats; weights: Record<string, number> }) {
+	const worth = (keys: string[]) => keys.reduce((sum, key) => sum + ((next[key] ?? 0) - (now[key] ?? 0)) * (weights[key] ?? 0), 0);
+	const parts = (keys: string[]) =>
+		keys
+			.filter(key => (next[key] ?? 0) !== (now[key] ?? 0) && weights[key])
+			.map(key => `${(next[key] ?? 0) - (now[key] ?? 0) > 0 ? '+' : '−'}${Math.abs((next[key] ?? 0) - (now[key] ?? 0))} ${LONG_LABEL.get(key) ?? key} × ${weights[key]}`)
+			.join(', ');
+	const output = worth(OUTPUT_STATS);
+	const mana = worth(MANA_STATS);
+	if (!output && !mana) return null;
+	return (
+		<span className="heal-split" title={`Output: ${parts(OUTPUT_STATS) || 'no change'}\nMana: ${parts(MANA_STATS) || 'no change'}\nEach number is the stat change times what one point is worth in this healing scenario.`}>
+			Of that: <span className={output >= 0 ? 'delta-up' : 'delta-down'}>{formatDelta(output)}</span> from output, <span className={mana >= 0 ? 'delta-up' : 'delta-down'}>{formatDelta(mana)}</span> from mana
+		</span>
+	);
 }
 
 function badgeReason(item: Item): string {

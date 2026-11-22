@@ -3358,3 +3358,27 @@ html {
 	color: var(--brass);
 	border-color: var(--brass);
 }
+
+.heal-split {
+	display: block;
+	font-size: 0.8125rem;
+	color: var(--mist);
+	cursor: help;
+}
+.heal-worth {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.3rem 1.1rem;
+	margin: 0.75rem 0 0;
+	padding-top: 0.7rem;
+	border-top: 1px solid var(--hairline);
+	font-size: 0.875rem;
+}
+.heal-worth .field-label,
+.heal-worth .slot-source {
+	flex-basis: 100%;
+}
+.heal-worth-item {
+	color: var(--mist);
+}
