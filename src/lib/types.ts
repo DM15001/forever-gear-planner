@@ -91,6 +91,8 @@ export interface Character {
 	race: string | null;
 	level: number | null;
 	talents: string;
+	/** Consumables changed on the Sim setup tab. Missing fields keep the build's own picks. */
+	consumables?: import('./sim/setup').ConsumablePicks;
 	/** Up to two profession names. */
 	professions: string[];
 	/** Always GEAR_SLOTS.length entries, in GEAR_SLOTS order. null = empty slot. */

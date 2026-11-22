@@ -171,3 +171,17 @@ export function planShoppingList(options: CandidateOptions): Map<PlanGroupKind, 
 	for (const list of groups.values()) list.sort((a, b) => b.delta - a.delta);
 	return groups;
 }
+
+/** Planned dungeon drops split by dungeon (or dungeon wing), the one with the most to gain first. */
+export function byDungeon(entries: PlanEntry[], zoneName: (zoneId: number) => string | undefined): { key: string; name: string; entries: PlanEntry[] }[] {
+	const groups = new Map<string, { key: string; name: string; entries: PlanEntry[] }>();
+	for (const entry of entries) {
+		const source = entry.source;
+		const name = source?.dungeonName ?? (source?.zoneId ? zoneName(source.zoneId) : undefined) ?? 'Other dungeons';
+		const key = source?.dungeonKey ?? name;
+		if (!groups.has(key)) groups.set(key, { key, name, entries: [] });
+		groups.get(key)!.entries.push(entry);
+	}
+	const gain = (group: { entries: PlanEntry[] }) => group.entries.reduce((sum, entry) => sum + entry.delta, 0);
+	return [...groups.values()].sort((a, b) => gain(b) - gain(a));
+}

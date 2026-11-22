@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
-import { dungeonRanking, type FarmDungeon, PLAN_GROUP_ORDER, type PlanEntry, type PlanGroupKind, planShoppingList } from '../lib/farm';
+import { byDungeon, dungeonRanking, type FarmDungeon, PLAN_GROUP_ORDER, type PlanEntry, type PlanGroupKind, planShoppingList } from '../lib/farm';
 import type { GameData } from '../lib/gameData';
 import { guideMarks } from '../lib/guides';
 import { effortLine, LOOT_DATE } from '../lib/loot';
@@ -61,11 +61,26 @@ export function FarmTab({ spec, character, data, filter }: Props) {
 						{PLAN_GROUP_ORDER.filter(kind => shopping.has(kind)).map(kind => (
 							<div key={kind} className="shopping-group">
 								<h3>{GROUP_TITLES[kind]}</h3>
-								<ul className="plain-list">
-									{shopping.get(kind)!.map(entry => (
-										<ShoppingRow key={entry.item.id} entry={entry} data={data} guideSource={marks.get(entry.item.id)?.find(m => m.source)} />
-									))}
-								</ul>
+								{kind === 'dungeon' ? (
+									byDungeon(shopping.get(kind)!, zoneId => data.zoneById.get(zoneId)?.name).map(group => (
+										<div key={group.key} className="shopping-dungeon">
+											<h4>
+												{group.name} <span className="num">{group.entries.length}</span>
+											</h4>
+											<ul className="plain-list">
+												{group.entries.map(entry => (
+													<ShoppingRow key={entry.item.id} entry={entry} data={data} guideSource={marks.get(entry.item.id)?.find(m => m.source)} />
+												))}
+											</ul>
+										</div>
+									))
+								) : (
+									<ul className="plain-list">
+										{shopping.get(kind)!.map(entry => (
+											<ShoppingRow key={entry.item.id} entry={entry} data={data} guideSource={marks.get(entry.item.id)?.find(m => m.source)} />
+										))}
+									</ul>
+								)}
 							</div>
 						))}
 					</div>

@@ -1,7 +1,8 @@
 import type { Gear } from '../scoring';
 import type { Character } from '../types';
 import { specOf } from '../specs';
-import { buildSimRequest, indexSimDb, readSimResult, type SimDb, type SimIndex, simKey, type SimOutcome } from './request';
+import { buildSimRequest, indexSimDb, readSimResult, type SimDb, type SimIndex, simKey, type SimOutcome, type SimTemplate } from './request';
+import type { SimSetupData } from './setup';
 
 const SIM_URL = `${import.meta.env.BASE_URL}sim/`;
 
@@ -49,6 +50,36 @@ export class SimClient {
 			index.catch(() => this.indexes.delete(specId));
 		}
 		return index;
+	}
+
+	private setupData: Promise<SimSetupData> | null = null;
+	private templates = new Map<string, Promise<SimTemplate>>();
+
+	/** Small files only, without starting the simulator: what the Sim setup tab shows. */
+	private async small<T>(name: string): Promise<T> {
+		const response = await fetch(`${SIM_URL}${name}`);
+		if (!response.ok) throw new Error(`Could not load ${name} (HTTP ${response.status}).`);
+		return response.json();
+	}
+
+	/** Talent trees, names and consumables. */
+	setup(): Promise<SimSetupData> {
+		if (!this.setupData) {
+			this.setupData = this.small<SimSetupData>('setup.json');
+			this.setupData.catch(() => (this.setupData = null));
+		}
+		return this.setupData;
+	}
+
+	/** The WoWSims build of a spec: the settings every run starts from. */
+	template(specId: string): Promise<SimTemplate> {
+		let template = this.templates.get(specId);
+		if (!template) {
+			template = this.small<SimTemplate>(`template.${specId}.json`);
+			this.templates.set(specId, template);
+			template.catch(() => this.templates.delete(specId));
+		}
+		return template;
 	}
 
 	/** Simulated DPS of `gear` on this character. */

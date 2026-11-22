@@ -1,0 +1,219 @@
+/**
+ * What the simulator is given besides gear, in a form a person can read and change: talents,
+ * consumables, buffs and the rotation. The data comes from the WoWSims build of each spec
+ * (public/sim/template.<spec>.json) and from public/sim/setup.json.
+ */
+
+export interface TalentTree {
+	name: string;
+	talents: { name: string; max: number; row: number; col: number }[];
+}
+
+export type ConsumableKind = 'flask' | 'food' | 'elixir' | 'imbue' | 'weaponImbue' | 'potion' | 'conjured';
+
+export interface ConsumableOption {
+	id: number;
+	name: string;
+	kind: ConsumableKind;
+	level?: number;
+	/** A potion that restores mana, rage or energy: what the rotation's "resource potion" step drinks. */
+	resource?: boolean;
+}
+
+export interface SimSetupData {
+	/** Talent trees by class name in lower case. */
+	trees: Record<string, TalentTree[]>;
+	spells: Record<string, string>;
+	items: Record<string, string>;
+	consumables: ConsumableOption[];
+}
+
+/** The consumables a character can change. A missing field keeps the build's own pick; 0 means none. */
+export interface ConsumablePicks {
+	flaskId?: number;
+	foodId?: number;
+	mhImbueId?: number;
+	ohImbueId?: number;
+	mhWeaponImbueId?: number;
+	ohWeaponImbueId?: number;
+	conjuredId?: number;
+	resourcePotId?: number;
+	elixirIds?: number[];
+}
+
+/** One-per-kind consumable fields, with the kind of item each takes. */
+export const CONSUMABLE_FIELDS: { field: Exclude<keyof ConsumablePicks, 'elixirIds'>; label: string; kind: ConsumableKind; resourceOnly?: boolean }[] = [
+	{ field: 'flaskId', label: 'Flask', kind: 'flask' },
+	{ field: 'foodId', label: 'Food', kind: 'food' },
+	{ field: 'mhImbueId', label: 'Main hand stone or oil', kind: 'imbue' },
+	{ field: 'ohImbueId', label: 'Off hand stone or oil', kind: 'imbue' },
+	{ field: 'mhWeaponImbueId', label: 'Main hand poison, firestone or spellstone', kind: 'weaponImbue' },
+	{ field: 'ohWeaponImbueId', label: 'Off hand poison, firestone or spellstone', kind: 'weaponImbue' },
+	{ field: 'resourcePotId', label: 'Mana potion', kind: 'potion', resourceOnly: true },
+	{ field: 'conjuredId', label: 'Rune, mana gem or healthstone', kind: 'conjured' },
+];
+
+// ---- Talents ----
+
+/** "053-21" -> points per talent, one list per tree, padded to the tree's size. */
+export function parseTalents(talents: string, trees: TalentTree[]): number[][] {
+	const parts = talents.split('-');
+	return trees.map((tree, t) => tree.talents.map((talent, i) => Math.min(talent.max, Number(parts[t]?.[i] ?? 0) || 0)));
+}
+
+/** The sim's talent string: one digit per talent, trees joined by "-", trailing zeros dropped. */
+export function serializeTalents(points: number[][]): string {
+	const parts = points.map(tree => tree.join('').replace(/0+$/, ''));
+	while (parts.length > 1 && parts[parts.length - 1] === '') parts.pop();
+	return parts.join('-');
+}
+
+export const talentPointsSpent = (points: number[][]) => points.flat().reduce((sum, n) => sum + n, 0);
+
+/** Talent points a character of this level has: one per level from 10. */
+export const talentPointsAt = (level: number) => Math.max(0, level - 9);
+
+// ---- Rotation in words ----
+
+type Json = Record<string, any>;
+
+export interface RotationLine {
+	text: string;
+	/** The condition the step waits for, when it has one. */
+	when?: string;
+	/** Steps of a group or sequence, shown under the line. */
+	children?: RotationLine[];
+}
+
+export interface RotationText {
+	prepull: RotationLine[];
+	priority: RotationLine[];
+	groups: { name: string; lines: RotationLine[] }[];
+	variables: { name: string; value: string }[];
+}
+
+const COMPARE: Record<string, string> = { OpEq: '=', OpNe: '≠', OpLt: '<', OpLe: '≤', OpGt: '>', OpGe: '≥' };
+const MATH: Record<string, string> = { OpAdd: '+', OpSub: '−', OpMul: '×', OpDiv: '÷' };
+const ID_FIELDS = new Set(['spellId', 'auraId', 'talentId']);
+const UNIT_FIELDS = new Set(['targetUnit', 'sourceUnit', 'target']);
+const DEFAULT_UNITS = new Set(['Target', 'CurrentTarget', 'Self', undefined]);
+
+/** "auraIsActive" -> "aura is active" */
+const words = (key: string) =>
+	key
+		.replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+		.replace(/\bGcd\b/g, 'GCD')
+		.replace(/\bDpet\b/g, 'damage per cast time')
+		.toLowerCase()
+		.replace(/\bgcd\b/g, 'GCD');
+
+export function describeRotation(rotation: Json | undefined, setup: Pick<SimSetupData, 'spells' | 'items'>): RotationText {
+	const idName = (id: Json | undefined): string => {
+		if (!id) return 'unknown';
+		if (id.spellId) return `${setup.spells[id.spellId] ?? `Spell #${id.spellId}`}${id.rank ? ` (Rank ${id.rank})` : ''}`;
+		if (id.itemId) return setup.items[id.itemId] ?? `Item #${id.itemId}`;
+		if (id.otherId) return words(String(id.otherId).replace(/^OtherAction/, ''));
+		return 'unknown';
+	};
+
+	const value = (v: Json | undefined, nested = false): string => {
+		if (!v) return '';
+		const entry = Object.entries(v)[0];
+		if (!entry) return '';
+		const [key, arg] = entry as [string, Json];
+		const wrap = (text: string) => (nested ? `(${text})` : text);
+		switch (key) {
+			case 'const':
+				return String(arg.val);
+			case 'cmp':
+				return `${value(arg.lhs, true)} ${COMPARE[arg.op] ?? arg.op} ${value(arg.rhs, true)}`;
+			case 'math':
+				return `(${value(arg.lhs, true)} ${MATH[arg.op] ?? arg.op} ${value(arg.rhs, true)})`;
+			case 'and':
+				return wrap((arg.vals ?? []).map((x: Json) => value(x, true)).join(' and '));
+			case 'or':
+				return wrap((arg.vals ?? []).map((x: Json) => value(x, true)).join(' or '));
+			case 'not':
+				return `not ${value(arg.val, true)}`;
+			case 'max':
+			case 'min':
+				return `${key}(${(arg.vals ?? []).map((x: Json) => value(x)).join(', ')})`;
+			case 'variableRef':
+				return `"${arg.name}"`;
+		}
+		// Anything else reads as "what is asked: about which spell", e.g. "aura is active: Water Shield".
+		const details: string[] = [];
+		for (const [field, fieldValue] of Object.entries(arg ?? {})) {
+			if (field === 'includeReactionTime') continue;
+			if (ID_FIELDS.has(field)) details.push(idName(fieldValue as Json));
+			else if (UNIT_FIELDS.has(field)) {
+				const unit = fieldValue as Json;
+				if (!DEFAULT_UNITS.has(unit?.type)) details.push(`on ${words(unit.type)}${unit.index ? ` ${unit.index}` : ''}`);
+			} else if (fieldValue && typeof fieldValue === 'object') details.push(value(fieldValue as Json, true));
+			else details.push(words(String(fieldValue)));
+		}
+		return details.length ? `${words(key)}: ${details.join(', ')}` : words(key);
+	};
+
+	const bare = (action: Json): RotationLine => {
+		const entry = Object.entries(action).find(([key]) => key !== 'condition');
+		if (!entry) return { text: 'Nothing' };
+		const [key, arg] = entry as [string, Json];
+		switch (key) {
+			case 'castSpell':
+				return { text: `Cast ${idName(arg.spellId)}` };
+			case 'channelSpell':
+				return { text: `Channel ${idName(arg.spellId)}${arg.interruptIf ? `, stop when ${value(arg.interruptIf)}` : ''}` };
+			case 'multidot':
+			case 'strictMultidot':
+				return { text: `Keep ${idName(arg.spellId)} up on up to ${arg.maxDots ?? 1} target${arg.maxDots === 1 ? '' : 's'}${arg.maxOverlap ? `, refresh with at most ${value(arg.maxOverlap)} left` : ''}` };
+			case 'sequence':
+			case 'strictSequence':
+				return { text: key === 'strictSequence' ? 'In one go, only when all are ready:' : 'One after another:', children: (arg.actions ?? []).map((a: Json) => line(a)) };
+			case 'groupReference':
+				return { text: `Run the group "${arg.groupName}"` };
+			case 'autocastOtherCooldowns':
+				return { text: 'Use every other cooldown when it is ready (trinkets, racials, class cooldowns)' };
+			case 'changeTarget':
+				return { text: `Switch to the ${words(arg.newTarget?.type ?? 'next target')}` };
+			case 'petAttack':
+				return { text: 'Send the pet to attack' };
+			case 'castWarlockAssignedCurse':
+				return { text: 'Cast the assigned curse' };
+			case 'itemSwap':
+				return { text: `Swap to the ${words(arg.swapSet ?? 'other')} weapon set` };
+			case 'move':
+				return { text: `Move to ${value(arg.rangeFromTarget)} yards from the target` };
+		}
+		const detail = value({ [key]: arg });
+		return { text: detail.charAt(0).toUpperCase() + detail.slice(1) };
+	};
+
+	const line = (action: Json): RotationLine => {
+		const result = bare(action);
+		if (action.condition) result.when = value(action.condition);
+		return result;
+	};
+
+	const steps = (list: Json[] | undefined) => (list ?? []).filter(step => !step.hide && step.action).map(step => line(step.action));
+	return {
+		prepull: (rotation?.prepullActions ?? []).filter((step: Json) => !step.hide && step.action).map((step: Json) => ({ ...line(step.action), when: `at ${value(step.doAtValue)}` })),
+		priority: steps(rotation?.priorityList),
+		groups: (rotation?.groups ?? []).map((group: Json) => ({ name: group.name, lines: steps(group.actions) })),
+		variables: (rotation?.valueVariables ?? []).map((variable: Json) => ({ name: variable.name, value: value(variable.value) })),
+	};
+}
+
+// ---- Buffs ----
+
+/** Buff flags of the request as words: `{ battleShout: 2 }` -> "Battle shout (improved)". */
+export function describeFlags(flags: Json | undefined): string[] {
+	return Object.entries(flags ?? {})
+		.filter(([, on]) => on && on !== 'TristateEffectMissing')
+		.map(([key, on]) => {
+			const name = words(key);
+			const label = name.charAt(0).toUpperCase() + name.slice(1);
+			if (on === 2 || on === 'TristateEffectImproved') return `${label} (improved)`;
+			return typeof on === 'number' && on > 2 ? `${label} (${on})` : label;
+		});
+}

@@ -43,6 +43,7 @@ export function buildSimRequest(character: Character, gear: Gear, index: SimInde
 
 	if (character.race) player.race = character.race;
 	if (character.talents) player.talentsString = character.talents;
+	if (character.consumables) player.consumables = { ...player.consumables, ...character.consumables };
 	player.profession1 = character.professions[0] ?? 'ProfessionUnknown';
 	player.profession2 = character.professions[1] ?? 'ProfessionUnknown';
 
@@ -101,4 +102,4 @@ export function readSimResult(json: string | null | undefined, iterations: numbe
 
 /** Identifies a run, so the same gear is never simulated twice. */
 export const simKey = (character: Character, gear: Gear, iterations: number) =>
-	JSON.stringify([character.specId ?? '', character.race, character.talents, character.professions, gear.map(p => (p ? [p.id, p.enchant ?? 0, p.randomSuffix ?? 0] : 0)), iterations]);
+	JSON.stringify([character.specId ?? '', character.race, character.talents, character.consumables ?? 0, character.professions, gear.map(p => (p ? [p.id, p.enchant ?? 0, p.randomSuffix ?? 0] : 0)), iterations]);

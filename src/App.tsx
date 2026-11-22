@@ -6,6 +6,7 @@ import { FarmTab } from './components/FarmTab';
 import { ImportPanel } from './components/ImportPanel';
 import { BarCap, Emblem } from './components/Ornaments';
 import { PlanTab } from './components/PlanTab';
+import { SimSetupTab } from './components/SimSetupTab';
 import { SimProvider } from './components/Sim';
 import { UpgradesTab } from './components/UpgradesTab';
 import { type GameData, loadGameData } from './lib/gameData';
@@ -23,6 +24,7 @@ const TABS = [
 	{ id: 'upgrades', label: 'Upgrades' },
 	{ id: 'farm', label: 'Farm plan' },
 	{ id: 'enchants', label: 'Enchants & professions' },
+	{ id: 'sim', label: 'Sim setup' },
 ];
 
 export function App() {
@@ -126,6 +128,7 @@ export function App() {
 
 						{tab === 'enchants' && (data ? <EnchantsTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
 
+						{tab === 'sim' && <SimSetupTab spec={spec} character={character} onChange={update} />}
 						{tab === 'character' && (
 							<>
 								{warnings.length > 0 && (

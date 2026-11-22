@@ -411,6 +411,55 @@ const wasmStatus = await fetchWasm();
 // The sim files are fetched by the browser on demand, so they are written compact.
 await writeFile(join(SIM_DIR, 'db.json'), JSON.stringify(simDb));
 for (const [specId, template] of simTemplates) await writeFile(join(SIM_DIR, `template.${specId}.json`), JSON.stringify(template));
+
+// What the "Sim setup" tab needs to show and change the sim's settings in words: talent trees per
+// class, spell and item names for the rotation, and the consumables the sim knows.
+const talentTrees = {};
+for (const className of new Set(specs.map(spec => spec.className))) {
+	const trees = await readRepoJson(`ui/sim/talents/trees/${className.toLowerCase()}.json`);
+	if (!Array.isArray(trees)) {
+		console.warn(`Talent trees for ${className} not read.`);
+		continue;
+	}
+	talentTrees[className] = trees.map(tree => ({
+		name: tree.name,
+		talents: tree.talents.map(t => ({ name: t.fancyName, max: t.maxPoints, row: t.location.rowIdx, col: t.location.colIdx })),
+	}));
+}
+const CONSUMABLE_KINDS = { 1: 'potion', 2: 'flask', 3: 'food', 6: 'imbue', 11: 'elixir', 12: 'conjured', 13: 'weaponImbue' };
+// Names for the rotation text. The database names the spells and items the sim UI shows icons for; a
+// rotation also asks about hidden effects and gear, which are named from the sim's own spell table
+// and the item list.
+const spellNames = Object.fromEntries((db.spellIcons ?? []).map(spell => [spell.id, spell.name]));
+const itemNames = Object.fromEntries((db.itemIcons ?? []).map(item => [item.id, item.name]));
+const rotationIds = { spell: new Set(), item: new Set() };
+const collectIds = node => {
+	if (Array.isArray(node)) return node.forEach(collectIds);
+	if (!node || typeof node !== 'object') return;
+	if (typeof node.spellId === 'number') rotationIds.spell.add(node.spellId);
+	if (typeof node.itemId === 'number') rotationIds.item.add(node.itemId);
+	Object.values(node).forEach(collectIds);
+};
+for (const template of simTemplates.values()) collectIds(template.raid.parties[0].players[0].rotation);
+for (const id of rotationIds.item) itemNames[id] ??= db.items.find(item => item.id === id)?.name;
+const unnamedSpells = [...rotationIds.spell].filter(id => !spellNames[id]);
+if (unnamedSpells.length) {
+	const spellTable = args.repo ? await readFile(join(args.repo, 'sim/core/spelldata/spells_auto_gen.go'), 'utf8').catch(() => '') : '';
+	for (const id of unnamedSpells) {
+		const name = spellTable.match(new RegExp(`\\{ID: ${id}, Name: "([^"]*)"`))?.[1];
+		if (name) spellNames[id] = name;
+		else console.warn(`No name for spell ${id} used in a rotation${args.repo ? '' : ' (run with --repo to read the sim\'s spell table)'}.`);
+	}
+}
+const simSetup = {
+	trees: talentTrees,
+	spells: spellNames,
+	items: Object.fromEntries(Object.entries(itemNames).filter(([, name]) => name)),
+	consumables: (db.consumables ?? [])
+		.filter(c => CONSUMABLE_KINDS[c.type])
+		.map(c => compact({ id: c.id, name: c.name, kind: CONSUMABLE_KINDS[c.type], level: c.lvl, resource: c.potionClasses?.includes(1) || undefined })),
+};
+if (Object.keys(talentTrees).length) await writeFile(join(SIM_DIR, 'setup.json'), JSON.stringify(simSetup));
 for (const spec of specs) if (!simTemplates.has(spec.id)) console.warn(`Sim template for ${spec.id} not written: its build could not be read. The existing file stays.`);
 const write = (name, data) => writeFile(join(OUT_DIR, name), JSON.stringify(data, null, '\t') + '\n');
 await Promise.all([
