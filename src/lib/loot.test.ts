@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { loadGameData } from './gameData';
 import { effortLine, runChance } from './loot';
+import { sourceLine } from './stats';
 import type { ItemSource } from './types';
 
 describe('applyLoot', () => {
@@ -13,6 +14,13 @@ describe('applyLoot', () => {
 		expect(source.dropSample).toBe(1278);
 		expect(source.dropBasis).toBe('forever');
 		expect(source.spawnChance).toBeUndefined();
+	});
+
+	it('gives items from the new Forever dungeons a source', async () => {
+		const data = await loadGameData();
+		const chest = data.itemById.get(276739)!; // Cutthroat Chestguard
+		expect(sourceLine(chest.sources?.[0], data)).toBe('Alcaz Prison: Katerina the Cleaner');
+		expect(chest.sources?.[0].dungeonName).toBe('Alcaz Prison');
 	});
 
 	it('marks the Ring of Law bosses as one in six', async () => {

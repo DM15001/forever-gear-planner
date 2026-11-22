@@ -1,3 +1,4 @@
+import atlasConfig from '../config/atlasloot/sources.json';
 import classicConfig from '../config/droprates.classic.json';
 import encounterConfig from '../config/encounters.json';
 import lootConfig from '../config/wowhead/loot.json';
@@ -16,6 +17,7 @@ interface Encounter {
 }
 
 const LOOT = lootConfig as unknown as { fetchedAt: string; items: Record<string, LootEntry>; npcs: Record<string, { name: string; zoneId?: number }> };
+const ATLAS = atlasConfig as unknown as { zones: Zone[]; sources: Record<string, { zoneId: number; boss: string; npcId?: number }[]> };
 const CLASSIC = (classicConfig as unknown as { rates: Record<string, Record<string, number>> }).rates;
 const ENCOUNTERS = encounterConfig as unknown as Record<string, Encounter | string>;
 
@@ -23,10 +25,22 @@ const ENCOUNTERS = encounterConfig as unknown as Record<string, Encounter | stri
 export const LOOT_DATE = LOOT.fetchedAt;
 
 /**
- * Adds what Wowhead knows to the item data: drop chances on drops the data already has, sources
+ * Adds what AtlasLoot and Wowhead know to the item data: drop chances on drops the data already has, sources
  * for items that had none, and a spawn chance on bosses that are not there on every run.
  */
 export function applyLoot(itemById: Map<number, Item>, npcById: Map<number, Npc>, zoneById: Map<number, Zone>): void {
+	// Dungeons the WoWSims data does not know, and the items that drop there (AtlasLoot Classic Forever).
+	for (const zone of ATLAS.zones) if (!zoneById.has(zone.id)) zoneById.set(zone.id, zone);
+	for (const [id, list] of Object.entries(ATLAS.sources)) {
+		const item = itemById.get(Number(id));
+		if (!item || item.sources?.length) continue;
+		item.sources = list.map(s => ({
+			kind: 'drop' as const,
+			zoneId: s.zoneId,
+			zoneKind: zoneById.get(s.zoneId)?.kind,
+			...(s.npcId && npcById.has(s.npcId) ? { npcId: s.npcId } : { otherName: s.boss }),
+		}));
+	}
 	for (const [id, npc] of Object.entries(LOOT.npcs)) {
 		if (!npcById.has(Number(id))) npcById.set(Number(id), { id: Number(id), ...npc });
 	}
