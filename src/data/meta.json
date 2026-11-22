@@ -1,6 +1,7 @@
 {
-	"generatedAt": "2026-11-22T17:39:06.366Z",
+	"generatedAt": "2026-11-22T18:46:06.967Z",
 	"specs": [
+		"elemental-shaman",
 		"enhancement-shaman",
 		"mage-arcane-fire",
 		"mage-arcane",
@@ -49,7 +50,7 @@
 		},
 		"npcs": 431,
 		"randomSuffixes": 251,
-		"simSets": 14,
+		"simSets": 15,
 		"simItems": 5115
 	}
 }

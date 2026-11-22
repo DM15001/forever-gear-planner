@@ -110,6 +110,7 @@ type Json = Record<string, any>;
 /** The file in the WoWSims project each build's rotation is taken from, unchanged. */
 export const ROTATION_SOURCES: Record<string, string> = {
 	'enhancement-shaman': 'ui/specs/shaman/enhancement/builds/default.build.json',
+	'elemental-shaman': 'ui/specs/shaman/elemental/builds/default.build.json',
 	'warlock-sm-ruin': 'ui/specs/warlock/dps/builds/sm_ruin.build.json',
 	'warlock-destruction': 'ui/specs/warlock/dps/builds/destro.build.json',
 	'warlock-affliction': 'ui/specs/warlock/dps/builds/aff_wrack.build.json',

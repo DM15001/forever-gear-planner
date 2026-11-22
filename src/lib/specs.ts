@@ -1,3 +1,4 @@
+import elementalShaman from '../specs/elemental-shaman.json';
 import enhancementShaman from '../specs/enhancement-shaman.json';
 import mageArcane from '../specs/mage-arcane.json';
 import mageArcaneFire from '../specs/mage-arcane-fire.json';
@@ -15,7 +16,7 @@ import warlockSmRuin from '../specs/warlock-sm-ruin.json';
 import type { Character, Enchant, Item, SpecConfig } from './types';
 
 /** Every spec the planner knows, in the order they are offered. */
-export const SPECS = [enhancementShaman, warlockSmRuin, warlockDestruction, warlockAffliction, warlockDemoFire, warlockDemoShadow, priestShadow, priestSmite, mageFire, mageFrost, mageFrostIncin, mageArcane, mageArcaneFire, mageFfb] as unknown as SpecConfig[];
+export const SPECS = [enhancementShaman, elementalShaman, warlockSmRuin, warlockDestruction, warlockAffliction, warlockDemoFire, warlockDemoShadow, priestShadow, priestSmite, mageFire, mageFrost, mageFrostIncin, mageArcane, mageArcaneFire, mageFfb] as unknown as SpecConfig[];
 
 export const DEFAULT_SPEC = SPECS[0];
 

@@ -53,7 +53,7 @@ describe('importing other classes', () => {
 	it('refuses a class without any spec', () => {
 		const rogue = JSON.parse(build('priest-shadow'));
 		rogue.player.class = 'ClassRogue';
-		expect(() => importCharacter(JSON.stringify(rogue))).toThrow(/Enhancement Shaman, Warlock, Priest, Mage/);
+		expect(() => importCharacter(JSON.stringify(rogue))).toThrow(/Shaman, Warlock, Priest, Mage/);
 	});
 });
 

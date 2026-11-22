@@ -86,7 +86,7 @@ export function importCharacter(text: string, specOrSpecs: SpecConfig | SpecConf
 	if (!className) throw new ImportError('The export does not say which class this is.');
 	const sameClass = specs.filter(candidate => candidate.className === className);
 	if (!sameClass.length) {
-		throw new ImportError(`This character is a ${className}. The planner supports ${[...new Set(specs.map(candidate => candidate.name.split(':')[0]))].join(', ')} so far.`);
+		throw new ImportError(`This character is a ${className}. The planner supports ${[...new Set(specs.map(candidate => candidate.className.charAt(0).toUpperCase() + candidate.className.slice(1)))].join(', ')} so far.`);
 	}
 	// A sim export names its spec by the key of its options ("warlock", "dpsPriest", "healingPriest" ...).
 	const simKeys = format === 'sim' ? Object.keys(source).filter(key => KNOWN_SIM_KEYS.test(key)) : [];

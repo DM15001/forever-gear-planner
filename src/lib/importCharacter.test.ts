@@ -96,3 +96,12 @@ describe('the build follows the talent tree of an addon export', () => {
 		expect(importCharacter(warlock('')).character.specId).toBe('warlock-sm-ruin');
 	});
 });
+
+describe('shaman exports', () => {
+	const shaman = (spec: string) => JSON.stringify({ class: 'shaman', flavor: 'forever', gear: { items: [{ id: 9470 }] }, level: 60, race: 'Orc', spec, talents: '55' });
+	it('lands on Elemental or Enhancement by talent tree, Enhancement when the tree is not named', () => {
+		expect(importCharacter(shaman('elemental')).character.specId).toBe('elemental-shaman');
+		expect(importCharacter(shaman('enhancement')).character.specId).toBe('enhancement-shaman');
+		expect(importCharacter(shaman('')).character.specId).toBe('enhancement-shaman');
+	});
+});
