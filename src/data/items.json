@@ -3029,6 +3029,16 @@
 			"healingPower": 22,
 			"spellDamage": 22
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Elemental"
+				],
+				"stats": {
+					"spellDamage": 9
+				}
+			}
+		],
 		"weapon": {
 			"type": "dagger",
 			"hand": "mainHand",
@@ -7669,6 +7679,17 @@
 			"rangedAttackPower": 4,
 			"armor": 20
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Elemental"
+				],
+				"stats": {
+					"attackPower": 6,
+					"rangedAttackPower": 6
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -7917,6 +7938,17 @@
 			"rangedAttackPower": 10,
 			"armor": 22
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 9,
+					"rangedAttackPower": 9
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -9466,6 +9498,16 @@
 			"healingPower": 5,
 			"spellDamage": 5
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"spellDamage": 12
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -14252,6 +14294,17 @@
 			"attackPower": 12,
 			"rangedAttackPower": 12
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 15,
+					"rangedAttackPower": 15
+				}
+			}
+		],
 		"weapon": {
 			"type": "fist",
 			"hand": "oneHand",
@@ -14985,6 +15038,17 @@
 			"attackPower": 14,
 			"rangedAttackPower": 14
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"attackPower": 12,
+					"rangedAttackPower": 12
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -15247,6 +15311,17 @@
 			"rangedAttackPower": 24,
 			"armor": 71
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 21,
+					"rangedAttackPower": 21
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -20555,6 +20630,17 @@
 			"attackPower": 20,
 			"rangedAttackPower": 20
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Elemental"
+				],
+				"stats": {
+					"attackPower": 15,
+					"rangedAttackPower": 15
+				}
+			}
+		],
 		"weapon": {
 			"type": "mace",
 			"hand": "twoHand",
@@ -42349,6 +42435,17 @@
 			"attackPower": 30,
 			"rangedAttackPower": 30
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 27,
+					"rangedAttackPower": 27
+				}
+			}
+		],
 		"weapon": {
 			"type": "axe",
 			"hand": "twoHand",
@@ -42431,6 +42528,17 @@
 			"strength": 16,
 			"stamina": 7
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"attackPower": 15,
+					"rangedAttackPower": 15
+				}
+			}
+		],
 		"weapon": {
 			"type": "sword",
 			"hand": "twoHand",
@@ -42995,6 +43103,17 @@
 		"stats": {
 			"mp5": 6
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Demon"
+				],
+				"stats": {
+					"attackPower": 21,
+					"rangedAttackPower": 21
+				}
+			}
+		],
 		"unique": true,
 		"sources": [
 			{
@@ -43041,6 +43160,17 @@
 			"attackPower": 18,
 			"rangedAttackPower": 18
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Demon"
+				],
+				"stats": {
+					"attackPower": 15,
+					"rangedAttackPower": 15
+				}
+			}
+		],
 		"weapon": {
 			"type": "sword",
 			"hand": "mainHand",
@@ -43068,6 +43198,17 @@
 			"attackPower": 18,
 			"rangedAttackPower": 18
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Demon"
+				],
+				"stats": {
+					"attackPower": 15,
+					"rangedAttackPower": 15
+				}
+			}
+		],
 		"weapon": {
 			"type": "dagger",
 			"hand": "oneHand",
@@ -43095,6 +43236,17 @@
 			"attackPower": 40,
 			"rangedAttackPower": 40
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Demon"
+				],
+				"stats": {
+					"attackPower": 39,
+					"rangedAttackPower": 39
+				}
+			}
+		],
 		"weapon": {
 			"type": "staff",
 			"hand": "twoHand",
@@ -44593,6 +44745,16 @@
 		"stats": {
 			"armor": 47
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"spellDamage": 14
+				}
+			}
+		],
 		"randomSuffixOptions": [
 			13007,
 			13008,
@@ -44750,6 +44912,16 @@
 		"quality": "rare",
 		"ilvl": 54,
 		"reqLvl": 49,
+		"versus": [
+			{
+				"mobTypes": [
+					"Dragonkin"
+				],
+				"stats": {
+					"spellDamage": 11
+				}
+			}
+		],
 		"weapon": {
 			"type": "offHand",
 			"hand": "offHand"
@@ -45102,6 +45274,17 @@
 			"attackPower": 16,
 			"rangedAttackPower": 16
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"attackPower": 15,
+					"rangedAttackPower": 15
+				}
+			}
+		],
 		"weapon": {
 			"type": "axe",
 			"hand": "mainHand",
@@ -46601,6 +46784,17 @@
 			"attackPower": 12,
 			"rangedAttackPower": 12
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 12,
+					"rangedAttackPower": 12
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -46624,6 +46818,17 @@
 			"attackPower": 12,
 			"rangedAttackPower": 12
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 12,
+					"rangedAttackPower": 12
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -47342,6 +47547,17 @@
 			"rangedAttackPower": 4,
 			"armor": 367
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Elemental"
+				],
+				"stats": {
+					"attackPower": 6,
+					"rangedAttackPower": 6
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -49220,6 +49436,17 @@
 			"attackPower": 16,
 			"rangedAttackPower": 16
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 15,
+					"rangedAttackPower": 15
+				}
+			}
+		],
 		"weapon": {
 			"type": "mace",
 			"hand": "mainHand",
@@ -49247,6 +49474,17 @@
 			"attackPower": 36,
 			"rangedAttackPower": 36
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 36,
+					"rangedAttackPower": 36
+				}
+			}
+		],
 		"weapon": {
 			"type": "axe",
 			"hand": "twoHand",
@@ -50935,6 +51173,17 @@
 			"strength": 21,
 			"stamina": 6
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 9,
+					"rangedAttackPower": 9
+				}
+			}
+		],
 		"weapon": {
 			"type": "axe",
 			"hand": "twoHand",
@@ -52520,6 +52769,17 @@
 			"attackPower": 15,
 			"rangedAttackPower": 15
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Dragonkin"
+				],
+				"stats": {
+					"attackPower": 12,
+					"rangedAttackPower": 12
+				}
+			}
+		],
 		"weapon": {
 			"type": "sword",
 			"hand": "oneHand",
@@ -52620,6 +52880,17 @@
 			"hitRating": 15,
 			"armor": 113
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Dragonkin"
+				],
+				"stats": {
+					"attackPower": 18,
+					"rangedAttackPower": 18
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "quest",
@@ -55569,6 +55840,17 @@
 			"attackPower": 20,
 			"rangedAttackPower": 20
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 30,
+					"rangedAttackPower": 30
+				}
+			}
+		],
 		"weapon": {
 			"type": "dagger",
 			"hand": "mainHand",
@@ -56437,6 +56719,15 @@
 			"healingPower": 15,
 			"spellDamage": 15
 		},
+		"inArea": [
+			{
+				"area": "Swamp",
+				"stats": {
+					"healingPower": 15,
+					"spellDamage": 15
+				}
+			}
+		],
 		"unique": true,
 		"effects": [
 			{
@@ -57583,6 +57874,17 @@
 			"attackPower": 34,
 			"rangedAttackPower": 34
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"attackPower": 33,
+					"rangedAttackPower": 33
+				}
+			}
+		],
 		"weapon": {
 			"type": "axe",
 			"hand": "twoHand",
@@ -57624,7 +57926,18 @@
 		"reqLvl": 27,
 		"stats": {
 			"intellect": 4
-		}
+		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 12,
+					"rangedAttackPower": 12
+				}
+			}
+		]
 	},
 	{
 		"id": 13020,
@@ -58099,6 +58412,17 @@
 			"attackPower": 52,
 			"rangedAttackPower": 52
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Demon"
+				],
+				"stats": {
+					"attackPower": 48,
+					"rangedAttackPower": 48
+				}
+			}
+		],
 		"weapon": {
 			"type": "sword",
 			"hand": "twoHand",
@@ -60747,6 +61071,17 @@
 			"attackPower": 14,
 			"rangedAttackPower": 14
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"attackPower": 12,
+					"rangedAttackPower": 12
+				}
+			}
+		],
 		"weapon": {
 			"type": "sword",
 			"hand": "oneHand",
@@ -60789,6 +61124,16 @@
 			"spellDamage": 45,
 			"spirit": 10
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"spellDamage": 11
+				}
+			}
+		],
 		"weapon": {
 			"type": "staff",
 			"hand": "twoHand",
@@ -63681,6 +64026,16 @@
 			"armor": 120,
 			"mp5": 5
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"spellDamage": 21
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -63759,6 +64114,17 @@
 			"critRating": 14,
 			"armor": 107
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"attackPower": 18,
+					"rangedAttackPower": 18
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -70638,6 +71004,17 @@
 			"armor": 445,
 			"shadowResistance": 10
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"attackPower": 18,
+					"rangedAttackPower": 18
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -93447,6 +93824,17 @@
 			"attackPower": 18,
 			"rangedAttackPower": 18
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 15,
+					"rangedAttackPower": 15
+				}
+			}
+		],
 		"weapon": {
 			"type": "sword",
 			"hand": "oneHand",
@@ -93475,6 +93863,17 @@
 			"attackPower": 18,
 			"rangedAttackPower": 18
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 15,
+					"rangedAttackPower": 15
+				}
+			}
+		],
 		"weapon": {
 			"type": "dagger",
 			"hand": "oneHand",
@@ -103986,6 +104385,17 @@
 			"attackPower": 18,
 			"rangedAttackPower": 18
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Elemental"
+				],
+				"stats": {
+					"attackPower": 18,
+					"rangedAttackPower": 18
+				}
+			}
+		],
 		"weapon": {
 			"type": "sword",
 			"hand": "oneHand",
@@ -104324,6 +104734,17 @@
 			"rangedAttackPower": 4,
 			"hitRating": 10
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Elemental"
+				],
+				"stats": {
+					"attackPower": 6,
+					"rangedAttackPower": 6
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -104631,6 +105052,16 @@
 			"spellDamage": 23,
 			"armor": 75
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"spellDamage": 23
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -105639,6 +106070,17 @@
 			"rangedAttackPower": 10,
 			"armor": 160
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Demon"
+				],
+				"stats": {
+					"attackPower": 12,
+					"rangedAttackPower": 12
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -106084,6 +106526,17 @@
 			"strength": 26,
 			"critRating": 14
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"attackPower": 30,
+					"rangedAttackPower": 30
+				}
+			}
+		],
 		"weapon": {
 			"type": "mace",
 			"hand": "twoHand",
@@ -107276,6 +107729,17 @@
 			"hitRating": 10,
 			"natureResistance": 15
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 45,
+					"rangedAttackPower": 45
+				}
+			}
+		],
 		"unique": true,
 		"classes": [
 			4
@@ -107323,6 +107787,16 @@
 			"spellDamage": 18,
 			"natureResistance": 15
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Demon"
+				],
+				"stats": {
+					"spellDamage": 18
+				}
+			}
+		],
 		"unique": true,
 		"classes": [
 			9
@@ -107439,6 +107913,16 @@
 			"spellDamage": 18,
 			"natureResistance": 15
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Demon"
+				],
+				"stats": {
+					"spellDamage": 18
+				}
+			}
+		],
 		"unique": true,
 		"classes": [
 			7
@@ -107610,6 +108094,17 @@
 			"strength": 22,
 			"agility": 7
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"attackPower": 18,
+					"rangedAttackPower": 18
+				}
+			}
+		],
 		"weapon": {
 			"type": "mace",
 			"hand": "twoHand",
@@ -107690,6 +108185,17 @@
 			"attackPower": 20,
 			"rangedAttackPower": 20
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 30,
+					"rangedAttackPower": 30
+				}
+			}
+		],
 		"weapon": {
 			"type": "sword",
 			"hand": "oneHand",
@@ -108075,6 +108581,17 @@
 			"rangedAttackPower": 24,
 			"parryRating": 15
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 36,
+					"rangedAttackPower": 36
+				}
+			}
+		],
 		"weapon": {
 			"type": "polearm",
 			"hand": "twoHand",
@@ -108318,6 +108835,17 @@
 			"rangedAttackPower": 50,
 			"critRating": 14
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 33,
+					"rangedAttackPower": 33
+				}
+			}
+		],
 		"weapon": {
 			"type": "sword",
 			"hand": "twoHand",
@@ -108769,6 +109297,17 @@
 			"attackPower": 30,
 			"rangedAttackPower": 30
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Mechanical"
+				],
+				"stats": {
+					"attackPower": 30,
+					"rangedAttackPower": 30
+				}
+			}
+		],
 		"unique": true,
 		"effects": [
 			{
@@ -109615,6 +110154,17 @@
 			"armor": 251,
 			"shadowResistance": 10
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 18,
+					"rangedAttackPower": 18
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -110326,6 +110876,17 @@
 			"agility": 13,
 			"stamina": 5
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"attackPower": 9,
+					"rangedAttackPower": 9
+				}
+			}
+		],
 		"weapon": {
 			"type": "axe",
 			"hand": "oneHand",
@@ -110658,6 +111219,17 @@
 			"attackPower": 24,
 			"rangedAttackPower": 24
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"attackPower": 21,
+					"rangedAttackPower": 21
+				}
+			}
+		],
 		"weapon": {
 			"type": "dagger",
 			"hand": "oneHand",
@@ -112844,6 +113416,15 @@
 			"rangedAttackPower": 14,
 			"hitRating": 7
 		},
+		"inArea": [
+			{
+				"area": "ForestGrassland",
+				"stats": {
+					"attackPower": 28,
+					"rangedAttackPower": 28
+				}
+			}
+		],
 		"unique": true,
 		"sources": [
 			{
@@ -123884,6 +124465,14 @@
 			"stamina": 8,
 			"spellPiercing": 3
 		},
+		"inArea": [
+			{
+				"area": "ForestGrassland",
+				"stats": {
+					"spellPiercing": 7
+				}
+			}
+		],
 		"limitCategory": 714,
 		"sources": [
 			{
@@ -123914,6 +124503,14 @@
 			"stamina": 4,
 			"spellPiercing": 2
 		},
+		"inArea": [
+			{
+				"area": "ForestGrassland",
+				"stats": {
+					"spellPiercing": 4
+				}
+			}
+		],
 		"limitCategory": 714,
 		"sources": [
 			{
@@ -123948,6 +124545,18 @@
 			"natureResistance": 3,
 			"shadowResistance": 3
 		},
+		"inArea": [
+			{
+				"area": "ForestGrassland",
+				"stats": {
+					"arcaneResistance": 7,
+					"fireResistance": 7,
+					"frostResistance": 7,
+					"natureResistance": 7,
+					"shadowResistance": 7
+				}
+			}
+		],
 		"limitCategory": 714,
 		"sources": [
 			{
@@ -123982,6 +124591,18 @@
 			"natureResistance": 2,
 			"shadowResistance": 2
 		},
+		"inArea": [
+			{
+				"area": "ForestGrassland",
+				"stats": {
+					"arcaneResistance": 4,
+					"fireResistance": 4,
+					"frostResistance": 4,
+					"natureResistance": 4,
+					"shadowResistance": 4
+				}
+			}
+		],
 		"limitCategory": 714,
 		"sources": [
 			{
@@ -125132,6 +125753,17 @@
 		"stats": {
 			"agility": 30
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 36,
+					"rangedAttackPower": 36
+				}
+			}
+		],
 		"weapon": {
 			"type": "polearm",
 			"hand": "twoHand",
@@ -125300,6 +125932,17 @@
 			"rangedAttackPower": 6,
 			"critRating": 14
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 6,
+					"rangedAttackPower": 6
+				}
+			}
+		],
 		"weapon": {
 			"type": "mace",
 			"hand": "oneHand",
@@ -125633,6 +126276,16 @@
 			"blockValue": 40,
 			"armor": 2153
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Dragonkin"
+				],
+				"stats": {
+					"spellDamage": 9
+				}
+			}
+		],
 		"weapon": {
 			"type": "shield",
 			"hand": "offHand"
@@ -144206,6 +144859,15 @@
 			"spellDamage": 8,
 			"critRating": 7
 		},
+		"inArea": [
+			{
+				"area": "ForestGrassland",
+				"stats": {
+					"healingPower": 16,
+					"spellDamage": 16
+				}
+			}
+		],
 		"unique": true
 	},
 	{
@@ -144436,6 +145098,15 @@
 			"rangedAttackPower": 14,
 			"hitRating": 7
 		},
+		"inArea": [
+			{
+				"area": "ForestGrassland",
+				"stats": {
+					"attackPower": 28,
+					"rangedAttackPower": 28
+				}
+			}
+		],
 		"unique": true
 	},
 	{
@@ -144450,6 +145121,15 @@
 			"spellDamage": 8,
 			"critRating": 7
 		},
+		"inArea": [
+			{
+				"area": "ForestGrassland",
+				"stats": {
+					"healingPower": 16,
+					"spellDamage": 16
+				}
+			}
+		],
 		"unique": true
 	},
 	{
@@ -145391,6 +146071,14 @@
 			"stamina": 10,
 			"mp5": 5
 		},
+		"inArea": [
+			{
+				"area": "ForestGrassland",
+				"stats": {
+					"mp5": 10
+				}
+			}
+		],
 		"limitCategory": 715,
 		"faction": "alliance",
 		"sources": [
@@ -145418,6 +146106,18 @@
 			"natureResistance": 3,
 			"shadowResistance": 3
 		},
+		"inArea": [
+			{
+				"area": "ForestGrassland",
+				"stats": {
+					"arcaneResistance": 5,
+					"fireResistance": 5,
+					"frostResistance": 5,
+					"natureResistance": 5,
+					"shadowResistance": 5
+				}
+			}
+		],
 		"limitCategory": 715,
 		"faction": "alliance",
 		"sources": [
@@ -145441,6 +146141,14 @@
 			"stamina": 7,
 			"mp5": 3
 		},
+		"inArea": [
+			{
+				"area": "ForestGrassland",
+				"stats": {
+					"mp5": 6
+				}
+			}
+		],
 		"limitCategory": 715,
 		"faction": "alliance",
 		"sources": [
@@ -145468,6 +146176,18 @@
 			"natureResistance": 4,
 			"shadowResistance": 4
 		},
+		"inArea": [
+			{
+				"area": "ForestGrassland",
+				"stats": {
+					"arcaneResistance": 8,
+					"fireResistance": 8,
+					"frostResistance": 8,
+					"natureResistance": 8,
+					"shadowResistance": 8
+				}
+			}
+		],
 		"limitCategory": 715,
 		"faction": "alliance",
 		"sources": [
@@ -146567,6 +147287,14 @@
 			"stamina": 7,
 			"mp5": 3
 		},
+		"inArea": [
+			{
+				"area": "ForestGrassland",
+				"stats": {
+					"mp5": 6
+				}
+			}
+		],
 		"limitCategory": 715,
 		"faction": "horde",
 		"sources": [
@@ -146601,6 +147329,18 @@
 			"natureResistance": 4,
 			"shadowResistance": 4
 		},
+		"inArea": [
+			{
+				"area": "ForestGrassland",
+				"stats": {
+					"arcaneResistance": 8,
+					"fireResistance": 8,
+					"frostResistance": 8,
+					"natureResistance": 8,
+					"shadowResistance": 8
+				}
+			}
+		],
 		"limitCategory": 715,
 		"faction": "horde",
 		"sources": [
@@ -146631,6 +147371,14 @@
 			"stamina": 10,
 			"mp5": 5
 		},
+		"inArea": [
+			{
+				"area": "ForestGrassland",
+				"stats": {
+					"mp5": 10
+				}
+			}
+		],
 		"limitCategory": 715,
 		"faction": "horde",
 		"sources": [
@@ -146665,6 +147413,18 @@
 			"natureResistance": 3,
 			"shadowResistance": 3
 		},
+		"inArea": [
+			{
+				"area": "ForestGrassland",
+				"stats": {
+					"arcaneResistance": 5,
+					"fireResistance": 5,
+					"frostResistance": 5,
+					"natureResistance": 5,
+					"shadowResistance": 5
+				}
+			}
+		],
 		"limitCategory": 715,
 		"faction": "horde",
 		"sources": [
@@ -156644,6 +157404,17 @@
 			"attackPower": 6,
 			"rangedAttackPower": 6
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 6,
+					"rangedAttackPower": 6
+				}
+			}
+		],
 		"weapon": {
 			"type": "fist",
 			"hand": "mainHand",
@@ -156975,7 +157746,18 @@
 		"stats": {
 			"attackPower": 8,
 			"rangedAttackPower": 8
-		}
+		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 9,
+					"rangedAttackPower": 9
+				}
+			}
+		]
 	},
 	{
 		"id": 273034,
@@ -160644,6 +161426,17 @@
 			"attackPower": 6,
 			"rangedAttackPower": 6
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 6,
+					"rangedAttackPower": 6
+				}
+			}
+		],
 		"weapon": {
 			"type": "fist",
 			"hand": "mainHand",
@@ -160965,6 +161758,17 @@
 			"attackPower": 8,
 			"rangedAttackPower": 8
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 9,
+					"rangedAttackPower": 9
+				}
+			}
+		],
 		"weapon": {
 			"type": "axe",
 			"hand": "mainHand",
@@ -161046,6 +161850,17 @@
 			"attackPower": 12,
 			"rangedAttackPower": 12
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"attackPower": 12,
+					"rangedAttackPower": 12
+				}
+			}
+		],
 		"weapon": {
 			"type": "mace",
 			"hand": "twoHand",
@@ -164992,6 +165807,17 @@
 			"attackPower": 4,
 			"rangedAttackPower": 4
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 9,
+					"rangedAttackPower": 9
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -165156,6 +165982,17 @@
 			"rangedAttackPower": 6,
 			"defenseRating": 3
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 6,
+					"rangedAttackPower": 6
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -167457,6 +168294,17 @@
 			"agility": 5,
 			"stamina": 6
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 18,
+					"rangedAttackPower": 18
+				}
+			}
+		],
 		"weapon": {
 			"type": "fist",
 			"hand": "oneHand",
@@ -167478,6 +168326,17 @@
 			"strength": 5,
 			"stamina": 6
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 18,
+					"rangedAttackPower": 18
+				}
+			}
+		],
 		"weapon": {
 			"type": "fist",
 			"hand": "oneHand",
@@ -167676,6 +168535,17 @@
 			"attackPower": 6,
 			"rangedAttackPower": 6
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 6,
+					"rangedAttackPower": 6
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "quest",
@@ -167871,7 +168741,18 @@
 			"stamina": 6,
 			"attackPower": 8,
 			"rangedAttackPower": 8
-		}
+		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 6,
+					"rangedAttackPower": 6
+				}
+			}
+		]
 	},
 	{
 		"id": 275347,
@@ -168795,6 +169676,17 @@
 			"strength": 6,
 			"stamina": 7
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Mechanical"
+				],
+				"stats": {
+					"attackPower": 15,
+					"rangedAttackPower": 15
+				}
+			}
+		],
 		"weapon": {
 			"type": "mace",
 			"hand": "oneHand",
@@ -169017,6 +169909,17 @@
 			"attackPower": 38,
 			"rangedAttackPower": 38
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Demon"
+				],
+				"stats": {
+					"attackPower": 45,
+					"rangedAttackPower": 45
+				}
+			}
+		],
 		"weapon": {
 			"type": "polearm",
 			"hand": "twoHand",
@@ -170004,6 +170907,17 @@
 			"attackPower": 10,
 			"rangedAttackPower": 10
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 24,
+					"rangedAttackPower": 24
+				}
+			}
+		],
 		"weapon": {
 			"type": "fist",
 			"hand": "oneHand",
@@ -170175,6 +171089,17 @@
 			"attackPower": 16,
 			"rangedAttackPower": 16
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"attackPower": 15,
+					"rangedAttackPower": 15
+				}
+			}
+		],
 		"weapon": {
 			"type": "mace",
 			"hand": "oneHand",
@@ -170231,6 +171156,17 @@
 			"attackPower": 22,
 			"rangedAttackPower": 22
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"attackPower": 21,
+					"rangedAttackPower": 21
+				}
+			}
+		],
 		"weapon": {
 			"type": "mace",
 			"hand": "twoHand",
@@ -170670,6 +171606,17 @@
 			"agility": 7,
 			"dodgeRating": 6
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 21,
+					"rangedAttackPower": 21
+				}
+			}
+		],
 		"weapon": {
 			"type": "dagger",
 			"hand": "oneHand",
@@ -172951,6 +173898,16 @@
 			"spellDamage": 8,
 			"spirit": 7
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"spellDamage": 10
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "quest",
@@ -173355,7 +174312,16 @@
 			"stamina": 8,
 			"healingPower": 11,
 			"spellDamage": 4
-		}
+		},
+		"inArea": [
+			{
+				"area": "StrongholdsCities",
+				"stats": {
+					"healingPower": 11,
+					"spellDamage": 4
+				}
+			}
+		]
 	},
 	{
 		"id": 279878,
@@ -173417,6 +174383,16 @@
 			"intellect": 9,
 			"spellDamage": 5
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"spellDamage": 12
+				}
+			}
+		],
 		"weapon": {
 			"type": "offHand",
 			"hand": "offHand"
@@ -173537,6 +174513,17 @@
 			"attackPower": 22,
 			"rangedAttackPower": 22
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"attackPower": 33,
+					"rangedAttackPower": 33
+				}
+			}
+		],
 		"weapon": {
 			"type": "mace",
 			"hand": "twoHand",
@@ -173630,6 +174617,17 @@
 			"spirit": 7,
 			"armor": 96
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"attackPower": 14,
+					"rangedAttackPower": 14
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "quest",
@@ -173700,7 +174698,15 @@
 			"healingPower": 14,
 			"spellDamage": 5,
 			"armor": 37
-		}
+		},
+		"inArea": [
+			{
+				"area": "ForestGrassland",
+				"stats": {
+					"mp5": 4
+				}
+			}
+		]
 	},
 	{
 		"id": 279893,
@@ -173714,7 +174720,18 @@
 			"stamina": 9,
 			"attackPower": 12,
 			"rangedAttackPower": 12
-		}
+		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 19,
+					"rangedAttackPower": 19
+				}
+			}
+		]
 	},
 	{
 		"id": 279894,
@@ -173968,6 +174985,17 @@
 			"agility": 26,
 			"hitRating": 16
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 33,
+					"rangedAttackPower": 33
+				}
+			}
+		],
 		"weapon": {
 			"type": "polearm",
 			"hand": "twoHand",
@@ -176812,6 +177840,17 @@
 			"strength": 14,
 			"stamina": 26
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Dragonkin"
+				],
+				"stats": {
+					"attackPower": 42,
+					"rangedAttackPower": 42
+				}
+			}
+		],
 		"weapon": {
 			"type": "sword",
 			"hand": "twoHand",
@@ -177331,6 +178370,17 @@
 		"quality": "rare",
 		"ilvl": 46,
 		"reqLvl": 41,
+		"versus": [
+			{
+				"mobTypes": [
+					"Dragonkin"
+				],
+				"stats": {
+					"attackPower": 12,
+					"rangedAttackPower": 12
+				}
+			}
+		],
 		"unique": true,
 		"effects": [
 			{
@@ -177685,7 +178735,18 @@
 			"agility": 11,
 			"stamina": 11,
 			"armor": 292
-		}
+		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"attackPower": 33,
+					"rangedAttackPower": 33
+				}
+			}
+		]
 	},
 	{
 		"id": 284097,
@@ -177902,6 +178963,17 @@
 			"agility": 16,
 			"armor": 109
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 37,
+					"rangedAttackPower": 37
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -178477,6 +179549,17 @@
 			"attackPower": 8,
 			"rangedAttackPower": 8
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Demon"
+				],
+				"stats": {
+					"attackPower": 12,
+					"rangedAttackPower": 12
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -178806,6 +179889,17 @@
 		"stats": {
 			"stamina": 6
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 18,
+					"rangedAttackPower": 18
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -178826,7 +179920,18 @@
 		"reqLvl": 35,
 		"stats": {
 			"agility": 4
-		}
+		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 6,
+					"rangedAttackPower": 6
+				}
+			}
+		]
 	},
 	{
 		"id": 285101,
@@ -179113,6 +180218,17 @@
 		"stats": {
 			"stamina": 9
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 32,
+					"rangedAttackPower": 32
+				}
+			}
+		],
 		"weapon": {
 			"type": "axe",
 			"hand": "twoHand",
@@ -179577,7 +180693,17 @@
 			"spellDamage": 9,
 			"spirit": 14,
 			"armor": 52
-		}
+		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Elemental"
+				],
+				"stats": {
+					"spellDamage": 14
+				}
+			}
+		]
 	},
 	{
 		"id": 286554,
@@ -179629,7 +180755,27 @@
 		"slot": "neck",
 		"quality": "uncommon",
 		"ilvl": 45,
-		"reqLvl": 40
+		"reqLvl": 40,
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 20,
+					"rangedAttackPower": 20
+				}
+			},
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 20,
+					"rangedAttackPower": 20
+				}
+			}
+		]
 	},
 	{
 		"id": 286569,
@@ -179738,7 +180884,18 @@
 			"rangedAttackPower": 24,
 			"critRating": 14,
 			"armor": 637
-		}
+		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 29,
+					"rangedAttackPower": 29
+				}
+			}
+		]
 	},
 	{
 		"id": 286597,
@@ -179808,6 +180965,17 @@
 			"attackPower": 13,
 			"rangedAttackPower": 13
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 15,
+					"rangedAttackPower": 15
+				}
+			}
+		],
 		"weapon": {
 			"type": "dagger",
 			"hand": "oneHand",
@@ -179943,6 +181111,17 @@
 			"attackPower": 17,
 			"rangedAttackPower": 17
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 25,
+					"rangedAttackPower": 25
+				}
+			}
+		],
 		"weapon": {
 			"type": "axe",
 			"hand": "twoHand",
@@ -180070,7 +181249,18 @@
 			"attackPower": 14,
 			"rangedAttackPower": 14,
 			"armor": 143
-		}
+		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Elemental"
+				],
+				"stats": {
+					"attackPower": 17,
+					"rangedAttackPower": 17
+				}
+			}
+		]
 	},
 	{
 		"id": 286662,
@@ -180760,7 +181950,18 @@
 			"attackPower": 13,
 			"rangedAttackPower": 13,
 			"armor": 82
-		}
+		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"attackPower": 13,
+					"rangedAttackPower": 13
+				}
+			}
+		]
 	},
 	{
 		"id": 287001,
@@ -180857,6 +182058,16 @@
 			"intellect": 7,
 			"spellDamage": 4
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"spellDamage": 7
+				}
+			}
+		],
 		"weapon": {
 			"type": "axe",
 			"hand": "oneHand",
@@ -181386,6 +182597,16 @@
 			"healingPower": 11,
 			"spellDamage": 11
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Demon"
+				],
+				"stats": {
+					"spellDamage": 11
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",
@@ -181539,6 +182760,17 @@
 		"stats": {
 			"stamina": 14
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 18,
+					"rangedAttackPower": 18
+				}
+			}
+		],
 		"effects": [
 			{
 				"name": "Guidance of Ursoc (1308520)",
@@ -181679,6 +182911,17 @@
 		"stats": {
 			"agility": 3
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Beast"
+				],
+				"stats": {
+					"attackPower": 10,
+					"rangedAttackPower": 10
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "quest",
@@ -181698,6 +182941,17 @@
 		"stats": {
 			"stamina": 4
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Humanoid"
+				],
+				"stats": {
+					"attackPower": 8,
+					"rangedAttackPower": 8
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "quest",
@@ -181788,6 +183042,17 @@
 			"attackPower": 6,
 			"rangedAttackPower": 6
 		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Demon"
+				],
+				"stats": {
+					"attackPower": 16,
+					"rangedAttackPower": 16
+				}
+			}
+		],
 		"sources": [
 			{
 				"kind": "quest",

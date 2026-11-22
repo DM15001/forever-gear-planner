@@ -2,13 +2,14 @@ import { useMemo, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
 import { sourceKind } from '../lib/farm';
+import { FightPicker } from './FightPicker';
 import { formatDps } from '../lib/format';
 import type { GameData } from '../lib/gameData';
 import { type Guide, type GuideMark, guideMarks, guidePlan, markLabel, swapDelta } from '../lib/guides';
 import { type Candidate, clash, type Gear, pairedSlot, plannedGear, scoreSet, slotCandidates, slotInUse, type SourceFilter, suggestPlan, usableSources, withItem } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
 import { measureWeights, weightRuns } from '../lib/sim/live';
-import { pieceStats, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
+import { conditionalLines, pieceStats, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
 import { ContentPicker } from './ContentPicker';
 import { ItemIcon } from './ItemIcon';
 import { SuffixNote, suffixText } from './SuffixNote';
@@ -160,6 +161,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						</>
 					)}
 				</p>
+				<FightPicker character={character} onChange={onChange} />
 				<SimSummary equipped={character.gear} planned={gear} hasPlan={planCount > 0} />
 				<div className="guide-sets">
 					<span className="field-label">Or start from a guide</span>
@@ -431,6 +433,12 @@ function CandidateRow({ candidate, note, marks, base, variant, data, faction, fi
 					{item.weapon?.dps ? `${item.weapon.dps.toFixed(1)} DPS, ${item.weapon.speed?.toFixed(2)} speed${stats ? ', ' : ''}` : ''}
 					{stats || (item.weapon?.dps ? '' : 'No stats')}
 				</span>
+				{conditionalLines(item, data.fight).map(line => (
+					<span key={line.text} className={line.active ? 'slot-versus slot-versus-on' : 'slot-versus'} title={line.active ? 'Counted: it matches the enemy type or terrain you picked.' : 'Not counted. Pick this enemy type or terrain at the top of the page to count it.'}>
+						{line.text}
+						{line.active ? ' (counted)' : ''}
+					</span>
+				))}
 				<span className="slot-source">
 					{guideSource(marks) ?? <SourceList sources={sources} data={data} />}
 					{!guideSource(marks) && sources.length > 2 ? `, +${sources.length - 2} more` : ''}

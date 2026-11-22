@@ -93,6 +93,10 @@ async function loadDb(localPath) {
 }
 
 /** {"0": 10, "17": 5} or [10, 0, ...] -> { strength: 10, hitRating: 5 } */
+// The simulator's enum names for enemy kinds and terrain, by number (proto/common.proto).
+const MOB_TYPES = [null, 'Beast', 'Demon', 'Dragonkin', 'Elemental', 'Giant', 'Humanoid', 'Mechanical', 'Undead'];
+const AREA_TYPES = [null, 'ForestGrassland', 'Mountainous', 'Snowy', 'Desert', 'Swamp', 'Wasteland', 'Haunted', 'Cavernous', 'Volcanic', 'StrongholdsCities'];
+
 function namedStats(raw) {
 	const out = {};
 	if (!raw) return out;
@@ -283,6 +287,9 @@ function convertItem(item) {
 		ilvl: scaling.ilvl,
 		reqLvl: item.reqLvl,
 		stats: namedStats(scaling.stats),
+		// Stats that only count against one kind of enemy or in one kind of terrain.
+		versus: (scaling.mobTypeStats ?? []).map(entry => ({ mobTypes: entry.mobTypes.map(type => MOB_TYPES[type]).filter(Boolean), stats: namedStats(entry.stats) })).filter(entry => entry.mobTypes.length),
+		inArea: (scaling.areaStats ?? []).map(entry => ({ area: AREA_TYPES[entry.areaType], stats: namedStats(entry.stats) })).filter(entry => entry.area),
 		weapon,
 		unique: item.unique,
 		// Items sharing a limit category cannot be worn together (the four Warden's Signets, for example).

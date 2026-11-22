@@ -1,7 +1,7 @@
 import { GEAR_SLOTS } from './constants';
 import type { GameData } from './gameData';
 import vendors from '../config/vendors.json';
-import type { Character, GearPiece, Item, ItemSource, SpecConfig, Stats } from './types';
+import type { Character, GearPiece, Item, ItemSource, SpecConfig, Stats, Fight } from './types';
 
 const REPUTATION_VENDORS: Record<string, string> = vendors.reputationVendors;
 const CURRENCY_VENDORS: Record<string, string> = vendors.currencyVendors;
@@ -46,8 +46,37 @@ export function addStats(target: Stats, extra: Stats | undefined): Stats {
 }
 
 /** An item's stats including its random suffix, if one is chosen. */
+export const MOB_TYPES = ['Beast', 'Demon', 'Dragonkin', 'Elemental', 'Giant', 'Humanoid', 'Mechanical', 'Undead'];
+export const AREAS: [string, string][] = [
+	['ForestGrassland', 'Forest or grassland'],
+	['Mountainous', 'Mountains'],
+	['Snowy', 'Snow'],
+	['Desert', 'Desert'],
+	['Swamp', 'Swamp'],
+	['Wasteland', 'Wasteland'],
+	['Haunted', 'Haunted'],
+	['Cavernous', 'Caves'],
+	['Volcanic', 'Volcanic'],
+	['StrongholdsCities', 'Strongholds and cities'],
+];
+const areaLabel = (area: string) => AREAS.find(([key]) => key === area)?.[1] ?? area;
+
+/** An item's stats that depend on the fight, each with when it counts and how to say so. */
+export function conditionalStats(item: Item): { label: string; stats: Stats; active: (fight: Fight | undefined) => boolean }[] {
+	return [
+		...(item.versus ?? []).map(entry => ({ label: `vs ${entry.mobTypes.join(', ')}`, stats: entry.stats, active: (fight: Fight | undefined) => Boolean(fight?.mobType && entry.mobTypes.includes(fight.mobType)) })),
+		...(item.inArea ?? []).map(entry => ({ label: `in ${areaLabel(entry.area).toLowerCase()}`, stats: entry.stats, active: (fight: Fight | undefined) => fight?.area === entry.area })),
+	];
+}
+
+/** "vs Undead: +12 Spell dmg" for each conditional bonus, with whether it counts in the current fight. */
+export function conditionalLines(item: Item, fight: Fight | undefined): { text: string; active: boolean }[] {
+	return conditionalStats(item).map(line => ({ text: `${line.label}: ${statLine(line.stats)}`, active: line.active(fight) }));
+}
+
 export function pieceStats(item: Item, piece: GearPiece, data: GameData): Stats {
 	const stats = addStats({}, item.stats);
+	for (const line of conditionalStats(item)) if (line.active(data.fight)) addStats(stats, line.stats);
 	const suffix = piece.randomSuffix ? data.suffixById.get(piece.randomSuffix) : undefined;
 	if (suffix && item.randPropPoints) {
 		for (const [key, share] of Object.entries(suffix.stats)) {

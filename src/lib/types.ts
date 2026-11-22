@@ -48,6 +48,10 @@ export interface Item {
 	stats?: Stats;
 	weapon?: { type?: string; hand?: string; speed?: number; dps?: number; damageMin?: number; damageMax?: number };
 	unique?: boolean;
+	/** Stats that only count against these kinds of enemy. */
+	versus?: { mobTypes: string[]; stats: Stats }[];
+	/** Stats that only count in this kind of terrain. */
+	inArea?: { area: string; stats: Stats }[];
 	/** Items with the same limit category cannot be worn together. */
 	limitCategory?: number;
 	/** Class ids that may use the item; unset = every class. */
@@ -90,6 +94,12 @@ export interface GearPiece {
 	randomSuffix?: number;
 }
 
+/** The simulator's names, without their prefix: "Undead", "ForestGrassland". */
+export interface Fight {
+	mobType?: string;
+	area?: string;
+}
+
 export interface Character {
 	name?: string;
 	/** The spec this character is planned as (src/specs). Unset on characters saved before there was a choice. */
@@ -102,6 +112,8 @@ export interface Character {
 	consumables?: import('./sim/setup').ConsumablePicks;
 	/** Buffs and debuffs changed on the Sim setup tab. Missing fields keep the build's own. */
 	buffs?: import('./sim/setup').BuffPicks;
+	/** What the character fights: an enemy kind and a terrain, for items that are only strong there. Unset = a plain raid target. */
+	fight?: Fight;
 	/** Up to two profession names. */
 	professions: string[];
 	/** Always GEAR_SLOTS.length entries, in GEAR_SLOTS order. null = empty slot. */

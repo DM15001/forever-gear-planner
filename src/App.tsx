@@ -66,7 +66,10 @@ export function App() {
 	// The item data is narrowed to the spec, so it is loaded again when the spec changes.
 	const [loaded, setLoaded] = useState<{ specId: string; data: GameData } | null>(null);
 	const [dataError, setDataError] = useState(false);
-	const data = loaded?.specId === baseSpec.id ? loaded.data : null;
+	const loadedData = loaded?.specId === baseSpec.id ? loaded.data : null;
+	// The scores follow the enemy kind and terrain the character is set to fight.
+	const fight = character?.fight;
+	const data = useMemo(() => (loadedData ? { ...loadedData, fight } : null), [loadedData, fight]);
 
 	useEffect(() => {
 		let current = true;

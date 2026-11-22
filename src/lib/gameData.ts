@@ -2,9 +2,11 @@ import { buildGuides, type Guide, type SimSet } from './guides';
 import wingConfig from '../config/dungeonWings.json';
 import { applyLoot } from './loot';
 import { DEFAULT_SPEC, enchantUsableBy, usableBy } from './specs';
-import type { Enchant, Item, Npc, RandomSuffix, SimValues, SlotKind, SpecConfig, Zone } from './types';
+import type { Enchant, Item, Npc, RandomSuffix, SimValues, SlotKind, SpecConfig, Zone, Fight } from './types';
 
 export interface GameData {
+	/** The enemy kind and terrain the scores assume, from the character. */
+	fight?: Fight;
 	itemById: Map<number, Item>;
 	enchantsBySlot: Map<SlotKind, Enchant[]>;
 	suffixById: Map<number, RandomSuffix>;

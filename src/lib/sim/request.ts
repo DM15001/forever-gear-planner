@@ -45,6 +45,10 @@ function personalize(request: SimTemplate, character: Character): void {
 		party.buffs = { ...(party.buffs as object), ...character.buffs.party };
 		player.buffs = { ...player.buffs, ...character.buffs.player };
 	}
+	// The enemy kind and terrain: the sim then counts the gear's bonuses against them.
+	const encounter = request.encounter as { targets?: Record<string, unknown>[]; areaTypes?: string[] } | undefined;
+	if (encounter && character.fight?.mobType) for (const target of encounter.targets ?? []) target.mobType = `MobType${character.fight.mobType}`;
+	if (encounter && character.fight?.area) encounter.areaTypes = [`AreaType${character.fight.area}`];
 	player.profession1 = character.professions[0] ?? 'ProfessionUnknown';
 	player.profession2 = character.professions[1] ?? 'ProfessionUnknown';
 }
@@ -256,4 +260,4 @@ export function readRotationChecks(json: string | null | undefined): RotationChe
 
 /** Identifies a run, so the same gear is never simulated twice. */
 export const simKey = (character: Character, gear: Gear, iterations: number, bonus?: BonusStats) =>
-	JSON.stringify([bonus ?? 0, character.specId ?? '', character.race, character.talents, character.consumables ?? 0, character.buffs ?? 0, character.professions, gear.map(p => (p ? [p.id, p.enchant ?? 0, p.randomSuffix ?? 0] : 0)), iterations]);
+	JSON.stringify([bonus ?? 0, character.specId ?? '', character.race, character.talents, character.consumables ?? 0, character.buffs ?? 0, character.fight ?? 0, character.professions, gear.map(p => (p ? [p.id, p.enchant ?? 0, p.randomSuffix ?? 0] : 0)), iterations]);
