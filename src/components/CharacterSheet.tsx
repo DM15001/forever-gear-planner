@@ -330,42 +330,46 @@ function GearSlot({ index, mirrored, piece, data, onChange, onPick }: SlotProps)
 						</span>
 					</>
 				)}
-				{piece && suffixes.length > 0 && (
-					<select
-						className="slot-select"
-						aria-label={`${label} random suffix`}
-						value={piece.randomSuffix ?? ''}
-						onChange={e => {
-							const { randomSuffix: _old, ...rest } = piece;
-							onChange(e.target.value ? { ...rest, randomSuffix: Number(e.target.value) } : rest);
-						}}>
-						<option value="">Pick the suffix</option>
-						{suffixes.map(s => (
-							<option key={s.id} value={s.id}>
-								{s.name}
-							</option>
-						))}
-					</select>
-				)}
-				{piece && enchants.length > 0 && (
-					<select
-						className="slot-select"
-						aria-label={`${label} enchant`}
-						value={piece.enchant ?? ''}
-						onChange={e => {
-							const { enchant: _old, ...rest } = piece;
-							onChange(e.target.value ? { ...rest, enchant: Number(e.target.value) } : rest);
-						}}>
-						<option value="">No enchant</option>
-						{!enchantKnown && <option value={piece.enchant}>Unknown enchant #{piece.enchant}</option>}
-						{enchants.map((e, i) => (
-							<option key={`${key}-${e.effectId}-${i}`} value={e.effectId}>
-								{e.name}
-							</option>
-						))}
-					</select>
-				)}
 			</div>
+			{piece && (suffixes.length > 0 || enchants.length > 0) && (
+				<div className="slot-foot">
+					{suffixes.length > 0 && (
+						<select
+							className="slot-select"
+							aria-label={`${label} random suffix`}
+							value={piece.randomSuffix ?? ''}
+							onChange={e => {
+								const { randomSuffix: _old, ...rest } = piece;
+								onChange(e.target.value ? { ...rest, randomSuffix: Number(e.target.value) } : rest);
+							}}>
+							<option value="">Pick the suffix</option>
+							{suffixes.map(s => (
+								<option key={s.id} value={s.id}>
+									{s.name}
+								</option>
+							))}
+						</select>
+					)}
+					{enchants.length > 0 && (
+						<select
+							className="slot-select"
+							aria-label={`${label} enchant`}
+							value={piece.enchant ?? ''}
+							onChange={e => {
+								const { enchant: _old, ...rest } = piece;
+								onChange(e.target.value ? { ...rest, enchant: Number(e.target.value) } : rest);
+							}}>
+							<option value="">No enchant</option>
+							{!enchantKnown && <option value={piece.enchant}>Unknown enchant #{piece.enchant}</option>}
+							{enchants.map((e, i) => (
+								<option key={`${key}-${e.effectId}-${i}`} value={e.effectId}>
+									{e.name}
+								</option>
+							))}
+						</select>
+					)}
+				</div>
+			)}
 		</div>
 	);
 }

@@ -2756,3 +2756,73 @@ html {
 	align-items: center;
 	gap: 0.4rem;
 }
+
+/* Character sheet: every slot is the same card, so items read as a tidy list */
+.sheet-column,
+.sheet-weapons {
+	grid-auto-rows: 1fr;
+}
+.sheet .slot {
+	display: grid;
+	grid-template-columns: 3.25rem minmax(0, 1fr);
+	grid-template-rows: 1fr auto;
+	gap: 0.55rem 0.8rem;
+	align-items: start;
+	min-height: 8.75rem;
+	padding: 0.7rem 0.8rem;
+	text-align: left;
+	background: #0a0806;
+	border: 1px solid var(--hairline);
+	border-radius: 6px;
+	transition: border-color 120ms;
+}
+.sheet .slot:hover,
+.sheet .slot:focus-within {
+	border-color: var(--ridge);
+}
+.sheet .slot-mirrored {
+	grid-template-columns: minmax(0, 1fr) 3.25rem;
+}
+.sheet .slot-mirrored .slot-button {
+	grid-column: 2;
+	grid-row: 1;
+}
+.sheet .slot-mirrored .slot-body {
+	grid-column: 1;
+	grid-row: 1;
+}
+.sheet .slot-label {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 0.5rem;
+	margin-bottom: 0.15rem;
+	font-size: 0.75rem;
+	color: var(--haze);
+}
+.sheet .slot-item {
+	font-size: 0.9375rem;
+}
+.sheet .slot-stats {
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+.sheet .slot-source {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.slot-foot {
+	grid-column: 1 / -1;
+	display: grid;
+	gap: 0.3rem;
+}
+.slot-foot .slot-select {
+	width: 100%;
+	margin-top: 0;
+}
+.sheet .slot-empty {
+	border-style: dashed;
+}
