@@ -7,11 +7,16 @@ import { addStats, type HitSummary, hitSummary, pieceStats, vendorCurrency, vend
 const RAID_QUESTS: Record<string, string> = quests.raidQuests;
 const CLOSED_NPCS: Record<string, string> = notAvailable.npcs;
 const CLOSED_ZONES: Record<string, string> = notAvailable.zones;
+const CLOSED_TAGS: Record<string, string> = notAvailable.tags;
+const CLOSED_ICON_WORDS = Object.entries(notAvailable.iconWords as Record<string, string>);
 const CLOSED_ITEMS: Record<string, string> = notAvailable.items;
 
 /** Why an item cannot be had in the game yet, or undefined when nothing is known against it. */
 export function notYetAvailable(item: Item): string | undefined {
 	if (CLOSED_ITEMS[item.id]) return CLOSED_ITEMS[item.id];
+	if (item.tag && CLOSED_TAGS[item.tag]) return CLOSED_TAGS[item.tag];
+	const byIcon = item.icon ? CLOSED_ICON_WORDS.find(([word]) => item.icon!.includes(word)) : undefined;
+	if (byIcon) return byIcon[1];
 	const sources = item.sources ?? [];
 	if (sources.length === 0) return undefined;
 	const closed = sources.map(source => (source.npcId ? CLOSED_NPCS[source.npcId] : undefined) ?? (source.kind === 'drop' && source.zoneId ? CLOSED_ZONES[source.zoneId] : undefined));

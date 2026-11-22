@@ -250,6 +250,8 @@ function convertItem(item) {
 		requiredProfession: PROFESSIONS[item.requiredProfession],
 		setId: item.setId,
 		setName: item.setName,
+		// The line under the name in the tooltip, e.g. "Crafted" on the class sets made from raid patterns.
+		tag: item.nameDescription,
 		// Procs and on-use effects. A stat score cannot value these; the app shows a "sim it" badge.
 		effects: (item.itemEffects ?? []).map(e =>
 			compact({

@@ -55,6 +55,8 @@ export interface Item {
 	setId?: number;
 	setName?: string;
 	effects?: { name?: string; kind: string }[];
+	/** The line under the name in the tooltip, when the item has one ("Crafted"). */
+	tag?: string;
 	randomSuffixOptions?: number[];
 	/** Set when the data is loaded: the random suffix that is worth most to the spec, and its name ("of Shadow Wrath"). */
 	bestSuffix?: number;

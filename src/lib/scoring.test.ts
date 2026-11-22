@@ -146,7 +146,9 @@ describe('own crafts only', () => {
 	it('hides crafts of other professions but keeps the character\u2019s own', () => {
 		expect(slotCandidates(7, dwarf.gear, options).some(c => c.item.id === BELT_OF_THE_ARCHMAGE)).toBe(true);
 		expect(slotCandidates(7, dwarf.gear, own).some(c => c.item.id === BELT_OF_THE_ARCHMAGE)).toBe(false);
-		expect(slotCandidates(9, dwarf.gear, own).some(c => c.item.id === SPIRITCALLER_TREADS)).toBe(true);
+		// The Spiritcaller set is not in the game yet, so it only shows with that switch on.
+		expect(slotCandidates(9, dwarf.gear, { ...own, filter: { ...own.filter, notYetAvailable: true } }).some(c => c.item.id === SPIRITCALLER_TREADS)).toBe(true);
+		expect(slotCandidates(9, dwarf.gear, own).some(c => c.item.id === SPIRITCALLER_TREADS)).toBe(false);
 	});
 });
 
@@ -238,5 +240,17 @@ describe('items that are not in the game yet', () => {
 		const ids = (filter: SourceFilter) => slotCandidates(ring, char.gear, { character: char, data: mageData, spec: mage, filter }).map(c => c.item.id);
 		expect(ids(DEFAULT_FILTER)).not.toContain(ELEMENTAL_FOCUS_BAND);
 		expect(ids({ ...DEFAULT_FILTER, notYetAvailable: true })).toContain(ELEMENTAL_FOCUS_BAND);
+	});
+
+	it('leaves out the crafted class sets and items with raid artwork, by what the data says about them', () => {
+		const closed = [...data.itemById.values()].filter(item => notYetAvailable(item));
+		const names = closed.map(item => item.name);
+		expect(names).toContain('Spiritcaller Leggings');
+		expect(names).toContain('Spiritcaller Mantle');
+		expect(names).toContain("Forest Defender's Axe");
+		expect(names).not.toContain('The Unstoppable Force');
+		expect(closed.filter(item => item.tag === 'Crafted').every(item => item.setId !== undefined && item.quality === 'epic')).toBe(true);
+		const plan = suggestPlan({ character: dwarf, data, spec, filter: DEFAULT_FILTER });
+		for (const id of Object.values(plan)) expect(notYetAvailable(data.itemById.get(id)!) ?? '', data.itemById.get(id)?.name).toBe('');
 	});
 });

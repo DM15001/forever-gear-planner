@@ -1,5 +1,11 @@
 {
-	"_comment": "Items the WoWSims database lists as released (it marks every item phase 1) but that cannot be had in WoW Forever yet. Kept by hand; checked 2026-11-22. `zones`: every drop in these zones. `npcs`: every drop of these creatures. `items`: single items, with the reason.",
+	"_comment": "Items the WoWSims database lists as released (it marks every item phase 1) but that cannot be had in WoW Forever yet. Kept by hand; checked 2026-11-22. `tags`: every item with this line under its name. `iconWords`: every item whose icon name holds this word. `zones`: every drop in these zones. `npcs`: every drop of these creatures. `items`: single items, with the reason.",
+	"tags": {
+		"Crafted": "A crafted class set (Spiritcaller, Grovekeeper, Glory, Demonheart, Grimstitch, Manaflare, Conviction): its patterns come from raids"
+	},
+	"iconWords": {
+		"raid": "Carries the artwork of a raid that is not open yet, so its pattern or drop is most likely from there"
+	},
 	"zones": {
 		"1377": "Silithus: its bosses and rares are not reachable yet (reported by players)"
 	},

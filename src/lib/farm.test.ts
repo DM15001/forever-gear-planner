@@ -80,8 +80,10 @@ describe('planShoppingList', () => {
 	});
 
 	it('knows which crafted items the character can make', () => {
-		const plan = suggestPlan(options);
-		const crafted = planShoppingList({ ...options, character: { ...dwarf, plan } }).get('crafted') ?? [];
+		// With everything in the data allowed, the plan holds crafts of the character's own profession and of others.
+		const all = { ...options, filter: { ...options.filter, notYetAvailable: true } };
+		const plan = suggestPlan(all);
+		const crafted = planShoppingList({ ...all, character: { ...dwarf, plan } }).get('crafted') ?? [];
 		expect(crafted.length).toBeGreaterThan(0);
 		for (const entry of crafted) expect(entry.craftable).toBe(entry.source?.profession === 'Leatherworking');
 	});
