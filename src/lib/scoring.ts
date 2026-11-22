@@ -17,9 +17,13 @@ const PAIRED: Record<number, number> = { 10: 11, 11: 10, 12: 13, 13: 12 };
  * The gear the plan aims for: equipped gear with the planned items swapped in and the planned
  * enchants applied. A swapped-in item keeps the slot's enchant unless the plan names another.
  */
+/** In a plan: the slot is to be left empty (a two-hander takes the place of main hand and off hand). */
+export const EMPTY_SLOT = 0;
+
 export function plannedGear(character: Character): Gear {
 	return character.gear.map((piece, index) => {
 		const plannedId = character.plan?.[index];
+		if (plannedId === EMPTY_SLOT) return null;
 		const id = plannedId ?? piece?.id;
 		if (!id) return null;
 		const enchant = character.planEnchants?.[index] ?? piece?.enchant;
@@ -159,12 +163,30 @@ export function isObtainable(item: Item, character: Character, faction: Faction 
 	return usableSources(item, faction, filter, character.professions).length > 0;
 }
 
+/** False for a slot this spec never fills: the off hand of a spec that only uses two-handers. */
+export const slotInUse = (slotIndex: number, spec: SpecConfig): boolean => !(spec.weaponSetup === 'twoHand' && slotIndex === OFF_HAND);
+
 function fitsSlot(item: Item, slotIndex: number, spec: SpecConfig): boolean {
 	if (item.slot !== GEAR_SLOTS[slotIndex].kind) return false;
 	if (item.slot !== 'weapon') return true;
-	if (spec.weaponSetup === 'twoHand') return slotIndex === MAIN_HAND && item.weapon?.hand === 'twoHand';
-	if (slotIndex === OFF_HAND) return item.weapon?.hand === 'offHand';
-	return item.weapon?.hand === 'mainHand' || item.weapon?.hand === 'oneHand';
+	const hand = item.weapon?.hand;
+	if (spec.weaponSetup === 'twoHand') return slotIndex === MAIN_HAND && hand === 'twoHand';
+	if (slotIndex === OFF_HAND) return hand === 'offHand' || (spec.canDualWield && hand === 'oneHand');
+	return hand === 'mainHand' || hand === 'oneHand' || (spec.weaponSetup === 'either' && hand === 'twoHand');
+}
+
+/**
+ * `gear` with one slot changed (null empties it). The slot's enchant stays. A two-hander pushes
+ * the off hand out, and an off-hand item pushes a two-hander out.
+ */
+export function withItem(gear: Gear, slotIndex: number, itemId: number | null, data: GameData): Gear {
+	const isTwoHand = (id: number | undefined) => (id !== undefined ? data.itemById.get(id)?.weapon?.hand === 'twoHand' : false);
+	return gear.map((piece, index) => {
+		if (index === slotIndex) return itemId === null ? null : piece?.enchant ? { id: itemId, enchant: piece.enchant } : { id: itemId };
+		if (itemId !== null && slotIndex === MAIN_HAND && index === OFF_HAND && isTwoHand(itemId)) return null;
+		if (itemId !== null && slotIndex === OFF_HAND && index === MAIN_HAND && isTwoHand(piece?.id)) return null;
+		return piece;
+	});
 }
 
 /** True when part of the item's worth is unknown: an unmeasured effect or set, or a random suffix. */
@@ -201,7 +223,7 @@ export function slotCandidates(slotIndex: number, gear: Gear, { character, data,
 		if (!fitsSlot(item, slotIndex, spec) || item.id === current?.id) continue;
 		if (item.unique && item.id === pairedId) continue;
 		if (!isObtainable(item, character, faction, filter, spec)) continue;
-		const swapped = gear.map((piece, i) => (i === slotIndex ? (current?.enchant ? { id: item.id, enchant: current.enchant } : { id: item.id }) : piece));
+		const swapped = withItem(gear, slotIndex, item.id, data);
 		result.push({
 			item,
 			delta: scoreSet(swapped, character, data, spec).score - base,
@@ -227,8 +249,8 @@ const SEED_STARTS = 3;
 export function suggestPlan(options: CandidateOptions): Record<number, number> {
 	const { character, data, spec, filter } = options;
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
-	const slots = GEAR_SLOTS.map((_, slot) => slot).filter(slot => !(spec.weaponSetup === 'twoHand' && slot === OFF_HAND));
-	const put = (set: Gear, slot: number, id: number): Gear => set.map((piece, i) => (i === slot ? (piece?.enchant ? { id, enchant: piece.enchant } : { id }) : piece));
+	const slots = GEAR_SLOTS.map((_, slot) => slot).filter(slot => slotInUse(slot, spec));
+	const put = (set: Gear, slot: number, id: number): Gear => withItem(set, slot, id, data);
 	const scoreOf = (set: Gear) => scoreSet(set, character, data, spec).score;
 
 	/** Improves a set until no single swap helps, and with `pairs` until no swap of two slots helps either. */
@@ -316,6 +338,8 @@ export function suggestPlan(options: CandidateOptions): Record<number, number> {
 	for (const slot of slots) {
 		const id = gear[slot]?.id;
 		if (id !== undefined && id !== character.gear[slot]?.id) plan[slot] = id;
+		// A slot the plan empties: the off hand under a planned two-hander, or the reverse.
+		else if (id === undefined && character.gear[slot]) plan[slot] = EMPTY_SLOT;
 	}
 	return plan;
 }

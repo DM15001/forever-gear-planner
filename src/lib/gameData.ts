@@ -1,7 +1,8 @@
 import { buildGuides, type Guide, type SimSet } from './guides';
 import wingConfig from '../config/dungeonWings.json';
 import { applyLoot } from './loot';
-import type { Enchant, Item, Npc, RandomSuffix, SimValues, SlotKind, Zone } from './types';
+import { DEFAULT_SPEC, enchantUsableBy, usableBy } from './specs';
+import type { Enchant, Item, Npc, RandomSuffix, SimValues, SlotKind, SpecConfig, Zone } from './types';
 
 export interface GameData {
 	itemById: Map<number, Item>;
@@ -17,8 +18,11 @@ export interface GameData {
 
 const byId = <T extends { id: number }>(list: unknown) => new Map((list as T[]).map(entry => [entry.id, entry]));
 
-/** Loads the generated data as separate chunks, so the page shell appears before the 2 MB item list. */
-export async function loadGameData(): Promise<GameData> {
+/**
+ * Loads the generated data as separate chunks, so the page shell appears before the 2 MB item list,
+ * and narrows it to what one spec can use: its items, its enchants, its guide lists.
+ */
+export async function loadGameData(spec: SpecConfig = DEFAULT_SPEC): Promise<GameData> {
 	const [items, enchants, suffixes, zones, npcs, simSets, simValuesJson, meta] = await Promise.all([
 		import('../data/items.json'),
 		import('../data/enchants.json'),
@@ -30,26 +34,29 @@ export async function loadGameData(): Promise<GameData> {
 		import('../data/meta.json'),
 	]);
 	const enchantsBySlot = new Map<SlotKind, Enchant[]>();
-	for (const enchant of enchants.default as unknown as Enchant[]) {
+	const specEnchants = (enchants.default as unknown as Enchant[]).filter(enchant => enchantUsableBy(enchant, spec));
+	for (const enchant of specEnchants) {
 		for (const slot of enchant.slots) {
 			if (!enchantsBySlot.has(slot)) enchantsBySlot.set(slot, []);
 			enchantsBySlot.get(slot)!.push(enchant);
 		}
 	}
 	for (const list of enchantsBySlot.values()) list.sort((a, b) => a.name.localeCompare(b.name));
-	const itemById = byId<Item>(items.default);
+	// The item records are copied: loading adds dungeon names and drop chances to their sources.
+	const itemById = new Map((items.default as unknown as Item[]).filter(item => usableBy(item, spec)).map(item => [item.id, { ...item, sources: item.sources?.map(source => ({ ...source })) }]));
 	const zoneById = byId<Zone>(zones.default);
 	const npcById = byId<Npc>(npcs.default);
 	applyLoot(itemById, npcById, zoneById);
-	tagDungeons([...itemById.values(), ...(enchants.default as unknown as Enchant[])], zoneById, npcById);
+	tagDungeons([...itemById.values(), ...specEnchants], zoneById, npcById);
 	return {
 		itemById,
 		enchantsBySlot,
 		suffixById: byId<RandomSuffix>(suffixes.default),
 		zoneById,
 		npcById,
-		guides: buildGuides(simSets.default as unknown as SimSet[]),
-		simValues: readSimValues(simValuesJson.default as unknown as RawSimValues),
+		guides: buildGuides((simSets.default as unknown as SimSet[]).filter(set => set.spec === spec.id), spec.id),
+		// Effects, proc enchants and set bonuses have only been measured for the Enhancement Shaman so far.
+		simValues: readSimValues(spec.id === DEFAULT_SPEC.id ? (simValuesJson.default as unknown as RawSimValues) : EMPTY_SIM_VALUES),
 		builtAt: meta.default.generatedAt,
 	};
 }
@@ -75,6 +82,8 @@ function tagDungeons(entries: { sources?: Item['sources'] }[], zoneById: Map<num
 		}
 	}
 }
+
+const EMPTY_SIM_VALUES = { items: {}, enchants: {}, sets: {}, measured: { items: [], enchants: [], sets: [] } } as unknown as RawSimValues;
 
 interface RawSimValues {
 	items: Record<string, { ep: number }>;

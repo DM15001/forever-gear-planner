@@ -13,7 +13,7 @@
 // Source: https://github.com/wowsims/forever (MIT). Keep the link back to WoWSims in the app.
 
 import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -126,7 +126,11 @@ const args = parseArgs(process.argv.slice(2));
 
 // Icon names the WoWSims database lacks, looked up on Wowhead (see the file's comment).
 const ICON_OVERRIDES = JSON.parse(readFileSync(new URL('../src/config/wowhead/icons.json', import.meta.url), 'utf8')).icons;
-const spec = JSON.parse(await readFile(join(ROOT, 'src', 'specs', `${args.spec}.json`), 'utf8'));
+// Every spec the app knows. The item list is the union of what they can equip; the app narrows it per spec.
+const specs = readdirSync(join(ROOT, 'src', 'specs'))
+	.filter(name => name.endsWith('.json'))
+	.sort()
+	.map(name => JSON.parse(readFileSync(join(ROOT, 'src', 'specs', name), 'utf8')));
 const localDb = args.db ?? (args.pages ? join(args.pages, 'forever', DB_PATH) : args.repo ? join(args.repo, DB_PATH) : null);
 const { db, origin, commit } = await loadDb(localDb);
 
@@ -186,12 +190,8 @@ function convertSource(s) {
 }
 
 /** Can this spec equip the item at all? Faction, professions and raid/PvP are filtered in the app. */
-function isUsable(item) {
+function usableBy(item, spec) {
 	const slot = ITEM_TYPES[item.type];
-	if (!slot) return false;
-	if (item.phase !== PHASE_RELEASED) return false;
-	if ((item.reqLvl ?? 0) > 60) return false;
-	if ((item.quality ?? 0) < 2) return false; // uncommon and better
 	if (item.classAllowlist?.length && !item.classAllowlist.includes(spec.classId)) return false;
 	if (ARMOR_SLOTS.has(slot)) {
 		// Armor without an armor type (a few cosmetic pieces) is wearable by everyone.
@@ -206,6 +206,14 @@ function isUsable(item) {
 	}
 	if (slot === 'ranged') return spec.rangedTypes.includes(RANGED_TYPES[item.rangedWeaponType]);
 	return true; // neck, back, finger, trinket
+}
+
+function isUsable(item) {
+	if (!ITEM_TYPES[item.type]) return false;
+	if (item.phase !== PHASE_RELEASED) return false;
+	if ((item.reqLvl ?? 0) > 60) return false;
+	if ((item.quality ?? 0) < 2) return false; // uncommon and better
+	return specs.some(spec => usableBy(item, spec));
 }
 
 function convertItem(item) {
@@ -236,6 +244,8 @@ function convertItem(item) {
 		stats: namedStats(scaling.stats),
 		weapon,
 		unique: item.unique,
+		// Class ids that may use the item; unset = every class.
+		classes: item.classAllowlist?.length ? item.classAllowlist : undefined,
 		faction: FACTIONS[item.factionRestriction],
 		requiredProfession: PROFESSIONS[item.requiredProfession],
 		setId: item.setId,
@@ -264,6 +274,7 @@ function convertEnchant(e) {
 		effectId: e.effectId, // the id used in character exports ("enchant": 1900)
 		itemId: e.itemId,
 		spellId: e.spellId,
+		classes: e.classAllowlist?.length ? e.classAllowlist : undefined,
 		name: e.name,
 		icon: e.icon,
 		slots: [e.type, ...(e.extraTypes ?? [])].map(t => ITEM_TYPES[t]).filter(Boolean),
@@ -283,7 +294,7 @@ const items = db.items.filter(isUsable).map(convertItem).sort((a, b) => a.id - b
 
 const enchants = db.enchants
 	.filter(e => e.phase === PHASE_RELEASED)
-	.filter(e => !e.classAllowlist?.length || e.classAllowlist.includes(spec.classId))
+	.filter(e => !e.classAllowlist?.length || specs.some(spec => e.classAllowlist.includes(spec.classId)))
 	.map(convertEnchant)
 	.sort((a, b) => a.effectId - b.effectId);
 
@@ -302,22 +313,38 @@ const randomSuffixes = db.randomSuffixes
 	.map(s => ({ id: s.id, name: s.name, stats: namedStats(s.stats) }))
 	.sort((a, b) => a.id - b.id);
 
-// Gear sets the sim maintainers ship as presets. Kept as-is, even if an item is filtered out above.
+// Gear sets the sim maintainers ship as presets, per spec. Kept as-is, even if an item is filtered out above.
+// A build is read from the wowsims repo (`path`) or from this repo (`local`, for specs where the
+// sim project ships its presets in pieces and scripts/builds/ holds the assembled request).
 const simSets = [];
-for (const build of spec.simBuilds ?? []) {
-	const json = await readRepoJson(build.path);
-	const gear = json?.player?.equipment?.items;
-	if (!Array.isArray(gear)) {
-		console.warn(`Sim build not read: ${build.path}. Use --repo with a local clone, or run without --db.`);
-		continue;
+const simTemplates = new Map();
+const templateGear = [];
+for (const spec of specs) {
+	for (const [index, build] of (spec.simBuilds ?? []).entries()) {
+		const json = build.local ? JSON.parse(await readFile(join(ROOT, build.local), 'utf8').catch(() => 'null')) : await readRepoJson(build.path);
+		const gear = json?.player?.equipment?.items;
+		if (!Array.isArray(gear)) {
+			console.warn(`Sim build not read: ${build.local ?? build.path}. Use --repo with a local clone, or run without --db.`);
+			continue;
+		}
+		simSets.push({
+			spec: spec.id,
+			id: build.id,
+			label: build.label,
+			title: build.title,
+			url: build.local ? `https://github.com/${REPO}/tree/${BRANCH}/ui/specs` : `https://github.com/${REPO}/blob/${BRANCH}/${build.path}`,
+			gear: gear.map(piece => (piece?.id ? compact({ id: piece.id, enchant: piece.enchant, randomSuffix: piece.randomSuffix }) : null)),
+		});
+		if (index > 0) continue;
+		// The sim's saved settings, reshaped into the request the sim takes. The app swaps in gear, race,
+		// professions and talents.
+		simTemplates.set(spec.id, {
+			raid: { parties: [{ players: [json.player], buffs: json.partyBuffs ?? {} }], numActiveParties: 1, buffs: json.raidBuffs ?? {}, debuffs: json.debuffs ?? {} },
+			encounter: json.encounter,
+			type: 'SimTypeIndividual',
+		});
+		templateGear.push(...(json.player.equipment?.items ?? []), ...(json.player.itemSwap?.items ?? []));
 	}
-	simSets.push({
-		id: build.id,
-		label: build.label,
-		title: build.title,
-		url: `https://github.com/${REPO}/blob/${BRANCH}/${build.path}`,
-		gear: gear.map(piece => (piece?.id ? compact({ id: piece.id, enchant: piece.enchant }) : null)),
-	});
 }
 
 // ---- Simulator files (public/sim/) ----
@@ -328,26 +355,13 @@ const SIM_ITEM_FIELDS = ['id', 'name', 'type', 'armorType', 'weaponType', 'handT
 const SIM_ENCHANT_FIELDS = ['effectId', 'name', 'type', 'stats', 'enchantEffects', 'enchantType', 'extraTypes', 'pseudoStats', 'weaponDamage', 'procKind'];
 const pick = (obj, fields) => Object.fromEntries(fields.filter(f => obj[f] !== undefined).map(f => [f, obj[f]]));
 
-let simTemplate = null;
-const firstBuild = (spec.simBuilds ?? [])[0];
-const buildJson = firstBuild ? await readRepoJson(firstBuild.path) : null;
-if (buildJson?.player) {
-	// The sim's saved settings, reshaped into the request the sim takes. The app swaps in gear, race,
-	// professions and talents.
-	simTemplate = {
-		raid: { parties: [{ players: [buildJson.player], buffs: buildJson.partyBuffs ?? {} }], numActiveParties: 1, buffs: buildJson.raidBuffs ?? {}, debuffs: buildJson.debuffs ?? {} },
-		encounter: buildJson.encounter,
-		type: 'SimTypeIndividual',
-	};
-}
-
 const simItemIds = new Set(items.map(i => i.id));
 for (const set of simSets) for (const piece of set.gear) if (piece) simItemIds.add(piece.id);
-for (const piece of [...(buildJson?.player?.equipment?.items ?? []), ...(buildJson?.player?.itemSwap?.items ?? [])]) if (piece?.id) simItemIds.add(piece.id);
+for (const piece of templateGear) if (piece?.id) simItemIds.add(piece.id);
 const simDb = {
 	items: db.items.filter(i => simItemIds.has(i.id)).map(i => pick(i, SIM_ITEM_FIELDS)),
 	enchants: db.enchants.map(e => pick(e, SIM_ENCHANT_FIELDS)),
-	randomSuffixes: db.randomSuffixes.filter(s => usedSuffixes.has(s.id)),
+	randomSuffixes: db.randomSuffixes.filter(s => usedSuffixes.has(s.id) || templateGear.some(piece => piece?.randomSuffix === s.id)),
 	itemEffectRandPropPoints: db.itemEffectRandPropPoints,
 	consumables: db.consumables,
 	spellEffects: db.spellEffects,
@@ -375,7 +389,7 @@ async function fetchWasm() {
 const count = (list, keyFn) => list.reduce((acc, x) => ((acc[keyFn(x)] = (acc[keyFn(x)] ?? 0) + 1), acc), {});
 const meta = {
 	generatedAt: new Date().toISOString(),
-	spec: spec.id,
+	specs: specs.map(spec => spec.id),
 	source: { repo: `https://github.com/${REPO}`, license: 'MIT', origin, commit },
 	counts: {
 		items: items.length,
@@ -396,8 +410,8 @@ await mkdir(SIM_DIR, { recursive: true });
 const wasmStatus = await fetchWasm();
 // The sim files are fetched by the browser on demand, so they are written compact.
 await writeFile(join(SIM_DIR, 'db.json'), JSON.stringify(simDb));
-if (simTemplate) await writeFile(join(SIM_DIR, 'template.json'), JSON.stringify(simTemplate));
-else console.warn('Sim template not written: the default build could not be read. The existing file stays.');
+for (const [specId, template] of simTemplates) await writeFile(join(SIM_DIR, `template.${specId}.json`), JSON.stringify(template));
+for (const spec of specs) if (!simTemplates.has(spec.id)) console.warn(`Sim template for ${spec.id} not written: its build could not be read. The existing file stays.`);
 const write = (name, data) => writeFile(join(OUT_DIR, name), JSON.stringify(data, null, '\t') + '\n');
 await Promise.all([
 	write('items.json', items),
@@ -405,7 +419,7 @@ await Promise.all([
 	write('zones.json', zones),
 	write('npcs.json', npcs),
 	write('randomSuffixes.json', randomSuffixes),
-	...(simSets.length || !(spec.simBuilds ?? []).length ? [write('simSets.json', simSets)] : []),
+	...(simSets.length ? [write('simSets.json', simSets)] : []),
 	write('meta.json', meta),
 ]);
 

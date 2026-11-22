@@ -18,7 +18,7 @@ export const GEAR_SLOTS: { key: string; label: string; kind: SlotKind }[] = [
 	{ key: 'trinket2', label: 'Trinket 2', kind: 'trinket' },
 	{ key: 'mainHand', label: 'Main hand', kind: 'weapon' },
 	{ key: 'offHand', label: 'Off hand', kind: 'weapon' },
-	{ key: 'ranged', label: 'Totem', kind: 'ranged' },
+	{ key: 'ranged', label: 'Relic or wand', kind: 'ranged' },
 ];
 
 /** The in-game character pane: armor down the left, the rest down the right, weapons along the bottom. */

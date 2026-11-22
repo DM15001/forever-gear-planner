@@ -28,6 +28,11 @@ export const STAT_LABELS: [key: string, short: string, long: string][] = [
 	['armorPenetration', 'Armor pen', 'Armor penetration'],
 	['spellDamage', 'Spell dmg', 'Spell damage'],
 	['natureDamage', 'Nature dmg', 'Nature damage'],
+	['shadowDamage', 'Shadow dmg', 'Shadow damage'],
+	['fireDamage', 'Fire dmg', 'Fire damage'],
+	['frostDamage', 'Frost dmg', 'Frost damage'],
+	['arcaneDamage', 'Arcane dmg', 'Arcane damage'],
+	['holyDamage', 'Holy dmg', 'Holy damage'],
 	['healingPower', 'Healing', 'Healing power'],
 	['spellPiercing', 'Spell pierce', 'Spell piercing'],
 	['mp5', 'MP5', 'Mana per 5 sec'],
@@ -71,6 +76,8 @@ export function gearStats(character: Character, data: GameData): Stats {
 export interface HitSummary {
 	fromGear: number;
 	fromRace: number;
+	/** Hit the build's default talents give. */
+	fromTalents: number;
 	total: number;
 	cap: number;
 	/** Rating still missing to reach the cap; 0 when capped. */
@@ -83,9 +90,10 @@ export function hitSummary(stats: Stats, character: Character, spec: SpecConfig)
 	const perPercent = spec.ratingPerPercent.hitRating;
 	const fromGear = (stats.hitRating ?? 0) / perPercent;
 	const fromRace = (character.race && spec.raceBonuses[character.race]?.hitPercent) || 0;
-	const total = fromGear + fromRace;
+	const fromTalents = spec.hitBonusPercent ?? 0;
+	const total = fromGear + fromRace + fromTalents;
 	const diffRating = Math.round((spec.hitCapPercent - total) * perPercent);
-	return { fromGear, fromRace, total, cap: spec.hitCapPercent, ratingMissing: Math.max(0, diffRating), ratingOver: Math.max(0, -diffRating) };
+	return { fromGear, fromRace, fromTalents, total, cap: spec.hitCapPercent, ratingMissing: Math.max(0, diffRating), ratingOver: Math.max(0, -diffRating) };
 }
 
 /** "+20 Sta, +32 AP, +10 Hit" */

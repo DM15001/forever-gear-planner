@@ -175,6 +175,11 @@
 		"kind": "world"
 	},
 	{
+		"id": 616,
+		"name": "Mount Hyjal",
+		"kind": "world"
+	},
+	{
 		"id": 618,
 		"name": "Winterspring",
 		"kind": "world"

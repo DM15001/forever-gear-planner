@@ -1,6 +1,7 @@
 import type { Gear } from '../scoring';
 import type { Character } from '../types';
-import { buildSimRequest, indexSimDb, readSimResult, type SimIndex, simKey, type SimOutcome } from './request';
+import { specOf } from '../specs';
+import { buildSimRequest, indexSimDb, readSimResult, type SimDb, type SimIndex, simKey, type SimOutcome } from './request';
 
 const SIM_URL = `${import.meta.env.BASE_URL}sim/`;
 
@@ -10,13 +11,20 @@ const SIM_URL = `${import.meta.env.BASE_URL}sim/`;
  */
 export class SimClient {
 	private worker: Worker | null = null;
-	private index: Promise<SimIndex> | null = null;
+	private db: Promise<SimDb> | null = null;
+	/** One request template per spec, loaded when a character of that spec is first simulated. */
+	private indexes = new Map<string, Promise<SimIndex>>();
 	private nextId = 1;
 	private waiting = new Map<number, { resolve: (json: string) => void; reject: (err: Error) => void }>();
 	private cache = new Map<string, Promise<SimOutcome>>();
 
-	private load(): Promise<SimIndex> {
-		if (!this.index) {
+	private load(specId: string): Promise<SimIndex> {
+		const json = async (name: string) => {
+			const response = await fetch(`${SIM_URL}${name}`);
+			if (!response.ok) throw new Error(`Could not load ${name} (HTTP ${response.status}).`);
+			return response.json();
+		};
+		if (!this.worker) {
 			this.worker = new Worker(`${SIM_URL}worker.js`);
 			this.worker.onmessage = ({ data }) => {
 				const entry = this.waiting.get(data.id);
@@ -29,15 +37,18 @@ export class SimClient {
 				for (const entry of this.waiting.values()) entry.reject(new Error(event.message || 'The simulator could not be started.'));
 				this.waiting.clear();
 			};
-			const json = async (name: string) => {
-				const response = await fetch(`${SIM_URL}${name}`);
-				if (!response.ok) throw new Error(`Could not load ${name} (HTTP ${response.status}).`);
-				return response.json();
-			};
-			this.index = Promise.all([json('db.json'), json('template.json')]).then(([db, template]) => indexSimDb(db, template));
-			this.index.catch(() => (this.index = null)); // allow a retry after a failed download
 		}
-		return this.index;
+		if (!this.db) {
+			this.db = json('db.json');
+			this.db.catch(() => (this.db = null)); // allow a retry after a failed download
+		}
+		let index = this.indexes.get(specId);
+		if (!index) {
+			index = Promise.all([this.db, json(`template.${specId}.json`)]).then(([db, template]) => indexSimDb(db, template));
+			this.indexes.set(specId, index);
+			index.catch(() => this.indexes.delete(specId));
+		}
+		return index;
 	}
 
 	/** Simulated DPS of `gear` on this character. */
@@ -45,7 +56,7 @@ export class SimClient {
 		const key = simKey(character, gear, iterations);
 		let outcome = this.cache.get(key);
 		if (!outcome) {
-			outcome = this.load().then(index => {
+			outcome = this.load(specOf(character).id).then(index => {
 				const { request } = buildSimRequest(character, gear, index, iterations);
 				return new Promise<string>((resolve, reject) => {
 					const id = this.nextId++;

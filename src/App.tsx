@@ -12,12 +12,11 @@ import { type GameData, loadGameData } from './lib/gameData';
 import type { ImportResult } from './lib/importCharacter';
 import type { SourceFilter } from './lib/scoring';
 import { activeCharacter, addCharacter, characterLabel, removeActive, replaceActive, type Roster, selectCharacter, sharedCharacter, shareUrl } from './lib/roster';
+import { specOf, specsOfClass } from './lib/specs';
 import { loadFilter, loadRoster, loadTheme, loadWeights, saveFilter, saveRoster, saveTheme, saveWeights } from './lib/storage';
 import { resolveTheme, THEME_CHOICES, type ThemeChoice } from './lib/theme';
 import type { Character, SpecConfig } from './lib/types';
-import specJson from './specs/enhancement-shaman.json';
 
-const defaultSpec = specJson as unknown as SpecConfig;
 
 const TABS = [
 	{ id: 'character', label: 'Character' },
@@ -28,13 +27,6 @@ const TABS = [
 ];
 
 export function App() {
-	// The user's own stat weights replace the spec's defaults everywhere a score is computed.
-	const [customWeights, setCustomWeights] = useState(() => loadWeights(defaultSpec.id));
-	const spec = useMemo(() => (customWeights ? { ...defaultSpec, weights: customWeights } : defaultSpec), [customWeights]);
-	const changeWeights = (weights: SpecConfig['weights'] | null) => {
-		setCustomWeights(weights);
-		saveWeights(defaultSpec.id, weights);
-	};
 	// A character that arrives in a share link is added next to the saved ones, never over them.
 	const [roster, setRoster] = useState<Roster>(() => {
 		const saved = loadRoster();
@@ -46,6 +38,17 @@ export function App() {
 		return next;
 	});
 	const character = activeCharacter(roster);
+	// The spec follows the character. The user's own stat weights replace the spec's defaults
+	// everywhere a score is computed; they are kept per spec.
+	const baseSpec = specOf(character);
+	const [weightsVersion, setWeightsVersion] = useState(0);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	const customWeights = useMemo(() => loadWeights(baseSpec.id), [baseSpec.id, weightsVersion]);
+	const spec = useMemo(() => (customWeights ? { ...baseSpec, weights: customWeights } : baseSpec), [baseSpec, customWeights]);
+	const changeWeights = (weights: SpecConfig['weights'] | null) => {
+		saveWeights(baseSpec.id, weights);
+		setWeightsVersion(version => version + 1);
+	};
 	const changeRoster = (next: Roster) => {
 		setRoster(next);
 		saveRoster(next);
@@ -61,16 +64,25 @@ export function App() {
 	};
 	// The look: Alliance, Horde or the neutral Forever one. By default it follows the character's faction.
 	const [themeChoice, setThemeChoice] = useState<ThemeChoice>(loadTheme);
-	const theme = resolveTheme(themeChoice, character, defaultSpec);
+	const theme = resolveTheme(themeChoice, character, baseSpec);
 	useEffect(() => {
 		document.documentElement.dataset.theme = theme;
 	}, [theme]);
-	const [data, setData] = useState<GameData | null>(null);
+	// The item data is narrowed to the spec, so it is loaded again when the spec changes.
+	const [loaded, setLoaded] = useState<{ specId: string; data: GameData } | null>(null);
 	const [dataError, setDataError] = useState(false);
+	const data = loaded?.specId === baseSpec.id ? loaded.data : null;
 
 	useEffect(() => {
-		loadGameData().then(setData, () => setDataError(true));
-	}, []);
+		let current = true;
+		loadGameData(baseSpec).then(
+			result => current && setLoaded({ specId: baseSpec.id, data: result }),
+			() => current && setDataError(true),
+		);
+		return () => {
+			current = false;
+		};
+	}, [baseSpec]);
 
 	const update = (next: Character) => changeRoster(replaceActive(roster, next));
 
@@ -88,7 +100,7 @@ export function App() {
 					<Emblem theme={theme} />
 					<div>
 						<h1>Forever Gear Planner</h1>
-						<p className="masthead-sub">{spec.name}, pre-raid</p>
+						<p className="masthead-sub">{character ? `${spec.name}, pre-raid` : 'Pre-raid gear for WoW: Forever'}</p>
 					</div>
 				</div>
 				<div className="masthead-side">
@@ -126,13 +138,13 @@ export function App() {
 			<main>
 				{dataError && <p className="notice notice-error">The item data could not be loaded. Reload the page; if that does not help, run "npm run build-data".</p>}
 
-				{(!character || importing) && <ImportPanel spec={spec} hasCharacter={Boolean(character)} onImported={onImported} onCancel={() => setImporting(false)} />}
+				{(!character || importing) && <ImportPanel hasCharacter={Boolean(character)} onImported={onImported} onCancel={() => setImporting(false)} />}
 
 				{character && !importing && (
 					<SimProvider character={character}>
 						{tab === 'plan' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} /> : <p>Loading item data…</p>)}
 
-						{tab === 'upgrades' && (data ? <UpgradesTab spec={spec} defaultWeights={defaultSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
+						{tab === 'upgrades' && (data ? <UpgradesTab spec={spec} defaultWeights={baseSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
 
 						{tab === 'farm' && (data ? <FarmTab spec={spec} character={character} data={data} filter={filter} /> : <p>Loading item data…</p>)}
 
@@ -169,7 +181,8 @@ export function App() {
 										changeRoster(removeActive(roster));
 										setWarnings([]);
 									}}
-									names={roster.characters.map((c, i) => characterLabel(c, i, spec))}
+									names={roster.characters.map((c, i) => characterLabel(c, i, specOf(c)))}
+									builds={specsOfClass(baseSpec.className)}
 									activeIndex={roster.active}
 									onSelect={index => {
 										changeRoster(selectCharacter(roster, index));

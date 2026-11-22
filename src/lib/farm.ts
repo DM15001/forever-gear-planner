@@ -1,6 +1,6 @@
 import { GEAR_SLOTS } from './constants';
 import { runChance } from './loot';
-import { type CandidateOptions, EVERYTHING, filterKey, plannedGear, scoreSet, slotCandidates, usableSources } from './scoring';
+import { type CandidateOptions, EVERYTHING, filterKey, plannedGear, scoreSet, slotCandidates, slotInUse, usableSources } from './scoring';
 import type { Item, ItemSource, Zone } from './types';
 
 export interface FarmDrop {
@@ -49,8 +49,8 @@ export function allUpgrades(options: CandidateOptions): FarmDrop[] {
 	const { character, spec } = options;
 	const planned = new Set(Object.values(character.plan ?? {}));
 	const best = new Map<number, FarmDrop>();
-	GEAR_SLOTS.forEach((slot, slotIndex) => {
-		if (spec.weaponSetup === 'twoHand' && slot.key === 'offHand') return;
+	GEAR_SLOTS.forEach((_slot, slotIndex) => {
+		if (!slotInUse(slotIndex, spec)) return;
 		for (const { item, delta } of slotCandidates(slotIndex, character.gear, options)) {
 			if (delta <= 0) break; // sorted best first
 			const known = best.get(item.id);

@@ -101,4 +101,4 @@ export function readSimResult(json: string | null | undefined, iterations: numbe
 
 /** Identifies a run, so the same gear is never simulated twice. */
 export const simKey = (character: Character, gear: Gear, iterations: number) =>
-	JSON.stringify([character.race, character.talents, character.professions, gear.map(p => (p ? [p.id, p.enchant ?? 0, p.randomSuffix ?? 0] : 0)), iterations]);
+	JSON.stringify([character.specId ?? '', character.race, character.talents, character.professions, gear.map(p => (p ? [p.id, p.enchant ?? 0, p.randomSuffix ?? 0] : 0)), iterations]);

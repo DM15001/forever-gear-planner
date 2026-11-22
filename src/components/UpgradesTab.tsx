@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import { GEAR_SLOTS } from '../lib/constants';
 import type { GameData } from '../lib/gameData';
 import { type Guide, type GuideMark, guideMarks, guidePlan, markLabel, swapDelta } from '../lib/guides';
-import { type Candidate, type Gear, plannedGear, scoreSet, slotCandidates, type SourceFilter, suggestPlan, usableSources } from '../lib/scoring';
+import { type Candidate, type Gear, plannedGear, scoreSet, slotCandidates, slotInUse, type SourceFilter, suggestPlan, usableSources } from '../lib/scoring';
 import { sourceLine, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
 import { ContentPicker } from './ContentPicker';
 import { ItemIcon } from './ItemIcon';
@@ -36,7 +36,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 	const planned = useMemo(() => scoreSet(gear, character, data, spec), [gear, character, data, spec]);
 	const slots = useMemo(() => {
 		const options = { character, data, spec, filter };
-		return GEAR_SLOTS.map((slot, index) => ({ slot, index, candidates: spec.weaponSetup === 'twoHand' && slot.key === 'offHand' ? null : slotCandidates(index, gear, options) }));
+		return GEAR_SLOTS.map((slot, index) => ({ slot, index, candidates: slotInUse(index, spec) ? slotCandidates(index, gear, options) : null }));
 	}, [gear, character, data, spec, filter]);
 
 	const planCount = Object.keys(character.plan ?? {}).length;

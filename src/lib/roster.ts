@@ -76,6 +76,7 @@ export function decodeShare(code: string): Character | null {
 		// Keep only the fields the app knows, so a hand-made link cannot plant anything else in storage.
 		return {
 			name: typeof c.name === 'string' ? c.name.slice(0, 60) : undefined,
+			specId: typeof c.specId === 'string' && /^[a-z-]{1,40}$/.test(c.specId) ? c.specId : undefined,
 			race: c.race,
 			level: typeof c.level === 'number' ? c.level : null,
 			talents: typeof c.talents === 'string' ? c.talents.slice(0, 200) : '',

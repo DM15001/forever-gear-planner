@@ -1,22 +1,20 @@
 import { useState } from 'react';
 
 import { importCharacter, ImportError, type ImportResult } from '../lib/importCharacter';
-import type { SpecConfig } from '../lib/types';
 
 interface Props {
-	spec: SpecConfig;
 	hasCharacter: boolean;
 	onImported: (result: ImportResult) => void;
 	onCancel: () => void;
 }
 
-export function ImportPanel({ spec, hasCharacter, onImported, onCancel }: Props) {
+export function ImportPanel({ hasCharacter, onImported, onCancel }: Props) {
 	const [text, setText] = useState('');
 	const [error, setError] = useState<string | null>(null);
 
 	const submit = () => {
 		try {
-			onImported(importCharacter(text, spec));
+			onImported(importCharacter(text));
 		} catch (err) {
 			setError(err instanceof ImportError ? err.message : 'The export could not be read.');
 		}

@@ -1,4 +1,5 @@
 import { GEAR_SLOTS, PROFESSIONS } from './constants';
+import { SPECS } from './specs';
 import type { Character, GearPiece, SpecConfig } from './types';
 
 export type ExportFormat = 'addon' | 'sim';
@@ -43,14 +44,19 @@ function parseProfessions(names: unknown[], warnings: string[]): string[] {
 	return result.slice(0, 2);
 }
 
+/** The keys under which sim exports carry spec options: "enhancementShaman", "dpsPriest", "warlock" ... */
+const KNOWN_SIM_KEYS = /^([a-z]+(Shaman|Priest|Druid|Warrior|Paladin)|warlock|mage|hunter|rogue)$/;
+
 /**
  * Reads a character from pasted text. Two formats are accepted:
  * - the WoWSims Exporter addon's JSON (`{ class, race, gear: { items } ... }`)
  * - the sim's own JSON: its settings export (`{ player, raidBuffs, encounter ... }`) or a full
  *   request (`{ raid: { parties: [{ players: [player] }] } }`)
+ * The spec is picked from the export's class among the given specs (all known ones by default).
  * Throws ImportError with a message for the user when the text cannot be used.
  */
-export function importCharacter(text: string, spec: SpecConfig): ImportResult {
+export function importCharacter(text: string, specOrSpecs: SpecConfig | SpecConfig[] = SPECS): ImportResult {
+	const specs = Array.isArray(specOrSpecs) ? specOrSpecs : [specOrSpecs];
 	let json: any;
 	try {
 		json = JSON.parse(text.trim());
@@ -78,9 +84,18 @@ export function importCharacter(text: string, spec: SpecConfig): ImportResult {
 
 	const className = normalize(source.class, 'class');
 	if (!className) throw new ImportError('The export does not say which class this is.');
-	if (className !== spec.className) {
-		throw new ImportError(`This character is a ${className}. The planner only supports ${spec.name} so far.`);
+	const sameClass = specs.filter(candidate => candidate.className === className);
+	if (!sameClass.length) {
+		throw new ImportError(`This character is a ${className}. The planner supports ${[...new Set(specs.map(candidate => candidate.name.split(':')[0]))].join(', ')} so far.`);
 	}
+	// A sim export names its spec by the key of its options ("warlock", "dpsPriest", "healingPriest" ...).
+	const simKeys = format === 'sim' ? Object.keys(source).filter(key => KNOWN_SIM_KEYS.test(key)) : [];
+	const matching = simKeys.length ? sameClass.filter(candidate => simKeys.includes(candidate.simKey)) : sameClass;
+	if (!matching.length) {
+		throw new ImportError(`This ${className} export is for a spec the planner does not cover yet (${simKeys.join(', ')}). It covers ${sameClass.map(candidate => candidate.name).join(', ')}.`);
+	}
+	const spec = matching[0];
+	if (matching.length > 1) warnings.push(`Planned as "${spec.name}". Pick another build under Character details if you play a different one.`);
 
 	const wantedRace = normalize(source.race, 'race');
 	const race = spec.races.find(r => normalize(r.id, 'race') === wantedRace)?.id ?? null;
@@ -102,6 +117,7 @@ export function importCharacter(text: string, spec: SpecConfig): ImportResult {
 		warnings,
 		character: {
 			name,
+			specId: spec.id,
 			race,
 			level,
 			talents: String(source.talents ?? source.talentsString ?? ''),

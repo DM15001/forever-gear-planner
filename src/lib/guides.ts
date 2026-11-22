@@ -1,8 +1,10 @@
 import wowheadGuide from '../config/guides/enhancement-shaman.wowhead.json';
 import { GEAR_SLOTS } from './constants';
 import type { GameData } from './gameData';
-import { EVERYTHING, type Gear, isObtainable, scoreSet } from './scoring';
+import { EVERYTHING, type Gear, isObtainable, scoreSet, slotInUse } from './scoring';
 import type { Character, SlotKind, SpecConfig } from './types';
+
+const WOWHEAD_GUIDE_SPEC = 'enhancement-shaman';
 
 export interface GuideEntry {
 	itemId: number;
@@ -30,6 +32,8 @@ export interface Guide {
 }
 
 export interface SimSet {
+	/** The spec this set is for. */
+	spec: string;
 	id: string;
 	label: string;
 	title: string;
@@ -38,7 +42,7 @@ export interface SimSet {
 }
 
 /** Hand-kept guide lists plus the sets the sim maintainers ship. */
-export function buildGuides(simSets: SimSet[]): Guide[] {
+export function buildGuides(simSets: SimSet[], specId: string = WOWHEAD_GUIDE_SPEC): Guide[] {
 	const fromSim: Guide[] = simSets.map(set => ({
 		id: set.id,
 		label: set.label,
@@ -57,7 +61,8 @@ export function buildGuides(simSets: SimSet[]): Guide[] {
 		fixedSet: false,
 		entries: wowheadGuide.items.map(item => ({ itemId: item.id, slot: item.slot as SlotKind, rank: item.rank, source: 'source' in item ? item.source : undefined, name: item.name })),
 	};
-	return [...fromSim, wowhead];
+	// The hand-kept Wowhead list exists for one spec so far.
+	return specId === WOWHEAD_GUIDE_SPEC ? [...fromSim, wowhead] : fromSim;
 }
 
 export interface GuideMark {
@@ -107,7 +112,7 @@ export function guidePlan(guide: Guide, character: Character, data: GameData, sp
 	const nameOf = (entry: GuideEntry) => data.itemById.get(entry.itemId)?.name ?? entry.name ?? `Item #${entry.itemId}`;
 
 	GEAR_SLOTS.forEach((slot, slotIndex) => {
-		if (spec.weaponSetup === 'twoHand' && slot.key === 'offHand') return;
+		if (!slotInUse(slotIndex, spec)) return;
 		const candidates = guide.fixedSet ? guide.entries.filter(e => e.slotIndex === slotIndex) : guide.entries.filter(e => e.slot === slot.kind && !used.has(e.itemId));
 		for (const entry of candidates) {
 			const problem = usable(entry);

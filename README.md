@@ -65,6 +65,14 @@ data changed. How it measures is described at the top of `scripts/build-sim-valu
 - **Wowhead BiS guide**: kept by hand in `src/config/guides/enhancement-shaman.wowhead.json`.
   When the guide changes, update the items there and set `updated` and `checked`.
 
+## Classes and builds
+
+Each file in `src/specs/` is one build the planner knows: the Enhancement Shaman, five Warlock builds, the Shadow Priest and three Mage builds. A build holds what the class can equip, its hit cap and its stat weights. `npm run build-data` reads all of them: the item list is the union of what they can use, and every build gets its own simulator request in `public/sim/template.<id>.json`.
+
+- The Shaman's weights and simulator request come straight from WoWSims.
+- For Warlock and Mage WoWSims ships no stat weights, so they were measured with the simulator (one run per stat, 2026-11-22). The Warlock and Priest requests are the WoWSims preset builds; the Mage requests are put together from the WoWSims preset gear, talents and rotations. All of them sit in `scripts/builds/`.
+- Procs, on-use effects and set bonuses have only been measured for the Enhancement Shaman (`npm run build-sim-values`). For the other builds such items carry the "sim it" badge.
+
 ## Start on Windows
 
 Double-click `start.bat`. It installs the packages on first use, starts the site and opens it in your browser. It needs Node.js 20 or newer.

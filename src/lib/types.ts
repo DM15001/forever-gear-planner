@@ -48,6 +48,8 @@ export interface Item {
 	stats?: Stats;
 	weapon?: { type?: string; hand?: string; speed?: number; dps?: number; damageMin?: number; damageMax?: number };
 	unique?: boolean;
+	/** Class ids that may use the item; unset = every class. */
+	classes?: number[];
 	faction?: Faction;
 	requiredProfession?: string;
 	setId?: number;
@@ -65,6 +67,7 @@ export interface Enchant {
 	name: string;
 	icon?: string;
 	slots: SlotKind[];
+	classes?: number[];
 	quality?: string;
 	/** Restricts a weapon enchant to two-handers, shields, staves or off-hand items. */
 	only?: 'twoHand' | 'shield' | 'kit' | 'staff' | 'offHand';
@@ -82,6 +85,8 @@ export interface GearPiece {
 
 export interface Character {
 	name?: string;
+	/** The spec this character is planned as (src/specs). Unset on characters saved before there was a choice. */
+	specId?: string;
 	/** Race id from the spec config, e.g. "RaceDwarf". null until the user picks one. */
 	race: string | null;
 	level: number | null;
@@ -101,12 +106,23 @@ export interface SpecConfig {
 	name: string;
 	classId: number;
 	className: string;
+	/** The key of this spec's options in a sim export ("enhancementShaman", "warlock" ...). */
+	simKey: string;
 	races: { id: string; name: string; faction: Faction }[];
+	armorTypes: string[];
+	weaponTypes: { oneHand: string[]; twoHand: string[]; offHand: string[] };
+	rangedTypes: string[];
+	canDualWield: boolean;
 	hitCapPercent: number;
+	/** Hit the default talents of this build give on top of gear, in percent. */
+	hitBonusPercent?: number;
 	ratingPerPercent: Record<string, number>;
 	raceBonuses: Record<string, { hitPercent?: number }>;
-	/** 'twoHand': the main hand takes two-handers only and the off hand stays empty. */
-	weaponSetup: 'twoHand' | 'oneHand';
+	/**
+	 * 'twoHand': the main hand takes two-handers only and the off hand stays empty. 'either': a
+	 * two-hander, or a one-hander with something in the off hand.
+	 */
+	weaponSetup: 'twoHand' | 'oneHand' | 'either';
 	/** The class's Tier 0.5 set, which pre-raid lists often show with and without. */
 	tier05Set?: { setId: number; name: string };
 	weights: {

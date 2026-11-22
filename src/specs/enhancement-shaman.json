@@ -3,6 +3,7 @@
 	"name": "Enhancement Shaman",
 	"classId": 7,
 	"className": "shaman",
+	"simKey": "enhancementShaman",
 	"races": [
 		{
 			"id": "RaceDwarf",

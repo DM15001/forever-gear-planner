@@ -5,7 +5,7 @@ import { applicableEnchants } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
 import { gearStats, hitSummary, pieceStats, sourceLine, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
 import type { Character, GearPiece, SpecConfig, Stats } from '../lib/types';
-import { EVERYTHING } from '../lib/scoring';
+import { EVERYTHING, withItem } from '../lib/scoring';
 import { ItemIcon } from './ItemIcon';
 import { ItemPicker } from './ItemPicker';
 
@@ -18,13 +18,15 @@ interface Props {
 	onRemove: () => void;
 	/** The names of all saved characters, to switch between them. */
 	names: string[];
+	/** The builds of this character's class to plan it as. */
+	builds: SpecConfig[];
 	activeIndex: number;
 	onSelect: (index: number) => void;
 	/** A link that opens this character and its plan on another device. */
 	shareLink: string;
 }
 
-export function CharacterSheet({ spec, character, data, onChange, onImportAnother, onRemove, names, activeIndex, onSelect, shareLink }: Props) {
+export function CharacterSheet({ spec, character, data, onChange, onImportAnother, onRemove, names, builds, activeIndex, onSelect, shareLink }: Props) {
 	// 'copied' after the link went to the clipboard, 'shown' when the browser refused and the link is shown to copy by hand.
 	const [shared, setShared] = useState<'idle' | 'copied' | 'shown'>('idle');
 	// The slot whose item is being swapped by hand, if any.
@@ -63,10 +65,14 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 
 	// Swapping an item by hand keeps the enchant when it also fits the new item.
 	const pickItem = (index: number, itemId: number | null) => {
-		const old = character.gear[index];
-		const item = itemId !== null ? data?.itemById.get(itemId) : undefined;
-		const keepEnchant = old?.enchant && item && data && applicableEnchants(index, item, data).some(e => e.effectId === old.enchant);
-		setPiece(index, itemId === null ? null : keepEnchant ? { id: itemId, enchant: old!.enchant } : { id: itemId });
+		if (!data) return;
+		// A two-hander empties the off hand and the other way round; an enchant stays only where it still fits.
+		const gear = withItem(character.gear, index, itemId, data).map((piece, slot) => {
+			if (!piece?.enchant) return piece;
+			const item = data.itemById.get(piece.id);
+			return item && applicableEnchants(slot, item, data).some(e => e.effectId === piece.enchant) ? piece : { id: piece.id };
+		});
+		onChange({ ...character, gear });
 		setPicking(null);
 	};
 
@@ -76,7 +82,7 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 
 			<div className="sheet-center">
 				<div className="panel identity">
-					<h2>{character.name ?? 'Your shaman'}</h2>
+					<h2>{character.name ?? `Your ${spec.className}`}</h2>
 					<p className="identity-line">
 						{race ? `${race.name}, ${race.faction === 'alliance' ? 'Alliance' : 'Horde'}` : 'Race not set'}
 						{character.level ? `, level ${character.level}` : ''}
@@ -110,6 +116,21 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 						Name
 					</label>
 					<input id="character-name" type="text" maxLength={60} placeholder={names[activeIndex]} value={character.name ?? ''} onChange={e => onChange({ ...character, name: e.target.value || undefined })} />
+					{builds.length > 1 && (
+						<>
+							<label className="field-label" htmlFor="build">
+								Build
+							</label>
+							{/* Another build has other stat weights, so the old plan no longer holds. */}
+							<select id="build" value={spec.id} onChange={e => onChange({ ...character, specId: e.target.value, plan: undefined, planEnchants: undefined })}>
+								{builds.map(build => (
+									<option key={build.id} value={build.id}>
+										{build.name}
+									</option>
+								))}
+							</select>
+						</>
+					)}
 					<label className="field-label" htmlFor="race">
 						Race
 					</label>
@@ -173,11 +194,19 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 	);
 }
 
-const STAT_GROUPS: { title: string; keys: string[] }[] = [
-	{ title: 'Attributes', keys: ['strength', 'agility', 'stamina', 'intellect', 'spirit'] },
-	{ title: 'Melee', keys: ['attackPower', 'critRating', 'hasteRating', 'expertiseRating'] },
-	{ title: 'Spell', keys: ['spellDamage', 'natureDamage', 'healingPower'] },
-];
+const MELEE_KEYS = ['attackPower', 'critRating', 'hasteRating', 'expertiseRating'];
+const SCHOOL_KEYS = ['natureDamage', 'shadowDamage', 'fireDamage', 'frostDamage', 'arcaneDamage', 'holyDamage'];
+
+/** The stats worth showing for a spec: a caster has no use for attack power, a shaman none for frost damage. */
+function statGroups(spec: SpecConfig): { title: string; keys: string[] }[] {
+	const weighted = (key: string) => (spec.weights.stats[key] ?? 0) > 0;
+	const melee = weighted('attackPower');
+	return [
+		{ title: 'Attributes', keys: melee ? ['strength', 'agility', 'stamina', 'intellect', 'spirit'] : ['stamina', 'intellect', 'spirit'] },
+		melee ? { title: 'Melee', keys: MELEE_KEYS } : { title: 'Ratings', keys: ['critRating', 'hasteRating'] },
+		{ title: 'Spell', keys: ['spellDamage', ...SCHOOL_KEYS.filter(weighted), ...(melee ? ['healingPower'] : ['spellPiercing'])] },
+	];
+}
 const LONG_LABEL = new Map(STAT_LABELS.map(([key, , long]) => [key, long]));
 
 function StatsPanel({ stats, character, spec }: { stats: Stats; character: Character; spec: SpecConfig }) {
@@ -201,11 +230,12 @@ function StatsPanel({ stats, character, spec }: { stats: Stats; character: Chara
 					<span style={{ width: `${Math.min(100, (hit.total / hit.cap) * 100)}%` }} />
 				</div>
 				<p className="hit-note">
-					{hitNote}. {percent(hit.fromGear)} from gear{hit.fromRace ? `, ${percent(hit.fromRace)} racial` : ''}.
+					{hitNote}. {percent(hit.fromGear)} from gear{hit.fromRace ? `, ${percent(hit.fromRace)} racial` : ''}
+					{hit.fromTalents ? `, ${percent(hit.fromTalents)} from the build's talents` : ''}.
 				</p>
 			</div>
 
-			{STAT_GROUPS.map(group => (
+			{statGroups(spec).map(group => (
 				<dl key={group.title} className="stat-group">
 					<dt className="stat-group-title">{group.title}</dt>
 					{group.keys.map(key => (

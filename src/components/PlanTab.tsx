@@ -5,7 +5,7 @@ import { applicableEnchants } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
 import { guideMarks, markLabel } from '../lib/guides';
 import { buildPlan, fallbacks, gotEnchant, gotItem, type PlanStep, planSteps } from '../lib/plan';
-import { EVERYTHING, isUnmeasured, plannedGear, scoreSet, type SourceFilter, usableSources } from '../lib/scoring';
+import { EMPTY_SLOT, EVERYTHING, isUnmeasured, plannedGear, scoreSet, slotInUse, type SourceFilter, usableSources, withItem } from '../lib/scoring';
 import { sourceLine, wowheadItemUrl } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
 import { ContentPicker } from './ContentPicker';
@@ -43,10 +43,15 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 	// The slot whose planned item is being swapped by hand, if any.
 	const [picking, setPicking] = useState<number | null>(null);
 	const pickItem = (index: number, itemId: number | null) => {
+		// A two-hander empties the off hand and the other way round, so more than one slot can change.
+		const next = withItem(gear, index, itemId, data);
 		const plan = { ...(character.plan ?? {}) };
-		// Picking what is already worn takes the slot out of the plan.
-		if (itemId === null || itemId === character.gear[index]?.id) delete plan[index];
-		else plan[index] = itemId;
+		next.forEach((piece, slot) => {
+			if (piece?.id === gear[slot]?.id) return;
+			// Planning what is already worn takes the slot out of the plan.
+			if (piece?.id === character.gear[slot]?.id) delete plan[slot];
+			else plan[slot] = piece?.id ?? EMPTY_SLOT;
+		});
 		onChange({ ...character, plan });
 		setPicking(null);
 	};
@@ -59,7 +64,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 	const slots = useMemo(
 		() =>
 			GEAR_SLOTS.map((slot, index) => {
-				if (spec.weaponSetup === 'twoHand' && slot.key === 'offHand') return null;
+				if (!slotInUse(index, spec)) return null;
 				const equippedItem = character.gear[index] ? data.itemById.get(character.gear[index]!.id) : undefined;
 				const goalPiece = gear[index];
 				const goalItem = goalPiece ? data.itemById.get(goalPiece.id) : undefined;

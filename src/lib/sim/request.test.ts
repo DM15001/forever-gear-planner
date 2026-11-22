@@ -18,7 +18,7 @@ const data = await loadGameData();
 const imported = importCharacter(JSON.stringify(simExport), spec).character;
 const dwarf: Character = { ...imported, race: 'RaceDwarf', professions: ['Skinning', 'Leatherworking'], gear: imported.gear.map(p => (p ? { id: p.id } : null)) };
 const read = (name: string) => JSON.parse(readFileSync(`public/sim/${name}`, 'utf8'));
-const index = indexSimDb(read('db.json'), read('template.json'));
+const index = indexSimDb(read('db.json'), read('template.enhancement-shaman.json'));
 
 describe('buildSimRequest', () => {
 	const { request, missingItems } = buildSimRequest(dwarf, dwarf.gear, index, 500) as any;

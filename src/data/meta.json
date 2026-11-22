@@ -1,6 +1,17 @@
 {
-	"generatedAt": "2026-11-21T23:57:56.546Z",
-	"spec": "enhancement-shaman",
+	"generatedAt": "2026-11-22T02:13:02.356Z",
+	"specs": [
+		"enhancement-shaman",
+		"mage-arcane",
+		"mage-fire",
+		"mage-frost",
+		"priest-shadow",
+		"warlock-affliction",
+		"warlock-demo-fire",
+		"warlock-demo-shadow",
+		"warlock-destruction",
+		"warlock-sm-ruin"
+	],
 	"source": {
 		"repo": "https://github.com/wowsims/forever",
 		"license": "MIT",
@@ -8,33 +19,33 @@
 		"commit": null
 	},
 	"counts": {
-		"items": 4639,
+		"items": 5114,
 		"itemsBySlot": {
-			"hands": 364,
-			"trinket": 161,
-			"weapon": 925,
-			"finger": 269,
-			"chest": 424,
-			"feet": 392,
-			"neck": 178,
-			"head": 351,
-			"legs": 352,
-			"wrist": 265,
+			"hands": 394,
+			"trinket": 180,
+			"weapon": 1064,
+			"finger": 271,
+			"chest": 454,
+			"feet": 421,
+			"neck": 179,
+			"head": 376,
+			"legs": 381,
+			"wrist": 301,
 			"back": 266,
-			"shoulder": 309,
-			"waist": 372,
-			"ranged": 11
+			"shoulder": 338,
+			"waist": 407,
+			"ranged": 82
 		},
-		"itemsWithoutSource": 1744,
-		"itemsWithEffects": 471,
+		"itemsWithoutSource": 1806,
+		"itemsWithEffects": 564,
 		"enchants": 223,
 		"zones": {
-			"world": 44,
+			"world": 45,
 			"dungeon": 22
 		},
-		"npcs": 419,
+		"npcs": 431,
 		"randomSuffixes": 251,
-		"simSets": 1,
-		"simItems": 4639
+		"simSets": 10,
+		"simItems": 5115
 	}
 }
