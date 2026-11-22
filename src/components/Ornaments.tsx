@@ -2,38 +2,23 @@ import type { Theme } from '../lib/theme';
 
 /**
  * Original ornaments drawn for this site. They follow the look of fantasy game interfaces but
- * copy no existing artwork: no faction crests, no logos, no creatures from the game's own UI.
+ * copy no existing artwork: no faction crests and no logos.
  */
 
-/** A dragon head in profile that closes off one end of the tab bar. It faces left; mirror it for the right end. */
-export function DragonCap({ mirrored = false }: { mirrored?: boolean }) {
+/** A pointed metal end piece that closes off one end of the tab bar. It points left; mirror it for the right end. */
+export function BarCap({ mirrored = false }: { mirrored?: boolean }) {
 	return (
-		<svg className={`dragon-cap${mirrored ? ' dragon-cap-mirrored' : ''}`} viewBox="0 0 100 64" aria-hidden="true">
+		<svg className={`bar-cap${mirrored ? ' bar-cap-mirrored' : ''}`} viewBox="0 0 44 56" aria-hidden="true">
 			<defs>
-				<linearGradient id="dragon-metal" x1="0" y1="0" x2="0" y2="1">
+				<linearGradient id="cap-metal" x1="0" y1="0" x2="0" y2="1">
 					<stop offset="0" stopColor="var(--metal-light)" />
 					<stop offset="0.45" stopColor="var(--brass)" />
 					<stop offset="1" stopColor="var(--brass-deep)" />
 				</linearGradient>
 			</defs>
-			{/* horns sweeping back, and the fins behind the jaw */}
-			<path className="dragon-back" d="M56 15 L97 1 L82 13 L99 12 L74 27 Z" />
-			<path className="dragon-back" d="M70 29 L98 25 L84 33 L96 38 L72 40 Z" />
-			<path className="dragon-back" d="M68 43 L90 46 L78 50 L86 59 L62 54 Z" />
-			{/* lower jaw */}
-			<path className="dragon-head" d="M13 43 L31 43 L50 44 L61 41 L70 45 L63 55 L45 56 L27 51 Z" />
-			{/* skull and upper jaw */}
-			<path className="dragon-head" d="M2 35 L7 28 L21 26 L33 17 L46 11 L61 13 L75 28 L71 45 L60 40 L50 38 L10 38 Z" />
-			{/* facets that give the skull its planes */}
-			<path className="dragon-shade" d="M21 26 L50 38 L10 38 L7 30 Z" />
-			<path className="dragon-shade" d="M61 13 L75 28 L71 45 L60 40 L62 26 Z" />
-			{/* teeth */}
-			<path className="dragon-teeth" d="M11 38 L14 45 L17 38 Z M21 38 L24 44 L27 38 Z M31 38 L33.5 43 L36 38 Z M41 38 L43 42 L45 38 Z M18 43 L21 38.5 L24 43 Z M28 43 L30.5 39 L33 43 Z M37 43.3 L39 40 L41 43.5 Z" />
-			{/* brow, eye and nostril */}
-			<path className="dragon-brow" d="M33 17 L46 17 L57 22 L46 20 L36 21 Z" />
-			<path className="dragon-eye" d="M39 22 L50 21 L54 26 L43 27 Z" />
-			<path className="dragon-dark" d="M46 21.6 L48.5 21.4 L48 26.4 L45.8 26.6 Z" />
-			<path className="dragon-dark" d="M7 31 L11 30 L10 33 Z" />
+			<path className="cap-plate" d="M44 5 H24 L3 28 L24 51 H44 Z" />
+			<path className="cap-field" d="M44 11 H27 L11.5 28 L27 45 H44 Z" />
+			<path className="cap-plate" d="M29 19 L37 28 L29 37 L21 28 Z" />
 		</svg>
 	);
 }

@@ -1,20 +1,20 @@
-/* Three looks share one set of tokens. Forever is the neutral storm-and-brass one; Alliance and Horde restate the same tokens.
+/* Three looks share one set of tokens. Forever is the neutral one: black stone, bronze frames and the game's yellow lettering, like an old fan forum; Alliance and Horde restate the same tokens.
    Item names keep the game's quality colours in every look. */
 :root {
-	--storm: #0d1218;
-	--storm-glow: #1a2634;
-	--well: #0a0f15;
-	--slate: #121a24;
-	--slate-raised: #1c2836;
-	--ridge: #3a4856;
-	--hairline: #1c2733;
-	--mist: #dbe2e9;
-	--haze: #93a4b5;
-	--brass: #f2c14e;
-	--brass-deep: #8a6d2f;
-	--on-brass: #1c1608;
-	--metal-light: #fff0b8;
-	--ember: #f08a6c;
+	--storm: #0a0908;
+	--storm-glow: #2b2013;
+	--well: #050403;
+	--slate: #16120e;
+	--slate-raised: #231c14;
+	--ridge: #4b3e2b;
+	--hairline: #2a2219;
+	--mist: #ebe4d6;
+	--haze: #a79b84;
+	--brass: #ffd100;
+	--brass-deep: #8f6d1c;
+	--on-brass: #1a1203;
+	--metal-light: #fff4b3;
+	--ember: #ff9a5c;
 	--banner: linear-gradient(90deg, transparent, var(--brass-deep) 20%, var(--brass) 50%, var(--brass-deep) 80%, transparent);
 
 	--q-uncommon: #1eff00;
@@ -1128,8 +1128,8 @@ h3 {
 }
 
 /* ------------------------------------------------------------------------------------------
-   Skin: engraved lettering, metal frames with corner pieces, worked stone, a tab bar closed
-   off by dragon heads. All ornaments are drawn for this site (src/components/Ornaments.tsx).
+   Skin: engraved lettering, metal frames with corner pieces, worked stone, a tab bar with
+   pointed end pieces. All ornaments are drawn for this site (src/components/Ornaments.tsx).
    ------------------------------------------------------------------------------------------ */
 body {
 	background:
@@ -1216,57 +1216,33 @@ h2::after {
 	stroke-width: 0.8;
 }
 
-/* The tab bar: a strip of dark metal between two dragon heads */
+/* The tab bar: a strip of dark metal between two pointed end pieces */
 .tab-bar {
 	display: flex;
 	align-items: center;
 }
-.dragon-cap {
+.bar-cap {
 	flex: none;
-	width: 5rem;
-	height: 3.2rem;
-	margin-right: -0.5rem;
-	position: relative;
-	z-index: 1;
+	width: 2.2rem;
+	height: 2.8rem;
+	margin-right: -1px;
 	filter: drop-shadow(0 2px 2px rgb(0 0 0 / 0.7));
 }
-.dragon-cap-mirrored {
+.bar-cap-mirrored {
 	transform: scaleX(-1);
 	margin-right: 0;
-	margin-left: -0.5rem;
+	margin-left: -1px;
 }
-.dragon-head,
-.dragon-back {
-	fill: url(#dragon-metal);
+.cap-plate {
+	fill: url(#cap-metal);
 	stroke: #000;
 	stroke-width: 1.2;
 	stroke-linejoin: round;
 }
-.dragon-back {
-	fill: var(--brass-deep);
-}
-.dragon-shade {
-	fill: rgb(0 0 0 / 0.22);
-}
-.dragon-brow {
-	fill: var(--brass-deep);
+.cap-field {
+	fill: var(--well);
 	stroke: #000;
-	stroke-width: 0.8;
-	stroke-linejoin: round;
-}
-.dragon-teeth {
-	fill: #f4ead0;
-	stroke: #000;
-	stroke-width: 0.6;
-	stroke-linejoin: round;
-}
-.dragon-eye {
-	fill: var(--ember);
-	stroke: #000;
-	stroke-width: 0.9;
-}
-.dragon-dark {
-	fill: #000;
+	stroke-width: 1;
 }
 .tabs {
 	gap: 0;
@@ -1438,7 +1414,7 @@ textarea {
 }
 
 @media (max-width: 720px) {
-	.dragon-cap {
+	.bar-cap {
 		display: none;
 	}
 	.emblem {

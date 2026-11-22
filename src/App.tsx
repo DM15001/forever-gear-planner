@@ -4,7 +4,7 @@ import { CharacterSheet } from './components/CharacterSheet';
 import { EnchantsTab } from './components/EnchantsTab';
 import { FarmTab } from './components/FarmTab';
 import { ImportPanel } from './components/ImportPanel';
-import { DragonCap, Emblem } from './components/Ornaments';
+import { BarCap, Emblem } from './components/Ornaments';
 import { PlanTab } from './components/PlanTab';
 import { SimProvider } from './components/Sim';
 import { UpgradesTab } from './components/UpgradesTab';
@@ -110,7 +110,7 @@ export function App() {
 						</select>
 					</label>
 					<div className="tab-bar">
-						<DragonCap />
+						<BarCap />
 						<nav className="tabs" aria-label="Sections">
 							{TABS.map(t => (
 								<button key={t.id} className="tab" aria-current={t.id === tab ? 'page' : undefined} onClick={() => setTab(t.id)}>
@@ -118,7 +118,7 @@ export function App() {
 								</button>
 							))}
 						</nav>
-						<DragonCap mirrored />
+						<BarCap mirrored />
 					</div>
 				</div>
 			</header>
