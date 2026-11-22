@@ -5,7 +5,7 @@ import { useState } from 'react';
  * first; Wowhead's has a few icons Blizzard's lacks. Checked on 2026-11-22 against all 1,112
  * icon names in the item data: 19 missing at Blizzard, 11 at Wowhead.
  */
-const SOURCES = [(name: string) => `https://render.worldofwarcraft.com/eu/icons/56/${name}.jpg`, (name: string) => `https://wow.zamimg.com/images/wow/icons/large/${name}.jpg`];
+export const ICON_SOURCES = [(name: string) => `https://render.worldofwarcraft.com/eu/icons/56/${name}.jpg`, (name: string) => `https://wow.zamimg.com/images/wow/icons/large/${name}.jpg`];
 
 interface Props {
 	icon: string | undefined;
@@ -20,7 +20,7 @@ export function ItemIcon({ icon, quality, small = false }: Props) {
 	const index = attempt.icon === icon ? attempt.index : 0;
 	return (
 		<span className={`slot-icon${small ? ' slot-icon-small' : ''} quality-border-${quality ?? 'none'}`} aria-hidden="true">
-			{icon && index < SOURCES.length && <img src={SOURCES[index](icon)} alt="" loading="lazy" onError={() => setAttempt({ icon, index: index + 1 })} />}
+			{icon && index < ICON_SOURCES.length && <img src={ICON_SOURCES[index](icon)} alt="" loading="lazy" onError={() => setAttempt({ icon, index: index + 1 })} />}
 		</span>
 	);
 }

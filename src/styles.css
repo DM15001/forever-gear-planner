@@ -1686,3 +1686,20 @@ textarea {
 .boss h4 .source-symbol {
 	margin-right: 0.25rem;
 }
+.source-icon {
+	display: inline-block;
+	width: 1.5em;
+	height: 1.5em;
+	vertical-align: -0.4em;
+	margin-right: 0.15rem;
+	border: 1px solid var(--brass-deep);
+	border-radius: 3px;
+	background: var(--well);
+	overflow: hidden;
+	flex: none;
+}
+.source-icon img {
+	display: block;
+	width: 100%;
+	height: 100%;
+}

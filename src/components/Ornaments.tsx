@@ -1,3 +1,6 @@
+import { useState } from 'react';
+
+import { ICON_SOURCES } from './ItemIcon';
 
 /**
  * Original ornaments drawn for this site. They follow the look of fantasy game interfaces but
@@ -64,7 +67,30 @@ const SOURCE_SYMBOLS: Record<string, string> = {
 	unknown: 'M8.5 9 a3.5 3.5 0 1 1 5.5 2.9 c-1.2 0.9 -2 1.6 -2 3.1 M12 18.5 a1.2 1.2 0 1 0 0.01 0',
 };
 
+/** The game's own icon for each way to get an item, by icon name. */
+const SOURCE_ICONS: Record<string, string> = {
+	dungeon: 'inv_misc_key_03',
+	boss: 'inv_misc_bone_humanskull_01',
+	quest: 'inv_misc_note_01',
+	crafted: 'trade_blacksmithing',
+	vendor: 'inv_misc_coin_01',
+	rep: 'inv_misc_token_argentdawn',
+	world: 'inv_misc_map_01',
+	pvp: 'inv_bannerpvp_01',
+	unknown: 'inv_misc_questionmark',
+};
+
+/** A small game icon for a source. If no image loads, the drawn symbol takes its place. */
 export function SourceSymbol({ kind }: { kind: string }) {
+	const icon = SOURCE_ICONS[kind] ?? SOURCE_ICONS.unknown;
+	const [index, setIndex] = useState(0);
+	if (index < ICON_SOURCES.length) {
+		return (
+			<span className="source-icon" aria-hidden="true">
+				<img src={ICON_SOURCES[index](icon)} alt="" loading="lazy" onError={() => setIndex(index + 1)} />
+			</span>
+		);
+	}
 	return (
 		<svg className="source-symbol" viewBox="0 0 24 24" aria-hidden="true">
 			<path d={SOURCE_SYMBOLS[kind] ?? SOURCE_SYMBOLS.unknown} />
