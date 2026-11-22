@@ -222,7 +222,11 @@ function ShoppingRow({ entry, data, inDungeon, onGot, guideSource }: { entry: Pl
 					</span>
 				)}
 			</span>
-			<button className="button button-small shopping-got" onClick={onGot} title="Moves the item to your equipped gear and takes it off the plan.">
+			<button className="shopping-got" onClick={onGot} title="Moves the item to your equipped gear and takes it off the plan.">
+				<svg viewBox="0 0 16 16" aria-hidden="true">
+					<circle cx="8" cy="8" r="6.5" />
+					<path d="M5 8.2l2.1 2.1L11 6.2" />
+				</svg>
 				Got it
 			</button>
 		</li>
