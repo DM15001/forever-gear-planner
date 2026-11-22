@@ -1654,3 +1654,35 @@ textarea {
 	margin: 0;
 	overflow-wrap: anywhere;
 }
+
+/* Farm plan symbols */
+.source-symbol {
+	width: 1.15em;
+	height: 1.15em;
+	vertical-align: -0.2em;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.7;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	flex: none;
+}
+.shopping-row {
+	align-items: center;
+}
+.shopping-row .slot-icon,
+.boss-drop .slot-icon {
+	flex: none;
+}
+.shopping-row .shopping-main {
+	flex: 1;
+	min-width: 0;
+}
+.boss-drop {
+	grid-template-columns: 2.75rem auto minmax(0, 1fr);
+	align-items: center;
+}
+.shopping-dungeon h4 .source-symbol,
+.boss h4 .source-symbol {
+	margin-right: 0.25rem;
+}

@@ -8,6 +8,8 @@ import { effortLine, LOOT_DATE } from '../lib/loot';
 import type { SourceFilter } from '../lib/scoring';
 import { sourceLine, wowheadItemUrl } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
+import { ItemIcon } from './ItemIcon';
+import { SourceSymbol } from './Ornaments';
 
 interface Props {
 	spec: SpecConfig;
@@ -60,12 +62,17 @@ export function FarmTab({ spec, character, data, filter }: Props) {
 					<div className="shopping">
 						{PLAN_GROUP_ORDER.filter(kind => shopping.has(kind)).map(kind => (
 							<div key={kind} className="shopping-group">
-								<h3>{GROUP_TITLES[kind]}</h3>
+								<h3>
+									<SourceSymbol kind={kind} /> {GROUP_TITLES[kind]}
+								</h3>
 								{kind === 'dungeon' ? (
 									byDungeon(shopping.get(kind)!, zoneId => data.zoneById.get(zoneId)?.name).map(group => (
 										<div key={group.key} className="shopping-dungeon">
 											<h4>
-												{group.name} <span className="num">{group.entries.length}</span>
+												<span>
+													<SourceSymbol kind="dungeon" /> {group.name}
+												</span>
+												<span className="num">{group.entries.length}</span>
 											</h4>
 											<ul className="plain-list">
 												{group.entries.map(entry => (
@@ -128,6 +135,7 @@ function ItemLink({ item }: { item: Item }) {
 function ShoppingRow({ entry, data, guideSource }: { entry: PlanEntry; data: GameData; guideSource?: { source?: string; guide: { label: string } } }) {
 	return (
 		<li className="shopping-row">
+			<ItemIcon icon={entry.item.icon} quality={entry.item.quality} small />
 			<span className="shopping-main">
 				<ItemLink item={entry.item} />
 				<span className="slot-source">
@@ -145,7 +153,9 @@ function DungeonCard({ dungeon, open, onToggle }: { dungeon: FarmDungeon; open: 
 	return (
 		<li className="dungeon">
 			<button className="dungeon-head" aria-expanded={open} onClick={onToggle}>
-				<span className="dungeon-name">{dungeon.name}</span>
+				<span className="dungeon-name">
+					<SourceSymbol kind="dungeon" /> {dungeon.name}
+				</span>
 				<span className="dungeon-meta">
 					{dungeon.upgradeCount} upgrade{dungeon.upgradeCount === 1 ? '' : 's'}
 					{dungeon.plannedCount > 0 && <span className="dungeon-planned">, {dungeon.plannedCount} from your plan</span>}
@@ -164,7 +174,7 @@ function DungeonCard({ dungeon, open, onToggle }: { dungeon: FarmDungeon; open: 
 					{dungeon.bosses.map(boss => (
 						<div key={boss.name} className="boss">
 							<h4>
-								{boss.name}
+								<SourceSymbol kind="boss" /> {boss.name}
 								{boss.spawnChance !== undefined && (
 									<span className="boss-spawn">
 										{boss.spawnNote ?? 'Not always there'}, about 1 in {Math.round(1 / boss.spawnChance)} runs{boss.spawnBasis === 'estimate' ? ' (estimate)' : boss.spawnBasis === 'kills' ? ' (from kill counts)' : ''}
@@ -175,6 +185,7 @@ function DungeonCard({ dungeon, open, onToggle }: { dungeon: FarmDungeon; open: 
 								{boss.drops.slice(0, BOSS_DROPS_SHOWN).map(drop => (
 									<li key={drop.item.id} className="boss-drop">
 										<span className="num delta-up">{formatDelta(drop.delta)}</span>
+										<ItemIcon icon={drop.item.icon} quality={drop.item.quality} small />
 										<span>
 											<ItemLink item={drop.item} />
 											<span className="slot-source"> {GEAR_SLOTS[drop.slotIndex].label}</span>

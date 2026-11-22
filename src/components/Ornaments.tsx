@@ -41,3 +41,33 @@ export function Emblem() {
 		</svg>
 	);
 }
+
+/** Small line symbols for the ways to get an item, drawn for this project. */
+const SOURCE_SYMBOLS: Record<string, string> = {
+	// an arched gate
+	dungeon: 'M5 21 V11 a7 7 0 0 1 14 0 V21 M5 21 H19 M9.5 21 V13 a2.5 2.5 0 0 1 5 0 V21',
+	// an exclamation mark
+	quest: 'M12 3 L13.5 14 H10.5 Z M12 18 a1.6 1.6 0 1 0 0.01 0',
+	// a hammer
+	crafted: 'M4 8 L9 3 L14 8 L12 10 L10.5 8.5 L9.5 9.5 L20 20 L18 22 L7.5 11.5 L6.5 12.5 Z',
+	// a coin
+	vendor: 'M12 4 a8 8 0 1 0 0.01 0 M12 8 V16 M9.5 10 h4 a1.5 1.5 0 0 1 0 3 h-3 a1.5 1.5 0 0 0 0 3 h4',
+	// a banner on a pole
+	rep: 'M6 3 V21 M6 4 H18 L15 8.5 L18 13 H6',
+	// a globe
+	world: 'M12 3 a9 9 0 1 0 0.01 0 M3 12 H21 M12 3 c-4 4 -4 14 0 18 M12 3 c4 4 4 14 0 18',
+	// two crossed swords
+	pvp: 'M4 4 L15 15 M15 15 L13 17 M15 15 L17 13 M16.5 16.5 L20 20 M20 4 L9 15 M9 15 L11 17 M9 15 L7 13 M7.5 16.5 L4 20',
+	// a skull, for a boss
+	boss: 'M6 11 a6 6 0 1 1 12 0 v3 l-2 1.5 V18 H8 v-2.5 L6 14 Z M9.5 11.5 a1 1 0 1 0 0.01 0 M14.5 11.5 a1 1 0 1 0 0.01 0 M11 18 v2 M13 18 v2',
+	// a question mark
+	unknown: 'M8.5 9 a3.5 3.5 0 1 1 5.5 2.9 c-1.2 0.9 -2 1.6 -2 3.1 M12 18.5 a1.2 1.2 0 1 0 0.01 0',
+};
+
+export function SourceSymbol({ kind }: { kind: string }) {
+	return (
+		<svg className="source-symbol" viewBox="0 0 24 24" aria-hidden="true">
+			<path d={SOURCE_SYMBOLS[kind] ?? SOURCE_SYMBOLS.unknown} />
+		</svg>
+	);
+}
