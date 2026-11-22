@@ -3,7 +3,9 @@ import { useMemo, useState } from 'react';
 import { GEAR_SLOTS } from '../lib/constants';
 import type { GameData } from '../lib/gameData';
 import { type Guide, type GuideMark, guideMarks, guidePlan, markLabel, swapDelta } from '../lib/guides';
-import { type Candidate, type Gear, plannedGear, scoreSet, slotCandidates, slotInUse, type SourceFilter, suggestPlan, usableSources } from '../lib/scoring';
+import { type Candidate, type Gear, plannedGear, scoreSet, slotCandidates, slotInUse, type SourceFilter, suggestPlan, usableSources, withItem } from '../lib/scoring';
+import { simClient } from '../lib/sim/client';
+import { measureWeights, weightRuns } from '../lib/sim/live';
 import { pieceStats, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
 import { ContentPicker } from './ContentPicker';
 import { ItemIcon } from './ItemIcon';
@@ -30,6 +32,21 @@ const LONG_LIST = 25;
 export function UpgradesTab({ spec, character, data, onChange, filter, onFilterChange: setFilter, defaultWeights, onWeightsChange }: Props) {
 	const [expanded, setExpanded] = useState<Set<number>>(new Set());
 	const [guideNotice, setGuideNotice] = useState<{ title: string; skipped: string[] } | null>(null);
+	// Measuring the stat weights for this character with the simulator.
+	const [measuring, setMeasuring] = useState<string | null>(null);
+	const [measureError, setMeasureError] = useState<string | null>(null);
+	const measure = async () => {
+		setMeasuring('Starting the simulator…');
+		setMeasureError(null);
+		try {
+			const measured = await measureWeights(character, { ...spec, weights: defaultWeights }, simClient, (done, total) => setMeasuring(`Run ${done} of ${total}…`));
+			onWeightsChange(measured);
+		} catch (err) {
+			setMeasureError(err instanceof Error ? err.message : 'The simulator failed.');
+		} finally {
+			setMeasuring(null);
+		}
+	};
 	const marks = useMemo(() => guideMarks(data.guides), [data]);
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
 
@@ -127,7 +144,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				<ContentPicker spec={spec} character={character} data={data} filter={filter} onChange={setFilter} />
 			</details>
 
-			<WeightsEditor weights={spec.weights} defaults={defaultWeights} onChange={onWeightsChange} />
+			<WeightsEditor weights={spec.weights} defaults={defaultWeights} onChange={onWeightsChange} runs={weightRuns({ ...spec, weights: defaultWeights })} measuring={measuring} measureError={measureError} onMeasure={import.meta.env.VITE_NO_SIM ? undefined : measure} />
 
 			{slots.map(({ slot, index, candidates }) => {
 				if (!candidates) return null;
@@ -172,7 +189,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						{upgrades > 0 && (
 							<ul className="candidates">
 								{candidates.slice(0, limit).map(candidate => (
-									<CandidateRow key={candidate.item.id} candidate={candidate} marks={marks.get(candidate.item.id)} base={gear} variant={gear.map((piece, i) => (i === index ? (piece?.enchant ? { id: candidate.item.id, enchant: piece.enchant } : { id: candidate.item.id }) : piece))} data={data} faction={faction} filter={filter} onPlan={() => planItem(index, candidate.item.id)} />
+									<CandidateRow key={candidate.item.id} candidate={candidate} marks={marks.get(candidate.item.id)} base={gear} variant={withItem(gear, index, candidate.item.id, data)} data={data} faction={faction} filter={filter} onPlan={() => planItem(index, candidate.item.id)} onHide={() => setFilter({ ...filter, hiddenItems: [...filter.hiddenItems, candidate.item.id] })} />
 								))}
 							</ul>
 						)}
@@ -212,9 +229,10 @@ interface RowProps {
 	faction: 'alliance' | 'horde' | undefined;
 	filter: SourceFilter;
 	onPlan: () => void;
+	onHide: () => void;
 }
 
-function CandidateRow({ candidate, marks, base, variant, data, faction, filter, onPlan }: RowProps) {
+function CandidateRow({ candidate, marks, base, variant, data, faction, filter, onPlan, onHide }: RowProps) {
 	const { item, delta, incomplete } = candidate;
 	const sources = usableSources(item, faction, filter);
 	const stats = statLine(pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data));
@@ -249,6 +267,9 @@ function CandidateRow({ candidate, marks, base, variant, data, faction, filter, 
 				<SimDelta base={base} variant={variant} />
 				<button className="button button-small" onClick={onPlan}>
 					Plan this
+				</button>
+				<button className="link hide-item" onClick={onHide} title="Leave this item out of every list, for example because it is not in the game yet. Bring it back under Content.">
+					Hide
 				</button>
 			</span>
 		</li>
@@ -324,7 +345,23 @@ type Weights = SpecConfig['weights'];
 const LONG_LABEL = new Map(STAT_LABELS.map(([key, , long]) => [key, long]));
 
 /** Lets the user change the stat weights behind the score. Collapsed by default. */
-function WeightsEditor({ weights, defaults, onChange }: { weights: Weights; defaults: Weights; onChange: (weights: Weights | null) => void }) {
+function WeightsEditor({
+	weights,
+	defaults,
+	onChange,
+	runs,
+	measuring,
+	measureError,
+	onMeasure,
+}: {
+	weights: Weights;
+	defaults: Weights;
+	onChange: (weights: Weights | null) => void;
+	runs: number;
+	measuring: string | null;
+	measureError: string | null;
+	onMeasure?: () => void;
+}) {
 	const changed = JSON.stringify(weights) !== JSON.stringify(defaults);
 	const field = (id: string, label: string, value: number, apply: (value: number) => Weights) => (
 		<label key={id} className="weight">
@@ -345,7 +382,7 @@ function WeightsEditor({ weights, defaults, onChange }: { weights: Weights; defa
 		<details className="weights">
 			<summary>Stat weights{changed ? ' (changed)' : ''}</summary>
 			<p className="hint">
-				How much one point of each stat is worth, in attack power. The defaults are the WoWSims weights for this spec. Changing them changes every score on the site; the simulated DPS numbers
+				How much one point of each stat is worth. The defaults are the weights of the build (see "source" in its file). Changing them changes every score on the site; the simulated DPS numbers
 				are not affected.
 			</p>
 			<div className="weights-grid">
@@ -353,8 +390,24 @@ function WeightsEditor({ weights, defaults, onChange }: { weights: Weights; defa
 				{Object.keys(defaults.stats).map(key => field(key, LONG_LABEL.get(key) ?? key, weights.stats[key] ?? 0, v => ({ ...weights, stats: { ...weights.stats, [key]: v } })))}
 				{field('hitRatingOverCap', 'Hit rating past the cap', weights.hitRatingOverCap, v => ({ ...weights, hitRatingOverCap: v }))}
 			</div>
+			{onMeasure && (
+				<div className="measure">
+					<button className="button button-primary" onClick={onMeasure} disabled={measuring !== null}>
+						{measuring ?? 'Measure for my character'}
+					</button>
+					<p className="hint">
+						Runs the simulator {runs} times on your equipped gear, once per stat, and replaces the weights with what comes out for you: your gear, talents, consumables and buffs. It takes from
+						half a minute to a few minutes, and the scores on every tab follow.
+					</p>
+					{measureError && (
+						<p className="field-error" role="alert">
+							{measureError}
+						</p>
+					)}
+				</div>
+			)}
 			<button className="button" onClick={() => onChange(null)} disabled={!changed}>
-				Reset to the WoWSims weights
+				Reset to the build's own weights
 			</button>
 		</details>
 	);

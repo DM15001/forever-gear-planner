@@ -32,7 +32,7 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 		<div className="content-picker">
 			<div className="presets" role="group" aria-label="Presets">
 				{options.map(preset => (
-					<button key={preset.id} className="button button-small" aria-pressed={sameFilter(filter, preset.filter)} title={preset.hint} onClick={() => onChange(preset.filter)}>
+					<button key={preset.id} className="button button-small" aria-pressed={sameFilter({ ...filter, hiddenItems: [], randomSuffix: false, notYetAvailable: false }, preset.filter)} title={preset.hint} onClick={() => onChange({ ...preset.filter, hiddenItems: filter.hiddenItems, randomSuffix: filter.randomSuffix, notYetAvailable: filter.notYetAvailable })}>
 						{preset.label}
 					</button>
 				))}
@@ -72,6 +72,16 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				{check('Items with no known source', filter.unknown, on => set({ unknown: on }))}
 			</fieldset>
 			{!faction && <p className="field-error">Pick a race on the Character tab to hide the other faction's items.</p>}
+			{filter.hiddenItems.length > 0 && (
+				<fieldset className="content-group hidden-items">
+					<legend>Items you have hidden</legend>
+					{filter.hiddenItems.map(id => (
+						<button key={id} className="button button-small" title="Show this item again" onClick={() => set({ hiddenItems: filter.hiddenItems.filter(hidden => hidden !== id) })}>
+							{data.itemById.get(id)?.name ?? `Item ${id}`} ×
+						</button>
+					))}
+				</fieldset>
+			)}
 		</div>
 	);
 }

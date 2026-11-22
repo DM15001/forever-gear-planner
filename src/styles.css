@@ -1890,3 +1890,25 @@ a.enchant-name {
 		gap: 1.5rem;
 	}
 }
+
+.measure {
+	margin: 1rem 0;
+}
+.measure .hint {
+	margin-top: 0.4rem;
+}
+.refine-note {
+	color: var(--mist);
+	border-left: 3px solid var(--brass);
+	padding-left: 0.75rem;
+}
+
+.hide-item {
+	font-size: 0.8125rem;
+	color: var(--haze);
+}
+.hidden-items {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+}

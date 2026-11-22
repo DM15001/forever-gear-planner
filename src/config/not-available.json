@@ -1,5 +1,8 @@
 {
-	"_comment": "Items the WoWSims database lists as released (it marks every item phase 1) but that cannot be had in WoW Forever yet. Kept by hand; checked 2026-11-22. `npcs`: every drop of these creatures. `items`: single items, with the reason.",
+	"_comment": "Items the WoWSims database lists as released (it marks every item phase 1) but that cannot be had in WoW Forever yet. Kept by hand; checked 2026-11-22. `zones`: every drop in these zones. `npcs`: every drop of these creatures. `items`: single items, with the reason.",
+	"zones": {
+		"1377": "Silithus: its bosses and rares are not reachable yet (reported by players)"
+	},
 	"npcs": {
 		"15203": "Prince Skaldrenox, Abyssal Council (Silithus wind stones)",
 		"15204": "High Marshal Whirlaxis, Abyssal Council (Silithus wind stones)",
@@ -17,6 +20,7 @@
 	"items": {
 		"15138": "Onyxia Scale Cloak: needs scales from Onyxia, a raid boss",
 		"15141": "Onyxia Scale Breastplate: needs scales from Onyxia, a raid boss",
-		"18348": "Quel'Serrar: the quest ends with Onyxia, a raid boss"
+		"18348": "Quel'Serrar: the quest ends with Onyxia, a raid boss",
+		"279256": "Tranquil Wristguards: nobody has found the pattern (reported by players; the wiki lists its source as unknown)"
 	}
 }

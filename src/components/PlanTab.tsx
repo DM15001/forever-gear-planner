@@ -6,6 +6,8 @@ import type { GameData } from '../lib/gameData';
 import { guideMarks, markLabel } from '../lib/guides';
 import { buildPlan, fallbacks, gotEnchant, gotItem, type PlanStep, planSteps } from '../lib/plan';
 import { EMPTY_SLOT, EVERYTHING, isUnmeasured, plannedGear, scoreSet, slotInUse, type SourceFilter, usableSources, withItem } from '../lib/scoring';
+import { simClient } from '../lib/sim/client';
+import { REFINE_DEPTH, refinePlan } from '../lib/sim/live';
 import { wowheadItemUrl } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
 import { ContentPicker } from './ContentPicker';
@@ -42,6 +44,33 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 	});
 
 	const gear = useMemo(() => plannedGear(character, data), [character, data]);
+	// Checking the plan with the simulator, slot by slot.
+	const [refining, setRefining] = useState<string | null>(null);
+	const [refineNote, setRefineNote] = useState<string | null>(null);
+	const stopRefine = useRef(false);
+	const refine = async () => {
+		stopRefine.current = false;
+		setRefineNote(null);
+		setRefining('Starting the simulator…');
+		try {
+			const result = await refinePlan(
+				{ character, data, spec, filter },
+				simClient,
+				p => setRefining(`${p.slot}, slot ${p.done + 1} of ${p.total} (${p.dps.toFixed(0)} DPS so far)`),
+				() => stopRefine.current,
+			);
+			onChange({ ...character, plan: result.plan });
+			setRefineNote(
+				result.changes === 0
+					? `The simulator agrees with the plan: none of the ${REFINE_DEPTH} best-scored items per slot does better (${result.before.toFixed(0)} DPS).`
+					: `The simulator changed ${result.changes} ${result.changes === 1 ? 'slot' : 'slots'}: ${result.before.toFixed(0)} to ${result.after.toFixed(0)} DPS.`,
+			);
+		} catch (err) {
+			setRefineNote(`The check failed: ${err instanceof Error ? err.message : 'the simulator did not answer'}`);
+		} finally {
+			setRefining(null);
+		}
+	};
 	// The slot whose planned item is being swapped by hand, if any.
 	const [picking, setPicking] = useState<number | null>(null);
 	const pickItem = (index: number, itemId: number | null) => {
@@ -111,10 +140,34 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 					</div>
 					<SimSummary equipped={character.gear} planned={gear} hasPlan={hasPlan} auto />
 					<div className="actions">
-						<button className="button" onClick={() => rebuild()}>
+						<button className="button" onClick={() => rebuild()} disabled={refining !== null}>
 							Rebuild the plan
 						</button>
+						{!import.meta.env.VITE_NO_SIM && (
+							<button className="button button-primary" onClick={refine} disabled={refining !== null}>
+								Check the plan with the simulator
+							</button>
+						)}
+						{refining && (
+							<button className="button" onClick={() => (stopRefine.current = true)}>
+								Stop
+							</button>
+						)}
 					</div>
+					{refining && (
+						<p className="hint" role="status">
+							Simulating: {refining}
+						</p>
+					)}
+					{refineNote && (
+						<p className="refine-note" role="status">
+							{refineNote}
+						</p>
+					)}
+					<p className="hint">
+						"Check the plan with the simulator" runs the {REFINE_DEPTH} best-scored items of every slot through the real simulator and keeps the one with the highest DPS. Use it when procs, on-use
+						trinkets or set bonuses matter, which the quick score only knows for the Enhancement Shaman. It takes a few minutes.
+					</p>
 					<p className="hint">
 						The score is in points: stats by the build's stat weights, plus what the simulator measured for procs, on-use effects, proc enchants and set bonuses. To change a
 						single slot by hand, click its icon.

@@ -6,6 +6,7 @@ import { addStats, type HitSummary, hitSummary, pieceStats, vendorCurrency, vend
 
 const RAID_QUESTS: Record<string, string> = quests.raidQuests;
 const CLOSED_NPCS: Record<string, string> = notAvailable.npcs;
+const CLOSED_ZONES: Record<string, string> = notAvailable.zones;
 const CLOSED_ITEMS: Record<string, string> = notAvailable.items;
 
 /** Why an item cannot be had in the game yet, or undefined when nothing is known against it. */
@@ -13,7 +14,7 @@ export function notYetAvailable(item: Item): string | undefined {
 	if (CLOSED_ITEMS[item.id]) return CLOSED_ITEMS[item.id];
 	const sources = item.sources ?? [];
 	if (sources.length === 0) return undefined;
-	const closed = sources.map(source => (source.npcId ? CLOSED_NPCS[source.npcId] : undefined));
+	const closed = sources.map(source => (source.npcId ? CLOSED_NPCS[source.npcId] : undefined) ?? (source.kind === 'drop' && source.zoneId ? CLOSED_ZONES[source.zoneId] : undefined));
 	return closed.every(Boolean) ? closed[0] : undefined;
 }
 import type { Character, Faction, GearPiece, Item, ItemSource, SpecConfig, Stats } from './types';
@@ -115,6 +116,8 @@ export interface SourceFilter {
 	randomSuffix: boolean;
 	/** Items from content that is in the data but not open in the game yet (src/config/not-available.json). */
 	notYetAvailable: boolean;
+	/** Items the user has hidden by hand, by id. */
+	hiddenItems: number[];
 	ownCraftsOnly: boolean; // crafted items only from the character's own professions
 	/** Dungeons and wings to skip, by `dungeonKey`. Dungeon drops are on unless listed here. */
 	excludedDungeons: string[];
@@ -134,12 +137,13 @@ export const DEFAULT_FILTER: SourceFilter = {
 	tier05: true,
 	randomSuffix: false,
 	notYetAvailable: false,
+	hiddenItems: [],
 	ownCraftsOnly: false,
 	excludedDungeons: [],
 	excludedReputations: [],
 };
 
-export type SourceKindKey = Exclude<keyof SourceFilter, 'tier05' | 'randomSuffix' | 'notYetAvailable' | 'ownCraftsOnly' | 'excludedDungeons' | 'excludedReputations'>;
+export type SourceKindKey = Exclude<keyof SourceFilter, 'tier05' | 'randomSuffix' | 'notYetAvailable' | 'hiddenItems' | 'ownCraftsOnly' | 'excludedDungeons' | 'excludedReputations'>;
 
 /** The reputation a source needs, if any: a reputation reward or a quartermaster's goods. */
 export const reputationOf = (source: ItemSource): string | undefined => (source.kind === 'rep' ? source.repFaction : vendorReputation(source));
@@ -180,6 +184,7 @@ export function isObtainable(item: Item, character: Character, faction: Faction 
 	if (!filter.tier05 && item.setId !== undefined && item.setId === spec.tier05Set?.setId) return false;
 	if (!filter.randomSuffix && item.randomSuffixOptions?.length) return false;
 	if (!filter.notYetAvailable && notYetAvailable(item)) return false;
+	if (filter.hiddenItems.includes(item.id)) return false;
 	if (item.faction && faction && item.faction !== faction) return false;
 	if (item.requiredProfession && !character.professions.includes(item.requiredProfession)) return false;
 	if (!item.sources?.length) return filter.unknown;

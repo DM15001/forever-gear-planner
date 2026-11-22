@@ -59,7 +59,7 @@ export function loadFilter(): SourceFilter {
 		const saved = raw ? (JSON.parse(raw) as Partial<SourceFilter>) : null;
 		if (!saved || typeof saved !== 'object') return DEFAULT_FILTER;
 		const merged = { ...DEFAULT_FILTER, ...saved };
-		if (!Array.isArray(merged.excludedDungeons) || !Array.isArray(merged.excludedReputations)) return DEFAULT_FILTER;
+		if (!Array.isArray(merged.excludedDungeons) || !Array.isArray(merged.excludedReputations) || !Array.isArray(merged.hiddenItems)) return DEFAULT_FILTER;
 		return merged;
 	} catch {
 		return DEFAULT_FILTER;

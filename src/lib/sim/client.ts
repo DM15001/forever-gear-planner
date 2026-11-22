@@ -1,7 +1,7 @@
 import type { Gear } from '../scoring';
 import type { Character } from '../types';
 import { specOf } from '../specs';
-import { buildSimRequest, indexSimDb, readSimResult, type SimDb, type SimIndex, simKey, type SimOutcome, type SimTemplate } from './request';
+import { type BonusStats, buildSimRequest, indexSimDb, readSimResult, type SimDb, type SimIndex, simKey, type SimOutcome, type SimTemplate } from './request';
 import type { SimSetupData } from './setup';
 
 const SIM_URL = `${import.meta.env.BASE_URL}sim/`;
@@ -83,12 +83,12 @@ export class SimClient {
 	}
 
 	/** Simulated DPS of `gear` on this character. */
-	run(character: Character, gear: Gear, iterations: number): Promise<SimOutcome> {
-		const key = simKey(character, gear, iterations);
+	run(character: Character, gear: Gear, iterations: number, bonus?: BonusStats): Promise<SimOutcome> {
+		const key = simKey(character, gear, iterations, bonus);
 		let outcome = this.cache.get(key);
 		if (!outcome) {
 			outcome = this.load(specOf(character).id).then(index => {
-				const { request } = buildSimRequest(character, gear, index, iterations);
+				const { request } = buildSimRequest(character, gear, index, iterations, bonus);
 				return new Promise<string>((resolve, reject) => {
 					const id = this.nextId++;
 					this.waiting.set(id, { resolve, reject });

@@ -67,12 +67,26 @@ export function wowsimsSettings(character: Character, gear: Gear, template: SimT
  * The request the WoWSims sim takes: the default settings (buffs, rotation, consumables, a
  * raid target) with this character's race, professions, talents and the given gear.
  */
-export function buildSimRequest(character: Character, gear: Gear, index: SimIndex, iterations: number): BuiltRequest {
+/** Extra stats put on the character for one run, by the simulator's stat numbers: how a stat's worth is measured. */
+export interface BonusStats {
+	stats?: Record<number, number>;
+	pseudoStats?: Record<number, number>;
+}
+
+export function buildSimRequest(character: Character, gear: Gear, index: SimIndex, iterations: number, bonus?: BonusStats): BuiltRequest {
 	const { db, template, itemById } = index;
 	const request = structuredClone(template) as SimTemplate & { simOptions?: unknown };
 	const player = request.raid.parties[0].players[0];
 
 	personalize(request, character);
+	if (bonus) {
+		const fill = (base: number[] | undefined, extra: Record<number, number> | undefined, length: number) => {
+			const list = Array.from({ length: Math.max(length, base?.length ?? 0) }, (_, i) => base?.[i] ?? 0);
+			for (const [key, value] of Object.entries(extra ?? {})) list[Number(key)] = (list[Number(key)] ?? 0) + value;
+			return list;
+		};
+		player.bonusStats = { ...player.bonusStats, stats: fill(player.bonusStats?.stats, bonus.stats, 39), pseudoStats: fill(player.bonusStats?.pseudoStats, bonus.pseudoStats, 3) };
+	}
 
 	const missingItems: number[] = [];
 	player.equipment = {
@@ -224,5 +238,5 @@ export function readSimResult(json: string | null | undefined, iterations: numbe
 }
 
 /** Identifies a run, so the same gear is never simulated twice. */
-export const simKey = (character: Character, gear: Gear, iterations: number) =>
-	JSON.stringify([character.specId ?? '', character.race, character.talents, character.consumables ?? 0, character.buffs ?? 0, character.professions, gear.map(p => (p ? [p.id, p.enchant ?? 0, p.randomSuffix ?? 0] : 0)), iterations]);
+export const simKey = (character: Character, gear: Gear, iterations: number, bonus?: BonusStats) =>
+	JSON.stringify([bonus ?? 0, character.specId ?? '', character.race, character.talents, character.consumables ?? 0, character.buffs ?? 0, character.professions, gear.map(p => (p ? [p.id, p.enchant ?? 0, p.randomSuffix ?? 0] : 0)), iterations]);
