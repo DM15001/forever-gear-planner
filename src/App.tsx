@@ -13,8 +13,7 @@ import type { ImportResult } from './lib/importCharacter';
 import type { SourceFilter } from './lib/scoring';
 import { activeCharacter, addCharacter, characterLabel, removeActive, replaceActive, type Roster, selectCharacter, sharedCharacter, shareUrl } from './lib/roster';
 import { specOf, specsOfClass } from './lib/specs';
-import { loadFilter, loadRoster, loadTheme, loadWeights, saveFilter, saveRoster, saveTheme, saveWeights } from './lib/storage';
-import { resolveTheme, THEME_CHOICES, type ThemeChoice } from './lib/theme';
+import { loadFilter, loadRoster, loadWeights, saveFilter, saveRoster, saveWeights } from './lib/storage';
 import type { Character, SpecConfig } from './lib/types';
 
 
@@ -62,12 +61,6 @@ export function App() {
 		setFilterState(next);
 		saveFilter(next);
 	};
-	// The look: Alliance, Horde or the neutral Forever one. By default it follows the character's faction.
-	const [themeChoice, setThemeChoice] = useState<ThemeChoice>(loadTheme);
-	const theme = resolveTheme(themeChoice, character, baseSpec);
-	useEffect(() => {
-		document.documentElement.dataset.theme = theme;
-	}, [theme]);
 	// The item data is narrowed to the spec, so it is loaded again when the spec changes.
 	const [loaded, setLoaded] = useState<{ specId: string; data: GameData } | null>(null);
 	const [dataError, setDataError] = useState(false);
@@ -97,30 +90,13 @@ export function App() {
 		<div className="page">
 			<header className="masthead">
 				<div className="masthead-title">
-					<Emblem theme={theme} />
+					<Emblem />
 					<div>
 						<h1>Forever Gear Planner</h1>
 						<p className="masthead-sub">{character ? `${spec.name}, pre-raid` : 'Pre-raid gear for WoW: Forever'}</p>
 					</div>
 				</div>
 				<div className="masthead-side">
-					<label className="theme-picker">
-						Theme
-						<select
-							value={themeChoice}
-							onChange={e => {
-								const next = e.target.value as ThemeChoice;
-								setThemeChoice(next);
-								saveTheme(next);
-							}}
-						>
-							{THEME_CHOICES.map(c => (
-								<option key={c.id} value={c.id}>
-									{c.label}
-								</option>
-							))}
-						</select>
-					</label>
 					<div className="tab-bar">
 						<BarCap />
 						<nav className="tabs" aria-label="Sections">

@@ -28,44 +28,6 @@
 	color-scheme: dark;
 }
 
-/* Alliance: royal blue stone, polished gold, a clean double rule like trim on a tabard. */
-:root[data-theme='alliance'] {
-	--storm: #081226;
-	--storm-glow: #173a78;
-	--well: #060d1c;
-	--slate: #0e1c38;
-	--slate-raised: #18305c;
-	--ridge: #3d5687;
-	--hairline: #1a2c50;
-	--mist: #e4eaf6;
-	--haze: #9eb0d1;
-	--brass: #ffd25a;
-	--brass-deep: #a8842c;
-	--on-brass: #0b1a3a;
-	--metal-light: #fff6cf;
-	--ember: #ff9d7d;
-	--banner: linear-gradient(var(--brass) 0 2px, transparent 2px 4px, var(--brass-deep) 4px 5px, transparent 5px);
-}
-
-/* Horde: scorched iron and war paint, with a spiked edge like the rim of a shield. */
-:root[data-theme='horde'] {
-	--storm: #130b0a;
-	--storm-glow: #4a1410;
-	--well: #0c0606;
-	--slate: #1c1110;
-	--slate-raised: #2c1a17;
-	--ridge: #5a3a33;
-	--hairline: #2e1c19;
-	--mist: #ece2d8;
-	--haze: #b39c8f;
-	--brass: #f0603f;
-	--brass-deep: #8f2a1c;
-	--on-brass: #1a0705;
-	--metal-light: #ffc9a8;
-	--ember: #f5a35c;
-	--banner: conic-gradient(from 135deg at 50% 0, var(--brass-deep) 90deg, transparent 0) 0 0 / 14px 100% repeat-x;
-}
-
 * {
 	box-sizing: border-box;
 }
@@ -133,17 +95,6 @@ a {
 	flex-direction: column;
 	align-items: flex-end;
 	gap: 0.5rem;
-}
-.theme-picker {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-	font-size: 0.8125rem;
-	color: var(--haze);
-}
-.theme-picker select {
-	width: auto;
-	padding: 0.2rem 0.4rem;
 }
 .masthead-sub {
 	margin: 0.25rem 0 0;
@@ -1171,8 +1122,8 @@ h2::after {
 /* Masthead */
 .masthead {
 	display: grid;
-	grid-template-columns: 1fr auto;
-	grid-template-areas: 'title theme' 'tabs tabs';
+	grid-template-columns: 1fr;
+	grid-template-areas: 'title' 'tabs';
 	align-items: center;
 	gap: 1rem 2rem;
 	border-bottom: 0;
@@ -1183,10 +1134,6 @@ h2::after {
 }
 .masthead-side {
 	display: contents;
-}
-.theme-picker {
-	grid-area: theme;
-	align-self: start;
 }
 .tab-bar {
 	grid-area: tabs;
