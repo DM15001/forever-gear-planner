@@ -65,6 +65,10 @@ data changed. How it measures is described at the top of `scripts/build-sim-valu
 - **Wowhead BiS guide**: kept by hand in `src/config/guides/enhancement-shaman.wowhead.json`.
   When the guide changes, update the items there and set `updated` and `checked`.
 
+## Start on Windows
+
+Double-click `start.bat`. It installs the packages on first use, starts the site and opens it in your browser. It needs Node.js 20 or newer.
+
 ## Credits
 
 - Item data, stat weights, gear presets and the simulator come from
