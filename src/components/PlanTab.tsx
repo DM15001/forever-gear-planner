@@ -84,23 +84,8 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 
 	return (
 		<div className="plan">
-			<section aria-labelledby="plan-content">
-				<h2 id="plan-content">1. What content do you do?</h2>
-				<p className="hint plan-hint">Switch off what you do not want to do. The plan below only uses what is left and is rebuilt on every change.</p>
-				<ContentPicker
-					spec={spec}
-					character={character}
-					data={data}
-					filter={filter}
-					onChange={next => {
-						onFilterChange(next);
-						rebuild(next);
-					}}
-				/>
-			</section>
-
 			<section aria-labelledby="plan-result">
-				<h2 id="plan-result">2. Your plan</h2>
+				<h2 id="plan-result">Your plan</h2>
 				<div className="panel summary">
 					<div className="summary-scores">
 						<div>
@@ -131,10 +116,25 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						</button>
 					</div>
 					<p className="hint">
-						The score is in attack-power equivalents: stats by the WoWSims weights, plus what the simulator measured for procs, on-use effects, proc enchants and set bonuses. To change a
+						The score is in points: stats by the build's stat weights, plus what the simulator measured for procs, on-use effects, proc enchants and set bonuses. To change a
 						single slot by hand, click its icon.
 					</p>
 				</div>
+				<details className="content-fold">
+					<summary>
+						What content do you do?<span className="slot-source">Dungeons, reputations, PvP, crafting and more. The plan is rebuilt on every change.</span>
+					</summary>
+					<ContentPicker
+						spec={spec}
+						character={character}
+						data={data}
+						filter={filter}
+						onChange={next => {
+							onFilterChange(next);
+							rebuild(next);
+						}}
+					/>
+				</details>
 
 				<ul className="plain-list plan-slots">
 					{slots.map(({ slot, index, equippedItem, goalItem, goalEnchant, isChange, enchantOpen, others }) => (

@@ -1,83 +1,116 @@
 # Forever Gear Planner
 
-Private gear planner for World of Warcraft: Forever. First target: Enhancement Shaman, pre-raid.
-See [SPEC.md](SPEC.md) for scope, data model and milestones.
+A gear planner for World of Warcraft: Forever, pre-raid. Import your character, see what to
+upgrade, where to get it, and what it is worth in simulated DPS.
 
-## Status
+Live: https://dm15001.github.io/forever-gear-planner/
 
-- [x] Milestone 1: data script
-- [x] Milestone 2: app shell + character import
-- [x] Milestone 3: character tab (icons, stats, Wowhead links)
-- [x] Milestone 4: scoring + upgrades tab
-- [x] Milestone 5: farm plan tab
-- [x] Milestone 6: enchants & professions tab
-- [x] Milestone 7: the WoWSims simulator runs in the page
-- [x] Milestone 8: guided Plan tab, content picker, effect values measured with the sim
-- [ ] Milestone 9: GitHub Pages
+It is a fan project, not affiliated with or endorsed by Blizzard.
+
+## What it covers
+
+Damage builds of seven classes, each one a preset configuration that WoWSims ships:
+
+| Class | Builds |
+|---|---|
+| Shaman | Enhancement, Elemental |
+| Warlock | SM/Ruin, Destro, Aff (Wrack), Demo (Fire Brand), Demo (Shadow Brand) |
+| Priest | Shadow Testing, Smite Testing |
+| Mage | Fire, Frost Med, Frost Incin, Arcane, Arcane Fire, FFB |
+| Warrior | Fury, Arms |
+| Rogue | Combat SS, Combat BS, Combat Venom, Asn Muti, Subtlety Hemo, Hemo Seal Fate |
+| Druid | Balance, Feral Cat |
+
+Hunter, Paladin, healing and tank specs are not covered. Raid items are not in the data.
+
+## What it does
+
+- **Character**: paste an export from the WoWSims Exporter addon (`/wse`) or from wowsims.com,
+  or load a WoWSims preset as an example. Gear, enchants, race and professions can be changed
+  by hand. Several characters can be kept, and one can be shared as a link.
+- **Plan**: builds the best set you can get from the content you pick (dungeons, quests,
+  crafting, reputation, PvP, random-suffix items).
+- **Upgrades**: every item per slot, ranked against what you wear, with a "Sim this" button.
+- **Farm plan**: where the planned items come from, grouped by dungeon, with drop chances
+  and how many runs to expect.
+- **Enchants & professions**: enchants per slot and what your professions add.
+- **Sim setup**: what the simulator is given, in words. Talents, consumables, buffs and
+  debuffs can be changed one by one, and the settings can be copied to wowsims.com.
+
+## How it calculates
+
+There are two kinds of numbers, and they are not the same thing.
+
+**Quick scores** (Plan, Upgrades, Farm plan). Each stat has a weight, for example "1 hit
+rating is worth 1.5 spell damage". An item's score is its stats times those weights, with
+the hit cap taken into account. This is fast enough to rank thousands of items, but it is an
+approximation:
+
+- Weights come from WoWSims where it ships them (Shaman, Warrior, Rogue, Druid). For the
+  other builds they were measured with the simulator, one run per stat, on the preset gear.
+- Procs, on-use effects and set bonuses are only measured for the Enhancement Shaman. For
+  the other builds such items are marked "sim it", and the plan can rank them wrongly; this
+  matters most for melee.
+- The weights assume the build's own talents, consumables and buffs. They do not follow
+  changes made on the Sim setup tab.
+- An item with a random suffix counts with the suffix that is worth most to the build.
+
+**Simulated DPS** ("Simulate", "Sim this"). This runs the real WoWSims Forever simulator
+inside the page, in a web worker. Nothing is sent to a server. It starts from the WoWSims
+preset of the build (rotation, buffs, debuffs, consumables, a 3-minute single-target fight)
+and swaps in your race, professions, gear and talents. The rotation is the WoWSims file for
+the build, unchanged; the Sim setup tab shows it in words with the original rule behind each
+step. A fold-out under each result shows damage per spell, crit and miss rates and uptimes.
+
+When two items are close in the quick score, trust the simulator.
+
+**Drop chances** are Wowhead's Forever numbers where they exist, otherwise the WoW Classic
+rates from AtlasLoot, marked "Classic rate". Forever may have changed those. Bosses that do
+not appear on every run are counted with their spawn chance. For a random-suffix item the
+chance is that of the item, not of the right suffix.
+
+**Not in the game yet.** The WoWSims database marks every item as released. Items known to
+be out of reach are listed by hand in `src/config/not-available.json` and left out by default.
 
 ## Run it locally
 
 Needs [Node.js](https://nodejs.org) 20 or newer.
+
+On Windows, double-click `start.bat`. Otherwise:
 
 ```
 npm install
 npm run dev
 ```
 
-Then open the address Vite prints (usually http://localhost:5173).
 `npm test` runs the unit tests, `npm run build` writes the static site to `dist/`.
+Every push to `main` deploys to GitHub Pages.
 
-## Update the game data
+## Update the data
 
 ```
 npm run build-data
 ```
 
-This downloads the current item database, the gear presets and the simulator from WoWSims and
-rewrites `src/data/` and `public/sim/`. The database and the simulator come from the same
-WoWSims deployment, so they always match. Options for working offline are at the top of
-`scripts/build-data.mjs`.
-
-## The simulator
-
-"Simulate" and "Sim" run the real WoWSims Forever simulator in the browser, in a web worker.
-It is the prebuilt WebAssembly file from wowsims.com (`public/sim/lib.wasm.gz`, about 6 MB,
-loaded on first use). Settings are the simulator's defaults for the spec: full raid buffs, a
-3-minute single-target fight, the default rotation. `npm test` runs the same simulator in Node.
-
-`VITE_NO_SIM=1 npx vite build --outDir dist-preview` builds a copy without the simulator.
-
-## Effect values
-
-The stat score cannot see procs, on-use effects, proc enchants and set bonuses. Their worth is
-measured once with the simulator and stored in `src/data/simValues.json`:
+Downloads the current item database, presets and simulator from WoWSims and rewrites
+`src/data/` and `public/sim/`. Database and simulator come from the same WoWSims deployment,
+so they match. Options for working offline are at the top of `scripts/build-data.mjs`.
 
 ```
 npm run build-sim-values
 ```
 
-This takes 30 to 60 minutes. Run it after `npm run build-data` when the simulator or the item
-data changed. How it measures is described at the top of `scripts/build-sim-values.mjs`.
+Measures procs, on-use effects and set bonuses with the simulator (Enhancement Shaman only,
+30 to 60 minutes).
 
-## Guide lists
+## Adding a build
 
-- **WoWSims default set**: pulled automatically by `npm run build-data` into `src/data/simSets.json`.
-- **Wowhead BiS guide**: kept by hand in `src/config/guides/enhancement-shaman.wowhead.json`.
-  When the guide changes, update the items there and set `updated` and `checked`.
+One file per build in `src/specs/`: what the class can equip, the hit cap, the stat weights
+and which WoWSims preset it is. Most builds have their assembled sim request in
+`scripts/builds/`; the scripts that made them are in `scripts/presets/`. Guide picks sit in
+`src/config/guides/<build>.wowhead.json`.
 
-## Classes and builds
-
-Each file in `src/specs/` is one build the planner knows: the Enhancement Shaman, five Warlock builds, the Shadow Priest and three Mage builds. A build holds what the class can equip, its hit cap and its stat weights. `npm run build-data` reads all of them: the item list is the union of what they can use, and every build gets its own simulator request in `public/sim/template.<id>.json`.
-
-- The Shaman's weights and simulator request come straight from WoWSims.
-- For Warlock and Mage WoWSims ships no stat weights, so they were measured with the simulator (one run per stat, 2026-11-22). The Warlock and Priest requests are the WoWSims preset builds; the Mage requests are put together from the WoWSims preset gear, talents and rotations. All of them sit in `scripts/builds/`.
-- Procs, on-use effects and set bonuses have only been measured for the Enhancement Shaman (`npm run build-sim-values`). For the other builds such items carry the "sim it" badge.
-
-## Start on Windows
-
-Double-click `start.bat`. It installs the packages on first use, starts the site and opens it in your browser. It needs Node.js 20 or newer.
-
-## Credits
+## Credits and licenses
 
 - Item data, stat weights, gear presets and the simulator come from
   [WoWSims Forever](https://github.com/wowsims/forever) (MIT).
@@ -85,8 +118,8 @@ Double-click `start.bat`. It installs the packages on first use, starts the site
   license, see the file's header).
 - Item icons load from Blizzard's image server (`render.worldofwarcraft.com`), with Wowhead's as a
   fallback. World of Warcraft and its icons are © Blizzard Entertainment; this is a free fan project.
-- BiS list: [Wowhead's Enhancement Shaman guide](https://www.wowhead.com/forever/guide/classes/shaman/enhancement/bis-gear).
-- Drop chances: Wowhead's Forever item pages (`src/config/wowhead/loot.json`) and, as a fallback, the WoW Classic drop rates from [AtlasLootClassic](https://github.com/Hoizame/AtlasLootClassic) (`src/config/droprates.classic.json`, GPL v2). If this repository is made public, that file stays under the GPL v2.
+- Guide picks: the top (BiS) rows of Wowhead's Forever guides, where a guide has them (`src/config/guides/`, each file links its guide). The full guides are on [Wowhead](https://www.wowhead.com/forever).
+- Drop chances: Wowhead's Forever item pages (`src/config/wowhead/loot.json`) and, as a fallback, the WoW Classic drop rates from [AtlasLootClassic](https://github.com/Hoizame/AtlasLootClassic) (`src/config/droprates.classic.json`, GPL v2). That file stays under the GPL v2.
 - Icon names for items new in Forever: Wowhead tooltips (`src/config/wowhead/icons.json`).
 - Sources for items from the new Forever dungeons: the loot tables of the AtlasLoot Classic Forever addon by Sliccer (CurseForge, GPL v2), imported with `node scripts/import-atlasloot.mjs path/to/AddOns` into `src/config/atlasloot/sources.json`.
 - Headings are set in [Cinzel](https://github.com/NDISCOVER/Cinzel) (SIL Open Font License), bundled through `@fontsource/cinzel`. The bar end pieces and emblems are drawn for this project (`src/components/Ornaments.tsx`).
