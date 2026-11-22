@@ -43,9 +43,25 @@ export function FarmTab({ spec, character, data, filter }: Props) {
 	// "total": everything there is to gain. "perRun": what one run is worth on average, from drop chances.
 	const [order, setOrder] = useState<'total' | 'perRun'>('total');
 	const ordered = useMemo(() => (order === 'perRun' ? [...ranking].sort((a, b) => b.perRun - a.perRun || b.value - a.value) : ranking), [ranking, order]);
-	const lootDate = new Date(LOOT_DATE).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+	const lootDate = new Date(LOOT_DATE).toLocaleDateString('en-GB', {
+		day: 'numeric',
+		month: 'short',
+		year: 'numeric',
+	});
 	const marks = useMemo(() => guideMarks(data.guides), [data]);
 	const planSize = [...shopping.values()].reduce((sum, list) => sum + list.length, 0);
+	const [copied, setCopied] = useState<string | null>(null);
+	/** The plan as plain text, for a chat message. */
+	const copyPlan = () => {
+		const lines = PLAN_GROUP_ORDER.filter(kind => shopping.has(kind)).flatMap(kind => [
+			`${GROUP_TITLES[kind]}:`,
+			...shopping.get(kind)!.map(entry => `- ${GEAR_SLOTS[entry.slotIndex].label}: ${entry.item.name}${suffixText(entry.item)} (${sourceLine(entry.source, data)}), ${formatDelta(entry.delta)}`),
+		]);
+		navigator.clipboard.writeText(lines.join('\n')).then(
+			() => setCopied('Copied.'),
+			() => setCopied('Copying failed.'),
+		);
+	};
 
 	const toggle = (key: string) =>
 		setOpen(old => {
@@ -61,56 +77,61 @@ export function FarmTab({ spec, character, data, filter }: Props) {
 				{planSize === 0 ? (
 					<p className="farm-empty">No plan yet. On the Upgrades tab, pick items with "Plan this" or use "Plan the best set". They show up here, sorted by where to get them.</p>
 				) : (
-					<div className="shopping">
-						{PLAN_GROUP_ORDER.filter(kind => shopping.has(kind)).map(kind => {
-							const entries = shopping.get(kind)!;
-							const cards = kind === 'dungeon' ? byDungeon(entries, zoneId => data.zoneById.get(zoneId)?.name) : [{ key: kind, name: '', entries }];
-							return (
-								<div key={kind} className={`shopping-group shopping-group-${kind}`}>
-									<h3>
-										<span>
-											<SourceSymbol kind={kind} /> {GROUP_TITLES[kind]}
-										</span>
-										<span className="shopping-count">
-											{entries.length} item{entries.length === 1 ? '' : 's'}
-										</span>
-									</h3>
-									<div className="shopping-cards">
-										{cards.map(card => (
-											<div key={card.key} className="shopping-card">
-												{card.name && (
-													<h4>
-														<span>
-															<SourceSymbol kind="dungeon" /> {card.name}
-														</span>
-														<span className="num delta-up">{formatDelta(card.entries.reduce((sum, entry) => sum + entry.delta, 0))}</span>
-													</h4>
-												)}
-												<ul className="plain-list">
-													{card.entries.map(entry => (
-														<ShoppingRow key={`${entry.slotIndex}-${entry.item.id}`} entry={entry} data={data} inDungeon={kind === 'dungeon'} guideSource={marks.get(entry.item.id)?.find(m => m.source)} />
-													))}
-												</ul>
-											</div>
-										))}
+					<>
+						<p className="farm-copy">
+							<button className="button button-small" onClick={copyPlan}>
+								Copy the plan as text
+							</button>{' '}
+							{copied ?? 'For Discord or your notes.'}
+						</p>
+						<div className="shopping">
+							{PLAN_GROUP_ORDER.filter(kind => shopping.has(kind)).map(kind => {
+								const entries = shopping.get(kind)!;
+								const cards = kind === 'dungeon' ? byDungeon(entries, zoneId => data.zoneById.get(zoneId)?.name) : [{ key: kind, name: '', entries }];
+								return (
+									<div key={kind} className={`shopping-group shopping-group-${kind}`}>
+										<h3>
+											<span>
+												<SourceSymbol kind={kind} /> {GROUP_TITLES[kind]}
+											</span>
+											<span className="shopping-count">
+												{entries.length} item{entries.length === 1 ? '' : 's'}
+											</span>
+										</h3>
+										<div className="shopping-cards">
+											{cards.map(card => (
+												<div key={card.key} className="shopping-card">
+													{card.name && (
+														<h4>
+															<span>
+																<SourceSymbol kind="dungeon" /> {card.name}
+															</span>
+															<span className="num delta-up">{formatDelta(card.entries.reduce((sum, entry) => sum + entry.delta, 0))}</span>
+														</h4>
+													)}
+													<ul className="plain-list">
+														{card.entries.map(entry => (
+															<ShoppingRow key={`${entry.slotIndex}-${entry.item.id}`} entry={entry} data={data} inDungeon={kind === 'dungeon'} guideSource={marks.get(entry.item.id)?.find(m => m.source)} />
+														))}
+													</ul>
+												</div>
+											))}
+										</div>
 									</div>
-								</div>
-							);
-						})}
-						{[...shopping.values()].some(list => list.some(entry => entry.source?.kind === 'drop' && entry.source.dropBasis === 'classic')) && (
-							<p className="hint">* Drop chance from WoW Classic; Forever may have changed it.</p>
-						)}
-					</div>
+								);
+							})}
+							{[...shopping.values()].some(list => list.some(entry => entry.source?.kind === 'drop' && entry.source.dropBasis === 'classic')) && <p className="hint">* Drop chance from WoW Classic; Forever may have changed it.</p>}
+						</div>
+					</>
 				)}
 			</section>
 
 			<section aria-labelledby="farm-dungeons">
 				<h2 id="farm-dungeons">Dungeons by upgrades</h2>
 				<p className="hint farm-hint">
-					"Up to" is the best upgrade per slot over your equipped gear, added up. "Per run" is what one run is worth on average: each upgrade's gain times its chance to drop, best one per slot. Drop
-					chances are Wowhead's Forever numbers from {lootDate} where we have them; the rest are the rates from WoW Classic (AtlasLoot), marked "Classic rate", which Forever may have changed. Items without any
-					number are left out of "per run". Bosses that are not there on every run are
-					marked. Blackrock Spire, Dire Maul and Stratholme are split into their wings. Uses the content you picked on the Plan tab.
+					"Up to" is the best upgrade per slot over your equipped gear, added up. "Per run" is what one run is worth on average: each upgrade's gain times its chance to drop, best one per slot. Drop chances are Wowhead's Forever numbers
+					from {lootDate} where we have them; the rest are the rates from WoW Classic (AtlasLoot), marked "Classic rate", which Forever may have changed. Items without any number are left out of "per run". Bosses that are not there on every
+					run are marked. Blackrock Spire, Dire Maul and Stratholme are split into their wings. Uses the content you picked on the Plan tab.
 				</p>
 				{ranking.length > 0 && (
 					<p className="farm-order">
@@ -196,7 +217,8 @@ function DungeonCard({ dungeon, open, onToggle }: { dungeon: FarmDungeon; open: 
 					up to {formatDelta(dungeon.value)}
 					{dungeon.knownChances > 0 && (
 						<span className="dungeon-per-run">
-							{formatPerRun(dungeon.perRun)} per run{dungeon.knownChances < dungeon.upgradeCount ? ` (${dungeon.knownChances} of ${dungeon.upgradeCount} with drop chance)` : ''}
+							{formatPerRun(dungeon.perRun)} per run
+							{dungeon.knownChances < dungeon.upgradeCount ? ` (${dungeon.knownChances} of ${dungeon.upgradeCount} with drop chance)` : ''}
 						</span>
 					)}
 				</span>
@@ -209,7 +231,8 @@ function DungeonCard({ dungeon, open, onToggle }: { dungeon: FarmDungeon; open: 
 								<SourceSymbol kind="boss" /> {boss.name}
 								{boss.spawnChance !== undefined && (
 									<span className="boss-spawn">
-										{boss.spawnNote ?? 'Not always there'}, about 1 in {Math.round(1 / boss.spawnChance)} runs{boss.spawnBasis === 'estimate' ? ' (estimate)' : boss.spawnBasis === 'kills' ? ' (from kill counts)' : ''}
+										{boss.spawnNote ?? 'Not always there'}, about 1 in {Math.round(1 / boss.spawnChance)} runs
+										{boss.spawnBasis === 'estimate' ? ' (estimate)' : boss.spawnBasis === 'kills' ? ' (from kill counts)' : ''}
 									</span>
 								)}
 							</h4>

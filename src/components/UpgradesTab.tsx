@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
+import { sourceKind } from '../lib/farm';
 import { formatDps } from '../lib/format';
 import type { GameData } from '../lib/gameData';
 import { type Guide, type GuideMark, guideMarks, guidePlan, markLabel, swapDelta } from '../lib/guides';
@@ -28,11 +29,18 @@ interface Props {
 }
 
 const SHORT_LIST = 6;
+/** How many next-best items a slot lists below its upgrades. */
+const ALTERNATIVES = 5;
 const LONG_LIST = 25;
 
 export function UpgradesTab({ spec, character, data, onChange, filter, onFilterChange: setFilter, defaultWeights, onWeightsChange }: Props) {
 	const [expanded, setExpanded] = useState<Set<number>>(new Set());
-	const [guideNotice, setGuideNotice] = useState<{ title: string; skipped: string[] } | null>(null);
+	const [guideNotice, setGuideNotice] = useState<{
+		title: string;
+		skipped: string[];
+	} | null>(null);
+	// The last change that can be taken back: what it was called and how to undo it.
+	const [undo, setUndo] = useState<{ label: string; back: () => void } | null>(null);
 	// Measuring the stat weights for this character with the simulator.
 	const [measuring, setMeasuring] = useState<string | null>(null);
 	const [measureError, setMeasureError] = useState<string | null>(null);
@@ -56,13 +64,24 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 	const planned = useMemo(() => scoreSet(gear, character, data, spec), [gear, character, data, spec]);
 	const slots = useMemo(() => {
 		const options = { character, data, spec, filter };
-		return GEAR_SLOTS.map((slot, index) => ({ slot, index, candidates: slotInUse(index, spec) ? slotCandidates(index, gear, options) : null }));
+		return GEAR_SLOTS.map((slot, index) => ({
+			slot,
+			index,
+			candidates: slotInUse(index, spec) ? slotCandidates(index, gear, options) : null,
+		}));
 	}, [gear, character, data, spec, filter]);
 
 	const planCount = Object.keys(character.plan ?? {}).length;
-	const setPlan = (plan: Record<number, number>) => {
+	const setPlan = (plan: Record<number, number>, label?: string) => {
 		setGuideNotice(null);
+		const before = character.plan ?? {};
+		setUndo(label ? { label, back: () => onChange({ ...character, plan: before }) } : null);
 		onChange({ ...character, plan });
+	};
+	const hide = (item: Item) => {
+		const before = filter;
+		setUndo({ label: `${item.name} hidden`, back: () => setFilter(before) });
+		setFilter({ ...filter, hiddenItems: [...filter.hiddenItems, item.id] });
 	};
 	const planGuide = (guide: Guide) => {
 		const { plan, skipped } = guidePlan(guide, character, data, spec);
@@ -103,15 +122,29 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						<span className="field-label">Your plan, estimated</span>
 						<span className={`score num ${gain >= 0 ? 'delta-up' : 'delta-down'}`}>{planCount > 0 ? formatDelta(gain) : 'No plan yet'}</span>
 						<span className="summary-hit">
-							{hitText(equipped.hit)} now{planCount > 0 ? `, ${hitText(planned.hit)} planned` : ''}
+							{hitText(equipped.hit)} now
+							{planCount > 0 ? `, ${hitText(planned.hit)} planned` : ''}
 						</span>
 					</div>
 				</div>
 				<div className="actions">
-					<button className="button button-primary" onClick={() => setPlan(suggestPlan({ character: { ...character, plan: {} }, data, spec, filter }))}>
+					<button
+						className="button button-primary"
+						onClick={() =>
+							setPlan(
+								suggestPlan({
+									character: { ...character, plan: {} },
+									data,
+									spec,
+									filter,
+								}),
+								'Best set planned',
+							)
+						}
+					>
 						Plan the best set
 					</button>
-					<button className="button" onClick={() => setPlan({})} disabled={planCount === 0}>
+					<button className="button" onClick={() => setPlan({}, 'Plan cleared')} disabled={planCount === 0}>
 						Clear plan{planCount > 0 ? ` (${planCount})` : ''}
 					</button>
 				</div>
@@ -144,17 +177,19 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				</div>
 				{guideNotice && (
 					<p className="guide-notice" role="status">
-						Planned the {guideNotice.title}.
-						{guideNotice.skipped.length > 0 && ` Left out: ${guideNotice.skipped.join('; ')}.`}
+						Planned the {guideNotice.title}.{guideNotice.skipped.length > 0 && ` Left out: ${guideNotice.skipped.join('; ')}.`}
 					</p>
 				)}
-				<p className="hint">
-					Every "DPS" number in the lists is an estimate: the item's stats times what each stat is worth for {spec.name} (see Stat weights below), plus what the simulator measured for procs, on-use effects and set bonuses. Items marked
-					"sim it" have an effect nobody measured and may be better or worse than their number. Each +/- shows how the whole set changes, so hit rating past the cap counts for nothing.
-				</p>
-				<p className="hint">
-					<strong>"Sim this"</strong> next to an item runs the real simulator for that one swap and shows the DPS change. "Simulate equipped gear" above does it for your whole set.
-				</p>
+				<details className="explain">
+					<summary>How is this calculated?</summary>
+					<p className="hint">
+						Every "DPS" number in the lists is an estimate: the item's stats times what each stat is worth for {spec.name} (see Stat weights below), plus what the simulator measured for procs, on-use effects and set bonuses. Items marked
+						"sim it" have an effect nobody measured and may be better or worse than their number. Each +/- shows how the whole set changes, so hit rating past the cap counts for nothing.
+					</p>
+					<p className="hint">
+						<strong>"Sim this"</strong> next to an item runs the real simulator for that one swap and shows the DPS change. "Simulate equipped gear" above does it for your whole set.
+					</p>
+				</details>
 			</section>
 
 			<details className="weights">
@@ -162,16 +197,82 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				<ContentPicker spec={spec} character={character} data={data} filter={filter} onChange={setFilter} />
 			</details>
 
-			<WeightsEditor weights={spec.weights} defaults={defaultWeights} onChange={onWeightsChange} runs={weightRuns({ ...spec, weights: defaultWeights })} measuring={measuring} measureError={measureError} onMeasure={import.meta.env.VITE_NO_SIM ? undefined : measure} />
+			<WeightsEditor
+				weights={spec.weights}
+				defaults={defaultWeights}
+				onChange={onWeightsChange}
+				runs={weightRuns({ ...spec, weights: defaultWeights })}
+				measuring={measuring}
+				measureError={measureError}
+				onMeasure={import.meta.env.VITE_NO_SIM ? undefined : measure}
+			/>
+
+			<nav className="slot-nav" aria-label="Jump to a slot">
+				{slots.map(({ slot, index, candidates }) => {
+					if (!candidates) return null;
+					const best = candidates[0]?.delta ?? 0;
+					const isPlanned = character.plan?.[index] !== undefined && character.plan[index] !== character.gear[index]?.id;
+					return (
+						<a
+							key={slot.key}
+							href={`#slot-${slot.key}`}
+							className={isPlanned ? 'slot-chip slot-chip-planned' : best > 0 ? 'slot-chip slot-chip-open' : 'slot-chip'}
+							title={isPlanned ? 'Planned' : best > 0 ? 'An upgrade is available' : 'Nothing better with these filters'}
+						>
+							{slot.label}
+							{best > 0 ? <span className="num delta-up">{formatDelta(best).replace(' DPS', '')}</span> : isPlanned ? <span className="slot-chip-mark">planned</span> : null}
+						</a>
+					);
+				})}
+			</nav>
+			{undo && (
+				<p className="undo-toast" role="status">
+					{undo.label}.{' '}
+					<button
+						className="link"
+						onClick={() => {
+							undo.back();
+							setUndo(null);
+						}}
+					>
+						Undo
+					</button>
+					<button className="link undo-close" aria-label="Dismiss" onClick={() => setUndo(null)}>
+						×
+					</button>
+				</p>
+			)}
 
 			{slots.map(({ slot, index, candidates }) => {
 				if (!candidates) return null;
 				const equippedItem = character.gear[index] ? data.itemById.get(character.gear[index]!.id) : undefined;
 				const plannedId = character.plan?.[index];
 				const plannedItem = plannedId && plannedId !== character.gear[index]?.id ? data.itemById.get(plannedId) : undefined;
-				const plannedSource = (item: Item) => <SourceLabel source={usableSources(item, faction, { ...filter, rep: true, pvp: true, unknown: true })[0] ?? item.sources?.[0]} data={data} />;
+				const plannedSource = (item: Item) => (
+					<SourceLabel
+						source={
+							usableSources(item, faction, {
+								...filter,
+								rep: true,
+								pvp: true,
+								unknown: true,
+							})[0] ?? item.sources?.[0]
+						}
+						data={data}
+					/>
+				);
 				const limit = expanded.has(index) ? LONG_LIST : SHORT_LIST;
 				const upgrades = candidates.filter(c => c.delta > 0).length;
+				// What comes next if the planned or worn item stays out of reach: the best items that are not upgrades over it.
+				const alternatives = candidates.filter(c => c.delta <= 0 && c.item.id !== character.gear[index]?.id && usableSources(c.item, faction, filter).some(source => sourceKind(source) !== 'unknown')).slice(0, ALTERNATIVES);
+				const wornScore = plannedItem
+					? scoreSet(
+							gear.map((piece, i) => (i === index ? character.gear[index] : piece)),
+							character,
+							data,
+							spec,
+						).score
+					: planned.score;
 				return (
 					<section key={slot.key} className="upgrade-slot" aria-labelledby={`slot-${slot.key}`}>
 						<header className="upgrade-head">
@@ -191,9 +292,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 								) : (
 									'Empty'
 								)}
-								<span className="upgrade-count">
-									{upgrades === 0 ? 'Nothing better with these filters' : `${upgrades} upgrade${upgrades === 1 ? '' : 's'}`}
-								</span>
+								<span className="upgrade-count">{upgrades === 0 ? 'Nothing better with these filters' : `${upgrades} upgrade${upgrades === 1 ? '' : 's'}`}</span>
 							</p>
 						</header>
 						<GuidePicks
@@ -209,7 +308,18 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						{upgrades > 0 && (
 							<ul className="candidates">
 								{candidates.slice(0, limit).map(candidate => (
-									<CandidateRow key={candidate.item.id} candidate={candidate} marks={marks.get(candidate.item.id)} base={gear} variant={withItem(gear, index, candidate.item.id, data)} data={data} faction={faction} filter={filter} onPlan={() => planItem(index, candidate.item.id)} onHide={() => setFilter({ ...filter, hiddenItems: [...filter.hiddenItems, candidate.item.id] })} />
+									<CandidateRow
+										key={candidate.item.id}
+										candidate={candidate}
+										marks={marks.get(candidate.item.id)}
+										base={gear}
+										variant={withItem(gear, index, candidate.item.id, data)}
+										data={data}
+										faction={faction}
+										filter={filter}
+										onPlan={() => planItem(index, candidate.item.id)}
+										onHide={() => hide(candidate.item)}
+									/>
 								))}
 							</ul>
 						)}
@@ -217,6 +327,35 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 							<button className="link" onClick={() => toggle(index)}>
 								{expanded.has(index) ? 'Show fewer' : `Show ${Math.min(LONG_LIST, candidates.length)} items`}
 							</button>
+						)}
+						{alternatives.length > 0 && (
+							<details className="alternatives" open={Boolean(plannedItem)}>
+								<summary>
+									Next best {alternatives.length === 1 ? 'alternative' : `${alternatives.length} alternatives`}
+									<span className="alternatives-why"> if {plannedItem ? 'the planned item does not drop' : 'you want a backup'}</span>
+								</summary>
+								<ul className="candidates">
+									{alternatives.map(candidate => {
+										const variant = withItem(gear, index, candidate.item.id, data);
+										const overWorn = plannedItem ? scoreSet(variant, character, data, spec).score - wornScore : undefined;
+										return (
+											<CandidateRow
+												key={candidate.item.id}
+												candidate={candidate}
+												note={overWorn !== undefined ? `${formatDelta(overWorn)} over what you wear` : undefined}
+												marks={marks.get(candidate.item.id)}
+												base={gear}
+												variant={variant}
+												data={data}
+												faction={faction}
+												filter={filter}
+												onPlan={() => planItem(index, candidate.item.id)}
+												onHide={() => hide(candidate.item)}
+											/>
+										);
+									})}
+								</ul>
+							</details>
 						)}
 					</section>
 				);
@@ -242,6 +381,8 @@ function ItemName({ item, icon = false, worn = false }: { item: Item; icon?: boo
 
 interface RowProps {
 	candidate: Candidate;
+	/** A second line under the gain, for example how the item compares with the worn one. */
+	note?: string;
 	marks?: GuideMark[];
 	base: Gear;
 	variant: Gear;
@@ -252,13 +393,25 @@ interface RowProps {
 	onHide: () => void;
 }
 
-function CandidateRow({ candidate, marks, base, variant, data, faction, filter, onPlan, onHide }: RowProps) {
+function CandidateRow({ candidate, note, marks, base, variant, data, faction, filter, onPlan, onHide }: RowProps) {
 	const { item, delta, incomplete } = candidate;
 	const sources = usableSources(item, faction, filter);
-	const stats = statLine(pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data));
+	const stats = statLine(
+		pieceStats(
+			item,
+			{
+				id: item.id,
+				...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}),
+			},
+			data,
+		),
+	);
 	return (
 		<li className="candidate">
-			<span className={`candidate-delta num ${delta > 0 ? 'delta-up' : 'delta-down'}`}>{formatDelta(delta)}</span>
+			<span className={`candidate-delta num ${delta > 0 ? 'delta-up' : 'delta-down'}`}>
+				{formatDelta(delta)}
+				{note && <span className="candidate-note">{note}</span>}
+			</span>
 			<ItemIcon icon={item.icon} quality={item.quality} small />
 			<span className="candidate-body">
 				<span className="candidate-name">
@@ -286,7 +439,7 @@ function CandidateRow({ candidate, marks, base, variant, data, faction, filter, 
 			<span className="candidate-actions">
 				<SimDelta base={base} variant={variant} />
 				<button className="button button-small" onClick={onPlan}>
-					Plan this
+					Plan
 				</button>
 				<button className="link hide-item" onClick={onHide} title="Leave this item out of every list and out of 'Plan the best set', for example because it is too expensive or not in the game yet. Bring it back under Plan, Content.">
 					Hide
@@ -326,7 +479,10 @@ interface GuidePicksProps {
 function GuidePicks({ guides, slotIndex, data, currentId, deltaOf, onPlan, blocked, otherId }: GuidePicksProps) {
 	const kind = GEAR_SLOTS[slotIndex].kind;
 	const rows = guides
-		.map(guide => ({ guide, entries: guide.entries.filter(e => (guide.fixedSet ? e.slotIndex === slotIndex : e.slot === kind)) }))
+		.map(guide => ({
+			guide,
+			entries: guide.entries.filter(e => (guide.fixedSet ? e.slotIndex === slotIndex : e.slot === kind)),
+		}))
 		.filter(row => row.entries.length > 0);
 	if (rows.length === 0) return null;
 	return (
@@ -417,11 +573,14 @@ function WeightsEditor({
 		<details className="weights">
 			<summary>Stat weights{changed ? ' (changed)' : ''}</summary>
 			<p className="hint">
-				How much DPS one point of each stat is worth. The defaults are the weights of the build, turned into DPS with one simulator measurement on its preset gear. Changing them changes every score on the site; the simulated DPS numbers
-				are not affected.
+				How much DPS one point of each stat is worth. The defaults are the weights of the build, turned into DPS with one simulator measurement on its preset gear. Changing them changes every score on the site; the simulated DPS numbers are
+				not affected.
 			</p>
 			<div className="weights-grid">
-				{field('mainHandDps', 'Weapon DPS', weights.mainHandDps, v => ({ ...weights, mainHandDps: v }))}
+				{field('mainHandDps', 'Weapon DPS', weights.mainHandDps, v => ({
+					...weights,
+					mainHandDps: v,
+				}))}
 				{Object.keys(defaults.stats).map(key => field(key, LONG_LABEL.get(key) ?? key, weights.stats[key] ?? 0, v => ({ ...weights, stats: { ...weights.stats, [key]: v } })))}
 				{field('hitRatingOverCap', 'Hit rating past the cap', weights.hitRatingOverCap, v => ({ ...weights, hitRatingOverCap: v }))}
 			</div>
@@ -431,8 +590,8 @@ function WeightsEditor({
 						{measuring ?? 'Measure for my character'}
 					</button>
 					<p className="hint">
-						Runs the simulator {runs} times on your equipped gear, once per stat, and replaces the weights with what comes out for you: your gear, talents, consumables and buffs. It takes from
-						half a minute to a few minutes, and the scores on every tab follow.
+						Runs the simulator {runs} times on your equipped gear, once per stat, and replaces the weights with what comes out for you: your gear, talents, consumables and buffs. It takes from half a minute to a few minutes, and the scores
+						on every tab follow.
 					</p>
 					{measureError && (
 						<p className="field-error" role="alert">

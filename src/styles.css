@@ -2174,3 +2174,119 @@ a.enchant-name {
 	display: block;
 	color: var(--brass);
 }
+
+/* Upgrades: slot jump bar, undo, alternatives */
+html {
+	scroll-behavior: smooth;
+}
+.upgrade-slot {
+	scroll-margin-top: 7rem;
+}
+.slot-nav {
+	position: sticky;
+	top: 0;
+	z-index: 5;
+	display: flex;
+	gap: 0.35rem;
+	padding: 0.5rem 0;
+	overflow-x: auto;
+	background: var(--storm);
+	border-bottom: 1px solid var(--hairline);
+	scrollbar-width: thin;
+}
+.slot-chip {
+	flex: none;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.3rem 0.6rem;
+	font-size: 0.8125rem;
+	color: var(--haze);
+	text-decoration: none;
+	border: 1px solid var(--hairline);
+	border-radius: 999px;
+	white-space: nowrap;
+}
+.slot-chip:hover {
+	border-color: var(--brass-deep);
+	color: var(--mist);
+}
+.slot-chip-open {
+	color: var(--mist);
+	border-color: var(--ridge);
+}
+.slot-chip-planned {
+	color: var(--brass);
+	border-color: var(--brass-deep);
+}
+.slot-chip-mark {
+	font-size: 0.6875rem;
+}
+.undo-toast {
+	position: sticky;
+	top: 3rem;
+	z-index: 6;
+	margin: 0;
+	padding: 0.5rem 0.85rem;
+	background: #1c160c;
+	border: 1px solid var(--brass-deep);
+	border-radius: 4px;
+	font-size: 0.875rem;
+}
+.undo-close {
+	float: right;
+	text-decoration: none;
+	color: var(--haze);
+}
+.explain summary,
+.alternatives summary {
+	cursor: pointer;
+	color: var(--brass);
+	font-size: 0.875rem;
+}
+.explain .hint {
+	margin-top: 0.5rem;
+}
+.alternatives {
+	margin-top: 0.5rem;
+}
+.alternatives-why {
+	color: var(--haze);
+}
+.alternatives .candidate:last-child {
+	border-bottom: 0;
+}
+.candidate-note {
+	display: block;
+	font-size: 0.6875rem;
+	font-weight: 400;
+	color: var(--haze);
+	white-space: normal;
+	line-height: 1.25;
+}
+
+.farm-copy {
+	margin: 0 0 0.75rem;
+	font-size: 0.875rem;
+	color: var(--haze);
+}
+
+@media (max-width: 52rem) {
+	.candidate {
+		grid-template-columns: auto minmax(0, 1fr);
+		gap: 0.4rem 0.75rem;
+		align-items: start;
+	}
+	.candidate-delta {
+		white-space: nowrap;
+		text-align: left;
+		min-width: 4.5rem;
+	}
+	.candidate-note {
+		white-space: nowrap;
+	}
+	.candidate-actions {
+		grid-column: 1 / -1;
+		justify-content: flex-end;
+	}
+}
