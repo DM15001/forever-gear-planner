@@ -169,7 +169,8 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 
 	return (
 		<div className="upgrades">
-			<section className="panel summary" aria-label="Plan summary">
+			<section className="panel summary" aria-labelledby="upgrades-title">
+				<h2 id="upgrades-title">Pick your upgrades</h2>
 				<div className="summary-scores">
 					<div>
 						<span className="field-label">Your plan, estimated</span>
@@ -236,7 +237,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						Planned the {guideNotice.title}.{guideNotice.skipped.length > 0 && ` Left out: ${guideNotice.skipped.join('; ')}.`}
 					</p>
 				)}
-				<details className="explain">
+				<details className="explain fold">
 					<summary>How is this calculated?</summary>
 					<p className="hint">
 						Every "{unit()}" number in the lists is an estimate: the item's stats times what each stat is worth for {spec.name} (see Stat weights below), plus what the simulator measured for procs, on-use effects and set bonuses. Items marked
@@ -248,8 +249,8 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				</details>
 			</section>
 
-			<details className="weights">
-				<summary>Content (the same choice as on the Plan tab)</summary>
+			<details className="weights fold">
+				<summary>Content: dungeons, reputations, crafting and more</summary>
 				<ContentPicker spec={spec} character={character} data={data} filter={filter} onChange={setFilter} />
 			</details>
 
@@ -405,7 +406,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						).score
 					: planned.score;
 				return (
-					<section key={slot.key} className="upgrade-slot" aria-labelledby={`slot-${slot.key}`}>
+					<section key={slot.key} className="card upgrade-slot" aria-labelledby={`slot-${slot.key}`}>
 						<header className="upgrade-head">
 							<h3 id={`slot-${slot.key}`}>{slot.label}</h3>
 							<p className="upgrade-current">
@@ -758,7 +759,7 @@ function WeightsEditor({
 	// A healer's weights have no weapon damage and no hit cap in them.
 	const healer = defaults.stats.healingPower !== undefined && !defaults.mainHandDps;
 	return (
-		<details className="weights">
+		<details className="weights fold">
 			<summary>Stat weights{changed ? ' (changed)' : ''}</summary>
 			<p className="hint">
 				How much {unit()} one point of each stat is worth. The defaults are the weights of the build, measured with the simulator on its preset gear. Changing them changes every score on the site; the simulated numbers are not affected.

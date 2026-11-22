@@ -118,9 +118,9 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 
 	return (
 		<div className="plan">
-			<section aria-labelledby="plan-result">
+			<section className="panel" aria-labelledby="plan-result">
 				<h2 id="plan-result">Your plan</h2>
-				<div className="panel summary">
+				<div className="summary">
 					<div className="summary-scores">
 						<div>
 							<span className="field-label">The plan, estimated</span>
@@ -168,7 +168,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						single slot by hand, click its icon.
 					</p>
 				</div>
-				<details className="content-fold">
+				<details className="content-fold fold">
 					<summary>
 						What content do you do?<span className="slot-source">Dungeons, reputations, PvP, crafting and more. The plan is rebuilt on every change.</span>
 					</summary>
@@ -246,7 +246,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				{picking !== null && <ItemPicker slotIndex={picking} gear={gear} character={character} data={data} spec={spec} filter={filter} onPick={id => pickItem(picking, id)} onClose={() => setPicking(null)} />}
 			</section>
 
-			<section aria-labelledby="plan-todo">
+			<section className="panel" aria-labelledby="plan-todo">
 				<h2 id="plan-todo">3. To do, biggest gain first</h2>
 				{steps.length === 0 ? (
 					<p className="farm-empty">Nothing left to do with the content you picked. Switch more content on above to see what else there is.</p>

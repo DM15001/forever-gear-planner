@@ -9,7 +9,12 @@ export function FightPicker({ character, onChange }: { character: Character; onC
 		onChange({ ...character, fight: next.mobType || next.area || next.family ? next : undefined });
 	};
 	return (
-		<div className="fight-picker">
+		<details className="fold fight-fold" open={Boolean(fight.mobType || fight.area || fight.family)}>
+			<summary>
+				Enemy type and terrain
+				<span className="slot-source">{[fight.mobType, fight.family && spaced(fight.family), fight.area && AREAS.find(([key]) => key === fight.area)?.[1]].filter(Boolean).join(', ') || 'Optional: for items that are only strong against one kind of enemy.'}</span>
+			</summary>
+			<div className="fight-picker">
 			<label>
 				<span className="field-label">Enemy type</span>
 				<select value={fight.mobType ?? ''} onChange={e => set({ mobType: e.target.value || undefined })}>
@@ -47,6 +52,7 @@ export function FightPicker({ character, onChange }: { character: Character; onC
 				Some items only give their bonus against one kind of enemy ("+12 spell damage against Undead"), one creature (Orcs, Trolls) or in one kind of terrain. Pick what you fight, for example Undead for Scholomance and
 				Stratholme. Stat bonuses then count in the lists, the plan and the simulator; procs and on-use effects of that kind count in the simulator only.
 			</p>
-		</div>
+			</div>
+		</details>
 	);
 }

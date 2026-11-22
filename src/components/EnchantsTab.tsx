@@ -61,7 +61,7 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 
 	return (
 		<div className="enchants">
-			<section aria-labelledby="enchants-title">
+			<section className="panel" aria-labelledby="enchants-title">
 				<h2 id="enchants-title">Enchants</h2>
 				<p className="hint enchants-hint">
 					{enchanted} of {overview.length} enchantable slots have an enchant. Numbers show the change in set score for your {hasPlan ? 'planned' : 'equipped'} gear. Enchants that only add a
@@ -75,11 +75,11 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 
 				<ul className="plain-list enchant-slots">
 					{overview.map(slot => (
-						<li key={slot.slotIndex} className="enchant-slot">
+						<li key={slot.slotIndex} className={`card enchant-slot${slot.current ? '' : ' enchant-slot-open'}`}>
 							<div className="enchant-slot-head">
-								<h3>{GEAR_SLOTS[slot.slotIndex].label}</h3>
+								<ItemIcon icon={slot.item.icon} quality={slot.item.quality} small />
 								<span className="enchant-item">
-									<ItemIcon icon={slot.item.icon} quality={slot.item.quality} small />
+									<h3>{GEAR_SLOTS[slot.slotIndex].label}</h3>
 									<a className={`item-link quality-${slot.item.quality}`} href={wowheadItemUrl(slot.item.id)} data-wowhead={wowheadData('item', slot.item.id)} target="_blank" rel="noreferrer">
 										{slot.item.name}
 									</a>
@@ -93,7 +93,7 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 											</button>
 										</>
 									) : (
-										<span className="enchant-none">No enchant</span>
+										<span className="enchant-none">No enchant yet</span>
 									)}
 								</p>
 							</div>
@@ -177,7 +177,7 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 				</ul>
 			</section>
 
-			<section aria-labelledby="professions-title">
+			<section className="panel" aria-labelledby="professions-title">
 				<h2 id="professions-title">Professions</h2>
 				<p className="hint enchants-hint">
 					What each crafting profession can make that beats your equipped gear. "Up to" adds the best item per slot. Whether a crafted item can be traded is not in the data, so items from
@@ -186,7 +186,7 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 				{ownProfessionsWithoutCrafts.length > 0 && <p className="slot-source">{ownProfessionsWithoutCrafts.join(' and ')}: no craftable upgrades (gathering profession or nothing better).</p>}
 				<div className="professions">
 					{professions.map(({ profession, mine, items, value }) => (
-						<div key={profession} className={`panel profession${mine ? ' profession-mine' : ''}`}>
+						<div key={profession} className={`card profession${mine ? ' profession-mine' : ''}`}>
 							<h3>
 								<SourceSymbol kind="crafted" /> {profession}
 								{mine && <span className="badge badge-plan">yours</span>}

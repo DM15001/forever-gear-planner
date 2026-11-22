@@ -2913,3 +2913,319 @@ html {
 .healing-picker {
 	max-width: 58rem;
 }
+
+/* ------------------------------------------------------------------
+   One design across the tabs: every tab is a column of framed panels,
+   every list of items is a stack of the same cards and rows.
+   ------------------------------------------------------------------ */
+.upgrades,
+.farm,
+.enchants,
+.plan {
+	max-width: none;
+	display: grid;
+	gap: 1.5rem;
+}
+.panel > h2:first-child {
+	margin-bottom: 0.9rem;
+	padding-bottom: 0.55rem;
+	border-bottom: 1px solid transparent;
+	border-image: linear-gradient(90deg, var(--brass-deep), transparent 60%) 1;
+}
+.panel .hint,
+.panel > p {
+	max-width: 62rem;
+}
+
+/* The plain card: one item, one slot, one dungeon. */
+.card,
+.plan-slot {
+	background: #0a0806;
+	border: 1px solid var(--hairline);
+	border-radius: 6px;
+	padding: 0.8rem 1rem;
+	transition: border-color 120ms;
+}
+.card:hover,
+.card:focus-within,
+.plan-slot:hover {
+	border-color: var(--ridge);
+}
+
+/* Fold-outs look the same wherever they are. */
+.fold {
+	background: #0a0806;
+	border: 1px solid var(--hairline);
+	border-radius: 6px;
+}
+.fold > summary {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.3rem 0.75rem;
+	padding: 0.65rem 1rem;
+	cursor: pointer;
+	color: var(--brass);
+	font-size: 0.9375rem;
+	font-weight: 600;
+	list-style: none;
+}
+.fold > summary::-webkit-details-marker {
+	display: none;
+}
+.fold > summary::before {
+	content: '';
+	width: 0.45rem;
+	height: 0.45rem;
+	border-right: 2px solid currentColor;
+	border-bottom: 2px solid currentColor;
+	transform: rotate(-45deg);
+	transition: transform 120ms;
+	margin-right: 0.15rem;
+	align-self: center;
+}
+.fold[open] > summary::before {
+	transform: rotate(45deg);
+}
+.fold > summary .slot-source {
+	display: inline;
+	font-weight: 400;
+}
+.fold[open] > summary {
+	border-bottom: 1px solid var(--hairline);
+}
+.fold > :not(summary) {
+	margin-left: 1rem;
+	margin-right: 1rem;
+}
+.fold > :not(summary):last-child {
+	margin-bottom: 0.9rem;
+}
+.fold > summary + * {
+	margin-top: 0.8rem;
+}
+.summary .fold {
+	margin: 0.75rem 0;
+}
+.fold .fight-picker {
+	margin-bottom: 0.9rem;
+}
+
+/* Upgrades: each slot is a card. */
+.upgrade-slot.card {
+	padding: 0.9rem 1.1rem 0.8rem;
+}
+.upgrade-slot .upgrade-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.2rem 1rem;
+}
+.upgrade-slot .upgrade-head h3 {
+	min-width: 6.5rem;
+}
+.upgrade-slot .upgrade-current {
+	margin: 0;
+	flex: 1 1 20rem;
+}
+.upgrade-slot .upgrade-count {
+	float: right;
+	margin-left: 1rem;
+	font-size: 0.8125rem;
+}
+.candidate {
+	border-bottom: 0;
+	border-top: 1px solid var(--hairline);
+	padding: 0.6rem 0.5rem;
+	margin: 0 -0.5rem;
+	border-radius: 4px;
+	transition: background 120ms;
+}
+.candidate:hover,
+.candidate:focus-within {
+	background: #14110a;
+}
+.candidates {
+	margin-bottom: 0.2rem;
+}
+.guide-picks {
+	padding: 0.5rem 0;
+}
+.slot-bar {
+	margin: 0 -0.25rem;
+	padding: 0 0.25rem;
+}
+
+/* Plan view: the slots are cards too. */
+.plan-slots {
+	gap: 0.6rem 0.9rem;
+}
+.plan-slot {
+	border-bottom: 1px solid var(--hairline);
+	padding: 0.7rem 0.8rem;
+}
+.plan-slot-done {
+	opacity: 0.7;
+}
+
+/* Enchants: a grid of slot cards, each with the item on top and its enchants as rows. */
+.enchant-slots {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 30rem), 1fr));
+	gap: 0.9rem;
+	margin-top: 1.25rem;
+	align-items: start;
+}
+.enchant-slot.card {
+	display: block;
+	border-top: 1px solid var(--hairline);
+	padding: 0.85rem 1rem 0.7rem;
+}
+.enchant-slot-open {
+	border-color: #6b3a22;
+}
+.enchant-slot-head {
+	display: grid;
+	grid-template-columns: 2.25rem minmax(0, 1fr);
+	gap: 0.15rem 0.7rem;
+	align-items: center;
+	padding-bottom: 0.65rem;
+	border-bottom: 1px solid var(--ridge);
+}
+.enchant-slot-head .slot-icon {
+	grid-row: 1 / span 2;
+	align-self: start;
+}
+.enchant-item {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.1rem 0.6rem;
+	min-width: 0;
+}
+.enchant-item h3 {
+	font-family: system-ui, sans-serif;
+	font-size: 0.75rem;
+	font-weight: 400;
+	letter-spacing: 0;
+	color: var(--haze);
+	flex-basis: 100%;
+	text-shadow: none;
+}
+.enchant-item a {
+	font-weight: 600;
+	text-decoration: none;
+}
+.enchant-current {
+	grid-column: 2;
+	margin: 0;
+	font-size: 0.8125rem;
+	color: var(--mist);
+}
+.enchant-current::before {
+	content: 'Enchant: ';
+	color: var(--haze);
+}
+.enchant-options {
+	padding-top: 0.25rem;
+}
+.enchant-option {
+	grid-template-columns: 4.75rem 2.25rem minmax(0, 1fr) auto auto;
+	gap: 0.6rem;
+	padding: 0.45rem 0.4rem;
+	margin: 0 -0.4rem;
+	border-radius: 4px;
+	transition: background 120ms;
+}
+.enchant-option + .enchant-option {
+	border-top: 1px solid var(--hairline);
+}
+.enchant-option:hover,
+.enchant-option:focus-within {
+	background: #14110a;
+}
+.enchant-option .slot-source {
+	display: block;
+}
+.enchant-option .sim-button,
+.enchant-option .button-small {
+	white-space: nowrap;
+}
+.enchant-compare {
+	margin: 0.5rem 0 0.1rem;
+	padding-top: 0.55rem;
+	border-top: 1px solid var(--hairline);
+}
+.professions {
+	gap: 0.9rem;
+}
+.profession.card h3 {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+.profession-mine {
+	border-color: var(--brass-deep);
+}
+@media (max-width: 34rem) {
+	/* Icon and text on the first line; estimate, Sim and Use on the second. */
+	.enchant-option {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+	}
+	.enchant-option > .slot-icon {
+		order: 1;
+	}
+	.enchant-option > span:not([class]) {
+		order: 2;
+		flex: 1 1 calc(100% - 3.5rem);
+		min-width: 0;
+	}
+	.enchant-option > :first-child {
+		order: 3;
+		margin-right: auto;
+		text-align: left;
+	}
+	.enchant-option > .sim-delta,
+	.enchant-option > .sim-button {
+		order: 4;
+	}
+	.enchant-option > .button-small:not(.sim-button),
+	.enchant-option > .badge-plan {
+		order: 5;
+	}
+}
+
+/* Farm plan and dungeons sit in the same frame. */
+.farm .shopping-card,
+.farm .dungeon {
+	background: #0a0806;
+}
+.farm .dungeon::before {
+	display: none;
+}
+.farm .dungeon {
+	border: 1px solid var(--hairline);
+	border-radius: 6px;
+	box-shadow: none;
+	background-image: none;
+}
+.farm .dungeon:hover {
+	border-color: var(--ridge);
+}
+
+/* The switch under the tabs reads as part of the navigation. */
+.view-switch {
+	padding: 0.5rem 0.75rem;
+	background: #0a0806;
+	border: 1px solid var(--hairline);
+	border-radius: 6px;
+}
+.expert-switch {
+	justify-self: end;
+}
+
+.plan-slot {
+	align-items: flex-start;
+}

@@ -83,7 +83,7 @@ export function FarmTab({ spec, character, data, filter, onChange }: Props) {
 
 	return (
 		<div className="farm">
-			<section aria-labelledby="farm-plan">
+			<section className="panel" aria-labelledby="farm-plan">
 				<h2 id="farm-plan">How to get your plan</h2>
 				{planSize === 0 ? (
 					<p className="farm-empty">No plan yet. On the Upgrades tab, pick items with "Plan this" or use "Plan the best set". They show up here, sorted by where to get them.</p>
@@ -150,7 +150,7 @@ export function FarmTab({ spec, character, data, filter, onChange }: Props) {
 				)}
 			</section>
 
-			<section aria-labelledby="farm-dungeons">
+			<section className="panel" aria-labelledby="farm-dungeons">
 				<h2 id="farm-dungeons">Dungeons by upgrades</h2>
 				<p className="hint farm-hint">
 					"Up to" is the best upgrade per slot over your equipped gear, added up. "Per run" is what one run is worth on average: each upgrade's gain times its chance to drop, best one per slot. Drop chances are Wowhead's Forever numbers
