@@ -1,6 +1,7 @@
 {
 	"id": "priest-shadow",
-	"name": "Shadow Priest",
+	"name": "Priest: Shadow Testing",
+	"preset": "Shadow Testing",
 	"classId": 5,
 	"className": "priest",
 	"simKey": "dpsPriest",

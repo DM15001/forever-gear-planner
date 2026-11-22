@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { SPECS } from '../specs';
 import type { Character } from '../types';
 import { buildSimRequest, indexSimDb, simKey } from './request';
-import { describeFlags, describeRotation, parseTalents, rotationSourceUrl, serializeTalents, type SimSetupData, talentPointsSpent } from './setup';
+import { buffValue, clashingGroups, describeFlags, describeRotation, parseTalents, rotationSourceUrl, serializeTalents, type SimSetupData, talentPointsSpent } from './setup';
 
 const read = (name: string) => JSON.parse(readFileSync(new URL(`../../../public/sim/${name}`, import.meta.url), 'utf8'));
 const setup: SimSetupData = read('setup.json');
@@ -56,6 +56,33 @@ describe('rotation source', () => {
 		for (const spec of SPECS) expect(rotationSourceUrl(spec.id), spec.id).toMatch(/^https:\/\/github\.com\/wowsims\/forever\/blob\/master\/ui\/specs\//);
 		const text = describeRotation(player('enhancement-shaman').rotation, setup);
 		expect(JSON.parse(text.priority[2].raw!)).toEqual(player('enhancement-shaman').rotation.priorityList[2].action);
+	});
+});
+
+describe('buffs in the request', () => {
+	const spec = SPECS.find(s => s.id === 'enhancement-shaman')!;
+	const index = indexSimDb(read('db.json'), template(spec.id));
+	const character: Character = { specId: spec.id, race: 'RaceDwarf', level: 60, talents: '', professions: [], gear: [] };
+
+	it('lists every buff WoWSims knows, with its steps', () => {
+		expect(setup.buffs!.raid.find(f => f.key === 'battleShout')!.steps).toHaveLength(3);
+		expect(setup.buffs!.debuffs.find(f => f.key === 'curseOfElements')).toEqual({ key: 'curseOfElements', label: 'Curse of the Elements' });
+		for (const s of SPECS) {
+			const t = template(s.id);
+			const used = { raid: t.raid.buffs, party: t.raid.parties[0].buffs, player: t.raid.parties[0].players[0].buffs, debuffs: t.raid.debuffs };
+			for (const [scope, flags] of Object.entries(used)) for (const key of Object.keys(flags ?? {})) expect(setup.buffs![scope as 'raid'].some(f => f.key === key) || key.endsWith('SpellPower'), `${s.id} ${key}`).toBe(true);
+		}
+	});
+
+	it('switches single buffs and debuffs and leaves the rest of the build alone', () => {
+		const changed = { ...character, buffs: { raid: { battleShout: 0, windfuryTotem: true }, debuffs: { sunderArmor: false }, player: { greaterBlessingOfKings: false } } };
+		const request = buildSimRequest(changed, changed.gear, index, 10).request as any;
+		expect(request.raid.buffs).toMatchObject({ battleShout: 0, windfuryTotem: true, markOfTheWild: true });
+		expect(request.raid.debuffs).toMatchObject({ sunderArmor: false, faerieFire: true });
+		expect(request.raid.parties[0].players[0].buffs.greaterBlessingOfKings).toBe(false);
+		expect(simKey(changed, changed.gear, 10)).not.toBe(simKey(character, character.gear, 10));
+		expect(buffValue({ a: true, b: 2, c: 'TristateEffectImproved' }, 'c')).toBe(2);
+		expect(clashingGroups([13452, 3390], setup.consumables)).toEqual([{ group: 'Agility', names: ['Elixir of the Mongoose', 'Elixir of Lesser Agility'] }]);
 	});
 });
 

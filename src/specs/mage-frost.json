@@ -1,6 +1,7 @@
 {
 	"id": "mage-frost",
-	"name": "Mage: Frost",
+	"name": "Mage: Frost Med",
+	"preset": "Frost Med",
 	"classId": 8,
 	"className": "mage",
 	"simKey": "mage",

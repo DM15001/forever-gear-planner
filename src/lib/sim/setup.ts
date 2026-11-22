@@ -9,7 +9,7 @@ export interface TalentTree {
 	talents: { name: string; max: number; row: number; col: number }[];
 }
 
-export type ConsumableKind = 'flask' | 'food' | 'elixir' | 'imbue' | 'weaponImbue' | 'potion' | 'conjured';
+export type ConsumableKind = 'flask' | 'food' | 'elixir' | 'imbue' | 'weaponImbue' | 'potion' | 'conjured' | 'scroll' | 'explosive' | 'other';
 
 export interface ConsumableOption {
 	id: number;
@@ -18,7 +18,31 @@ export interface ConsumableOption {
 	level?: number;
 	/** A potion that restores mana, rage or energy: what the rotation's "resource potion" step drinks. */
 	resource?: boolean;
+	/** What it buffs, e.g. "Agility". Two consumables with the same `groupKey` do not stack. */
+	group?: string;
+	groupKey?: string;
 }
+
+/** One buff or debuff the sim can be told about. */
+export interface BuffField {
+	key: string;
+	label: string;
+	/** Named levels above "off": the stored value is the position in this list, counted from 1. */
+	steps?: string[];
+	/** A plain count, e.g. how many of something the raid brings. */
+	count?: boolean;
+}
+
+export type BuffScope = 'raid' | 'party' | 'player' | 'debuffs';
+export const BUFF_SCOPES: { scope: BuffScope; title: string }[] = [
+	{ scope: 'raid', title: 'Raid buffs' },
+	{ scope: 'party', title: 'Party buffs' },
+	{ scope: 'player', title: 'Buffs on you' },
+	{ scope: 'debuffs', title: 'Debuffs on the target' },
+];
+
+/** Buffs and debuffs a character changed against the build: scope -> field -> value (false or 0 = off). */
+export type BuffPicks = Partial<Record<BuffScope, Record<string, boolean | number>>>;
 
 export interface SimSetupData {
 	/** Talent trees by class name in lower case. */
@@ -26,6 +50,8 @@ export interface SimSetupData {
 	spells: Record<string, string>;
 	items: Record<string, string>;
 	consumables: ConsumableOption[];
+	/** Every buff and debuff the sim knows. */
+	buffs?: Record<BuffScope, BuffField[]>;
 }
 
 /** The consumables a character can change. A missing field keeps the build's own pick; 0 means none. */
@@ -38,11 +64,14 @@ export interface ConsumablePicks {
 	ohWeaponImbueId?: number;
 	conjuredId?: number;
 	resourcePotId?: number;
+	explosiveId?: number;
 	elixirIds?: number[];
+	/** Scrolls and other one-off consumables. */
+	extraIds?: number[];
 }
 
 /** One-per-kind consumable fields, with the kind of item each takes. */
-export const CONSUMABLE_FIELDS: { field: Exclude<keyof ConsumablePicks, 'elixirIds'>; label: string; kind: ConsumableKind; resourceOnly?: boolean }[] = [
+export const CONSUMABLE_FIELDS: { field: Exclude<keyof ConsumablePicks, 'elixirIds' | 'extraIds'>; label: string; kind: ConsumableKind; resourceOnly?: boolean }[] = [
 	{ field: 'flaskId', label: 'Flask', kind: 'flask' },
 	{ field: 'foodId', label: 'Food', kind: 'food' },
 	{ field: 'mhImbueId', label: 'Main hand stone or oil', kind: 'imbue' },
@@ -51,6 +80,7 @@ export const CONSUMABLE_FIELDS: { field: Exclude<keyof ConsumablePicks, 'elixirI
 	{ field: 'ohWeaponImbueId', label: 'Off hand poison, firestone or spellstone', kind: 'weaponImbue' },
 	{ field: 'resourcePotId', label: 'Mana potion', kind: 'potion', resourceOnly: true },
 	{ field: 'conjuredId', label: 'Rune, mana gem or healthstone', kind: 'conjured' },
+	{ field: 'explosiveId', label: 'Explosive', kind: 'explosive' },
 ];
 
 // ---- Talents ----
@@ -89,6 +119,10 @@ export const ROTATION_SOURCES: Record<string, string> = {
 	'mage-fire': 'ui/specs/mage/dps/apls/deepFire.apl.json',
 	'mage-frost': 'ui/specs/mage/dps/apls/frost.apl.json',
 	'mage-arcane': 'ui/specs/mage/dps/apls/arcane.apl.json',
+	'mage-arcane-fire': 'ui/specs/mage/dps/apls/arcaneFireFill.apl.json',
+	'mage-ffb': 'ui/specs/mage/dps/apls/ffb.apl.json',
+	'mage-frost-incin': 'ui/specs/mage/dps/apls/frost.apl.json',
+	'priest-smite': 'ui/specs/priest/dps/builds/smite_testing.build.json',
 };
 export const rotationSourceUrl = (specId: string) => (ROTATION_SOURCES[specId] ? `https://github.com/wowsims/forever/blob/master/${ROTATION_SOURCES[specId]}` : undefined);
 
@@ -234,4 +268,38 @@ export function describeFlags(flags: Json | undefined): string[] {
 			if (on === 2 || on === 'TristateEffectImproved') return `${label} (improved)`;
 			return typeof on === 'number' && on > 2 ? `${label} (${on})` : label;
 		});
+}
+
+/** The value a buff has in a set of flags, as a number: 0 off, 1 on, 2+ a higher step. */
+export function buffValue(flags: Json | undefined, key: string): number {
+	const value = flags?.[key];
+	if (value === true) return 1;
+	if (value === 'TristateEffectRegular') return 1;
+	if (value === 'TristateEffectImproved') return 2;
+	return typeof value === 'number' ? value : 0;
+}
+
+/** Consumables that share a group with another picked one: only one of each group counts. */
+export function clashingGroups(ids: number[], options: ConsumableOption[]): { group: string; names: string[] }[] {
+	const byGroup = new Map<string, { group: string; names: string[] }>();
+	for (const id of ids) {
+		const option = options.find(o => o.id === id);
+		if (!option?.groupKey) continue;
+		if (!byGroup.has(option.groupKey)) byGroup.set(option.groupKey, { group: option.group ?? option.groupKey, names: [] });
+		byGroup.get(option.groupKey)!.names.push(option.name);
+	}
+	return [...byGroup.values()].filter(entry => entry.names.length > 1);
+}
+
+/** Class and spec options of a build as words: `{ classOptions: { defaultMageArmor: 'MageArmorMageArmor' } }` -> "Default mage armor: mage armor mage armor". */
+export function describeOptions(options: unknown, prefix = ''): string[] {
+	if (!options || typeof options !== 'object') return [];
+	return Object.entries(options as Json).flatMap(([key, value]) => {
+		if (value && typeof value === 'object' && !Array.isArray(value)) return describeOptions(value, prefix);
+		const name = words(key);
+		const label = name.charAt(0).toUpperCase() + name.slice(1);
+		if (value === true) return [label];
+		if (value === false || value === 0 || value === '' || value == null) return [];
+		return [`${label}: ${typeof value === 'string' ? words(value) : Array.isArray(value) ? value.join(', ') : value}`];
+	});
 }

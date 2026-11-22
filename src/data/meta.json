@@ -1,11 +1,15 @@
 {
-	"generatedAt": "2026-11-22T17:16:38.172Z",
+	"generatedAt": "2026-11-22T17:39:06.366Z",
 	"specs": [
 		"enhancement-shaman",
+		"mage-arcane-fire",
 		"mage-arcane",
+		"mage-ffb",
 		"mage-fire",
+		"mage-frost-incin",
 		"mage-frost",
 		"priest-shadow",
+		"priest-smite",
 		"warlock-affliction",
 		"warlock-demo-fire",
 		"warlock-demo-shadow",
@@ -45,7 +49,7 @@
 		},
 		"npcs": 431,
 		"randomSuffixes": 251,
-		"simSets": 10,
+		"simSets": 14,
 		"simItems": 5115
 	}
 }

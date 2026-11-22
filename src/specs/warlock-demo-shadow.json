@@ -1,6 +1,7 @@
 {
 	"id": "warlock-demo-shadow",
-	"name": "Warlock: Demonology (shadow)",
+	"name": "Warlock: Demo (Shadow Brand)",
+	"preset": "Demo (Shadow Brand)",
 	"classId": 9,
 	"className": "warlock",
 	"simKey": "warlock",

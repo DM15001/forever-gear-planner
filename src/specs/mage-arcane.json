@@ -1,6 +1,7 @@
 {
 	"id": "mage-arcane",
 	"name": "Mage: Arcane",
+	"preset": "Arcane",
 	"classId": 8,
 	"className": "mage",
 	"simKey": "mage",

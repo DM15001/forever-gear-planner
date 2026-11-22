@@ -426,7 +426,7 @@ for (const className of new Set(specs.map(spec => spec.className))) {
 		talents: tree.talents.map(t => ({ name: t.fancyName, max: t.maxPoints, row: t.location.rowIdx, col: t.location.colIdx })),
 	}));
 }
-const CONSUMABLE_KINDS = { 1: 'potion', 2: 'flask', 3: 'food', 6: 'imbue', 11: 'elixir', 12: 'conjured', 13: 'weaponImbue' };
+const CONSUMABLE_KINDS = { 1: 'potion', 2: 'flask', 3: 'food', 4: 'scroll', 5: 'explosive', 6: 'imbue', 7: 'other', 11: 'elixir', 12: 'conjured', 13: 'weaponImbue' };
 // Names for the rotation text. The database names the spells and items the sim UI shows icons for; a
 // rotation also asks about hidden effects and gear, which are named from the sim's own spell table
 // and the item list.
@@ -451,13 +451,47 @@ if (unnamedSpells.length) {
 		else console.warn(`No name for spell ${id} used in a rotation${args.repo ? '' : ' (run with --repo to read the sim\'s spell table)'}.`);
 	}
 }
+// Every buff and debuff the sim knows, from its proto definition, with the labels and steps of the
+// sim's own settings page.
+const readRepoText = async path => (args.repo ? readFile(join(args.repo, path), 'utf8').catch(() => '') : fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/${path}`).then(res => (res.ok ? res.text() : ''), () => ''));
+const buffsProto = await readRepoText('proto/buffs.proto');
+const buffInputs = await readRepoText('ui/features/settings/model/buffs_debuffs_auto_gen.ts');
+const buffLabels = new Map();
+for (const block of buffInputs.split(/\nexport const /).slice(1)) {
+	const fieldName = block.match(/fieldName: '([^']+)'/)?.[1];
+	if (!fieldName) continue;
+	const ranks = [...block.matchAll(/\{ actionId: [^}]*label: (['"])(.*?)\1 \}/g)].map(m => m[2]);
+	const label = [...block.matchAll(/\n\tlabel: (['"])(.*?)\1/g)].pop()?.[2];
+	buffLabels.set(fieldName, { label, ranks, numStates: Number(block.match(/numStates: (\d+)/)?.[1] ?? 0) });
+}
+const HAND_KEPT_STEPS = {
+	battleShout: ['Rank 6', 'Rank 7 (Manual of Battle Shout VII)', 'Rank 7 with three pieces of Battlegear of Wrath'],
+	punctureArmor: ['Bashguuder', 'Rivenspike', 'Vibroblade'],
+};
+const camel = name => name.replace(/_(\w)/g, (_, c) => c.toUpperCase());
+const titled = key => key.replace(/([a-z0-9])([A-Z])/g, '$1 $2').replace(/^./, c => c.toUpperCase());
+const buffFields = message => {
+	const body = buffsProto.match(new RegExp(`message ${message} \\{([\\s\\S]*?)\\n\\}`))?.[1] ?? '';
+	return [...body.matchAll(/^\s*(bool|int32|TristateEffect)\s+(\w+)\s*=/gm)].map(([, type, name]) => {
+		const key = camel(name);
+		const known = buffLabels.get(key);
+		const label = known?.label ?? titled(key);
+		if (type === 'bool') return { key, label };
+		if (type === 'TristateEffect') return { key, label, steps: ['On', 'Improved'] };
+		const steps = HAND_KEPT_STEPS[key] ?? (known?.ranks.length ? known.ranks.map(rank => rank.replace(`${label} `, '')) : known?.numStates ? Array.from({ length: known.numStates - 1 }, (_, i) => String(i + 1)) : null);
+		return steps ? { key, label, steps } : { key, label, count: true };
+	});
+};
+const simBuffs = { raid: buffFields('RaidBuffs'), party: buffFields('PartyBuffs'), player: buffFields('IndividualBuffs'), debuffs: buffFields('Debuffs') };
+if (!simBuffs.raid.length) console.warn('Buff definitions not read: the Sim setup tab will list only the buffs a build uses.');
 const simSetup = {
+	buffs: simBuffs,
 	trees: talentTrees,
 	spells: spellNames,
 	items: Object.fromEntries(Object.entries(itemNames).filter(([, name]) => name)),
 	consumables: (db.consumables ?? [])
 		.filter(c => CONSUMABLE_KINDS[c.type])
-		.map(c => compact({ id: c.id, name: c.name, kind: CONSUMABLE_KINDS[c.type], level: c.lvl, resource: c.potionClasses?.includes(1) || undefined })),
+		.map(c => compact({ id: c.id, name: c.name, kind: CONSUMABLE_KINDS[c.type], level: c.lvl, resource: c.potionClasses?.includes(1) || undefined, group: c.groupName, groupKey: c.groupKey })),
 };
 if (Object.keys(talentTrees).length) await writeFile(join(SIM_DIR, 'setup.json'), JSON.stringify(simSetup));
 for (const spec of specs) if (!simTemplates.has(spec.id)) console.warn(`Sim template for ${spec.id} not written: its build could not be read. The existing file stays.`);

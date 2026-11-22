@@ -1611,3 +1611,46 @@ textarea {
 	overflow-wrap: anywhere;
 	cursor: text;
 }
+.buff-set {
+	border: 0;
+	padding: 0;
+	margin: 1rem 0 0;
+}
+.buff-set legend {
+	padding: 0;
+	margin-bottom: 0.4rem;
+	color: var(--brass);
+	font-weight: 600;
+}
+.buff-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+	gap: 0.3rem 1.5rem;
+}
+.buff {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	color: var(--haze);
+	min-height: 2rem;
+}
+.buff-on {
+	color: var(--mist);
+}
+.buff > span {
+	flex: 1;
+}
+.buff select,
+.buff input[type='number'] {
+	width: auto;
+	max-width: 9rem;
+	padding: 0.15rem 0.3rem;
+}
+.buff input[type='number'] {
+	width: 4rem;
+}
+.build-note {
+	grid-column: 1 / -1;
+	margin: 0;
+	overflow-wrap: anywhere;
+}

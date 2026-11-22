@@ -3,9 +3,15 @@ import { useEffect, useMemo, useState } from 'react';
 import { simClient } from '../lib/sim/client';
 import type { SimTemplate } from '../lib/sim/request';
 import {
+	BUFF_SCOPES,
+	type BuffField,
+	type BuffScope,
+	buffValue,
+	clashingGroups,
 	CONSUMABLE_FIELDS,
 	type ConsumablePicks,
 	describeFlags,
+	describeOptions,
 	describeRotation,
 	parseTalents,
 	type RotationLine,
@@ -99,17 +105,28 @@ export function SimSetupTab({ spec, character, onChange }: Props) {
 		return true;
 	});
 	const elixirs = picks.elixirIds ?? [];
+	const extras = picks.extraIds ?? [];
+	const extraOptions = [...byKind('scroll'), ...byKind('other')];
+	const clashes = clashingGroups([...elixirs, ...extras], setup.consumables);
+	const withGroup = (c: { name: string; group?: string }) => (c.group ? `${c.name} (${c.group})` : c.name);
 	const elixirName = (id: number) => setup.consumables.find(c => c.id === id)?.name ?? setup.items[id] ?? `Item ${id}`;
 
 	const sourceUrl = rotationSourceUrl(spec.id);
 	const encounter = template.encounter as { duration?: number; durationVariation?: number; targets?: { level?: number; name?: string }[] } | undefined;
 	const party = template.raid.parties[0];
-	const buffGroups = [
-		{ title: 'Raid buffs', list: describeFlags(template.raid.buffs as Record<string, unknown>) },
-		{ title: 'Party buffs', list: describeFlags(party.buffs as Record<string, unknown>) },
-		{ title: 'Buffs on you', list: describeFlags(player.buffs) },
-		{ title: 'Debuffs on the target', list: describeFlags(template.raid.debuffs as Record<string, unknown>) },
-	].filter(group => group.list.length > 0);
+	const presetBuffs: Record<BuffScope, Record<string, unknown>> = {
+		raid: (template.raid.buffs ?? {}) as Record<string, unknown>,
+		party: (party.buffs ?? {}) as Record<string, unknown>,
+		player: (player.buffs ?? {}) as Record<string, unknown>,
+		debuffs: (template.raid.debuffs ?? {}) as Record<string, unknown>,
+	};
+	const buffOf = (scope: BuffScope, key: string) => buffValue({ ...presetBuffs[scope], ...character.buffs?.[scope] }, key);
+	const setBuff = (scope: BuffScope, field: BuffField, value: number) =>
+		onChange({ ...character, buffs: { ...character.buffs, [scope]: { ...character.buffs?.[scope], [field.key]: field.steps || field.count ? value : value > 0 } } });
+	const changedBuffs = Object.values(character.buffs ?? {}).some(scope => Object.keys(scope ?? {}).length > 0);
+	// Without the full list (an older data file) only the buffs the build uses can be shown.
+	const buffFields = (scope: BuffScope): BuffField[] => setup.buffs?.[scope] ?? Object.keys(presetBuffs[scope]).map(key => ({ key, label: describeFlags({ [key]: true })[0] ?? key }));
+	const classOptions = describeOptions((player[spec.simKey] as Record<string, unknown> | undefined)?.options);
 
 	return (
 		<div className="sim-setup">
@@ -117,10 +134,10 @@ export function SimSetupTab({ spec, character, onChange }: Props) {
 				<h2>What the sim runs</h2>
 				<p>
 					The "Simulated with WoWSims" numbers come from the WoWSims engine itself, running inside this page. It starts from the WoWSims settings for <strong>{spec.name}</strong> and swaps in your race,
-					professions and gear, plus the talents and consumables below. Buffs, the fight and the rotation are taken as WoWSims ships them.
+					professions and gear, plus what you change below: talents, consumables, buffs and debuffs. The fight and the rotation are taken as WoWSims ships them.
 				</p>
 				<p className="hint">
-					The quick scores on the Plan and Upgrades tabs use fixed stat weights that were measured with the build's own talents and consumables. They do not follow changes made here; the simulated numbers
+					The quick scores on the Plan and Upgrades tabs use fixed stat weights that were measured with the build's own talents, consumables and buffs. They do not follow changes made here; the simulated numbers
 					do.
 				</p>
 			</section>
@@ -230,12 +247,43 @@ export function SimSetupTab({ spec, character, onChange }: Props) {
 								.filter(c => !elixirs.includes(c.id))
 								.map(c => (
 									<option key={c.id} value={c.id}>
-										{c.name}
+										{withGroup(c)}
 									</option>
 								))}
 						</select>
 					</label>
 				</div>
+				<div className="elixirs">
+					<span className="field-label">Scrolls and other consumables</span>
+					<ul className="plain-list elixir-list">
+						{extras.map(id => (
+							<li key={id}>
+								<label className="check">
+									<input type="checkbox" checked onChange={() => setPick({ extraIds: extras.filter(e => e !== id) })} /> {elixirName(id)}
+								</label>
+							</li>
+						))}
+						{extras.length === 0 && <li className="hint">None</li>}
+					</ul>
+					<label>
+						<span className="field-label">Add a scroll or other consumable</span>
+						<select value={0} onChange={e => Number(e.target.value) && setPick({ extraIds: [...extras, Number(e.target.value)] })}>
+							<option value={0}>Choose…</option>
+							{extraOptions
+								.filter(c => !extras.includes(c.id))
+								.map(c => (
+									<option key={c.id} value={c.id}>
+										{withGroup(c)}
+									</option>
+								))}
+						</select>
+					</label>
+				</div>
+				{clashes.map(clash => (
+					<p key={clash.group} className="field-error" role="status">
+						{clash.names.join(' and ')} both buff {clash.group}: they overwrite each other, so only one of them counts.
+					</p>
+				))}
 				<p>
 					<button
 						className="button"
@@ -248,8 +296,9 @@ export function SimSetupTab({ spec, character, onChange }: Props) {
 					</button>
 				</p>
 				<p className="hint">
-					This page does not block combinations. Where two consumables would not stack, the sim settles it by its own rules, so adding a second one of the same kind may change nothing. Simulate
-					before and after to see what a consumable is worth.
+					Every consumable WoWSims knows can be picked. Flask, food and the other single choices replace each other by design. Elixirs and scrolls that buff the same thing overwrite each other; the
+					page warns about those. The sim applies its own stacking rules on top, for example a scroll against the raid buff of the same stat. Simulate before and after to see what a consumable is
+					worth.
 				</p>
 			</section>
 
@@ -261,15 +310,64 @@ export function SimSetupTab({ spec, character, onChange }: Props) {
 					{(encounter?.targets?.length ?? 1) === 1 ? '' : 's'}
 					{encounter?.targets?.[0]?.level ? ` of level ${encounter.targets[0].level}` : ''}.
 				</p>
-				<dl className="buff-groups">
-					{buffGroups.map(group => (
-						<div key={group.title}>
-							<dt>{group.title}</dt>
-							<dd>{group.list.join(', ')}</dd>
+				{BUFF_SCOPES.map(({ scope, title }) => (
+					<fieldset key={scope} className="buff-set">
+						<legend>{title}</legend>
+						<div className="buff-grid">
+							{buffFields(scope).map(field => {
+								const value = buffOf(scope, field.key);
+								if (field.steps) {
+									return (
+										<label key={field.key} className={value ? 'buff buff-on' : 'buff'}>
+											<span>{field.label}</span>
+											<select value={Math.min(value, field.steps.length)} onChange={e => setBuff(scope, field, Number(e.target.value))}>
+												<option value={0}>Off</option>
+												{field.steps.map((step, index) => (
+													<option key={step} value={index + 1}>
+														{step}
+													</option>
+												))}
+											</select>
+										</label>
+									);
+								}
+								if (field.count) {
+									return (
+										<label key={field.key} className={value ? 'buff buff-on' : 'buff'}>
+											<span>{field.label}</span>
+											<input type="number" min={0} max={20} value={value} onChange={e => setBuff(scope, field, Math.max(0, Math.round(Number(e.target.value) || 0)))} />
+										</label>
+									);
+								}
+								return (
+									<label key={field.key} className={value ? 'buff buff-on check' : 'buff check'}>
+										<input type="checkbox" checked={value > 0} onChange={e => setBuff(scope, field, e.target.checked ? 1 : 0)} /> {field.label}
+									</label>
+								);
+							})}
 						</div>
-					))}
-				</dl>
-				<p className="hint">These come from the WoWSims build and cannot be changed here yet.</p>
+					</fieldset>
+				))}
+				<p>
+					<button
+						className="button"
+						disabled={!changedBuffs}
+						onClick={() => {
+							const { buffs: _dropped, ...rest } = character;
+							onChange(rest);
+						}}>
+						Use the WoWSims build's buffs and debuffs
+					</button>
+				</p>
+				{classOptions.length > 0 && (
+					<dl className="buff-groups">
+						<div>
+							<dt>Class options of the build</dt>
+							<dd>{classOptions.join(', ')}</dd>
+						</div>
+					</dl>
+				)}
+				<p className="hint">Every buff and debuff WoWSims knows is listed, and each can be switched on its own. The fight and the class options come from the build and cannot be changed here yet.</p>
 			</section>
 
 			<section className="panel">

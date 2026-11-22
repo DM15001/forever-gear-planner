@@ -18,7 +18,7 @@ describe('spec registry', () => {
 		expect(specById('nope').id).toBe('enhancement-shaman');
 		expect(specOf(null).id).toBe('enhancement-shaman');
 		expect(specsOfClass('warlock')).toHaveLength(5);
-		expect(specsOfClass('mage').map(spec => spec.id)).toEqual(['mage-fire', 'mage-frost', 'mage-arcane']);
+		expect(specsOfClass('mage').map(spec => spec.id)).toEqual(['mage-fire', 'mage-frost', 'mage-frost-incin', 'mage-arcane', 'mage-arcane-fire', 'mage-ffb']);
 	});
 
 	it('has measured weights and a sim template for every spec', () => {
@@ -53,7 +53,7 @@ describe('importing other classes', () => {
 	it('refuses a class without any spec', () => {
 		const rogue = JSON.parse(build('priest-shadow'));
 		rogue.player.class = 'ClassRogue';
-		expect(() => importCharacter(JSON.stringify(rogue))).toThrow(/Enhancement Shaman, Warlock, Shadow Priest, Mage/);
+		expect(() => importCharacter(JSON.stringify(rogue))).toThrow(/Enhancement Shaman, Warlock, Priest, Mage/);
 	});
 });
 

@@ -93,6 +93,8 @@ export interface Character {
 	talents: string;
 	/** Consumables changed on the Sim setup tab. Missing fields keep the build's own picks. */
 	consumables?: import('./sim/setup').ConsumablePicks;
+	/** Buffs and debuffs changed on the Sim setup tab. Missing fields keep the build's own. */
+	buffs?: import('./sim/setup').BuffPicks;
 	/** Up to two profession names. */
 	professions: string[];
 	/** Always GEAR_SLOTS.length entries, in GEAR_SLOTS order. null = empty slot. */
@@ -110,6 +112,8 @@ export interface SpecConfig {
 	className: string;
 	/** The key of this spec's options in a sim export ("enhancementShaman", "warlock" ...). */
 	simKey: string;
+	/** The name of the WoWSims preset configuration this build is. */
+	preset?: string;
 	races: { id: string; name: string; faction: Faction }[];
 	armorTypes: string[];
 	weaponTypes: { oneHand: string[]; twoHand: string[]; offHand: string[] };

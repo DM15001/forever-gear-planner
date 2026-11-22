@@ -86,3 +86,13 @@ describe('importCharacter', () => {
 		expect(warnings.some(w => w.includes('level 52'))).toBe(true);
 	});
 });
+
+describe('the build follows the talent tree of an addon export', () => {
+	const warlock = (spec: string) => JSON.stringify({ class: 'warlock', flavor: 'forever', gear: { items: [{ id: 9470 }] }, level: 60, race: 'Human', spec, talents: '25500020135201351-0050203001-05' });
+	it('picks the affliction, destruction or demonology build', () => {
+		expect(importCharacter(warlock('affliction')).character.specId).toBe('warlock-affliction');
+		expect(importCharacter(warlock('destruction')).character.specId).toBe('warlock-destruction');
+		expect(importCharacter(warlock('demonology')).character.specId).toBe('warlock-demo-fire');
+		expect(importCharacter(warlock('')).character.specId).toBe('warlock-sm-ruin');
+	});
+});

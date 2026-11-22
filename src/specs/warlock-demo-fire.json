@@ -1,6 +1,7 @@
 {
 	"id": "warlock-demo-fire",
-	"name": "Warlock: Demonology (fire)",
+	"name": "Warlock: Demo (Fire Brand)",
+	"preset": "Demo (Fire Brand)",
 	"classId": 9,
 	"className": "warlock",
 	"simKey": "warlock",

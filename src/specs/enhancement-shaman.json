@@ -1,6 +1,7 @@
 {
 	"id": "enhancement-shaman",
 	"name": "Enhancement Shaman",
+	"preset": "Default",
 	"classId": 7,
 	"className": "shaman",
 	"simKey": "enhancementShaman",

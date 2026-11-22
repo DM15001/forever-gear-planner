@@ -1,6 +1,7 @@
 {
 	"id": "warlock-sm-ruin",
-	"name": "Warlock: Shadow Mastery / Ruin",
+	"name": "Warlock: SM/Ruin",
+	"preset": "SM/Ruin",
 	"classId": 9,
 	"className": "warlock",
 	"simKey": "warlock",

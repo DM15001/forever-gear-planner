@@ -1,6 +1,7 @@
 {
 	"id": "warlock-destruction",
-	"name": "Warlock: Destruction",
+	"name": "Warlock: Destro",
+	"preset": "Destro",
 	"classId": 9,
 	"className": "warlock",
 	"simKey": "warlock",

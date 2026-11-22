@@ -116,19 +116,37 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 						Name
 					</label>
 					<input id="character-name" type="text" maxLength={60} placeholder={names[activeIndex]} value={character.name ?? ''} onChange={e => onChange({ ...character, name: e.target.value || undefined })} />
-					{builds.length > 1 && (
+					{builds.length > 0 && (
 						<>
 							<label className="field-label" htmlFor="build">
 								Build
 							</label>
-							{/* Another build has other stat weights, so the old plan no longer holds. */}
-							<select id="build" value={spec.id} onChange={e => onChange({ ...character, specId: e.target.value, plan: undefined, planEnchants: undefined })}>
+							{/* Another build has other stat weights, so the old plan no longer holds. Its talents, consumables and buffs replace the ones set before. */}
+							<select
+								id="build"
+								value={spec.id}
+								onChange={e => {
+									const { consumables: _consumables, buffs: _buffs, ...rest } = character;
+									onChange({ ...rest, specId: e.target.value, talents: '', plan: undefined, planEnchants: undefined });
+								}}>
 								{builds.map(build => (
 									<option key={build.id} value={build.id}>
-										{build.name}
+										{build.preset ?? build.name}
 									</option>
 								))}
 							</select>
+							<p className="hint build-note">
+								The WoWSims preset configurations for this class. Picking one sets its talents, rotation, consumables, buffs, debuffs and class options for the sim; see the Sim setup tab.
+								{character.talents && (
+									<>
+										{' '}
+										The sim is using your own talents ({character.talents}), not the preset's.{' '}
+										<button className="link" onClick={() => onChange({ ...character, talents: '' })}>
+											Use the preset's talents
+										</button>
+									</>
+								)}
+							</p>
 						</>
 					)}
 					<label className="field-label" htmlFor="race">

@@ -94,8 +94,11 @@ export function importCharacter(text: string, specOrSpecs: SpecConfig | SpecConf
 	if (!matching.length) {
 		throw new ImportError(`This ${className} export is for a spec the planner does not cover yet (${simKeys.join(', ')}). It covers ${sameClass.map(candidate => candidate.name).join(', ')}.`);
 	}
-	const spec = matching[0];
-	if (matching.length > 1) warnings.push(`Planned as "${spec.name}". Pick another build under Character details if you play a different one.`);
+	// The addon export names the talent tree the character is in ("affliction"); take the first build of that tree.
+	const tree = typeof source.spec === 'string' ? source.spec.toLowerCase() : '';
+	const ofTree = tree ? matching.find(candidate => candidate.id.split('-').some(part => part.length > 2 && (tree.startsWith(part) || part.startsWith(tree)))) : undefined;
+	const spec = ofTree ?? matching[0];
+	if (matching.length > 1) warnings.push(`Planned as "${spec.name}"${ofTree ? `, the first build for ${tree} talents` : ''}. Pick another build under Character details if you play a different one.`);
 
 	const wantedRace = normalize(source.race, 'race');
 	const race = spec.races.find(r => normalize(r.id, 'race') === wantedRace)?.id ?? null;

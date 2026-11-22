@@ -1,6 +1,7 @@
 {
 	"id": "warlock-affliction",
-	"name": "Warlock: Affliction",
+	"name": "Warlock: Aff (Wrack)",
+	"preset": "Aff (Wrack)",
 	"classId": 9,
 	"className": "warlock",
 	"simKey": "warlock",
