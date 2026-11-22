@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { SPECS } from '../specs';
 import type { Character } from '../types';
 import { buildSimRequest, indexSimDb, simKey } from './request';
-import { describeFlags, describeRotation, parseTalents, serializeTalents, type SimSetupData, talentPointsSpent } from './setup';
+import { describeFlags, describeRotation, parseTalents, rotationSourceUrl, serializeTalents, type SimSetupData, talentPointsSpent } from './setup';
 
 const read = (name: string) => JSON.parse(readFileSync(new URL(`../../../public/sim/${name}`, import.meta.url), 'utf8'));
 const setup: SimSetupData = read('setup.json');
@@ -38,16 +38,24 @@ describe('rotation in words', () => {
 		for (const spec of SPECS) {
 			const text = describeRotation(player(spec.id).rotation, setup);
 			expect(text.priority.length, spec.id).toBeGreaterThan(2);
-			const all = JSON.stringify(text);
+			const all = JSON.stringify(text, (key, v) => (key === 'raw' ? undefined : v));
 			expect(all, spec.id).not.toMatch(/\[object|undefined|Spell #|Item #|\{\}/);
 		}
 	});
 
 	it('describes the enhancement rotation', () => {
 		const text = describeRotation(player('enhancement-shaman').rotation, setup);
-		expect(text.prepull[0]).toEqual({ text: 'Cast Water Shield', when: 'at -5.5s' });
-		expect(text.priority[0]).toEqual({ text: 'Cast resource potion', when: 'current mana percent < 80%' });
-		expect(text.priority[2]).toEqual({ text: 'Cast Water Shield', when: 'not aura is active: Water Shield' });
+		expect(text.prepull[0]).toMatchObject({ text: 'Cast Water Shield', when: 'the pull timer is at -5.5s' });
+		expect(text.priority[0]).toMatchObject({ text: 'Cast resource potion', when: 'current mana percent < 80%' });
+		expect(text.priority[2]).toMatchObject({ text: 'Cast Water Shield', when: 'not aura is active: Water Shield' });
+	});
+});
+
+describe('rotation source', () => {
+	it('knows the WoWSims file of every build and keeps the original rule with each step', () => {
+		for (const spec of SPECS) expect(rotationSourceUrl(spec.id), spec.id).toMatch(/^https:\/\/github\.com\/wowsims\/forever\/blob\/master\/ui\/specs\//);
+		const text = describeRotation(player('enhancement-shaman').rotation, setup);
+		expect(JSON.parse(text.priority[2].raw!)).toEqual(player('enhancement-shaman').rotation.priorityList[2].action);
 	});
 });
 

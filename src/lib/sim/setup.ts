@@ -77,8 +77,25 @@ export const talentPointsAt = (level: number) => Math.max(0, level - 9);
 
 type Json = Record<string, any>;
 
+/** The file in the WoWSims project each build's rotation is taken from, unchanged. */
+export const ROTATION_SOURCES: Record<string, string> = {
+	'enhancement-shaman': 'ui/specs/shaman/enhancement/builds/default.build.json',
+	'warlock-sm-ruin': 'ui/specs/warlock/dps/builds/sm_ruin.build.json',
+	'warlock-destruction': 'ui/specs/warlock/dps/builds/destro.build.json',
+	'warlock-affliction': 'ui/specs/warlock/dps/builds/aff_wrack.build.json',
+	'warlock-demo-fire': 'ui/specs/warlock/dps/builds/demo_fire_brand.build.json',
+	'warlock-demo-shadow': 'ui/specs/warlock/dps/builds/demo_shadow_brand.build.json',
+	'priest-shadow': 'ui/specs/priest/dps/builds/testing.build.json',
+	'mage-fire': 'ui/specs/mage/dps/apls/deepFire.apl.json',
+	'mage-frost': 'ui/specs/mage/dps/apls/frost.apl.json',
+	'mage-arcane': 'ui/specs/mage/dps/apls/arcane.apl.json',
+};
+export const rotationSourceUrl = (specId: string) => (ROTATION_SOURCES[specId] ? `https://github.com/wowsims/forever/blob/master/${ROTATION_SOURCES[specId]}` : undefined);
+
 export interface RotationLine {
 	text: string;
+	/** The step exactly as WoWSims wrote it, for checking the wording against the source. */
+	raw?: string;
 	/** The condition the step waits for, when it has one. */
 	when?: string;
 	/** Steps of a group or sequence, shown under the line. */
@@ -192,12 +209,13 @@ export function describeRotation(rotation: Json | undefined, setup: Pick<SimSetu
 	const line = (action: Json): RotationLine => {
 		const result = bare(action);
 		if (action.condition) result.when = value(action.condition);
+		result.raw = JSON.stringify(action);
 		return result;
 	};
 
 	const steps = (list: Json[] | undefined) => (list ?? []).filter(step => !step.hide && step.action).map(step => line(step.action));
 	return {
-		prepull: (rotation?.prepullActions ?? []).filter((step: Json) => !step.hide && step.action).map((step: Json) => ({ ...line(step.action), when: `at ${value(step.doAtValue)}` })),
+		prepull: (rotation?.prepullActions ?? []).filter((step: Json) => !step.hide && step.action).map((step: Json) => ({ ...line(step.action), when: `the pull timer is at ${value(step.doAtValue)}`, raw: JSON.stringify(step) })),
 		priority: steps(rotation?.priorityList),
 		groups: (rotation?.groups ?? []).map((group: Json) => ({ name: group.name, lines: steps(group.actions) })),
 		variables: (rotation?.valueVariables ?? []).map((variable: Json) => ({ name: variable.name, value: value(variable.value) })),

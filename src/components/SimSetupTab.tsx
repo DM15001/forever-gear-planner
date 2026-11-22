@@ -9,6 +9,7 @@ import {
 	describeRotation,
 	parseTalents,
 	type RotationLine,
+	rotationSourceUrl,
 	serializeTalents,
 	type SimSetupData,
 	talentPointsAt,
@@ -24,14 +25,15 @@ interface Props {
 
 const MAX_LEVEL = 60;
 
-function Steps({ lines }: { lines: RotationLine[] }) {
+function Steps({ lines, showRaw }: { lines: RotationLine[]; showRaw: boolean }) {
 	return (
 		<ol className="rotation-steps">
 			{lines.map((line, index) => (
-				<li key={index}>
+				<li key={index} title={line.raw ? `The WoWSims rule behind this step:\n${line.raw}` : undefined}>
 					<span className="rotation-do">{line.text}</span>
 					{line.when && <span className="rotation-when"> when {line.when}</span>}
-					{line.children && <Steps lines={line.children} />}
+					{showRaw && line.raw && <pre className="rotation-raw">{line.raw}</pre>}
+					{line.children && <Steps lines={line.children} showRaw={false} />}
 				</li>
 			))}
 		</ol>
@@ -59,6 +61,7 @@ export function SimSetupTab({ spec, character, onChange }: Props) {
 	const rotation = useMemo(() => (ready && player ? describeRotation(player.rotation, ready.setup) : null), [ready, player]);
 	// The talent string is typed into a field of its own, so a half-typed string never reaches the sim.
 	const [typed, setTyped] = useState<string | null>(null);
+	const [showRaw, setShowRaw] = useState(false);
 
 	if (failed) {
 		return (
@@ -98,6 +101,7 @@ export function SimSetupTab({ spec, character, onChange }: Props) {
 	const elixirs = picks.elixirIds ?? [];
 	const elixirName = (id: number) => setup.consumables.find(c => c.id === id)?.name ?? setup.items[id] ?? `Item ${id}`;
 
+	const sourceUrl = rotationSourceUrl(spec.id);
 	const encounter = template.encounter as { duration?: number; durationVariation?: number; targets?: { level?: number; name?: string }[] } | undefined;
 	const party = template.raid.parties[0];
 	const buffGroups = [
@@ -271,21 +275,35 @@ export function SimSetupTab({ spec, character, onChange }: Props) {
 			<section className="panel">
 				<h2>Rotation</h2>
 				<p>
-					The priority list is read from the top each time the character can act: the first step whose condition holds is used. It is the rotation WoWSims ships for this build, in words; steps that are
-					switched off there are left out.
+					The priority list is read from the top each time the character can act: the first step whose condition holds is used. Steps that are switched off in WoWSims are left out.
+				</p>
+				<p>
+					Where it comes from: this is the rotation of the WoWSims project for this build, taken over unchanged
+					{sourceUrl && (
+						<>
+							{' '}
+							(<a href={sourceUrl}>the file on GitHub</a>)
+						</>
+					)}
+					. The sim runs that file; the sentences here are only a translation of it into words, written by this site. Hover over a step to see the original rule, or show them all:
+				</p>
+				<p>
+					<label className="check">
+						<input type="checkbox" checked={showRaw} onChange={e => setShowRaw(e.target.checked)} /> Show the original WoWSims rule under each step
+					</label>
 				</p>
 				{rotation.prepull.length > 0 && (
 					<>
 						<h3>Before the pull</h3>
-						<Steps lines={rotation.prepull} />
+						<Steps lines={rotation.prepull} showRaw={showRaw} />
 					</>
 				)}
 				<h3>Priority list</h3>
-				<Steps lines={rotation.priority} />
+				<Steps lines={rotation.priority} showRaw={showRaw} />
 				{rotation.groups.map(group => (
 					<div key={group.name}>
 						<h3>Group "{group.name}"</h3>
-						<Steps lines={group.lines} />
+						<Steps lines={group.lines} showRaw={showRaw} />
 					</div>
 				))}
 				{rotation.variables.length > 0 && (

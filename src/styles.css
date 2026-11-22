@@ -1597,3 +1597,17 @@ textarea {
 	border-bottom: 1px solid var(--hairline);
 	padding-bottom: 0.2rem;
 }
+.rotation-steps li[title] {
+	cursor: help;
+}
+.rotation-raw {
+	margin: 0.3rem 0 0.5rem;
+	padding: 0.5rem 0.75rem;
+	background: var(--well);
+	border: 1px solid var(--hairline);
+	color: var(--haze);
+	font-size: 0.75rem;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+	cursor: text;
+}
