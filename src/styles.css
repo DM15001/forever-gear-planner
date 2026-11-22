@@ -1763,3 +1763,39 @@ a.enchant-name {
 		gap: 0.1rem;
 	}
 }
+
+/* Sim result breakdown */
+.sim-details {
+	margin-top: 0.75rem;
+}
+.sim-details summary {
+	cursor: pointer;
+	color: var(--brass);
+}
+.breakdown h4 {
+	margin: 1rem 0 0.25rem;
+}
+.breakdown-table {
+	width: 100%;
+	max-width: 44rem;
+	border-collapse: collapse;
+	margin: 0.5rem 0;
+	font-size: 0.9375rem;
+}
+.breakdown-table th,
+.breakdown-table td {
+	padding: 0.2rem 0.6rem 0.2rem 0;
+	border-bottom: 1px solid var(--hairline);
+	text-align: left;
+	font-weight: 400;
+}
+.breakdown-table thead th {
+	color: var(--haze);
+	font-size: 0.8125rem;
+}
+.breakdown-table .num {
+	text-align: right;
+}
+.breakdown-table tbody th {
+	font-weight: 600;
+}

@@ -114,8 +114,11 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 					</p>
 				)}
 				<p className="hint">
-					The score adds up stats with the WoWSims weights for {spec.name}, in attack-power equivalents, plus what the simulator measured for procs, on-use effects and set bonuses. Items marked
+					The score adds up stats with the WoWSims weights for {spec.name}, in points (see Stat weights below), plus what the simulator measured for procs, on-use effects and set bonuses. Items marked
 					"sim it" have an effect nobody measured and may be better or worse than their number. Each +/- shows how the whole set changes, so hit rating past the cap counts for nothing.
+				</p>
+				<p className="hint">
+					<strong>"Sim this"</strong> next to an item runs the real simulator for that one swap and shows the DPS change. "Simulate equipped gear" above does it for your whole set.
 				</p>
 			</section>
 

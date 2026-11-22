@@ -63,7 +63,7 @@ describe('buildSimRequest', () => {
 describe('readSimResult', () => {
 	it('reads DPS and its standard error', () => {
 		const outcome = readSimResult(JSON.stringify({ raidMetrics: { dps: { avg: 700, stdev: 70 } }, error: null }), 4900);
-		expect(outcome).toEqual({ dps: 700, error: 1, iterations: 4900 });
+		expect(outcome).toEqual({ dps: 700, error: 1, iterations: 4900, breakdown: undefined });
 	});
 
 	it('throws on a rejected request or a sim error', () => {
@@ -90,6 +90,19 @@ describe('the WebAssembly sim', () => {
 		raidSimJson = g.raidSimJson;
 		return () => (console.log = log);
 	}, 60_000);
+
+	it('breaks a run down into spells whose damage adds up to the DPS', () => {
+		const gear = imported.gear;
+		const outcome = readSimResult(raidSimJson(JSON.stringify(buildSimRequest(imported, gear, index, 300).request)), 300);
+		const breakdown = outcome.breakdown!;
+		expect(breakdown.actions.length).toBeGreaterThan(3);
+		expect(breakdown.actions.reduce((sum, row) => sum + row.share, 0)).toBeCloseTo(1, 5);
+		const summed = breakdown.actions.reduce((sum, row) => sum + row.dps, 0);
+		expect(Math.abs(summed - outcome.dps) / outcome.dps).toBeLessThan(0.03);
+		expect(breakdown.min).toBeLessThan(outcome.dps);
+		expect(breakdown.max).toBeGreaterThan(outcome.dps);
+		expect(breakdown.auras.every(aura => aura.uptime > 0 && aura.uptime <= 1)).toBe(true);
+	});
 
 	const dpsOf = (character: Character, gear: Character['gear']) => readSimResult(raidSimJson(JSON.stringify(buildSimRequest(character, gear, index, 400).request)), 400).dps;
 

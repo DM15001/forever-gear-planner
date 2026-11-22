@@ -107,11 +107,107 @@ export function buildSimRequest(character: Character, gear: Gear, index: SimInde
 	return { request: request as unknown as Record<string, unknown>, missingItems };
 }
 
+/** A spell, item or other action as the sim names it. */
+export interface SimActionId {
+	spellId?: number;
+	itemId?: number;
+	otherId?: string;
+	rank?: number;
+	tag?: number;
+}
+
+export interface SimActionRow {
+	id: SimActionId;
+	/** Set when a pet does it. */
+	pet?: string;
+	/** Per fight, on average. */
+	casts: number;
+	dps: number;
+	/** Part of all damage, 0 to 1. */
+	share: number;
+	/** Crits among everything that landed, 0 to 1. */
+	crit: number;
+	/** Misses per cast, 0 to 1; undefined for effects that are not cast. */
+	miss?: number;
+}
+
+export interface SimAuraRow {
+	id: SimActionId;
+	/** Part of the fight the effect was up, 0 to 1. */
+	uptime: number;
+}
+
+/** What a run is made of, beyond its average. */
+export interface SimBreakdown {
+	min: number;
+	max: number;
+	stdev: number;
+	/** Average fight length in seconds. */
+	seconds: number;
+	/** Seconds per fight spent out of mana. */
+	oomSeconds: number;
+	actions: SimActionRow[];
+	/** Buffs and procs on the character. */
+	auras: SimAuraRow[];
+	/** Debuffs on the target. */
+	targetAuras: SimAuraRow[];
+}
+
 export interface SimOutcome {
 	dps: number;
 	/** Standard error of the average: about two thirds of runs land within this of the true value. */
 	error: number;
 	iterations: number;
+	breakdown?: SimBreakdown;
+}
+
+type RawAction = { id: SimActionId; targets?: Record<string, number>[] };
+type RawAura = { id: SimActionId; uptimeSecondsAvg?: number };
+type RawUnit = { name?: string; actions?: RawAction[]; auras?: RawAura[]; pets?: RawUnit[]; secondsOomAvg?: number };
+
+function readBreakdown(result: any, iterations: number): SimBreakdown | undefined {
+	const dps = result.raidMetrics?.dps;
+	const player: RawUnit | undefined = result.raidMetrics?.parties?.[0]?.players?.[0];
+	const seconds: number = result.avgIterationDuration;
+	if (!player || !seconds) return undefined;
+	const rows: (SimActionRow & { damage: number })[] = [];
+	const collect = (unit: RawUnit, pet?: string) => {
+		for (const action of unit.actions ?? []) {
+			const sum = (field: string) => (action.targets ?? []).reduce((total, target) => total + (target[field] ?? 0), 0);
+			const damage = sum('damage');
+			if (damage <= 0) continue;
+			const landed = sum('hits') + sum('crits') + sum('ticks') + sum('critTicks');
+			const casts = sum('casts');
+			rows.push({
+				id: action.id,
+				...(pet ? { pet } : {}),
+				casts: casts / iterations,
+				damage,
+				dps: damage / iterations / seconds,
+				share: 0,
+				crit: landed ? (sum('crits') + sum('critTicks')) / landed : 0,
+				...(casts ? { miss: Math.min(1, sum('misses') / casts) } : {}),
+			});
+		}
+		for (const petUnit of unit.pets ?? []) collect(petUnit, petUnit.name ?? 'Pet');
+	};
+	collect(player);
+	const total = rows.reduce((sum, row) => sum + row.damage, 0) || 1;
+	const auras = (list: RawAura[] | undefined): SimAuraRow[] =>
+		(list ?? [])
+			.map(aura => ({ id: aura.id, uptime: Math.min(1, (aura.uptimeSecondsAvg ?? 0) / seconds) }))
+			.filter(aura => aura.uptime > 0.001)
+			.sort((x, y) => y.uptime - x.uptime);
+	return {
+		min: dps.min,
+		max: dps.max,
+		stdev: dps.stdev ?? 0,
+		seconds,
+		oomSeconds: player.secondsOomAvg ?? 0,
+		actions: rows.sort((x, y) => y.damage - x.damage).map(({ damage, ...row }) => ({ ...row, share: damage / total })),
+		auras: auras(player.auras),
+		targetAuras: auras(result.encounterMetrics?.targets?.[0]?.auras),
+	};
 }
 
 /** Reads the sim's JSON answer. Throws with the sim's message when it reports an error. */
@@ -124,7 +220,7 @@ export function readSimResult(json: string | null | undefined, iterations: numbe
 	}
 	const dps = result.raidMetrics?.dps;
 	if (typeof dps?.avg !== 'number') throw new Error('The simulator returned no DPS.');
-	return { dps: dps.avg, error: (dps.stdev ?? 0) / Math.sqrt(iterations), iterations };
+	return { dps: dps.avg, error: (dps.stdev ?? 0) / Math.sqrt(iterations), iterations, breakdown: readBreakdown(result, iterations) };
 }
 
 /** Identifies a run, so the same gear is never simulated twice. */

@@ -2,7 +2,8 @@ import { createContext, type ReactNode, useCallback, useContext, useEffect, useM
 
 import type { Gear } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
-import { simKey, type SimOutcome } from '../lib/sim/request';
+import { type SimActionId, simKey, type SimOutcome } from '../lib/sim/request';
+import type { SimSetupData } from '../lib/sim/setup';
 import type { Character } from '../lib/types';
 
 /** Set VITE_NO_SIM=1 at build time for a copy of the site without the simulator files. */
@@ -77,7 +78,7 @@ const signed = (value: number, digits = 1) => `${value >= 0 ? '+' : '−'}${Math
  * A "Sim" button that compares `variant` against `base` and then shows the DPS difference.
  * The margin is the standard error of the difference: differences smaller than it are noise.
  */
-export function SimDelta({ base, variant, label = 'Sim' }: { base: Gear; variant: Gear; label?: string }) {
+export function SimDelta({ base, variant, label = 'Sim this' }: { base: Gear; variant: Gear; label?: string }) {
 	const sim = useSim();
 	const a = sim.result(base, SWAP_ITERATIONS);
 	const b = sim.result(variant, SWAP_ITERATIONS);
@@ -95,13 +96,86 @@ export function SimDelta({ base, variant, label = 'Sim' }: { base: Gear; variant
 	if (sim.isRunning(base, SWAP_ITERATIONS) || sim.isRunning(variant, SWAP_ITERATIONS)) return <span className="sim-delta sim-unclear">simulating…</span>;
 	return (
 		<button
-			className="link sim-button"
+			className="button button-small sim-button"
 			onClick={() => {
 				if (!a) sim.run(base, SWAP_ITERATIONS);
 				sim.run(variant, SWAP_ITERATIONS);
 			}}>
 			{label}
 		</button>
+	);
+}
+
+const percent = (value: number, digits = 0) => `${(value * 100).toFixed(digits)}%`;
+
+/** What a run is made of: damage per spell, effects with their uptime, and the spread of the result. */
+function Breakdown({ title, outcome, names }: { title: string; outcome: SimOutcome; names: SimSetupData | null }) {
+	const breakdown = outcome.breakdown;
+	if (!breakdown) return null;
+	const nameOf = (id: SimActionId) => {
+		const base = id.spellId ? (names?.spells[id.spellId] ?? `Spell ${id.spellId}`) : id.itemId ? (names?.items[id.itemId] ?? `Item ${id.itemId}`) : String(id.otherId ?? 'Other').replace(/^OtherAction/, '').replace(/([a-z])([A-Z])/g, '$1 $2');
+		return id.rank ? `${base} (Rank ${id.rank})` : base;
+	};
+	// Effects that are simply always on say nothing about the run; the ones that come and go do.
+	const timed = (list: typeof breakdown.auras) => list.filter(aura => aura.uptime < 0.995);
+	const buffs = timed(breakdown.auras);
+	const debuffs = timed(breakdown.targetAuras);
+	return (
+		<div className="breakdown">
+			<h4>{title}</h4>
+			<p className="slot-source">
+				{outcome.dps.toFixed(1)} DPS on average over {outcome.iterations.toLocaleString('en')} fights of about {breakdown.seconds.toFixed(0)} seconds. Single fights ran from {breakdown.min.toFixed(0)} to{' '}
+				{breakdown.max.toFixed(0)} DPS (standard deviation {breakdown.stdev.toFixed(0)}).
+				{breakdown.oomSeconds >= 0.5 && ` Out of mana for ${breakdown.oomSeconds.toFixed(1)} seconds per fight.`}
+			</p>
+			<table className="breakdown-table">
+				<thead>
+					<tr>
+						<th scope="col">Damage from</th>
+						<th scope="col" className="num">
+							DPS
+						</th>
+						<th scope="col" className="num">
+							Share
+						</th>
+						<th scope="col" className="num">
+							Casts
+						</th>
+						<th scope="col" className="num">
+							Crit
+						</th>
+						<th scope="col" className="num">
+							Miss
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{breakdown.actions.map((row, index) => (
+						<tr key={index}>
+							<th scope="row">
+								{nameOf(row.id)}
+								{row.pet && <span className="slot-source"> ({row.pet})</span>}
+							</th>
+							<td className="num">{row.dps.toFixed(1)}</td>
+							<td className="num">{percent(row.share, 1)}</td>
+							<td className="num">{row.casts >= 0.05 ? row.casts.toFixed(1) : ''}</td>
+							<td className="num">{percent(row.crit)}</td>
+							<td className="num">{row.miss !== undefined ? percent(row.miss) : ''}</td>
+						</tr>
+					))}
+				</tbody>
+			</table>
+			{buffs.length > 0 && (
+				<p className="slot-source">
+					<strong>Procs and timed effects on you:</strong> {buffs.map(aura => `${nameOf(aura.id)} ${percent(aura.uptime)}`).join(', ')}.
+				</p>
+			)}
+			{debuffs.length > 0 && (
+				<p className="slot-source">
+					<strong>Effects on the target that were not up all the time:</strong> {debuffs.map(aura => `${nameOf(aura.id)} ${percent(aura.uptime)}`).join(', ')}.
+				</p>
+			)}
+		</div>
 	);
 }
 
@@ -112,6 +186,11 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false }: { equip
 	const b = hasPlan ? sim.result(planned, SET_ITERATIONS) : undefined;
 	const runningNow = sim.isRunning(equipped, SET_ITERATIONS) || sim.isRunning(planned, SET_ITERATIONS);
 	const complete = Boolean(a && (!hasPlan || b));
+	// Spell and item names for the breakdown, fetched when it is first opened.
+	const [names, setNames] = useState<SimSetupData | null>(null);
+	const loadNames = () => {
+		if (!names) simClient.setup().then(setNames, () => undefined);
+	};
 	const show = (outcome: typeof a) => (outcome ? `${outcome.dps.toFixed(0)} DPS` : '—');
 
 	// With `auto`, a short pause after the last change starts the missing runs by itself.
@@ -165,6 +244,17 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false }: { equip
 				<p className="field-error" role="alert">
 					The simulator failed: {sim.error}
 				</p>
+			)}
+			{(a?.breakdown || b?.breakdown) && (
+				<details className="sim-details" onToggle={loadNames}>
+					<summary>Show how these numbers come about</summary>
+					{a && <Breakdown title="Equipped gear" outcome={a} names={names} />}
+					{b && <Breakdown title="Planned gear" outcome={b} names={names} />}
+					<p className="hint">
+						Per spell: average DPS, its part of all damage, casts per fight, how often it crit and how often a cast missed. Effects that were up for the whole fight are left out; the Sim setup tab
+						lists them.
+					</p>
+				</details>
 			)}
 			<p className="hint">
 				Real DPS from the WoWSims simulator, including procs and set bonuses: full raid buffs, a 3-minute single-target fight, the default rotation, enchants as set on your gear. The first run
