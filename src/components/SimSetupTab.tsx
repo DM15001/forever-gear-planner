@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { simClient } from '../lib/sim/client';
 import type { GameData } from '../lib/gameData';
 import { plannedGear } from '../lib/scoring';
-import { type SimTemplate, wowsimsSettings } from '../lib/sim/request';
+import { type RotationChecks, type SimTemplate, wowsimsSettings } from '../lib/sim/request';
 import {
 	BUFF_SCOPES,
 	type BuffField,
@@ -12,6 +12,7 @@ import {
 	clashingGroups,
 	CONSUMABLE_FIELDS,
 	type ConsumablePicks,
+	describeCheck,
 	describeFlags,
 	describeOptions,
 	describeRotation,
@@ -35,17 +36,28 @@ interface Props {
 
 const MAX_LEVEL = 60;
 
-function Steps({ lines, showRaw }: { lines: RotationLine[]; showRaw: boolean }) {
+function Steps({ lines, showRaw, checks, names }: { lines: RotationLine[]; showRaw: boolean; checks?: string[][]; names?: SimSetupData }) {
 	return (
 		<ol className="rotation-steps">
-			{lines.map((line, index) => (
-				<li key={index} title={line.raw ? `The WoWSims rule behind this step:\n${line.raw}` : undefined}>
-					<span className="rotation-do">{line.text}</span>
-					{line.when && <span className="rotation-when"> when {line.when}</span>}
-					{showRaw && line.raw && <pre className="rotation-raw">{line.raw}</pre>}
-					{line.children && <Steps lines={line.children} showRaw={false} />}
-				</li>
-			))}
+			{lines.map((line, index) => {
+				const remarks = (line.index !== undefined ? checks?.[line.index] : undefined) ?? [];
+				// A step whose spell or talent the character lacks never fires.
+				const unusable = remarks.some(remark => /does not know/.test(remark));
+				return (
+					<li key={index} className={unusable ? 'rotation-unused' : undefined} title={line.raw ? `The WoWSims rule behind this step:\n${line.raw}` : undefined}>
+						<span className="rotation-do">{line.text}</span>
+						{line.when && <span className="rotation-when"> when {line.when}</span>}
+						{remarks.map(remark => (
+							<span key={remark} className="rotation-remark">
+								{unusable && /does not know/.test(remark) ? 'Skipped for you: ' : 'Note: '}
+								{names ? describeCheck(remark, names) : remark}
+							</span>
+						))}
+						{showRaw && line.raw && <pre className="rotation-raw">{line.raw}</pre>}
+						{line.children && <Steps lines={line.children} showRaw={false} />}
+					</li>
+				);
+			})}
 		</ol>
 	);
 }
@@ -73,6 +85,20 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 	const [typed, setTyped] = useState<string | null>(null);
 	const [showRaw, setShowRaw] = useState(false);
 	const [copied, setCopied] = useState<string | null>(null);
+	// What the simulator says about each rotation step for this character.
+	const [checks, setChecks] = useState<RotationChecks | null>(null);
+	useEffect(() => {
+		let current = true;
+		setChecks(null);
+		if (import.meta.env.VITE_NO_SIM) return;
+		simClient.rotationChecks(character).then(
+			result => current && setChecks(result),
+			() => undefined,
+		);
+		return () => {
+			current = false;
+		};
+	}, [character]);
 
 	if (failed) {
 		return (
@@ -471,7 +497,8 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 			<section className="panel">
 				<h2>Rotation</h2>
 				<p>
-					The priority list is read from the top each time the character can act: the first step whose condition holds is used. Steps that are switched off in WoWSims are left out.
+					The priority list is read from the top each time the character can act: the first step whose condition holds is used. Steps that are switched off in WoWSims are left out. The list is
+					the build's, so it can name spells your character does not have; those steps are greyed out and marked "Skipped for you", and the simulator passes over them.
 				</p>
 				<p>
 					Where it comes from: this is the rotation of the WoWSims project for this build, taken over unchanged
@@ -491,15 +518,15 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 				{rotation.prepull.length > 0 && (
 					<>
 						<h3>Before the pull</h3>
-						<Steps lines={rotation.prepull} showRaw={showRaw} />
+						<Steps lines={rotation.prepull} showRaw={showRaw} checks={checks?.prepull} names={setup} />
 					</>
 				)}
 				<h3>Priority list</h3>
-				<Steps lines={rotation.priority} showRaw={showRaw} />
-				{rotation.groups.map(group => (
+				<Steps lines={rotation.priority} showRaw={showRaw} checks={checks?.priority} names={setup} />
+				{rotation.groups.map((group, groupIndex) => (
 					<div key={group.name}>
 						<h3>Group "{group.name}"</h3>
-						<Steps lines={group.lines} showRaw={showRaw} />
+						<Steps lines={group.lines} showRaw={showRaw} checks={checks?.groups[groupIndex]} names={setup} />
 					</div>
 				))}
 				{rotation.variables.length > 0 && (

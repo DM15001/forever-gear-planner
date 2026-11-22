@@ -1912,3 +1912,15 @@ a.enchant-name {
 	flex-wrap: wrap;
 	gap: 0.4rem;
 }
+
+.rotation-unused .rotation-do,
+.rotation-unused .rotation-when {
+	color: var(--haze);
+	text-decoration: line-through;
+	font-weight: 400;
+}
+.rotation-remark {
+	display: block;
+	color: var(--ember);
+	font-size: 0.875rem;
+}

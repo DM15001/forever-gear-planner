@@ -4,8 +4,8 @@ import { describe, expect, it } from 'vitest';
 
 import { SPECS } from '../specs';
 import type { Character } from '../types';
-import { buildSimRequest, indexSimDb, simKey, wowsimsSettings } from './request';
-import { buffValue, clashingGroups, describeFlags, describeRotation, parseTalents, rotationSourceUrl, serializeTalents, type SimSetupData, talentPointsSpent } from './setup';
+import { buildSimRequest, indexSimDb, readRotationChecks, simKey, wowsimsSettings } from './request';
+import { buffValue, clashingGroups, describeCheck, describeFlags, describeRotation, parseTalents, rotationSourceUrl, serializeTalents, type SimSetupData, talentPointsSpent } from './setup';
 
 const read = (name: string) => JSON.parse(readFileSync(new URL(`../../../public/sim/${name}`, import.meta.url), 'utf8'));
 const setup: SimSetupData = read('setup.json');
@@ -126,5 +126,26 @@ describe('settings for wowsims.com', () => {
 		expect(settings.debuffs).toEqual(request.raid.debuffs);
 		expect(settings.debuffs.curseOfElements).toBe(false);
 		expect(settings.encounter).toEqual(request.encounter);
+	});
+});
+
+describe('rotation checks', () => {
+	it('reads the simulator remarks per step and names the spells', () => {
+		const report = { raidStats: { parties: [{ players: [{ rotationStats: {
+			prepullActions: [{ validations: [{ logLevel: 'Warning', validation: 'Player (#1) does not know spell {SpellID: 408510}' }] }, { validations: [] }],
+			priorityList: [{ validations: [{ logLevel: 'Information', validation: 'Autocast Other Cooldowns will cast the following spells: {ItemID: 13965}' }] }],
+			groups: [{ actions: [{ validations: [{ logLevel: 'Warning', validation: 'No aura found on Player (#1) for: {SpellID: 408505}' }, { logLevel: 'Warning', validation: 'No aura found on Player (#1) for: {SpellID: 408505}' }] }] }],
+		} }] }] } };
+		const checks = readRotationChecks(JSON.stringify(report));
+		expect(checks.prepull).toEqual([['Player (#1) does not know spell {SpellID: 408510}'], []]);
+		expect(checks.priority).toEqual([[]]);
+		expect(checks.groups[0][0]).toHaveLength(1);
+		expect(describeCheck(checks.prepull[0][0], setup)).toBe('Your character does not know Water Shield');
+	});
+
+	it('keeps each step position, so remarks land on the right line', () => {
+		const text = describeRotation(player('enhancement-shaman').rotation, setup);
+		expect(text.prepull.map(line => line.index)).toEqual([0, 1, 2, 3, 4]);
+		expect(text.priority[2].index).toBe(2);
 	});
 });

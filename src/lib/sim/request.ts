@@ -237,6 +237,23 @@ export function readSimResult(json: string | null | undefined, iterations: numbe
 	return { dps: dps.avg, error: (dps.stdev ?? 0) / Math.sqrt(iterations), iterations, breakdown: readBreakdown(result, iterations) };
 }
 
+/** The simulator's remarks per rotation step, in the order of the rotation file (hidden steps included). */
+export interface RotationChecks {
+	prepull: string[][];
+	priority: string[][];
+	groups: string[][][];
+}
+
+/** Reads the rotation checks out of the simulator's character report. Informational lines are left out. */
+export function readRotationChecks(json: string | null | undefined): RotationChecks {
+	if (!json) throw new Error('The simulator rejected the request.');
+	const stats = JSON.parse(json)?.raidStats?.parties?.[0]?.players?.[0]?.rotationStats ?? {};
+	type Step = { validations?: { logLevel?: string; validation?: string }[] };
+	const warnings = (step: Step) => [...new Set((step.validations ?? []).filter(v => v.logLevel !== 'Information' && v.validation).map(v => v.validation!))];
+	const list = (steps: Step[] | undefined) => (steps ?? []).map(warnings);
+	return { prepull: list(stats.prepullActions), priority: list(stats.priorityList), groups: (stats.groups ?? []).map((group: { actions?: Step[] }) => list(group.actions)) };
+}
+
 /** Identifies a run, so the same gear is never simulated twice. */
 export const simKey = (character: Character, gear: Gear, iterations: number, bonus?: BonusStats) =>
 	JSON.stringify([bonus ?? 0, character.specId ?? '', character.race, character.talents, character.consumables ?? 0, character.buffs ?? 0, character.professions, gear.map(p => (p ? [p.id, p.enchant ?? 0, p.randomSuffix ?? 0] : 0)), iterations]);

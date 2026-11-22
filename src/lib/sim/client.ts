@@ -1,7 +1,7 @@
 import type { Gear } from '../scoring';
 import type { Character } from '../types';
 import { specOf } from '../specs';
-import { type BonusStats, buildSimRequest, indexSimDb, readSimResult, type SimDb, type SimIndex, simKey, type SimOutcome, type SimTemplate } from './request';
+import { type BonusStats, buildSimRequest, indexSimDb, readRotationChecks, readSimResult, type RotationChecks, type SimDb, type SimIndex, simKey, type SimOutcome, type SimTemplate } from './request';
 import type { SimSetupData } from './setup';
 
 const SIM_URL = `${import.meta.env.BASE_URL}sim/`;
@@ -80,6 +80,27 @@ export class SimClient {
 			template.catch(() => this.templates.delete(specId));
 		}
 		return template;
+	}
+
+	private checks = new Map<string, Promise<RotationChecks>>();
+
+	/** What the simulator says about each step of the rotation for this character: spells it does not know, missing effects. */
+	rotationChecks(character: Character): Promise<RotationChecks> {
+		const key = simKey(character, character.gear, 0);
+		let outcome = this.checks.get(key);
+		if (!outcome) {
+			outcome = this.load(specOf(character).id).then(index => {
+				const { request } = buildSimRequest(character, character.gear, index, 1);
+				return new Promise<string>((resolve, reject) => {
+					const id = this.nextId++;
+					this.waiting.set(id, { resolve, reject });
+					this.worker!.postMessage({ id, stats: true, request: JSON.stringify({ raid: request.raid, encounter: request.encounter }) });
+				}).then(readRotationChecks);
+			});
+			this.checks.set(key, outcome);
+			outcome.catch(() => this.checks.delete(key));
+		}
+		return outcome;
 	}
 
 	/** Simulated DPS of `gear` on this character. */

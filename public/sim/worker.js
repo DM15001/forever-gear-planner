@@ -1,5 +1,6 @@
 // Runs the WoWSims Forever simulator (WebAssembly, built by the WoWSims project) off the main thread.
-// Messages in:  { id, request }  where request is the sim's RaidSimRequest as a JSON string.
+// Messages in:  { id, request }  where request is the sim's RaidSimRequest as a JSON string;
+//               with stats: true the sim only works out the character (stats, rotation checks), no fight.
 // Messages out: { id, result }   the sim's RaidSimResult as a JSON string, or { id, error }.
 importScripts('wasm_exec.js');
 
@@ -23,7 +24,7 @@ const started = (async () => {
 self.onmessage = async ({ data }) => {
 	try {
 		await started;
-		self.postMessage({ id: data.id, result: self.raidSimJson(data.request) });
+		self.postMessage({ id: data.id, result: data.stats ? self.computeStatsJson(data.request) : self.raidSimJson(data.request) });
 	} catch (err) {
 		self.postMessage({ id: data.id, error: String(err && err.message ? err.message : err) });
 	}

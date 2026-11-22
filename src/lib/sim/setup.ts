@@ -141,6 +141,8 @@ export const rotationSourceUrl = (specId: string) => (ROTATION_SOURCES[specId] ?
 
 export interface RotationLine {
 	text: string;
+	/** Position of the step in its list in the rotation file, hidden steps counted. */
+	index?: number;
 	/** The step exactly as WoWSims wrote it, for checking the wording against the source. */
 	raw?: string;
 	/** The condition the step waits for, when it has one. */
@@ -260,9 +262,12 @@ export function describeRotation(rotation: Json | undefined, setup: Pick<SimSetu
 		return result;
 	};
 
-	const steps = (list: Json[] | undefined) => (list ?? []).filter(step => !step.hide && step.action).map(step => line(step.action));
+	const steps = (list: Json[] | undefined) => (list ?? []).map((step, index) => ({ step, index })).filter(({ step }) => !step.hide && step.action).map(({ step, index }) => ({ ...line(step.action), index }));
 	return {
-		prepull: (rotation?.prepullActions ?? []).filter((step: Json) => !step.hide && step.action).map((step: Json) => ({ ...line(step.action), when: `the pull timer is at ${value(step.doAtValue)}`, raw: JSON.stringify(step) })),
+		prepull: (rotation?.prepullActions ?? [])
+			.map((step: Json, index: number) => ({ step, index }))
+			.filter(({ step }: { step: Json }) => !step.hide && step.action)
+			.map(({ step, index }: { step: Json; index: number }) => ({ ...line(step.action), when: `the pull timer is at ${value(step.doAtValue)}`, raw: JSON.stringify(step), index })),
 		priority: steps(rotation?.priorityList),
 		groups: (rotation?.groups ?? []).map((group: Json) => ({ name: group.name, lines: steps(group.actions) })),
 		variables: (rotation?.valueVariables ?? []).map((variable: Json) => ({ name: variable.name, value: value(variable.value) })),
@@ -315,4 +320,12 @@ export function describeOptions(options: unknown, prefix = ''): string[] {
 		if (value === false || value === 0 || value === '' || value == null) return [];
 		return [`${label}: ${typeof value === 'string' ? words(value) : Array.isArray(value) ? value.join(', ') : value}`];
 	});
+}
+
+/** A simulator remark with its ids turned into names: "does not know spell {SpellID: 408510}" -> "does not know Water Shield". */
+export function describeCheck(remark: string, setup: Pick<SimSetupData, 'spells' | 'items'>): string {
+	return remark
+		.replace(/^Player \(#\d+\) /, 'Your character ')
+		.replace(/(spell |talent )?\{SpellID: (\d+)\}/g, (_, _kind, id) => setup.spells[id] ?? `spell ${id}`)
+		.replace(/\{ItemID: (\d+)\}/g, (_, id) => setup.items[id] ?? `item ${id}`);
 }
