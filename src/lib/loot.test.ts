@@ -11,6 +11,7 @@ describe('applyLoot', () => {
 		const source = jewel.sources!.find(s => s.kind === 'drop')!;
 		expect(source.dropChance).toBeCloseTo(250 / 1278, 5);
 		expect(source.dropSample).toBe(1278);
+		expect(source.dropBasis).toBe('forever');
 		expect(source.spawnChance).toBeUndefined();
 	});
 
@@ -45,6 +46,7 @@ describe('runChance and effortLine', () => {
 	it('writes the effort as a line', () => {
 		expect(effortLine(drop({ dropChance: 0.2 }))).toBe('20% drop, about 5 runs');
 		expect(effortLine(drop({ dropChance: 0.3, spawnChance: 1 / 6, spawnBasis: 'mechanic' }))).toBe('30% drop, boss there 1 in 6 runs, about 20 runs');
+		expect(effortLine(drop({ dropChance: 0.12, dropBasis: 'classic' }))).toBe('12% drop (Classic rate), about 8 runs');
 		expect(effortLine(drop({ dropChance: 0.004 }))).toBe('0.4% drop, about 250 runs');
 		expect(effortLine(drop({ spawnChance: 0.15, spawnBasis: 'estimate' }))).toBe('boss there 1 in 7 runs (estimate)');
 		expect(effortLine(drop({}))).toBeUndefined();

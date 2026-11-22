@@ -24,6 +24,8 @@ export interface ItemSource {
 	faction?: Faction;
 	/** Share of kills or openings that gave this item, from Wowhead's loot records. */
 	dropChance?: number;
+	/** "forever": Wowhead's Forever loot records. "classic": the rate from WoW Classic, which Forever may have changed. */
+	dropBasis?: 'forever' | 'classic';
 	/** How many kills or openings the drop chance rests on. */
 	dropSample?: number;
 	/** Set for a boss that is not there on every run: the share of runs in which it is. */

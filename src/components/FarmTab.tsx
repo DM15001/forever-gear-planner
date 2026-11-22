@@ -76,7 +76,8 @@ export function FarmTab({ spec, character, data, filter }: Props) {
 				<h2 id="farm-dungeons">Dungeons by upgrades</h2>
 				<p className="hint farm-hint">
 					"Up to" is the best upgrade per slot over your equipped gear, added up. "Per run" is what one run is worth on average: each upgrade's gain times its chance to drop, best one per slot. Drop
-					chances are Wowhead's numbers from {lootDate} and only exist for part of the items, so "per run" counts the known ones and is a lower bound. Bosses that are not there on every run are
+					chances are Wowhead's Forever numbers from {lootDate} where we have them; the rest are the rates from WoW Classic (AtlasLoot), marked "Classic rate", which Forever may have changed. Items without any
+					number are left out of "per run". Bosses that are not there on every run are
 					marked. Blackrock Spire, Dire Maul and Stratholme are split into their wings. Uses the content you picked on the Plan tab.
 				</p>
 				{ranking.length > 0 && (

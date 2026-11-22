@@ -74,3 +74,5 @@ data changed. How it measures is described at the top of `scripts/build-sim-valu
 - Item icons load from Blizzard's image server (`render.worldofwarcraft.com`), with Wowhead's as a
   fallback. World of Warcraft and its icons are © Blizzard Entertainment; this is a free fan project.
 - BiS list: [Wowhead's Enhancement Shaman guide](https://www.wowhead.com/forever/guide/classes/shaman/enhancement/bis-gear).
+- Drop chances: Wowhead's Forever item pages (`src/config/wowhead/loot.json`) and, as a fallback, the WoW Classic drop rates from [AtlasLootClassic](https://github.com/Hoizame/AtlasLootClassic) (`src/config/droprates.classic.json`, GPL v2). If this repository is made public, that file stays under the GPL v2.
+- Icon names for items new in Forever: Wowhead tooltips (`src/config/wowhead/icons.json`).

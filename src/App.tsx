@@ -158,7 +158,7 @@ export function App() {
 
 			<footer className="colophon">
 				Item data and stat weights from <a href="https://github.com/wowsims/forever">WoWSims Forever</a>
-				{data && <>, data built {new Date(data.builtAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</>}. Item icons and game content are © Blizzard Entertainment. This is a fan project, not affiliated with or endorsed by Blizzard.
+				{data && <>, data built {new Date(data.builtAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</>}. Drop chances from Wowhead and <a href="https://github.com/Hoizame/AtlasLootClassic">AtlasLootClassic</a>. Item icons and game content are © Blizzard Entertainment. This is a fan project, not affiliated with or endorsed by Blizzard.
 			</footer>
 		</div>
 	);

@@ -1,3 +1,4 @@
+import classicConfig from '../config/droprates.classic.json';
 import encounterConfig from '../config/encounters.json';
 import lootConfig from '../config/wowhead/loot.json';
 import type { Faction, Item, ItemSource, Npc, Zone } from './types';
@@ -15,6 +16,7 @@ interface Encounter {
 }
 
 const LOOT = lootConfig as unknown as { fetchedAt: string; items: Record<string, LootEntry>; npcs: Record<string, { name: string; zoneId?: number }> };
+const CLASSIC = (classicConfig as unknown as { rates: Record<string, Record<string, number>> }).rates;
 const ENCOUNTERS = encounterConfig as unknown as Record<string, Encounter | string>;
 
 /** The day the Wowhead loot numbers were read. */
@@ -40,6 +42,7 @@ export function applyLoot(itemById: Map<number, Item>, npcById: Map<number, Npc>
 			const source = sources.find(s => s.kind === 'drop' && s.npcId === drop.npcId);
 			if (!source) continue;
 			source.dropChance = drop.count / drop.outOf;
+			source.dropBasis = 'forever';
 			source.dropSample = drop.outOf;
 		}
 		for (const box of entry.containers ?? []) {
@@ -47,12 +50,19 @@ export function applyLoot(itemById: Map<number, Item>, npcById: Map<number, Npc>
 			const source = sources.find(s => s.kind === 'drop' && !s.npcId && Boolean(s.otherName?.trim()) && (box.name.includes(s.otherName!.trim()) || s.otherName!.includes(box.name)) && (!box.zoneId || !s.zoneId || s.zoneId === box.zoneId));
 			if (!source) continue;
 			source.dropChance = box.count / box.outOf;
+			source.dropBasis = 'forever';
 			source.dropSample = box.outOf;
 		}
 	}
 	for (const item of itemById.values()) {
 		for (const source of item.sources ?? []) {
 			if (source.kind !== 'drop') continue;
+			// No Forever numbers: fall back to the rate the same boss had in WoW Classic.
+			const classic = source.npcId ? CLASSIC[source.npcId]?.[item.id] : undefined;
+			if (source.dropChance === undefined && classic) {
+				source.dropChance = classic / 100;
+				source.dropBasis = 'classic';
+			}
 			const name = ((source.npcId ? npcById.get(source.npcId)?.name : undefined) ?? source.otherName ?? '').trim();
 			const encounter = ENCOUNTERS[name];
 			if (!encounter || typeof encounter === 'string') continue;
@@ -98,5 +108,5 @@ export function effortLine(source: ItemSource | undefined): string | undefined {
 	const chance = runChance(source);
 	if (chance === undefined) return spawn;
 	const runs = Math.max(1, Math.round(1 / chance));
-	return [`${percent(source.dropChance!)} drop`, spawn, `about ${runs.toLocaleString('en')} run${runs === 1 ? '' : 's'}`].filter(Boolean).join(', ');
+	return [`${percent(source.dropChance!)} drop${source.dropBasis === 'classic' ? ' (Classic rate)' : ''}`, spawn, `about ${runs.toLocaleString('en')} run${runs === 1 ? '' : 's'}`].filter(Boolean).join(', ');
 }
