@@ -1,5 +1,5 @@
 {
-	"_comment": "Loot data from Wowhead's Forever item pages, read on 2026-11-22. count/outOf are Wowhead's own numbers: the item was looted `count` times out of `outOf` recorded kills or openings. Only the three most likely sources per item with at least 30 records are kept. Covers 126 of the 442 items looked up; Wowhead stopped answering after that.",
+	"_comment": "Loot data from Wowhead's Forever item pages, read on 2026-11-22. count/outOf are Wowhead's own numbers: the item was looted `count` times out of `outOf` recorded kills or openings. Only the three most likely sources per item with at least 30 records are kept. Covers 151 of the 442 items looked up (ids up to 19583); Wowhead refused automated reading after that, twice.",
 	"fetchedAt": "2026-11-22",
 	"items": {
 		"1263": {
@@ -1338,6 +1338,229 @@
 					"faction": "horde"
 				}
 			]
+		},
+		"18479": {
+			"containers": [
+				{
+					"name": "Gordok Tribute",
+					"zoneId": 2557,
+					"count": 15,
+					"outOf": 123
+				}
+			]
+		},
+		"18490": {
+			"drops": [
+				{
+					"npcId": 14324,
+					"count": 44,
+					"outOf": 112
+				}
+			]
+		},
+		"18496": {
+			"drops": [
+				{
+					"npcId": 14323,
+					"count": 18,
+					"outOf": 207
+				},
+				{
+					"npcId": 14326,
+					"count": 16,
+					"outOf": 249
+				}
+			]
+		},
+		"18500": {
+			"containers": [
+				{
+					"name": "Gordok Tribute",
+					"zoneId": 2557,
+					"count": 31,
+					"outOf": 123
+				}
+			]
+		},
+		"18504": {
+			"crafted": {
+				"spellId": 22921,
+				"profession": "Leatherworking"
+			}
+		},
+		"18509": {
+			"crafted": {
+				"spellId": 22926,
+				"profession": "Leatherworking"
+			}
+		},
+		"18510": {
+			"crafted": {
+				"spellId": 22927,
+				"profession": "Leatherworking"
+			}
+		},
+		"18524": {
+			"drops": [
+				{
+					"npcId": 11501,
+					"count": 83,
+					"outOf": 332
+				}
+			]
+		},
+		"18526": {
+			"drops": [
+				{
+					"npcId": 11501,
+					"count": 66,
+					"outOf": 332
+				}
+			]
+		},
+		"18530": {
+			"containers": [
+				{
+					"name": "Gordok Tribute",
+					"zoneId": 2557,
+					"count": 12,
+					"outOf": 123
+				}
+			]
+		},
+		"18537": {
+			"containers": [
+				{
+					"name": "Gordok Tribute",
+					"zoneId": 2557,
+					"count": 5,
+					"outOf": 123
+				}
+			]
+		},
+		"18681": {
+			"drops": [
+				{
+					"npcId": 10504,
+					"count": 19,
+					"outOf": 744
+				},
+				{
+					"npcId": 11261,
+					"count": 21,
+					"outOf": 963
+				},
+				{
+					"npcId": 10505,
+					"count": 14,
+					"outOf": 890
+				}
+			]
+		},
+		"18720": {
+			"drops": [
+				{
+					"npcId": 10812,
+					"count": 126,
+					"outOf": 795
+				}
+			]
+		},
+		"18734": {
+			"drops": [
+				{
+					"npcId": 10438,
+					"count": 142,
+					"outOf": 867
+				}
+			]
+		},
+		"18736": {
+			"drops": [
+				{
+					"npcId": 10413,
+					"count": 2,
+					"outOf": 525
+				}
+			]
+		},
+		"18807": {
+			"quests": [
+				{
+					"questId": 7668,
+					"name": "The Darkreaver Menace",
+					"faction": "horde"
+				}
+			]
+		},
+		"19044": {
+			"crafted": {
+				"spellId": 23703,
+				"profession": "Leatherworking"
+			}
+		},
+		"19049": {
+			"crafted": {
+				"spellId": 23704,
+				"profession": "Leatherworking"
+			}
+		},
+		"19050": {
+			"crafted": {
+				"spellId": 23663,
+				"profession": "Tailoring"
+			}
+		},
+		"19120": {
+			"quests": [
+				{
+					"questId": 7862,
+					"name": "Job Opening: Guard Captain of Revantusk Village",
+					"faction": "horde"
+				}
+			]
+		},
+		"19121": {
+			"quests": [
+				{
+					"questId": 7861,
+					"name": "WANTED: Vile Priestess Hexx and Her Minions",
+					"faction": "horde"
+				}
+			]
+		},
+		"19289": {
+			"quests": [
+				{
+					"questId": 7929,
+					"name": "Darkmoon Elementals Deck"
+				}
+			]
+		},
+		"19426": {
+			"quests": [
+				{
+					"questId": 7940,
+					"name": "1200 Tickets - Orb of the Darkmoon"
+				}
+			]
+		},
+		"19491": {
+			"quests": [
+				{
+					"questId": 7981,
+					"name": "1200 Tickets - Amulet of the Darkmoon"
+				}
+			]
+		},
+		"19508": {
+			"drops": [
+				{
+					"npcId": 4542,
+					"count": 1303,
+					"outOf": 3933
+				}
+			]
 		}
 	},
 	"npcs": {
@@ -1675,6 +1898,30 @@
 		},
 		"261934": {
 			"name": "Ravasaur Stalker"
+		},
+		"4542": {
+			"name": "High Inquisitor Fairbanks",
+			"zoneId": 796
+		},
+		"10413": {
+			"name": "Crypt Beast",
+			"zoneId": 2017
+		},
+		"10438": {
+			"name": "Maleki the Pallid",
+			"zoneId": 2017
+		},
+		"10505": {
+			"name": "Instructor Malicia",
+			"zoneId": 2057
+		},
+		"11501": {
+			"name": "King Gordok",
+			"zoneId": 2557
+		},
+		"14324": {
+			"name": "Cho'Rush the Observer",
+			"zoneId": 2557
 		}
 	}
 }

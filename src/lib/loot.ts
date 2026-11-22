@@ -43,7 +43,8 @@ export function applyLoot(itemById: Map<number, Item>, npcById: Map<number, Npc>
 			source.dropSample = drop.outOf;
 		}
 		for (const box of entry.containers ?? []) {
-			const source = sources.find(s => s.kind === 'drop' && !s.npcId && s.otherName?.trim() === box.name);
+			// The WoWSims data names chests loosely ("Tribute" for "Gordok Tribute"), so match on the zone and a shared name.
+			const source = sources.find(s => s.kind === 'drop' && !s.npcId && Boolean(s.otherName?.trim()) && (box.name.includes(s.otherName!.trim()) || s.otherName!.includes(box.name)) && (!box.zoneId || !s.zoneId || s.zoneId === box.zoneId));
 			if (!source) continue;
 			source.dropChance = box.count / box.outOf;
 			source.dropSample = box.outOf;
