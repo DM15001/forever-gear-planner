@@ -1732,3 +1732,34 @@ a.enchant-name {
 	border-color: var(--ember);
 	color: var(--ember);
 }
+
+.compare-facts {
+	display: grid;
+	gap: 0.6rem;
+	margin: 0.75rem 0 0;
+}
+.compare-facts > div {
+	display: grid;
+	grid-template-columns: 9rem minmax(0, 1fr);
+	gap: 1rem;
+}
+.compare-facts dt {
+	color: var(--brass);
+	font-weight: 600;
+}
+.compare-facts dd {
+	margin: 0;
+	overflow-wrap: anywhere;
+}
+.compare-json {
+	width: 100%;
+	margin-top: 0.5rem;
+	font-family: ui-monospace, monospace;
+	font-size: 0.75rem;
+}
+@media (max-width: 40rem) {
+	.compare-facts > div {
+		grid-template-columns: 1fr;
+		gap: 0.1rem;
+	}
+}

@@ -32,15 +32,9 @@ export interface BuiltRequest {
 	missingItems: number[];
 }
 
-/**
- * The request the WoWSims sim takes: the default settings (buffs, rotation, consumables, a
- * raid target) with this character's race, professions, talents and the given gear.
- */
-export function buildSimRequest(character: Character, gear: Gear, index: SimIndex, iterations: number): BuiltRequest {
-	const { db, template, itemById } = index;
-	const request = structuredClone(template) as SimTemplate & { simOptions?: unknown };
+/** Puts the character's race, professions, talents, consumables and buffs over the build's own. */
+function personalize(request: SimTemplate, character: Character): void {
 	const player = request.raid.parties[0].players[0];
-
 	if (character.race) player.race = character.race;
 	if (character.talents) player.talentsString = character.talents;
 	if (character.consumables) player.consumables = { ...player.consumables, ...character.consumables };
@@ -53,6 +47,32 @@ export function buildSimRequest(character: Character, gear: Gear, index: SimInde
 	}
 	player.profession1 = character.professions[0] ?? 'ProfessionUnknown';
 	player.profession2 = character.professions[1] ?? 'ProfessionUnknown';
+}
+
+/**
+ * The same settings in the form wowsims.com imports and exports ("Import" > "JSON"): buffs, debuffs,
+ * the player with gear, talents, consumables and rotation, and the fight. Pasting it there runs the
+ * sim this page runs, on their copy of the simulator.
+ */
+export function wowsimsSettings(character: Character, gear: Gear, template: SimTemplate): Record<string, unknown> {
+	const request = structuredClone(template);
+	personalize(request, character);
+	const party = request.raid.parties[0];
+	const player = party.players[0];
+	player.equipment = { items: gear.map(piece => piece ?? {}) };
+	return { apiVersion: 2, raidBuffs: request.raid.buffs, partyBuffs: party.buffs, debuffs: request.raid.debuffs, player, encounter: request.encounter };
+}
+
+/**
+ * The request the WoWSims sim takes: the default settings (buffs, rotation, consumables, a
+ * raid target) with this character's race, professions, talents and the given gear.
+ */
+export function buildSimRequest(character: Character, gear: Gear, index: SimIndex, iterations: number): BuiltRequest {
+	const { db, template, itemById } = index;
+	const request = structuredClone(template) as SimTemplate & { simOptions?: unknown };
+	const player = request.raid.parties[0].players[0];
+
+	personalize(request, character);
 
 	const missingItems: number[] = [];
 	player.equipment = {

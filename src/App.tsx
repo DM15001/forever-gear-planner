@@ -128,7 +128,7 @@ export function App() {
 
 						{tab === 'enchants' && (data ? <EnchantsTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
 
-						{tab === 'sim' && <SimSetupTab spec={spec} character={character} onChange={update} />}
+						{tab === 'sim' && <SimSetupTab spec={spec} character={character} data={data} onChange={update} />}
 						{tab === 'character' && (
 							<>
 								{warnings.length > 0 && (

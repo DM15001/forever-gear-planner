@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 
 import { SPECS } from '../specs';
 import type { Character } from '../types';
-import { buildSimRequest, indexSimDb, simKey } from './request';
+import { buildSimRequest, indexSimDb, simKey, wowsimsSettings } from './request';
 import { buffValue, clashingGroups, describeFlags, describeRotation, parseTalents, rotationSourceUrl, serializeTalents, type SimSetupData, talentPointsSpent } from './setup';
 
 const read = (name: string) => JSON.parse(readFileSync(new URL(`../../../public/sim/${name}`, import.meta.url), 'utf8'));
@@ -106,5 +106,25 @@ describe('consumables in the request', () => {
 		expect(consumables.elixirIds).toEqual([13452]);
 		expect(consumables.foodId).toBe(20452);
 		expect(simKey(changed, changed.gear, 10)).not.toBe(simKey(character, character.gear, 10));
+	});
+});
+
+describe('settings for wowsims.com', () => {
+	it('carries exactly what the sim request carries, in the form WoWSims imports', () => {
+		const spec = SPECS.find(s => s.id === 'warlock-affliction')!;
+		const tpl = template(spec.id);
+		const index = indexSimDb(read('db.json'), tpl);
+		const gear = player(spec.id).equipment.items.map((p: { id?: number; enchant?: number }) => (p.id ? { id: p.id, ...(p.enchant ? { enchant: p.enchant } : {}) } : null));
+		const character: Character = { specId: spec.id, race: 'RaceHuman', level: 60, talents: '25500020135201351-0050203001-05', professions: ['Herbalism', 'Tailoring'], gear, consumables: { flaskId: 0 }, buffs: { debuffs: { curseOfElements: false } } };
+		const settings = wowsimsSettings(character, gear, tpl) as any;
+		const request = buildSimRequest(character, gear, index, 10).request as any;
+		const sent = request.raid.parties[0].players[0];
+		expect(Object.keys(settings)).toEqual(['apiVersion', 'raidBuffs', 'partyBuffs', 'debuffs', 'player', 'encounter']);
+		expect(settings.player.database).toBeUndefined();
+		for (const field of ['race', 'talentsString', 'profession1', 'profession2', 'consumables', 'buffs', 'rotation']) expect(settings.player[field], field).toEqual(sent[field]);
+		expect(settings.player.equipment.items.map((p: { id?: number }) => p.id)).toEqual(sent.equipment.items.map((p: { id?: number }) => p.id));
+		expect(settings.debuffs).toEqual(request.raid.debuffs);
+		expect(settings.debuffs.curseOfElements).toBe(false);
+		expect(settings.encounter).toEqual(request.encounter);
 	});
 });

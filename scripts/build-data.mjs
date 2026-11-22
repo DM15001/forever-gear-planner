@@ -484,7 +484,15 @@ const buffFields = message => {
 };
 const simBuffs = { raid: buffFields('RaidBuffs'), party: buffFields('PartyBuffs'), player: buffFields('IndividualBuffs'), debuffs: buffFields('Debuffs') };
 if (!simBuffs.raid.length) console.warn('Buff definitions not read: the Sim setup tab will list only the buffs a build uses.');
+// Which build of the simulator this is: the commit of wowsims/forever the deployment was made from.
+let simCommit;
+try {
+	simCommit = (args.pages ? JSON.parse(await readFile(join(args.pages, 'forever', 'version.json'), 'utf8')) : await (await fetch(`${PAGES_RAW_URL}/version.json`)).json()).commit;
+} catch {
+	console.warn('Simulator version not read.');
+}
 const simSetup = {
+	simVersion: { commit: simCommit, fetched: new Date().toISOString().slice(0, 10) },
 	buffs: simBuffs,
 	trees: talentTrees,
 	spells: spellNames,

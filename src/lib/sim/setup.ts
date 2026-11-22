@@ -50,6 +50,8 @@ export interface SimSetupData {
 	spells: Record<string, string>;
 	items: Record<string, string>;
 	consumables: ConsumableOption[];
+	/** The wowsims/forever commit the simulator copy was built from, and the day it was fetched. */
+	simVersion?: { commit?: string; fetched?: string };
 	/** Every buff and debuff the sim knows. */
 	buffs?: Record<BuffScope, BuffField[]>;
 }

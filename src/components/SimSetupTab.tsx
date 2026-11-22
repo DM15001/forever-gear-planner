@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import { simClient } from '../lib/sim/client';
-import type { SimTemplate } from '../lib/sim/request';
+import type { GameData } from '../lib/gameData';
+import { plannedGear } from '../lib/scoring';
+import { type SimTemplate, wowsimsSettings } from '../lib/sim/request';
 import {
 	BUFF_SCOPES,
 	type BuffField,
@@ -26,6 +28,8 @@ import type { Character, SpecConfig } from '../lib/types';
 interface Props {
 	spec: SpecConfig;
 	character: Character;
+	/** The item data, for the planned gear in the settings export. */
+	data?: GameData | null;
 	onChange: (next: Character) => void;
 }
 
@@ -47,7 +51,7 @@ function Steps({ lines, showRaw }: { lines: RotationLine[]; showRaw: boolean }) 
 }
 
 /** Everything the simulator is given besides gear: shown in words, with talents and consumables open to change. */
-export function SimSetupTab({ spec, character, onChange }: Props) {
+export function SimSetupTab({ spec, character, data, onChange }: Props) {
 	const [loaded, setLoaded] = useState<{ specId: string; setup: SimSetupData; template: SimTemplate } | null>(null);
 	const [failed, setFailed] = useState<string | null>(null);
 	useEffect(() => {
@@ -68,6 +72,7 @@ export function SimSetupTab({ spec, character, onChange }: Props) {
 	// The talent string is typed into a field of its own, so a half-typed string never reaches the sim.
 	const [typed, setTyped] = useState<string | null>(null);
 	const [showRaw, setShowRaw] = useState(false);
+	const [copied, setCopied] = useState<string | null>(null);
 
 	if (failed) {
 		return (
@@ -128,6 +133,21 @@ export function SimSetupTab({ spec, character, onChange }: Props) {
 	const buffFields = (scope: BuffScope): BuffField[] => setup.buffs?.[scope] ?? Object.keys(presetBuffs[scope]).map(key => ({ key, label: describeFlags({ [key]: true })[0] ?? key }));
 	const classOptions = describeOptions((player[spec.simKey] as Record<string, unknown> | undefined)?.options);
 
+	// The settings as wowsims.com takes them, for a side-by-side run there.
+	const hasPlan = Object.keys(character.plan ?? {}).length > 0;
+	const exportOf = (planned: boolean) => JSON.stringify(wowsimsSettings(character, planned ? plannedGear(character, data ?? undefined) : character.gear, template));
+	const copy = (planned: boolean) => {
+		const text = exportOf(planned);
+		const label = planned ? 'planned' : 'equipped';
+		navigator.clipboard.writeText(text).then(
+			() => setCopied(label),
+			() => setCopied('failed'),
+		);
+	};
+	const target = encounter?.targets?.[0] as { level?: number; stats?: number[] } | undefined;
+	const ARMOR_STAT = 27;
+	const commit = setup.simVersion?.commit;
+
 	return (
 		<div className="sim-setup">
 			<section className="panel">
@@ -140,6 +160,84 @@ export function SimSetupTab({ spec, character, onChange }: Props) {
 					The quick scores on the Plan and Upgrades tabs use fixed stat weights that were measured with the build's own talents, consumables and buffs. They do not follow changes made here; the simulated numbers
 					do.
 				</p>
+			</section>
+
+			<section className="panel">
+				<h2>Compare with another sim</h2>
+				<p>Everything a run depends on, so the same run can be set up elsewhere. If two sims disagree, one of these lines differs.</p>
+				<dl className="compare-facts">
+					<div>
+						<dt>Simulator</dt>
+						<dd>
+							WoWSims Forever
+							{commit && (
+								<>
+									, build <a href={`https://github.com/wowsims/forever/commit/${commit}`}>{commit.slice(0, 7)}</a>
+								</>
+							)}
+							{setup.simVersion?.fetched && `, copied on ${setup.simVersion.fetched}`}. wowsims.com itself may run a newer build.
+						</dd>
+					</div>
+					<div>
+						<dt>Runs</dt>
+						<dd>
+							3,000 iterations for a whole set, 2,000 for a single item or enchant. The random seed is fixed, so the same settings give the same number here every time; another site rolls its own
+							dice and lands within about 1 DPS of it.
+						</dd>
+					</div>
+					<div>
+						<dt>Fight</dt>
+						<dd>
+							{encounter?.duration ?? '?'} seconds, give or take {encounter?.durationVariation ?? 0}; {encounter?.targets?.length ?? 1} target
+							{target?.level ? `, level ${target.level}` : ''}
+							{target?.stats?.[ARMOR_STAT] ? `, ${target.stats[ARMOR_STAT].toLocaleString('en')} armor` : ''}.
+						</dd>
+					</div>
+					<div>
+						<dt>Character</dt>
+						<dd>
+							{spec.races.find(r => r.id === (character.race ?? player.race))?.name ?? String(character.race ?? player.race)}, professions {character.professions.join(' and ') || 'none'}, talents{' '}
+							<span className="num">{talents}</span>
+							{player.distanceFromTarget !== undefined && `, ${player.distanceFromTarget} yards from the target`}
+							{player.reactionTimeMs !== undefined && `, ${player.reactionTimeMs} ms reaction time`}.
+						</dd>
+					</div>
+					<div>
+						<dt>Gear</dt>
+						<dd>Your items with the enchants and random suffixes set on the Character tab. No item or enchant is added behind your back.</dd>
+					</div>
+					<div>
+						<dt>Everything else</dt>
+						<dd>Consumables, buffs, debuffs and the rotation exactly as listed further down this page.</dd>
+					</div>
+				</dl>
+				<h3>Run the same thing on wowsims.com</h3>
+				<p>
+					Copy the settings, open the WoWSims page for your class, choose Import, then JSON, paste and simulate. That loads the gear, talents, consumables, buffs, debuffs, rotation and fight this page
+					uses. If the result there still differs by more than a few DPS, the two simulator builds differ, not the settings.
+				</p>
+				<p className="compare-actions">
+					<button className="button" onClick={() => copy(false)}>
+						Copy settings with equipped gear
+					</button>{' '}
+					<button className="button" disabled={!hasPlan} onClick={() => copy(true)}>
+						Copy settings with planned gear
+					</button>{' '}
+					{copied && copied !== 'failed' && (
+						<span className="hint" role="status">
+							Copied ({copied} gear).
+						</span>
+					)}
+					{copied === 'failed' && (
+						<span className="field-error" role="alert">
+							Copying was blocked by the browser. Open "Show the settings" and copy the text by hand.
+						</span>
+					)}
+				</p>
+				<details>
+					<summary>Show the settings</summary>
+					<textarea className="compare-json" readOnly rows={6} value={exportOf(false)} onFocus={e => e.target.select()} aria-label="Settings with equipped gear, as JSON" />
+				</details>
 			</section>
 
 			<section className="panel">
