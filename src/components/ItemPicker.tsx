@@ -4,9 +4,10 @@ import { GEAR_SLOTS } from '../lib/constants';
 import type { GameData } from '../lib/gameData';
 import { effortLine } from '../lib/loot';
 import { EVERYTHING, type Gear, slotCandidates, type SourceFilter, usableSources } from '../lib/scoring';
-import { pieceStats, sourceLine, statLine } from '../lib/stats';
+import { pieceStats, statLine } from '../lib/stats';
 import type { Character, SpecConfig } from '../lib/types';
 import { ItemIcon } from './ItemIcon';
+import { SourceLabel } from './SourceLabel';
 
 interface Props {
 	slotIndex: number;
@@ -95,7 +96,7 @@ export function ItemPicker({ slotIndex, gear, character, data, spec, filter, sta
 										{stats || (item.weapon?.dps ? '' : 'No stats')}
 									</span>
 									<span className="slot-source">
-										{sourceLine(source, data)}
+										<SourceLabel source={source} data={data} />
 										{effort && <span className="effort"> {effort}</span>}
 									</span>
 								</span>

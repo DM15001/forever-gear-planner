@@ -135,6 +135,9 @@ export interface PlanEntry {
 
 export const PLAN_GROUP_ORDER: PlanGroupKind[] = ['dungeon', 'quest', 'crafted', 'vendor', 'rep', 'world', 'pvp', 'unknown'];
 
+/** The kind of source an item comes from, as the farm plan groups them. */
+export const sourceKind = (source: ItemSource | undefined): PlanGroupKind => groupOf(source);
+
 const groupOf = (source: ItemSource | undefined): PlanGroupKind => {
 	if (!source) return 'unknown';
 	if (source.kind === 'drop') return source.zoneKind === 'dungeon' ? 'dungeon' : 'world';

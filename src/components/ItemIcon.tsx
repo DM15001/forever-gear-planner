@@ -11,15 +11,17 @@ interface Props {
 	icon: string | undefined;
 	quality: string | undefined;
 	small?: boolean;
+	/** A tiny icon that sits in a line of text. */
+	inline?: boolean;
 }
 
 /** An item icon in a frame of the item's quality colour. The frame stays when no image loads. */
-export function ItemIcon({ icon, quality, small = false }: Props) {
+export function ItemIcon({ icon, quality, small = false, inline = false }: Props) {
 	// Which source is being tried for which icon; a new icon starts again at the first source.
 	const [attempt, setAttempt] = useState({ icon, index: 0 });
 	const index = attempt.icon === icon ? attempt.index : 0;
 	return (
-		<span className={`slot-icon${small ? ' slot-icon-small' : ''} quality-border-${quality ?? 'none'}`} aria-hidden="true">
+		<span className={`slot-icon${small ? ' slot-icon-small' : ''}${inline ? ' slot-icon-inline' : ''} quality-border-${quality ?? 'none'}`} aria-hidden="true">
 			{icon && index < ICON_SOURCES.length && <img src={ICON_SOURCES[index](icon)} alt="" loading="lazy" onError={() => setAttempt({ icon, index: index + 1 })} />}
 		</span>
 	);

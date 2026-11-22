@@ -4,9 +4,10 @@ import { GEAR_SLOTS } from '../lib/constants';
 import type { GameData } from '../lib/gameData';
 import { type Guide, type GuideMark, guideMarks, guidePlan, markLabel, swapDelta } from '../lib/guides';
 import { type Candidate, type Gear, plannedGear, scoreSet, slotCandidates, slotInUse, type SourceFilter, suggestPlan, usableSources } from '../lib/scoring';
-import { sourceLine, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
+import { STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
 import { ContentPicker } from './ContentPicker';
 import { ItemIcon } from './ItemIcon';
+import { SourceLabel, SourceList } from './SourceLabel';
 import { SimDelta, SimSummary } from './Sim';
 import type { Character, Item, SpecConfig } from '../lib/types';
 
@@ -129,7 +130,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				const equippedItem = character.gear[index] ? data.itemById.get(character.gear[index]!.id) : undefined;
 				const plannedId = character.plan?.[index];
 				const plannedItem = plannedId && plannedId !== character.gear[index]?.id ? data.itemById.get(plannedId) : undefined;
-				const plannedSource = (item: Item) => sourceLine(usableSources(item, faction, { ...filter, rep: true, pvp: true, unknown: true })[0] ?? item.sources?.[0], data);
+				const plannedSource = (item: Item) => <SourceLabel source={usableSources(item, faction, { ...filter, rep: true, pvp: true, unknown: true })[0] ?? item.sources?.[0]} data={data} />;
 				const limit = expanded.has(index) ? LONG_LIST : SHORT_LIST;
 				const upgrades = candidates.filter(c => c.delta > 0).length;
 				return (
@@ -139,14 +140,14 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 							<p className="upgrade-current">
 								{plannedItem ? (
 									<>
-										<ItemName item={plannedItem} /> planned ({plannedSource(plannedItem)}), replacing {equippedItem ? <ItemName item={equippedItem} /> : 'an empty slot'}{' '}
+										<ItemName item={plannedItem} icon /> planned ({plannedSource(plannedItem)}), replacing {equippedItem ? <ItemName item={equippedItem} icon /> : 'an empty slot'}{' '}
 										<button className="link" onClick={() => unplan(index)}>
 											Undo
 										</button>
 									</>
 								) : equippedItem ? (
 									<>
-										<ItemName item={equippedItem} /> equipped
+										<ItemName item={equippedItem} icon /> equipped
 									</>
 								) : (
 									'Empty'
@@ -185,11 +186,14 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 
 const formatDelta = (value: number) => `${value >= 0 ? '+' : '−'}${Math.abs(Math.round(value)).toLocaleString('en')}`;
 
-function ItemName({ item }: { item: Item }) {
+function ItemName({ item, icon = false }: { item: Item; icon?: boolean }) {
 	return (
-		<a className={`quality-${item.quality}`} href={wowheadItemUrl(item.id)} target="_blank" rel="noreferrer">
-			{item.name}
-		</a>
+		<>
+			{icon && <ItemIcon icon={item.icon} quality={item.quality} inline />}
+			<a className={`quality-${item.quality}`} href={wowheadItemUrl(item.id)} target="_blank" rel="noreferrer">
+				{item.name}
+			</a>
+		</>
 	);
 }
 
@@ -231,13 +235,7 @@ function CandidateRow({ candidate, marks, base, variant, data, faction, filter, 
 					{stats || (item.weapon?.dps ? '' : 'No stats')}
 				</span>
 				<span className="slot-source">
-					{guideSource(marks) ??
-						(sources.length === 0
-							? 'Source unknown'
-							: sources
-								.slice(0, 2)
-								.map(s => sourceLine(s, data))
-								.join(' or '))}
+					{guideSource(marks) ?? <SourceList sources={sources} data={data} />}
 					{!guideSource(marks) && sources.length > 2 ? `, +${sources.length - 2} more` : ''}
 				</span>
 			</span>
@@ -295,7 +293,7 @@ function GuidePicks({ guides, slotIndex, data, currentId, deltaOf, onPlan }: Gui
 							return (
 								<span key={`${entry.itemId}-${entry.rank}`} className="guide-pick">
 									{!guide.fixedSet && <span className="guide-rank">{entry.rank}</span>}
-									<ItemName item={item} />
+									<ItemName item={item} icon />
 									{isCurrent ? (
 										<span className="guide-rank">in the set</span>
 									) : (

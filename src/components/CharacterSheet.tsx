@@ -3,10 +3,11 @@ import { useState } from 'react';
 import { GEAR_SLOTS, PROFESSIONS, SHEET_LAYOUT } from '../lib/constants';
 import { applicableEnchants } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
-import { gearStats, hitSummary, pieceStats, sourceLine, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
+import { gearStats, hitSummary, pieceStats, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
 import type { Character, GearPiece, SpecConfig, Stats } from '../lib/types';
 import { EVERYTHING, withItem } from '../lib/scoring';
 import { ItemIcon } from './ItemIcon';
+import { SourceLabel } from './SourceLabel';
 import { ItemPicker } from './ItemPicker';
 
 interface Props {
@@ -324,7 +325,9 @@ function GearSlot({ index, mirrored, piece, data, onChange, onPick }: SlotProps)
 							{stats}
 							{!stats && !item.weapon?.dps && (item.effects ? 'Effect only, no stats' : 'No stats')}
 						</span>
-						<span className="slot-source">{sourceLine(item.sources?.[0], data!)}</span>
+						<span className="slot-source">
+							<SourceLabel source={item.sources?.[0]} data={data!} />
+						</span>
 					</>
 				)}
 				{piece && suffixes.length > 0 && (

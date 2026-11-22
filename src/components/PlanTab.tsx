@@ -6,10 +6,11 @@ import type { GameData } from '../lib/gameData';
 import { guideMarks, markLabel } from '../lib/guides';
 import { buildPlan, fallbacks, gotEnchant, gotItem, type PlanStep, planSteps } from '../lib/plan';
 import { EMPTY_SLOT, EVERYTHING, isUnmeasured, plannedGear, scoreSet, slotInUse, type SourceFilter, usableSources, withItem } from '../lib/scoring';
-import { sourceLine, wowheadItemUrl } from '../lib/stats';
+import { wowheadItemUrl } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
 import { ContentPicker } from './ContentPicker';
 import { ItemIcon } from './ItemIcon';
+import { SourceLabel } from './SourceLabel';
 import { ItemPicker } from './ItemPicker';
 import { SimSummary } from './Sim';
 
@@ -77,7 +78,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 	const sourceOf = (item: Item) => {
 		const guide = marks.get(item.id)?.find(m => m.source);
 		if (guide) return `${guide.source} (per ${guide.guide.label})`;
-		return sourceLine(usableSources(item, faction, filter, character.professions)[0] ?? usableSources(item, faction, EVERYTHING)[0], data);
+		return <SourceLabel source={usableSources(item, faction, filter, character.professions)[0] ?? usableSources(item, faction, EVERYTHING)[0]} data={data} />;
 	};
 
 	return (
@@ -182,6 +183,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 										{others.map((c, i) => (
 											<span key={c.item.id}>
 												{i > 0 && ', '}
+												<ItemIcon icon={c.item.icon} quality={c.item.quality} inline />
 												<ItemLink item={c.item} /> ({formatGain(c.delta)}, {sourceOf(c.item)})
 											</span>
 										))}

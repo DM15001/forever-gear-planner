@@ -4,9 +4,12 @@ import { GEAR_SLOTS } from '../lib/constants';
 import { bestEnchants, enchantOverview, professionValues } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
 import { type Gear, plannedGear, scoreSet, type SourceFilter } from '../lib/scoring';
-import { sourceLine, statLine, wowheadItemUrl } from '../lib/stats';
+import { statLine, wowheadEnchantUrl, wowheadItemUrl } from '../lib/stats';
 import type { Character, Enchant, SpecConfig } from '../lib/types';
+import { ItemIcon } from './ItemIcon';
+import { SourceSymbol } from './Ornaments';
 import { SimDelta } from './Sim';
+import { SourceList } from './SourceLabel';
 
 interface Props {
 	spec: SpecConfig;
@@ -71,13 +74,16 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 						<li key={slot.slotIndex} className="enchant-slot">
 							<div className="enchant-slot-head">
 								<h3>{GEAR_SLOTS[slot.slotIndex].label}</h3>
-								<a className={`item-link quality-${slot.item.quality}`} href={wowheadItemUrl(slot.item.id)} target="_blank" rel="noreferrer">
-									{slot.item.name}
-								</a>
+								<span className="enchant-item">
+									<ItemIcon icon={slot.item.icon} quality={slot.item.quality} small />
+									<a className={`item-link quality-${slot.item.quality}`} href={wowheadItemUrl(slot.item.id)} target="_blank" rel="noreferrer">
+										{slot.item.name}
+									</a>
+								</span>
 								<p className="enchant-current">
 									{slot.current ? (
 										<>
-											{slot.current.name} <span className="num delta-up">{slot.currentDelta > 0 ? formatDelta(slot.currentDelta) : ''}</span>{' '}
+											<EnchantName enchant={slot.current} inline /> <span className="num delta-up">{slot.currentDelta > 0 ? formatDelta(slot.currentDelta) : ''}</span>{' '}
 											<button className="link" onClick={() => setEnchants({ [slot.slotIndex]: undefined })}>
 												Remove
 											</button>
@@ -94,8 +100,9 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 									return (
 										<div key={`${enchant.effectId}-${enchant.name}`} className="enchant-option">
 											<span className="num delta-up">{formatDelta(delta)}</span>
+											<ItemIcon icon={enchant.icon} quality={enchant.quality} small />
 											<span>
-												<span className="enchant-name">{enchant.name}</span>
+												<EnchantName enchant={enchant} />
 												<span className="slot-source">
 													{statLine(enchant.stats ?? {}) || 'Proc, measured with the simulator'}. {enchantSource(enchant, data)}
 												</span>
@@ -118,8 +125,9 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 									return (
 										<div key={`${enchant.effectId}-${enchant.name}`} className="enchant-option">
 											<span className="badge">sim it</span>
+											<ItemIcon icon={enchant.icon} quality={enchant.quality} small />
 											<span>
-												<span className="enchant-name">{enchant.name}</span>
+												<EnchantName enchant={enchant} />
 												<span className="slot-source">Proc or effect, not in the score. {enchantSource(enchant, data)}</span>
 											</span>
 											<SimDelta base={withEnchant(slot.slotIndex)} variant={withEnchant(slot.slotIndex, enchant.effectId)} />
@@ -152,7 +160,7 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 					{professions.map(({ profession, mine, items, value }) => (
 						<div key={profession} className={`panel profession${mine ? ' profession-mine' : ''}`}>
 							<h3>
-								{profession}
+								<SourceSymbol kind="crafted" /> {profession}
 								{mine && <span className="badge badge-plan">yours</span>}
 							</h3>
 							<p className="profession-value">
@@ -162,6 +170,7 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 								{items.slice(0, CRAFTS_SHOWN).map(drop => (
 									<li key={drop.item.id} className="boss-drop">
 										<span className="num delta-up">{formatDelta(drop.delta)}</span>
+										<ItemIcon icon={drop.item.icon} quality={drop.item.quality} small />
 										<span>
 											<a className={`item-link quality-${drop.item.quality}`} href={wowheadItemUrl(drop.item.id)} target="_blank" rel="noreferrer">
 												{drop.item.name}
@@ -181,11 +190,19 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 	);
 }
 
-function enchantSource(enchant: Enchant, data: GameData): string {
-	const sources = enchant.sources ?? [];
-	if (sources.length === 0) return 'Source unknown';
-	return sources
-		.slice(0, 2)
-		.map(s => sourceLine(s, data))
-		.join(' or ');
+/** An enchant's name as a link to its Wowhead page. */
+function EnchantName({ enchant, inline = false }: { enchant: Enchant; inline?: boolean }) {
+	const url = wowheadEnchantUrl(enchant);
+	const className = inline ? 'item-link' : 'enchant-name item-link';
+	return url ? (
+		<a className={className} href={url} target="_blank" rel="noreferrer">
+			{enchant.name}
+		</a>
+	) : (
+		<span className={inline ? undefined : 'enchant-name'}>{enchant.name}</span>
+	);
+}
+
+function enchantSource(enchant: Enchant, data: GameData) {
+	return <SourceList sources={enchant.sources ?? []} data={data} />;
 }

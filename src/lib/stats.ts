@@ -133,3 +133,7 @@ export function sourceLine(source: ItemSource | undefined, data: GameData): stri
 }
 
 export const wowheadItemUrl = (id: number) => `https://www.wowhead.com/forever/item=${id}`;
+export const wowheadSpellUrl = (id: number) => `https://www.wowhead.com/forever/spell=${id}`;
+/** An enchanter's enchant is a spell on Wowhead; a kit, oil or arcanum is the item that applies it. */
+export const wowheadEnchantUrl = (enchant: { name: string; itemId?: number; spellId?: number }) =>
+	enchant.spellId && (enchant.name.startsWith('Enchant ') || !enchant.itemId) ? wowheadSpellUrl(enchant.spellId) : enchant.itemId ? wowheadItemUrl(enchant.itemId) : undefined;
