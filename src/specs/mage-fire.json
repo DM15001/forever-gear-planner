@@ -2,6 +2,7 @@
 	"id": "mage-fire",
 	"name": "Mage: Fire",
 	"preset": "Fire",
+	"talents": "0502052001001-55500001230133031-003",
 	"classId": 8,
 	"className": "mage",
 	"simKey": "mage",

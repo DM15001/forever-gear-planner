@@ -2,6 +2,7 @@
 	"id": "mage-ffb",
 	"name": "Mage: FFB",
 	"preset": "FFB",
+	"talents": "-5550000123011303-2035010311013002",
 	"classId": 8,
 	"className": "mage",
 	"simKey": "mage",

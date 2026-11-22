@@ -2,6 +2,7 @@
 	"id": "warlock-sm-ruin",
 	"name": "Warlock: SM/Ruin",
 	"preset": "SM/Ruin",
+	"talents": "2550002013520105--0550205003",
 	"classId": 9,
 	"className": "warlock",
 	"simKey": "warlock",

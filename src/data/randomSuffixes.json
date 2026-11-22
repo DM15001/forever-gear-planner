@@ -762,6 +762,16 @@
 		}
 	},
 	{
+		"id": 12976,
+		"name": "of the Defender",
+		"stats": {
+			"stamina": 4534,
+			"healingPower": 2324,
+			"spellDamage": 2324,
+			"defenseRating": 1708
+		}
+	},
+	{
 		"id": 12977,
 		"name": "of Arcane Wrath",
 		"stats": {
@@ -897,6 +907,41 @@
 		"name": "of Fire Resistance",
 		"stats": {
 			"fireResistance": 6666
+		}
+	},
+	{
+		"id": 12997,
+		"name": "of Arcane Resistance",
+		"stats": {
+			"arcaneResistance": 3800
+		}
+	},
+	{
+		"id": 12998,
+		"name": "of Frost Resistance",
+		"stats": {
+			"frostResistance": 3800
+		}
+	},
+	{
+		"id": 12999,
+		"name": "of Nature Resistance",
+		"stats": {
+			"natureResistance": 3800
+		}
+	},
+	{
+		"id": 13000,
+		"name": "of Shadow Resistance",
+		"stats": {
+			"shadowResistance": 3800
+		}
+	},
+	{
+		"id": 13001,
+		"name": "of Fire Resistance",
+		"stats": {
+			"fireResistance": 3800
 		}
 	},
 	{

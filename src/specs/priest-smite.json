@@ -2,6 +2,7 @@
 	"id": "priest-smite",
 	"name": "Priest: Smite Testing",
 	"preset": "Smite Testing",
+	"talents": "525235031030001001-30515100002-3",
 	"classId": 5,
 	"className": "priest",
 	"simKey": "dpsPriest",

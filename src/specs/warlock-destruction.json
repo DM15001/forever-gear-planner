@@ -2,6 +2,7 @@
 	"id": "warlock-destruction",
 	"name": "Warlock: Destro",
 	"preset": "Destro",
+	"talents": "2550002013--0050355103101351",
 	"classId": 9,
 	"className": "warlock",
 	"simKey": "warlock",

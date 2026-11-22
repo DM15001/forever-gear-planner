@@ -1,6 +1,8 @@
 {
-	"generatedAt": "2026-11-22T18:46:06.967Z",
+	"generatedAt": "2026-11-22T18:58:12.755Z",
 	"specs": [
+		"druid-balance",
+		"druid-cat",
 		"elemental-shaman",
 		"enhancement-shaman",
 		"mage-arcane-fire",
@@ -11,11 +13,19 @@
 		"mage-frost",
 		"priest-shadow",
 		"priest-smite",
+		"rogue-asn-muti",
+		"rogue-combat-bs",
+		"rogue-combat-ss",
+		"rogue-combat-venom",
+		"rogue-hemo-sf",
+		"rogue-sub-hemo",
 		"warlock-affliction",
 		"warlock-demo-fire",
 		"warlock-demo-shadow",
 		"warlock-destruction",
-		"warlock-sm-ruin"
+		"warlock-sm-ruin",
+		"warrior-arms",
+		"warrior-fury"
 	],
 	"source": {
 		"repo": "https://github.com/wowsims/forever",
@@ -24,33 +34,33 @@
 		"commit": null
 	},
 	"counts": {
-		"items": 5114,
+		"items": 6371,
 		"itemsBySlot": {
-			"hands": 394,
-			"trinket": 180,
-			"weapon": 1064,
-			"finger": 271,
-			"chest": 454,
-			"feet": 421,
+			"weapon": 1201,
+			"hands": 517,
+			"trinket": 196,
+			"finger": 272,
+			"chest": 566,
+			"feet": 558,
 			"neck": 179,
-			"head": 376,
-			"legs": 381,
-			"wrist": 301,
-			"back": 266,
-			"shoulder": 338,
-			"waist": 407,
-			"ranged": 82
+			"head": 477,
+			"legs": 493,
+			"wrist": 421,
+			"back": 267,
+			"ranged": 243,
+			"shoulder": 454,
+			"waist": 527
 		},
-		"itemsWithoutSource": 1806,
-		"itemsWithEffects": 564,
+		"itemsWithoutSource": 2222,
+		"itemsWithEffects": 725,
 		"enchants": 223,
 		"zones": {
 			"world": 45,
 			"dungeon": 22
 		},
-		"npcs": 431,
-		"randomSuffixes": 251,
-		"simSets": 15,
-		"simItems": 5115
+		"npcs": 456,
+		"randomSuffixes": 257,
+		"simSets": 25,
+		"simItems": 6372
 	}
 }

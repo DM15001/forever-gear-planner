@@ -2,6 +2,7 @@
 	"id": "warlock-affliction",
 	"name": "Warlock: Aff (Wrack)",
 	"preset": "Aff (Wrack)",
+	"talents": "25500020135201351-0050203001-05",
 	"classId": 9,
 	"className": "warlock",
 	"simKey": "warlock",

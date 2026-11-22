@@ -2,6 +2,7 @@
 	"id": "warlock-demo-fire",
 	"name": "Warlock: Demo (Fire Brand)",
 	"preset": "Demo (Fire Brand)",
+	"talents": "011-0305003201220301351-0050055003",
 	"classId": 9,
 	"className": "warlock",
 	"simKey": "warlock",

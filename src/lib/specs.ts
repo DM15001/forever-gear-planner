@@ -1,3 +1,5 @@
+import druidBalance from '../specs/druid-balance.json';
+import druidCat from '../specs/druid-cat.json';
 import elementalShaman from '../specs/elemental-shaman.json';
 import enhancementShaman from '../specs/enhancement-shaman.json';
 import mageArcane from '../specs/mage-arcane.json';
@@ -8,6 +10,14 @@ import mageFrost from '../specs/mage-frost.json';
 import mageFrostIncin from '../specs/mage-frost-incin.json';
 import priestShadow from '../specs/priest-shadow.json';
 import priestSmite from '../specs/priest-smite.json';
+import warriorArms from '../specs/warrior-arms.json';
+import warriorFury from '../specs/warrior-fury.json';
+import rogueAsnMuti from '../specs/rogue-asn-muti.json';
+import rogueCombatBs from '../specs/rogue-combat-bs.json';
+import rogueCombatSs from '../specs/rogue-combat-ss.json';
+import rogueCombatVenom from '../specs/rogue-combat-venom.json';
+import rogueHemoSf from '../specs/rogue-hemo-sf.json';
+import rogueSubHemo from '../specs/rogue-sub-hemo.json';
 import warlockAffliction from '../specs/warlock-affliction.json';
 import warlockDemoFire from '../specs/warlock-demo-fire.json';
 import warlockDemoShadow from '../specs/warlock-demo-shadow.json';
@@ -16,7 +26,7 @@ import warlockSmRuin from '../specs/warlock-sm-ruin.json';
 import type { Character, Enchant, Item, SpecConfig } from './types';
 
 /** Every spec the planner knows, in the order they are offered. */
-export const SPECS = [enhancementShaman, elementalShaman, warlockSmRuin, warlockDestruction, warlockAffliction, warlockDemoFire, warlockDemoShadow, priestShadow, priestSmite, mageFire, mageFrost, mageFrostIncin, mageArcane, mageArcaneFire, mageFfb] as unknown as SpecConfig[];
+export const SPECS = [enhancementShaman, elementalShaman, warlockSmRuin, warlockDestruction, warlockAffliction, warlockDemoFire, warlockDemoShadow, priestShadow, priestSmite, mageFire, mageFrost, mageFrostIncin, mageArcane, mageArcaneFire, mageFfb, warriorFury, warriorArms, rogueCombatSs, rogueCombatBs, rogueCombatVenom, rogueAsnMuti, rogueSubHemo, rogueHemoSf, druidBalance, druidCat] as unknown as SpecConfig[];
 
 export const DEFAULT_SPEC = SPECS[0];
 

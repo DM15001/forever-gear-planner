@@ -1,0 +1,118 @@
+{
+	"id": "warrior-fury",
+	"name": "Warrior: Fury (Pre-BiS)",
+	"preset": "Pre-BiS - Fury",
+	"talents": "30303213002-050530045122100231",
+	"classId": 1,
+	"className": "warrior",
+	"simKey": "dpsWarrior",
+	"races": [
+		{
+			"id": "RaceHuman",
+			"name": "Human",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceDwarf",
+			"name": "Dwarf",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceNightElf",
+			"name": "Night Elf",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceGnome",
+			"name": "Gnome",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceHighOrderSkyborne",
+			"name": "High Order Skyborne",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceOrc",
+			"name": "Orc",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceUndead",
+			"name": "Undead",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceTauren",
+			"name": "Tauren",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceTroll",
+			"name": "Troll",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceWindshaperSkyborne",
+			"name": "Windshaper Skyborne",
+			"faction": "horde"
+		}
+	],
+	"armorTypes": [
+		"cloth",
+		"leather",
+		"mail",
+		"plate"
+	],
+	"weaponTypes": {
+		"oneHand": [
+			"axe",
+			"dagger",
+			"fist",
+			"mace",
+			"sword"
+		],
+		"twoHand": [],
+		"offHand": []
+	},
+	"rangedTypes": [
+		"bow",
+		"crossbow",
+		"gun",
+		"thrown"
+	],
+	"canDualWield": true,
+	"weaponSetup": "oneHand",
+	"simBuilds": [
+		{
+			"id": "wowsims",
+			"label": "WoWSims",
+			"title": "WoWSims preset set",
+			"local": "scripts/builds/warrior-fury.build.json"
+		}
+	],
+	"hitCapPercent": 27,
+	"ratingPerPercent": {
+		"hitRating": 10,
+		"critRating": 14,
+		"hasteRating": 10,
+		"expertiseRating": 10
+	},
+	"raceBonuses": {},
+	"weights": {
+		"source": "WoWSims Forever, Fury 'Pre-BiS' EP preset (ui/specs/warrior/dps/presets.ts). 1 point = 1 attack power. Hit is counted up to the dual-wield cap for white hits.",
+		"mainHandDps": 12.59,
+		"offHandDps": 2.66,
+		"stats": {
+			"strength": 2.2,
+			"agility": 1.7,
+			"attackPower": 1,
+			"armorPenetration": 0.39,
+			"hitRating": 1.69,
+			"hasteRating": 1.76,
+			"critRating": 2.26,
+			"expertiseRating": 2.35
+		},
+		"hitRatingOverCap": 0
+	}
+}

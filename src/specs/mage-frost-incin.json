@@ -2,6 +2,7 @@
 	"id": "mage-frost-incin",
 	"name": "Mage: Frost Incin",
 	"preset": "Frost Incin",
+	"talents": "203205-5-053500011121331251",
 	"classId": 8,
 	"className": "mage",
 	"simKey": "mage",

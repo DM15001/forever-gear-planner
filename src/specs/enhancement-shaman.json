@@ -2,6 +2,7 @@
 	"id": "enhancement-shaman",
 	"name": "Enhancement Shaman",
 	"preset": "Default",
+	"talents": "053303102-053030310051012251-02",
 	"classId": 7,
 	"className": "shaman",
 	"simKey": "enhancementShaman",

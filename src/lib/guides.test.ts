@@ -102,7 +102,7 @@ describe('swapDelta', () => {
 describe('guide lists for the other builds', () => {
 	it('has a Wowhead list for each build Wowhead ranks, and every item is usable by that build', async () => {
 		const { SPECS } = await import('./specs');
-		const withList = ['enhancement-shaman', 'mage-fire', 'mage-frost', 'priest-shadow', 'warlock-affliction', 'warlock-destruction'];
+		const withList = ['druid-balance', 'elemental-shaman', 'enhancement-shaman', 'mage-fire', 'mage-frost', 'priest-shadow', 'rogue-combat-bs', 'rogue-combat-ss', 'rogue-combat-venom', 'warlock-affliction', 'warlock-destruction'];
 		expect(specsWithGuide().sort()).toEqual(withList);
 		for (const s of SPECS) {
 			const specData = await loadGameData(s);

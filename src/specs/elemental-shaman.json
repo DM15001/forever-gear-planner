@@ -2,6 +2,7 @@
 	"id": "elemental-shaman",
 	"name": "Elemental Shaman",
 	"preset": "Default",
+	"talents": "5500331023001351-05500001-053",
 	"classId": 7,
 	"className": "shaman",
 	"simKey": "elementalShaman",

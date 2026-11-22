@@ -45,7 +45,7 @@ function parseProfessions(names: unknown[], warnings: string[]): string[] {
 }
 
 /** The keys under which sim exports carry spec options: "enhancementShaman", "dpsPriest", "warlock" ... */
-const KNOWN_SIM_KEYS = /^([a-z]+(Shaman|Priest|Druid|Warrior|Paladin)|warlock|mage|hunter|rogue)$/;
+const KNOWN_SIM_KEYS = /^([a-zA-Z]+(Shaman|Priest|Druid|Warrior|Paladin)|warlock|mage|hunter|rogue)$/;
 
 /**
  * Reads a character from pasted text. Two formats are accepted:
@@ -94,11 +94,18 @@ export function importCharacter(text: string, specOrSpecs: SpecConfig | SpecConf
 	if (!matching.length) {
 		throw new ImportError(`This ${className} export is for a spec the planner does not cover yet (${simKeys.join(', ')}). It covers ${sameClass.map(candidate => candidate.name).join(', ')}.`);
 	}
-	// The addon export names the talent tree the character is in ("affliction"); take the first build of that tree.
+	// Several builds of one class: take the one whose own talents are spread over the trees most like
+	// the character's. Without talents, the addon export's tree name ("affliction") decides.
+	const treePoints = (talents: string) => talents.split('-').map(tree => [...tree].reduce((sum, digit) => sum + (Number(digit) || 0), 0));
+	const distance = (a: number[], b: number[]) => [0, 1, 2].reduce((sum, i) => sum + Math.abs((a[i] ?? 0) - (b[i] ?? 0)), 0);
+	const talentSource = String(source.talents ?? source.talentsString ?? '');
+	const own = talentSource ? treePoints(talentSource) : null;
 	const tree = typeof source.spec === 'string' ? source.spec.toLowerCase() : '';
-	const ofTree = tree ? matching.find(candidate => candidate.id.split('-').some(part => part.length > 2 && (tree.startsWith(part) || part.startsWith(tree)))) : undefined;
+	const byTalents = own ? [...matching].sort((x, y) => distance(own, treePoints(x.talents ?? '')) - distance(own, treePoints(y.talents ?? '')))[0] : undefined;
+	const byName = tree ? matching.find(candidate => candidate.id.split('-').some(part => part.length > 2 && (tree.startsWith(part) || part.startsWith(tree)))) : undefined;
+	const ofTree = byTalents ?? byName;
 	const spec = ofTree ?? matching[0];
-	if (matching.length > 1) warnings.push(`Planned as "${spec.name}"${ofTree ? `, the first build for ${tree} talents` : ''}. Pick another build under Character details if you play a different one.`);
+	if (matching.length > 1) warnings.push(`Planned as "${spec.name}"${ofTree ? ', the build closest to your talents' : ''}. Pick another build under Character details if you play a different one.`);
 
 	const wantedRace = normalize(source.race, 'race');
 	const race = spec.races.find(r => normalize(r.id, 'race') === wantedRace)?.id ?? null;

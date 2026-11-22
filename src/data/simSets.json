@@ -1,5 +1,143 @@
 [
 	{
+		"spec": "druid-balance",
+		"id": "wowsims",
+		"label": "WoWSims",
+		"title": "WoWSims preset set",
+		"url": "https://github.com/wowsims/forever/tree/master/ui/specs",
+		"gear": [
+			{
+				"id": 10250,
+				"enchant": 2544,
+				"randomSuffix": 12734
+			},
+			{
+				"id": 22149,
+				"enchant": 8218
+			},
+			{
+				"id": 10210,
+				"randomSuffix": 12734
+			},
+			{
+				"id": 272413
+			},
+			{
+				"id": 10143,
+				"enchant": 8492,
+				"randomSuffix": 12734
+			},
+			{
+				"id": 10248,
+				"enchant": 7665,
+				"randomSuffix": 12734
+			},
+			{
+				"id": 10140,
+				"enchant": 7647,
+				"randomSuffix": 12734
+			},
+			{
+				"id": 18405
+			},
+			{
+				"id": 252486,
+				"enchant": 2544
+			},
+			{
+				"id": 254129,
+				"enchant": 8492
+			},
+			{
+				"id": 272407
+			},
+			{
+				"id": 272406
+			},
+			{
+				"id": 272438
+			},
+			{
+				"id": 272439
+			},
+			{
+				"id": 274420,
+				"enchant": 7662
+			},
+			null,
+			{
+				"id": 272430
+			}
+		]
+	},
+	{
+		"spec": "druid-cat",
+		"id": "wowsims",
+		"label": "WoWSims",
+		"title": "WoWSims preset set",
+		"url": "https://github.com/wowsims/forever/tree/master/ui/specs",
+		"gear": [
+			{
+				"id": 8345,
+				"enchant": 1508
+			},
+			{
+				"id": 19491,
+				"enchant": 904
+			},
+			{
+				"id": 271955
+			},
+			{
+				"id": 18511,
+				"enchant": 7667
+			},
+			{
+				"id": 252484,
+				"enchant": 1891
+			},
+			{
+				"id": 19587,
+				"enchant": 7656
+			},
+			{
+				"id": 19049,
+				"enchant": 2564
+			},
+			{
+				"id": 272396
+			},
+			{
+				"id": 15065,
+				"enchant": 1508
+			},
+			{
+				"id": 12553,
+				"enchant": 1887
+			},
+			{
+				"id": 19325
+			},
+			{
+				"id": 275981
+			},
+			{
+				"id": 19120
+			},
+			{
+				"id": 270275
+			},
+			{
+				"id": 19323,
+				"enchant": 1896
+			},
+			null,
+			{
+				"id": 272427
+			}
+		]
+	},
+	{
 		"spec": "elemental-shaman",
 		"id": "wowsims",
 		"label": "WoWSims",
@@ -667,6 +805,426 @@
 		]
 	},
 	{
+		"spec": "rogue-asn-muti",
+		"id": "wowsims",
+		"label": "WoWSims",
+		"title": "WoWSims preset set",
+		"url": "https://github.com/wowsims/forever/tree/master/ui/specs",
+		"gear": [
+			{
+				"id": 226829,
+				"enchant": 1508
+			},
+			{
+				"id": 15411,
+				"enchant": 904
+			},
+			{
+				"id": 15058
+			},
+			{
+				"id": 272414,
+				"enchant": 7667
+			},
+			{
+				"id": 226825,
+				"enchant": 1891
+			},
+			{
+				"id": 226830,
+				"enchant": 7656
+			},
+			{
+				"id": 21278,
+				"enchant": 8206
+			},
+			{
+				"id": 272395
+			},
+			{
+				"id": 15057,
+				"enchant": 1508
+			},
+			{
+				"id": 226831,
+				"enchant": 8737
+			},
+			{
+				"id": 19325
+			},
+			{
+				"id": 272408
+			},
+			{
+				"id": 11815
+			},
+			{
+				"id": 22321
+			},
+			{
+				"id": 12590,
+				"enchant": 1900
+			},
+			{
+				"id": 18392,
+				"enchant": 1900
+			},
+			{
+				"id": 18323
+			}
+		]
+	},
+	{
+		"spec": "rogue-combat-bs",
+		"id": "wowsims",
+		"label": "WoWSims",
+		"title": "WoWSims preset set",
+		"url": "https://github.com/wowsims/forever/tree/master/ui/specs",
+		"gear": [
+			{
+				"id": 226829,
+				"enchant": 1508
+			},
+			{
+				"id": 15411,
+				"enchant": 904
+			},
+			{
+				"id": 226826
+			},
+			{
+				"id": 272414,
+				"enchant": 7667
+			},
+			{
+				"id": 252483,
+				"enchant": 1891
+			},
+			{
+				"id": 226830,
+				"enchant": 7656
+			},
+			{
+				"id": 15063,
+				"enchant": 8206
+			},
+			{
+				"id": 272395
+			},
+			{
+				"id": 15062,
+				"enchant": 1508
+			},
+			{
+				"id": 226831,
+				"enchant": 8737
+			},
+			{
+				"id": 19325
+			},
+			{
+				"id": 272408
+			},
+			{
+				"id": 11815
+			},
+			{
+				"id": 22321
+			},
+			{
+				"id": 12590,
+				"enchant": 1900
+			},
+			{
+				"id": 18392,
+				"enchant": 1900
+			},
+			{
+				"id": 18323
+			}
+		]
+	},
+	{
+		"spec": "rogue-combat-ss",
+		"id": "wowsims",
+		"label": "WoWSims",
+		"title": "WoWSims preset set",
+		"url": "https://github.com/wowsims/forever/tree/master/ui/specs",
+		"gear": [
+			{
+				"id": 226829,
+				"enchant": 1508
+			},
+			{
+				"id": 15411,
+				"enchant": 904
+			},
+			{
+				"id": 226826
+			},
+			{
+				"id": 272414,
+				"enchant": 7667
+			},
+			{
+				"id": 252483,
+				"enchant": 1891
+			},
+			{
+				"id": 226830,
+				"enchant": 7656
+			},
+			{
+				"id": 15063,
+				"enchant": 8206
+			},
+			{
+				"id": 272395
+			},
+			{
+				"id": 15062,
+				"enchant": 1508
+			},
+			{
+				"id": 226831,
+				"enchant": 8737
+			},
+			{
+				"id": 19325
+			},
+			{
+				"id": 272408
+			},
+			{
+				"id": 11815
+			},
+			{
+				"id": 22321
+			},
+			{
+				"id": 1728,
+				"enchant": 1900
+			},
+			{
+				"id": 871,
+				"enchant": 1900
+			},
+			{
+				"id": 18323
+			}
+		]
+	},
+	{
+		"spec": "rogue-combat-venom",
+		"id": "wowsims",
+		"label": "WoWSims",
+		"title": "WoWSims preset set",
+		"url": "https://github.com/wowsims/forever/tree/master/ui/specs",
+		"gear": [
+			{
+				"id": 226829,
+				"enchant": 1508
+			},
+			{
+				"id": 15411,
+				"enchant": 904
+			},
+			{
+				"id": 226826
+			},
+			{
+				"id": 272414,
+				"enchant": 7667
+			},
+			{
+				"id": 252483,
+				"enchant": 1891
+			},
+			{
+				"id": 226830,
+				"enchant": 7656
+			},
+			{
+				"id": 15063,
+				"enchant": 8206
+			},
+			{
+				"id": 272395
+			},
+			{
+				"id": 15062,
+				"enchant": 1508
+			},
+			{
+				"id": 226831,
+				"enchant": 8737
+			},
+			{
+				"id": 19325
+			},
+			{
+				"id": 272408
+			},
+			{
+				"id": 11815
+			},
+			{
+				"id": 22321
+			},
+			{
+				"id": 1728,
+				"enchant": 1900
+			},
+			{
+				"id": 871,
+				"enchant": 1900
+			},
+			{
+				"id": 18323
+			}
+		]
+	},
+	{
+		"spec": "rogue-hemo-sf",
+		"id": "wowsims",
+		"label": "WoWSims",
+		"title": "WoWSims preset set",
+		"url": "https://github.com/wowsims/forever/tree/master/ui/specs",
+		"gear": [
+			{
+				"id": 226829,
+				"enchant": 1508
+			},
+			{
+				"id": 15411,
+				"enchant": 904
+			},
+			{
+				"id": 226826
+			},
+			{
+				"id": 272414,
+				"enchant": 7667
+			},
+			{
+				"id": 252483,
+				"enchant": 1891
+			},
+			{
+				"id": 226830,
+				"enchant": 7656
+			},
+			{
+				"id": 15063,
+				"enchant": 8206
+			},
+			{
+				"id": 272395
+			},
+			{
+				"id": 15062,
+				"enchant": 1508
+			},
+			{
+				"id": 226831,
+				"enchant": 8737
+			},
+			{
+				"id": 19325
+			},
+			{
+				"id": 272408
+			},
+			{
+				"id": 11815
+			},
+			{
+				"id": 22321
+			},
+			{
+				"id": 12590,
+				"enchant": 1900
+			},
+			{
+				"id": 18392,
+				"enchant": 1900
+			},
+			{
+				"id": 18323
+			}
+		]
+	},
+	{
+		"spec": "rogue-sub-hemo",
+		"id": "wowsims",
+		"label": "WoWSims",
+		"title": "WoWSims preset set",
+		"url": "https://github.com/wowsims/forever/tree/master/ui/specs",
+		"gear": [
+			{
+				"id": 226829,
+				"enchant": 1508
+			},
+			{
+				"id": 15411,
+				"enchant": 904
+			},
+			{
+				"id": 226826
+			},
+			{
+				"id": 272414,
+				"enchant": 7667
+			},
+			{
+				"id": 252483,
+				"enchant": 1891
+			},
+			{
+				"id": 226830,
+				"enchant": 7656
+			},
+			{
+				"id": 15063,
+				"enchant": 8206
+			},
+			{
+				"id": 272395
+			},
+			{
+				"id": 15062,
+				"enchant": 1508
+			},
+			{
+				"id": 226831,
+				"enchant": 8737
+			},
+			{
+				"id": 19325
+			},
+			{
+				"id": 272408
+			},
+			{
+				"id": 11815
+			},
+			{
+				"id": 22321
+			},
+			{
+				"id": 12590,
+				"enchant": 1900
+			},
+			{
+				"id": 18392,
+				"enchant": 1900
+			},
+			{
+				"id": 18323
+			}
+		]
+	},
+	{
 		"spec": "warlock-affliction",
 		"id": "wowsims",
 		"label": "WoWSims",
@@ -1008,6 +1566,142 @@
 			},
 			{
 				"id": 13396
+			}
+		]
+	},
+	{
+		"spec": "warrior-arms",
+		"id": "wowsims",
+		"label": "WoWSims",
+		"title": "WoWSims preset set",
+		"url": "https://github.com/wowsims/forever/tree/master/ui/specs",
+		"gear": [
+			{
+				"id": 12640,
+				"enchant": 1506
+			},
+			{
+				"id": 15411
+			},
+			{
+				"id": 10263,
+				"randomSuffix": 12727
+			},
+			{
+				"id": 272414,
+				"enchant": 7667
+			},
+			{
+				"id": 252484,
+				"enchant": 1891
+			},
+			{
+				"id": 12936,
+				"enchant": 1885
+			},
+			{
+				"id": 226861,
+				"enchant": 8207
+			},
+			{
+				"id": 272403
+			},
+			{
+				"id": 12963,
+				"enchant": 1506
+			},
+			{
+				"id": 226857,
+				"enchant": 1887
+			},
+			{
+				"id": 19325
+			},
+			{
+				"id": 13098
+			},
+			{
+				"id": 22321
+			},
+			{
+				"id": 11815
+			},
+			{
+				"id": 647,
+				"enchant": 1900
+			},
+			null,
+			{
+				"id": 18323
+			}
+		]
+	},
+	{
+		"spec": "warrior-fury",
+		"id": "wowsims",
+		"label": "WoWSims",
+		"title": "WoWSims preset set",
+		"url": "https://github.com/wowsims/forever/tree/master/ui/specs",
+		"gear": [
+			{
+				"id": 12640,
+				"enchant": 2543
+			},
+			{
+				"id": 15411
+			},
+			{
+				"id": 22241
+			},
+			{
+				"id": 272414,
+				"enchant": 7667
+			},
+			{
+				"id": 252484,
+				"enchant": 1891
+			},
+			{
+				"id": 12936,
+				"enchant": 1885
+			},
+			{
+				"id": 15063,
+				"enchant": 8207
+			},
+			{
+				"id": 272403
+			},
+			{
+				"id": 15062,
+				"enchant": 2543
+			},
+			{
+				"id": 226857,
+				"enchant": 1887
+			},
+			{
+				"id": 272408
+			},
+			{
+				"id": 19325
+			},
+			{
+				"id": 22321
+			},
+			{
+				"id": 13965
+			},
+			{
+				"id": 22384,
+				"enchant": 1900
+			},
+			{
+				"id": 871,
+				"enchant": 1900
+			},
+			{
+				"id": 12651
 			}
 		]
 	}

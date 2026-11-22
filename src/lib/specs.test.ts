@@ -40,7 +40,7 @@ describe('importing other classes', () => {
 
 	it('plans priest and mage exports as their class', () => {
 		expect(importCharacter(build('priest-shadow')).character.specId).toBe('priest-shadow');
-		expect(importCharacter(build('mage-frost')).character.specId).toBe('mage-fire'); // the first mage build; the user picks the right one
+		expect(importCharacter(build('mage-frost')).character.specId).toBe('mage-frost'); // the build whose talents match
 	});
 
 	it('refuses a spec of a known class that is not covered', () => {
@@ -51,9 +51,9 @@ describe('importing other classes', () => {
 	});
 
 	it('refuses a class without any spec', () => {
-		const rogue = JSON.parse(build('priest-shadow'));
-		rogue.player.class = 'ClassRogue';
-		expect(() => importCharacter(JSON.stringify(rogue))).toThrow(/Shaman, Warlock, Priest, Mage/);
+		const hunter = JSON.parse(build('priest-shadow'));
+		hunter.player.class = 'ClassHunter';
+		expect(() => importCharacter(JSON.stringify(hunter))).toThrow(/Shaman, Warlock, Priest, Mage, Warrior, Rogue, Druid/);
 	});
 });
 

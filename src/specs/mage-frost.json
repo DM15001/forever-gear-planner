@@ -2,6 +2,7 @@
 	"id": "mage-frost",
 	"name": "Mage: Frost Med",
 	"preset": "Frost Med",
+	"talents": "2032250100003--053500001121331251",
 	"classId": 8,
 	"className": "mage",
 	"simKey": "mage",

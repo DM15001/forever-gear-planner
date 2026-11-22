@@ -1,0 +1,112 @@
+{
+	"id": "rogue-combat-venom",
+	"name": "Rogue: Combat Venom",
+	"preset": "Combat Venom",
+	"talents": "00530320241001-320013220201232115",
+	"classId": 4,
+	"className": "rogue",
+	"simKey": "rogue",
+	"races": [
+		{
+			"id": "RaceHuman",
+			"name": "Human",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceDwarf",
+			"name": "Dwarf",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceNightElf",
+			"name": "Night Elf",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceGnome",
+			"name": "Gnome",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceHighOrderSkyborne",
+			"name": "High Order Skyborne",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceOrc",
+			"name": "Orc",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceUndead",
+			"name": "Undead",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceTroll",
+			"name": "Troll",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceWindshaperSkyborne",
+			"name": "Windshaper Skyborne",
+			"faction": "horde"
+		}
+	],
+	"armorTypes": [
+		"cloth",
+		"leather"
+	],
+	"weaponTypes": {
+		"oneHand": [
+			"axe",
+			"dagger",
+			"fist",
+			"mace",
+			"sword"
+		],
+		"twoHand": [],
+		"offHand": []
+	},
+	"rangedTypes": [
+		"bow",
+		"crossbow",
+		"gun",
+		"thrown"
+	],
+	"canDualWield": true,
+	"weaponSetup": "oneHand",
+	"simBuilds": [
+		{
+			"id": "wowsims",
+			"label": "WoWSims",
+			"title": "WoWSims preset set",
+			"local": "scripts/builds/rogue-combat-venom.build.json"
+		}
+	],
+	"hitCapPercent": 27,
+	"ratingPerPercent": {
+		"hitRating": 10,
+		"critRating": 14,
+		"hasteRating": 10,
+		"expertiseRating": 10
+	},
+	"raceBonuses": {},
+	"weights": {
+		"source": "WoWSims Forever, Rogue 'Combat Sinister' EP preset (ui/specs/rogue/dps/presets.ts). 1 point = 1 attack power. Hit is counted up to the dual-wield cap for white hits.",
+		"mainHandDps": 10.57,
+		"offHandDps": 2.93,
+		"stats": {
+			"agility": 1.96,
+			"strength": 1.1,
+			"critRating": 1.7,
+			"hasteRating": 1.72,
+			"hitRating": 2.42,
+			"expertiseRating": 2.55,
+			"armorPenetration": 0.41,
+			"spellPiercing": 0.19,
+			"attackPower": 1
+		},
+		"hitRatingOverCap": 0
+	}
+}

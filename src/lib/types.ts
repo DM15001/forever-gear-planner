@@ -114,6 +114,8 @@ export interface SpecConfig {
 	simKey: string;
 	/** The name of the WoWSims preset configuration this build is. */
 	preset?: string;
+	/** The preset's talent string, used to tell the builds of one class apart on import. */
+	talents?: string;
 	races: { id: string; name: string; faction: Faction }[];
 	armorTypes: string[];
 	weaponTypes: { oneHand: string[]; twoHand: string[]; offHand: string[] };
@@ -134,6 +136,8 @@ export interface SpecConfig {
 	weights: {
 		source: string;
 		mainHandDps: number;
+		/** Worth of one point of off-hand weapon DPS, for dual wielders. */
+		offHandDps?: number;
 		/** Value of hit rating beyond the cap. */
 		hitRatingOverCap: number;
 		stats: Record<string, number>;

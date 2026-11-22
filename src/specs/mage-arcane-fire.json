@@ -2,6 +2,7 @@
 	"id": "mage-arcane-fire",
 	"name": "Mage: Arcane Fire",
 	"preset": "Arcane Fire",
+	"talents": "050205203100311531-525000012001-003",
 	"classId": 8,
 	"className": "mage",
 	"simKey": "mage",

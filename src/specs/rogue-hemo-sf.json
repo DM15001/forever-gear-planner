@@ -1,0 +1,112 @@
+{
+	"id": "rogue-hemo-sf",
+	"name": "Rogue: Hemo Seal Fate",
+	"preset": "Hemo Seal Fate",
+	"talents": "0053031121135102-02-0052030313210001",
+	"classId": 4,
+	"className": "rogue",
+	"simKey": "rogue",
+	"races": [
+		{
+			"id": "RaceHuman",
+			"name": "Human",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceDwarf",
+			"name": "Dwarf",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceNightElf",
+			"name": "Night Elf",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceGnome",
+			"name": "Gnome",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceHighOrderSkyborne",
+			"name": "High Order Skyborne",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceOrc",
+			"name": "Orc",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceUndead",
+			"name": "Undead",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceTroll",
+			"name": "Troll",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceWindshaperSkyborne",
+			"name": "Windshaper Skyborne",
+			"faction": "horde"
+		}
+	],
+	"armorTypes": [
+		"cloth",
+		"leather"
+	],
+	"weaponTypes": {
+		"oneHand": [
+			"axe",
+			"dagger",
+			"fist",
+			"mace",
+			"sword"
+		],
+		"twoHand": [],
+		"offHand": []
+	},
+	"rangedTypes": [
+		"bow",
+		"crossbow",
+		"gun",
+		"thrown"
+	],
+	"canDualWield": true,
+	"weaponSetup": "oneHand",
+	"simBuilds": [
+		{
+			"id": "wowsims",
+			"label": "WoWSims",
+			"title": "WoWSims preset set",
+			"local": "scripts/builds/rogue-hemo-sf.build.json"
+		}
+	],
+	"hitCapPercent": 27,
+	"ratingPerPercent": {
+		"hitRating": 10,
+		"critRating": 14,
+		"hasteRating": 10,
+		"expertiseRating": 10
+	},
+	"raceBonuses": {},
+	"weights": {
+		"source": "WoWSims Forever, Rogue 'Subtlety' EP preset (ui/specs/rogue/dps/presets.ts). 1 point = 1 attack power. Hit is counted up to the dual-wield cap for white hits.",
+		"mainHandDps": 10.47,
+		"offHandDps": 2.27,
+		"stats": {
+			"agility": 1.93,
+			"strength": 1.1,
+			"critRating": 1.63,
+			"hasteRating": 1.43,
+			"hitRating": 2.12,
+			"expertiseRating": 2.42,
+			"armorPenetration": 0.33,
+			"spellPiercing": 0.16,
+			"attackPower": 1
+		},
+		"hitRatingOverCap": 0
+	}
+}
