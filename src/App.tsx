@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { CharacterSheet } from './components/CharacterSheet';
 import { EnchantsTab } from './components/EnchantsTab';
+import { ClassIcon } from './components/ClassIcon';
 import { FarmTab } from './components/FarmTab';
 import { HealingPicker } from './components/HealingPicker';
 import { setUnit } from './lib/format';
@@ -127,7 +128,10 @@ export function App() {
 					<Emblem />
 					<div>
 						<h1>Forever Gear Planner</h1>
-						<p className="masthead-sub">{character ? `${spec.name}, pre-raid` : 'Pre-raid gear for WoW: Forever'}</p>
+						<p className="masthead-sub">
+							{character && <ClassIcon className={baseSpec.className} small />}
+							{character ? `${spec.name}, pre-raid` : 'Pre-raid gear for WoW: Forever'}
+						</p>
 					</div>
 				</div>
 				<div className="masthead-side">
@@ -194,15 +198,6 @@ export function App() {
 										</button>
 									</div>
 								)}
-								<p className="next-step">
-									Check race, professions and enchants below, then{' '}
-									<button className="button button-primary" onClick={() => {
-											setUpgradeView('plan');
-											setTab('upgrades');
-										}}>
-										Build my gear plan
-									</button>
-								</p>
 								<CharacterSheet
 									spec={spec}
 									character={character}
@@ -221,6 +216,19 @@ export function App() {
 										setWarnings([]);
 									}}
 									shareLink={shareUrl(character, window.location.href)}
+									next={
+										<>
+											<span className="slot-source">Check race, professions and enchants, then</span>
+											<button
+												className="button button-primary"
+												onClick={() => {
+													setUpgradeView('plan');
+													setTab('upgrades');
+												}}>
+												Build my gear plan
+											</button>
+										</>
+									}
 								/>
 							</>
 						)}

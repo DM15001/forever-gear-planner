@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { type ReactNode, useState } from 'react';
 
 import { GEAR_SLOTS, PROFESSIONS, SHEET_LAYOUT } from '../lib/constants';
 import { applicableEnchants } from '../lib/enchants';
@@ -6,6 +6,7 @@ import type { GameData } from '../lib/gameData';
 import { gearStats, hitSummary, pieceStats, STAT_LABELS, statLine, wowheadItemUrl, wowheadData } from '../lib/stats';
 import type { Character, GearPiece, SpecConfig, Stats } from '../lib/types';
 import { EVERYTHING, withItem } from '../lib/scoring';
+import { ClassIcon } from './ClassIcon';
 import { ItemIcon } from './ItemIcon';
 import { SourceLabel } from './SourceLabel';
 import { ItemPicker } from './ItemPicker';
@@ -25,9 +26,11 @@ interface Props {
 	onSelect: (index: number) => void;
 	/** A link that opens this character and its plan on another device. */
 	shareLink: string;
+	/** The step that follows, shown in the header of the page. */
+	next?: ReactNode;
 }
 
-export function CharacterSheet({ spec, character, data, onChange, onImportAnother, onRemove, names, builds, activeIndex, onSelect, shareLink }: Props) {
+export function CharacterSheet({ spec, character, data, onChange, onImportAnother, onRemove, names, builds, activeIndex, onSelect, shareLink, next }: Props) {
 	// 'copied' after the link went to the clipboard, 'shown' when the browser refused and the link is shown to copy by hand.
 	const [shared, setShared] = useState<'idle' | 'copied' | 'shown'>('idle');
 	// The slot whose item is being swapped by hand, if any.
@@ -78,20 +81,29 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 	};
 
 	return (
-		<section className="sheet" aria-label="Character">
+		<section className="panel sheet-panel" aria-labelledby="sheet-title">
+			<header className="sheet-head">
+				<ClassIcon className={spec.className} />
+				<div className="sheet-head-text">
+					<h2 id="sheet-title">{character.name ?? `Your ${spec.className}`}</h2>
+					<p className="identity-line">
+						{spec.name}
+						{race ? `, ${race.name}, ${race.faction === 'alliance' ? 'Alliance' : 'Horde'}` : ', race not set'}
+						{character.level ? `, level ${character.level}` : ''}
+					</p>
+				</div>
+				{next && <div className="sheet-next">{next}</div>}
+			</header>
+			<div className="sheet">
 			<div className="sheet-column">{SHEET_LAYOUT.left.map(i => slot(i))}</div>
 
 			<div className="sheet-center">
-				<div className="panel identity">
-					<h2>{character.name ?? `Your ${spec.className}`}</h2>
-					<p className="identity-line">
-						{race ? `${race.name}, ${race.faction === 'alliance' ? 'Alliance' : 'Horde'}` : 'Race not set'}
-						{character.level ? `, level ${character.level}` : ''}
-					</p>
+				<div className="card identity">
+					<h3>Stats from gear</h3>
 					{stats && <StatsPanel stats={stats} character={character} spec={spec} />}
 				</div>
 
-				<div className="panel">
+				<div className="card">
 					<h3>Character details</h3>
 					{names.length > 1 && (
 						<>
@@ -206,6 +218,7 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 
 			<div className="sheet-column">{SHEET_LAYOUT.right.map(i => slot(i, true))}</div>
 			<div className="sheet-weapons">{SHEET_LAYOUT.bottom.map(i => slot(i))}</div>
+			</div>
 			{picking !== null && data && (
 				<ItemPicker slotIndex={picking} gear={character.gear} character={character} data={data} spec={spec} filter={EVERYTHING} startWithAll allowEmpty onPick={id => pickItem(picking, id)} onClose={() => setPicking(null)} />
 			)}
