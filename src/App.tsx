@@ -4,6 +4,7 @@ import { CharacterSheet } from './components/CharacterSheet';
 import { EnchantsTab } from './components/EnchantsTab';
 import { FarmTab } from './components/FarmTab';
 import { ImportPanel } from './components/ImportPanel';
+import { DragonCap, Emblem } from './components/Ornaments';
 import { PlanTab } from './components/PlanTab';
 import { SimProvider } from './components/Sim';
 import { UpgradesTab } from './components/UpgradesTab';
@@ -83,9 +84,12 @@ export function App() {
 	return (
 		<div className="page">
 			<header className="masthead">
-				<div>
-					<h1>Forever Gear Planner</h1>
-					<p className="masthead-sub">{spec.name}, pre-raid</p>
+				<div className="masthead-title">
+					<Emblem theme={theme} />
+					<div>
+						<h1>Forever Gear Planner</h1>
+						<p className="masthead-sub">{spec.name}, pre-raid</p>
+					</div>
 				</div>
 				<div className="masthead-side">
 					<label className="theme-picker">
@@ -105,13 +109,17 @@ export function App() {
 							))}
 						</select>
 					</label>
-					<nav className="tabs" aria-label="Sections">
-						{TABS.map(t => (
-							<button key={t.id} className="tab" aria-current={t.id === tab ? 'page' : undefined} onClick={() => setTab(t.id)}>
-								{t.label}
-							</button>
-						))}
-					</nav>
+					<div className="tab-bar">
+						<DragonCap />
+						<nav className="tabs" aria-label="Sections">
+							{TABS.map(t => (
+								<button key={t.id} className="tab" aria-current={t.id === tab ? 'page' : undefined} onClick={() => setTab(t.id)}>
+									{t.label}
+								</button>
+							))}
+						</nav>
+						<DragonCap mirrored />
+					</div>
 				</div>
 			</header>
 

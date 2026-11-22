@@ -1,3 +1,5 @@
+import '@fontsource/cinzel/latin-600.css';
+import '@fontsource/cinzel/latin-700.css';
 import './styles.css';
 
 import { StrictMode } from 'react';
