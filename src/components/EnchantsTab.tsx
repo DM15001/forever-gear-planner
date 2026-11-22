@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
 import { formatDps } from '../lib/format';
@@ -9,7 +9,7 @@ import { statLine, wowheadEnchantUrl, wowheadItemUrl } from '../lib/stats';
 import type { Character, Enchant, SpecConfig } from '../lib/types';
 import { ItemIcon } from './ItemIcon';
 import { SourceSymbol } from './Ornaments';
-import { SimDelta } from './Sim';
+import { SimDelta, SWAP_ITERATIONS, useSim } from './Sim';
 import { SourceList } from './SourceLabel';
 
 interface Props {
@@ -29,6 +29,9 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 	const overview = useMemo(() => enchantOverview(gear, character, data, spec), [gear, character, data, spec]);
 	const professions = useMemo(() => professionValues({ character, data, spec, filter }), [character, data, spec, filter]);
 	const hasPlan = Object.keys(character.plan ?? {}).length > 0;
+	const sim = useSim();
+	// Slots whose enchants are all shown and simulated against each other.
+	const [comparing, setComparing] = useState<Set<number>>(new Set());
 
 	const setEnchants = (changes: Record<number, number | undefined>) =>
 		onChange({
@@ -95,55 +98,79 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 								</p>
 							</div>
 							<div className="enchant-options">
-								{slot.options.length === 0 && <p className="slot-source">No stat enchant helps this spec here.</p>}
-								{slot.options.slice(0, OPTIONS_SHOWN).map(({ enchant, delta }) => {
-									const active = enchant.effectId === slot.current?.effectId;
+								{slot.options.length === 0 && slot.unscored.length === 0 && <p className="slot-source">No enchant helps this spec here.</p>}
+								{(() => {
+									const all = comparing.has(slot.slotIndex);
+									const bare = withEnchant(slot.slotIndex);
+									const bareResult = sim.result(bare, SWAP_ITERATIONS);
+									const rows = [...(all ? slot.options : slot.options.slice(0, OPTIONS_SHOWN)).map(option => ({ enchant: option.enchant, delta: option.delta as number | undefined })), ...slot.unscored.map(enchant => ({ enchant, delta: undefined as number | undefined }))].map(row => {
+										const variant = withEnchant(slot.slotIndex, row.enchant.effectId);
+										const result = sim.result(variant, SWAP_ITERATIONS);
+										return { ...row, variant, simulated: bareResult && result ? result.dps - bareResult.dps : undefined };
+									});
+									// While comparing, the simulated numbers decide the order; rows not simulated yet keep their place below.
+									if (all) rows.sort((x, y) => (y.simulated ?? -Infinity) - (x.simulated ?? -Infinity));
+									const total = slot.options.length + slot.unscored.length;
+									const done = rows.filter(row => row.simulated !== undefined).length;
+									const winner = all && done === rows.length && rows.length > 1 ? rows[0] : undefined;
 									return (
-										<div key={`${enchant.effectId}-${enchant.name}`} className="enchant-option">
-											<span className="num delta-up">{formatDelta(delta)}</span>
-											<ItemIcon icon={enchant.icon} quality={enchant.quality} small />
-											<span>
-												<EnchantName enchant={enchant} />
-												<span className="slot-source">
-													{statLine(enchant.stats ?? {}) || 'Proc, measured with the simulator'}. {enchantSource(enchant, data)}
-												</span>
-											</span>
-											<SimDelta base={withEnchant(slot.slotIndex)} variant={withEnchant(slot.slotIndex, enchant.effectId)} />
-											{active ? (
-												<span className="badge badge-plan">in use</span>
-											) : (
-												character.gear[slot.slotIndex] && (
-													<button className="button button-small" onClick={() => setEnchants({ [slot.slotIndex]: enchant.effectId })}>
-														Use
-													</button>
-												)
+										<>
+											{rows.map(({ enchant, delta, variant }, position) => {
+												const active = enchant.effectId === slot.current?.effectId;
+												return (
+													<div key={`${enchant.effectId}-${enchant.name}`} className={winner && position === 0 ? 'enchant-option enchant-winner' : 'enchant-option'}>
+														{delta !== undefined ? <span className="num delta-up">{formatDelta(delta)}</span> : <span className="badge">sim it</span>}
+														<ItemIcon icon={enchant.icon} quality={enchant.quality} small />
+														<span>
+															<EnchantName enchant={enchant} />
+															<span className="slot-source">
+																{delta !== undefined ? `${statLine(enchant.stats ?? {}) || 'Proc, measured with the simulator'}. ` : 'Proc or effect, not in the estimate. '}
+																{enchantSource(enchant, data)}
+															</span>
+														</span>
+														<SimDelta base={bare} variant={variant} />
+														{active ? (
+															<span className="badge badge-plan">in use</span>
+														) : (
+															character.gear[slot.slotIndex] && (
+																<button className="button button-small" onClick={() => setEnchants({ [slot.slotIndex]: enchant.effectId })}>
+																	Use
+																</button>
+															)
+														)}
+													</div>
+												);
+											})}
+											{total > 1 && (
+												<p className="enchant-compare">
+													{!all ? (
+														<button
+															className="button button-small"
+															onClick={() => {
+																setComparing(old => new Set(old).add(slot.slotIndex));
+																if (!bareResult) sim.run(bare, SWAP_ITERATIONS);
+																for (const option of slot.options) sim.run(withEnchant(slot.slotIndex, option.enchant.effectId), SWAP_ITERATIONS);
+																for (const enchant of slot.unscored) sim.run(withEnchant(slot.slotIndex, enchant.effectId), SWAP_ITERATIONS);
+															}}>
+															Compare all {total} with the simulator
+														</button>
+													) : winner ? (
+														<span>
+															Simulated best: <strong>{winner.enchant.name}</strong>. Sorted by simulated DPS against the bare item; differences marked "within noise" are a tie.{' '}
+															<button className="link" onClick={() => setComparing(old => new Set([...old].filter(i => i !== slot.slotIndex)))}>
+																Show fewer
+															</button>
+														</span>
+													) : (
+														<span className="slot-source">
+															Simulating {done} of {rows.length}…
+														</span>
+													)}
+												</p>
 											)}
-										</div>
+										</>
 									);
-								})}
-								{slot.unscored.map(enchant => {
-									const active = enchant.effectId === slot.current?.effectId;
-									return (
-										<div key={`${enchant.effectId}-${enchant.name}`} className="enchant-option">
-											<span className="badge">sim it</span>
-											<ItemIcon icon={enchant.icon} quality={enchant.quality} small />
-											<span>
-												<EnchantName enchant={enchant} />
-												<span className="slot-source">Proc or effect, not in the score. {enchantSource(enchant, data)}</span>
-											</span>
-											<SimDelta base={withEnchant(slot.slotIndex)} variant={withEnchant(slot.slotIndex, enchant.effectId)} />
-											{active ? (
-												<span className="badge badge-plan">in use</span>
-											) : (
-												character.gear[slot.slotIndex] && (
-													<button className="button button-small" onClick={() => setEnchants({ [slot.slotIndex]: enchant.effectId })}>
-														Use
-													</button>
-												)
-											)}
-										</div>
-									);
-								})}
+								})()}
 							</div>
 						</li>
 					))}

@@ -2316,3 +2316,15 @@ html {
 .slot-versus-on {
 	color: #4ee06a;
 }
+
+.enchant-compare {
+	margin: 0.4rem 0 0;
+	font-size: 0.8125rem;
+	color: var(--mist);
+}
+.enchant-winner {
+	background: #14110a;
+	outline: 1px solid var(--brass-deep);
+	outline-offset: 2px;
+	border-radius: 3px;
+}
