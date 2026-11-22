@@ -146,6 +146,47 @@ async function readRepoJson(path) {
 	}
 }
 
+/** Same, as text. */
+async function readRepoText(path) {
+	try {
+		if (args.repo) return await readFile(join(args.repo, path), 'utf8');
+		if (args.db && !args.pages) return null;
+		const res = await fetch(`${RAW_URL}/${path}`);
+		return res.ok ? await res.text() : null;
+	} catch {
+		return null;
+	}
+}
+
+// Where each spec's interface defaults live in the wowsims repo.
+const SPEC_DIRS = {
+	balanceDruid: 'druid/balance',
+	feralCatDruid: 'druid/feralcat',
+	elementalShaman: 'shaman/elemental',
+	enhancementShaman: 'shaman/enhancement',
+	mage: 'mage/dps',
+	dpsPriest: 'priest/dps',
+	rogue: 'rogue/dps',
+	warlock: 'warlock/dps',
+	dpsWarrior: 'warrior/dps',
+};
+const timingCache = new Map();
+/**
+ * Reaction time and channel clip delay are not part of a saved build: the wowsims.com interface
+ * adds them from the spec's defaults (reaction time 100 ms unless the spec says otherwise, see
+ * ui/features/settings/model/apply_defaults.ts). Without them our numbers come out a bit higher.
+ */
+async function playerTiming(simKey) {
+	if (timingCache.has(simKey)) return timingCache.get(simKey);
+	const text = SPEC_DIRS[simKey] ? await readRepoText(`ui/specs/${SPEC_DIRS[simKey]}/presets.ts`) : null;
+	const block = text?.match(/export const OtherDefaults = \{([\s\S]*?)\n\};/)?.[1] ?? '';
+	const number = name => Number(block.match(new RegExp(`\\b${name}:\\s*(\\d+)`))?.[1] ?? 0);
+	const timing = { reactionTimeMs: number('reactionTime') || 100, reactionTimeMaxMs: number('reactionTimeMax'), channelClipDelayMs: number('channelClipDelay') };
+	if (!text) console.warn(`Interface defaults not read for ${simKey}; using a reaction time of 100 ms.`);
+	timingCache.set(simKey, timing);
+	return timing;
+}
+
 const zoneById = new Map(db.zones.map(z => [z.id, z]));
 const npcById = new Map(db.npcs.map(n => [n.id, n]));
 const factionById = new Map(db.factions.map(f => [f.id, f.name]));
@@ -342,6 +383,8 @@ for (const spec of specs) {
 		if (index > 0) continue;
 		// The sim's saved settings, reshaped into the request the sim takes. The app swaps in gear, race,
 		// professions and talents.
+		const timing = await playerTiming(spec.simKey);
+		for (const [key, value] of Object.entries(timing)) if (value && json.player[key] === undefined) json.player[key] = value;
 		simTemplates.set(spec.id, {
 			raid: { parties: [{ players: [json.player], buffs: json.partyBuffs ?? {} }], numActiveParties: 1, buffs: json.raidBuffs ?? {}, debuffs: json.debuffs ?? {} },
 			encounter: json.encounter,
@@ -457,7 +500,6 @@ if (unnamedSpells.length) {
 }
 // Every buff and debuff the sim knows, from its proto definition, with the labels and steps of the
 // sim's own settings page.
-const readRepoText = async path => (args.repo ? readFile(join(args.repo, path), 'utf8').catch(() => '') : fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/${path}`).then(res => (res.ok ? res.text() : ''), () => ''));
 const buffsProto = await readRepoText('proto/buffs.proto');
 const buffInputs = await readRepoText('ui/features/settings/model/buffs_debuffs_auto_gen.ts');
 const buffLabels = new Map();
