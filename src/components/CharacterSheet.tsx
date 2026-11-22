@@ -5,7 +5,9 @@ import { applicableEnchants } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
 import { gearStats, hitSummary, pieceStats, sourceLine, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
 import type { Character, GearPiece, SpecConfig, Stats } from '../lib/types';
+import { EVERYTHING } from '../lib/scoring';
 import { ItemIcon } from './ItemIcon';
+import { ItemPicker } from './ItemPicker';
 
 interface Props {
 	spec: SpecConfig;
@@ -25,6 +27,8 @@ interface Props {
 export function CharacterSheet({ spec, character, data, onChange, onImportAnother, onRemove, names, activeIndex, onSelect, shareLink }: Props) {
 	// 'copied' after the link went to the clipboard, 'shown' when the browser refused and the link is shown to copy by hand.
 	const [shared, setShared] = useState<'idle' | 'copied' | 'shown'>('idle');
+	// The slot whose item is being swapped by hand, if any.
+	const [picking, setPicking] = useState<number | null>(null);
 	const share = () => {
 		navigator.clipboard.writeText(shareLink).then(
 			() => setShared('copied'),
@@ -54,8 +58,17 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 		});
 
 	const slot = (index: number, mirrored = false) => (
-		<GearSlot key={GEAR_SLOTS[index].key} index={index} mirrored={mirrored} piece={character.gear[index]} data={data} onChange={piece => setPiece(index, piece)} />
+		<GearSlot key={GEAR_SLOTS[index].key} index={index} mirrored={mirrored} piece={character.gear[index]} data={data} onChange={piece => setPiece(index, piece)} onPick={() => setPicking(index)} />
 	);
+
+	// Swapping an item by hand keeps the enchant when it also fits the new item.
+	const pickItem = (index: number, itemId: number | null) => {
+		const old = character.gear[index];
+		const item = itemId !== null ? data?.itemById.get(itemId) : undefined;
+		const keepEnchant = old?.enchant && item && data && applicableEnchants(index, item, data).some(e => e.effectId === old.enchant);
+		setPiece(index, itemId === null ? null : keepEnchant ? { id: itemId, enchant: old!.enchant } : { id: itemId });
+		setPicking(null);
+	};
 
 	return (
 		<section className="sheet" aria-label="Character">
@@ -153,6 +166,9 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 
 			<div className="sheet-column">{SHEET_LAYOUT.right.map(i => slot(i, true))}</div>
 			<div className="sheet-weapons">{SHEET_LAYOUT.bottom.map(i => slot(i))}</div>
+			{picking !== null && data && (
+				<ItemPicker slotIndex={picking} gear={character.gear} character={character} data={data} spec={spec} filter={EVERYTHING} startWithAll allowEmpty onPick={id => pickItem(picking, id)} onClose={() => setPicking(null)} />
+			)}
 		</section>
 	);
 }
@@ -211,9 +227,11 @@ interface SlotProps {
 	piece: GearPiece | null;
 	data: GameData | null;
 	onChange: (piece: GearPiece | null) => void;
+	/** Opens the list of items for this slot. */
+	onPick: () => void;
 }
 
-function GearSlot({ index, mirrored, piece, data, onChange }: SlotProps) {
+function GearSlot({ index, mirrored, piece, data, onChange, onPick }: SlotProps) {
 	const { label, key } = GEAR_SLOTS[index];
 	const item = piece ? data?.itemById.get(piece.id) : undefined;
 	const enchants = data ? applicableEnchants(index, item, data) : [];
@@ -231,9 +249,18 @@ function GearSlot({ index, mirrored, piece, data, onChange }: SlotProps) {
 
 	return (
 		<div className={`slot${piece ? '' : ' slot-empty'}${mirrored ? ' slot-mirrored' : ''}`}>
-			<ItemIcon icon={item?.icon} quality={quality} />
+			<button className="slot-button" onClick={onPick} disabled={!data} title={`Change the ${label.toLowerCase()} item`} aria-label={`Change the ${label.toLowerCase()} item`}>
+				<ItemIcon icon={item?.icon} quality={quality} />
+			</button>
 			<div className="slot-body">
-				<span className="slot-label">{label}</span>
+				<span className="slot-label">
+					{label}
+					{data && (
+						<button className="link slot-change" onClick={onPick}>
+							Change
+						</button>
+					)}
+				</span>
 				{piece ? (
 					<a className={`slot-item quality-${quality}`} href={wowheadItemUrl(piece.id)} target="_blank" rel="noreferrer">
 						{name}

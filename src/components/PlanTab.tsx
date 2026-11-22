@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
 import { applicableEnchants } from '../lib/enchants';
@@ -10,6 +10,7 @@ import { sourceLine, wowheadItemUrl } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
 import { ContentPicker } from './ContentPicker';
 import { ItemIcon } from './ItemIcon';
+import { ItemPicker } from './ItemPicker';
 import { SimSummary } from './Sim';
 
 interface Props {
@@ -39,6 +40,16 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 	});
 
 	const gear = useMemo(() => plannedGear(character), [character]);
+	// The slot whose planned item is being swapped by hand, if any.
+	const [picking, setPicking] = useState<number | null>(null);
+	const pickItem = (index: number, itemId: number | null) => {
+		const plan = { ...(character.plan ?? {}) };
+		// Picking what is already worn takes the slot out of the plan.
+		if (itemId === null || itemId === character.gear[index]?.id) delete plan[index];
+		else plan[index] = itemId;
+		onChange({ ...character, plan });
+		setPicking(null);
+	};
 	const equipped = useMemo(() => scoreSet(character.gear, character, data, spec), [character, data, spec]);
 	const planned = useMemo(() => scoreSet(gear, character, data, spec), [gear, character, data, spec]);
 	const steps = useMemo(() => planSteps(options), [options]);
@@ -114,16 +125,23 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 					</div>
 					<p className="hint">
 						The score is in attack-power equivalents: stats by the WoWSims weights, plus what the simulator measured for procs, on-use effects, proc enchants and set bonuses. To change a
-						single slot by hand, use the Upgrades tab.
+						single slot by hand, click its icon.
 					</p>
 				</div>
 
 				<ul className="plain-list plan-slots">
-					{slots.map(({ slot, equippedItem, goalItem, goalEnchant, isChange, enchantOpen, others }) => (
+					{slots.map(({ slot, index, equippedItem, goalItem, goalEnchant, isChange, enchantOpen, others }) => (
 						<li key={slot.key} className={`plan-slot${isChange ? '' : ' plan-slot-done'}`}>
-							<ItemIcon icon={goalItem?.icon} quality={goalItem?.quality} small />
+							<button className="slot-button" onClick={() => setPicking(index)} title={`Change the planned ${slot.label.toLowerCase()} item`} aria-label={`Change the planned ${slot.label.toLowerCase()} item`}>
+								<ItemIcon icon={goalItem?.icon} quality={goalItem?.quality} small />
+							</button>
 							<div className="plan-slot-body">
-								<span className="slot-label">{slot.label}</span>
+								<span className="slot-label">
+									{slot.label}
+									<button className="link slot-change" onClick={() => setPicking(index)}>
+										Change
+									</button>
+								</span>
 								{goalItem ? (
 									<span className="plan-goal">
 										<ItemLink item={goalItem} />
@@ -168,6 +186,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						</li>
 					))}
 				</ul>
+				{picking !== null && <ItemPicker slotIndex={picking} gear={gear} character={character} data={data} spec={spec} filter={filter} onPick={id => pickItem(picking, id)} onClose={() => setPicking(null)} />}
 			</section>
 
 			<section aria-labelledby="plan-todo">
