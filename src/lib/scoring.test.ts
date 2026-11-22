@@ -5,7 +5,7 @@ import simExport from './__fixtures__/sim-export.json';
 import { GEAR_SLOTS } from './constants';
 import { loadGameData } from './gameData';
 import { importCharacter } from './importCharacter';
-import { DEFAULT_FILTER, plannedGear, scoreSet, slotCandidates, type SourceFilter, suggestPlan } from './scoring';
+import { DEFAULT_FILTER, notYetAvailable, plannedGear, scoreSet, slotCandidates, type SourceFilter, suggestPlan } from './scoring';
 import { vendorReputation } from './stats';
 import type { Character, SpecConfig } from './types';
 
@@ -223,5 +223,20 @@ describe('random suffix items', () => {
 		const planned = plannedGear({ ...lock, plan: { [wrist]: TEARFALL_BRACERS } }, lockData);
 		expect(planned[wrist]).toEqual({ id: TEARFALL_BRACERS, randomSuffix: bracers.bestSuffix });
 		expect(scoreSet(planned, lock, lockData, warlock).stats.shadowDamage).toBeGreaterThan(10);
+	});
+});
+
+describe('items that are not in the game yet', () => {
+	it('stay out of every list until switched on', async () => {
+		const { SPECS } = await import('./specs');
+		const mage = SPECS.find(s => s.id === 'mage-fire')!;
+		const mageData = await loadGameData(mage);
+		const ELEMENTAL_FOCUS_BAND = 20682;
+		expect(notYetAvailable(mageData.itemById.get(ELEMENTAL_FOCUS_BAND)!)).toMatch(/Skaldrenox/);
+		const char: Character = { specId: mage.id, race: 'RaceHuman', level: 60, talents: '', professions: [], gear: GEAR_SLOTS.map(() => null) };
+		const ring = GEAR_SLOTS.findIndex(s => s.kind === 'finger');
+		const ids = (filter: SourceFilter) => slotCandidates(ring, char.gear, { character: char, data: mageData, spec: mage, filter }).map(c => c.item.id);
+		expect(ids(DEFAULT_FILTER)).not.toContain(ELEMENTAL_FOCUS_BAND);
+		expect(ids({ ...DEFAULT_FILTER, notYetAvailable: true })).toContain(ELEMENTAL_FOCUS_BAND);
 	});
 });

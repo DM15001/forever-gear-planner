@@ -61,6 +61,7 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				<legend>Everything else</legend>
 				{spec.tier05Set && check(`Tier 0.5 questline (${spec.tier05Set.name})`, filter.tier05, on => set({ tier05: on }))}
 				{check('Items with a random suffix ("of Shadow Wrath" and the like), counted with the best one for you', filter.randomSuffix, on => set({ randomSuffix: on }))}
+				{check('Items from content that is not open yet (Silithus wind stone bosses, Onyxia crafts)', filter.notYetAvailable, on => set({ notYetAvailable: on }))}
 				{check('Quest rewards', filter.quest, on => set({ quest: on }))}
 				{check('Crafted items', filter.crafted, on => set({ crafted: on }))}
 				{check(`Only crafts from my professions${character.professions.length ? ` (${character.professions.join(', ')})` : ''}`, filter.crafted && filter.ownCraftsOnly, on => set({ ownCraftsOnly: on }), !filter.crafted)}

@@ -1,0 +1,22 @@
+{
+	"_comment": "Items the WoWSims database lists as released (it marks every item phase 1) but that cannot be had in WoW Forever yet. Kept by hand; checked 2026-11-22. `npcs`: every drop of these creatures. `items`: single items, with the reason.",
+	"npcs": {
+		"15203": "Prince Skaldrenox, Abyssal Council (Silithus wind stones)",
+		"15204": "High Marshal Whirlaxis, Abyssal Council (Silithus wind stones)",
+		"15205": "Baron Kazum, Abyssal Council (Silithus wind stones)",
+		"15305": "Lord Skwol, Abyssal Council (Silithus wind stones)",
+		"15206": "The Duke of Cynders, Abyssal Council (Silithus wind stones)",
+		"15207": "The Duke of Fathoms, Abyssal Council (Silithus wind stones)",
+		"15208": "The Duke of Shards, Abyssal Council (Silithus wind stones)",
+		"15220": "The Duke of Zephyrs, Abyssal Council (Silithus wind stones)",
+		"15209": "Crimson Templar, Abyssal Council (Silithus wind stones)",
+		"15211": "Azure Templar, Abyssal Council (Silithus wind stones)",
+		"15212": "Hoary Templar, Abyssal Council (Silithus wind stones)",
+		"15307": "Earthen Templar, Abyssal Council (Silithus wind stones)"
+	},
+	"items": {
+		"15138": "Onyxia Scale Cloak: needs scales from Onyxia, a raid boss",
+		"15141": "Onyxia Scale Breastplate: needs scales from Onyxia, a raid boss",
+		"18348": "Quel'Serrar: the quest ends with Onyxia, a raid boss"
+	}
+}
