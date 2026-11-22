@@ -461,6 +461,7 @@ for (const [specId, template] of simTemplates) await writeFile(join(SIM_DIR, `te
 
 // What the "Sim setup" tab needs to show and change the sim's settings in words: talent trees per
 // class, spell and item names for the rotation, and the consumables the sim knows.
+const talentIcons = new Map((db.spellIcons ?? []).map(spell => [spell.id, spell.icon]));
 const talentTrees = {};
 for (const className of new Set(specs.map(spec => spec.className))) {
 	const trees = await readRepoJson(`ui/sim/talents/trees/${className.toLowerCase()}.json`);
@@ -470,7 +471,18 @@ for (const className of new Set(specs.map(spec => spec.className))) {
 	}
 	talentTrees[className] = trees.map(tree => ({
 		name: tree.name,
-		talents: tree.talents.map(t => ({ name: t.fancyName, max: t.maxPoints, row: t.location.rowIdx, col: t.location.colIdx })),
+		talents: tree.talents.map(t =>
+			compact({
+				name: t.fancyName,
+				max: t.maxPoints,
+				row: t.location.rowIdx,
+				col: t.location.colIdx,
+				spellId: t.spellId,
+				icon: talentIcons.get(t.spellId),
+				// The talent that must be maxed first, by its place in the tree.
+				requires: t.prereqLocation ? { row: t.prereqLocation.rowIdx, col: t.prereqLocation.colIdx } : undefined,
+			}),
+		),
 	}));
 }
 const CONSUMABLE_KINDS = { 1: 'potion', 2: 'flask', 3: 'food', 4: 'scroll', 5: 'explosive', 6: 'imbue', 7: 'other', 11: 'elixir', 12: 'conjured', 13: 'weaponImbue' };

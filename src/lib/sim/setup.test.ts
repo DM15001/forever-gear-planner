@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { SPECS } from '../specs';
 import type { Character } from '../types';
 import { buildSimRequest, indexSimDb, readRotationChecks, simKey, wowsimsSettings } from './request';
-import { buffValue, clashingGroups, describeCheck, describeFlags, describeRotation, parseTalents, rotationSourceUrl, serializeTalents, type SimSetupData, talentPointsSpent } from './setup';
+import { buffValue, clashingGroups, describeCheck, describeFlags, describeRotation, parseTalents, rotationSourceUrl, serializeTalents, type SimSetupData, talentBlocked, talentLocked, talentPointsSpent } from './setup';
 
 const read = (name: string) => JSON.parse(readFileSync(new URL(`../../../public/sim/${name}`, import.meta.url), 'utf8'));
 const setup: SimSetupData = read('setup.json');
@@ -147,5 +147,29 @@ describe('rotation checks', () => {
 		const text = describeRotation(player('enhancement-shaman').rotation, setup);
 		expect(text.prepull.map(line => line.index)).toEqual([0, 1, 2, 3, 4]);
 		expect(text.priority[2].index).toBe(2);
+	});
+});
+
+describe('talent rules', () => {
+	const tree = {
+		name: 'Test',
+		talents: [
+			{ name: 'First', max: 5, row: 0, col: 0 },
+			{ name: 'Second', max: 1, row: 1, col: 0 },
+			{ name: 'Third', max: 2, row: 1, col: 1, requires: { row: 1, col: 0 } },
+		],
+	};
+	it('opens a row after five points above it and follows arrows', () => {
+		expect(talentBlocked(tree, [4, 0, 0], 1, 10)).toMatch(/Needs 5 points/);
+		expect(talentBlocked(tree, [5, 0, 0], 1, 10)).toBeUndefined();
+		expect(talentBlocked(tree, [5, 0, 0], 2, 10)).toMatch(/Second/);
+		expect(talentBlocked(tree, [5, 1, 0], 2, 10)).toBeUndefined();
+		expect(talentBlocked(tree, [5, 1, 0], 2, 0)).toMatch(/No talent points/);
+	});
+	it('keeps points that later talents stand on', () => {
+		expect(talentLocked(tree, [5, 1, 0], 0)).toMatch(/Second/);
+		expect(talentLocked(tree, [5, 1, 1], 1)).toMatch(/Third/);
+		expect(talentLocked(tree, [5, 1, 1], 2)).toBeUndefined();
+		expect(talentLocked(tree, [5, 0, 0], 0)).toBeUndefined();
 	});
 });

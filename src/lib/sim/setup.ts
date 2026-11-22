@@ -4,9 +4,50 @@
  * (public/sim/template.<spec>.json) and from public/sim/setup.json.
  */
 
+export interface Talent {
+	name: string;
+	max: number;
+	row: number;
+	col: number;
+	spellId?: number;
+	icon?: string;
+	/** The talent that must be at its maximum first, by its place in the tree. */
+	requires?: { row: number; col: number };
+}
 export interface TalentTree {
 	name: string;
-	talents: { name: string; max: number; row: number; col: number }[];
+	talents: Talent[];
+}
+
+/** Each row of a tree opens after this many points in the rows above it. */
+export const POINTS_PER_ROW = 5;
+
+const requiredIndex = (tree: TalentTree, talent: Talent) => (talent.requires ? tree.talents.findIndex(t => t.row === talent.requires!.row && t.col === talent.requires!.col) : -1);
+
+/** Why a point cannot go into the talent, the way the game puts it; undefined if it can. */
+export function talentBlocked(tree: TalentTree, points: number[], index: number, pointsLeft: number): string | undefined {
+	const talent = tree.talents[index];
+	if (points[index] >= talent.max) return 'Already at its maximum';
+	if (pointsLeft <= 0) return 'No talent points left';
+	const above = tree.talents.reduce((sum, t, i) => sum + (t.row < talent.row ? points[i] : 0), 0);
+	if (above < talent.row * POINTS_PER_ROW) return `Needs ${talent.row * POINTS_PER_ROW} points in ${tree.name}`;
+	const needs = requiredIndex(tree, talent);
+	if (needs >= 0 && points[needs] < tree.talents[needs].max) return `Needs ${tree.talents[needs].max} point${tree.talents[needs].max === 1 ? '' : 's'} in ${tree.talents[needs].name}`;
+	return undefined;
+}
+
+/** Why a point cannot be taken out of the talent; undefined if it can. */
+export function talentLocked(tree: TalentTree, points: number[], index: number): string | undefined {
+	if (points[index] <= 0) return 'No points here';
+	const dependant = tree.talents.find((t, i) => points[i] > 0 && requiredIndex(tree, t) === index);
+	if (dependant) return `${dependant.name} needs it`;
+	const after = points.map((value, i) => (i === index ? value - 1 : value));
+	for (const [i, talent] of tree.talents.entries()) {
+		if (after[i] <= 0 || talent.row === 0) continue;
+		const above = tree.talents.reduce((sum, t, j) => sum + (t.row < talent.row ? after[j] : 0), 0);
+		if (above < talent.row * POINTS_PER_ROW) return `${talent.name} needs ${talent.row * POINTS_PER_ROW} points above it`;
+	}
+	return undefined;
 }
 
 export type ConsumableKind = 'flask' | 'food' | 'elixir' | 'imbue' | 'weaponImbue' | 'potion' | 'conjured' | 'scroll' | 'explosive' | 'other';

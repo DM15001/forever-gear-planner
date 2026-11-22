@@ -20,11 +20,16 @@ import {
 	type RotationLine,
 	rotationSourceUrl,
 	serializeTalents,
+	talentBlocked,
+	talentLocked,
+	type TalentTree,
 	type SimSetupData,
 	talentPointsAt,
 	talentPointsSpent,
 } from '../lib/sim/setup';
+import { wowheadSpellUrl } from '../lib/stats';
 import type { Character, SpecConfig } from '../lib/types';
+import { ICON_SOURCES } from './ItemIcon';
 
 interface Props {
 	spec: SpecConfig;
@@ -294,39 +299,20 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 				</div>
 				<div className="talent-trees">
 					{trees.map((tree, t) => (
-						<div key={tree.name} className="talent-tree">
-							<h3>
-								{tree.name} <span className="num">{points[t].reduce((a, b) => a + b, 0)}</span>
-							</h3>
-							<ul className="plain-list">
-								{tree.talents
-									.map((talent, index) => ({ talent, index }))
-									.sort((a, b) => a.talent.row - b.talent.row || a.talent.col - b.talent.col)
-									.map(({ talent, index }) => (
-										<li key={talent.name} className={points[t][index] > 0 ? 'talent talent-taken' : 'talent'}>
-											<span className="talent-name">{talent.name}</span>
-											<span className="talent-points">
-												<button className="button button-small" aria-label={`One point less in ${talent.name}`} disabled={points[t][index] === 0} onClick={() => step(t, index, -1)}>
-													−
-												</button>
-												<span className="num">
-													{points[t][index]}/{talent.max}
-												</span>
-												<button
-													className="button button-small"
-													aria-label={`One point more in ${talent.name}`}
-													disabled={points[t][index] === talent.max}
-													onClick={() => step(t, index, 1)}>
-													+
-												</button>
-											</span>
-										</li>
-									))}
-							</ul>
-						</div>
+						<TalentTreeView
+							key={tree.name}
+							tree={tree}
+							points={points[t]}
+							pointsLeft={available - spent}
+							onStep={(index, by) => step(t, index, by)}
+							onReset={() => setTalents(serializeTalents(points.map((list, i) => (i === t ? list.map(() => 0) : list))))}
+						/>
 					))}
 				</div>
-				<p className="hint">Talents are listed row by row. Row requirements and prerequisites are not checked here, so a build the game would not allow can be entered.</p>
+				<p className="hint">
+					Click a talent to put a point in, right-click (or Shift-click, or the small minus on a phone) to take one out. Rows open after 5 points per row above them and arrows need the talent they
+					come from at its maximum, as in the game. A build pasted as a talent string is taken as it is.
+				</p>
 			</section>
 
 			<section className="panel">
@@ -543,6 +529,114 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 					</>
 				)}
 			</section>
+		</div>
+	);
+}
+
+const CELL = 3.25;
+const GAP = 0.75;
+/** The middle of a grid cell, in rem. */
+const middle = (index: number) => index * (CELL + GAP) + CELL / 2;
+
+function TalentIcon({ icon }: { icon?: string }) {
+	const [attempt, setAttempt] = useState(0);
+	if (!icon || attempt >= ICON_SOURCES.length) return <span className="talent-icon-empty" aria-hidden="true" />;
+	return <img src={ICON_SOURCES[attempt](icon)} alt="" loading="lazy" onError={() => setAttempt(attempt + 1)} />;
+}
+
+/** One talent tree laid out as in the game: click to add a point, right-click to take one out. */
+function TalentTreeView({ tree, points, pointsLeft, onStep, onReset }: { tree: TalentTree; points: number[]; pointsLeft: number; onStep: (index: number, by: number) => void; onReset: () => void }) {
+	const [focus, setFocus] = useState<number | null>(null);
+	const rows = Math.max(...tree.talents.map(t => t.row)) + 1;
+	const total = points.reduce((a, b) => a + b, 0);
+	const shown = focus !== null ? tree.talents[focus] : undefined;
+	const blockedNow = focus !== null ? talentBlocked(tree, points, focus, pointsLeft) : undefined;
+	return (
+		<div className="talent-tree">
+			<h3>
+				<span>
+					{tree.name} <span className="num">{total}</span>
+				</span>
+				<button className="link" disabled={total === 0} onClick={onReset}>
+					Reset
+				</button>
+			</h3>
+			<div className="talent-grid" style={{ height: `${rows * CELL + (rows - 1) * GAP}rem` }}>
+				<svg className="talent-arrows" viewBox={`0 0 ${4 * CELL + 3 * GAP} ${rows * CELL + (rows - 1) * GAP}`} aria-hidden="true">
+					{tree.talents.map((talent, index) => {
+						if (!talent.requires) return null;
+						const from = tree.talents.findIndex(t => t.row === talent.requires!.row && t.col === talent.requires!.col);
+						const met = from >= 0 && points[from] >= tree.talents[from].max;
+						const sameRow = talent.requires.row === talent.row;
+						const direction = Math.sign(talent.col - talent.requires.col);
+						// From the edge of the required talent to the edge of this one.
+						const x1 = sameRow ? middle(talent.requires.col) + (direction * CELL) / 2 : middle(talent.requires.col);
+						const y1 = sameRow ? middle(talent.row) : middle(talent.requires.row) + CELL / 2;
+						const x2 = sameRow ? middle(talent.col) - (direction * CELL) / 2 : middle(talent.col);
+						const y2 = sameRow ? middle(talent.row) : middle(talent.row) - CELL / 2;
+						// An arrow that changes column goes down first, then across, then down.
+						const path = sameRow || x1 === x2 ? `M${x1} ${y1} L${x2} ${y2}` : `M${x1} ${y1} L${x1} ${y2 - GAP / 2} L${x2} ${y2 - GAP / 2} L${x2} ${y2}`;
+						return <path key={index} d={path} className={met ? 'talent-arrow talent-arrow-met' : 'talent-arrow'} />;
+					})}
+				</svg>
+				{tree.talents.map((talent, index) => {
+					const blocked = talentBlocked(tree, points, index, pointsLeft);
+					const locked = talentLocked(tree, points, index);
+					const value = points[index];
+					const state = value >= talent.max ? 'talent-full' : value > 0 ? 'talent-some' : blocked ? 'talent-closed' : 'talent-open';
+					return (
+						<div key={talent.name} className="talent-cell" style={{ left: `${talent.col * (CELL + GAP)}rem`, top: `${talent.row * (CELL + GAP)}rem` }}>
+							<button
+								className={`talent-button ${state}`}
+								aria-label={`${talent.name}, ${value} of ${talent.max} points${blocked && value < talent.max ? `. ${blocked}` : ''}`}
+								aria-disabled={Boolean(blocked)}
+								onClick={event => {
+									if (event.shiftKey) {
+										if (!locked) onStep(index, -1);
+									} else if (!blocked) onStep(index, 1);
+								}}
+								onContextMenu={event => {
+									event.preventDefault();
+									if (!locked) onStep(index, -1);
+								}}
+								onKeyDown={event => {
+									if ((event.key === 'Backspace' || event.key === 'Delete' || event.key === '-') && !locked) onStep(index, -1);
+								}}
+								onMouseEnter={() => setFocus(index)}
+								onFocus={() => setFocus(index)}>
+								<TalentIcon icon={talent.icon} />
+								<span className="talent-rank num">
+									{value}/{talent.max}
+								</span>
+							</button>
+							{value > 0 && !locked && (
+								<button className="talent-minus" aria-label={`One point less in ${talent.name}`} onClick={() => onStep(index, -1)}>
+									−
+								</button>
+							)}
+						</div>
+					);
+				})}
+			</div>
+			<p className="talent-info">
+				{shown ? (
+					<>
+						{shown.spellId ? (
+							<a href={wowheadSpellUrl(shown.spellId)} target="_blank" rel="noreferrer">
+								{shown.name}
+							</a>
+						) : (
+							shown.name
+						)}{' '}
+						<span className="num">
+							{points[focus!]}/{shown.max}
+						</span>
+						{blockedNow && points[focus!] < shown.max && <span className="talent-why"> {blockedNow}</span>}
+					</>
+				) : (
+					'Point at a talent to see its name.'
+				)}
+			</p>
 		</div>
 	);
 }
