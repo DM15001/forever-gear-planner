@@ -24,7 +24,7 @@ export function ImportPanel({ spec, hasCharacter, onImported, onCancel }: Props)
 
 	return (
 		<section className="import" aria-labelledby="import-title">
-			<h2 id="import-title">{hasCharacter ? 'Import another character' : 'Import your character'}</h2>
+			<h2 id="import-title">{hasCharacter ? 'Add another character' : 'Import your character'}</h2>
 			<ol className="import-steps">
 				<li>In game, open the WoWSims Exporter addon and copy the export text. A JSON export from the sim at wowsims.com works too.</li>
 				<li>Paste it here.</li>
@@ -60,7 +60,7 @@ export function ImportPanel({ spec, hasCharacter, onImported, onCancel }: Props)
 					</button>
 				)}
 			</div>
-			{hasCharacter && <p className="hint">Importing replaces the character saved in this browser.</p>}
+			{hasCharacter && <p className="hint">The new character is added next to the ones saved in this browser.</p>}
 		</section>
 	);
 }

@@ -211,26 +211,111 @@ export function slotCandidates(slotIndex: number, gear: Gear, { character, data,
 	return result.sort((a, b) => b.delta - a.delta || a.item.name.localeCompare(b.item.name));
 }
 
+/** How many of a slot's best candidates the pair search looks at. */
+const PAIR_DEPTH = 6;
+/** A set-seeded start is only followed up when it scores within this many points of the best set so far. */
+const SEED_MARGIN = 60;
+/** How many set-seeded starts get a full improvement pass. */
+const SEED_STARTS = 3;
+
 /**
- * Builds a plan by repeatedly making the single best swap until none helps. Because every
- * swap is scored on the whole set, the result does not stack hit rating past the cap.
+ * Builds a plan in three steps. It repeatedly makes the single best swap until none helps, then
+ * tries changing two slots at once (dropping a hit item because another slot now covers the cap),
+ * and last restarts from every full item set to catch set bonuses. Every set is scored as a whole,
+ * so hit rating is never stacked past the cap.
  */
 export function suggestPlan(options: CandidateOptions): Record<number, number> {
-	const { character, spec } = options;
-	let gear: Gear = character.gear.map(piece => piece);
-	const plan: Record<number, number> = {};
-	for (let round = 0; round < 60; round++) {
-		let best: { slot: number; candidate: Candidate } | null = null;
-		for (let slot = 0; slot < GEAR_SLOTS.length; slot++) {
-			if (spec.weaponSetup === 'twoHand' && slot === OFF_HAND) continue;
-			const top = slotCandidates(slot, gear, options)[0];
-			if (top && top.delta > 0.01 && (!best || top.delta > best.candidate.delta)) best = { slot, candidate: top };
+	const { character, data, spec, filter } = options;
+	const faction = spec.races.find(r => r.id === character.race)?.faction;
+	const slots = GEAR_SLOTS.map((_, slot) => slot).filter(slot => !(spec.weaponSetup === 'twoHand' && slot === OFF_HAND));
+	const put = (set: Gear, slot: number, id: number): Gear => set.map((piece, i) => (i === slot ? (piece?.enchant ? { id, enchant: piece.enchant } : { id }) : piece));
+	const scoreOf = (set: Gear) => scoreSet(set, character, data, spec).score;
+
+	/** Improves a set until no single swap helps, and with `pairs` until no swap of two slots helps either. */
+	const climb = (start: Gear, pairs: boolean): Gear => {
+		let gear = start;
+		for (let round = 0; round < 60; round++) {
+			let best: { slot: number; candidate: Candidate } | null = null;
+			for (const slot of slots) {
+				const top = slotCandidates(slot, gear, options)[0];
+				if (top && top.delta > 0.01 && (!best || top.delta > best.candidate.delta)) best = { slot, candidate: top };
+			}
+			if (!best) break;
+			gear = put(gear, best.slot, best.candidate.item.id);
 		}
-		if (!best) break;
-		const { slot, candidate } = best;
-		const enchant = gear[slot]?.enchant;
-		gear = gear.map((piece, i) => (i === slot ? (enchant ? { id: candidate.item.id, enchant } : { id: candidate.item.id }) : piece));
-		plan[slot] = candidate.item.id;
+		for (let round = 0; pairs && round < 20; round++) {
+			const base = scoreOf(gear);
+			const tops = new Map(slots.map(slot => [slot, slotCandidates(slot, gear, options).slice(0, PAIR_DEPTH)]));
+			let best: { gear: Gear; score: number } | null = null;
+			for (const a of slots) {
+				for (const b of slots) {
+					if (b <= a) continue;
+					for (const first of tops.get(a)!) {
+						for (const second of tops.get(b)!) {
+							// The same unique ring or trinket cannot sit in both slots of a pair.
+							if (PAIRED[a] === b && first.item.id === second.item.id && first.item.unique) continue;
+							const tried = put(put(gear, a, first.item.id), b, second.item.id);
+							const score = scoreOf(tried);
+							if (score > base + 0.01 && (!best || score > best.score)) best = { gear: tried, score };
+						}
+					}
+				}
+			}
+			if (!best) break;
+			gear = best.gear;
+		}
+		return gear;
+	};
+
+	let gear = climb(character.gear.map(piece => piece), true);
+	let score = scoreOf(gear);
+
+	// Set bonuses need several pieces at once, which swaps of one or two slots never reach. So
+	// for every set the character can get, start again with all its pieces in and improve from there.
+	const sets = new Map<number, Map<number, number>>();
+	for (const item of data.itemById.values()) {
+		if (item.setId === undefined || !isObtainable(item, character, faction, filter, spec)) continue;
+		const slot = slots.find(index => fitsSlot(item, index, spec) && !sets.get(item.setId!)?.has(index));
+		if (slot === undefined) continue;
+		if (!sets.has(item.setId)) sets.set(item.setId, new Map());
+		sets.get(item.setId)!.set(slot, item.id);
+	}
+	const starts: { gear: Gear; score: number }[] = [];
+	for (const pieces of sets.values()) {
+		if (pieces.size < 2) continue;
+		let seeded = gear;
+		for (const [slot, id] of pieces) seeded = put(seeded, slot, id);
+		// Not every piece is worth it: hand slots back to the best set so far while that raises the score.
+		let seededScore = scoreOf(seeded);
+		for (;;) {
+			let best: { gear: Gear; score: number } | null = null;
+			for (const slot of pieces.keys()) {
+				if (seeded[slot]?.id === gear[slot]?.id) continue;
+				const tried = seeded.map((piece, index) => (index === slot ? gear[slot] : piece));
+				const triedScore = scoreOf(tried);
+				if (triedScore > seededScore + 0.01 && (!best || triedScore > best.score)) best = { gear: tried, score: triedScore };
+			}
+			if (!best) break;
+			seeded = best.gear;
+			seededScore = best.score;
+		}
+		if (seededScore > score - SEED_MARGIN && seeded.some((piece, index) => piece?.id !== gear[index]?.id)) starts.push({ gear: seeded, score: seededScore });
+	}
+	// Follow up only the most promising starts: each full improvement pass is slow.
+	for (const start of starts.sort((a, b) => b.score - a.score).slice(0, SEED_STARTS)) {
+		const improved = climb(start.gear, false);
+		const improvedScore = scoreOf(improved);
+		if (improvedScore > score + 0.01) {
+			gear = improved;
+			score = improvedScore;
+		}
+	}
+	gear = climb(gear, true);
+
+	const plan: Record<number, number> = {};
+	for (const slot of slots) {
+		const id = gear[slot]?.id;
+		if (id !== undefined && id !== character.gear[slot]?.id) plan[slot] = id;
 	}
 	return plan;
 }

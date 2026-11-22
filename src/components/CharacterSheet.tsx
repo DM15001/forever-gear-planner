@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { GEAR_SLOTS, PROFESSIONS, SHEET_LAYOUT } from '../lib/constants';
 import { applicableEnchants } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
@@ -12,9 +14,23 @@ interface Props {
 	onChange: (next: Character) => void;
 	onImportAnother: () => void;
 	onRemove: () => void;
+	/** The names of all saved characters, to switch between them. */
+	names: string[];
+	activeIndex: number;
+	onSelect: (index: number) => void;
+	/** A link that opens this character and its plan on another device. */
+	shareLink: string;
 }
 
-export function CharacterSheet({ spec, character, data, onChange, onImportAnother, onRemove }: Props) {
+export function CharacterSheet({ spec, character, data, onChange, onImportAnother, onRemove, names, activeIndex, onSelect, shareLink }: Props) {
+	// 'copied' after the link went to the clipboard, 'shown' when the browser refused and the link is shown to copy by hand.
+	const [shared, setShared] = useState<'idle' | 'copied' | 'shown'>('idle');
+	const share = () => {
+		navigator.clipboard.writeText(shareLink).then(
+			() => setShared('copied'),
+			() => setShared('shown'),
+		);
+	};
 	const race = spec.races.find(r => r.id === character.race);
 	const enchantCount = character.gear.filter(piece => piece?.enchant).length;
 	const stats = data ? gearStats(character, data) : null;
@@ -57,6 +73,30 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 
 				<div className="panel">
 					<h3>Character details</h3>
+					{names.length > 1 && (
+						<>
+							<label className="field-label" htmlFor="character-pick">
+								Character
+							</label>
+							<select
+								id="character-pick"
+								value={activeIndex}
+								onChange={e => {
+									setShared('idle');
+									onSelect(Number(e.target.value));
+								}}>
+								{names.map((name, index) => (
+									<option key={index} value={index}>
+										{name}
+									</option>
+								))}
+							</select>
+						</>
+					)}
+					<label className="field-label" htmlFor="character-name">
+						Name
+					</label>
+					<input id="character-name" type="text" maxLength={60} placeholder={names[activeIndex]} value={character.name ?? ''} onChange={e => onChange({ ...character, name: e.target.value || undefined })} />
 					<label className="field-label" htmlFor="race">
 						Race
 					</label>
@@ -97,8 +137,13 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 							Remove all enchants{enchantCount > 0 ? ` (${enchantCount})` : ''}
 						</button>
 						<button className="button" onClick={onImportAnother}>
-							Import another character
+							Add another character
 						</button>
+						<button className="button" onClick={share}>
+							{shared === 'copied' ? 'Link copied' : 'Copy share link'}
+						</button>
+						{shared === 'shown' && <input type="text" readOnly aria-label="Share link" value={shareLink} onFocus={e => e.target.select()} />}
+						<p className="hint">The link holds this character's gear and plan. Whoever opens it gets a copy next to their own characters.</p>
 						<button className="link link-danger" onClick={onRemove}>
 							Remove this character
 						</button>

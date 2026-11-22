@@ -1,5 +1,6 @@
 import { GEAR_SLOTS } from './constants';
 import { DEFAULT_FILTER, type SourceFilter } from './scoring';
+import { EMPTY_ROSTER, isCharacter, type Roster } from './roster';
 import { isThemeChoice, type ThemeChoice } from './theme';
 import type { Character, SpecConfig } from './types';
 
@@ -91,5 +92,33 @@ export function saveTheme(choice: ThemeChoice): void {
 		localStorage.setItem(THEME_KEY, choice);
 	} catch {
 		// storage blocked or full: the look just won't survive a reload
+	}
+}
+
+const ROSTER_KEY = 'forever-gear-planner.characters.v1';
+
+/** All saved characters. A single character saved by an earlier version is taken over. */
+export function loadRoster(): Roster {
+	try {
+		const raw = localStorage.getItem(ROSTER_KEY);
+		if (raw) {
+			const saved = JSON.parse(raw) as Roster;
+			const characters = Array.isArray(saved.characters) ? saved.characters.filter(isCharacter) : [];
+			const active = Number.isInteger(saved.active) && saved.active >= 0 && saved.active < characters.length ? saved.active : 0;
+			return { characters, active };
+		}
+	} catch {
+		return EMPTY_ROSTER; // storage blocked or corrupt: start empty
+	}
+	const single = loadCharacter();
+	return single ? { characters: [single], active: 0 } : EMPTY_ROSTER;
+}
+
+export function saveRoster(roster: Roster): void {
+	try {
+		localStorage.setItem(ROSTER_KEY, JSON.stringify(roster));
+		localStorage.removeItem(KEY); // the single-character entry of earlier versions
+	} catch {
+		// storage blocked or full: the characters just won't survive a reload
 	}
 }

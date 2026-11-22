@@ -10,7 +10,8 @@ import { UpgradesTab } from './components/UpgradesTab';
 import { type GameData, loadGameData } from './lib/gameData';
 import type { ImportResult } from './lib/importCharacter';
 import type { SourceFilter } from './lib/scoring';
-import { loadCharacter, loadFilter, loadTheme, loadWeights, saveCharacter, saveFilter, saveTheme, saveWeights } from './lib/storage';
+import { activeCharacter, addCharacter, characterLabel, removeActive, replaceActive, type Roster, selectCharacter, sharedCharacter, shareUrl } from './lib/roster';
+import { loadFilter, loadRoster, loadTheme, loadWeights, saveFilter, saveRoster, saveTheme, saveWeights } from './lib/storage';
 import { resolveTheme, THEME_CHOICES, type ThemeChoice } from './lib/theme';
 import type { Character, SpecConfig } from './lib/types';
 import specJson from './specs/enhancement-shaman.json';
@@ -33,7 +34,21 @@ export function App() {
 		setCustomWeights(weights);
 		saveWeights(defaultSpec.id, weights);
 	};
-	const [character, setCharacter] = useState<Character | null>(loadCharacter);
+	// A character that arrives in a share link is added next to the saved ones, never over them.
+	const [roster, setRoster] = useState<Roster>(() => {
+		const saved = loadRoster();
+		const shared = sharedCharacter(window.location.hash);
+		if (!shared) return saved;
+		const next = addCharacter(saved, { ...shared, name: shared.name ? `${shared.name} (shared)` : 'Shared character' });
+		saveRoster(next);
+		history.replaceState(null, '', window.location.pathname + window.location.search);
+		return next;
+	});
+	const character = activeCharacter(roster);
+	const changeRoster = (next: Roster) => {
+		setRoster(next);
+		saveRoster(next);
+	};
 	const [warnings, setWarnings] = useState<string[]>([]);
 	const [importing, setImporting] = useState(false);
 	const [tab, setTab] = useState('character');
@@ -56,13 +71,10 @@ export function App() {
 		loadGameData().then(setData, () => setDataError(true));
 	}, []);
 
-	const update = (next: Character | null) => {
-		setCharacter(next);
-		saveCharacter(next);
-	};
+	const update = (next: Character) => changeRoster(replaceActive(roster, next));
 
 	const onImported = (result: ImportResult) => {
-		update(result.character);
+		changeRoster(addCharacter(roster, result.character));
 		setTab('character');
 		setWarnings(result.warnings);
 		setImporting(false);
@@ -146,9 +158,16 @@ export function App() {
 									onChange={update}
 									onImportAnother={() => setImporting(true)}
 									onRemove={() => {
-										update(null);
+										changeRoster(removeActive(roster));
 										setWarnings([]);
 									}}
+									names={roster.characters.map((c, i) => characterLabel(c, i, spec))}
+									activeIndex={roster.active}
+									onSelect={index => {
+										changeRoster(selectCharacter(roster, index));
+										setWarnings([]);
+									}}
+									shareLink={shareUrl(character, window.location.href)}
 								/>
 							</>
 						)}

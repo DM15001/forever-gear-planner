@@ -67,6 +67,14 @@ export function applyLoot(itemById: Map<number, Item>, npcById: Map<number, Npc>
 			source.dropBasis = 'forever';
 			source.dropSample = box.outOf;
 		}
+		// A chest the WoWSims data files under a boss of the same dungeon (the Gordok Tribute under Cho'Rush).
+		for (const box of entry.containers ?? []) {
+			const source = box.zoneId ? sources.find(s => s.kind === 'drop' && s.zoneId === box.zoneId && s.dropChance === undefined) : undefined;
+			if (!source || sources.some(s => s.dropBasis === 'forever')) continue;
+			source.dropChance = box.count / box.outOf;
+			source.dropBasis = 'forever';
+			source.dropSample = box.outOf;
+		}
 	}
 	for (const item of itemById.values()) {
 		for (const source of item.sources ?? []) {

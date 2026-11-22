@@ -6,7 +6,7 @@ import { contentCatalog, presets, sameFilter, toggled } from './content';
 import { loadGameData } from './gameData';
 import { importCharacter } from './importCharacter';
 import { buildPlan, fallbacks, gotEnchant, gotItem, openSteps, planSteps } from './plan';
-import { DEFAULT_FILTER, plannedGear, reputationOf, scoreSet, slotCandidates } from './scoring';
+import { DEFAULT_FILTER, plannedGear, reputationOf, scoreSet, slotCandidates, type SourceFilter } from './scoring';
 import type { Character, SpecConfig } from './types';
 
 const spec = specJson as unknown as SpecConfig;
@@ -136,4 +136,17 @@ describe('ticking things off', () => {
 		expect(after.gear[enchantSlot]!.enchant).toBe(withItem.planEnchants![enchantSlot]);
 		expect(after.planEnchants![enchantSlot]).toBeUndefined();
 	});
+});
+
+describe('buildPlan and item sets', () => {
+	it('never plans worse with more content to pick from', () => {
+		const scoreWith = (filter: SourceFilter) => {
+			const planned = { ...dwarf, ...buildPlan({ character: dwarf, data, spec, filter }) };
+			return scoreSet(plannedGear(planned), planned, data, spec).score;
+		};
+		// Without battleground reputations the planner used to find a Tier 0.5 set that the full
+		// content choice missed, because set bonuses need several pieces at once.
+		const withoutBattlegrounds = scoreWith({ ...DEFAULT_FILTER, excludedReputations: ['Silverwing Sentinels', 'Stormpike Guard', 'The League of Arathor'] });
+		expect(scoreWith(DEFAULT_FILTER)).toBeGreaterThanOrEqual(withoutBattlegrounds - 0.5);
+	}, 60000);
 });
