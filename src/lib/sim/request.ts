@@ -1,3 +1,4 @@
+import { applyHealingFight, healingChoice } from './healing';
 import type { Gear } from '../scoring';
 import type { Character } from '../types';
 
@@ -32,6 +33,9 @@ export interface BuiltRequest {
 	missingItems: number[];
 }
 
+/** True for a request whose player is a healer spec of the simulator. */
+export const isHealer = (request: SimTemplate): boolean => Object.keys(request.raid.parties[0].players[0]).some(key => /^(healer|holy|restoration)/i.test(key));
+
 /** Puts the character's race, professions, talents, consumables and buffs over the build's own. */
 function personalize(request: SimTemplate, character: Character): void {
 	const player = request.raid.parties[0].players[0];
@@ -50,6 +54,8 @@ function personalize(request: SimTemplate, character: Character): void {
 	if (encounter && character.fight?.mobType) for (const target of encounter.targets ?? []) target.mobType = `MobType${character.fight.mobType}`;
 	if (encounter && character.fight?.family) for (const target of encounter.targets ?? []) target.creatureFamily = `CreatureFamily${character.fight.family}`;
 	if (encounter && character.fight?.area) encounter.areaTypes = [`AreaType${character.fight.area}`];
+	// A healer's fight and rotation are the planner's own scenario; WoWSims ships none.
+	if (isHealer(request)) applyHealingFight(request, healingChoice(character));
 	player.profession1 = character.professions[0] ?? 'ProfessionUnknown';
 	player.profession2 = character.professions[1] ?? 'ProfessionUnknown';
 }
@@ -183,7 +189,10 @@ export interface SimBreakdown {
 }
 
 export interface SimOutcome {
+	/** Damage per second; for a healer, healing per second (see `healing`). */
 	dps: number;
+	/** True when `dps` and the breakdown are healing. */
+	healing?: boolean;
 	/** Standard error of the average: about two thirds of runs land within this of the true value. */
 	error: number;
 	iterations: number;
@@ -194,8 +203,8 @@ type RawAction = { id: SimActionId; targets?: Record<string, number>[] };
 type RawAura = { id: SimActionId; uptimeSecondsAvg?: number };
 type RawUnit = { name?: string; actions?: RawAction[]; auras?: RawAura[]; pets?: RawUnit[]; secondsOomAvg?: number };
 
-function readBreakdown(result: any, iterations: number): SimBreakdown | undefined {
-	const dps = result.raidMetrics?.dps;
+function readBreakdown(result: any, iterations: number, healing = false): SimBreakdown | undefined {
+	const dps = healing ? result.raidMetrics?.hps : result.raidMetrics?.dps;
 	const player: RawUnit | undefined = result.raidMetrics?.parties?.[0]?.players?.[0];
 	const seconds: number = result.avgIterationDuration;
 	if (!player || !seconds) return undefined;
@@ -204,7 +213,8 @@ function readBreakdown(result: any, iterations: number): SimBreakdown | undefine
 	const collect = (unit: RawUnit, pet?: string) => {
 		for (const action of unit.actions ?? []) {
 			const sum = (field: string) => (action.targets ?? []).reduce((total, target) => total + (target[field] ?? 0), 0);
-			const damage = sum('damage');
+			// For a healer the rows are healing done, shields included.
+			const damage = healing ? sum('healing') + sum('shielding') : sum('damage');
 			if (!pet) allCasts += sum('casts');
 			if (damage <= 0) continue;
 			const landed = sum('hits') + sum('crits') + sum('ticks') + sum('critTicks');
@@ -248,16 +258,16 @@ function readBreakdown(result: any, iterations: number): SimBreakdown | undefine
 }
 
 /** Reads the sim's JSON answer. Throws with the sim's message when it reports an error. */
-export function readSimResult(json: string | null | undefined, iterations: number): SimOutcome {
+export function readSimResult(json: string | null | undefined, iterations: number, healing = false): SimOutcome {
 	if (!json) throw new Error('The simulator rejected the request.');
 	const result = JSON.parse(json);
 	const failure = result.error ?? result.errorResult;
 	if (failure && (typeof failure !== 'object' || Object.keys(failure).length > 0)) {
 		throw new Error(typeof failure === 'string' ? failure : (failure.message ?? JSON.stringify(failure)));
 	}
-	const dps = result.raidMetrics?.dps;
-	if (typeof dps?.avg !== 'number') throw new Error('The simulator returned no DPS.');
-	return { dps: dps.avg, error: (dps.stdev ?? 0) / Math.sqrt(iterations), iterations, breakdown: readBreakdown(result, iterations) };
+	const dps = healing ? result.raidMetrics?.hps : result.raidMetrics?.dps;
+	if (typeof dps?.avg !== 'number') throw new Error(healing ? 'The simulator returned no healing.' : 'The simulator returned no DPS.');
+	return { dps: dps.avg, error: (dps.stdev ?? 0) / Math.sqrt(iterations), iterations, ...(healing ? { healing: true } : {}), breakdown: readBreakdown(result, iterations, healing) };
 }
 
 /** The simulator's remarks per rotation step, in the order of the rotation file (hidden steps included). */
@@ -279,4 +289,4 @@ export function readRotationChecks(json: string | null | undefined): RotationChe
 
 /** Identifies a run, so the same gear is never simulated twice. */
 export const simKey = (character: Character, gear: Gear, iterations: number, bonus?: BonusStats) =>
-	JSON.stringify([bonus ?? 0, character.specId ?? '', character.race, character.talents, character.consumables ?? 0, character.buffs ?? 0, character.fight ?? 0, character.professions, gear.map(p => (p ? [p.id, p.enchant ?? 0, p.randomSuffix ?? 0] : 0)), iterations]);
+	JSON.stringify([bonus ?? 0, character.specId ?? '', character.race, character.talents, character.consumables ?? 0, character.buffs ?? 0, character.fight ?? 0, character.healing ?? 0, character.professions, gear.map(p => (p ? [p.id, p.enchant ?? 0, p.randomSuffix ?? 0] : 0)), iterations]);

@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
-import { formatDps } from '../lib/format';
+import { formatDps, unit } from '../lib/format';
 import { byDungeon, dungeonRanking, type FarmDungeon, PLAN_GROUP_ORDER, type PlanEntry, type PlanGroupKind, planShoppingList } from '../lib/farm';
 import type { GameData } from '../lib/gameData';
 import { guideMarks } from '../lib/guides';
@@ -33,7 +33,7 @@ const GROUP_TITLES: Record<PlanGroupKind, string> = {
 };
 const BOSS_DROPS_SHOWN = 4;
 
-const formatPerRun = (value: number) => `+${value >= 10 ? Math.round(value) : value.toFixed(value >= 1 ? 1 : 2)} DPS`;
+const formatPerRun = (value: number) => `+${value >= 10 ? Math.round(value) : value.toFixed(value >= 1 ? 1 : 2)} ${unit()}`;
 const formatDelta = formatDps;
 
 export function FarmTab({ spec, character, data, filter, onChange }: Props) {

@@ -101,8 +101,13 @@ export function importCharacter(text: string, specOrSpecs: SpecConfig | SpecConf
 	const talentSource = String(source.talents ?? source.talentsString ?? '');
 	const own = talentSource ? treePoints(talentSource) : null;
 	const tree = typeof source.spec === 'string' ? source.spec.toLowerCase() : '';
-	const byTalents = own ? [...matching].sort((x, y) => distance(own, treePoints(x.talents ?? '')) - distance(own, treePoints(y.talents ?? '')))[0] : undefined;
-	const byName = tree ? matching.find(candidate => candidate.id.split('-').some(part => part.length > 2 && (tree.startsWith(part) || part.startsWith(tree)))) : undefined;
+	// The addon names what the character plays ("holy_disc", "shadow"): a healing spec goes to the healer
+	// builds and a damage spec to the others, before the talents pick among those.
+	const wantsHealer = format === 'addon' && tree ? /holy|disc|resto|heal/.test(tree) : undefined;
+	const ofRole = wantsHealer === undefined ? matching : matching.filter(candidate => (candidate.role === 'healer') === wantsHealer);
+	const pool = ofRole.length ? ofRole : matching;
+	const byTalents = own ? [...pool].sort((x, y) => distance(own, treePoints(x.talents ?? '')) - distance(own, treePoints(y.talents ?? '')))[0] : undefined;
+	const byName = tree ? pool.find(candidate => candidate.id.split('-').some(part => part.length > 2 && (tree.startsWith(part) || part.startsWith(tree)))) : undefined;
 	const ofTree = byTalents ?? byName;
 	const spec = ofTree ?? matching[0];
 	if (matching.length > 1) warnings.push(`Planned as "${spec.name}"${ofTree ? ', the build closest to your talents' : ''}. Pick another build under Character details if you play a different one.`);

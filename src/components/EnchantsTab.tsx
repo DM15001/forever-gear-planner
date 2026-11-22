@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
-import { formatDps } from '../lib/format';
+import { formatDps, unit } from '../lib/format';
 import { bestEnchants, enchantOverview, professionValues } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
 import { type Gear, plannedGear, scoreSet, type SourceFilter } from '../lib/scoring';
@@ -65,7 +65,7 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 				<h2 id="enchants-title">Enchants</h2>
 				<p className="hint enchants-hint">
 					{enchanted} of {overview.length} enchantable slots have an enchant. Numbers show the change in set score for your {hasPlan ? 'planned' : 'equipped'} gear. Enchants that only add a
-					proc, such as Crusader, cannot be scored; "Sim" runs the real simulator for an enchant and shows its DPS against the bare item. The source is where the enchant or its recipe comes from.
+					proc, such as Crusader, cannot be scored; "Sim" runs the real simulator for an enchant and shows its {unit()} against the bare item. The source is where the enchant or its recipe comes from.
 				</p>
 				<div className="actions">
 					<button className="button button-primary" onClick={() => setEnchants(best)} disabled={Object.keys(best).length === 0}>
@@ -156,7 +156,7 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 														</button>
 													) : winner ? (
 														<span>
-															Simulated best: <strong>{winner.enchant.name}</strong>. Sorted by simulated DPS against the bare item; differences marked "within noise" are a tie.{' '}
+															Simulated best: <strong>{winner.enchant.name}</strong>. Sorted by simulated {unit()} against the bare item; differences marked "within noise" are a tie.{' '}
 															<button className="link" onClick={() => setComparing(old => new Set([...old].filter(i => i !== slot.slotIndex)))}>
 																Show fewer
 															</button>

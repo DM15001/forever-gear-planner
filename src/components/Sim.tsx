@@ -1,5 +1,6 @@
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
+import { unit } from '../lib/format';
 import type { Gear } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
 import { type SimActionId, simKey, type SimOutcome } from '../lib/sim/request';
@@ -97,8 +98,8 @@ export function SimDelta({ base, variant, label = 'Sim this' }: { base: Gear; va
 		const margin = Math.sqrt(a.error ** 2 + b.error ** 2);
 		const clear = Math.abs(delta) > 2 * margin;
 		return (
-			<span className={`sim-delta num ${!clear ? 'sim-unclear' : delta > 0 ? 'delta-up' : 'delta-down'}`} title={`Simulated, ${SWAP_ITERATIONS} iterations each. Margin ±${margin.toFixed(1)} DPS.`}>
-				{signed(delta)} DPS{clear ? '' : ' (within noise)'}
+			<span className={`sim-delta num ${!clear ? 'sim-unclear' : delta > 0 ? 'delta-up' : 'delta-down'}`} title={`Simulated, ${SWAP_ITERATIONS} iterations each. Margin ±${margin.toFixed(1)} ${unit()}.`}>
+				{signed(delta)} {unit()}{clear ? '' : ' (within noise)'}
 			</span>
 		);
 	}
@@ -175,7 +176,7 @@ function Breakdown({ title, outcome, names }: { title: string; outcome: SimOutco
 			<h4>{title}</h4>
 			<dl className="result-tiles">
 				<div>
-					<dt>DPS</dt>
+					<dt>{unit()}</dt>
 					<dd className="num">{outcome.dps.toFixed(2)}</dd>
 					<dd className="result-sub">± {breakdown.stdev.toFixed(0)} between fights</dd>
 				</div>
@@ -203,7 +204,7 @@ function Breakdown({ title, outcome, names }: { title: string; outcome: SimOutco
 					<thead>
 						<tr>
 							<th scope="col">Name</th>
-							<th scope="col">Damage done</th>
+							<th scope="col">{outcome.healing ? 'Healing done' : 'Damage done'}</th>
 							<th scope="col" className="num">
 								Casts
 							</th>
@@ -222,11 +223,11 @@ function Breakdown({ title, outcome, names }: { title: string; outcome: SimOutco
 							<th scope="col" className="num">
 								Miss %
 							</th>
-							<th scope="col" className="num" title="Damage per second of cast time">
-								DPET
+							<th scope="col" className="num" title={outcome.healing ? 'Healing per second of cast time' : 'Damage per second of cast time'}>
+								{outcome.healing ? 'HPET' : 'DPET'}
 							</th>
 							<th scope="col" className="num">
-								DPS
+								{unit()}
 							</th>
 						</tr>
 					</thead>
@@ -266,11 +267,11 @@ function Breakdown({ title, outcome, names }: { title: string; outcome: SimOutco
 			</div>
 			{breakdown.histogram.length > 1 && (
 				<figure className="result-histogram">
-					<figcaption>How the single fights spread, in DPS</figcaption>
+					<figcaption>How the single fights spread, in {unit()}</figcaption>
 					<div className="result-bars">
 						{breakdown.histogram.map(([bucket, count]) => {
 							const typical = Math.abs(bucket + step / 2 - outcome.dps) <= breakdown.stdev;
-							return <span key={bucket} className={typical ? 'result-column result-column-typical' : 'result-column'} style={{ height: `${(count / fights) * 100}%` }} title={`${bucket} to ${bucket + step} DPS: ${count} fight${count === 1 ? '' : 's'}`} />;
+							return <span key={bucket} className={typical ? 'result-column result-column-typical' : 'result-column'} style={{ height: `${(count / fights) * 100}%` }} title={`${bucket} to ${bucket + step} ${unit()}: ${count} fight${count === 1 ? '' : 's'}`} />;
 						})}
 					</div>
 					<div className="result-axis num">
@@ -306,7 +307,7 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false }: { equip
 	const loadNames = () => {
 		if (!names) simClient.setup().then(setNames, () => undefined);
 	};
-	const show = (outcome: typeof a) => (outcome ? `${outcome.dps.toFixed(0)} DPS` : '—');
+	const show = (outcome: typeof a) => (outcome ? `${outcome.dps.toFixed(0)} ${unit()}` : '—');
 
 	// With `auto`, a short pause after the last change starts the missing runs by itself.
 	const { run } = sim;
@@ -367,14 +368,16 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false }: { equip
 					{a && <Breakdown title="Equipped gear" outcome={a} names={names} />}
 					{b && <Breakdown title="Planned gear" outcome={b} names={names} />}
 					<p className="hint">
-						Per spell: average DPS, its part of all damage, casts per fight, how often it crit and how often a cast missed. Effects that were up for the whole fight are left out; the Sim setup tab
-						lists them.
+						{a?.healing ?? b?.healing
+							? 'Per spell: healing done over the fight and its part of all healing, casts per fight, how often it crit, and healing per second. "Out of mana" is the time the healer stood without mana to cast.'
+							: 'Per spell: average DPS, its part of all damage, casts per fight, how often it crit and how often a cast missed. Effects that were up for the whole fight are left out; the Sim setup tab lists them.'}
 					</p>
 				</details>
 			)}
 			<p className="hint">
-				Real DPS from the WoWSims simulator, including procs and set bonuses: full raid buffs, a 3-minute single-target fight, the default rotation, enchants as set on your gear. The first run
-				downloads the simulator (6 MB) and takes a few seconds longer. Each number has a margin of about ±1 DPS.
+				{unit() === 'HPS'
+					? 'Healing per second over the whole fight, from the WoWSims simulator: its spell data, talents, mana regeneration and consumables, with the healing scenario picked above. Time spent out of mana counts as time without healing. The first run downloads the simulator (6 MB) and takes a few seconds longer.'
+					: 'Real DPS from the WoWSims simulator, including procs and set bonuses: full raid buffs, a 3-minute single-target fight, the default rotation, enchants as set on your gear. The first run downloads the simulator (6 MB) and takes a few seconds longer. Each number has a margin of about ±1 DPS.'}
 			</p>
 		</div>
 	);

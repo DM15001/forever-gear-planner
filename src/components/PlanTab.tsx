@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
-import { formatDps } from '../lib/format';
+import { formatDps, unit } from '../lib/format';
 import { applicableEnchants } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
 import { guideMarks, markLabel } from '../lib/guides';
@@ -60,15 +60,15 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				simClient,
 				p => {
 					setRefineSteps({ done: p.done, total: p.total });
-					setRefining(`${p.slot}, slot ${p.done + 1} of ${p.total} (${p.dps.toFixed(0)} DPS so far)`);
+					setRefining(`${p.slot}, slot ${p.done + 1} of ${p.total} (${p.dps.toFixed(0)} ${unit()} so far)`);
 				},
 				() => stopRefine.current,
 			);
 			onChange({ ...character, plan: result.plan });
 			setRefineNote(
 				result.changes === 0
-					? `The simulator agrees with the plan: none of the ${REFINE_DEPTH} best-scored items per slot does better (${result.before.toFixed(0)} DPS).`
-					: `The simulator changed ${result.changes} ${result.changes === 1 ? 'slot' : 'slots'}: ${result.before.toFixed(0)} to ${result.after.toFixed(0)} DPS.`,
+					? `The simulator agrees with the plan: none of the ${REFINE_DEPTH} best-scored items per slot does better (${result.before.toFixed(0)} ${unit()}).`
+					: `The simulator changed ${result.changes} ${result.changes === 1 ? 'slot' : 'slots'}: ${result.before.toFixed(0)} to ${result.after.toFixed(0)} ${unit()}.`,
 			);
 		} catch (err) {
 			setRefineNote(`The check failed: ${err instanceof Error ? err.message : 'the simulator did not answer'}`);
@@ -125,9 +125,11 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						<div>
 							<span className="field-label">The plan, estimated</span>
 							<span className="score num delta-up">{hasPlan ? formatGain(planned.score - equipped.score) : 'Nothing to change'}</span>
-							<span className="summary-hit">
-								{equipped.hit.total.toFixed(1)}% hit now, {planned.hit.total.toFixed(1)}% of {planned.hit.cap}% planned
-							</span>
+							{spec.hitCapPercent > 0 && (
+								<span className="summary-hit">
+									{equipped.hit.total.toFixed(1)}% hit now, {planned.hit.total.toFixed(1)}% of {planned.hit.cap}% planned
+								</span>
+							)}
 						</div>
 						<div>
 							<span className="field-label">Still to do</span>
@@ -158,11 +160,11 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						</p>
 					)}
 					<p className="hint">
-						"Check the plan with the simulator" runs the {REFINE_DEPTH} best-scored items of every slot through the real simulator and keeps the one with the highest DPS. Use it when procs, on-use
+						"Check the plan with the simulator" runs the {REFINE_DEPTH} best-scored items of every slot through the real simulator and keeps the one with the highest {unit()}. Use it when procs, on-use
 						trinkets or set bonuses matter, which the quick score only knows for the Enhancement Shaman. It takes a few minutes.
 					</p>
 					<p className="hint">
-						The estimate is stats times the build's stat weights, in DPS, plus what the simulator measured for procs, on-use effects, proc enchants and set bonuses. To change a
+						The estimate is stats times the build's stat weights, in {unit()}, plus what the simulator measured for procs, on-use effects, proc enchants and set bonuses. To change a
 						single slot by hand, click its icon.
 					</p>
 				</div>

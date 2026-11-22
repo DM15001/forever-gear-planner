@@ -1,5 +1,5 @@
 {
-	"generatedAt": "2026-11-22T23:00:50.901Z",
+	"generatedAt": "2026-11-22T23:19:11.328Z",
 	"specs": [
 		"druid-balance",
 		"druid-cat",
@@ -11,6 +11,8 @@
 		"mage-fire",
 		"mage-frost-incin",
 		"mage-frost",
+		"priest-disc",
+		"priest-holy",
 		"priest-shadow",
 		"priest-smite",
 		"rogue-asn-muti",
@@ -60,7 +62,7 @@
 		},
 		"npcs": 456,
 		"randomSuffixes": 257,
-		"simSets": 25,
+		"simSets": 27,
 		"simItems": 6372
 	}
 }

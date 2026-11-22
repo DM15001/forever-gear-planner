@@ -294,6 +294,19 @@ export function describeRotation(rotation: Json | undefined, setup: Pick<SimSetu
 		switch (key) {
 			case 'castSpell':
 				return { text: `Cast ${idName(arg.spellId)}` };
+			case 'castFriendlySpell': {
+				const unit = arg.target as Json | undefined;
+				const who = !unit || unit.type === 'Self' ? 'yourself' : unit.type === 'Player' ? (unit.index ? 'a group member' : 'yourself') : words(String(unit.type));
+				return { text: `Heal ${who} with ${idName(arg.spellId)}` };
+			}
+			case 'wait':
+				return { text: `Stand still for ${value(arg.duration)}` };
+			case 'schedule': {
+				const times = String(arg.schedule ?? '').split(',').map(time => time.trim()).filter(Boolean);
+				const inner = bare(arg.innerAction ?? {});
+				const every = times.length > 2 ? ` (${times.length} times, from ${times[0]} to ${times[times.length - 1]})` : `: ${times.join(', ')}`;
+				return { text: `At set times${every}: ${inner.text.charAt(0).toLowerCase()}${inner.text.slice(1)}` };
+			}
 			case 'channelSpell':
 				return { text: `Channel ${idName(arg.spellId)}${arg.interruptIf ? `, stop when ${value(arg.interruptIf)}` : ''}` };
 			case 'multidot':
@@ -392,6 +405,6 @@ export function describeOptions(options: unknown, prefix = ''): string[] {
 export function describeCheck(remark: string, setup: Pick<SimSetupData, 'spells' | 'items'>): string {
 	return remark
 		.replace(/^Player \(#\d+\) /, 'Your character ')
-		.replace(/(spell |talent )?\{SpellID: (\d+)\}/g, (_, _kind, id) => setup.spells[id] ?? `spell ${id}`)
-		.replace(/\{ItemID: (\d+)\}/g, (_, id) => setup.items[id] ?? `item ${id}`);
+		.replace(/(spell |talent )?\{SpellID: (\d+)(?:, [^}]*)?\}/g, (_, _kind, id) => setup.spells[id] ?? `spell ${id}`)
+		.replace(/(spell )?\{ItemID: (\d+)(?:, [^}]*)?\}/g, (_, _kind, id) => setup.items[id] ?? `item ${id}`);
 }

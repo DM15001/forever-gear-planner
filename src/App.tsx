@@ -3,6 +3,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { CharacterSheet } from './components/CharacterSheet';
 import { EnchantsTab } from './components/EnchantsTab';
 import { FarmTab } from './components/FarmTab';
+import { HealingPicker } from './components/HealingPicker';
+import { setUnit } from './lib/format';
+import { healingChoice, scenarioKey } from './lib/sim/healing';
 import { ImportPanel } from './components/ImportPanel';
 import { BarCap, Emblem } from './components/Ornaments';
 import { PlanTab } from './components/PlanTab';
@@ -42,11 +45,20 @@ export function App() {
 	// everywhere a score is computed; they are kept per spec.
 	const baseSpec = specOf(character);
 	const [weightsVersion, setWeightsVersion] = useState(0);
+	// A healer has one set of weights per healing scenario; the character's choice picks it.
+	const healingKey = baseSpec.healing ? scenarioKey(healingChoice(character)) : '';
+	const scenarioSpec = useMemo(() => {
+		const measured = baseSpec.healing?.scenarios[healingKey];
+		return measured ? { ...baseSpec, weights: { ...baseSpec.weights, stats: measured.weights } } : baseSpec;
+	}, [baseSpec, healingKey]);
+	const weightsKey = healingKey ? `${baseSpec.id}.${healingKey}` : baseSpec.id;
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const customWeights = useMemo(() => loadWeights(baseSpec.id), [baseSpec.id, weightsVersion]);
-	const spec = useMemo(() => (customWeights ? { ...baseSpec, weights: customWeights } : baseSpec), [baseSpec, customWeights]);
+	const customWeights = useMemo(() => loadWeights(weightsKey), [weightsKey, weightsVersion]);
+	const spec = useMemo(() => (customWeights ? { ...scenarioSpec, weights: customWeights } : scenarioSpec), [scenarioSpec, customWeights]);
+	// Every number on the page is damage per second, or healing per second for a healer.
+	setUnit(baseSpec.role === 'healer' ? 'HPS' : 'DPS');
 	const changeWeights = (weights: SpecConfig['weights'] | null) => {
-		saveWeights(baseSpec.id, weights);
+		saveWeights(weightsKey, weights);
 		setWeightsVersion(version => version + 1);
 	};
 	const changeRoster = (next: Roster) => {
@@ -157,9 +169,10 @@ export function App() {
 								<span className="slot-source">{upgradeView === 'plan' ? 'Say what content you do and get the best set with a to-do list.' : 'Every slot with its upgrades and alternatives, to pick by hand.'}</span>
 							</div>
 						)}
+						{tab === 'upgrades' && baseSpec.role === 'healer' && <HealingPicker character={character} spec={baseSpec} onChange={update} />}
 						{tab === 'upgrades' && upgradeView === 'plan' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} /> : <p>Loading item data…</p>)}
 
-						{tab === 'upgrades' && upgradeView === 'slots' && (data ? <UpgradesTab spec={spec} defaultWeights={baseSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
+						{tab === 'upgrades' && upgradeView === 'slots' && (data ? <UpgradesTab spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
 
 						{tab === 'farm' && (data ? <FarmTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
 

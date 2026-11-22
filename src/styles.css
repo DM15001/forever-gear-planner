@@ -2887,3 +2887,29 @@ html {
 .shopping-got:active {
 	transform: scale(0.96);
 }
+
+/* Healing scenario */
+.healing-picker h3 {
+	margin-top: 0;
+}
+.healing-choices {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+	gap: 0.9rem 1.5rem;
+	margin-bottom: 0.75rem;
+}
+.healing-choices label {
+	display: grid;
+	gap: 0.25rem;
+	align-content: start;
+}
+.healing-picker {
+	margin-bottom: 1rem;
+}
+.hit[hidden] {
+	display: none;
+}
+
+.healing-picker {
+	max-width: 58rem;
+}

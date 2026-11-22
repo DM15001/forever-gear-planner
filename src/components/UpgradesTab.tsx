@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { GEAR_SLOTS } from '../lib/constants';
 import { sourceKind } from '../lib/farm';
 import { FightPicker } from './FightPicker';
-import { formatDps } from '../lib/format';
+import { formatDps, unit } from '../lib/format';
 import type { GameData } from '../lib/gameData';
 import { type Guide, type GuideMark, guideMarks, guidePlan, markLabel, swapDelta } from '../lib/guides';
 import { EVERYTHING, type Candidate, clash, type Gear, pairedSlot, plannedGear, scoreSet, slotCandidates, slotInUse, type SourceFilter, suggestPlan, usableSources, withItem } from '../lib/scoring';
@@ -174,10 +174,12 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 					<div>
 						<span className="field-label">Your plan, estimated</span>
 						<span className={`score num ${gain >= 0 ? 'delta-up' : 'delta-down'}`}>{planCount > 0 ? formatDelta(gain) : 'No plan yet'}</span>
-						<span className="summary-hit">
-							{hitText(equipped.hit)} now
-							{planCount > 0 ? `, ${hitText(planned.hit)} planned` : ''}
-						</span>
+						{spec.hitCapPercent > 0 && (
+							<span className="summary-hit">
+								{hitText(equipped.hit)} now
+								{planCount > 0 ? `, ${hitText(planned.hit)} planned` : ''}
+							</span>
+						)}
 					</div>
 				</div>
 				<div className="actions">
@@ -213,7 +215,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						</>
 					)}
 				</p>
-				<FightPicker character={character} onChange={onChange} />
+				{spec.role !== 'healer' && <FightPicker character={character} onChange={onChange} />}
 				<SimSummary equipped={character.gear} planned={gear} hasPlan={planCount > 0} />
 				<div className="guide-sets">
 					<span className="field-label">Or start from a guide</span>
@@ -237,11 +239,11 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				<details className="explain">
 					<summary>How is this calculated?</summary>
 					<p className="hint">
-						Every "DPS" number in the lists is an estimate: the item's stats times what each stat is worth for {spec.name} (see Stat weights below), plus what the simulator measured for procs, on-use effects and set bonuses. Items marked
+						Every "{unit()}" number in the lists is an estimate: the item's stats times what each stat is worth for {spec.name} (see Stat weights below), plus what the simulator measured for procs, on-use effects and set bonuses. Items marked
 						"sim it" have an effect nobody measured and may be better or worse than their number. Each +/- shows how the whole set changes, so hit rating past the cap counts for nothing.
 					</p>
 					<p className="hint">
-						<strong>"Sim this"</strong> next to an item runs the real simulator for that one swap and shows the DPS change. "Simulate equipped gear" above does it for your whole set.
+						<strong>"Sim this"</strong> next to an item runs the real simulator for that one swap and shows the {unit()} change. "Simulate equipped gear" above does it for your whole set.
 					</p>
 				</details>
 			</section>
@@ -317,7 +319,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 									to <strong className="num">{Math.round(simPlanned.dps)}</strong>
 								</>
 							)}{' '}
-							DPS
+							{unit()}
 						</span>
 					)}
 					{!import.meta.env.VITE_NO_SIM && (
@@ -345,7 +347,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 							title={isPlanned ? 'Planned' : best > 0 ? 'An upgrade is available' : 'Nothing better with these filters'}
 						>
 							{slot.label}
-							{best > 0 ? <span className="num delta-up">{formatDelta(best).replace(' DPS', '')}</span> : isPlanned ? <span className="slot-chip-mark">planned</span> : null}
+							{best > 0 ? <span className="num delta-up">{formatDelta(best).replace(` ${unit()}`, '')}</span> : isPlanned ? <span className="slot-chip-mark">planned</span> : null}
 						</a>
 					);
 				})}
@@ -753,20 +755,22 @@ function WeightsEditor({
 			/>
 		</label>
 	);
+	// A healer's weights have no weapon damage and no hit cap in them.
+	const healer = defaults.stats.healingPower !== undefined && !defaults.mainHandDps;
 	return (
 		<details className="weights">
 			<summary>Stat weights{changed ? ' (changed)' : ''}</summary>
 			<p className="hint">
-				How much DPS one point of each stat is worth. The defaults are the weights of the build, turned into DPS with one simulator measurement on its preset gear. Changing them changes every score on the site; the simulated DPS numbers are
-				not affected.
+				How much {unit()} one point of each stat is worth. The defaults are the weights of the build, measured with the simulator on its preset gear. Changing them changes every score on the site; the simulated numbers are not affected.
 			</p>
 			<div className="weights-grid">
-				{field('mainHandDps', 'Weapon DPS', weights.mainHandDps, v => ({
-					...weights,
-					mainHandDps: v,
-				}))}
+				{!healer &&
+					field('mainHandDps', 'Weapon DPS', weights.mainHandDps, v => ({
+						...weights,
+						mainHandDps: v,
+					}))}
 				{Object.keys(defaults.stats).map(key => field(key, LONG_LABEL.get(key) ?? key, weights.stats[key] ?? 0, v => ({ ...weights, stats: { ...weights.stats, [key]: v } })))}
-				{field('hitRatingOverCap', 'Hit rating past the cap', weights.hitRatingOverCap, v => ({ ...weights, hitRatingOverCap: v }))}
+				{!healer && field('hitRatingOverCap', 'Hit rating past the cap', weights.hitRatingOverCap, v => ({ ...weights, hitRatingOverCap: v }))}
 			</div>
 			{onMeasure && (
 				<div className="measure">

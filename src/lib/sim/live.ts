@@ -32,6 +32,7 @@ const STAT_INDEX: Record<string, number> = {
 	hasteRating: 19,
 	armorPenetration: 20,
 	expertiseRating: 21,
+	mp5: 31,
 };
 const MAIN_HAND_DPS = 0;
 const OFF_HAND_DPS = 1;
@@ -61,7 +62,7 @@ export async function measureWeights(character: Character, spec: SpecConfig, run
 	const raw: Record<string, number> = {};
 	for (const key of Object.keys(spec.weights.stats)) {
 		if (!(key in STAT_INDEX)) continue;
-		const amount = key === 'hitRating' ? -30 : key.endsWith('Rating') ? 30 : key === 'attackPower' || key === 'feralAttackPower' || key === 'rangedAttackPower' ? 100 : 50;
+		const amount = key === 'hitRating' ? -30 : key.endsWith('Rating') ? 30 : key === 'mp5' ? 20 : key === 'attackPower' || key === 'feralAttackPower' || key === 'rangedAttackPower' ? 100 : 50;
 		raw[key] = await perPoint({ stats: { [STAT_INDEX[key]]: amount } }, amount);
 	}
 	const mainHand = spec.weights.mainHandDps ? await perPoint({ pseudoStats: { [MAIN_HAND_DPS]: 5 } }, 5) : 0;

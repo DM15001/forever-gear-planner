@@ -1,7 +1,7 @@
 import type { Gear } from '../scoring';
 import type { Character } from '../types';
 import { specOf } from '../specs';
-import { type BonusStats, buildSimRequest, indexSimDb, readRotationChecks, readSimResult, type RotationChecks, type SimDb, type SimIndex, simKey, type SimOutcome, type SimTemplate } from './request';
+import { type BonusStats, buildSimRequest, indexSimDb, isHealer, readRotationChecks, readSimResult, type RotationChecks, type SimDb, type SimIndex, simKey, type SimOutcome, type SimTemplate } from './request';
 import type { SimSetupData } from './setup';
 
 const SIM_URL = `${import.meta.env.BASE_URL}sim/`;
@@ -114,7 +114,7 @@ export class SimClient {
 					const id = this.nextId++;
 					this.waiting.set(id, { resolve, reject });
 					this.worker!.postMessage({ id, request: JSON.stringify(request) });
-				}).then(json => readSimResult(json, iterations));
+				}).then(json => readSimResult(json, iterations, isHealer(index.template)));
 			});
 			this.cache.set(key, outcome);
 			outcome.catch(() => this.cache.delete(key));

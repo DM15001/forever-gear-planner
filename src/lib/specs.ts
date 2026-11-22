@@ -8,6 +8,8 @@ import mageFfb from '../specs/mage-ffb.json';
 import mageFire from '../specs/mage-fire.json';
 import mageFrost from '../specs/mage-frost.json';
 import mageFrostIncin from '../specs/mage-frost-incin.json';
+import priestDisc from '../specs/priest-disc.json';
+import priestHoly from '../specs/priest-holy.json';
 import priestShadow from '../specs/priest-shadow.json';
 import priestSmite from '../specs/priest-smite.json';
 import warriorArms from '../specs/warrior-arms.json';
@@ -46,7 +48,7 @@ function inDps(spec: SpecConfig): SpecConfig {
 	};
 }
 
-export const SPECS = ([enhancementShaman, elementalShaman, warlockSmRuin, warlockDestruction, warlockAffliction, warlockDemoFire, warlockDemoShadow, priestShadow, priestSmite, mageFire, mageFrost, mageFrostIncin, mageArcane, mageArcaneFire, mageFfb, warriorFury, warriorArms, rogueCombatSs, rogueCombatBs, rogueCombatVenom, rogueAsnMuti, rogueSubHemo, rogueHemoSf, druidBalance, druidCat] as unknown as SpecConfig[]).map(inDps);
+export const SPECS = ([enhancementShaman, elementalShaman, warlockSmRuin, warlockDestruction, warlockAffliction, warlockDemoFire, warlockDemoShadow, priestShadow, priestSmite, priestHoly, priestDisc, mageFire, mageFrost, mageFrostIncin, mageArcane, mageArcaneFire, mageFfb, warriorFury, warriorArms, rogueCombatSs, rogueCombatBs, rogueCombatVenom, rogueAsnMuti, rogueSubHemo, rogueHemoSf, druidBalance, druidCat] as unknown as SpecConfig[]).map(inDps);
 
 export const DEFAULT_SPEC = SPECS[0];
 

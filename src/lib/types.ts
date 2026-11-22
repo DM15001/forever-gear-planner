@@ -116,6 +116,8 @@ export interface Character {
 	consumables?: import('./sim/setup').ConsumablePicks;
 	/** Buffs and debuffs changed on the Sim setup tab. Missing fields keep the build's own. */
 	buffs?: import('./sim/setup').BuffPicks;
+	/** A healer's spell mix and how much mana matters in the fight (src/lib/sim/healing.ts). Unset = the default scenario. */
+	healing?: { style?: string; pressure?: string };
 	/** What the character fights: an enemy kind and a terrain, for items that are only strong there. Unset = a plain raid target. */
 	fight?: Fight;
 	/** Up to two profession names. */
@@ -135,6 +137,10 @@ export interface SpecConfig {
 	className: string;
 	/** The key of this spec's options in a sim export ("enhancementShaman", "warlock" ...). */
 	simKey: string;
+	/** Healers are scored in healing per second over a fight, not in DPS. */
+	role?: 'healer';
+	/** A healer's stat weights for each scenario ("tank.balanced"), measured with the simulator on the preset gear. */
+	healing?: { scenarios: Record<string, { hps: number; oomSeconds: number; weights: Record<string, number> }> };
 	/** The name of the WoWSims preset configuration this build is. */
 	preset?: string;
 	/** The preset's talent string, used to tell the builds of one class apart on import. */

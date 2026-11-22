@@ -28,6 +28,7 @@ import {
 	talentPointsAt,
 	talentPointsSpent,
 } from '../lib/sim/setup';
+import { healingChoice, healingFight } from '../lib/sim/healing';
 import { wowheadItemUrl, wowheadSpellUrl, wowheadData } from '../lib/stats';
 import type { Character, SpecConfig } from '../lib/types';
 import { ICON_SOURCES } from './ItemIcon';
@@ -47,8 +48,11 @@ function Steps({ lines, showRaw, checks, names }: { lines: RotationLine[]; showR
 		<ol className="rotation-steps">
 			{lines.map((line, index) => {
 				const remarks = (line.index !== undefined ? checks?.[line.index] : undefined) ?? [];
-				// A step whose spell or talent the character lacks never fires.
-				const unusable = remarks.some(remark => /does not know/.test(remark));
+				// A step never fires when the spell it casts is one the character lacks. A missing spell that is
+				// only asked about in the step's condition leaves the step working: that part just never applies.
+				const own = ownSpell(line.raw);
+				const lacksOwn = (remark: string) => own !== undefined && new RegExp(`does not know spell \\{(SpellID|ItemID): ${own}[,}]`).test(remark);
+				const unusable = remarks.some(lacksOwn);
 				return (
 					<li key={index} className={unusable ? 'rotation-unused' : undefined} title={line.raw ? `The WoWSims rule behind this step:\n${line.raw}` : undefined}>
 						<span className="rotation-do">
@@ -62,8 +66,9 @@ function Steps({ lines, showRaw, checks, names }: { lines: RotationLine[]; showR
 						)}
 						{remarks.map(remark => (
 							<span key={remark} className="rotation-remark">
-								{unusable && /does not know/.test(remark) ? 'Skipped for you: ' : 'Note: '}
+								{lacksOwn(remark) ? 'Skipped for you: ' : 'Note: '}
 								{names ? describeCheck(remark, names) : remark}
+								{!lacksOwn(remark) && /does not know/.test(remark) && '. The step still runs; only the part of its condition that asks about this never applies.'}
 							</span>
 						))}
 						{showRaw && line.raw && <pre className="rotation-raw">{line.raw}</pre>}
@@ -73,6 +78,22 @@ function Steps({ lines, showRaw, checks, names }: { lines: RotationLine[]; showR
 			})}
 		</ol>
 	);
+}
+
+/** The spell a rotation step itself casts or channels, from the step as WoWSims wrote it. */
+function ownSpell(raw: string | undefined): number | undefined {
+	if (!raw) return undefined;
+	try {
+		const action = JSON.parse(raw) as Record<string, { spellId?: { spellId?: number; itemId?: number } } | undefined>;
+		for (const kind of ['castSpell', 'castFriendlySpell', 'channelSpell', 'multidot', 'strictMultidot', 'multishield']) {
+			// An on-use item is cast by its item id.
+			const id = action[kind]?.spellId?.spellId ?? action[kind]?.spellId?.itemId;
+			if (id) return id;
+		}
+	} catch {
+		// Not a single action (a group or a sequence): nothing of its own to cast.
+	}
+	return undefined;
 }
 
 /** Everything the simulator is given besides gear: shown in words, with talents and consumables open to change. */
@@ -93,7 +114,9 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 
 	const ready = loaded?.specId === spec.id ? loaded : null;
 	const player = ready?.template.raid.parties[0].players[0];
-	const rotation = useMemo(() => (ready && player ? describeRotation(player.rotation, ready.setup, true) : null), [ready, player]);
+	// A healer's rotation is the planner's own scenario, not a file of the WoWSims project.
+	const healer = spec.role === 'healer';
+	const rotation = useMemo(() => (ready && player ? describeRotation(healer ? healingFight(healingChoice(character)).rotation : player.rotation, ready.setup, true) : null), [ready, player, healer, character]);
 	// The talent string is typed into a field of its own, so a half-typed string never reaches the sim.
 	const [typed, setTyped] = useState<string | null>(null);
 	const [showRaw, setShowRaw] = useState(false);
@@ -428,10 +451,16 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 			<section className="panel">
 				<h2>Buffs and fight</h2>
 				<p>
-					{encounter?.duration ? `A ${encounter.duration} second fight` : 'A fight'}
-					{encounter?.durationVariation ? ` (give or take ${encounter.durationVariation})` : ''} against {encounter?.targets?.length ?? 1} target
-					{(encounter?.targets?.length ?? 1) === 1 ? '' : 's'}
-					{encounter?.targets?.[0]?.level ? ` of level ${encounter.targets[0].level}` : ''}.
+					{healer ? (
+						`A ${healingFight(healingChoice(character)).duration} second fight (give or take 5). The heals go to the Priest's group of five; there is no incoming damage, so every heal counts in full.`
+					) : (
+						<>
+							{encounter?.duration ? `A ${encounter.duration} second fight` : 'A fight'}
+							{encounter?.durationVariation ? ` (give or take ${encounter.durationVariation})` : ''} against {encounter?.targets?.length ?? 1} target
+							{(encounter?.targets?.length ?? 1) === 1 ? '' : 's'}
+							{encounter?.targets?.[0]?.level ? ` of level ${encounter.targets[0].level}` : ''}.
+						</>
+					)}
 				</p>
 				{BUFF_SCOPES.map(({ scope, title }) => (
 					<fieldset key={scope} className="buff-set">
@@ -475,14 +504,23 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 					the build's, so it can name spells your character does not have; those steps are greyed out and marked "Skipped for you", and the simulator passes over them.
 				</p>
 				<p>
-					Where it comes from: this is the rotation of the WoWSims project for this build, taken over unchanged
-					{sourceUrl && (
+					{healer ? (
 						<>
-							{' '}
-							(<a href={sourceUrl}>the file on GitHub</a>)
+							Where it comes from: WoWSims has the Priest's heals in its engine but ships no healing rotation, so this one is written by this site for the healing scenario picked on the Upgrades tab. It is short on purpose. Prayer
+							of Mending is left out, because the engine stops with an error when it is cast as a heal. Hover over a step to see the rule the simulator gets, or show them all:
+						</>
+					) : (
+						<>
+							Where it comes from: this is the rotation of the WoWSims project for this build, taken over unchanged
+						{sourceUrl && (
+							<>
+								{' '}
+								(<a href={sourceUrl}>the file on GitHub</a>)
+							</>
+						)}
+						. The sim runs that file; the sentences here are only a translation of it into words, written by this site. Hover over a step to see the original rule, or show them all:
 						</>
 					)}
-					. The sim runs that file; the sentences here are only a translation of it into words, written by this site. Hover over a step to see the original rule, or show them all:
 				</p>
 				<p>
 					<label className="check">

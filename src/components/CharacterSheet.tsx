@@ -220,6 +220,12 @@ const SCHOOL_KEYS = ['natureDamage', 'shadowDamage', 'fireDamage', 'frostDamage'
 function statGroups(spec: SpecConfig): { title: string; keys: string[] }[] {
 	const weighted = (key: string) => (spec.weights.stats[key] ?? 0) > 0;
 	const melee = weighted('attackPower');
+	if (spec.role === 'healer') {
+		return [
+			{ title: 'Attributes', keys: ['stamina', 'intellect', 'spirit'] },
+			{ title: 'Healing', keys: ['healingPower', 'mp5', 'critRating', 'hasteRating'] },
+		];
+	}
 	return [
 		{ title: 'Attributes', keys: melee ? ['strength', 'agility', 'stamina', 'intellect', 'spirit'] : ['stamina', 'intellect', 'spirit'] },
 		melee ? { title: 'Melee', keys: MELEE_KEYS } : { title: 'Ratings', keys: ['critRating', 'hasteRating'] },
@@ -238,7 +244,8 @@ function StatsPanel({ stats, character, spec }: { stats: Stats; character: Chara
 
 	return (
 		<div className="stats">
-			<div className={`hit${hit.ratingOver > 0 ? ' hit-over' : ''}`}>
+			{/* A healer's spells cannot miss: no hit cap to show. */}
+			<div className={`hit${hit.ratingOver > 0 ? ' hit-over' : ''}`} hidden={spec.hitCapPercent <= 0}>
 				<div className="hit-head">
 					<span>Hit</span>
 					<span className="num">

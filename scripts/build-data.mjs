@@ -172,6 +172,7 @@ const SPEC_DIRS = {
 	enhancementShaman: 'shaman/enhancement',
 	mage: 'mage/dps',
 	dpsPriest: 'priest/dps',
+	healerPriest: 'priest/healer',
 	rogue: 'rogue/dps',
 	warlock: 'warlock/dps',
 	dpsWarrior: 'warrior/dps',

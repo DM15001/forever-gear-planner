@@ -25,3 +25,22 @@ They expect:
 | `make-guide.py` | Turns "slot|item name" lines into a guide file. |
 
 The simulator prints a lot to stdout; send it to a file and grep for the result lines.
+
+## Healing Priest
+
+WoWSims has the healer Priest as a gear planner without a healing rotation, so two scripts
+build what the planner needs. Both run with `vite-node`, because they share
+`src/lib/sim/healing.ts` (the healing scenarios) with the app.
+
+```
+# 1. The build files, from the WoWSims healer gear set, consumables, buffs and talents
+npx vite-node scripts/presets/healer-builds.ts -- <path to a wowsims/forever clone>
+# 2. The sim templates
+npm run build-data -- --pages <pages-deploy clone> --repo <wowsims/forever clone>
+# 3. The stat weights of every scenario, measured with the engine (about ten minutes)
+WASM=<lib.wasm, unzipped> DB=<forever/assets/database/db.json> WASM_EXEC=<Go's wasm_exec.js> \
+  npx vite-node scripts/presets/healer-weights.ts -- priest-holy priest-disc
+```
+
+Step 3 writes `healing.scenarios` and the default `weights` into `src/specs/priest-holy.json`
+and `priest-disc.json`. Run it again when the engine's Priest changes.

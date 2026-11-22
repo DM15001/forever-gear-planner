@@ -53,7 +53,9 @@ describe('rotation in words', () => {
 
 describe('rotation source', () => {
 	it('knows the WoWSims file of every build and keeps the original rule with each step', () => {
-		for (const spec of SPECS) expect(rotationSourceUrl(spec.id), spec.id).toMatch(/^https:\/\/github\.com\/wowsims\/forever\/blob\/master\/ui\/specs\//);
+		// A healer's rotation is the planner's own; WoWSims has no file for it.
+		for (const spec of SPECS.filter(s => s.role !== 'healer')) expect(rotationSourceUrl(spec.id), spec.id).toMatch(/^https:\/\/github\.com\/wowsims\/forever\/blob\/master\/ui\/specs\//);
+		for (const spec of SPECS.filter(s => s.role === 'healer')) expect(rotationSourceUrl(spec.id), spec.id).toBeUndefined();
 		const text = describeRotation(player('enhancement-shaman').rotation, setup);
 		expect(JSON.parse(text.priority[2].raw!)).toEqual(player('enhancement-shaman').rotation.priorityList[2].action);
 	});

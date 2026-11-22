@@ -21,7 +21,9 @@ Damage builds of seven classes, each one a preset configuration that WoWSims shi
 | Rogue | Combat SS, Combat BS, Combat Venom, Asn Muti, Subtlety Hemo, Hemo Seal Fate |
 | Druid | Balance, Feral Cat |
 
-Hunter, Paladin, healing and tank specs are not covered. Raid items are not in the data.
+Healing is covered for the Priest (Holy and Discipline), scored in healing per second instead
+of DPS, see below. Hunter, Paladin, the other healers and tank specs are not covered. Raid
+items are not in the data.
 
 ## What it does
 
@@ -63,6 +65,17 @@ the build, unchanged; the Sim setup tab shows it in words with the original rule
 step. A fold-out under each result shows damage per spell, crit and miss rates and uptimes.
 
 When two items are close in the quick score, trust the simulator.
+
+**Healers** have no DPS, and healing power alone says little: in a long fight mana
+regeneration can be worth more. So a healer is scored in healing per second over a whole
+fight, played out by the same simulator: when the mana is gone, the healing stops until some
+comes back. You pick the spells (tank healing, fast heals, group healing) and the fight (a
+45-second burst, a 5-minute fight with casting half the time, a 10-minute fight with casting
+70% of the time); each combination has its own stat weights, measured with the simulator.
+WoWSims has the Priest's heals, talents and mana rules in its engine but ships no healing
+rotation, so the short rotations are this planner's own (`src/lib/sim/healing.ts`). There is
+no incoming damage in the model, so overhealing is not counted, and Prayer of Mending is left
+out because the engine fails on it.
 
 **Drop chances** are Wowhead's Forever numbers where they exist, otherwise the WoW Classic
 rates from AtlasLoot, marked "Classic rate". Forever may have changed those. Bosses that do
