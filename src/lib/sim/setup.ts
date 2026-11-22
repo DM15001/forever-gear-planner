@@ -55,6 +55,7 @@ export type ConsumableKind = 'flask' | 'food' | 'elixir' | 'imbue' | 'weaponImbu
 export interface ConsumableOption {
 	id: number;
 	name: string;
+	icon?: string;
 	kind: ConsumableKind;
 	level?: number;
 	/** A potion that restores mana, rage or energy: what the rotation's "resource potion" step drinks. */
@@ -96,6 +97,8 @@ export interface SimSetupData {
 	/** Icon names by spell id. */
 	spellIcons?: Record<string, string>;
 	items: Record<string, string>;
+	/** Icon names by item id. */
+	itemIcons?: Record<string, string>;
 	consumables: ConsumableOption[];
 	/** The wowsims/forever commit the simulator copy was built from, and the day it was fetched. */
 	simVersion?: { commit?: string; fetched?: string };
@@ -198,6 +201,14 @@ export interface RotationLine {
 	children?: RotationLine[];
 }
 
+/** Text with ⟦s:id|name⟧ marks, cut into plain parts and named spells or items. */
+export function splitMarks(text: string): (string | { kind: 'spell' | 'item'; id: number; name: string })[] {
+	return text.split(/(\u27e6[si]:\d+\|[^\u27e7]*\u27e7)/).map(part => {
+		const mark = part.match(/^\u27e6([si]):(\d+)\|([^\u27e7]*)\u27e7$/);
+		return mark ? { kind: mark[1] === 's' ? ('spell' as const) : ('item' as const), id: Number(mark[2]), name: mark[3] } : part;
+	});
+}
+
 export interface RotationText {
 	prepull: RotationLine[];
 	priority: RotationLine[];
@@ -220,9 +231,17 @@ const words = (key: string) =>
 		.toLowerCase()
 		.replace(/\bgcd\b/g, 'GCD');
 
-export function describeRotation(rotation: Json | undefined, setup: Pick<SimSetupData, 'spells' | 'items'>): RotationText {
+/**
+ * With `marked`, every spell and item name in the text is wrapped as ⟦s:603|Bane of Doom⟧ or
+ * ⟦i:250937|Major Spellblasting Potion⟧, so a page can turn it into an icon with a link (see `splitMarks`).
+ */
+export function describeRotation(rotation: Json | undefined, setup: Pick<SimSetupData, 'spells' | 'items'>, marked = false): RotationText {
 	const idName = (id: Json | undefined): string => {
 		if (!id) return 'unknown';
+		if (marked && (id.spellId || id.itemId)) return `\u27e6${id.spellId ? 's' : 'i'}:${id.spellId ?? id.itemId}|${plainName(id)}\u27e7`;
+		return plainName(id);
+	};
+	const plainName = (id: Json): string => {
 		if (id.spellId) return `${setup.spells[id.spellId] ?? `Spell #${id.spellId}`}${id.rank ? ` (Rank ${id.rank})` : ''}`;
 		if (id.itemId) return setup.items[id.itemId] ?? `Item #${id.itemId}`;
 		if (id.otherId) return words(String(id.otherId).replace(/^OtherAction/, ''));

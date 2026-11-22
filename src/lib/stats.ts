@@ -185,6 +185,8 @@ export function sourceLine(source: ItemSource | undefined, data: GameData): stri
 	}
 }
 
+/** What Wowhead's tooltip script reads off an element: which tooltip to show, from the Forever data. */
+export const wowheadData = (kind: 'spell' | 'item', id: number) => `${kind}=${id}&domain=forever&dataEnv=16`;
 export const wowheadItemUrl = (id: number) => `https://www.wowhead.com/forever/item=${id}`;
 export const wowheadSpellUrl = (id: number) => `https://www.wowhead.com/forever/spell=${id}`;
 /** An enchanter's enchant is a spell on Wowhead; a kit, oil or arcanum is the item that applies it. */

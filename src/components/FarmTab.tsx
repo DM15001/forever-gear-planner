@@ -7,7 +7,7 @@ import type { GameData } from '../lib/gameData';
 import { guideMarks } from '../lib/guides';
 import { effortLine, effortParts, LOOT_DATE } from '../lib/loot';
 import type { SourceFilter } from '../lib/scoring';
-import { sourceLine, wowheadItemUrl } from '../lib/stats';
+import { sourceLine, wowheadItemUrl, wowheadData } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
 import { ItemIcon } from './ItemIcon';
 import { SuffixNote, suffixText } from './SuffixNote';
@@ -181,7 +181,7 @@ export function FarmTab({ spec, character, data, filter, onChange }: Props) {
 
 function ItemLink({ item }: { item: Item }) {
 	return (
-		<a className={`item-link quality-${item.quality}`} href={wowheadItemUrl(item.id)} target="_blank" rel="noreferrer">
+		<a className={`item-link quality-${item.quality}`} href={wowheadItemUrl(item.id)} data-wowhead={wowheadData('item', item.id)} target="_blank" rel="noreferrer">
 			{item.name}
 			{suffixText(item)}
 		</a>

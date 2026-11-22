@@ -20,6 +20,7 @@ import {
 	type RotationLine,
 	rotationSourceUrl,
 	serializeTalents,
+	splitMarks,
 	talentBlocked,
 	talentLocked,
 	type TalentTree,
@@ -27,7 +28,7 @@ import {
 	talentPointsAt,
 	talentPointsSpent,
 } from '../lib/sim/setup';
-import { wowheadItemUrl, wowheadSpellUrl } from '../lib/stats';
+import { wowheadItemUrl, wowheadSpellUrl, wowheadData } from '../lib/stats';
 import type { Character, SpecConfig } from '../lib/types';
 import { ICON_SOURCES } from './ItemIcon';
 
@@ -50,8 +51,15 @@ function Steps({ lines, showRaw, checks, names }: { lines: RotationLine[]; showR
 				const unusable = remarks.some(remark => /does not know/.test(remark));
 				return (
 					<li key={index} className={unusable ? 'rotation-unused' : undefined} title={line.raw ? `The WoWSims rule behind this step:\n${line.raw}` : undefined}>
-						<span className="rotation-do">{line.text}</span>
-						{line.when && <span className="rotation-when"> when {line.when}</span>}
+						<span className="rotation-do">
+							<Rich text={line.text} names={names} />
+						</span>
+						{line.when && (
+							<span className="rotation-when">
+								{' '}
+								when <Rich text={line.when} names={names} />
+							</span>
+						)}
 						{remarks.map(remark => (
 							<span key={remark} className="rotation-remark">
 								{unusable && /does not know/.test(remark) ? 'Skipped for you: ' : 'Note: '}
@@ -59,7 +67,7 @@ function Steps({ lines, showRaw, checks, names }: { lines: RotationLine[]; showR
 							</span>
 						))}
 						{showRaw && line.raw && <pre className="rotation-raw">{line.raw}</pre>}
-						{line.children && <Steps lines={line.children} showRaw={false} />}
+						{line.children && <Steps lines={line.children} showRaw={false} names={names} />}
 					</li>
 				);
 			})}
@@ -85,7 +93,7 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 
 	const ready = loaded?.specId === spec.id ? loaded : null;
 	const player = ready?.template.raid.parties[0].players[0];
-	const rotation = useMemo(() => (ready && player ? describeRotation(player.rotation, ready.setup) : null), [ready, player]);
+	const rotation = useMemo(() => (ready && player ? describeRotation(player.rotation, ready.setup, true) : null), [ready, player]);
 	// The talent string is typed into a field of its own, so a half-typed string never reaches the sim.
 	const [typed, setTyped] = useState<string | null>(null);
 	const [showRaw, setShowRaw] = useState(false);
@@ -335,6 +343,7 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 										</option>
 									))}
 								</select>
+								{value !== 0 && <Named kind="item" id={value} name={elixirName(value)} names={setup} />}
 							</label>
 						);
 					})}
@@ -345,8 +354,9 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 						{elixirs.map(id => (
 							<li key={id}>
 								<label className="check">
-									<input type="checkbox" checked onChange={() => setPick({ elixirIds: elixirs.filter(e => e !== id) })} /> {elixirName(id)}
+									<input type="checkbox" checked aria-label={`Remove ${elixirName(id)}`} onChange={() => setPick({ elixirIds: elixirs.filter(e => e !== id) })} />
 								</label>
+								<Named kind="item" id={id} name={elixirName(id)} names={setup} />
 							</li>
 						))}
 						{elixirs.length === 0 && <li className="hint">None</li>}
@@ -371,8 +381,9 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 						{extras.map(id => (
 							<li key={id}>
 								<label className="check">
-									<input type="checkbox" checked onChange={() => setPick({ extraIds: extras.filter(e => e !== id) })} /> {elixirName(id)}
+									<input type="checkbox" checked aria-label={`Remove ${elixirName(id)}`} onChange={() => setPick({ extraIds: extras.filter(e => e !== id) })} />
 								</label>
+								<Named kind="item" id={id} name={elixirName(id)} names={setup} />
 							</li>
 						))}
 						{extras.length === 0 && <li className="hint">None</li>}
@@ -499,7 +510,9 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 							{rotation.variables.map(variable => (
 								<div key={variable.name}>
 									<dt>"{variable.name}"</dt>
-									<dd>{variable.value}</dd>
+									<dd>
+										<Rich text={variable.value} names={setup} />
+									</dd>
 								</div>
 							))}
 						</dl>
@@ -566,6 +579,7 @@ function TalentTreeView({ tree, points, pointsLeft, onStep, onReset }: { tree: T
 							<a
 								role="button"
 								href={talent.spellId ? wowheadSpellUrl(talent.spellId) : '#'}
+								data-wowhead={talent.spellId ? wowheadData('spell', talent.spellId) : undefined}
 								className={`talent-button ${state}`}
 								aria-label={`${talent.name}, ${value} of ${talent.max} points${blocked && value < talent.max ? `. ${blocked}` : ''}`}
 								aria-disabled={Boolean(blocked)}
@@ -603,7 +617,7 @@ function TalentTreeView({ tree, points, pointsLeft, onStep, onReset }: { tree: T
 				{shown ? (
 					<>
 						{shown.spellId ? (
-							<a href={wowheadSpellUrl(shown.spellId)} target="_blank" rel="noreferrer">
+							<a href={wowheadSpellUrl(shown.spellId)} data-wowhead={wowheadData('spell', shown.spellId)} target="_blank" rel="noreferrer">
 								{shown.name}
 							</a>
 						) : (
@@ -658,6 +672,7 @@ function BuffIcon({ field, value, onChange, onPoint }: { field: BuffField; value
 			{...shared}
 			role="button"
 			href={href}
+			data-wowhead={field.spellId ? wowheadData('spell', field.spellId) : field.itemId ? wowheadData('item', field.itemId) : undefined}
 			onClick={event => {
 				event.preventDefault();
 				if (event.shiftKey) down();
@@ -670,4 +685,21 @@ function BuffIcon({ field, value, onChange, onPoint }: { field: BuffField; value
 			{body}
 		</button>
 	);
+}
+
+/** A spell or item by name with its icon, linked to Wowhead so its tooltip shows on hover. */
+function Named({ kind, id, name, names }: { kind: 'spell' | 'item'; id: number; name: string; names?: SimSetupData }) {
+	const [attempt, setAttempt] = useState(0);
+	const icon = kind === 'spell' ? names?.spellIcons?.[id] : (names?.itemIcons?.[id] ?? names?.consumables.find(c => c.id === id)?.icon);
+	return (
+		<a className="named" href={kind === 'spell' ? wowheadSpellUrl(id) : wowheadItemUrl(id)} data-wowhead={wowheadData(kind, id)} target="_blank" rel="noreferrer">
+			{icon && attempt < ICON_SOURCES.length && <img src={ICON_SOURCES[attempt](icon)} alt="" loading="lazy" onError={() => setAttempt(attempt + 1)} />}
+			{name}
+		</a>
+	);
+}
+
+/** Rotation text with its spells and items as icons with links. */
+function Rich({ text, names }: { text: string; names?: SimSetupData }) {
+	return <>{splitMarks(text).map((part, index) => (typeof part === 'string' ? part : <Named key={index} kind={part.kind} id={part.id} name={part.name} names={names} />))}</>;
 }

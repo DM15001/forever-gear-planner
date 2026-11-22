@@ -528,6 +528,8 @@ if (unnamedSpells.length) {
 // Every buff and debuff the sim knows, from its proto definition, with the labels and steps of the
 // sim's own settings page.
 const itemIconById = new Map([...(db.itemIcons ?? []), ...db.items].filter(item => item.icon).map(item => [item.id, item.icon]));
+const spellByName = new Map();
+for (const spell of db.spellIcons ?? []) if (spell.icon && !spellByName.has(spell.name.toLowerCase())) spellByName.set(spell.name.toLowerCase(), spell);
 const buffsProto = await readRepoText('proto/buffs.proto');
 const buffInputs = await readRepoText('ui/features/settings/model/buffs_debuffs_auto_gen.ts');
 const buffLabels = new Map();
@@ -553,7 +555,10 @@ const buffFields = message => {
 		const key = camel(name);
 		const known = buffLabels.get(key);
 		const label = known?.label ?? titled(key);
-		const shown = compact({ spellId: known?.spellId, itemId: known?.itemId, icon: known?.spellId ? talentIcons.get(known.spellId) : known?.itemId ? itemIconById.get(known.itemId) : undefined });
+		// A buff the sim's page has no icon for is looked up by its name among the spells.
+		const byName = known?.spellId || known?.itemId ? undefined : spellByName.get(label.toLowerCase());
+		const spellId = known?.spellId ?? byName?.id;
+		const shown = compact({ spellId, itemId: known?.itemId, icon: spellId ? talentIcons.get(spellId) : known?.itemId ? itemIconById.get(known.itemId) : undefined });
 		if (type === 'bool') return { key, label, ...shown };
 		if (type === 'TristateEffect') return { key, label, steps: ['On', 'Improved'], ...shown };
 		const steps = HAND_KEPT_STEPS[key] ?? (known?.ranks.length ? known.ranks.map(rank => rank.replace(`${label} `, '')) : known?.numStates ? Array.from({ length: known.numStates - 1 }, (_, i) => String(i + 1)) : null);
@@ -577,9 +582,10 @@ const simSetup = {
 	// Icon names for the spells a result or a buff can show.
 	spellIcons: Object.fromEntries((db.spellIcons ?? []).filter(spell => spell.icon).map(spell => [spell.id, spell.icon])),
 	items: Object.fromEntries(Object.entries(itemNames).filter(([, name]) => name)),
+	itemIcons: Object.fromEntries(Object.keys(itemNames).filter(id => itemIconById.get(Number(id))).map(id => [id, itemIconById.get(Number(id))])),
 	consumables: (db.consumables ?? [])
 		.filter(c => CONSUMABLE_KINDS[c.type])
-		.map(c => compact({ id: c.id, name: c.name, kind: CONSUMABLE_KINDS[c.type], level: c.lvl, resource: c.potionClasses?.includes(1) || undefined, group: c.groupName, groupKey: c.groupKey })),
+		.map(c => compact({ id: c.id, name: c.name, icon: itemIconById.get(c.id), kind: CONSUMABLE_KINDS[c.type], level: c.lvl, resource: c.potionClasses?.includes(1) || undefined, group: c.groupName, groupKey: c.groupKey })),
 };
 if (Object.keys(talentTrees).length) await writeFile(join(SIM_DIR, 'setup.json'), JSON.stringify(simSetup));
 for (const spec of specs) if (!simTemplates.has(spec.id)) console.warn(`Sim template for ${spec.id} not written: its build could not be read. The existing file stays.`);

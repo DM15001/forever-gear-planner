@@ -9,7 +9,7 @@ import { buildPlan, fallbacks, gotEnchant, gotItem, type PlanStep, planSteps } f
 import { EMPTY_SLOT, EVERYTHING, isUnmeasured, plannedGear, scoreSet, slotInUse, type SourceFilter, usableSources, withItem } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
 import { REFINE_DEPTH, refinePlan } from '../lib/sim/live';
-import { wowheadItemUrl } from '../lib/stats';
+import { wowheadItemUrl, wowheadData } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
 import { ContentPicker } from './ContentPicker';
 import { ItemIcon } from './ItemIcon';
@@ -262,7 +262,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 
 function ItemLink({ item }: { item: Item }) {
 	return (
-		<a className={`item-link quality-${item.quality}`} href={wowheadItemUrl(item.id)} target="_blank" rel="noreferrer">
+		<a className={`item-link quality-${item.quality}`} href={wowheadItemUrl(item.id)} data-wowhead={wowheadData('item', item.id)} target="_blank" rel="noreferrer">
 			{item.name}
 			{suffixText(item)}
 		</a>

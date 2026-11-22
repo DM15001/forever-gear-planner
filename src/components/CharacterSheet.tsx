@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { GEAR_SLOTS, PROFESSIONS, SHEET_LAYOUT } from '../lib/constants';
 import { applicableEnchants } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
-import { gearStats, hitSummary, pieceStats, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
+import { gearStats, hitSummary, pieceStats, STAT_LABELS, statLine, wowheadItemUrl, wowheadData } from '../lib/stats';
 import type { Character, GearPiece, SpecConfig, Stats } from '../lib/types';
 import { EVERYTHING, withItem } from '../lib/scoring';
 import { ItemIcon } from './ItemIcon';
@@ -311,7 +311,7 @@ function GearSlot({ index, mirrored, piece, data, onChange, onPick }: SlotProps)
 					)}
 				</span>
 				{piece ? (
-					<a className={`slot-item quality-${quality}`} href={wowheadItemUrl(piece.id)} target="_blank" rel="noreferrer">
+					<a className={`slot-item quality-${quality}`} href={wowheadItemUrl(piece.id)} data-wowhead={wowheadData('item', piece.id)} target="_blank" rel="noreferrer">
 						{name}
 						{suffixName ? ` ${suffixName}` : ''}
 					</a>

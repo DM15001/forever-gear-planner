@@ -21,7 +21,7 @@ export class SimClient {
 
 	private load(specId: string): Promise<SimIndex> {
 		const json = async (name: string) => {
-			const response = await fetch(`${SIM_URL}${name}`);
+			const response = await fetch(`${SIM_URL}${name}`, { cache: 'no-cache' });
 			if (!response.ok) throw new Error(`Could not load ${name} (HTTP ${response.status}).`);
 			return response.json();
 		};
@@ -57,7 +57,7 @@ export class SimClient {
 
 	/** Small files only, without starting the simulator: what the Sim setup tab shows. */
 	private async small<T>(name: string): Promise<T> {
-		const response = await fetch(`${SIM_URL}${name}`);
+		const response = await fetch(`${SIM_URL}${name}`, { cache: 'no-cache' });
 		if (!response.ok) throw new Error(`Could not load ${name} (HTTP ${response.status}).`);
 		return response.json();
 	}

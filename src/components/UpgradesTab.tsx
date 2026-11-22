@@ -9,7 +9,7 @@ import { type Guide, type GuideMark, guideMarks, guidePlan, markLabel, swapDelta
 import { EVERYTHING, type Candidate, clash, type Gear, pairedSlot, plannedGear, scoreSet, slotCandidates, slotInUse, type SourceFilter, suggestPlan, usableSources, withItem } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
 import { measureWeights, weightRuns } from '../lib/sim/live';
-import { conditionalLines, matchesFight, pieceStats, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
+import { conditionalLines, matchesFight, pieceStats, STAT_LABELS, statLine, wowheadItemUrl, wowheadData } from '../lib/stats';
 import { ContentPicker } from './ContentPicker';
 import { ItemIcon } from './ItemIcon';
 import { SuffixNote, suffixText } from './SuffixNote';
@@ -533,7 +533,7 @@ function ItemName({ item, icon = false, worn = false }: { item: Item; icon?: boo
 	return (
 		<>
 			{icon && <ItemIcon icon={item.icon} quality={item.quality} inline />}
-			<a className={`quality-${item.quality}`} href={wowheadItemUrl(item.id)} target="_blank" rel="noreferrer">
+			<a className={`quality-${item.quality}`} href={wowheadItemUrl(item.id)} data-wowhead={wowheadData('item', item.id)} target="_blank" rel="noreferrer">
 				{item.name}
 				{!worn && suffixText(item)}
 			</a>

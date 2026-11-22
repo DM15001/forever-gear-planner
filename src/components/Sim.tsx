@@ -4,7 +4,7 @@ import type { Gear } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
 import { type SimActionId, simKey, type SimOutcome } from '../lib/sim/request';
 import type { SimSetupData } from '../lib/sim/setup';
-import { wowheadSpellUrl } from '../lib/stats';
+import { wowheadSpellUrl, wowheadData } from '../lib/stats';
 import type { Character } from '../lib/types';
 import { ICON_SOURCES } from './ItemIcon';
 
@@ -236,7 +236,7 @@ function Breakdown({ title, outcome, names }: { title: string; outcome: SimOutco
 								<th scope="row">
 									<ActionIcon icon={row.id.spellId ? names?.spellIcons?.[row.id.spellId] : undefined} />
 									{row.id.spellId ? (
-										<a href={wowheadSpellUrl(row.id.spellId)} target="_blank" rel="noreferrer">
+										<a href={wowheadSpellUrl(row.id.spellId)} data-wowhead={wowheadData('spell', row.id.spellId)} target="_blank" rel="noreferrer">
 											{nameOf(row.id)}
 										</a>
 									) : (

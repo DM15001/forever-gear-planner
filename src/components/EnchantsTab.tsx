@@ -5,7 +5,7 @@ import { formatDps } from '../lib/format';
 import { bestEnchants, enchantOverview, professionValues } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
 import { type Gear, plannedGear, scoreSet, type SourceFilter } from '../lib/scoring';
-import { statLine, wowheadEnchantUrl, wowheadItemUrl } from '../lib/stats';
+import { statLine, wowheadEnchantUrl, wowheadItemUrl, wowheadData } from '../lib/stats';
 import type { Character, Enchant, SpecConfig } from '../lib/types';
 import { ItemIcon } from './ItemIcon';
 import { SourceSymbol } from './Ornaments';
@@ -80,7 +80,7 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 								<h3>{GEAR_SLOTS[slot.slotIndex].label}</h3>
 								<span className="enchant-item">
 									<ItemIcon icon={slot.item.icon} quality={slot.item.quality} small />
-									<a className={`item-link quality-${slot.item.quality}`} href={wowheadItemUrl(slot.item.id)} target="_blank" rel="noreferrer">
+									<a className={`item-link quality-${slot.item.quality}`} href={wowheadItemUrl(slot.item.id)} data-wowhead={wowheadData('item', slot.item.id)} target="_blank" rel="noreferrer">
 										{slot.item.name}
 									</a>
 								</span>
@@ -200,7 +200,7 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 										<span className="num delta-up">{formatDelta(drop.delta)}</span>
 										<ItemIcon icon={drop.item.icon} quality={drop.item.quality} small />
 										<span>
-											<a className={`item-link quality-${drop.item.quality}`} href={wowheadItemUrl(drop.item.id)} target="_blank" rel="noreferrer">
+											<a className={`item-link quality-${drop.item.quality}`} href={wowheadItemUrl(drop.item.id)} data-wowhead={wowheadData('item', drop.item.id)} target="_blank" rel="noreferrer">
 												{drop.item.name}
 											</a>
 											<span className="slot-source"> {GEAR_SLOTS[drop.slotIndex].label}</span>
