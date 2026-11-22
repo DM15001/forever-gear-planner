@@ -150,7 +150,7 @@ export function planShoppingList(options: CandidateOptions): Map<PlanGroupKind, 
 	const { character, data, spec } = options;
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
 	const base = scoreSet(character.gear, character, data, spec).score;
-	const planned = plannedGear(character);
+	const planned = plannedGear(character, data);
 	const groups = new Map<PlanGroupKind, PlanEntry[]>();
 
 	for (const [slotKey, itemId] of Object.entries(character.plan ?? {})) {

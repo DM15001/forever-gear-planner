@@ -46,12 +46,29 @@ export async function loadGameData(spec: SpecConfig = DEFAULT_SPEC): Promise<Gam
 	const itemById = new Map((items.default as unknown as Item[]).filter(item => usableBy(item, spec)).map(item => [item.id, { ...item, sources: item.sources?.map(source => ({ ...source })) }]));
 	const zoneById = byId<Zone>(zones.default);
 	const npcById = byId<Npc>(npcs.default);
+	// An item with a random suffix is planned with the suffix that is worth most to this spec.
+	const suffixById = byId<RandomSuffix>(suffixes.default);
+	for (const item of itemById.values()) {
+		if (!item.randomSuffixOptions?.length || !item.randPropPoints) continue;
+		let best: { id: number; name: string; worth: number } | null = null;
+		for (const id of item.randomSuffixOptions) {
+			const suffix = suffixById.get(id);
+			if (!suffix) continue;
+			let worth = 0;
+			for (const [key, share] of Object.entries(suffix.stats)) worth += Math.floor((item.randPropPoints * share) / 10000) * (spec.weights.stats[key] ?? 0);
+			if (!best || worth > best.worth) best = { id, name: suffix.name, worth };
+		}
+		if (best && best.worth > 0) {
+			item.bestSuffix = best.id;
+			item.bestSuffixName = best.name;
+		}
+	}
 	applyLoot(itemById, npcById, zoneById);
 	tagDungeons([...itemById.values(), ...specEnchants], zoneById, npcById);
 	return {
 		itemById,
 		enchantsBySlot,
-		suffixById: byId<RandomSuffix>(suffixes.default),
+		suffixById,
 		zoneById,
 		npcById,
 		guides: buildGuides((simSets.default as unknown as SimSet[]).filter(set => set.spec === spec.id), spec.id),

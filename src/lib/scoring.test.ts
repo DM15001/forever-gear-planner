@@ -5,7 +5,7 @@ import simExport from './__fixtures__/sim-export.json';
 import { GEAR_SLOTS } from './constants';
 import { loadGameData } from './gameData';
 import { importCharacter } from './importCharacter';
-import { DEFAULT_FILTER, plannedGear, scoreSet, slotCandidates, suggestPlan } from './scoring';
+import { DEFAULT_FILTER, plannedGear, scoreSet, slotCandidates, type SourceFilter, suggestPlan } from './scoring';
 import { vendorReputation } from './stats';
 import type { Character, SpecConfig } from './types';
 
@@ -204,5 +204,24 @@ describe('plannedGear', () => {
 	it('keeps the enchant of the slot when an item is swapped in', () => {
 		const withEnchant: Character = { ...dwarf, gear: dwarf.gear.map((p, i) => (i === HEAD && p ? { ...p, enchant: 2543 } : p)), plan: { [HEAD]: 13404 } };
 		expect(plannedGear(withEnchant)[HEAD]).toEqual({ id: 13404, enchant: 2543 });
+	});
+});
+
+describe('random suffix items', () => {
+	it('stay out unless switched on, and count with the suffix that suits the spec best', async () => {
+		const { SPECS } = await import('./specs');
+		const warlock = SPECS.find(s => s.id === 'warlock-affliction')!;
+		const lockData = await loadGameData(warlock);
+		const TEARFALL_BRACERS = 13409;
+		const bracers = lockData.itemById.get(TEARFALL_BRACERS)!;
+		expect(bracers.bestSuffixName).toBe('of Shadow Wrath');
+		const lock: Character = { specId: warlock.id, race: 'RaceHuman', level: 60, talents: '', professions: [], gear: GEAR_SLOTS.map(() => null) };
+		const wrist = GEAR_SLOTS.findIndex(s => s.kind === 'wrist');
+		const ids = (filter: SourceFilter) => slotCandidates(wrist, lock.gear, { character: lock, data: lockData, spec: warlock, filter }).map(c => c.item.id);
+		expect(ids(DEFAULT_FILTER)).not.toContain(TEARFALL_BRACERS);
+		expect(ids({ ...DEFAULT_FILTER, randomSuffix: true })).toContain(TEARFALL_BRACERS);
+		const planned = plannedGear({ ...lock, plan: { [wrist]: TEARFALL_BRACERS } }, lockData);
+		expect(planned[wrist]).toEqual({ id: TEARFALL_BRACERS, randomSuffix: bracers.bestSuffix });
+		expect(scoreSet(planned, lock, lockData, warlock).stats.shadowDamage).toBeGreaterThan(10);
 	});
 });

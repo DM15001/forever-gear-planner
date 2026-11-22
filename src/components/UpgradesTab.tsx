@@ -4,9 +4,10 @@ import { GEAR_SLOTS } from '../lib/constants';
 import type { GameData } from '../lib/gameData';
 import { type Guide, type GuideMark, guideMarks, guidePlan, markLabel, swapDelta } from '../lib/guides';
 import { type Candidate, type Gear, plannedGear, scoreSet, slotCandidates, slotInUse, type SourceFilter, suggestPlan, usableSources } from '../lib/scoring';
-import { STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
+import { pieceStats, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
 import { ContentPicker } from './ContentPicker';
 import { ItemIcon } from './ItemIcon';
+import { SuffixNote, suffixText } from './SuffixNote';
 import { SourceLabel, SourceList } from './SourceLabel';
 import { SimDelta, SimSummary } from './Sim';
 import type { Character, Item, SpecConfig } from '../lib/types';
@@ -32,7 +33,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 	const marks = useMemo(() => guideMarks(data.guides), [data]);
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
 
-	const gear = useMemo(() => plannedGear(character), [character]);
+	const gear = useMemo(() => plannedGear(character, data), [character, data]);
 	const equipped = useMemo(() => scoreSet(character.gear, character, data, spec), [character, data, spec]);
 	const planned = useMemo(() => scoreSet(gear, character, data, spec), [gear, character, data, spec]);
 	const slots = useMemo(() => {
@@ -140,14 +141,14 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 							<p className="upgrade-current">
 								{plannedItem ? (
 									<>
-										<ItemName item={plannedItem} icon /> planned ({plannedSource(plannedItem)}), replacing {equippedItem ? <ItemName item={equippedItem} icon /> : 'an empty slot'}{' '}
+										<ItemName item={plannedItem} icon /> planned ({plannedSource(plannedItem)}), replacing {equippedItem ? <ItemName item={equippedItem} icon worn /> : 'an empty slot'}{' '}
 										<button className="link" onClick={() => unplan(index)}>
 											Undo
 										</button>
 									</>
 								) : equippedItem ? (
 									<>
-										<ItemName item={equippedItem} icon /> equipped
+										<ItemName item={equippedItem} icon worn /> equipped
 									</>
 								) : (
 									'Empty'
@@ -186,13 +187,15 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 
 const formatDelta = (value: number) => `${value >= 0 ? '+' : '−'}${Math.abs(Math.round(value)).toLocaleString('en')}`;
 
-function ItemName({ item, icon = false }: { item: Item; icon?: boolean }) {
+function ItemName({ item, icon = false, worn = false }: { item: Item; icon?: boolean; worn?: boolean }) {
 	return (
 		<>
 			{icon && <ItemIcon icon={item.icon} quality={item.quality} inline />}
 			<a className={`quality-${item.quality}`} href={wowheadItemUrl(item.id)} target="_blank" rel="noreferrer">
 				{item.name}
+				{!worn && suffixText(item)}
 			</a>
+			{!worn && <SuffixNote item={item} />}
 		</>
 	);
 }
@@ -211,7 +214,7 @@ interface RowProps {
 function CandidateRow({ candidate, marks, base, variant, data, faction, filter, onPlan }: RowProps) {
 	const { item, delta, incomplete } = candidate;
 	const sources = usableSources(item, faction, filter);
-	const stats = statLine(item.stats ?? {});
+	const stats = statLine(pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data));
 	return (
 		<li className="candidate">
 			<span className={`candidate-delta num ${delta > 0 ? 'delta-up' : 'delta-down'}`}>{formatDelta(delta)}</span>
@@ -253,7 +256,7 @@ function badgeReason(item: Item): string {
 	const reasons: string[] = [];
 	if (item.effects?.length) reasons.push('has a proc or on-use effect');
 	if (item.setId) reasons.push(`is part of the set ${item.setName}`);
-	if (item.randomSuffixOptions?.length) reasons.push('has a random suffix that is not counted');
+	if (item.randomSuffixOptions?.length && !item.bestSuffix) reasons.push('has a random suffix that is not counted');
 	return `Score incomplete: ${reasons.join(', ')}.`;
 }
 

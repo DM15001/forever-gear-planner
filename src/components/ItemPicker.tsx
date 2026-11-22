@@ -7,6 +7,7 @@ import { EVERYTHING, type Gear, slotCandidates, type SourceFilter, usableSources
 import { pieceStats, statLine } from '../lib/stats';
 import type { Character, SpecConfig } from '../lib/types';
 import { ItemIcon } from './ItemIcon';
+import { suffixText } from './SuffixNote';
 import { SourceLabel } from './SourceLabel';
 
 interface Props {
@@ -83,14 +84,17 @@ export function ItemPicker({ slotIndex, gear, character, data, spec, filter, sta
 				)}
 				{shown.map(({ item, delta, incomplete }) => {
 					const source = usableSources(item, faction, all ? EVERYTHING : filter, character.professions)[0] ?? usableSources(item, faction, EVERYTHING)[0];
-					const stats = statLine(pieceStats(item, { id: item.id }, data));
+					const stats = statLine(pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data));
 					const effort = effortLine(source);
 					return (
 						<li key={item.id}>
 							<button className="picker-row" onClick={() => onPick(item.id)}>
 								<ItemIcon icon={item.icon} quality={item.quality} small />
 								<span className="picker-main">
-									<span className={`picker-name quality-${item.quality}`}>{item.name}</span>
+									<span className={`picker-name quality-${item.quality}`}>
+										{item.name}
+										{suffixText(item)}
+									</span>
 									<span className="slot-source">
 										{item.weapon?.dps ? `${item.weapon.dps.toFixed(1)} DPS${stats ? ', ' : ''}` : ''}
 										{stats || (item.weapon?.dps ? '' : 'No stats')}

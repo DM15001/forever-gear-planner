@@ -24,7 +24,7 @@ const CRAFTS_SHOWN = 6;
 const formatDelta = (value: number) => `+${Math.round(value).toLocaleString('en')}`;
 
 export function EnchantsTab({ spec, character, data, filter, onChange }: Props) {
-	const gear = useMemo(() => plannedGear(character), [character]);
+	const gear = useMemo(() => plannedGear(character, data), [character, data]);
 	const overview = useMemo(() => enchantOverview(gear, character, data, spec), [gear, character, data, spec]);
 	const professions = useMemo(() => professionValues({ character, data, spec, filter }), [character, data, spec, filter]);
 	const hasPlan = Object.keys(character.plan ?? {}).length > 0;

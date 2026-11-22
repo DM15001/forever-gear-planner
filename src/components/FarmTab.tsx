@@ -9,6 +9,7 @@ import type { SourceFilter } from '../lib/scoring';
 import { sourceLine, wowheadItemUrl } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
 import { ItemIcon } from './ItemIcon';
+import { SuffixNote, suffixText } from './SuffixNote';
 import { SourceSymbol } from './Ornaments';
 
 interface Props {
@@ -128,6 +129,7 @@ function ItemLink({ item }: { item: Item }) {
 	return (
 		<a className={`item-link quality-${item.quality}`} href={wowheadItemUrl(item.id)} target="_blank" rel="noreferrer">
 			{item.name}
+			{suffixText(item)}
 		</a>
 	);
 }
@@ -138,6 +140,7 @@ function ShoppingRow({ entry, data, guideSource }: { entry: PlanEntry; data: Gam
 			<ItemIcon icon={entry.item.icon} quality={entry.item.quality} small />
 			<span className="shopping-main">
 				<ItemLink item={entry.item} />
+				<SuffixNote item={entry.item} />
 				<span className="slot-source">
 					{GEAR_SLOTS[entry.slotIndex].label}, {guideSource ? `${guideSource.source} (per ${guideSource.guide.label})` : sourceLine(entry.source, data)}
 					{entry.source?.kind === 'crafted' && (entry.craftable ? ' (your profession)' : ' (not your profession)')}

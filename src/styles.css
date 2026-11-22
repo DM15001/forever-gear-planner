@@ -1727,3 +1727,8 @@ a.enchant-name {
 	vertical-align: -0.35em;
 	margin-right: 0.3rem;
 }
+
+.badge-roll {
+	border-color: var(--ember);
+	color: var(--ember);
+}

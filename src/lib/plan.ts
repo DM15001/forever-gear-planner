@@ -10,7 +10,7 @@ export function buildPlan(options: CandidateOptions): Pick<Character, 'plan' | '
 	const { character, data, spec } = options;
 	const blank: Character = { ...character, plan: {}, planEnchants: {} };
 	const plan = suggestPlan({ ...options, character: blank });
-	const planEnchants = bestEnchants(plannedGear({ ...blank, plan }), blank, data, spec);
+	const planEnchants = bestEnchants(plannedGear({ ...blank, plan }, data), blank, data, spec);
 	return { plan, planEnchants };
 }
 
@@ -18,7 +18,7 @@ export function buildPlan(options: CandidateOptions): Pick<Character, 'plan' | '
 export function fallbacks(slotIndex: number, options: CandidateOptions, count = 2): Candidate[] {
 	const equippedId = options.character.gear[slotIndex]?.id;
 	const equippedScoreGain = (candidate: Candidate) => candidate.item.id !== equippedId;
-	return slotCandidates(slotIndex, plannedGear(options.character), options).filter(equippedScoreGain).slice(0, count);
+	return slotCandidates(slotIndex, plannedGear(options.character, options.data), options).filter(equippedScoreGain).slice(0, count);
 }
 
 export type StepKind = 'dungeon' | 'craft' | 'reputation' | 'vendor' | 'quest' | 'world' | 'pvp' | 'unknown' | 'enchant';
@@ -102,7 +102,7 @@ export function planSteps(options: CandidateOptions): PlanStep[] {
 		add(kind, title, { slotIndex, item, detail: isTier05 ? (spec.tier05Set?.name ?? '') : sourceLine(source, data), effort: isTier05 ? undefined : effortLine(source), gain: scoreSet(swapped, character, data, spec).score - equipped, ready: true });
 	}
 
-	const planned = plannedGear(character);
+	const planned = plannedGear(character, data);
 	for (const [slotKey, effectId] of Object.entries(character.planEnchants ?? {})) {
 		const slotIndex = Number(slotKey);
 		const piece = planned[slotIndex];

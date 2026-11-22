@@ -56,6 +56,9 @@ export interface Item {
 	setName?: string;
 	effects?: { name?: string; kind: string }[];
 	randomSuffixOptions?: number[];
+	/** Set when the data is loaded: the random suffix that is worth most to the spec, and its name ("of Shadow Wrath"). */
+	bestSuffix?: number;
+	bestSuffixName?: string;
 	randPropPoints?: number;
 	sources?: ItemSource[];
 }

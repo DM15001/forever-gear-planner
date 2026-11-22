@@ -10,6 +10,7 @@ import { wowheadItemUrl } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
 import { ContentPicker } from './ContentPicker';
 import { ItemIcon } from './ItemIcon';
+import { SuffixNote, suffixText } from './SuffixNote';
 import { SourceLabel } from './SourceLabel';
 import { ItemPicker } from './ItemPicker';
 import { SimSummary } from './Sim';
@@ -40,7 +41,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 		built.current = true;
 	});
 
-	const gear = useMemo(() => plannedGear(character), [character]);
+	const gear = useMemo(() => plannedGear(character, data), [character, data]);
 	// The slot whose planned item is being swapped by hand, if any.
 	const [picking, setPicking] = useState<number | null>(null);
 	const pickItem = (index: number, itemId: number | null) => {
@@ -151,6 +152,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 								{goalItem ? (
 									<span className="plan-goal">
 										<ItemLink item={goalItem} />
+										{isChange && <SuffixNote item={goalItem} />}
 										{marks.get(goalItem.id)?.map(mark => (
 											<span key={mark.guide.id} className="badge badge-guide">
 												{markLabel(mark)}
@@ -216,6 +218,7 @@ function ItemLink({ item }: { item: Item }) {
 	return (
 		<a className={`item-link quality-${item.quality}`} href={wowheadItemUrl(item.id)} target="_blank" rel="noreferrer">
 			{item.name}
+			{suffixText(item)}
 		</a>
 	);
 }

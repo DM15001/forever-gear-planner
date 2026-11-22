@@ -20,14 +20,15 @@ const PAIRED: Record<number, number> = { 10: 11, 11: 10, 12: 13, 13: 12 };
 /** In a plan: the slot is to be left empty (a two-hander takes the place of main hand and off hand). */
 export const EMPTY_SLOT = 0;
 
-export function plannedGear(character: Character): Gear {
+export function plannedGear(character: Character, data?: Pick<GameData, 'itemById'>): Gear {
 	return character.gear.map((piece, index) => {
 		const plannedId = character.plan?.[index];
 		if (plannedId === EMPTY_SLOT) return null;
 		const id = plannedId ?? piece?.id;
 		if (!id) return null;
 		const enchant = character.planEnchants?.[index] ?? piece?.enchant;
-		const randomSuffix = id === piece?.id ? piece?.randomSuffix : undefined;
+		// The equipped item keeps the suffix it has; a planned one counts with the suffix that suits the spec best.
+		const randomSuffix = id === piece?.id ? piece?.randomSuffix : data?.itemById.get(id)?.bestSuffix;
 		return { id, ...(enchant ? { enchant } : {}), ...(randomSuffix ? { randomSuffix } : {}) };
 	});
 }
@@ -98,6 +99,8 @@ export interface SourceFilter {
 	pvp: boolean;
 	unknown: boolean; // items the data has no source for
 	tier05: boolean; // the class's Tier 0.5 set (spec.tier05Set)
+	/** Items that drop with a random suffix ("of Shadow Wrath"), counted with the suffix that suits the spec best. */
+	randomSuffix: boolean;
 	ownCraftsOnly: boolean; // crafted items only from the character's own professions
 	/** Dungeons and wings to skip, by `dungeonKey`. Dungeon drops are on unless listed here. */
 	excludedDungeons: string[];
@@ -115,12 +118,13 @@ export const DEFAULT_FILTER: SourceFilter = {
 	pvp: false,
 	unknown: true,
 	tier05: true,
+	randomSuffix: false,
 	ownCraftsOnly: false,
 	excludedDungeons: [],
 	excludedReputations: [],
 };
 
-export type SourceKindKey = Exclude<keyof SourceFilter, 'tier05' | 'ownCraftsOnly' | 'excludedDungeons' | 'excludedReputations'>;
+export type SourceKindKey = Exclude<keyof SourceFilter, 'tier05' | 'randomSuffix' | 'ownCraftsOnly' | 'excludedDungeons' | 'excludedReputations'>;
 
 /** The reputation a source needs, if any: a reputation reward or a quartermaster's goods. */
 export const reputationOf = (source: ItemSource): string | undefined => (source.kind === 'rep' ? source.repFaction : vendorReputation(source));
@@ -154,11 +158,12 @@ export function usableSources(item: Item, faction: Faction | undefined, filter: 
 }
 
 /** A filter that lets every source kind through. */
-export const EVERYTHING: SourceFilter = { ...DEFAULT_FILTER, pvp: true };
+export const EVERYTHING: SourceFilter = { ...DEFAULT_FILTER, pvp: true, randomSuffix: true };
 
 /** Can this character get and use the item at all, given faction, professions and the filter? */
 export function isObtainable(item: Item, character: Character, faction: Faction | undefined, filter: SourceFilter, spec: SpecConfig): boolean {
 	if (!filter.tier05 && item.setId !== undefined && item.setId === spec.tier05Set?.setId) return false;
+	if (!filter.randomSuffix && item.randomSuffixOptions?.length) return false;
 	if (item.faction && faction && item.faction !== faction) return false;
 	if (item.requiredProfession && !character.professions.includes(item.requiredProfession)) return false;
 	if (!item.sources?.length) return filter.unknown;
@@ -184,7 +189,11 @@ function fitsSlot(item: Item, slotIndex: number, spec: SpecConfig): boolean {
 export function withItem(gear: Gear, slotIndex: number, itemId: number | null, data: GameData): Gear {
 	const isTwoHand = (id: number | undefined) => (id !== undefined ? data.itemById.get(id)?.weapon?.hand === 'twoHand' : false);
 	return gear.map((piece, index) => {
-		if (index === slotIndex) return itemId === null ? null : piece?.enchant ? { id: itemId, enchant: piece.enchant } : { id: itemId };
+		if (index === slotIndex) {
+			if (itemId === null) return null;
+			const randomSuffix = data.itemById.get(itemId)?.bestSuffix;
+			return { id: itemId, ...(piece?.enchant ? { enchant: piece.enchant } : {}), ...(randomSuffix ? { randomSuffix } : {}) };
+		}
 		if (itemId !== null && slotIndex === MAIN_HAND && index === OFF_HAND && isTwoHand(itemId)) return null;
 		if (itemId !== null && slotIndex === OFF_HAND && index === MAIN_HAND && isTwoHand(piece?.id)) return null;
 		return piece;
@@ -194,7 +203,7 @@ export function withItem(gear: Gear, slotIndex: number, itemId: number | null, d
 /** True when part of the item's worth is unknown: an unmeasured effect or set, or a random suffix. */
 export function isUnmeasured(item: Item, data: GameData): boolean {
 	const { simValues } = data;
-	if (item.randomSuffixOptions?.length) return true;
+	if (item.randomSuffixOptions?.length && !item.bestSuffix) return true;
 	if (item.effects?.length && !simValues.measuredItems.has(item.id)) return true;
 	return Boolean(item.setId && !simValues.measuredSets.has(item.setId));
 }
