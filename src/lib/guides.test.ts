@@ -4,7 +4,7 @@ import specJson from '../specs/enhancement-shaman.json';
 import simExport from './__fixtures__/sim-export.json';
 import { GEAR_SLOTS } from './constants';
 import { loadGameData } from './gameData';
-import { guideMarks, guidePlan, swapDelta } from './guides';
+import { guideMarks, guidePlan, specsWithGuide, swapDelta } from './guides';
 import { importCharacter } from './importCharacter';
 import { plannedGear, scoreSet } from './scoring';
 import type { Character, SpecConfig } from './types';
@@ -36,14 +36,14 @@ describe('guides', () => {
 });
 
 describe('guidePlan', () => {
-	it('plans the Wowhead list with BiS per slot and two rings and trinkets', () => {
+	it('plans the Wowhead list with the top pick per slot, leaving slots the list does not fill', () => {
 		const { plan } = guidePlan(guide('wowhead'), dwarf, data, spec);
 		const name = (slot: number) => data.itemById.get(plan[slot])?.name;
 		expect(name(0)).toBe('Coif of The Five Thunders');
 		expect(name(10)).toBe("Don Julio's Band");
-		expect(name(11)).toBe("Channeler's Ring");
+		expect(plan[11]).toBeUndefined();
 		expect(name(12)).toBe("Blackhand's Breadth");
-		expect(name(13)).toBe('Adaptive Combat Assistant');
+		expect(plan[13]).toBeUndefined();
 		expect(name(14)).toBe('The Unstoppable Force');
 		expect(plan[15]).toBeUndefined();
 	});
@@ -96,5 +96,22 @@ describe('swapDelta', () => {
 		const swapped = dwarf.gear.map((p, i) => (i === 0 ? { id: MASK } : p));
 		expect(delta).toBeCloseTo(scoreSet(swapped, dwarf, data, spec).score - scoreSet(dwarf.gear, dwarf, data, spec).score);
 		expect(GEAR_SLOTS[0].kind).toBe('head');
+	});
+});
+
+describe('guide lists for the other builds', () => {
+	it('has a Wowhead list for each build Wowhead ranks, and every item is usable by that build', async () => {
+		const { SPECS } = await import('./specs');
+		const withList = ['enhancement-shaman', 'mage-fire', 'mage-frost', 'priest-shadow', 'warlock-affliction', 'warlock-destruction'];
+		expect(specsWithGuide().sort()).toEqual(withList);
+		for (const s of SPECS) {
+			const specData = await loadGameData(s);
+			const wowhead = specData.guides.find(g => g.id === 'wowhead');
+			expect(Boolean(wowhead), s.id).toBe(withList.includes(s.id));
+			if (!wowhead) continue;
+			const missing = wowhead.entries.filter(e => specData.itemById.get(e.itemId)?.slot !== e.slot).map(e => e.name);
+			expect(missing, s.id).toEqual([]);
+			for (const slot of ['head', 'chest', 'weapon', 'finger', 'trinket']) expect(wowhead.entries.some(e => e.slot === slot && e.rank === 'BiS'), `${s.id} ${slot}`).toBe(true);
+		}
 	});
 });

@@ -1,10 +1,38 @@
-import wowheadGuide from '../config/guides/enhancement-shaman.wowhead.json';
 import { GEAR_SLOTS } from './constants';
 import type { GameData } from './gameData';
 import { EVERYTHING, type Gear, isObtainable, scoreSet, slotInUse } from './scoring';
 import type { Character, SlotKind, SpecConfig } from './types';
 
-const WOWHEAD_GUIDE_SPEC = 'enhancement-shaman';
+interface GuideFile {
+	id: string;
+	label: string;
+	title: string;
+	url: string;
+	author?: string;
+	updated?: string;
+	items: { slot: string; rank: string; id: number; name: string; source?: string }[];
+}
+
+/** Hand-kept guide lists, one file per build: `<specId>.<guide>.json`. */
+const GUIDE_FILES = import.meta.glob<GuideFile>('../config/guides/*.json', { eager: true, import: 'default' });
+
+/** Builds that have a hand-kept guide list. */
+export const specsWithGuide = (): string[] => [...new Set(Object.keys(GUIDE_FILES).map(path => path.split('/').pop()!.split('.')[0]))];
+
+function keptGuides(specId: string): Guide[] {
+	return Object.entries(GUIDE_FILES)
+		.filter(([path]) => path.split('/').pop()!.startsWith(`${specId}.`))
+		.map(([, file]) => ({
+			id: file.id,
+			label: file.label,
+			title: file.title,
+			url: file.url,
+			author: file.author,
+			updated: file.updated,
+			fixedSet: false,
+			entries: file.items.map(item => ({ itemId: item.id, slot: item.slot as SlotKind, rank: item.rank, source: item.source, name: item.name })),
+		}));
+}
 
 export interface GuideEntry {
 	itemId: number;
@@ -42,7 +70,7 @@ export interface SimSet {
 }
 
 /** Hand-kept guide lists plus the sets the sim maintainers ship. */
-export function buildGuides(simSets: SimSet[], specId: string = WOWHEAD_GUIDE_SPEC): Guide[] {
+export function buildGuides(simSets: SimSet[], specId: string = 'enhancement-shaman'): Guide[] {
 	const fromSim: Guide[] = simSets.map(set => ({
 		id: set.id,
 		label: set.label,
@@ -51,18 +79,7 @@ export function buildGuides(simSets: SimSet[], specId: string = WOWHEAD_GUIDE_SP
 		fixedSet: true,
 		entries: set.gear.flatMap((piece, slotIndex) => (piece ? [{ itemId: piece.id, slot: GEAR_SLOTS[slotIndex].kind, rank: 'Set', slotIndex }] : [])),
 	}));
-	const wowhead: Guide = {
-		id: wowheadGuide.id,
-		label: wowheadGuide.label,
-		title: wowheadGuide.title,
-		url: wowheadGuide.url,
-		author: wowheadGuide.author,
-		updated: wowheadGuide.updated,
-		fixedSet: false,
-		entries: wowheadGuide.items.map(item => ({ itemId: item.id, slot: item.slot as SlotKind, rank: item.rank, source: 'source' in item ? item.source : undefined, name: item.name })),
-	};
-	// The hand-kept Wowhead list exists for one spec so far.
-	return specId === WOWHEAD_GUIDE_SPEC ? [...fromSim, wowhead] : fromSim;
+	return [...fromSim, ...keptGuides(specId)];
 }
 
 export interface GuideMark {
