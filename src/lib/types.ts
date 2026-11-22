@@ -52,6 +52,8 @@ export interface Item {
 	versus?: { mobTypes: string[]; stats: Stats }[];
 	/** Stats that only count in this kind of terrain. */
 	inArea?: { area: string; stats: Stats }[];
+	/** Every terrain, enemy type and creature the item's stats or effects name, procs and on-use effects included. */
+	fightTags?: { areas?: string[]; mobTypes?: string[]; families?: string[] };
 	/** Items with the same limit category cannot be worn together. */
 	limitCategory?: number;
 	/** Class ids that may use the item; unset = every class. */
@@ -98,6 +100,8 @@ export interface GearPiece {
 export interface Fight {
 	mobType?: string;
 	area?: string;
+	/** A creature group inside an enemy type: "Orc", "Troll", "Murloc". */
+	family?: string;
 }
 
 export interface Character {

@@ -193,7 +193,7 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 				</p>
 			</section>
 
-			<section className="panel">
+			<section className="panel expert-only">
 				<h2>Compare with another sim</h2>
 				<p>Everything a run depends on, so the same run can be set up elsewhere. If two sims disagree, one of these lines differs.</p>
 				<dl className="compare-facts">

@@ -55,6 +55,11 @@
 		"stats": {
 			"spirit": 8
 		},
+		"fightTags": {
+			"families": [
+				"Plant"
+			]
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -381,6 +386,11 @@
 			"rangedAttackPower": 10,
 			"critRating": 14,
 			"armor": 86
+		},
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
 		},
 		"effects": [
 			{
@@ -3039,6 +3049,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Elemental"
+			]
+		},
 		"weapon": {
 			"type": "dagger",
 			"hand": "mainHand",
@@ -7690,6 +7705,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Elemental"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -7949,6 +7969,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -9508,6 +9533,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -14305,6 +14335,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"weapon": {
 			"type": "fist",
 			"hand": "oneHand",
@@ -15049,6 +15084,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -15322,6 +15362,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -19674,6 +19719,13 @@
 		"quality": "epic",
 		"ilvl": 50,
 		"reqLvl": 40,
+		"fightTags": {
+			"families": [
+				"EarthElemental",
+				"FireElemental",
+				"MountainGiant"
+			]
+		},
 		"weapon": {
 			"type": "mace",
 			"hand": "mainHand",
@@ -20154,6 +20206,11 @@
 		"quality": "epic",
 		"ilvl": 55,
 		"reqLvl": 50,
+		"fightTags": {
+			"families": [
+				"Troll"
+			]
+		},
 		"weapon": {
 			"type": "sword",
 			"hand": "twoHand",
@@ -20641,6 +20698,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Elemental"
+			]
+		},
 		"weapon": {
 			"type": "mace",
 			"hand": "twoHand",
@@ -21330,6 +21392,11 @@
 		"quality": "rare",
 		"ilvl": 49,
 		"reqLvl": 44,
+		"fightTags": {
+			"families": [
+				"EarthElemental"
+			]
+		},
 		"weapon": {
 			"type": "sword",
 			"hand": "twoHand",
@@ -21826,6 +21893,11 @@
 		"quality": "rare",
 		"ilvl": 34,
 		"reqLvl": 29,
+		"fightTags": {
+			"mobTypes": [
+				"Mechanical"
+			]
+		},
 		"weapon": {
 			"type": "sword",
 			"hand": "mainHand",
@@ -22334,6 +22406,11 @@
 		"quality": "rare",
 		"ilvl": 48,
 		"reqLvl": 43,
+		"fightTags": {
+			"families": [
+				"Aquatic"
+			]
+		},
 		"weapon": {
 			"type": "dagger",
 			"hand": "oneHand",
@@ -22524,6 +22601,11 @@
 		"quality": "rare",
 		"ilvl": 50,
 		"reqLvl": 45,
+		"fightTags": {
+			"families": [
+				"Troll"
+			]
+		},
 		"weapon": {
 			"type": "staff",
 			"hand": "twoHand",
@@ -42055,6 +42137,11 @@
 		"slot": "trinket",
 		"quality": "uncommon",
 		"ilvl": 60,
+		"fightTags": {
+			"families": [
+				"Troll"
+			]
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -42446,6 +42533,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"weapon": {
 			"type": "axe",
 			"hand": "twoHand",
@@ -42539,6 +42631,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"weapon": {
 			"type": "sword",
 			"hand": "twoHand",
@@ -43114,6 +43211,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Demon"
+			]
+		},
 		"unique": true,
 		"sources": [
 			{
@@ -43171,6 +43273,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Demon"
+			]
+		},
 		"weapon": {
 			"type": "sword",
 			"hand": "mainHand",
@@ -43209,6 +43316,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Demon"
+			]
+		},
 		"weapon": {
 			"type": "dagger",
 			"hand": "oneHand",
@@ -43247,6 +43359,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Demon"
+			]
+		},
 		"weapon": {
 			"type": "staff",
 			"hand": "twoHand",
@@ -43902,6 +44019,14 @@
 			"strength": 20,
 			"stamina": 7
 		},
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			],
+			"families": [
+				"Swine"
+			]
+		},
 		"weapon": {
 			"type": "sword",
 			"hand": "twoHand",
@@ -43939,6 +44064,11 @@
 			"strength": 8,
 			"agility": 8,
 			"armor": 79
+		},
+		"fightTags": {
+			"families": [
+				"Swine"
+			]
 		},
 		"effects": [
 			{
@@ -44755,6 +44885,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"randomSuffixOptions": [
 			13007,
 			13008,
@@ -44922,6 +45057,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Dragonkin"
+			]
+		},
 		"weapon": {
 			"type": "offHand",
 			"hand": "offHand"
@@ -45285,6 +45425,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"weapon": {
 			"type": "axe",
 			"hand": "mainHand",
@@ -46795,6 +46940,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -46829,6 +46979,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -47165,6 +47320,11 @@
 		"quality": "epic",
 		"ilvl": 60,
 		"reqLvl": 55,
+		"fightTags": {
+			"families": [
+				"Orc"
+			]
+		},
 		"weapon": {
 			"type": "mace",
 			"hand": "mainHand",
@@ -47558,6 +47718,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Elemental"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -47681,6 +47846,11 @@
 			"spellDamage": 60,
 			"critRating": 14,
 			"fireResistance": 10
+		},
+		"fightTags": {
+			"families": [
+				"Plant"
+			]
 		},
 		"weapon": {
 			"type": "staff",
@@ -48418,6 +48588,11 @@
 			"attackPower": 12,
 			"rangedAttackPower": 12
 		},
+		"fightTags": {
+			"families": [
+				"Dwarf"
+			]
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -48447,6 +48622,12 @@
 		"stats": {
 			"strength": 22,
 			"stamina": 11
+		},
+		"fightTags": {
+			"families": [
+				"Troll",
+				"Orc"
+			]
 		},
 		"weapon": {
 			"type": "axe",
@@ -49447,6 +49628,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			]
+		},
 		"weapon": {
 			"type": "mace",
 			"hand": "mainHand",
@@ -49485,6 +49671,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			]
+		},
 		"weapon": {
 			"type": "axe",
 			"hand": "twoHand",
@@ -49728,6 +49919,11 @@
 		"quality": "rare",
 		"ilvl": 56,
 		"reqLvl": 51,
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"weapon": {
 			"type": "axe",
 			"hand": "mainHand",
@@ -51184,6 +51380,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"weapon": {
 			"type": "axe",
 			"hand": "twoHand",
@@ -52780,6 +52981,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Dragonkin"
+			]
+		},
 		"weapon": {
 			"type": "sword",
 			"hand": "oneHand",
@@ -52891,6 +53097,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Dragonkin"
+			]
+		},
 		"sources": [
 			{
 				"kind": "quest",
@@ -53973,6 +54184,11 @@
 		"reqLvl": 48,
 		"stats": {
 			"strength": 15
+		},
+		"fightTags": {
+			"mobTypes": [
+				"Dragonkin"
+			]
 		},
 		"weapon": {
 			"type": "sword",
@@ -55851,6 +56067,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			]
+		},
 		"weapon": {
 			"type": "dagger",
 			"hand": "mainHand",
@@ -56728,6 +56949,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"areas": [
+				"Swamp"
+			]
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -57885,6 +58111,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"weapon": {
 			"type": "axe",
 			"hand": "twoHand",
@@ -57937,7 +58168,12 @@
 					"rangedAttackPower": 12
 				}
 			}
-		]
+		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		}
 	},
 	{
 		"id": 13020,
@@ -58423,6 +58659,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Demon"
+			]
+		},
 		"weapon": {
 			"type": "sword",
 			"hand": "twoHand",
@@ -60341,6 +60582,11 @@
 		"slot": "trinket",
 		"quality": "uncommon",
 		"ilvl": 61,
+		"fightTags": {
+			"families": [
+				"Plant"
+			]
+		},
 		"effects": [
 			{
 				"name": "Smokey's Lighter (17283)",
@@ -60785,6 +61031,11 @@
 		"slot": "trinket",
 		"quality": "rare",
 		"ilvl": 61,
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"limitCategory": 498,
 		"effects": [
 			{
@@ -60988,6 +61239,11 @@
 			"blockValue": 39,
 			"armor": 2121
 		},
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"weapon": {
 			"type": "shield",
 			"hand": "offHand"
@@ -61082,6 +61338,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"weapon": {
 			"type": "sword",
 			"hand": "oneHand",
@@ -61134,6 +61395,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"weapon": {
 			"type": "staff",
 			"hand": "twoHand",
@@ -62151,6 +62417,11 @@
 		"reqLvl": 56,
 		"stats": {
 			"hitRating": 5
+		},
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
 		},
 		"unique": true,
 		"effects": [
@@ -64036,6 +64307,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -64125,6 +64401,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -64348,6 +64629,12 @@
 		"slot": "trinket",
 		"quality": "rare",
 		"ilvl": 63,
+		"fightTags": {
+			"families": [
+				"Orc",
+				"Ogre"
+			]
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -71015,6 +71302,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -93835,6 +94127,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			]
+		},
 		"weapon": {
 			"type": "sword",
 			"hand": "oneHand",
@@ -93874,6 +94171,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			]
+		},
 		"weapon": {
 			"type": "dagger",
 			"hand": "oneHand",
@@ -103724,6 +104026,11 @@
 		"stats": {
 			"bonusArmor": 40
 		},
+		"fightTags": {
+			"families": [
+				"EarthElemental"
+			]
+		},
 		"weapon": {
 			"type": "mace",
 			"hand": "mainHand",
@@ -104396,6 +104703,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Elemental"
+			]
+		},
 		"weapon": {
 			"type": "sword",
 			"hand": "oneHand",
@@ -104745,6 +105057,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Elemental"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -104765,6 +105082,11 @@
 		"stats": {
 			"strength": 23,
 			"critRating": 14
+		},
+		"fightTags": {
+			"families": [
+				"Aquatic"
+			]
 		},
 		"weapon": {
 			"type": "axe",
@@ -105062,6 +105384,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -105110,6 +105437,11 @@
 		"reqLvl": 60,
 		"stats": {
 			"stamina": 11
+		},
+		"fightTags": {
+			"mobTypes": [
+				"Dragonkin"
+			]
 		},
 		"weapon": {
 			"type": "sword",
@@ -105909,6 +106241,11 @@
 		"quality": "rare",
 		"ilvl": 62,
 		"reqLvl": 57,
+		"fightTags": {
+			"families": [
+				"EarthElemental"
+			]
+		},
 		"effects": [
 			{
 				"name": "Stoneshatter (1302279)",
@@ -106081,6 +106418,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Demon"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -106537,6 +106879,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"weapon": {
 			"type": "mace",
 			"hand": "twoHand",
@@ -107740,6 +108087,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"unique": true,
 		"classes": [
 			4
@@ -107797,6 +108149,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Demon"
+			]
+		},
 		"unique": true,
 		"classes": [
 			9
@@ -107845,6 +108202,11 @@
 			"spellDamage": 7,
 			"natureResistance": 15
 		},
+		"fightTags": {
+			"areas": [
+				"Cavernous"
+			]
+		},
 		"unique": true,
 		"classes": [
 			5
@@ -107878,6 +108240,11 @@
 			"healingPower": 22,
 			"spellDamage": 7,
 			"natureResistance": 15
+		},
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
 		},
 		"unique": true,
 		"classes": [
@@ -107923,6 +108290,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Demon"
+			]
+		},
 		"unique": true,
 		"classes": [
 			7
@@ -108105,6 +108477,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"weapon": {
 			"type": "mace",
 			"hand": "twoHand",
@@ -108196,6 +108573,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"weapon": {
 			"type": "sword",
 			"hand": "oneHand",
@@ -108489,6 +108871,11 @@
 			"strength": 5,
 			"stamina": 11
 		},
+		"fightTags": {
+			"families": [
+				"Plant"
+			]
+		},
 		"weapon": {
 			"type": "axe",
 			"hand": "oneHand",
@@ -108592,6 +108979,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"weapon": {
 			"type": "polearm",
 			"hand": "twoHand",
@@ -108846,6 +109238,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"weapon": {
 			"type": "sword",
 			"hand": "twoHand",
@@ -109308,6 +109705,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Mechanical"
+			]
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -109337,6 +109739,11 @@
 			"strength": 10,
 			"stamina": 9,
 			"critRating": 28
+		},
+		"fightTags": {
+			"families": [
+				"Plant"
+			]
 		},
 		"weapon": {
 			"type": "axe",
@@ -110165,6 +110572,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -110887,6 +111299,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"weapon": {
 			"type": "axe",
 			"hand": "oneHand",
@@ -111230,6 +111647,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"weapon": {
 			"type": "dagger",
 			"hand": "oneHand",
@@ -113425,6 +113847,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
+		},
 		"unique": true,
 		"sources": [
 			{
@@ -113706,6 +114133,11 @@
 		"quality": "epic",
 		"ilvl": 65,
 		"reqLvl": 60,
+		"fightTags": {
+			"families": [
+				"Aquatic"
+			]
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -116632,6 +117064,11 @@
 		"slot": "trinket",
 		"quality": "rare",
 		"ilvl": 61,
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"limitCategory": 498,
 		"effects": [
 			{
@@ -124473,6 +124910,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
+		},
 		"limitCategory": 714,
 		"sources": [
 			{
@@ -124511,6 +124953,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
+		},
 		"limitCategory": 714,
 		"sources": [
 			{
@@ -124557,6 +125004,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
+		},
 		"limitCategory": 714,
 		"sources": [
 			{
@@ -124603,6 +125055,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
+		},
 		"limitCategory": 714,
 		"sources": [
 			{
@@ -125294,6 +125751,11 @@
 		"stats": {
 			"fireResistance": 15
 		},
+		"fightTags": {
+			"mobTypes": [
+				"Dragonkin"
+			]
+		},
 		"effects": [
 			{
 				"name": "Draconic Infused Emblem (1318931)",
@@ -125764,6 +126226,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			]
+		},
 		"weapon": {
 			"type": "polearm",
 			"hand": "twoHand",
@@ -125903,6 +126370,11 @@
 		"stats": {
 			"fireResistance": 13
 		},
+		"fightTags": {
+			"families": [
+				"Orc"
+			]
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -125943,6 +126415,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"weapon": {
 			"type": "mace",
 			"hand": "oneHand",
@@ -126286,6 +126763,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Dragonkin"
+			]
+		},
 		"weapon": {
 			"type": "shield",
 			"hand": "offHand"
@@ -132819,6 +133301,11 @@
 			"natureResistance": 7,
 			"shadowResistance": 7
 		},
+		"fightTags": {
+			"areas": [
+				"Snowy"
+			]
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -132853,6 +133340,11 @@
 			"natureResistance": 7,
 			"shadowResistance": 7,
 			"physicalDamage": 2
+		},
+		"fightTags": {
+			"areas": [
+				"Volcanic"
+			]
 		},
 		"unique": true,
 		"effects": [
@@ -143220,6 +143712,12 @@
 		"slot": "trinket",
 		"quality": "uncommon",
 		"ilvl": 55,
+		"fightTags": {
+			"families": [
+				"Naga",
+				"Satyr"
+			]
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -143705,6 +144203,11 @@
 		"slot": "trinket",
 		"quality": "uncommon",
 		"ilvl": 58,
+		"fightTags": {
+			"families": [
+				"Furbolg"
+			]
+		},
 		"effects": [
 			{
 				"name": "Scented Runewood Brooch (1318323)",
@@ -144868,6 +145371,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
+		},
 		"unique": true
 	},
 	{
@@ -144877,6 +145385,11 @@
 		"slot": "trinket",
 		"quality": "uncommon",
 		"ilvl": 50,
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -145107,6 +145620,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
+		},
 		"unique": true
 	},
 	{
@@ -145130,6 +145648,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
+		},
 		"unique": true
 	},
 	{
@@ -146079,6 +146602,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
+		},
 		"limitCategory": 715,
 		"faction": "alliance",
 		"sources": [
@@ -146118,6 +146646,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
+		},
 		"limitCategory": 715,
 		"faction": "alliance",
 		"sources": [
@@ -146149,6 +146682,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
+		},
 		"limitCategory": 715,
 		"faction": "alliance",
 		"sources": [
@@ -146188,6 +146726,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
+		},
 		"limitCategory": 715,
 		"faction": "alliance",
 		"sources": [
@@ -147295,6 +147838,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
+		},
 		"limitCategory": 715,
 		"faction": "horde",
 		"sources": [
@@ -147341,6 +147889,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
+		},
 		"limitCategory": 715,
 		"faction": "horde",
 		"sources": [
@@ -147379,6 +147932,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
+		},
 		"limitCategory": 715,
 		"faction": "horde",
 		"sources": [
@@ -147425,6 +147983,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
+		},
 		"limitCategory": 715,
 		"faction": "horde",
 		"sources": [
@@ -149665,6 +150228,11 @@
 		"reqLvl": 60,
 		"stats": {
 			"defenseRating": 13
+		},
+		"fightTags": {
+			"areas": [
+				"StrongholdsCities"
+			]
 		},
 		"limitCategory": 707,
 		"effects": [
@@ -157415,6 +157983,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			]
+		},
 		"weapon": {
 			"type": "fist",
 			"hand": "mainHand",
@@ -157757,7 +158330,12 @@
 					"rangedAttackPower": 9
 				}
 			}
-		]
+		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		}
 	},
 	{
 		"id": 273034,
@@ -161437,6 +162015,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"weapon": {
 			"type": "fist",
 			"hand": "mainHand",
@@ -161769,6 +162352,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"weapon": {
 			"type": "axe",
 			"hand": "mainHand",
@@ -161861,6 +162449,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"weapon": {
 			"type": "mace",
 			"hand": "twoHand",
@@ -162094,6 +162687,11 @@
 		"quality": "rare",
 		"ilvl": 29,
 		"reqLvl": 24,
+		"fightTags": {
+			"families": [
+				"Murloc"
+			]
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -165662,6 +166260,11 @@
 		"stats": {
 			"stamina": 5
 		},
+		"fightTags": {
+			"families": [
+				"Plant"
+			]
+		},
 		"weapon": {
 			"type": "axe",
 			"hand": "oneHand",
@@ -165688,6 +166291,11 @@
 		"stats": {
 			"strength": 12
 		},
+		"fightTags": {
+			"families": [
+				"Plant"
+			]
+		},
 		"weapon": {
 			"type": "axe",
 			"hand": "twoHand",
@@ -165713,6 +166321,11 @@
 		"ilvl": 57,
 		"stats": {
 			"agility": 5
+		},
+		"fightTags": {
+			"families": [
+				"Plant"
+			]
 		},
 		"weapon": {
 			"type": "dagger",
@@ -165818,6 +166431,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -165993,6 +166611,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -166009,6 +166632,11 @@
 		"slot": "trinket",
 		"quality": "uncommon",
 		"ilvl": 58,
+		"fightTags": {
+			"areas": [
+				"StrongholdsCities"
+			]
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -166626,6 +167254,14 @@
 			"armor": 213,
 			"natureResistance": 8
 		},
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			],
+			"families": [
+				"Serpentine"
+			]
+		},
 		"effects": [
 			{
 				"name": "Serpentbane (1295039)",
@@ -166968,6 +167604,11 @@
 		"quality": "rare",
 		"ilvl": 47,
 		"reqLvl": 42,
+		"fightTags": {
+			"areas": [
+				"Desert"
+			]
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -167669,6 +168310,11 @@
 		"stats": {
 			"natureResistance": 20
 		},
+		"fightTags": {
+			"families": [
+				"Plant"
+			]
+		},
 		"limitCategory": 709,
 		"effects": [
 			{
@@ -168020,6 +168666,11 @@
 		"slot": "weapon",
 		"quality": "uncommon",
 		"ilvl": 42,
+		"fightTags": {
+			"families": [
+				"Aquatic"
+			]
+		},
 		"weapon": {
 			"type": "polearm",
 			"hand": "twoHand",
@@ -168305,6 +168956,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"weapon": {
 			"type": "fist",
 			"hand": "oneHand",
@@ -168337,6 +168993,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			]
+		},
 		"weapon": {
 			"type": "fist",
 			"hand": "oneHand",
@@ -168546,6 +169207,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"sources": [
 			{
 				"kind": "quest",
@@ -168752,7 +169418,12 @@
 					"rangedAttackPower": 6
 				}
 			}
-		]
+		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			]
+		}
 	},
 	{
 		"id": 275347,
@@ -169687,6 +170358,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Mechanical"
+			]
+		},
 		"weapon": {
 			"type": "mace",
 			"hand": "oneHand",
@@ -169920,6 +170596,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Demon"
+			]
+		},
 		"weapon": {
 			"type": "polearm",
 			"hand": "twoHand",
@@ -170918,6 +171599,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			]
+		},
 		"weapon": {
 			"type": "fist",
 			"hand": "oneHand",
@@ -171100,6 +171786,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"weapon": {
 			"type": "mace",
 			"hand": "oneHand",
@@ -171167,6 +171858,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"weapon": {
 			"type": "mace",
 			"hand": "twoHand",
@@ -171215,6 +171911,11 @@
 		"quality": "rare",
 		"ilvl": 60,
 		"reqLvl": 55,
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"weapon": {
 			"type": "mace",
 			"hand": "oneHand",
@@ -171617,6 +172318,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"weapon": {
 			"type": "dagger",
 			"hand": "oneHand",
@@ -172813,6 +173519,11 @@
 		"quality": "uncommon",
 		"ilvl": 40,
 		"reqLvl": 35,
+		"fightTags": {
+			"areas": [
+				"Desert"
+			]
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -172830,6 +173541,11 @@
 		"quality": "uncommon",
 		"ilvl": 40,
 		"reqLvl": 35,
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
+		},
 		"effects": [
 			{
 				"name": "Mysticbloom Seed (1317283)",
@@ -173908,6 +174624,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"sources": [
 			{
 				"kind": "quest",
@@ -174321,7 +175042,12 @@
 					"spellDamage": 4
 				}
 			}
-		]
+		],
+		"fightTags": {
+			"areas": [
+				"StrongholdsCities"
+			]
+		}
 	},
 	{
 		"id": 279878,
@@ -174393,6 +175119,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"weapon": {
 			"type": "offHand",
 			"hand": "offHand"
@@ -174524,6 +175255,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"weapon": {
 			"type": "mace",
 			"hand": "twoHand",
@@ -174628,6 +175364,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
 		"sources": [
 			{
 				"kind": "quest",
@@ -174676,6 +175417,11 @@
 			"stamina": 4,
 			"armor": 37
 		},
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
+		},
 		"effects": [
 			{
 				"name": "Guidance of Ursoc (1308520)",
@@ -174706,7 +175452,12 @@
 					"mp5": 4
 				}
 			}
-		]
+		],
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			]
+		}
 	},
 	{
 		"id": 279893,
@@ -174731,7 +175482,12 @@
 					"rangedAttackPower": 19
 				}
 			}
-		]
+		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		}
 	},
 	{
 		"id": 279894,
@@ -174996,6 +175752,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			]
+		},
 		"weapon": {
 			"type": "polearm",
 			"hand": "twoHand",
@@ -175500,6 +176261,11 @@
 		"quality": "rare",
 		"ilvl": 63,
 		"reqLvl": 58,
+		"fightTags": {
+			"families": [
+				"Dinosaur"
+			]
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -175813,6 +176579,11 @@
 		"reqLvl": 56,
 		"stats": {
 			"fireResistance": 17
+		},
+		"fightTags": {
+			"mobTypes": [
+				"Elemental"
+			]
 		},
 		"unique": true,
 		"effects": [
@@ -177851,6 +178622,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Dragonkin"
+			]
+		},
 		"weapon": {
 			"type": "sword",
 			"hand": "twoHand",
@@ -178381,6 +179157,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Dragonkin"
+			]
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -178746,7 +179527,12 @@
 					"rangedAttackPower": 33
 				}
 			}
-		]
+		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		}
 	},
 	{
 		"id": 284097,
@@ -178974,6 +179760,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -179560,6 +180351,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Demon"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -179900,6 +180696,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -179931,7 +180732,12 @@
 					"rangedAttackPower": 6
 				}
 			}
-		]
+		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			]
+		}
 	},
 	{
 		"id": 285101,
@@ -180229,6 +181035,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"weapon": {
 			"type": "axe",
 			"hand": "twoHand",
@@ -180703,7 +181514,12 @@
 					"spellDamage": 14
 				}
 			}
-		]
+		],
+		"fightTags": {
+			"mobTypes": [
+				"Elemental"
+			]
+		}
 	},
 	{
 		"id": 286554,
@@ -180775,7 +181591,13 @@
 					"rangedAttackPower": 20
 				}
 			}
-		]
+		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast",
+				"Humanoid"
+			]
+		}
 	},
 	{
 		"id": 286569,
@@ -180895,7 +181717,12 @@
 					"rangedAttackPower": 29
 				}
 			}
-		]
+		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		}
 	},
 	{
 		"id": 286597,
@@ -180976,6 +181803,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			]
+		},
 		"weapon": {
 			"type": "dagger",
 			"hand": "oneHand",
@@ -181122,6 +181954,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"weapon": {
 			"type": "axe",
 			"hand": "twoHand",
@@ -181260,7 +182097,12 @@
 					"rangedAttackPower": 17
 				}
 			}
-		]
+		],
+		"fightTags": {
+			"mobTypes": [
+				"Elemental"
+			]
+		}
 	},
 	{
 		"id": 286662,
@@ -181961,7 +182803,12 @@
 					"rangedAttackPower": 13
 				}
 			}
-		]
+		],
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		}
 	},
 	{
 		"id": 287001,
@@ -182068,6 +182915,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"weapon": {
 			"type": "axe",
 			"hand": "oneHand",
@@ -182607,6 +183459,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Demon"
+			]
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -182771,6 +183628,14 @@
 				}
 			}
 		],
+		"fightTags": {
+			"areas": [
+				"ForestGrassland"
+			],
+			"mobTypes": [
+				"Beast"
+			]
+		},
 		"effects": [
 			{
 				"name": "Guidance of Ursoc (1308520)",
@@ -182922,6 +183787,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Beast"
+			]
+		},
 		"sources": [
 			{
 				"kind": "quest",
@@ -182952,6 +183822,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Humanoid"
+			]
+		},
 		"sources": [
 			{
 				"kind": "quest",
@@ -183053,6 +183928,11 @@
 				}
 			}
 		],
+		"fightTags": {
+			"mobTypes": [
+				"Demon"
+			]
+		},
 		"sources": [
 			{
 				"kind": "quest",

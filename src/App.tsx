@@ -57,6 +57,22 @@ export function App() {
 	const [warnings, setWarnings] = useState<string[]>([]);
 	const [importing, setImporting] = useState(false);
 	const [tab, setTab] = useState('character');
+	// Stat weights, the sim comparison and raw rotation rules stay out of the way unless asked for.
+	const [expert, setExpertState] = useState(() => {
+		try {
+			return localStorage.getItem('forever-gear-planner.expert') === '1';
+		} catch {
+			return false;
+		}
+	});
+	const setExpert = (on: boolean) => {
+		setExpertState(on);
+		try {
+			localStorage.setItem('forever-gear-planner.expert', on ? '1' : '0');
+		} catch {
+			// Private mode: the choice lasts for this visit only.
+		}
+	};
 	// The content choice, shared by every tab and remembered between visits.
 	const [filter, setFilterState] = useState<SourceFilter>(loadFilter);
 	const setFilter = (next: SourceFilter) => {
@@ -92,7 +108,7 @@ export function App() {
 	};
 
 	return (
-		<div className="page">
+		<div className={expert ? 'page' : 'page page-simple'}>
 			<header className="masthead">
 				<div className="masthead-title">
 					<Emblem />
@@ -113,6 +129,11 @@ export function App() {
 						</nav>
 						<BarCap mirrored />
 					</div>
+					{character && (
+						<label className="expert-switch" title="Shows the stat weights, the side-by-side comparison with other sims and the raw rotation rules.">
+							<input type="checkbox" checked={expert} onChange={e => setExpert(e.target.checked)} /> Expert details
+						</label>
+					)}
 				</div>
 			</header>
 
@@ -127,7 +148,7 @@ export function App() {
 
 						{tab === 'upgrades' && (data ? <UpgradesTab spec={spec} defaultWeights={baseSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
 
-						{tab === 'farm' && (data ? <FarmTab spec={spec} character={character} data={data} filter={filter} /> : <p>Loading item data…</p>)}
+						{tab === 'farm' && (data ? <FarmTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
 
 						{tab === 'enchants' && (data ? <EnchantsTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
 

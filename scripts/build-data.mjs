@@ -97,6 +97,8 @@ async function loadDb(localPath) {
 const MOB_TYPES = [null, 'Beast', 'Demon', 'Dragonkin', 'Elemental', 'Giant', 'Humanoid', 'Mechanical', 'Undead'];
 const AREA_TYPES = [null, 'ForestGrassland', 'Mountainous', 'Snowy', 'Desert', 'Swamp', 'Wasteland', 'Haunted', 'Cavernous', 'Volcanic', 'StrongholdsCities'];
 
+const FAMILIES = [null, 'Naga', 'Satyr', 'Aquatic', 'EarthElemental', 'FireElemental', 'MountainGiant', 'Swine', 'Plant', 'Troll', 'Orc', 'Ogre', 'Wolf', 'Worgen', 'Murloc', 'Furbolg', 'Dwarf', 'Dinosaur', 'Serpentine'];
+
 function namedStats(raw) {
 	const out = {};
 	if (!raw) return out;
@@ -290,6 +292,12 @@ function convertItem(item) {
 		// Stats that only count against one kind of enemy or in one kind of terrain.
 		versus: (scaling.mobTypeStats ?? []).map(entry => ({ mobTypes: entry.mobTypes.map(type => MOB_TYPES[type]).filter(Boolean), stats: namedStats(entry.stats) })).filter(entry => entry.mobTypes.length),
 		inArea: (scaling.areaStats ?? []).map(entry => ({ area: AREA_TYPES[entry.areaType], stats: namedStats(entry.stats) })).filter(entry => entry.area),
+		// Every terrain, enemy type and creature the item's stats or effects name, procs and on-use effects included.
+		fightTags: compact({
+			areas: (item.areaTypes ?? []).map(type => AREA_TYPES[type]).filter(Boolean),
+			mobTypes: (item.mobTypes ?? []).map(type => MOB_TYPES[type]).filter(Boolean),
+			families: (item.creatureFamilies ?? []).map(type => FAMILIES[type]).filter(Boolean),
+		}),
 		weapon,
 		unique: item.unique,
 		// Items sharing a limit category cannot be worn together (the four Warden's Signets, for example).

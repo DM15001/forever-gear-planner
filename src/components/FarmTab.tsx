@@ -18,6 +18,7 @@ interface Props {
 	character: Character;
 	data: GameData;
 	filter: SourceFilter;
+	onChange: (next: Character) => void;
 }
 
 const GROUP_TITLES: Record<PlanGroupKind, string> = {
@@ -35,7 +36,17 @@ const BOSS_DROPS_SHOWN = 4;
 const formatPerRun = (value: number) => `+${value >= 10 ? Math.round(value) : value.toFixed(value >= 1 ? 1 : 2)} DPS`;
 const formatDelta = formatDps;
 
-export function FarmTab({ spec, character, data, filter }: Props) {
+export function FarmTab({ spec, character, data, filter, onChange }: Props) {
+	// The last item ticked off, so a slip can be taken back.
+	const [gotBack, setGotBack] = useState<{ name: string; before: Character } | null>(null);
+	/** The item is in the bags now: it becomes the equipped piece and leaves the plan. */
+	const gotIt = (entry: PlanEntry) => {
+		const { [entry.slotIndex]: _done, ...plan } = character.plan ?? {};
+		const { [entry.slotIndex]: enchant, ...planEnchants } = character.planEnchants ?? {};
+		const piece = { id: entry.item.id, ...(entry.item.bestSuffix ? { randomSuffix: entry.item.bestSuffix } : {}), ...(enchant ? { enchant } : {}) };
+		setGotBack({ name: entry.item.name, before: character });
+		onChange({ ...character, gear: character.gear.map((old, index) => (index === entry.slotIndex ? piece : old)), plan, planEnchants });
+	};
 	const options = useMemo(() => ({ character, data, spec, filter }), [character, data, spec, filter]);
 	const shopping = useMemo(() => planShoppingList(options), [options]);
 	const ranking = useMemo(() => dungeonRanking(options), [options]);
@@ -78,7 +89,20 @@ export function FarmTab({ spec, character, data, filter }: Props) {
 					<p className="farm-empty">No plan yet. On the Upgrades tab, pick items with "Plan this" or use "Plan the best set". They show up here, sorted by where to get them.</p>
 				) : (
 					<>
-						<p className="farm-copy">
+						{gotBack && (
+						<p className="undo-toast" role="status">
+							{gotBack.name} is now equipped.{' '}
+							<button
+								className="link"
+								onClick={() => {
+									onChange(gotBack.before);
+									setGotBack(null);
+								}}>
+								Undo
+							</button>
+						</p>
+					)}
+					<p className="farm-copy">
 							<button className="button button-small" onClick={copyPlan}>
 								Copy the plan as text
 							</button>{' '}
@@ -111,7 +135,7 @@ export function FarmTab({ spec, character, data, filter }: Props) {
 													)}
 													<ul className="plain-list">
 														{card.entries.map(entry => (
-															<ShoppingRow key={`${entry.slotIndex}-${entry.item.id}`} entry={entry} data={data} inDungeon={kind === 'dungeon'} guideSource={marks.get(entry.item.id)?.find(m => m.source)} />
+															<ShoppingRow key={`${entry.slotIndex}-${entry.item.id}`} entry={entry} data={data} inDungeon={kind === 'dungeon'} onGot={() => gotIt(entry)} guideSource={marks.get(entry.item.id)?.find(m => m.source)} />
 														))}
 													</ul>
 												</div>
@@ -174,7 +198,7 @@ function whereText(entry: PlanEntry, data: GameData, inDungeon: boolean): string
 	return sourceLine(source, data);
 }
 
-function ShoppingRow({ entry, data, inDungeon, guideSource }: { entry: PlanEntry; data: GameData; inDungeon: boolean; guideSource?: { source?: string; guide: { label: string } } }) {
+function ShoppingRow({ entry, data, inDungeon, onGot, guideSource }: { entry: PlanEntry; data: GameData; inDungeon: boolean; onGot: () => void; guideSource?: { source?: string; guide: { label: string } } }) {
 	const effort = guideSource ? {} : effortParts(entry.source);
 	return (
 		<li className="shopping-row" title={guideSource ? undefined : effortLine(entry.source)}>
@@ -198,6 +222,9 @@ function ShoppingRow({ entry, data, inDungeon, guideSource }: { entry: PlanEntry
 					</span>
 				)}
 			</span>
+			<button className="button button-small shopping-got" onClick={onGot} title="Moves the item to your equipped gear and takes it off the plan.">
+				Got it
+			</button>
 		</li>
 	);
 }

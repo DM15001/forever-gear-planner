@@ -61,6 +61,25 @@ export const AREAS: [string, string][] = [
 ];
 const areaLabel = (area: string) => AREAS.find(([key]) => key === area)?.[1] ?? area;
 
+export const FAMILIES = ['Aquatic', 'Dinosaur', 'Dwarf', 'EarthElemental', 'FireElemental', 'Furbolg', 'MountainGiant', 'Murloc', 'Naga', 'Ogre', 'Orc', 'Plant', 'Satyr', 'Serpentine', 'Swine', 'Troll', 'Wolf', 'Worgen'];
+/** "EarthElemental" as "Earth elemental". */
+export const spaced = (name: string) => name.replace(/([a-z])([A-Z])/g, (_all, a: string, b: string) => `${a} ${b.toLowerCase()}`);
+
+/** True if the item has a bonus (stats or an effect) for the enemy type, creature or terrain of the fight. */
+export function matchesFight(item: Item, fight: Fight | undefined): boolean {
+	const tags = item.fightTags;
+	if (!tags || !fight) return false;
+	return Boolean((fight.mobType && tags.mobTypes?.includes(fight.mobType)) || (fight.family && tags.families?.includes(fight.family)) || (fight.area && tags.areas?.includes(fight.area)));
+}
+
+/** What the item's effects name beyond its plain conditional stats: only the simulator can value those. */
+export function effectTags(item: Item): string[] {
+	const tags = item.fightTags;
+	if (!tags) return [];
+	const inStats = new Set([...(item.versus ?? []).flatMap(entry => entry.mobTypes), ...(item.inArea ?? []).map(entry => entry.area)]);
+	return [...(tags.mobTypes ?? []), ...(tags.families ?? []), ...(tags.areas ?? [])].filter(tag => !inStats.has(tag));
+}
+
 /** An item's stats that depend on the fight, each with when it counts and how to say so. */
 export function conditionalStats(item: Item): { label: string; stats: Stats; active: (fight: Fight | undefined) => boolean }[] {
 	return [
@@ -71,7 +90,12 @@ export function conditionalStats(item: Item): { label: string; stats: Stats; act
 
 /** "vs Undead: +12 Spell dmg" for each conditional bonus, with whether it counts in the current fight. */
 export function conditionalLines(item: Item, fight: Fight | undefined): { text: string; active: boolean }[] {
-	return conditionalStats(item).map(line => ({ text: `${line.label}: ${statLine(line.stats)}`, active: line.active(fight) }));
+	const effects = effectTags(item);
+	const named = (tag: string) => AREAS.find(([key]) => key === tag)?.[1].toLowerCase() ?? spaced(tag);
+	return [
+		...conditionalStats(item).map(line => ({ text: `${line.label}: ${statLine(line.stats)}`, active: line.active(fight) })),
+		...(effects.length ? [{ text: `Effect for ${effects.map(named).join(', ')}: only the simulator can value it`, active: effects.some(tag => tag === fight?.mobType || tag === fight?.family || tag === fight?.area) }] : []),
+	];
 }
 
 export function pieceStats(item: Item, piece: GearPiece, data: GameData): Stats {

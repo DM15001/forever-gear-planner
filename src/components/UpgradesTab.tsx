@@ -9,13 +9,13 @@ import { type Guide, type GuideMark, guideMarks, guidePlan, markLabel, swapDelta
 import { type Candidate, clash, type Gear, pairedSlot, plannedGear, scoreSet, slotCandidates, slotInUse, type SourceFilter, suggestPlan, usableSources, withItem } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
 import { measureWeights, weightRuns } from '../lib/sim/live';
-import { conditionalLines, pieceStats, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
+import { conditionalLines, matchesFight, pieceStats, STAT_LABELS, statLine, wowheadItemUrl } from '../lib/stats';
 import { ContentPicker } from './ContentPicker';
 import { ItemIcon } from './ItemIcon';
 import { SuffixNote, suffixText } from './SuffixNote';
 import { SourceLabel, SourceList } from './SourceLabel';
-import { SimDelta, SimSummary } from './Sim';
-import type { Character, Item, SpecConfig } from '../lib/types';
+import { SET_ITERATIONS, SimDelta, SimSummary, useSim } from './Sim';
+import type { Character, Item, SpecConfig, Stats } from '../lib/types';
 
 interface Props {
 	spec: SpecConfig;
@@ -29,6 +29,21 @@ interface Props {
 	onWeightsChange: (weights: SpecConfig['weights'] | null) => void;
 }
 
+/** The yes/no parts of the content choice, as chips above the lists. */
+const FILTER_CHIPS: [key: 'quest' | 'crafted' | 'rep' | 'vendor' | 'currency' | 'drop' | 'pvp' | 'randomSuffix' | 'unknown' | 'notYetAvailable', label: string][] = [
+	['quest', 'Quests'],
+	['crafted', 'Crafted'],
+	['rep', 'Reputation'],
+	['vendor', 'Vendors'],
+	['currency', 'Currency vendors'],
+	['drop', 'World drops'],
+	['pvp', 'PvP'],
+	['randomSuffix', 'Random suffix'],
+	['unknown', 'Unknown source'],
+	['notYetAvailable', 'Not in game yet'],
+];
+/** How many items the list for a picked enemy or terrain shows. */
+const FIGHT_PICKS = 12;
 const SHORT_LIST = 6;
 /** How many next-best items a slot lists below its upgrades. */
 const ALTERNATIVES = 5;
@@ -72,6 +87,20 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 		}));
 	}, [gear, character, data, spec, filter]);
 
+	// With an enemy type, creature or terrain picked: every usable item that has a bonus for it, once, in its best slot.
+	const fightPicks = useMemo(() => {
+		if (!data.fight) return null;
+		const best = new Map<number, { index: number; candidate: Candidate }>();
+		for (const { index, candidates } of slots) {
+			for (const candidate of candidates ?? []) {
+				if (!matchesFight(candidate.item, data.fight)) continue;
+				const known = best.get(candidate.item.id);
+				if (!known || candidate.delta > known.candidate.delta) best.set(candidate.item.id, { index, candidate });
+			}
+		}
+		return [...best.values()].sort((a, b) => b.candidate.delta - a.candidate.delta);
+	}, [slots, data.fight]);
+
 	const planCount = Object.keys(character.plan ?? {}).length;
 	const setPlan = (plan: Record<number, number>, label?: string) => {
 		setGuideNotice(null);
@@ -113,6 +142,9 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 		});
 
 	const gain = planned.score - equipped.score;
+	const sim = useSim();
+	const simEquipped = sim.result(character.gear, SET_ITERATIONS);
+	const simPlanned = sim.result(gear, SET_ITERATIONS);
 	const hitText = (hit: typeof planned.hit) => `${hit.total.toFixed(1)}% of ${hit.cap}% hit${hit.ratingOver ? `, ${hit.ratingOver} rating over the cap` : ''}`;
 
 	return (
@@ -199,6 +231,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				<ContentPicker spec={spec} character={character} data={data} filter={filter} onChange={setFilter} />
 			</details>
 
+			<div className="expert-only">
 			<WeightsEditor
 				weights={spec.weights}
 				defaults={defaultWeights}
@@ -208,7 +241,77 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				measureError={measureError}
 				onMeasure={import.meta.env.VITE_NO_SIM ? undefined : measure}
 			/>
+			</div>
 
+			{fightPicks && (
+				<section className="panel fight-picks" aria-label="Items for this fight">
+					<h3>Items with a bonus for this fight</h3>
+					{fightPicks.length === 0 ? (
+						<p className="slot-source">No item you can use has a bonus for what you picked, with the current content choice.</p>
+					) : (
+						<>
+							<p className="slot-source">Every item with a bonus for the enemy, creature or terrain you picked, best first. The number is the estimated change against your current item in that slot; use "Sim this" for items with an effect.</p>
+							<ul className="candidates">
+								{fightPicks.slice(0, FIGHT_PICKS).map(({ index, candidate }) => (
+									<CandidateRow
+										key={`${index}-${candidate.item.id}`}
+										candidate={candidate}
+										note={GEAR_SLOTS[index].label}
+										marks={marks.get(candidate.item.id)}
+										base={gear}
+										variant={withItem(gear, index, candidate.item.id, data)}
+										data={data}
+										faction={faction}
+										filter={filter}
+										onPlan={() => planItem(index, candidate.item.id)}
+										onHide={() => hide(candidate.item)}
+									/>
+								))}
+							</ul>
+						</>
+					)}
+				</section>
+			)}
+
+			<div className="filter-chips" role="group" aria-label="What the lists include">
+				<span className="field-label">Showing</span>
+				{FILTER_CHIPS.map(([key, label]) => (
+					<button key={key} className="chip" aria-pressed={filter[key]} title={filter[key] ? `Leave out: ${label}` : `Include: ${label}`} onClick={() => setFilter({ ...filter, [key]: !filter[key] })}>
+						{label}
+					</button>
+				))}
+				<span className="slot-source">Dungeons and reputations: under Content above.</span>
+			</div>
+
+			<div className="slot-bar">
+				<p className="slot-bar-summary">
+					<span>
+						Plan <strong className={gain >= 0 ? 'num delta-up' : 'num delta-down'}>{planCount > 0 ? formatDelta(gain) : 'none yet'}</strong> <span className="slot-source">estimated</span>
+					</span>
+					{simEquipped && (
+						<span>
+							Simulated <strong className="num">{Math.round(simEquipped.dps)}</strong>
+							{simPlanned && planCount > 0 && (
+								<>
+									{' '}
+									to <strong className="num">{Math.round(simPlanned.dps)}</strong>
+								</>
+							)}{' '}
+							DPS
+						</span>
+					)}
+					{!import.meta.env.VITE_NO_SIM && (
+						<button
+							className="button button-small"
+							disabled={sim.busy}
+							onClick={() => {
+								sim.run(character.gear, SET_ITERATIONS);
+								if (planCount > 0) sim.run(gear, SET_ITERATIONS);
+							}}>
+							{sim.busy ? 'Simulating…' : simEquipped ? 'Simulate again' : 'Simulate'}
+						</button>
+					)}
+				</p>
 			<nav className="slot-nav" aria-label="Jump to a slot">
 				{slots.map(({ slot, index, candidates }) => {
 					if (!candidates) return null;
@@ -227,6 +330,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 					);
 				})}
 			</nav>
+			</div>
 			{undo && (
 				<p className="undo-toast" role="status">
 					{undo.label}.{' '}
@@ -265,6 +369,9 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				);
 				const limit = expanded.has(index) ? LONG_LIST : SHORT_LIST;
 				const upgrades = candidates.filter(c => c.delta > 0).length;
+				const currentPiece = gear[index];
+				const currentItemNow = currentPiece ? data.itemById.get(currentPiece.id) : undefined;
+				const currentStats = currentItemNow && currentPiece ? pieceStats(currentItemNow, currentPiece, data) : {};
 				// What comes next if the planned or worn item stays out of reach: the best items that are not upgrades over it.
 				const alternatives = candidates.filter(c => c.delta <= 0 && c.item.id !== character.gear[index]?.id && usableSources(c.item, faction, filter).some(source => sourceKind(source) !== 'unknown')).slice(0, ALTERNATIVES);
 				const wornScore = plannedItem
@@ -311,6 +418,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 							<ul className="candidates">
 								{candidates.slice(0, limit).map(candidate => (
 									<CandidateRow
+												current={currentStats}
 										key={candidate.item.id}
 										candidate={candidate}
 										marks={marks.get(candidate.item.id)}
@@ -342,6 +450,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 										const overWorn = plannedItem ? scoreSet(variant, character, data, spec).score - wornScore : undefined;
 										return (
 											<CandidateRow
+												current={currentStats}
 												key={candidate.item.id}
 												candidate={candidate}
 												note={overWorn !== undefined ? `${formatDelta(overWorn)} over what you wear` : undefined}
@@ -385,6 +494,8 @@ interface RowProps {
 	candidate: Candidate;
 	/** A second line under the gain, for example how the item compares with the worn one. */
 	note?: string;
+	/** The stats of the item in the slot now, to show what changes. */
+	current?: Stats;
 	marks?: GuideMark[];
 	base: Gear;
 	variant: Gear;
@@ -395,7 +506,7 @@ interface RowProps {
 	onHide: () => void;
 }
 
-function CandidateRow({ candidate, note, marks, base, variant, data, faction, filter, onPlan, onHide }: RowProps) {
+function CandidateRow({ candidate, note, current, marks, base, variant, data, faction, filter, onPlan, onHide }: RowProps) {
 	const { item, delta, incomplete } = candidate;
 	const sources = usableSources(item, faction, filter);
 	const stats = statLine(
@@ -433,6 +544,9 @@ function CandidateRow({ candidate, note, marks, base, variant, data, faction, fi
 					{item.weapon?.dps ? `${item.weapon.dps.toFixed(1)} DPS, ${item.weapon.speed?.toFixed(2)} speed${stats ? ', ' : ''}` : ''}
 					{stats || (item.weapon?.dps ? '' : 'No stats')}
 				</span>
+				{current && statChange(pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data), current) && (
+					<span className="stat-diff">Against your item: {statChange(pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data), current)}</span>
+				)}
 				{conditionalLines(item, data.fight).map(line => (
 					<span key={line.text} className={line.active ? 'slot-versus slot-versus-on' : 'slot-versus'} title={line.active ? 'Counted: it matches the enemy type or terrain you picked.' : 'Not counted. Pick this enemy type or terrain at the top of the page to count it.'}>
 						{line.text}
@@ -455,6 +569,16 @@ function CandidateRow({ candidate, note, marks, base, variant, data, faction, fi
 			</span>
 		</li>
 	);
+}
+
+/** "+5 Spell dmg, −7 Int": what changes when `next` replaces `now`; empty if nothing does. */
+function statChange(next: Stats, now: Stats): string {
+	return STAT_LABELS.filter(([key]) => key !== 'armor' && (next[key] ?? 0) !== (now[key] ?? 0))
+		.map(([key, short]) => {
+			const change = (next[key] ?? 0) - (now[key] ?? 0);
+			return `${change > 0 ? '+' : '−'}${Math.abs(change)} ${short}`;
+		})
+		.join(', ');
 }
 
 function badgeReason(item: Item): string {
