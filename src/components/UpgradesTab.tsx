@@ -207,6 +207,21 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 
 	return (
 		<div className="upgrades">
+			<details className="weights fold">
+				<summary>Content: dungeons, reputations, crafting and more</summary>
+				<ContentPicker spec={spec} character={character} data={data} filter={filter} onChange={setFilter} />
+			</details>
+
+			<WeightsEditor
+				weights={spec.weights}
+				defaults={defaultWeights}
+				onChange={onWeightsChange}
+				runs={weightRuns({ ...spec, weights: defaultWeights })}
+				measuring={measuring}
+				measureError={measureError}
+				onMeasure={import.meta.env.VITE_NO_SIM ? undefined : measure}
+			/>
+
 			<section className="panel summary" aria-labelledby="upgrades-title">
 				<h2 id="upgrades-title">Pick your upgrades</h2>
 				<div className="summary-scores">
@@ -286,21 +301,6 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 					</p>
 				</details>
 			</section>
-
-			<details className="weights fold">
-				<summary>Content: dungeons, reputations, crafting and more</summary>
-				<ContentPicker spec={spec} character={character} data={data} filter={filter} onChange={setFilter} />
-			</details>
-
-			<WeightsEditor
-				weights={spec.weights}
-				defaults={defaultWeights}
-				onChange={onWeightsChange}
-				runs={weightRuns({ ...spec, weights: defaultWeights })}
-				measuring={measuring}
-				measureError={measureError}
-				onMeasure={import.meta.env.VITE_NO_SIM ? undefined : measure}
-			/>
 
 			{fightPicks && (
 				<section className="panel fight-picks" aria-label="Items for this fight">
