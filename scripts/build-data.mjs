@@ -533,6 +533,38 @@ if (unnamedSpells.length) {
 		else console.warn(`No name for spell ${id} used in a rotation${args.repo ? '' : ' (run with --repo to read the sim\'s spell table)'}.`);
 	}
 }
+// A simulation result can show any spell the sim knows: a proc of an item, a hidden talent effect, a
+// food's breath. The database only names the ones the sim UI has buttons for, so the rest are named
+// from the sim's spell table. Their icons are borrowed: from a spell of the same name, else from the
+// item or consumable of that name, else from the item or enchant whose effect it is.
+const borrowedSpellIcons = {};
+if (args.repo) {
+	const spellTable = await readFile(join(args.repo, 'sim/core/spelldata/spells_auto_gen.go'), 'utf8').catch(() => '');
+	const iconOfName = new Map();
+	const remember = (name, icon) => {
+		if (name && icon && !iconOfName.has(name.toLowerCase())) iconOfName.set(name.toLowerCase(), icon);
+	};
+	for (const spell of db.spellIcons ?? []) remember(spell.name, spell.icon);
+	for (const item of db.itemIcons ?? []) remember(item.name, item.icon);
+	for (const item of db.items) remember(item.name, item.icon);
+	const iconOfEffect = new Map();
+	for (const item of db.items) for (const effect of item.itemEffects ?? []) if (effect.buffId && item.icon && !iconOfEffect.has(effect.buffId)) iconOfEffect.set(effect.buffId, item.icon);
+	const consumableIcons = new Map((db.itemIcons ?? []).map(item => [item.id, item.icon]));
+	for (const consumable of db.consumables ?? []) for (const effect of consumable.itemEffects ?? []) if (effect.buffId && consumableIcons.get(consumable.id) && !iconOfEffect.has(effect.buffId)) iconOfEffect.set(effect.buffId, consumableIcons.get(consumable.id));
+	const hasIcon = new Set((db.spellIcons ?? []).filter(spell => spell.icon).map(spell => spell.id));
+	let named = 0;
+	for (const [, id, name] of spellTable.matchAll(/\{ID: (\d+), Name: "([^"]*)"/g)) {
+		if (!name) continue;
+		if (!spellNames[id]) {
+			spellNames[id] = name;
+			named++;
+		}
+		if (hasIcon.has(Number(id))) continue;
+		const icon = iconOfName.get(name.toLowerCase()) ?? iconOfEffect.get(Number(id));
+		if (icon) borrowedSpellIcons[id] = icon;
+	}
+	console.log(`Spell names from the sim's spell table: ${named} added, ${Object.keys(borrowedSpellIcons).length} icons borrowed.`);
+}
 // Every buff and debuff the sim knows, from its proto definition, with the labels and steps of the
 // sim's own settings page.
 const itemIconById = new Map([...(db.itemIcons ?? []), ...db.items].filter(item => item.icon).map(item => [item.id, item.icon]));
@@ -608,7 +640,7 @@ const simSetup = {
 	trees: talentTrees,
 	spells: spellNames,
 	// Icon names for the spells a result or a buff can show.
-	spellIcons: Object.fromEntries((db.spellIcons ?? []).filter(spell => spell.icon).map(spell => [spell.id, spell.icon])),
+	spellIcons: { ...borrowedSpellIcons, ...Object.fromEntries((db.spellIcons ?? []).filter(spell => spell.icon).map(spell => [spell.id, spell.icon])) },
 	items: Object.fromEntries(Object.entries(itemNames).filter(([, name]) => name)),
 	itemIcons: Object.fromEntries(Object.keys(itemNames).filter(id => itemIconById.get(Number(id))).map(id => [id, itemIconById.get(Number(id))])),
 	consumables: (db.consumables ?? [])
