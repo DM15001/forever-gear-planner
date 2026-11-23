@@ -4006,9 +4006,9 @@ button.character-tile.character-add {
 	color: var(--mist);
 }
 .news-section h4 {
-	margin: 1rem 0 0.4rem;
-	font-size: 0.8125rem;
-	font-weight: 600;
+	margin: 1.4rem 0 0.5rem;
+	font-size: 1.125rem;
+	font-weight: 700;
 	color: var(--brass);
 	border-bottom: 1px solid var(--hairline);
 	padding-bottom: 0.25rem;
