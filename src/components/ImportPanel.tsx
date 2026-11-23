@@ -41,6 +41,31 @@ export function ImportPanel({ hasCharacter, onImported, onCancel }: Props) {
 		}
 	};
 
+	// The WoWSims preset of a build as a character: its gear, talents and race. Builds are grouped by class.
+	const presetPicker = (label: string) => (
+		<div className="start-example">
+			<label className="field-label" htmlFor="example-build">
+				{label}
+			</label>
+			<div className="start-example-row">
+				<select id="example-build" value={example} onChange={e => setExample(e.target.value)}>
+					{[...new Set(SPECS.map(spec => spec.className))].map(className => (
+						<optgroup key={className} label={className.charAt(0).toUpperCase() + className.slice(1)}>
+							{SPECS.filter(spec => spec.className === className).map(spec => (
+								<option key={spec.id} value={spec.id}>
+									{spec.name}
+								</option>
+							))}
+						</optgroup>
+					))}
+				</select>
+				<button className="button" onClick={loadExample} disabled={loading}>
+					{loading ? 'Loading…' : 'Load the WoWSims preset'}
+				</button>
+			</div>
+		</div>
+	);
+
 	return (
 		<div className={hasCharacter ? undefined : 'start'}>
 			{!hasCharacter && (
@@ -60,23 +85,7 @@ export function ImportPanel({ hasCharacter, onImported, onCancel }: Props) {
 					<p className="slot-source">
 						Damage builds for {classes.slice(0, -1).join(', ')} and {classes[classes.length - 1]}. Your characters stay in this browser; nothing is sent to a server.
 					</p>
-					<div className="start-example">
-						<label className="field-label" htmlFor="example-build">
-							No export at hand? Try an example
-						</label>
-						<div className="start-example-row">
-							<select id="example-build" value={example} onChange={e => setExample(e.target.value)}>
-								{SPECS.map(spec => (
-									<option key={spec.id} value={spec.id}>
-										{spec.name}
-									</option>
-								))}
-							</select>
-							<button className="button" onClick={loadExample} disabled={loading}>
-								{loading ? 'Loading…' : 'Load the WoWSims preset'}
-							</button>
-						</div>
-					</div>
+					{presetPicker('No export at hand? Try an example')}
 				</section>
 			)}
 			<section className="import" aria-labelledby="import-title">
@@ -117,7 +126,12 @@ export function ImportPanel({ hasCharacter, onImported, onCancel }: Props) {
 					</button>
 				)}
 			</div>
-			{hasCharacter && <p className="hint">The new character is added next to the ones saved in this browser.</p>}
+			{hasCharacter && (
+				<>
+					<p className="hint">The new character is added next to the ones saved in this browser.</p>
+					{presetPicker('Or start from a ready-made WoWSims character')}
+				</>
+			)}
 			</section>
 		</div>
 	);

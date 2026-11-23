@@ -3658,3 +3658,36 @@ a.enchant-gives:hover {
 	border: 2px solid var(--brass);
 	box-shadow: 0 0 0 2px #000;
 }
+
+/* Stats on a slot card: number and label as one unit, set apart by space instead of commas */
+.sheet .slot-stats {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.1rem 0.7rem;
+	max-height: none;
+	overflow: visible;
+	-webkit-line-clamp: unset;
+	margin: 0.15rem 0;
+	font-size: 0.8125rem;
+	color: var(--haze);
+}
+.stat-pair {
+	white-space: nowrap;
+}
+.stat-pair .num {
+	color: var(--mist);
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+}
+
+.identity-line .faction {
+	margin-left: 0.6rem;
+	padding: 0.05rem 0.5rem 0.05rem 0.3rem;
+	border: 1px solid currentColor;
+	border-radius: 999px;
+	font-size: 0.875rem;
+}
+.identity-line .faction img {
+	width: 1.15rem;
+	height: 1.15rem;
+}

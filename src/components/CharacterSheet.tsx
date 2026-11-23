@@ -6,6 +6,7 @@ import type { GameData } from '../lib/gameData';
 import { gearStats, hitSummary, pieceStats, STAT_LABELS, statLine, wowheadEnchantUrl, wowheadItemUrl, wowheadData } from '../lib/stats';
 import type { Character, GearPiece, SpecConfig, Stats } from '../lib/types';
 import { EVERYTHING, withItem } from '../lib/scoring';
+import { FactionMark } from './CharacterBar';
 import { ClassIcon } from './ClassIcon';
 import { EnchantPicker } from './EnchantPicker';
 import { IconTile, PROFESSION_ICONS, RaceIcon, raceIcons } from './IconTile';
@@ -87,8 +88,9 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 					<h2 id="sheet-title">{character.name ?? `Your ${spec.className}`}</h2>
 					<p className="identity-line">
 						{spec.name}
-						{race ? `, ${race.name}, ${race.faction === 'alliance' ? 'Alliance' : 'Horde'}` : ', race not set'}
+						{race ? `, ${race.name}` : ', race not set'}
 						{character.level ? `, level ${character.level}` : ''}
+						{race && <FactionMark faction={race.faction} />}
 					</p>
 				</div>
 				{next && <div className="sheet-next">{next}</div>}
@@ -339,8 +341,16 @@ function GearSlot({ index, mirrored, piece, data, onChange, onPick, onEnchant }:
 				{item && (
 					<>
 						<span className="slot-stats">
-							{item.weapon?.dps ? `${item.weapon.dps.toFixed(1)} DPS, ${item.weapon.speed?.toFixed(2)} speed${stats ? ', ' : ''}` : ''}
-							{stats}
+							{item.weapon?.dps ? <span className="stat-pair"><span className="num">{item.weapon.dps.toFixed(1)}</span> DPS, {item.weapon.speed?.toFixed(2)} speed</span> : null}
+							{stats.split(', ').filter(Boolean).map(part => {
+								// "+14 Sta": the number stands out, its label stays quiet, and the pair never breaks across lines.
+								const [amount, ...label] = part.split(' ');
+								return (
+									<span key={part} className="stat-pair">
+										<span className="num">{amount}</span> {label.join(' ')}
+									</span>
+								);
+							})}
 							{!stats && !item.weapon?.dps && (item.effects ? 'Effect only, no stats' : 'No stats')}
 						</span>
 						<span className="slot-source">

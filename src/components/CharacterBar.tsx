@@ -9,7 +9,7 @@ import { ICON_SOURCES } from './ItemIcon';
 /** The game's battleground banners stand for the two factions. */
 const FACTION_ICON = { alliance: 'inv_bannerpvp_02', horde: 'inv_bannerpvp_01' };
 
-function FactionMark({ faction }: { faction: 'alliance' | 'horde' }) {
+export function FactionMark({ faction }: { faction: 'alliance' | 'horde' }) {
 	const [attempt, setAttempt] = useState(0);
 	return (
 		<span className={`faction faction-${faction}`}>
