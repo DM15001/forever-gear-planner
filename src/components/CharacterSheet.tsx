@@ -111,10 +111,6 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 			<div className="sheet-column">{SHEET_LAYOUT.left.map(i => slot(i))}</div>
 
 			<div className="sheet-center">
-				<div className="card identity">
-					<h3>Stats from gear</h3>
-					{stats && <StatsPanel stats={stats} character={character} spec={spec} />}
-				</div>
 			<div className="card sheet-details">
 				<h3>Character details</h3>
 				<label className="field-label" htmlFor="character-name">
@@ -200,6 +196,10 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 
 			</div>
 
+				<div className="card identity">
+					<h3>Stats from gear</h3>
+					{stats && <StatsPanel stats={stats} character={character} spec={spec} />}
+				</div>
 			</div>
 
 			<div className="sheet-column">{SHEET_LAYOUT.right.map(i => slot(i, true))}</div>

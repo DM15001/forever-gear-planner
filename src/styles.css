@@ -4062,3 +4062,46 @@ button.character-tile.character-add {
 .stat-pair.stat-sta, .stat-pair.stat-sta .num { color: #f0a050; }
 .stat-pair.stat-int, .stat-pair.stat-int .num { color: #6cb8ff; }
 .stat-pair.stat-spi, .stat-pair.stat-spi .num { color: #c9a0ff; }
+
+/* Adding a character is rare, so it is a small round button at the end of the row */
+button.character-add {
+	flex: none;
+	align-self: center;
+	display: grid;
+	place-items: center;
+	width: 2.5rem;
+	height: 2.5rem;
+	min-width: 0;
+	padding: 0;
+	font: inherit;
+	font-size: 1.4rem;
+	line-height: 1;
+	color: var(--brass);
+	background: #0a0806;
+	border: 1px dashed var(--ridge);
+	border-radius: 50%;
+	cursor: pointer;
+}
+button.character-add:hover,
+button.character-add:focus-visible {
+	color: var(--mist);
+	border-color: var(--brass);
+	border-style: solid;
+}
+/* On a phone only the active character shows its details; the others shrink to icon and name */
+@media (max-width: 640px) {
+	.character-tile {
+		min-width: 0;
+	}
+	.character-tile:not(.character-tile-on) .character-tile-text > span {
+		display: none;
+	}
+	.character-tile:not(.character-tile-on) .class-icon {
+		width: 1.75rem;
+		height: 1.75rem;
+	}
+	.character-tile:not(.character-tile-on) .character-tile-pick {
+		padding: 0.4rem 0.7rem 0.4rem 0.45rem;
+		gap: 0.45rem;
+	}
+}

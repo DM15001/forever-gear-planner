@@ -64,14 +64,8 @@ export function CharacterBar({ roster, onSelect, onAdd, onRemove, aside }: { ros
 					</div>
 				);
 			})}
-			<button className="character-tile character-add" onClick={onAdd}>
-				<span className="character-add-plus" aria-hidden="true">
-					+
-				</span>
-				<span className="character-tile-text">
-					<strong>Add a character</strong>
-					<span>Paste an export or load a preset</span>
-				</span>
+			<button className="character-add" onClick={onAdd} title="Add a character: paste an export or load a preset" aria-label="Add a character">
+				+
 			</button>
 		</nav>
 		{aside && <div className="character-row-aside">{aside}</div>}
