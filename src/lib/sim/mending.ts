@@ -27,8 +27,11 @@ const TALENT = { tree: 1, index: 16 };
 
 export const hasMendingTalent = (talents: string | undefined) => Number(talents?.split('-')[TALENT.tree]?.[TALENT.index] ?? 0) > 0;
 
-/** Whether the estimate is counted for this character: it has the talent and has not switched it off. */
-export const countsMending = (character: Pick<Character, 'talents' | 'healing'>) => hasMendingTalent(character.talents) && character.healing?.mending !== false;
+/**
+ * Whether the estimate is counted for this character: it has the talent and has not switched it
+ * off. A character without talents of its own plays with the build's (`presetTalents`).
+ */
+export const countsMending = (character: Pick<Character, 'talents' | 'healing'>, presetTalents?: string) => hasMendingTalent(character.talents || presetTalents) && character.healing?.mending !== false;
 
 /** The part of the fight spent casting in the character's scenario, 0 to 1. */
 export function castingShare(character: Pick<Character, 'healing'>): number {

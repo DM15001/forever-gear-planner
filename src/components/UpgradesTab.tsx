@@ -292,7 +292,6 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				<ContentPicker spec={spec} character={character} data={data} filter={filter} onChange={setFilter} />
 			</details>
 
-			<div className="expert-only">
 			<WeightsEditor
 				weights={spec.weights}
 				defaults={defaultWeights}
@@ -302,7 +301,6 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				measureError={measureError}
 				onMeasure={import.meta.env.VITE_NO_SIM ? undefined : measure}
 			/>
-			</div>
 
 			{fightPicks && (
 				<section className="panel fight-picks" aria-label="Items for this fight">
@@ -837,7 +835,10 @@ function WeightsEditor({
 	const healer = defaults.stats.healingPower !== undefined && !defaults.mainHandDps;
 	return (
 		<details className="weights fold">
-			<summary>Stat weights{changed ? ' (changed)' : ''}</summary>
+			<summary>
+				Stat weights{changed ? ' (changed)' : ''}
+				<span className="slot-source">For checking the maths: what one point of each stat is worth</span>
+			</summary>
 			<p className="hint">
 				How much {unit()} one point of each stat is worth. The defaults are the weights of the build, measured with the simulator on its preset gear. Changing them changes every score on the site; the simulated numbers are not affected.
 			</p>

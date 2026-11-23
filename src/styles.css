@@ -3945,3 +3945,15 @@ button.character-tile.character-add {
 .expert-switch:focus-visible .expert-tip {
 	display: block;
 }
+
+/* As in the game's tooltips: attributes in white, everything an item gives on top ("Equip:") in green */
+.sheet .slot-stats {
+	color: var(--mist);
+}
+.stat-pair.stat-bonus,
+.stat-pair.stat-bonus .num {
+	color: #1eff00;
+}
+.compare-fold {
+	margin-top: 1rem;
+}

@@ -337,7 +337,7 @@ function GearSlot({ index, mirrored, piece, data, onChange, onPick, onEnchant }:
 								// "+14 Sta": the number stands out, its label stays quiet, and the pair never breaks across lines.
 								const [amount, ...label] = part.split(' ');
 								return (
-									<span key={part} className="stat-pair">
+									<span key={part} className={/^(Str|Agi|Sta|Int|Spi)$/.test(label.join(' ')) ? 'stat-pair' : 'stat-pair stat-bonus'}>
 										<span className="num">{amount}</span> {label.join(' ')}
 									</span>
 								);

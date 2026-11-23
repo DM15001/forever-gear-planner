@@ -50,7 +50,7 @@ export function App() {
 	const [weightsVersion, setWeightsVersion] = useState(0);
 	// A healer has one set of weights per healing scenario; the character's choice picks it.
 	const healingKey = baseSpec.healing ? scenarioKey(healingChoice(character)) : '';
-	const mending = !!baseSpec.healing && !!character && countsMending(character);
+	const mending = !!baseSpec.healing && !!character && countsMending(character, baseSpec.talents);
 	const scenarioSpec = useMemo(() => {
 		const measured = baseSpec.healing?.scenarios[healingKey];
 		if (!measured) return baseSpec;
@@ -77,22 +77,6 @@ export function App() {
 	const [tab, setTab] = useState('character');
 	// Step 2 has two ways in: the automatic plan, or every slot by hand.
 	const [upgradeView, setUpgradeView] = useState<'plan' | 'slots'>(() => (Object.keys(character?.plan ?? {}).length > 0 ? 'slots' : 'plan'));
-	// Stat weights, the sim comparison and raw rotation rules stay out of the way unless asked for.
-	const [expert, setExpertState] = useState(() => {
-		try {
-			return localStorage.getItem('forever-gear-planner.expert') === '1';
-		} catch {
-			return false;
-		}
-	});
-	const setExpert = (on: boolean) => {
-		setExpertState(on);
-		try {
-			localStorage.setItem('forever-gear-planner.expert', on ? '1' : '0');
-		} catch {
-			// Private mode: the choice lasts for this visit only.
-		}
-	};
 	// The content choice, shared by every tab and remembered between visits.
 	const [filter, setFilterState] = useState<SourceFilter>(loadFilter);
 	const setFilter = (next: SourceFilter) => {
@@ -128,7 +112,7 @@ export function App() {
 	};
 
 	return (
-		<div className={expert ? 'page' : 'page page-simple'}>
+		<div className="page">
 			<header className="masthead">
 				<div className="masthead-title">
 					<Emblem />
@@ -173,27 +157,6 @@ export function App() {
 							changeRoster(removeActive(roster));
 							setWarnings([]);
 						}}
-						aside={
-							<button
-								type="button"
-								className={expert ? 'expert-switch expert-switch-on' : 'expert-switch'}
-								role="switch"
-								aria-checked={expert}
-								onClick={() => setExpert(!expert)}>
-								<span className="expert-switch-knob" aria-hidden="true" />
-								Expert details
-								<span className="expert-tip" role="tooltip">
-									<strong>Expert details: {expert ? 'on' : 'off'}</strong>
-									Shows two extra sections for people who want to check the maths. All numbers stay the same.
-									<span>
-										<b>Upgrades tab:</b> the stat weights, what one point of each stat is worth, to edit or re-measure.
-									</span>
-									<span>
-										<b>Sim setup tab:</b> "Compare with another sim", every setting of a run to rebuild it elsewhere.
-									</span>
-								</span>
-							</button>
-						}
 					/>
 				)}
 				{character && !importing && (

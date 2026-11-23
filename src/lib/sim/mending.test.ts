@@ -16,6 +16,9 @@ describe('Prayer of Mending, estimated', () => {
 		const talents = '-00000000000000001';
 		expect(countsMending({ talents })).toBe(true);
 		expect(countsMending({ talents, healing: { mending: false } })).toBe(false);
+		// "Use the build's talents" leaves the character's own talents empty.
+		expect(countsMending({ talents: '' }, talents)).toBe(true);
+		expect(countsMending({ talents: '0' }, talents)).toBe(false);
 	});
 
 	it('adds the jumps and takes off the casts it displaces', () => {

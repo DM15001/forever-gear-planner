@@ -119,7 +119,7 @@ export class SimClient {
 					});
 				const healer = isHealer(index.template);
 				const simulated = ask({ request: JSON.stringify(request) }).then(json => readSimResult(json, iterations, healer));
-				if (!healer || !countsMending(character)) return simulated;
+				if (!healer || !countsMending(character, index.template.raid.parties[0].players[0].talentsString)) return simulated;
 				// The engine cannot cast Prayer of Mending yet: its healing is worked out from the character's stats and added.
 				const stats = ask({ stats: true, request: JSON.stringify({ raid: request.raid, encounter: request.encounter }) }).catch(() => null);
 				return Promise.all([simulated, stats]).then(([outcome, statsJson]) => {

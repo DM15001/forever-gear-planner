@@ -15,8 +15,9 @@ const WORTH: [key: string, label: string][] = [
 export function HealingPicker({ character, spec, onChange }: { character: Character; spec: SpecConfig; onChange: (next: Character) => void }) {
 	const choice = healingChoice(character);
 	const set = (patch: Partial<NonNullable<Character['healing']>>) => onChange({ ...character, healing: { ...character.healing, ...choice, ...patch } });
-	const mending = hasMendingTalent(character.talents);
-	const counted = countsMending(character);
+	// Without talents of its own the character plays with the build's.
+	const mending = hasMendingTalent(character.talents || spec.talents);
+	const counted = countsMending(character, spec.talents);
 	const style = HEALING_STYLES.find(s => s.id === choice.style)!;
 	const pressure = HEALING_PRESSURES.find(p => p.id === choice.pressure)!;
 	const measured = spec.healing?.scenarios[`${choice.style}.${choice.pressure}`];

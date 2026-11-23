@@ -126,7 +126,7 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 	const rotation = useMemo(() => {
 		if (!ready || !player) return null;
 		const text = describeRotation(healer ? healingFight(healingChoice(character)).rotation : player.rotation, ready.setup, true);
-		if (!healer || !countsMending(character)) return text;
+		if (!healer || !countsMending(character, spec.talents)) return text;
 		// Prayer of Mending is counted as an estimate: it gets its place in the list, ahead of the first heal.
 		const firstHeal = text.priority.findIndex(line => /castFriendlySpell/.test(line.raw ?? ''));
 		const at = firstHeal < 0 ? text.priority.length : firstHeal;
@@ -242,8 +242,11 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 				</p>
 			</section>
 
-			<section className="panel expert-only">
-				<h2>Compare with another sim</h2>
+			<details className="fold compare-fold">
+				<summary>
+					Compare with another sim
+					<span className="slot-source">Every setting of a run, to rebuild it on wowsims.com</span>
+				</summary>
 				<p>Everything a run depends on, so the same run can be set up elsewhere. If two sims disagree, one of these lines differs.</p>
 				<dl className="compare-facts">
 					<div>
@@ -318,7 +321,7 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 					<summary>Show the settings</summary>
 					<textarea className="compare-json" readOnly rows={6} value={exportOf(false)} onFocus={e => e.target.select()} aria-label="Settings with equipped gear, as JSON" />
 				</details>
-			</section>
+			</details>
 
 			<section className="panel">
 				<h2>Talents</h2>
