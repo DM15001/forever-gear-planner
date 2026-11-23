@@ -109,5 +109,11 @@
 		},
 		"hitRatingOverCap": 0,
 		"dpsPerPoint": 0.2697
+	},
+	"weaponNeeds": {
+		"mainHand": [
+			"dagger"
+		],
+		"why": "Backstab needs a dagger in the main hand."
 	}
 }

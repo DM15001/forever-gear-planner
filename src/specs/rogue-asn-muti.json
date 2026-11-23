@@ -109,5 +109,14 @@
 		},
 		"hitRatingOverCap": 0,
 		"dpsPerPoint": 0.261
+	},
+	"weaponNeeds": {
+		"mainHand": [
+			"dagger"
+		],
+		"offHand": [
+			"dagger"
+		],
+		"why": "Mutilate needs a dagger in each hand."
 	}
 }

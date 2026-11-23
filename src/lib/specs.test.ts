@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { loadGameData } from './gameData';
 import { importCharacter, ImportError } from './importCharacter';
 import { buildPlan } from './plan';
-import { DEFAULT_FILTER, EMPTY_SLOT, plannedGear, scoreSet, withItem } from './scoring';
+import { DEFAULT_FILTER, EMPTY_SLOT, plannedGear, scoreSet, slotCandidates, suggestPlan, withItem } from './scoring';
 import { SPECS, specById, specOf, specsOfClass, usableBy } from './specs';
 import { hitSummary } from './stats';
 
@@ -55,6 +55,21 @@ describe('importing other classes', () => {
 		// A Hunter's preset comes in as the Hunter build with those talents, a Paladin's as Retribution.
 		expect(importCharacter(build('hunter-bm')).character.specId).toBe('hunter-bm');
 		expect(importCharacter(build('paladin-ret-holy-shock')).character.specId).toBe('paladin-ret-holy-shock');
+	});
+});
+
+describe('weapons a build cannot do without', async () => {
+	it('keeps a Mutilate Rogue on daggers in both hands and never plans one unique weapon twice', async () => {
+		const spec = specById('rogue-asn-muti');
+		const data = await loadGameData(spec);
+		const character = importCharacter(JSON.stringify({ player: JSON.parse(readFileSync('public/sim/template.rogue-asn-muti.json', 'utf8')).raid.parties[0].players[0] })).character;
+		const plan = suggestPlan({ character, data, spec, filter: DEFAULT_FILTER });
+		const gear = plannedGear({ ...character, plan }, data);
+		const [mainHand, offHand] = [14, 15].map(slot => data.itemById.get(gear[slot]!.id)!);
+		expect(mainHand.weapon?.type).toBe('dagger');
+		expect(offHand.weapon?.type).toBe('dagger');
+		expect(mainHand.id === offHand.id && mainHand.unique).toBeFalsy();
+		for (const slot of [14, 15]) for (const c of slotCandidates(slot, character.gear, { character, data, spec, filter: DEFAULT_FILTER })) expect(c.item.weapon?.type, c.item.name).toBe('dagger');
 	});
 });
 

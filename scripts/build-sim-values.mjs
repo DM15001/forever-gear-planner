@@ -10,8 +10,8 @@
 //   npm run build-sim-values -- --spec mage-fire --only 13965,22321   just these item ids (for a quick check)
 //   npm run build-sim-values -- --threads 4
 //
-// Values are in DPS. Builds whose number is healing are skipped: their fights are set up in the app's
-// TypeScript (src/lib/sim/healing.ts), which this script does not run.
+// Values are in DPS. A healing build is measured in HPS, in its default healing fight, on the request
+// that scripts/presets/healer-measure-template.ts writes to scripts/builds/<id>.healing.json.
 //
 // How a value is measured: the item goes into the WoWSims default gear set, once as it is and
 // once with its effects removed from the item record. The DPS difference is the effect's worth.
@@ -54,7 +54,8 @@ async function startSim() {
 	await ready;
 
 	const db = readJson(join(SIM_DIR, 'db.json'));
-	const template = readJson(join(SIM_DIR, `template.${workerData.specId}.json`));
+	const template = readJson(workerData.templateFile);
+	const metric = workerData.healing ? 'hps' : 'dps';
 	const itemById = new Map(db.items.map(i => [i.id, i]));
 	const enchantsById = new Map();
 	for (const e of db.enchants) (enchantsById.get(e.effectId) ?? enchantsById.set(e.effectId, []).get(e.effectId)).push(e);
@@ -124,7 +125,7 @@ async function startSim() {
 		const result = JSON.parse(out);
 		const failure = result.error ?? result.errorResult;
 		if (failure && (typeof failure !== 'object' || Object.keys(failure).length)) throw new Error(JSON.stringify(failure).slice(0, 300));
-		return { avg: result.raidMetrics.dps.avg, se: result.raidMetrics.dps.stdev / Math.sqrt(iterations) };
+		return { avg: result.raidMetrics[metric].avg, se: result.raidMetrics[metric].stdev / Math.sqrt(iterations) };
 	};
 }
 
@@ -191,19 +192,19 @@ if (isMainThread) {
 	const enchants = readJson(join(ROOT, 'src', 'data', 'enchants.json'));
 	const simDb = readJson(join(SIM_DIR, 'db.json'));
 	const outFile = join(ROOT, 'src', 'data', 'simValues', `${specId}.json`);
-	if (spec.role === 'healer') {
-		console.log(`${specId} is a healing build: not measured by this script.`);
-		process.exit(0);
-	}
+	// A healer is measured in healing per second, on its preset with the default healing fight set up
+	// (scripts/presets/healer-measure-template.ts writes that file).
+	const healing = spec.role === 'healer';
+	const templateFile = healing ? join(ROOT, 'scripts', 'builds', `${specId}.healing.json`) : join(SIM_DIR, `template.${specId}.json`);
 	// Everything a measurement depends on. Unchanged inputs mean the stored values still hold.
 	const inputs = createHash('sha256');
-	for (const file of [join(SIM_DIR, 'lib.wasm.gz'), join(SIM_DIR, 'db.json'), join(SIM_DIR, `template.${specId}.json`), fileURLToPath(import.meta.url)]) inputs.update(readFileSync(file));
+	for (const file of [join(SIM_DIR, 'lib.wasm.gz'), join(SIM_DIR, 'db.json'), templateFile, fileURLToPath(import.meta.url)]) inputs.update(readFileSync(file));
 	const inputsHash = inputs.digest('hex').slice(0, 16);
 	if (args.includes('--if-changed') && existsSync(outFile) && readJson(outFile).inputs === inputsHash) {
 		console.log(`${specId}: simulator, item database, preset and script are unchanged since the last measurement. Nothing to do.`);
 		process.exit(0);
 	}
-	const template = readJson(join(SIM_DIR, `template.${specId}.json`));
+	const template = readJson(templateFile);
 	const rawById = new Map(simDb.items.map(i => [i.id, i]));
 	// The reference gear: the sim maintainers' default set, without enchants so they do not blur the picture.
 	const reference = template.raid.parties[0].players[0].equipment.items.map(p => (p?.id ? { id: p.id } : null));
@@ -237,11 +238,11 @@ if (isMainThread) {
 		const hand = item.slot === 'weapon' ? item.weapon?.hand : undefined;
 		if (hand === 'offHand') {
 			// Shields, held items and off-hand weapons go next to the preset's main hand, unless that is a two-hander.
-			if (twoHandReference) continue;
+			if (twoHandReference || (spec.weaponNeeds?.offHand && !spec.weaponNeeds.offHand.includes(item.weapon?.type))) continue;
 			tasks.push({ kind: 'item', id: item.id, name: item.name, slotIndex: OFF_HAND });
 			continue;
 		}
-		if (item.slot === 'weapon' && !fitsMainHand(item)) continue;
+		if (item.slot === 'weapon' && (!fitsMainHand(item) || (spec.weaponNeeds?.mainHand && !spec.weaponNeeds.mainHand.includes(item.weapon?.type)))) continue;
 		// A two-hander leaves no room for the preset's off hand.
 		tasks.push({ kind: 'item', id: item.id, name: item.name, slotIndex: SLOT_OF_KIND[item.slot], ...(hand === 'twoHand' ? { clear: OFF_HAND } : {}) });
 	}
@@ -283,7 +284,7 @@ if (isMainThread) {
 	await new Promise(finish => {
 		let running = threads;
 		for (let t = 0; t < threads; t++) {
-			const worker = new Worker(fileURLToPath(import.meta.url), { workerData: { reference, specId } });
+			const worker = new Worker(fileURLToPath(import.meta.url), { workerData: { reference, templateFile, healing } });
 			const feed = () => {
 				if (next < tasks.length) worker.postMessage(tasks[next++]);
 				else {
@@ -317,7 +318,8 @@ if (isMainThread) {
 		generatedAt: new Date().toISOString(),
 		spec: spec.id,
 		inputs: inputsHash,
-		note: "Worth of item effects, proc enchants and set bonuses for this build, in DPS, measured with the WoWSims simulator in the build's preset gear. Values within the noise of the measurement are left out.",
+		unit: healing ? 'HPS' : 'DPS',
+		note: "Worth of item effects, proc enchants and set bonuses for this build, in DPS (HPS for a healer, in its default healing fight), measured with the WoWSims simulator in the build's preset gear. Values within the noise of the measurement are left out.",
 		reference: { dps: round(ap.referenceDps), iterations: FINAL_ITERATIONS },
 		items: {},
 		enchants: {},

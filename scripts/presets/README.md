@@ -64,4 +64,7 @@ changed, commits the files if tests and build pass, and deploys.
 
 Until a build has its own file the app falls back to `src/data/simValues.json` (Enhancement
 only, older) and `src/data/setValues.json` (set bonuses only, from `scripts/build-set-values.mjs`).
-Healing builds are not measured.
+Healing builds are measured in healing per second, in their default healing fight (tank healing,
+normal fight). `npx vite-node scripts/presets/healer-measure-template.ts` writes the request they
+are measured on; run it again after a change to `src/lib/sim/healing.ts` or a healer's preset.
+Prayer of Mending is not in these numbers (the engine cannot cast it).

@@ -30,7 +30,7 @@ const MAIN_HAND = GEAR_SLOTS.findIndex(s => s.key === 'mainHand');
 const OFF_HAND = GEAR_SLOTS.findIndex(s => s.key === 'offHand');
 const RANGED = GEAR_SLOTS.findIndex(s => s.key === 'ranged');
 /** Slots that come in pairs; a unique item can only sit in one of them. */
-const PAIRED: Record<number, number> = { 10: 11, 11: 10, 12: 13, 13: 12 };
+const PAIRED: Record<number, number> = { 10: 11, 11: 10, 12: 13, 13: 12, [MAIN_HAND]: OFF_HAND, [OFF_HAND]: MAIN_HAND };
 
 /** True if the two items cannot be worn at the same time: the same unique item, or one limit category. */
 export function clash(a: Item | undefined, b: Item | undefined): boolean {
@@ -60,10 +60,11 @@ export function plannedGear(character: Character, data?: Pick<GameData, 'itemByI
 		return { id, ...(enchant ? { enchant } : {}), ...(randomSuffix ? { randomSuffix } : {}) };
 	});
 	if (!data) return gear;
-	// Two rings or trinkets that cannot be worn together: the second slot falls back to what is equipped.
+	// Two rings, trinkets or weapons that cannot be worn together: the second slot falls back to what is equipped.
 	for (const [first, second] of [
 		[10, 11],
 		[12, 13],
+		[MAIN_HAND, OFF_HAND],
 	]) {
 		const itemOf = (index: number) => data.itemById.get(gear[index]?.id ?? -1);
 		if (!clash(itemOf(first), itemOf(second))) continue;
@@ -236,6 +237,9 @@ function fitsSlot(item: Item, slotIndex: number, spec: SpecConfig): boolean {
 	if (item.slot !== GEAR_SLOTS[slotIndex].kind) return false;
 	if (item.slot !== 'weapon') return true;
 	const hand = item.weapon?.hand;
+	// The build's main ability may need a weapon type in this hand.
+	const needed = slotIndex === OFF_HAND ? spec.weaponNeeds?.offHand : spec.weaponNeeds?.mainHand;
+	if (needed && !needed.includes(item.weapon?.type ?? '')) return false;
 	if (spec.weaponSetup === 'twoHand') return slotIndex === MAIN_HAND && hand === 'twoHand';
 	if (slotIndex === OFF_HAND) return hand === 'offHand' || (spec.canDualWield && hand === 'oneHand');
 	return hand === 'mainHand' || hand === 'oneHand' || (spec.weaponSetup === 'either' && hand === 'twoHand');

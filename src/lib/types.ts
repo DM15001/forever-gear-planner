@@ -161,6 +161,8 @@ export interface SpecConfig {
 	 * 'twoHand': the main hand takes two-handers only and the off hand stays empty. 'either': a
 	 * two-hander, or a one-hander with something in the off hand.
 	 */
+	/** Weapon types the build's main ability cannot do without, per hand (a Mutilate Rogue: daggers). Other types are not offered. */
+	weaponNeeds?: { mainHand?: string[]; offHand?: string[]; why?: string };
 	weaponSetup: 'twoHand' | 'oneHand' | 'either';
 	/** The class's Tier 0.5 set, which pre-raid lists often show with and without. */
 	tier05Set?: { setId: number; name: string };
