@@ -142,6 +142,83 @@ export function scoreSet(gear: Gear, character: Character, data: GameData, spec:
 	return { stats, hit, score, effectScore };
 }
 
+/** Where a gear set stands on one item set. */
+export interface SetStanding {
+	setId: number;
+	name: string;
+	/** Pieces worn. */
+	count: number;
+	/** The highest measured bonus step reached (0 = none), and what the bonuses up to it are worth. */
+	reached: number;
+	worth: number;
+	/** The steps at which this build's measurement found a bonus worth something. */
+	steps: number[];
+	/** False if nobody measured this set for the build: its bonuses are not in the score. */
+	measured: boolean;
+}
+
+/** Every item set `gear` has pieces of, with the bonus step it reaches. */
+export function setStandings(gear: Gear, data: GameData): Map<number, SetStanding> {
+	const out = new Map<number, SetStanding>();
+	for (const piece of gear) {
+		const item = piece ? data.itemById.get(piece.id) : undefined;
+		if (!item?.setId) continue;
+		const known = out.get(item.setId) ?? { setId: item.setId, name: item.setName ?? 'a set', count: 0, reached: 0, worth: 0, steps: [], measured: data.simValues.measuredSets.has(item.setId) || data.simValues.sets.has(item.setId) };
+		known.count++;
+		out.set(item.setId, known);
+	}
+	for (const standing of out.values()) {
+		const byCount = data.simValues.sets.get(standing.setId);
+		if (!byCount) continue;
+		// A step counts only where the worth changes: a measurement may list 6, 7 and 8 pieces with one value.
+		let last = 0;
+		for (const pieces of [...byCount.keys()].sort((x, y) => x - y)) {
+			const worth = byCount.get(pieces)!;
+			if (Math.abs(worth - last) < 0.05) continue;
+			last = worth;
+			standing.steps.push(pieces);
+			if (pieces <= standing.count) {
+				standing.reached = pieces;
+				standing.worth = worth;
+			}
+		}
+	}
+	return out;
+}
+
+/** What swapping `base` for `variant` does to set bonuses. */
+export interface SetChange {
+	name: string;
+	/** 'breaks' a bonus that was active, 'activates' one, or 'loosens' a set nobody measured. */
+	kind: 'breaks' | 'activates' | 'loosens';
+	/** The bonus step lost or gained; for 'loosens' the piece count left. */
+	step: number;
+	/** Change in score from the bonus, already part of the swap's number. 0 for 'loosens'. */
+	worth: number;
+	before: number;
+	after: number;
+}
+
+export function setChanges(base: Gear, variant: Gear, data: GameData): SetChange[] {
+	const before = setStandings(base, data);
+	const after = setStandings(variant, data);
+	const changes: SetChange[] = [];
+	for (const setId of new Set([...before.keys(), ...after.keys()])) {
+		const was = before.get(setId);
+		const now = after.get(setId);
+		const name = (was ?? now)!.name;
+		const counts = { before: was?.count ?? 0, after: now?.count ?? 0 };
+		if (counts.before === counts.after) continue;
+		const measured = (was ?? now)!.measured;
+		const reachedBefore = was?.reached ?? 0;
+		const reachedAfter = now?.reached ?? 0;
+		if (reachedAfter < reachedBefore) changes.push({ name, kind: 'breaks', step: reachedBefore, worth: (now?.worth ?? 0) - (was?.worth ?? 0), ...counts });
+		else if (reachedAfter > reachedBefore) changes.push({ name, kind: 'activates', step: reachedAfter, worth: (now?.worth ?? 0) - (was?.worth ?? 0), ...counts });
+		else if (!measured && counts.after < counts.before && counts.before >= 2) changes.push({ name, kind: 'loosens', step: counts.after, worth: 0, ...counts });
+	}
+	return changes;
+}
+
 /** Which kinds of item sources the upgrade lists include. */
 export interface SourceFilter {
 	drop: boolean;

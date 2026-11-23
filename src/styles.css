@@ -4229,3 +4229,35 @@ button.masthead-home:focus-visible {
 		font-size: 0.8125rem;
 	}
 }
+
+/* Set bonuses: what a swap does to them, and where the gear stands */
+.set-change {
+	display: block;
+	font-size: 0.8125rem;
+}
+.set-change-breaks {
+	color: #ff8a65;
+}
+.set-change-activates {
+	color: #1eff00;
+}
+.set-change-loosens {
+	color: #f0d060;
+}
+.set-status {
+	margin-bottom: 1rem;
+}
+.set-status h3 {
+	margin: 0 0 0.4rem;
+}
+.set-row {
+	font-size: 0.875rem;
+	color: var(--haze);
+	padding: 0.15rem 0;
+}
+.set-row strong {
+	color: var(--mist);
+}
+.set-row-broken {
+	color: #ff8a65;
+}

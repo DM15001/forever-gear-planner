@@ -6,7 +6,7 @@ import { FightPicker } from './FightPicker';
 import { formatDps, unit } from '../lib/format';
 import type { GameData } from '../lib/gameData';
 import { type Guide, type GuideMark, guideMarks, guidePlan, markLabel, swapDelta } from '../lib/guides';
-import { EVERYTHING, type Candidate, clash, type Gear, oneRandomRoll, pairedSlot, plannedGear, scoreSet, slotCandidates, slotInUse, type SourceFilter, suggestPlan, usableSources, withItem } from '../lib/scoring';
+import { EVERYTHING, type Candidate, clash, type Gear, oneRandomRoll, pairedSlot, plannedGear, scoreSet, setChanges, setStandings, slotCandidates, slotInUse, type SourceFilter, suggestPlan, usableSources, withItem } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
 import { measureWeights, weightRuns } from '../lib/sim/live';
 import { conditionalLines, matchesFight, pieceStats, STAT_LABELS, statLine, wowheadItemUrl, wowheadData } from '../lib/stats';
@@ -333,6 +333,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				</section>
 			)}
 
+			<SetStatus worn={character.gear} planned={gear} data={data} />
 			<div className="filter-chips" role="group" aria-label="What the lists include">
 				<span className="field-label">Showing</span>
 				{FILTER_CHIPS.map(([key, label]) => (
@@ -621,6 +622,7 @@ interface RowProps {
 
 function CandidateRow({ candidate, note, current, healWeights, marks, base, variant, data, faction, filter, onPlan, onHide }: RowProps) {
 	const { item, delta, incomplete } = candidate;
+	const sets = setChanges(base, variant, data);
 	const sources = usableSources(item, faction, filter);
 	const stats = statLine(
 		pieceStats(
@@ -665,6 +667,13 @@ function CandidateRow({ candidate, note, current, healWeights, marks, base, vari
 					<span key={line.text} className={line.active ? 'slot-versus slot-versus-on' : 'slot-versus'} title={line.active ? 'Counted: it matches the enemy type or terrain you picked.' : 'Not counted. Pick this enemy type or terrain at the top of the page to count it.'}>
 						{line.text}
 						{line.active ? ' (counted)' : ''}
+					</span>
+				))}
+				{sets.map(change => (
+					<span key={change.name + change.kind} className={`set-change set-change-${change.kind}`}>
+						{change.kind === 'breaks' && `Breaks the ${change.step}-piece bonus of ${change.name} (${change.before} → ${change.after} pieces): ${formatDelta(change.worth)}, already in the number.`}
+						{change.kind === 'activates' && `Activates the ${change.step}-piece bonus of ${change.name} (${change.before} → ${change.after} pieces): ${formatDelta(change.worth)}, already in the number.`}
+						{change.kind === 'loosens' && `Takes a piece out of ${change.name} (${change.before} → ${change.after}). Its set bonuses are not measured for this build, so they are not in the number: sim it.`}
 					</span>
 				))}
 				<span className="slot-source">
@@ -880,5 +889,41 @@ function WeightsEditor({
 				Reset to the build's own weights
 			</button>
 		</details>
+	);
+}
+
+/** The item sets in the worn and the planned gear, and a warning when the plan gives up a bonus the worn gear has. */
+function SetStatus({ worn, planned, data }: { worn: Gear; planned: Gear; data: GameData }) {
+	const now = setStandings(worn, data);
+	const then = setStandings(planned, data);
+	const rows = [...new Set([...now.keys(), ...then.keys()])]
+		.map(setId => ({ was: now.get(setId), will: then.get(setId) }))
+		.filter(({ was, will }) => Math.max(was?.count ?? 0, will?.count ?? 0) >= 2);
+	if (rows.length === 0) return null;
+	const samePlan = worn.every((piece, i) => piece?.id === planned[i]?.id);
+	return (
+		<section className="panel set-status" aria-label="Set bonuses">
+			<h3>Set bonuses</h3>
+			<ul className="plain-list">
+				{rows.map(({ was, will }) => {
+					const set = (will ?? was)!;
+					const broken = (was?.reached ?? 0) > (will?.reached ?? 0);
+					const steps = set.steps.length ? set.steps.map(step => `${step}`).join(', ') : undefined;
+					return (
+						<li key={set.setId} className={broken ? 'set-row set-row-broken' : 'set-row'}>
+							<strong>{set.name}</strong>: {samePlan ? `${was?.count ?? 0} pieces worn` : `${was?.count ?? 0} worn, ${will?.count ?? 0} planned`}.{' '}
+							{!set.measured
+								? 'Bonuses not measured for this build yet, so the lists do not count them.'
+								: !steps
+									? 'Its bonuses are worth nothing measurable for this build.'
+									: (will?.reached ?? 0) > 0
+										? `${will!.reached}-piece bonus active (${formatDelta(will!.worth)}). Bonuses that count for this build at: ${steps} pieces.`
+										: `No bonus active. Bonuses that count for this build at: ${steps} pieces.`}
+							{broken && ` Your plan gives up the ${was!.reached}-piece bonus you have now (${formatDelta((will?.worth ?? 0) - was!.worth)}); the numbers below already include that.`}
+						</li>
+					);
+				})}
+			</ul>
+		</section>
 	);
 }

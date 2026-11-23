@@ -5,7 +5,7 @@ import simExport from './__fixtures__/sim-export.json';
 import { GEAR_SLOTS } from './constants';
 import { loadGameData } from './gameData';
 import { importCharacter } from './importCharacter';
-import { clash, DEFAULT_FILTER, notYetAvailable, oneRandomRoll, plannedGear, scoreSet, slotCandidates, type SourceFilter, suggestPlan, usableSources } from './scoring';
+import { clash, DEFAULT_FILTER, notYetAvailable, type Gear, oneRandomRoll, plannedGear, scoreSet, setChanges, setStandings, slotCandidates, type SourceFilter, suggestPlan, usableSources } from './scoring';
 import { vendorReputation } from './stats';
 import type { Character, Item, SpecConfig } from './types';
 
@@ -136,6 +136,25 @@ describe('reputation filter', () => {
 		expect(usableSources(spear, 'alliance', DEFAULT_FILTER)).toHaveLength(0);
 		expect(usableSources(spear, 'alliance', withPvp.filter).length).toBeGreaterThan(0);
 		expect(usableSources(spear, 'alliance', { ...withPvp.filter, excludedReputations: ['Stormpike Guard'] })).toHaveLength(0);
+	});
+
+	it('says when a swap breaks or activates a set bonus', () => {
+		const setItems = [...data.itemById.values()].filter(i => i.setId !== undefined && data.simValues.sets.has(i.setId!));
+		const setId = setItems[0].setId!;
+		const steps = [...data.simValues.sets.get(setId)!.keys()].sort((a, b) => a - b);
+		const pieces = setItems.filter(i => i.setId === setId);
+		const bySlot = new Map<number, number>();
+		for (const item of pieces) {
+			const slot = GEAR_SLOTS.findIndex((s, i) => s.kind === item.slot && !bySlot.has(i));
+			if (slot >= 0 && bySlot.size < steps[0]) bySlot.set(slot, item.id);
+		}
+		expect(bySlot.size).toBe(steps[0]);
+		const full: Gear = GEAR_SLOTS.map((_, i) => (bySlot.has(i) ? { id: bySlot.get(i)! } : null));
+		const oneOut = full.map((piece, i) => (i === [...bySlot.keys()][0] ? null : piece));
+		expect(setStandings(full, data).get(setId)?.reached).toBe(steps[0]);
+		expect(setChanges(full, oneOut, data)).toMatchObject([{ kind: 'breaks', step: steps[0] }]);
+		expect(setChanges(oneOut, full, data)).toMatchObject([{ kind: 'activates', step: steps[0] }]);
+		expect(setChanges(full, full, data)).toEqual([]);
 	});
 
 	it('keeps one row for random-suffix items and holds the others of level 50 to 60 for it', () => {
