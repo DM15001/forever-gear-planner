@@ -1,19 +1,25 @@
 #!/usr/bin/env node
 // Measures, with the real WoWSims simulator, what the stat score cannot see:
 // procs and on-use effects of items, proc enchants, and set bonuses.
-// Writes src/data/simValues.json. Slow (30 to 60 minutes on two cores); run it after
-// `npm run build-data` when the simulator or the item data changed.
+// Writes src/data/simValues/<build>.json, one file per build. Slow (20 to 90 minutes per build on
+// four cores), so it runs in GitHub Actions (.github/workflows/measure.yml) whenever the simulator,
+// its item database or a build's preset changed.
 //
-//   npm run build-sim-values                 everything
-//   npm run build-sim-values -- --only 13965,22321   just these item ids (for a quick check)
+//   npm run build-sim-values -- --spec mage-fire          one build
+//   npm run build-sim-values -- --spec mage-fire --if-changed   skip if nothing it depends on changed
+//   npm run build-sim-values -- --spec mage-fire --only 13965,22321   just these item ids (for a quick check)
 //   npm run build-sim-values -- --threads 4
+//
+// Values are in DPS. Builds whose number is healing are skipped: their fights are set up in the app's
+// TypeScript (src/lib/sim/healing.ts), which this script does not run.
 //
 // How a value is measured: the item goes into the WoWSims default gear set, once as it is and
 // once with its effects removed from the item record. The DPS difference is the effect's worth.
 // Both runs use the same random seed, so an effect that does nothing gives exactly zero.
 // DPS is converted to attack-power equivalents with a run that adds plain attack power.
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { availableParallelism } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
@@ -49,7 +55,7 @@ async function startSim() {
 	await ready;
 
 	const db = readJson(join(SIM_DIR, 'db.json'));
-	const template = readJson(join(SIM_DIR, 'template.json'));
+	const template = readJson(join(SIM_DIR, `template.${workerData.specId}.json`));
 	const itemById = new Map(db.items.map(i => [i.id, i]));
 	const enchantsById = new Map();
 	for (const e of db.enchants) (enchantsById.get(e.effectId) ?? enchantsById.set(e.effectId, []).get(e.effectId)).push(e);
@@ -66,7 +72,10 @@ async function startSim() {
 	return function dps(gear, iterations, strip = {}, bonusAp = 0) {
 		const request = structuredClone(template);
 		const player = request.raid.parties[0].players[0];
-		if (bonusAp) player.bonusStats.stats[AP_INDEX] = bonusAp;
+		if (bonusAp) {
+			player.bonusStats ??= { stats: [] };
+			player.bonusStats.stats = Array.from({ length: 39 }, (_, i) => (i === AP_INDEX ? bonusAp : (player.bonusStats.stats?.[i] ?? 0)));
+		}
 		const records = new Map();
 		const enchantRecords = new Map();
 		const register = piece => {
@@ -135,9 +144,7 @@ if (!isMainThread) {
 		try {
 			let result;
 			if (task.kind === 'ap') {
-				const base = dps(reference, 10000);
-				const more = dps(reference, 10000, {}, AP_PROBE);
-				result = { dpsPerAp: (more.avg - base.avg) / AP_PROBE, referenceDps: base.avg };
+				result = { referenceDps: dps(reference, 3000).avg };
 			} else if (task.kind === 'item') {
 				const gear = reference.map((p, i) => (i === task.slotIndex ? { id: task.id } : p));
 				result = difference(n => ({ with: dps(gear, n), without: dps(gear, n, { effects: new Set([task.id]) }) }));
@@ -184,19 +191,46 @@ if (isMainThread) {
 	const items = readJson(join(ROOT, 'src', 'data', 'items.json'));
 	const enchants = readJson(join(ROOT, 'src', 'data', 'enchants.json'));
 	const simDb = readJson(join(SIM_DIR, 'db.json'));
-	const template = readJson(join(SIM_DIR, 'template.json'));
+	const outFile = join(ROOT, 'src', 'data', 'simValues', `${specId}.json`);
+	if (spec.role === 'healer') {
+		console.log(`${specId} is a healing build: not measured by this script.`);
+		process.exit(0);
+	}
+	// Everything a measurement depends on. Unchanged inputs mean the stored values still hold.
+	const inputs = createHash('sha256');
+	for (const file of [join(SIM_DIR, 'lib.wasm.gz'), join(SIM_DIR, 'db.json'), join(SIM_DIR, `template.${specId}.json`), fileURLToPath(import.meta.url)]) inputs.update(readFileSync(file));
+	const inputsHash = inputs.digest('hex').slice(0, 16);
+	if (args.includes('--if-changed') && existsSync(outFile) && readJson(outFile).inputs === inputsHash) {
+		console.log(`${specId}: simulator, item database, preset and script are unchanged since the last measurement. Nothing to do.`);
+		process.exit(0);
+	}
+	const template = readJson(join(SIM_DIR, `template.${specId}.json`));
 	const rawById = new Map(simDb.items.map(i => [i.id, i]));
 	// The reference gear: the sim maintainers' default set, without enchants so they do not blur the picture.
 	const reference = template.raid.parties[0].players[0].equipment.items.map(p => (p?.id ? { id: p.id } : null));
 
-	const fitsMainHand = item => (spec.weaponSetup === 'twoHand' ? item.weapon?.hand === 'twoHand' : item.weapon?.hand !== 'offHand');
+	const fitsMainHand = item => (spec.weaponSetup === 'twoHand' ? item.weapon?.hand === 'twoHand' : spec.weaponSetup === 'oneHand' ? item.weapon?.hand !== 'offHand' && item.weapon?.hand !== 'twoHand' : item.weapon?.hand !== 'offHand');
+	const ARMOR = new Set(['head', 'shoulder', 'chest', 'wrist', 'hands', 'waist', 'legs', 'feet']);
+	/** What the build can wear, as in src/lib/specs.ts. */
+	const usable = item => {
+		if (item.classes && !item.classes.includes(spec.classId)) return false;
+		if (ARMOR.has(item.slot)) return !item.armorType || spec.armorTypes.includes(item.armorType);
+		if (item.slot === 'weapon') {
+			const { type, hand } = item.weapon ?? {};
+			if (hand === 'twoHand') return spec.weaponTypes.twoHand.includes(type);
+			if (hand === 'offHand') return spec.weaponTypes.offHand.includes(type) || (spec.canDualWield && spec.weaponTypes.oneHand.includes(type));
+			return spec.weaponTypes.oneHand.includes(type);
+		}
+		if (item.slot === 'ranged') return spec.rangedTypes.includes(item.rangedType ?? '');
+		return true;
+	};
 	const tasks = [{ kind: 'ap' }];
 
 	// Items whose record has effects or special stats.
 	for (const item of items) {
 		const raw = rawById.get(item.id);
 		const hasEffect = raw?.itemEffects?.length || raw?.pseudoStats?.some(Boolean);
-		if (!hasEffect || (item.ilvl ?? 0) < MIN_ITEM_LEVEL || !QUALITIES.has(item.quality)) continue;
+		if (!hasEffect || (item.ilvl ?? 0) < MIN_ITEM_LEVEL || !QUALITIES.has(item.quality) || !usable(item)) continue;
 		if (item.slot === 'weapon' && !fitsMainHand(item)) continue;
 		if (only && !only.includes(item.id)) continue;
 		tasks.push({ kind: 'item', id: item.id, name: item.name, slotIndex: SLOT_OF_KIND[item.slot] });
@@ -206,7 +240,7 @@ if (isMainThread) {
 		// Enchants that are a proc or effect, each on the slot it belongs to.
 		const seen = new Set();
 		for (const enchant of enchants) {
-			if (!enchant.hasEffect || seen.has(enchant.effectId)) continue;
+			if (!enchant.hasEffect || seen.has(enchant.effectId) || (enchant.classes && !enchant.classes.includes(spec.classId))) continue;
 			if (enchant.only === 'shield' || enchant.only === 'offHand') continue;
 			const slotIndex = SLOT_KINDS.findIndex((kind, i) => enchant.slots.includes(kind) && reference[i] && (kind !== 'weapon' || i === MAIN_HAND));
 			if (slotIndex < 0) continue;
@@ -217,7 +251,7 @@ if (isMainThread) {
 		// Sets: one piece per slot, the highest item level variant. PvP-only sets are skipped.
 		const sets = new Map();
 		for (const item of items) {
-			if (!item.setId || (item.ilvl ?? 0) < MIN_ITEM_LEVEL - 5) continue;
+			if (!item.setId || (item.ilvl ?? 0) < MIN_ITEM_LEVEL - 5 || !usable(item)) continue;
 			if (item.sources?.length && item.sources.every(s => s.kind === 'pvp')) continue;
 			if (item.slot === 'weapon' && !fitsMainHand(item)) continue;
 			const set = sets.get(item.setId) ?? sets.set(item.setId, { name: item.setName, bySlot: new Map() }).get(item.setId);
@@ -240,7 +274,7 @@ if (isMainThread) {
 	await new Promise(finish => {
 		let running = threads;
 		for (let t = 0; t < threads; t++) {
-			const worker = new Worker(fileURLToPath(import.meta.url), { workerData: { reference } });
+			const worker = new Worker(fileURLToPath(import.meta.url), { workerData: { reference, specId } });
 			const feed = () => {
 				if (next < tasks.length) worker.postMessage(tasks[next++]);
 				else {
@@ -265,8 +299,7 @@ if (isMainThread) {
 	});
 
 	const ap = results.find(r => r.task.kind === 'ap')?.result;
-	if (!ap?.dpsPerAp || ap.dpsPerAp <= 0) throw new Error('The attack power probe failed; cannot convert DPS to attack-power equivalents.');
-	const toEp = dpsValue => Math.round((dpsValue / ap.dpsPerAp) * 10) / 10;
+	if (!ap?.referenceDps) throw new Error('The reference run failed.');
 	// Keep a value only when it clearly stands out from the noise of its two runs.
 	const clear = d => d.dps !== 0 && Math.abs(d.dps) > 2 * d.margin;
 	const round = v => Math.round(v * 100) / 100;
@@ -274,8 +307,9 @@ if (isMainThread) {
 	const out = {
 		generatedAt: new Date().toISOString(),
 		spec: spec.id,
-		note: 'Worth of item effects, proc enchants and set bonuses, measured with the WoWSims sim in its default gear set. ep = attack-power equivalents, the unit of the stat score. Values within the noise of the measurement are left out.',
-		reference: { dps: round(ap.referenceDps), dpsPerAp: Math.round(ap.dpsPerAp * 10000) / 10000, iterations: FINAL_ITERATIONS },
+		inputs: inputsHash,
+		note: "Worth of item effects, proc enchants and set bonuses for this build, in DPS, measured with the WoWSims simulator in the build's preset gear. Values within the noise of the measurement are left out.",
+		reference: { dps: round(ap.referenceDps), iterations: FINAL_ITERATIONS },
 		items: {},
 		enchants: {},
 		sets: {},
@@ -285,14 +319,14 @@ if (isMainThread) {
 		if (error || !result) continue;
 		if (task.kind === 'item') {
 			out.measured.items.push(task.id);
-			if (clear(result)) out.items[task.id] = { name: task.name, ep: toEp(result.dps), dps: round(result.dps) };
+			if (clear(result)) out.items[task.id] = { name: task.name, dps: round(result.dps) };
 		} else if (task.kind === 'enchant') {
 			out.measured.enchants.push(task.effectId);
-			if (clear(result)) out.enchants[task.effectId] = { name: task.name, ep: toEp(result.dps), dps: round(result.dps) };
+			if (clear(result)) out.enchants[task.effectId] = { name: task.name, dps: round(result.dps) };
 		} else if (task.kind === 'set') {
 			out.measured.sets.push(task.setId);
 			const byCount = {};
-			for (const [count, d] of Object.entries(result.byCount)) if (clear(d)) byCount[count] = { ep: toEp(d.dps), dps: round(d.dps) };
+			for (const [count, d] of Object.entries(result.byCount)) if (clear(d)) byCount[count] = { dps: round(d.dps) };
 			if (Object.keys(byCount).length) out.sets[task.setId] = { name: task.name, pieces: task.pieces.length, byCount };
 		}
 	}
@@ -301,8 +335,9 @@ if (isMainThread) {
 		for (const r of results) if (r.task.kind === 'item') console.log(r.task.name, r.error ?? `${r.result.dps.toFixed(2)} DPS, margin ${r.result.margin.toFixed(2)}`);
 		console.log(JSON.stringify({ reference: out.reference, items: out.items }, null, 2));
 	} else {
-		writeFileSync(join(ROOT, 'src', 'data', 'simValues.json'), JSON.stringify(out, null, '\t') + '\n');
-		console.log(`Wrote src/data/simValues.json: ${Object.keys(out.items).length} items, ${Object.keys(out.enchants).length} enchants, ${Object.keys(out.sets).length} sets with a measurable effect.`);
+		mkdirSync(dirname(outFile), { recursive: true });
+		writeFileSync(outFile, JSON.stringify(out) + '\n');
+		console.log(`Wrote src/data/simValues/${specId}.json: ${Object.keys(out.items).length} items, ${Object.keys(out.enchants).length} enchants, ${Object.keys(out.sets).length} sets with a measurable effect.`);
 	}
-	console.log(`Done in ${Math.round((Date.now() - started) / 60000)} min. 1 attack power = ${out.reference.dpsPerAp} DPS in the reference set.`);
+	console.log(`Done in ${Math.round((Date.now() - started) / 60000)} min. Reference: ${out.reference.dps} DPS.`);
 }

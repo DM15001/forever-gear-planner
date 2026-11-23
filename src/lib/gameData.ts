@@ -36,6 +36,8 @@ export async function loadGameData(spec: SpecConfig = DEFAULT_SPEC): Promise<Gam
 		import('../data/setValues.json'),
 		import('../data/meta.json'),
 	]);
+	// This build's own measurement (scripts/build-sim-values.mjs, made in GitHub Actions) when there is one.
+	const own = MEASURED[`../data/simValues/${spec.id}.json`];
 	const enchantsBySlot = new Map<SlotKind, Enchant[]>();
 	const specEnchants = (enchants.default as unknown as Enchant[]).filter(enchant => enchantUsableBy(enchant, spec));
 	for (const enchant of specEnchants) {
@@ -76,7 +78,7 @@ export async function loadGameData(spec: SpecConfig = DEFAULT_SPEC): Promise<Gam
 		npcById,
 		guides: buildGuides((simSets.default as unknown as SimSet[]).filter(set => set.spec === spec.id), spec.id),
 		// Effects, proc enchants and set bonuses have only been measured for the Enhancement Shaman so far.
-		simValues: withSetValues(
+		simValues: own ? readMeasured((await own()).default) : withSetValues(
 			readSimValues(spec.id === DEFAULT_SPEC.id ? (simValuesJson.default as unknown as RawSimValues) : EMPTY_SIM_VALUES, spec.weights.dpsPerPoint ?? 1),
 			(setValuesJson.default as unknown as RawSetValues).specs[spec.id],
 		),
@@ -113,6 +115,28 @@ interface RawSimValues {
 	enchants: Record<string, { ep: number }>;
 	sets: Record<string, { byCount: Record<string, { ep: number }> }>;
 	measured: { items: number[]; enchants: number[]; sets: number[] };
+}
+
+/** One file per build, written by scripts/build-sim-values.mjs: item effects, proc enchants and set bonuses in DPS. */
+interface RawMeasured {
+	items: Record<string, { dps: number }>;
+	enchants: Record<string, { dps: number }>;
+	sets: Record<string, { byCount: Record<string, { dps: number }> }>;
+	measured: { items: number[]; enchants: number[]; sets: number[] };
+}
+
+const MEASURED = import.meta.glob<{ default: RawMeasured }>('../data/simValues/*.json');
+
+function readMeasured(raw: RawMeasured): SimValues {
+	const dpsMap = (record: Record<string, { dps: number }>) => new Map(Object.entries(record).map(([id, value]) => [Number(id), value.dps]));
+	return {
+		items: dpsMap(raw.items),
+		enchants: dpsMap(raw.enchants),
+		sets: new Map(Object.entries(raw.sets).map(([id, set]) => [Number(id), dpsMap(set.byCount)])),
+		measuredItems: new Set(raw.measured.items),
+		measuredEnchants: new Set(raw.measured.enchants),
+		measuredSets: new Set(raw.measured.sets),
+	};
 }
 
 interface RawSetValues {

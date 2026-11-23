@@ -53,12 +53,15 @@ prints whether the engine can cast it by now. Once it can: add the spell to the 
 Step 3 writes `healing.scenarios` and the default `weights` into `src/specs/priest-holy.json`
 and `priest-disc.json`. Run it again when the engine's Priest changes.
 
-## Set bonuses per build
+## Item effects, proc enchants and set bonuses
 
-`scripts/build-set-values.mjs` (one level up) measures what set bonuses are worth for every damage
-build and writes `src/data/setValues.json`; the plan needs it to keep a set together. A full run
-takes about two hours on two cores. `QUICK=1` measures only the sets in the preset gear, the
-class's own sets and its dungeon set (about 20 minutes). State on 2026-11-23: Fire Mage, both
-Druids, both Shamans, BM and MM Hunter have the full run, the other builds the quick one. Healers
-are not measured yet.
+What a proc, an on-use effect or a set bonus is worth has to be simulated per build; WoWSims
+ships the simulator and stat weights, not these values. `scripts/build-sim-values.mjs --spec <id>`
+measures them and writes `src/data/simValues/<id>.json` (DPS). It takes 20 to 90 minutes per
+build, so it runs in GitHub Actions: `.github/workflows/measure.yml` starts when the simulator,
+its item database, a preset or the script changes, measures each damage build whose inputs
+changed, commits the files if tests and build pass, and deploys.
 
+Until a build has its own file the app falls back to `src/data/simValues.json` (Enhancement
+only, older) and `src/data/setValues.json` (set bonuses only, from `scripts/build-set-values.mjs`).
+Healing builds are not measured.

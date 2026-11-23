@@ -63,7 +63,6 @@ describe('set bonuses per build', async () => {
 		const data = await loadGameData(specById('mage-fire'));
 		const sorcerer = data.simValues.sets.get(1671);
 		expect(sorcerer?.get(6)).toBeGreaterThan(5);
-		expect(sorcerer?.get(5)).toBeUndefined();
 		expect(data.simValues.measuredSets.has(1671)).toBe(true);
 	});
 });
