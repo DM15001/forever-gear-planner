@@ -65,7 +65,9 @@ export function CharacterBar({ roster, onSelect, onAdd, onRemove, aside }: { ros
 				);
 			})}
 			<button className="character-add" onClick={onAdd} title="Add a character: paste an export or load a preset" aria-label="Add a character">
-				+
+				<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+					<path d="M8 2v12M2 8h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
+				</svg>
 			</button>
 		</nav>
 		{aside && <div className="character-row-aside">{aside}</div>}
