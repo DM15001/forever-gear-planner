@@ -121,6 +121,7 @@ export function scoreSet(gear: Gear, character: Character, data: GameData, spec:
 	// Weapons the simulator measured as a whole, and their stats, which the weights must not count again.
 	let weaponScore = 0;
 	const unscored: Stats = {};
+	let capShift = 0;
 	gear.forEach((piece, index) => {
 		if (!piece) return;
 		const item = data.itemById.get(piece.id);
@@ -128,13 +129,18 @@ export function scoreSet(gear: Gear, character: Character, data: GameData, spec:
 			const worn = pieceStats(item, piece, data);
 			addStats(stats, worn);
 			const hand = index === MAIN_HAND ? 'mainHand' : index === OFF_HAND ? 'offHand' : index === RANGED ? 'ranged' : undefined;
-			const whole = hand ? simValues.weapons?.byItem.get(item.id)?.[hand] : undefined;
+			// The preset's own weapon is the zero point of its hand: measured too, at 0.
+			const whole = hand ? (simValues.weapons?.byItem.get(item.id)?.[hand] ?? (simValues.weapons?.reference[hand] === item.id ? 0 : undefined)) : undefined;
 			if (hand && whole !== undefined) {
 				// Measured as a whole: its own stats, damage and proc are in that number already. What a
 				// random suffix adds on top is still scored by weight.
 				weaponScore += whole + weaponAnchor(hand, data, spec);
 				const own = piece.randomSuffix ? pieceStats(item, { id: item.id }, data) : worn;
 				for (const [key, value] of Object.entries(own)) unscored[key] = (unscored[key] ?? 0) + value;
+				// For the cap, a measured weapon counts with the hit of the preset's weapon in that hand: its
+				// value was measured against that weapon, in gear that had that much hit.
+				const reference = data.itemById.get(simValues.weapons?.reference[hand] ?? -1);
+				capShift += (reference?.stats?.hitRating ?? 0) - (own.hitRating ?? 0);
 			} else {
 				if (index === MAIN_HAND) mainHandDps = item.weapon?.dps ?? 0;
 				if (index === OFF_HAND) offHandDps = item.weapon?.dps ?? 0;
@@ -173,9 +179,11 @@ export function scoreSet(gear: Gear, character: Character, data: GameData, spec:
 	// A race that multiplies a stat gets that much more out of the stat on gear.
 	const raceStats = character.race ? spec.raceBonuses[character.race]?.statPercent : undefined;
 	let score = mainHandDps * weights.mainHandDps + offHandDps * (weights.offHandDps ?? 0) + rangedDps * (weights.rangedDps ?? 0) + effectScore + weaponScore;
+	// How much of the scored hit lies past the cap, never more than there is to score.
+	const over = capShift === 0 ? hit.ratingOver : Math.min(Math.max(0, (stats.hitRating ?? 0) - (unscored.hitRating ?? 0)), hitSummary({ ...stats, hitRating: (stats.hitRating ?? 0) + capShift }, character, spec).ratingOver);
 	for (const [key, total] of Object.entries(stats)) {
 		const value = total - (unscored[key] ?? 0);
-		if (key === 'hitRating') score += (value - hit.ratingOver) * (weights.stats.hitRating ?? 0) + hit.ratingOver * weights.hitRatingOverCap;
+		if (key === 'hitRating') score += (value - over) * (weights.stats.hitRating ?? 0) + over * weights.hitRatingOverCap;
 		else score += value * (weights.stats[key] ?? 0) * (1 + (raceStats?.[key] ?? 0) / 100);
 	}
 	return { stats, hit, score, effectScore: effectScore + weaponScore };
