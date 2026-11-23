@@ -202,6 +202,8 @@ export interface SetStanding {
 	steps: number[];
 	/** False if nobody measured this set for the build: its bonuses are not in the score. */
 	measured: boolean;
+	/** True if the character switched this set's bonuses off. */
+	ignored: boolean;
 }
 
 /** Every item set `gear` has pieces of, with the bonus step it reaches. */
@@ -210,7 +212,7 @@ export function setStandings(gear: Gear, data: GameData): Map<number, SetStandin
 	for (const piece of gear) {
 		const item = piece ? data.itemById.get(piece.id) : undefined;
 		if (!item?.setId) continue;
-		const known = out.get(item.setId) ?? { setId: item.setId, name: item.setName ?? 'a set', count: 0, reached: 0, worth: 0, steps: [], measured: data.simValues.measuredSets.has(item.setId) || data.simValues.sets.has(item.setId) };
+		const known = out.get(item.setId) ?? { setId: item.setId, name: item.setName ?? 'a set', count: 0, reached: 0, worth: 0, steps: [], measured: data.simValues.measuredSets.has(item.setId) || data.simValues.sets.has(item.setId), ignored: data.ignoredSets?.has(item.setId) ?? false };
 		known.count++;
 		out.set(item.setId, known);
 	}
@@ -303,6 +305,8 @@ export interface SourceFilter {
 	tierSlots: string[];
 	/** False = no piece of the Tier 0.5 set at all, for someone who will not do its questline. */
 	tier05: boolean;
+	/** Sets whose bonuses are left out of the scores, by set id: the planner will not aim for them. Their pieces stay as single items. */
+	ignoredSets: number[];
 	/** How many pieces of one dungeon set the plan must hold at least (0 = whatever is best), to reach a bonus the score does not value enough. */
 	tierMinimum: number;
 	/** Items that drop with a random suffix ("of Shadow Wrath"), counted with the suffix that suits the spec best. */
@@ -329,6 +333,7 @@ export const DEFAULT_FILTER: SourceFilter = {
 	unknown: true,
 	tierSlots: ['head', 'shoulder', 'chest', 'wrist', 'hands', 'waist', 'legs', 'feet'],
 	tier05: true,
+	ignoredSets: [],
 	tierMinimum: 0,
 	randomSuffix: true,
 	notYetAvailable: false,
@@ -339,7 +344,7 @@ export const DEFAULT_FILTER: SourceFilter = {
 	excludedReputations: ['The Watchers'],
 };
 
-export type SourceKindKey = Exclude<keyof SourceFilter, 'tierSlots' | 'tier05' | 'tierMinimum' | 'randomSuffix' | 'notYetAvailable' | 'hiddenItems' | 'ownCraftsOnly' | 'excludedDungeons' | 'excludedReputations'>;
+export type SourceKindKey = Exclude<keyof SourceFilter, 'tierSlots' | 'tier05' | 'ignoredSets' | 'tierMinimum' | 'randomSuffix' | 'notYetAvailable' | 'hiddenItems' | 'ownCraftsOnly' | 'excludedDungeons' | 'excludedReputations'>;
 
 /** The reputation a source needs, if any: a reputation reward or a quartermaster's goods. */
 export const reputationOf = (source: ItemSource): string | undefined => (source.kind === 'rep' ? source.repFaction : vendorReputation(source));

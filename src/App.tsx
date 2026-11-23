@@ -16,7 +16,7 @@ import { PlanTab } from './components/PlanTab';
 import { SimSetupTab } from './components/SimSetupTab';
 import { SimProvider } from './components/Sim';
 import { UpgradesTab } from './components/UpgradesTab';
-import { type GameData, loadGameData } from './lib/gameData';
+import { type GameData, loadGameData, dataFor } from './lib/gameData';
 import type { ImportResult } from './lib/importCharacter';
 import { DEFAULT_FILTER, type SourceFilter } from './lib/scoring';
 import { activeCharacter, addCharacter, characterLabel, removeActive, replaceActive, type Roster, selectCharacter, sharedCharacter, shareUrl } from './lib/roster';
@@ -100,7 +100,8 @@ export function App() {
 	const loadedData = loaded?.specId === baseSpec.id ? loaded.data : null;
 	// The scores follow the enemy kind and terrain the character is set to fight.
 	const fight = character?.fight;
-	const data = useMemo(() => (loadedData ? { ...loadedData, fight } : null), [loadedData, fight]);
+	const ignoredSets = filter.ignoredSets;
+	const data = useMemo(() => (loadedData ? dataFor(loadedData, fight, ignoredSets) : null), [loadedData, fight, ignoredSets]);
 
 	useEffect(() => {
 		let current = true;

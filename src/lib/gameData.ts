@@ -7,6 +7,8 @@ import type { Enchant, Item, Npc, RandomSuffix, SimValues, SlotKind, SpecConfig,
 export interface GameData {
 	/** The enemy kind and terrain the scores assume, from the character. */
 	fight?: Fight;
+	/** Sets whose bonuses the character chose to leave out of the scores (their values are taken out of simValues.sets). */
+	ignoredSets?: Set<number>;
 	itemById: Map<number, Item>;
 	enchantsBySlot: Map<SlotKind, Enchant[]>;
 	suffixById: Map<number, RandomSuffix>;
@@ -192,4 +194,11 @@ function readSimValues(raw: RawSimValues, factor: number): SimValues {
 		measuredEnchants: new Set(raw.measured.enchants),
 		measuredSets: new Set(raw.measured.sets),
 	};
+}
+
+/** The data as one character scores with it: its fight, and without the bonuses of the sets it switched off. */
+export function dataFor(data: GameData, fight: Fight | undefined, ignoredSets: number[] | undefined): GameData {
+	if (!ignoredSets?.length) return { ...data, fight };
+	const ignored = new Set(ignoredSets);
+	return { ...data, fight, ignoredSets: ignored, simValues: { ...data.simValues, sets: new Map([...data.simValues.sets].filter(([setId]) => !ignored.has(setId))) } };
 }

@@ -56,7 +56,7 @@ const FILTER_KEY = 'forever-gear-planner.content.v1';
 /** A saved content choice with today's fields: missing ones take their default. */
 export function normalFilter(saved: Partial<SourceFilter>): SourceFilter | null {
 	const merged: SourceFilter = { ...DEFAULT_FILTER, ...saved };
-	if (![merged.excludedDungeons, merged.excludedReputations, merged.hiddenItems, merged.tierSlots].every(Array.isArray)) return null;
+	if (![merged.excludedDungeons, merged.excludedReputations, merged.hiddenItems, merged.tierSlots, merged.ignoredSets].every(Array.isArray)) return null;
 	if (![0, 2, 4, 6, 8].includes(merged.tierMinimum)) merged.tierMinimum = 0;
 	return merged;
 }

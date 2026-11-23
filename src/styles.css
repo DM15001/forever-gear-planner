@@ -4570,3 +4570,7 @@ summary.breakdown-toggle:focus-visible {
 	color: var(--brass);
 	border-color: var(--brass-deep);
 }
+
+.upgrade-head .plan-enchant {
+	margin: 0.15rem 0 0;
+}

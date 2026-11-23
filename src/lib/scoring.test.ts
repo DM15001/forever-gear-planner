@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import specJson from '../specs/enhancement-shaman.json';
 import simExport from './__fixtures__/sim-export.json';
 import { GEAR_SLOTS } from './constants';
-import { loadGameData } from './gameData';
+import { dataFor, loadGameData } from './gameData';
 import { importCharacter } from './importCharacter';
 import { clash, DEFAULT_FILTER, notYetAvailable, type Gear, oneRandomRoll, plannedGear, planWithCost, scoreSet, setChanges, setStandings, slotCandidates, type SourceFilter, suggestPlan, tierSets, usableSources } from './scoring';
 import { vendorReputation } from './stats';
@@ -204,6 +204,22 @@ describe('reputation filter', () => {
 		expect(whole).toBeCloseTo(plain - 40, 5);
 		// The weapon's stats still show in the totals.
 		expect(scoreSet(gearWith(other.id), dwarf, measured, spec).stats).toEqual(scoreSet(gearWith(other.id), dwarf, data, spec).stats);
+	});
+
+	it('leaves a set bonus out of the score when the set is switched off', () => {
+		const setId = [...data.simValues.sets.keys()][0];
+		const step = Math.min(...data.simValues.sets.get(setId)!.keys());
+		const pieces = [...data.itemById.values()].filter(i => i.setId === setId);
+		const bySlot = new Map<number, number>();
+		for (const item of pieces) {
+			const slot = GEAR_SLOTS.findIndex((s, i) => s.kind === item.slot && !bySlot.has(i));
+			if (slot >= 0 && bySlot.size < step) bySlot.set(slot, item.id);
+		}
+		const gear: Gear = GEAR_SLOTS.map((_, i) => (bySlot.has(i) ? { id: bySlot.get(i)! } : null));
+		const off = dataFor(data, undefined, [setId]);
+		const worth = data.simValues.sets.get(setId)!.get(step)!;
+		expect(scoreSet(gear, dwarf, data, spec).score - scoreSet(gear, dwarf, off, spec).score).toBeCloseTo(worth, 5);
+		expect(setStandings(gear, off).get(setId)).toMatchObject({ ignored: true, reached: 0 });
 	});
 
 	it('says when a swap breaks or activates a set bonus', () => {

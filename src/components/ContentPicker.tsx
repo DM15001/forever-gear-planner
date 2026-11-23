@@ -20,6 +20,13 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 	const options = useMemo(() => presets(catalog), [catalog]);
 	const set = (patch: Partial<SourceFilter>) => onChange({ ...filter, ...patch });
 	const tiers = tierSets(spec);
+	// The sets whose bonuses are worth something for this build, by name; the ones already switched off stay listed.
+	const setChoices = useMemo(() => {
+		const names = new Map<number, string>();
+		for (const item of data.itemById.values()) if (item.setId !== undefined && item.setName && !names.has(item.setId)) names.set(item.setId, item.setName);
+		const ids = new Set([...data.simValues.sets.keys(), ...filter.ignoredSets]);
+		return [...ids].filter(id => names.has(id)).map(setId => ({ setId, name: names.get(setId)! })).sort((x, y) => x.name.localeCompare(y.name));
+	}, [data, filter.ignoredSets]);
 	const lowOn = !catalog.lowDungeonKeys.some(key => filter.excludedDungeons.includes(key));
 
 	const check = (label: string, checked: boolean, change: (on: boolean) => void, disabled = false) => (
@@ -82,6 +89,22 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 						</select>
 					</label>
 					{TIER_SLOTS.map(([kind, label]) => check(`${label} (set piece)`, filter.tierSlots.includes(kind), on => set({ tierSlots: on ? [...filter.tierSlots, kind] : filter.tierSlots.filter(slot => slot !== kind) })))}
+				</fieldset>
+			)}
+
+			{setChoices.length > 0 && (
+				<fieldset className="content-group">
+					<legend>Set bonuses to count</legend>
+					<p className="hint tier-hint">
+						Untick a set and the planner stops aiming for its bonus. Its pieces can still be suggested as single items.{' '}
+						<button className="link" onClick={() => set({ ignoredSets: [] })}>
+							All
+						</button>{' '}
+						<button className="link" onClick={() => set({ ignoredSets: setChoices.map(choice => choice.setId) })}>
+							None
+						</button>
+					</p>
+					{setChoices.map(choice => check(choice.name, !filter.ignoredSets.includes(choice.setId), on => set({ ignoredSets: on ? filter.ignoredSets.filter(id => id !== choice.setId) : [...filter.ignoredSets, choice.setId] })))}
 				</fieldset>
 			)}
 

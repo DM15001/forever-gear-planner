@@ -6,6 +6,7 @@ import { FightPicker } from './FightPicker';
 import { formatDps, unit } from '../lib/format';
 import type { GameData } from '../lib/gameData';
 import { type Guide, type GuideMark, guideMarks, guidePlan, markLabel, swapDelta } from '../lib/guides';
+import { applicableEnchants } from '../lib/enchants';
 import { EVERYTHING, type Candidate, clash, type Gear, oneRandomRoll, pairedSlot, plannedGear, scoreSet, setChanges, setStandings, slotCandidates, slotInUse, type SourceFilter, suggestPlan, usableSources, withItem } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
 import { measureWeights, weightRuns } from '../lib/sim/live';
@@ -473,6 +474,11 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 							</details>
 						</li>
 					) : null;
+// The enchant this slot ends up with: the planned one if there is a plan for it, else the one worn.
+const slotPiece = gear[index];
+const slotItem = slotPiece ? data.itemById.get(slotPiece.id) : undefined;
+const slotEnchantFound = slotPiece?.enchant && slotItem ? applicableEnchants(index, slotItem, data).find(e => e.effectId === slotPiece.enchant) : undefined;
+const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, open: character.gear[index]?.enchant !== slotEnchantFound.effectId || character.gear[index]?.id !== slotPiece?.id } : undefined;
 				const wornScore = plannedItem
 					? scoreSet(
 							gear.map((piece, i) => (i === index ? character.gear[index] : piece)),
@@ -502,6 +508,12 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 								)}
 								<span className="upgrade-count">{upgrades === 0 ? 'Nothing better with these filters' : `${upgrades} upgrade${upgrades === 1 ? '' : 's'}`}</span>
 							</p>
+							{slotEnchant && (
+								<p className={slotEnchant.open ? 'plan-enchant plan-enchant-open' : 'plan-enchant'}>
+									{slotEnchant.name}
+									<span className="plan-enchant-state">{slotEnchant.open ? 'enchant to get' : 'enchant, you have it'}</span>
+								</p>
+							)}
 						</header>
 						<GuidePicks
 							guides={data.guides}
@@ -912,8 +924,10 @@ function SetStatus({ worn, planned, data }: { worn: Gear; planned: Gear; data: G
 					return (
 						<li key={set.setId} className={broken ? 'set-row set-row-broken' : 'set-row'}>
 							<strong>{set.name}</strong>: {samePlan ? `${was?.count ?? 0} pieces worn` : `${was?.count ?? 0} worn, ${will?.count ?? 0} planned`}.{' '}
-							{!set.measured
-								? 'Bonuses not measured for this build yet, so the lists do not count them.'
+							{set.ignored
+								? 'You switched its bonus off under Content, so the lists do not count it.'
+								: !set.measured
+									? 'Bonuses not measured for this build yet, so the lists do not count them.'
 								: !steps
 									? 'Its bonuses are worth nothing measurable for this build.'
 									: (will?.reached ?? 0) > 0
