@@ -1,12 +1,14 @@
 import { type ReactNode, useState } from 'react';
 
 import { GEAR_SLOTS, PROFESSIONS, SHEET_LAYOUT } from '../lib/constants';
-import { applicableEnchants } from '../lib/enchants';
+import { applicableEnchants, enchantLine } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
-import { gearStats, hitSummary, pieceStats, STAT_LABELS, statLine, wowheadItemUrl, wowheadData } from '../lib/stats';
+import { gearStats, hitSummary, pieceStats, STAT_LABELS, statLine, wowheadEnchantUrl, wowheadItemUrl, wowheadData } from '../lib/stats';
 import type { Character, GearPiece, SpecConfig, Stats } from '../lib/types';
 import { EVERYTHING, withItem } from '../lib/scoring';
 import { ClassIcon } from './ClassIcon';
+import { EnchantPicker } from './EnchantPicker';
+import { IconTile, PROFESSION_ICONS, raceIcons } from './IconTile';
 import { ItemIcon } from './ItemIcon';
 import { SourceLabel } from './SourceLabel';
 import { ItemPicker } from './ItemPicker';
@@ -34,6 +36,7 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 	const [shared, setShared] = useState<'idle' | 'copied' | 'shown'>('idle');
 	// The slot whose item is being swapped by hand, if any.
 	const [picking, setPicking] = useState<number | null>(null);
+	const [enchanting, setEnchanting] = useState<number | null>(null);
 	const share = () => {
 		navigator.clipboard.writeText(shareLink).then(
 			() => setShared('copied'),
@@ -46,12 +49,6 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 
 	const setPiece = (index: number, piece: GearPiece | null) => onChange({ ...character, gear: character.gear.map((old, i) => (i === index ? piece : old)) });
 
-	const setProfession = (index: number, name: string) => {
-		const next = [character.professions[0] ?? '', character.professions[1] ?? ''];
-		next[index] = name;
-		onChange({ ...character, professions: next.filter(Boolean) });
-	};
-
 	const removeAllEnchants = () =>
 		onChange({
 			...character,
@@ -63,7 +60,7 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 		});
 
 	const slot = (index: number, mirrored = false) => (
-		<GearSlot key={GEAR_SLOTS[index].key} index={index} mirrored={mirrored} piece={character.gear[index]} data={data} onChange={piece => setPiece(index, piece)} onPick={() => setPicking(index)} />
+		<GearSlot key={GEAR_SLOTS[index].key} index={index} mirrored={mirrored} piece={character.gear[index]} data={data} onChange={piece => setPiece(index, piece)} onPick={() => setPicking(index)} onEnchant={() => setEnchanting(index)} />
 	);
 
 	// Swapping an item by hand keeps the enchant when it also fits the new item.
@@ -151,33 +148,33 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 						</p>
 					</>
 				)}
-				<label className="field-label" htmlFor="race">
-					Race
-				</label>
-				<select id="race" value={character.race ?? ''} onChange={e => onChange({ ...character, race: e.target.value || null })}>
-					<option value="">Pick a race</option>
-					{spec.races.map(r => (
-						<option key={r.id} value={r.id}>
-							{r.name}
-						</option>
-					))}
-				</select>
-
-				{[0, 1].map(index => (
-					<div key={index}>
-						<label className="field-label" htmlFor={`profession-${index}`}>
-							Profession {index + 1}
-						</label>
-						<select id={`profession-${index}`} value={character.professions[index] ?? ''} onChange={e => setProfession(index, e.target.value)}>
-							<option value="">None</option>
-							{PROFESSIONS.filter(p => p === character.professions[index] || !character.professions.includes(p)).map(p => (
-								<option key={p} value={p}>
-									{p}
-								</option>
-							))}
-						</select>
+				<fieldset className="fight-group sheet-choice">
+					<legend>Race</legend>
+					<div className="fight-tiles">
+						{spec.races.map(r => (
+							<IconTile key={r.id} icons={raceIcons(r.name)} label={r.name} active={character.race === r.id} title={`${r.name}, ${r.faction === 'alliance' ? 'Alliance' : 'Horde'}`} onClick={() => onChange({ ...character, race: r.id })} />
+						))}
 					</div>
-				))}
+				</fieldset>
+				<fieldset className="fight-group sheet-choice">
+					<legend>Professions (up to two)</legend>
+					<div className="fight-tiles">
+						{PROFESSIONS.map(p => {
+							const mine = character.professions.includes(p);
+							return (
+								<IconTile
+									key={p}
+									icons={PROFESSION_ICONS[p] ?? []}
+									label={p}
+									active={mine}
+									disabled={!mine && character.professions.length >= 2}
+									title={mine ? `${p}: yours. Click to remove.` : character.professions.length >= 2 ? 'Remove one of your two professions first' : `Add ${p}`}
+									onClick={() => onChange({ ...character, professions: mine ? character.professions.filter(x => x !== p) : [...character.professions, p] })}
+								/>
+							);
+						})}
+					</div>
+				</fieldset>
 
 				{character.talents && (
 					<p className="identity-talents">
@@ -203,6 +200,24 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 					</button>
 				</div>
 			</div>
+			{enchanting !== null && data && (
+				<EnchantPicker
+					slotIndex={enchanting}
+					gear={character.gear}
+					character={character}
+					data={data}
+					spec={spec}
+					onPick={effectId => {
+						const piece = character.gear[enchanting];
+						if (piece) {
+							const { enchant: _old, ...rest } = piece;
+							setPiece(enchanting, effectId ? { ...rest, enchant: effectId } : rest);
+						}
+						setEnchanting(null);
+					}}
+					onClose={() => setEnchanting(null)}
+				/>
+			)}
 			{picking !== null && data && (
 				<ItemPicker slotIndex={picking} gear={character.gear} character={character} data={data} spec={spec} filter={EVERYTHING} startWithAll allowEmpty onPick={id => pickItem(picking, id)} onClose={() => setPicking(null)} />
 			)}
@@ -282,14 +297,15 @@ interface SlotProps {
 	onChange: (piece: GearPiece | null) => void;
 	/** Opens the list of items for this slot. */
 	onPick: () => void;
+	/** Opens the list of enchants for this slot's item. */
+	onEnchant: () => void;
 }
 
-function GearSlot({ index, mirrored, piece, data, onChange, onPick }: SlotProps) {
-	const { label, key } = GEAR_SLOTS[index];
+function GearSlot({ index, mirrored, piece, data, onChange, onPick, onEnchant }: SlotProps) {
+	const { label } = GEAR_SLOTS[index];
 	const item = piece ? data?.itemById.get(piece.id) : undefined;
 	const enchants = data ? applicableEnchants(index, item, data) : [];
-	// An enchant id can be shared between slots, so look it up among this slot's enchants first.
-	const enchantKnown = piece?.enchant ? enchants.some(e => e.effectId === piece.enchant) : true;
+	const enchant = piece?.enchant ? enchants.find(e => e.effectId === piece.enchant) : undefined;
 	const suffixes = (item?.randomSuffixOptions ?? []).map(id => data?.suffixById.get(id)).filter(s => s !== undefined);
 
 	let name: string;
@@ -335,7 +351,7 @@ function GearSlot({ index, mirrored, piece, data, onChange, onPick }: SlotProps)
 					</>
 				)}
 			</div>
-			{piece && (suffixes.length > 0 || enchants.length > 0) && (
+			{piece && (suffixes.length > 0 || enchants.length > 0 || piece.enchant) && (
 				<div className="slot-foot">
 					{suffixes.length > 0 && (
 						<select
@@ -354,23 +370,20 @@ function GearSlot({ index, mirrored, piece, data, onChange, onPick }: SlotProps)
 							))}
 						</select>
 					)}
-					{enchants.length > 0 && (
-						<select
-							className="slot-select"
-							aria-label={`${label} enchant`}
-							value={piece.enchant ?? ''}
-							onChange={e => {
-								const { enchant: _old, ...rest } = piece;
-								onChange(e.target.value ? { ...rest, enchant: Number(e.target.value) } : rest);
-							}}>
-							<option value="">No enchant</option>
-							{!enchantKnown && <option value={piece.enchant}>Unknown enchant #{piece.enchant}</option>}
-							{enchants.map((e, i) => (
-								<option key={`${key}-${e.effectId}-${i}`} value={e.effectId}>
-									{e.name}
-								</option>
-							))}
-						</select>
+					{(enchants.length > 0 || piece.enchant) && (
+						<div className="slot-enchant">
+							{enchant ? (
+								<a className="enchant-gives" href={wowheadEnchantUrl(enchant)} target="_blank" rel="noreferrer" title={enchant.name}>
+									{enchantLine(enchant)}
+								</a>
+							) : piece.enchant ? (
+								<span className="slot-source">Enchant #{piece.enchant} does not fit this item</span>
+							) : null}
+							<button className="enchant-button" onClick={onEnchant} title={enchant ? `Change the enchant (${enchant.name})` : `Enchant the ${label.toLowerCase()} item`}>
+								<ItemIcon icon="trade_engraving" quality={undefined} inline />
+								{enchant ? 'Change enchant' : piece.enchant ? 'Pick another' : 'Add enchant'}
+							</button>
+						</div>
 					)}
 				</div>
 			)}

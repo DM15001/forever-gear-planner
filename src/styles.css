@@ -3574,3 +3574,57 @@ html {
 	background: var(--brass);
 	border-radius: 3px;
 }
+
+/* Enchants on the character sheet: what the enchant gives in green, and a button that opens the list */
+.slot-enchant {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.35rem 0.6rem;
+}
+.enchant-gives {
+	color: #1eff00;
+	font-size: 0.8125rem;
+	text-decoration: none;
+}
+a.enchant-gives:hover {
+	text-decoration: underline;
+}
+.enchant-button {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	padding: 0.2rem 0.55rem 0.2rem 0.3rem;
+	font: inherit;
+	font-size: 0.75rem;
+	color: var(--haze);
+	background: var(--well);
+	border: 1px solid var(--ridge);
+	border-radius: 999px;
+	cursor: pointer;
+}
+.enchant-button:hover,
+.enchant-button:focus-visible {
+	color: var(--brass);
+	border-color: var(--brass);
+}
+.picker-row-on {
+	border-color: var(--brass);
+	background: #1c160c;
+}
+.sheet-choice {
+	margin: 0.75rem 0 0;
+	padding: 0;
+	border: 0;
+	break-inside: avoid;
+}
+.sheet-choice legend {
+	padding: 0;
+	margin-bottom: 0.35rem;
+	font-size: 0.8125rem;
+	color: var(--haze);
+}
+.fight-tile:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}

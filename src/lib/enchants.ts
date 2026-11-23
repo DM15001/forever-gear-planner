@@ -2,15 +2,23 @@ import { GEAR_SLOTS } from './constants';
 import { allUpgrades, type FarmDrop } from './farm';
 import type { GameData } from './gameData';
 import { type CandidateOptions, type Gear, scoreSet, usableSources } from './scoring';
+import { statLine } from './stats';
 import type { Character, Enchant, Item, SpecConfig } from './types';
 
 /** Enchants that can go on this item in this slot. */
 export function applicableEnchants(slotIndex: number, item: Item | undefined, data: GameData): Enchant[] {
-	if (!item || item.rangedType === 'totem') return []; // relics cannot be enchanted
-	return (data.enchantsBySlot.get(GEAR_SLOTS[slotIndex].kind) ?? []).filter(enchant => {
-		switch (enchant.only) {
+	if (!item || item.rangedType === 'totem' || item.rangedType === 'idol') return []; // relics cannot be enchanted
+	const kind = GEAR_SLOTS[slotIndex].kind;
+	// Scopes go on bows, guns and crossbows; wands and thrown weapons take nothing.
+	if (kind === 'ranged' && !['bow', 'gun', 'crossbow'].includes(item.rangedType ?? '')) return [];
+	return (data.enchantsBySlot.get(kind) ?? []).filter(enchant => {
+		if (/fishing line/i.test(enchant.name)) return false; // fishing poles only
+		// The data marks most two-hand enchants; the name catches the rest.
+		const only = enchant.only ?? (/^Enchant 2H Weapon/.test(enchant.name) ? 'twoHand' : undefined);
+		switch (only) {
 			case undefined:
-				return true;
+				// A plain weapon enchant needs a real weapon: not a shield, not an item held in the off hand.
+				return kind !== 'weapon' || (!!item.weapon && item.weapon.type !== 'shield' && item.weapon.type !== 'offHand');
 			case 'twoHand':
 				return item.weapon?.hand === 'twoHand';
 			case 'staff':
@@ -23,6 +31,36 @@ export function applicableEnchants(slotIndex: number, item: Item | undefined, da
 				return false; // armor kits and anything new: not offered until checked
 		}
 	});
+}
+
+const ENCHANT_STAT_LABELS: Record<string, string> = {
+	mana: 'Mana',
+	health: 'Health',
+	armorNoMods: 'Armor',
+	bonusArmor: 'Armor',
+	rangedAttackPower: 'Ranged AP',
+	fireResistance: 'Fire resist',
+	frostResistance: 'Frost resist',
+	natureResistance: 'Nature resist',
+	arcaneResistance: 'Arcane resist',
+	shadowResistance: 'Shadow resist',
+};
+
+/** What an enchant gives, short: "+8 Int", "+150 Mana". An effect without stats is named by the enchant: "Crusader". */
+export function enchantLine(enchant: Enchant): string {
+	const stats = enchant.stats ?? {};
+	const known = statLine(stats);
+	const extra = Object.entries(ENCHANT_STAT_LABELS)
+		.filter(([key]) => stats[key])
+		.map(([key, label]) => `+${stats[key]} ${label}`);
+	const line = [known, ...extra].filter(Boolean).join(', ');
+	return line || enchant.name.replace(/^Enchant [^-]+ - /, '').replace(/^Enchant: /, '');
+}
+
+/** Which weapons a weapon enchant goes on, when it does not go on all: for the list of enchants. */
+export function enchantLimit(enchant: Enchant): string | undefined {
+	const only = enchant.only ?? (/^Enchant 2H Weapon/.test(enchant.name) ? 'twoHand' : undefined);
+	return { twoHand: 'Two-handed weapons only', shield: 'Shields only', offHand: 'Held off-hand items only', staff: 'Staves only', kit: undefined }[only ?? 'kit'];
 }
 
 export interface EnchantOption {
@@ -43,7 +81,7 @@ export interface SlotEnchants {
 	unscored: Enchant[];
 }
 
-const withEnchant = (gear: Gear, slotIndex: number, effectId: number | undefined): Gear =>
+export const withEnchant = (gear: Gear, slotIndex: number, effectId: number | undefined): Gear =>
 	gear.map((piece, i) => {
 		if (i !== slotIndex || !piece) return piece;
 		const { enchant: _old, ...rest } = piece;
