@@ -138,11 +138,11 @@ describe('reputation filter', () => {
 		expect(usableSources(spear, 'alliance', { ...withPvp.filter, excludedReputations: ['Stormpike Guard'] })).toHaveLength(0);
 	});
 
-	it('keeps one row for random-suffix items and names equal ones as twins', () => {
-		const row = (id: number, delta: number, random: boolean) => ({ item: { id, ...(random ? { randomSuffixOptions: [1] } : {}) } as unknown as Item, delta, incomplete: false });
-		const { list, twins } = oneRandomRoll([row(1, 9.04, true), row(2, 9.01, true), row(3, 8, false), row(4, 7.5, true), row(5, 7, false), row(6, 1, true)], 6);
+	it('keeps one row for random-suffix items and holds the others of level 50 to 60 for it', () => {
+		const row = (id: number, delta: number, random: boolean, reqLvl = 55) => ({ item: { id, reqLvl, ...(random ? { randomSuffixOptions: [1] } : {}) } as unknown as Item, delta, incomplete: false });
+		const { list, others } = oneRandomRoll([row(1, 9.04, true), row(2, 9.01, true), row(3, 8, false), row(4, 7.5, true), row(7, 7.2, true, 44), row(5, 7, false), row(6, 1, true)], 6);
 		expect(list.map(c => c.item.id)).toEqual([1, 3, 5, 6]);
-		expect(twins.get(1)?.map(i => i.id)).toEqual([2]);
+		expect(others.get(1)?.map(c => c.item.id)).toEqual([2, 4]);
 	});
 
 	it('keeps plain vendors when reputation is off', () => {

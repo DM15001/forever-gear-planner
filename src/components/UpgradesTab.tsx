@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
 import { sourceKind } from '../lib/farm';
@@ -432,7 +432,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				const limit = expanded.has(index) ? LONG_LIST : SHORT_LIST;
 				// Random-suffix items take one row of a short list; "Show all" brings every one of them back.
 				const better = candidates.filter(c => c.delta > 0);
-				const upgradeRows = expanded.has(index) ? { list: better, twins: new Map<number, Item[]>() } : oneRandomRoll(better);
+				const upgradeRows = expanded.has(index) ? { list: better, others: new Map<number, Candidate[]>() } : oneRandomRoll(better);
 				const upgrades = better.length;
 				const currentPiece = gear[index];
 				const currentItemNow = currentPiece ? data.itemById.get(currentPiece.id) : undefined;
@@ -443,6 +443,35 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				// One row for the best random-suffix item, so the other rows are real alternatives.
 				const backups = oneRandomRoll(candidates.filter(c => c.delta <= 0 && (c.item.id === wornId || usableSources(c.item, faction, filter).some(source => sourceKind(source) !== 'unknown'))), wornId);
 				const alternatives = backups.list.slice(0, ALTERNATIVES);
+				const rowFor = (candidate: Candidate, note?: string) => (
+					<CandidateRow
+						healWeights={healWeights}
+						current={currentStats}
+						key={candidate.item.id}
+						candidate={candidate}
+						note={note}
+						marks={marks.get(candidate.item.id)}
+						base={gear}
+						variant={withItem(gear, index, candidate.item.id, data)}
+						data={data}
+						faction={faction}
+						filter={filter}
+						onPlan={() => planItem(index, candidate.item.id)}
+						onHide={() => hide(candidate.item)}
+					/>
+				);
+				// Under the one random-suffix row: every other random-suffix item of this slot, a row each.
+				const randomFold = (others: Candidate[] | undefined) =>
+					others?.length ? (
+						<li className="random-rolls">
+							<details>
+								<summary>
+									{others.length} more random-roll item{others.length === 1 ? '' : 's'} for this slot<span className="alternatives-why"> required level 50 to 60, each with its best roll</span>
+								</summary>
+								<ul className="candidates">{others.map(other => rowFor(other))}</ul>
+							</details>
+						</li>
+					) : null;
 				const wornScore = plannedItem
 					? scoreSet(
 							gear.map((piece, i) => (i === index ? character.gear[index] : piece)),
@@ -485,26 +514,13 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						/>
 						{upgrades > 0 && (
 							<ul className="candidates">
-								{upgradeRows.list
-									.slice(0, limit)
-									.map(candidate => (
-									<CandidateRow
-										twins={upgradeRows.twins.get(candidate.item.id)}
-											healWeights={healWeights}
-												current={currentStats}
-										key={candidate.item.id}
-										candidate={candidate}
-										marks={marks.get(candidate.item.id)}
-										base={gear}
-										variant={withItem(gear, index, candidate.item.id, data)}
-										data={data}
-										faction={faction}
-										filter={filter}
-										onPlan={() => planItem(index, candidate.item.id)}
-										onHide={() => hide(candidate.item)}
-									/>
-								))}
-							</ul>
+								{upgradeRows.list.slice(0, limit).map(candidate => (
+										<Fragment key={candidate.item.id}>
+											{rowFor(candidate)}
+											{randomFold(upgradeRows.others.get(candidate.item.id))}
+										</Fragment>
+									))}
+								</ul>
 						)}
 						{(upgrades > SHORT_LIST || upgradeRows.list.length < upgrades) && (
 							<button className="link" onClick={() => toggle(index)}>
@@ -552,28 +568,15 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 								</summary>
 								<ul className="candidates">
 									{alternatives.map(candidate => {
-										const variant = withItem(gear, index, candidate.item.id, data);
-										const overWorn = plannedItem ? scoreSet(variant, character, data, spec).score - wornScore : undefined;
-										return (
-											<CandidateRow
-											healWeights={healWeights}
-												current={currentStats}
-												key={candidate.item.id}
-												candidate={candidate}
-												twins={backups.twins.get(candidate.item.id)}
-												note={candidate.item.id === wornId ? 'what you wear now' : overWorn !== undefined ? `${formatDelta(overWorn)} over what you wear` : undefined}
-												marks={marks.get(candidate.item.id)}
-												base={gear}
-												variant={variant}
-												data={data}
-												faction={faction}
-												filter={filter}
-												onPlan={() => planItem(index, candidate.item.id)}
-												onHide={() => hide(candidate.item)}
-											/>
-										);
-									})}
-								</ul>
+											const overWorn = plannedItem ? scoreSet(withItem(gear, index, candidate.item.id, data), character, data, spec).score - wornScore : undefined;
+											return (
+												<Fragment key={candidate.item.id}>
+													{rowFor(candidate, candidate.item.id === wornId ? 'what you wear now' : overWorn !== undefined ? `${formatDelta(overWorn)} over what you wear` : undefined)}
+													{randomFold(backups.others.get(candidate.item.id))}
+												</Fragment>
+											);
+										})}
+									</ul>
 							</details>
 						)}
 					</section>
@@ -607,8 +610,6 @@ interface RowProps {
 	/** A healer's stat weights: splits the row's worth into output and mana. */
 	healWeights?: Record<string, number>;
 	marks?: GuideMark[];
-	/** Other random-suffix items worth exactly as much, named in this row instead of rows of their own. */
-	twins?: Item[];
 	base: Gear;
 	variant: Gear;
 	data: GameData;
@@ -618,7 +619,7 @@ interface RowProps {
 	onHide: () => void;
 }
 
-function CandidateRow({ candidate, note, current, healWeights, marks, twins, base, variant, data, faction, filter, onPlan, onHide }: RowProps) {
+function CandidateRow({ candidate, note, current, healWeights, marks, base, variant, data, faction, filter, onPlan, onHide }: RowProps) {
 	const { item, delta, incomplete } = candidate;
 	const sources = usableSources(item, faction, filter);
 	const stats = statLine(
@@ -666,17 +667,6 @@ function CandidateRow({ candidate, note, current, healWeights, marks, twins, bas
 						{line.active ? ' (counted)' : ''}
 					</span>
 				))}
-				{twins && twins.length > 0 && (
-					<span className="candidate-twins">
-						Same roll, same value:{' '}
-						{twins.map((twin, i) => (
-							<span key={twin.id}>
-								{i > 0 && ', '}
-								<ItemName item={twin} />
-							</span>
-						))}
-					</span>
-				)}
 				<span className="slot-source">
 					{guideSource(marks) ?? <SourceList sources={sources} data={data} />}
 					{!guideSource(marks) && sources.length > 2 ? `, +${sources.length - 2} more` : ''}

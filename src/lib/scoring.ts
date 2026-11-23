@@ -334,14 +334,17 @@ export interface Candidate {
 	incomplete: boolean;
 }
 
+/** The required levels a slot's random-suffix section lists: endgame items only. */
+const RANDOM_ROLL_LEVELS = [50, 60];
+
 /**
  * A list with one row for random-suffix items ("of Shadow Wrath"). Many base items roll the same
- * suffix and would fill a short list with near-copies. The best one stays; the ones worth exactly as
- * much (to the shown tenth) are returned as its twins, to be named in the same row; the rest go.
- * `keep` names an item that always stays, such as the worn one.
+ * suffix and would fill a short list with near-copies. The best one stays in the list; `others`
+ * holds the rest for it, best first, to be shown on request: those of required level 50 to 60.
+ * `keep` names an item that always stays in the list, such as the worn one.
  */
-export function oneRandomRoll(list: Candidate[], keep?: number): { list: Candidate[]; twins: Map<number, Item[]> } {
-	const twins = new Map<number, Item[]>();
+export function oneRandomRoll(list: Candidate[], keep?: number): { list: Candidate[]; others: Map<number, Candidate[]> } {
+	const others = new Map<number, Candidate[]>();
 	let best: Candidate | undefined;
 	const out = list.filter(candidate => {
 		if (!candidate.item.randomSuffixOptions?.length || candidate.item.id === keep) return true;
@@ -349,10 +352,11 @@ export function oneRandomRoll(list: Candidate[], keep?: number): { list: Candida
 			best = candidate;
 			return true;
 		}
-		if (candidate.delta.toFixed(1) === best.delta.toFixed(1)) twins.set(best.item.id, [...(twins.get(best.item.id) ?? []), candidate.item]);
+		const level = candidate.item.reqLvl;
+		if (level === undefined || (level >= RANDOM_ROLL_LEVELS[0] && level <= RANDOM_ROLL_LEVELS[1])) others.set(best.item.id, [...(others.get(best.item.id) ?? []), candidate]);
 		return false;
 	});
-	return { list: out, twins };
+	return { list: out, others };
 }
 
 export interface CandidateOptions {
