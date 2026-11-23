@@ -298,7 +298,13 @@ function convertItem(item) {
 		stats: namedStats(scaling.stats),
 		// Stats that only count against one kind of enemy or in one kind of terrain.
 		versus: (scaling.mobTypeStats ?? []).map(entry => ({ mobTypes: entry.mobTypes.map(type => MOB_TYPES[type]).filter(Boolean), stats: namedStats(entry.stats) })).filter(entry => entry.mobTypes.length),
-		inArea: (scaling.areaStats ?? []).map(entry => ({ area: AREA_TYPES[entry.areaType], stats: namedStats(entry.stats) })).filter(entry => entry.area),
+		inArea: [
+			...(scaling.areaStats ?? []).map(entry => ({ area: AREA_TYPES[entry.areaType], stats: namedStats(entry.stats) })).filter(entry => entry.area),
+			// A lasting stat bonus that is an effect and only holds in one kind of terrain (Royal Seal of Eldre'Thalas: Spirit underground).
+			...(!(scaling.areaStats ?? []).length && (item.areaTypes ?? []).length === 1 && AREA_TYPES[item.areaTypes[0]]
+				? (item.itemEffects ?? []).filter(effect => effect.effectDurationMs === -1 && effect.scalingOptions?.['0']?.stats).map(effect => ({ area: AREA_TYPES[item.areaTypes[0]], stats: namedStats(effect.scalingOptions['0'].stats) }))
+				: []),
+		],
 		// Every terrain, enemy type and creature the item's stats or effects name, procs and on-use effects included.
 		fightTags: compact({
 			areas: (item.areaTypes ?? []).map(type => AREA_TYPES[type]).filter(Boolean),

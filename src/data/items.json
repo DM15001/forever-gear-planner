@@ -113955,6 +113955,14 @@
 			"spellDamage": 7,
 			"natureResistance": 15
 		},
+		"inArea": [
+			{
+				"area": "Cavernous",
+				"stats": {
+					"spirit": 16
+				}
+			}
+		],
 		"fightTags": {
 			"areas": [
 				"Cavernous"
@@ -113994,6 +114002,14 @@
 			"spellDamage": 7,
 			"natureResistance": 15
 		},
+		"inArea": [
+			{
+				"area": "ForestGrassland",
+				"stats": {
+					"spirit": 16
+				}
+			}
+		],
 		"fightTags": {
 			"areas": [
 				"ForestGrassland"
