@@ -4582,3 +4582,35 @@ summary.breakdown-toggle:focus-visible {
 .class-icon-small {
 	border-radius: 3px;
 }
+
+/* Live / Dev switch: two published copies of the site, see pages.yml. */
+.channel-switch {
+	position: fixed;
+	top: 0.4rem;
+	right: 0.5rem;
+	z-index: 50;
+	display: flex;
+	border: 1px solid var(--ridge);
+	border-radius: 999px;
+	background: var(--slate);
+	font-size: 0.75rem;
+	overflow: hidden;
+}
+.channel-switch a,
+.channel-switch span {
+	padding: 0.2rem 0.65rem;
+	color: var(--haze);
+	text-decoration: none;
+}
+.channel-switch a:hover {
+	color: var(--mist);
+	background: var(--slate-raised);
+}
+.channel-switch [aria-current] {
+	background: var(--brass);
+	color: var(--on-brass);
+	font-weight: 600;
+}
+.channel-switch.channel-dev [aria-current] {
+	background: var(--ember);
+}

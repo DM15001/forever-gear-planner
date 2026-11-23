@@ -34,6 +34,55 @@ const TABS = [
 	{ id: 'news', label: 'News' },
 ];
 
+/** Two copies of the site are published: the live one, and under dev/ the one with changes still being tried out. Both read the same saved characters. */
+const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+
+const SWITCH_WORD = 'penis1';
+const SWITCH_KEY = 'fgp.channelSwitch';
+
+function switchUnlocked(): boolean {
+	try {
+		return localStorage.getItem(SWITCH_KEY) === '1';
+	} catch {
+		return false;
+	}
+}
+
+/** Hidden on the live site until the unlock word is typed anywhere outside a text field; typing it again hides it. The dev copy always shows it, as the way back. */
+function ChannelSwitch() {
+	const [unlocked, setUnlocked] = useState(switchUnlocked);
+	useEffect(() => {
+		let typed = '';
+		const onKey = (event: KeyboardEvent) => {
+			const target = event.target as HTMLElement | null;
+			if (target && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))) return;
+			if (event.key.length !== 1) return;
+			typed = (typed + event.key.toLowerCase()).slice(-SWITCH_WORD.length);
+			if (typed !== SWITCH_WORD) return;
+			typed = '';
+			setUnlocked(was => {
+				try {
+					if (was) localStorage.removeItem(SWITCH_KEY);
+					else localStorage.setItem(SWITCH_KEY, '1');
+				} catch {
+					// Private windows may refuse storage; the switch then lasts until the page is closed.
+				}
+				return !was;
+			});
+		};
+		window.addEventListener('keydown', onKey);
+		return () => window.removeEventListener('keydown', onKey);
+	}, []);
+	if (!IS_DEV && !unlocked) return null;
+	const other = IS_DEV ? '../' : './dev/';
+	return (
+		<nav className={`channel-switch${IS_DEV ? ' channel-dev' : ''}`} aria-label="Site version">
+			{IS_DEV ? <a href={other}>Live</a> : <span aria-current="page">Live</span>}
+			{IS_DEV ? <span aria-current="page">Dev</span> : <a href={other}>Dev</a>}
+		</nav>
+	);
+}
+
 export function App() {
 	// A character that arrives in a share link is added next to the saved ones, never over them.
 	const [roster, setRoster] = useState<Roster>(() => {
@@ -126,6 +175,7 @@ export function App() {
 
 	return (
 		<div className="page">
+			<ChannelSwitch />
 			<header className="masthead">
 				<div className="masthead-title">
 					<button className="masthead-home" onClick={() => setImporting(true)} title="Start page: your characters and import" aria-label="Start page">
