@@ -31,11 +31,10 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SIM_DIR = join(ROOT, 'public', 'sim');
 const SCREEN_ITERATIONS = 1200; // first look; an exact zero ends it here
 const FINAL_ITERATIONS = 3000;
-const MIN_ITEM_LEVEL = 55; // level 60 gear only: that is where plans are made
-const QUALITIES = new Set(['rare', 'epic', 'legendary']);
 const AP_INDEX = 14; // Stat enum: attack power
 const AP_PROBE = 300;
 const MAIN_HAND = 14;
+const OFF_HAND = 15;
 const SLOT_OF_KIND = { head: 0, neck: 1, shoulder: 2, back: 3, chest: 4, wrist: 5, hands: 6, waist: 7, legs: 8, feet: 9, finger: 10, trinket: 12, weapon: MAIN_HAND, ranged: 16 };
 const SLOT_KINDS = ['head', 'neck', 'shoulder', 'back', 'chest', 'wrist', 'hands', 'waist', 'legs', 'feet', 'finger', 'finger', 'trinket', 'trinket', 'weapon', 'weapon', 'ranged'];
 const ITEM_TYPE_OF_KIND = { head: 1, neck: 2, shoulder: 3, back: 4, chest: 5, wrist: 6, hands: 7, waist: 8, legs: 9, feet: 10, finger: 11, trinket: 12, weapon: 13, ranged: 14 };
@@ -146,7 +145,7 @@ if (!isMainThread) {
 			if (task.kind === 'ap') {
 				result = { referenceDps: dps(reference, 3000).avg };
 			} else if (task.kind === 'item') {
-				const gear = reference.map((p, i) => (i === task.slotIndex ? { id: task.id } : p));
+				const gear = reference.map((p, i) => (i === task.slotIndex ? { id: task.id } : i === task.clear ? null : p));
 				result = difference(n => ({ with: dps(gear, n), without: dps(gear, n, { effects: new Set([task.id]) }) }));
 			} else if (task.kind === 'enchant') {
 				const gear = reference.map((p, i) => (i === task.slotIndex && p ? { id: p.id, enchant: task.effectId } : p));
@@ -209,6 +208,8 @@ if (isMainThread) {
 	// The reference gear: the sim maintainers' default set, without enchants so they do not blur the picture.
 	const reference = template.raid.parties[0].players[0].equipment.items.map(p => (p?.id ? { id: p.id } : null));
 
+	const planItem = new Map(items.map(i => [i.id, i]));
+	const twoHandReference = planItem.get(reference[MAIN_HAND]?.id)?.weapon?.hand === 'twoHand';
 	const fitsMainHand = item => (spec.weaponSetup === 'twoHand' ? item.weapon?.hand === 'twoHand' : spec.weaponSetup === 'oneHand' ? item.weapon?.hand !== 'offHand' && item.weapon?.hand !== 'twoHand' : item.weapon?.hand !== 'offHand');
 	const ARMOR = new Set(['head', 'shoulder', 'chest', 'wrist', 'hands', 'waist', 'legs', 'feet']);
 	/** What the build can wear, as in src/lib/specs.ts. */
@@ -230,10 +231,19 @@ if (isMainThread) {
 	for (const item of items) {
 		const raw = rawById.get(item.id);
 		const hasEffect = raw?.itemEffects?.length || raw?.pseudoStats?.some(Boolean);
-		if (!hasEffect || (item.ilvl ?? 0) < MIN_ITEM_LEVEL || !QUALITIES.has(item.quality) || !usable(item)) continue;
-		if (item.slot === 'weapon' && !fitsMainHand(item)) continue;
+		// Every item with an effect that the build can wear: any level, any quality.
+		if (!hasEffect || !usable(item)) continue;
 		if (only && !only.includes(item.id)) continue;
-		tasks.push({ kind: 'item', id: item.id, name: item.name, slotIndex: SLOT_OF_KIND[item.slot] });
+		const hand = item.slot === 'weapon' ? item.weapon?.hand : undefined;
+		if (hand === 'offHand') {
+			// Shields, held items and off-hand weapons go next to the preset's main hand, unless that is a two-hander.
+			if (twoHandReference) continue;
+			tasks.push({ kind: 'item', id: item.id, name: item.name, slotIndex: OFF_HAND });
+			continue;
+		}
+		if (item.slot === 'weapon' && !fitsMainHand(item)) continue;
+		// A two-hander leaves no room for the preset's off hand.
+		tasks.push({ kind: 'item', id: item.id, name: item.name, slotIndex: SLOT_OF_KIND[item.slot], ...(hand === 'twoHand' ? { clear: OFF_HAND } : {}) });
 	}
 
 	if (!only) {
@@ -248,11 +258,10 @@ if (isMainThread) {
 			tasks.push({ kind: 'enchant', effectId: enchant.effectId, name: enchant.name, slotIndex });
 		}
 
-		// Sets: one piece per slot, the highest item level variant. PvP-only sets are skipped.
+		// Sets: every set the build can wear two pieces of, PvP sets and low-level ones included. One piece per slot, the highest item level variant.
 		const sets = new Map();
 		for (const item of items) {
-			if (!item.setId || (item.ilvl ?? 0) < MIN_ITEM_LEVEL - 5 || !usable(item)) continue;
-			if (item.sources?.length && item.sources.every(s => s.kind === 'pvp')) continue;
+			if (!item.setId || !usable(item)) continue;
 			if (item.slot === 'weapon' && !fitsMainHand(item)) continue;
 			const set = sets.get(item.setId) ?? sets.set(item.setId, { name: item.setName, bySlot: new Map() }).get(item.setId);
 			const slotIndex = item.slot === 'finger' && set.bySlot.has(10) && set.bySlot.get(10).name !== item.name ? 11 : SLOT_OF_KIND[item.slot];
