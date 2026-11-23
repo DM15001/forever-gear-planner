@@ -171,7 +171,8 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 	const points = parseTalents(talents, trees);
 	const spent = talentPointsSpent(points);
 	const available = talentPointsAt(character.level ?? MAX_LEVEL);
-	const setTalents = (next: string) => onChange({ ...character, talents: next === presetTalents ? '' : next });
+	// No talents at all is written as "0": an empty string means "the build's own talents".
+	const setTalents = (next: string) => onChange({ ...character, talents: next === presetTalents ? '' : next || '0' });
 	const step = (tree: number, index: number, by: number) => {
 		const next = points.map(list => [...list]);
 		next[tree][index] = Math.max(0, Math.min(trees[tree].talents[index].max, next[tree][index] + by));

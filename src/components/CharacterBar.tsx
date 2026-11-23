@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { type ReactNode, useState } from 'react';
 
 import type { Roster } from '../lib/roster';
 import { specOf } from '../lib/specs';
@@ -20,8 +20,9 @@ export function FactionMark({ faction }: { faction: 'alliance' | 'horde' }) {
 }
 
 /** Every saved character as a tile: class icon, name, build, race and faction. A click switches to it. */
-export function CharacterBar({ roster, onSelect, onAdd }: { roster: Roster; onSelect: (index: number) => void; onAdd: () => void }) {
+export function CharacterBar({ roster, onSelect, onAdd, aside }: { roster: Roster; onSelect: (index: number) => void; onAdd: () => void; /** Shown at the right end of the row. */ aside?: ReactNode }) {
 	return (
+		<div className="character-row">
 		<nav className="character-bar" aria-label="Your characters">
 			{roster.characters.map((character, index) => {
 				const spec = specOf(character);
@@ -53,5 +54,7 @@ export function CharacterBar({ roster, onSelect, onAdd }: { roster: Roster; onSe
 				</span>
 			</button>
 		</nav>
+		{aside && <div className="character-row-aside">{aside}</div>}
+		</div>
 	);
 }

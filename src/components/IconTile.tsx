@@ -47,6 +47,8 @@ export const raceIcons = (name: string): string[] => {
 	const scourge = key === 'undead' ? 'scourge' : key;
 	// The Skyborne have no portrait icon that could be found, so their faction's own racial ability stands in (Read Leyline, Skysight).
 	const racial = { highorderskyborne: 'ability_mage_incantersabsorbtion', windshaperskyborne: 'ability_skyreach_lens_flare' }[key];
+	// Both Skyborne factions share one portrait on Wowhead (race=95).
+	if (key.endsWith('skyborne')) return ['race_skyborne_male', ...(racial ? [racial] : [])];
 	return [`race_${scourge}_male`, `achievement_character_${key}_male`, ...(racial ? [racial] : [])];
 };
 

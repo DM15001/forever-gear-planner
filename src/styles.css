@@ -3740,3 +3740,76 @@ a.enchant-gives:hover {
 .slot-chip-here .slot-chip-mark {
 	color: inherit;
 }
+
+/* The character tiles and, at the right end of their row, the expert switch */
+.character-row {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin-bottom: 1.25rem;
+}
+.character-row .character-bar {
+	flex: 1 1 auto;
+	min-width: 0;
+	margin-bottom: 0;
+}
+.character-row-aside {
+	flex: none;
+}
+.expert-switch {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.4rem 0.8rem 0.4rem 0.5rem;
+	font: inherit;
+	font-size: 0.8125rem;
+	color: var(--haze);
+	background: #0a0806;
+	border: 1px solid var(--hairline);
+	border-radius: 999px;
+	cursor: help;
+}
+.expert-switch:hover,
+.expert-switch:focus-visible {
+	color: var(--mist);
+	border-color: var(--ridge);
+}
+.expert-switch-knob {
+	position: relative;
+	width: 1.9rem;
+	height: 1.05rem;
+	background: var(--well);
+	border: 1px solid var(--ridge);
+	border-radius: 999px;
+}
+.expert-switch-knob::after {
+	content: '';
+	position: absolute;
+	top: 1px;
+	left: 1px;
+	width: 0.8rem;
+	height: 0.8rem;
+	background: var(--haze);
+	border-radius: 50%;
+	transition: transform 120ms;
+}
+.expert-switch-on {
+	color: var(--brass);
+	border-color: var(--brass-deep);
+}
+.expert-switch-on .expert-switch-knob {
+	border-color: var(--brass);
+}
+.expert-switch-on .expert-switch-knob::after {
+	background: var(--brass);
+	transform: translateX(0.85rem);
+}
+@media (max-width: 640px) {
+	.character-row {
+		flex-direction: column;
+		align-items: stretch;
+	}
+	.character-row-aside {
+		align-self: flex-end;
+	}
+}

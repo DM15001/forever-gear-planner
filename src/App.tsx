@@ -153,11 +153,6 @@ export function App() {
 						</nav>
 						<BarCap mirrored />
 					</div>
-					{character && (
-						<label className="expert-switch" title="Shows the stat weights, the side-by-side comparison with other sims and the raw rotation rules.">
-							<input type="checkbox" checked={expert} onChange={e => setExpert(e.target.checked)} /> Expert details
-						</label>
-					)}
 				</div>
 			</header>
 
@@ -174,6 +169,22 @@ export function App() {
 							setWarnings([]);
 						}}
 						onAdd={() => setImporting(true)}
+						aside={
+							<button
+								type="button"
+								className={expert ? 'expert-switch expert-switch-on' : 'expert-switch'}
+								role="switch"
+								aria-checked={expert}
+								onClick={() => setExpert(!expert)}
+								title={
+									'Expert details: ' +
+									(expert ? 'on' : 'off') +
+									'.\nOn, two extra sections appear:\n• Upgrades tab: the stat weights (what one point of each stat is worth), to edit or re-measure with the simulator.\n• Sim setup tab: "Compare with another sim", every setting of a run to rebuild it elsewhere.\nOff, they are hidden. Nothing else changes; all numbers stay the same.'
+								}>
+								<span className="expert-switch-knob" aria-hidden="true" />
+								Expert details
+							</button>
+						}
 					/>
 				)}
 				{character && !importing && (
