@@ -3983,3 +3983,49 @@ button.character-tile.character-add {
 .sheet .slot-blocked .slot-item {
 	color: var(--haze);
 }
+
+/* News: one card per day */
+.tab-dot {
+	display: inline-block;
+	width: 0.5rem;
+	height: 0.5rem;
+	margin-right: 0.4rem;
+	background: #1eff00;
+	border-radius: 50%;
+	box-shadow: 0 0 6px #1eff00;
+}
+.news-day {
+	margin-top: 1rem;
+	padding: 1rem 1.25rem;
+}
+.news-day h3 {
+	margin: 0;
+}
+.news-summary {
+	margin: 0.3rem 0 0;
+	color: var(--mist);
+}
+.news-section h4 {
+	margin: 1rem 0 0.4rem;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	color: var(--brass);
+	border-bottom: 1px solid var(--hairline);
+	padding-bottom: 0.25rem;
+}
+.news-item {
+	display: grid;
+	gap: 0.1rem;
+	padding: 0.45rem 0;
+	max-width: 75ch;
+}
+.news-item + .news-item {
+	border-top: 1px solid var(--hairline);
+}
+.news-item span {
+	color: var(--haze);
+}
+.news-item a {
+	font-size: 0.8125rem;
+	justify-self: start;
+}

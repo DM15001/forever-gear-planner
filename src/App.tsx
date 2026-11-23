@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { CharacterSheet } from './components/CharacterSheet';
 import { EnchantsTab } from './components/EnchantsTab';
 import { castingShare, countsMending, mendingWeights } from './lib/sim/mending';
+import { NewsTab, newsUnseen } from './components/NewsTab';
 import { CharacterBar } from './components/CharacterBar';
 import { ClassIcon } from './components/ClassIcon';
 import { FarmTab } from './components/FarmTab';
@@ -30,6 +31,7 @@ const TABS = [
 	{ id: 'farm', label: 'Farm plan', step: 3 },
 	{ id: 'enchants', label: 'Enchants & professions' },
 	{ id: 'sim', label: 'Sim setup' },
+	{ id: 'news', label: 'News' },
 ];
 
 export function App() {
@@ -75,6 +77,9 @@ export function App() {
 	const [warnings, setWarnings] = useState<string[]>([]);
 	const [importing, setImporting] = useState(false);
 	const [tab, setTab] = useState('character');
+	// A dot on the News tab until today's entry has been opened.
+	const [newsDot, setNewsDot] = useState(newsUnseen);
+	const newsSeen = useCallback(() => setNewsDot(false), []);
 	// Step 2 has two ways in: the automatic plan, or every slot by hand.
 	const [upgradeView, setUpgradeView] = useState<'plan' | 'slots'>(() => (Object.keys(character?.plan ?? {}).length > 0 ? 'slots' : 'plan'));
 	// The content choice, shared by every tab and remembered between visits.
@@ -131,6 +136,7 @@ export function App() {
 							{TABS.map(t => (
 								<button key={t.id} className="tab" aria-current={t.id === tab ? 'page' : undefined} onClick={() => setTab(t.id)}>
 									{'step' in t && <span className="tab-step">{t.step}</span>}
+									{t.id === 'news' && newsDot && <span className="tab-dot" title="New since your last visit" aria-label="new" />}
 									{t.label}
 								</button>
 							))}
@@ -181,6 +187,7 @@ export function App() {
 
 						{tab === 'enchants' && (data ? <EnchantsTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
 
+						{tab === 'news' && <NewsTab onSeen={newsSeen} />}
 						{tab === 'sim' && <SimSetupTab spec={spec} character={character} data={data} onChange={update} />}
 						{tab === 'character' && (
 							<>
