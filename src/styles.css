@@ -4056,3 +4056,9 @@ button.character-tile.character-add {
 .news-month {
 	margin-top: 1rem;
 }
+
+.stat-pair.stat-str, .stat-pair.stat-str .num { color: #e8785a; }
+.stat-pair.stat-agi, .stat-pair.stat-agi .num { color: #f0d060; }
+.stat-pair.stat-sta, .stat-pair.stat-sta .num { color: #f0a050; }
+.stat-pair.stat-int, .stat-pair.stat-int .num { color: #6cb8ff; }
+.stat-pair.stat-spi, .stat-pair.stat-spi .num { color: #c9a0ff; }
