@@ -4167,3 +4167,65 @@ button.masthead-home:focus-visible {
 		margin-left: 0.5rem;
 	}
 }
+
+/* Upgrades: the two ways in, as two large choices */
+.view-switch {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.75rem;
+	padding: 0;
+	margin-bottom: 1.25rem;
+	background: none;
+	border: 0;
+}
+.view-choice {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	padding: 0.9rem 1.1rem;
+	font: inherit;
+	text-align: left;
+	color: var(--haze);
+	background: #0a0806;
+	border: 1px solid var(--ridge);
+	border-bottom-width: 3px;
+	border-radius: 6px;
+	cursor: pointer;
+	transition:
+		border-color 0.15s,
+		background 0.15s;
+}
+.view-choice strong {
+	font-family: var(--display, inherit);
+	font-size: 1.25rem;
+	letter-spacing: 0.03em;
+	color: var(--mist);
+}
+.view-choice span {
+	font-size: 0.875rem;
+}
+.view-choice:hover {
+	border-color: var(--brass-deep);
+}
+.view-choice[aria-pressed='true'] {
+	background: #1c160c;
+	border-color: var(--brass);
+	box-shadow: 0 0 0 1px #000, 0 0 14px -4px var(--brass);
+}
+.view-choice[aria-pressed='true'] strong {
+	color: var(--brass);
+}
+@media (max-width: 640px) {
+	.view-switch {
+		gap: 0.5rem;
+	}
+	.view-choice {
+		padding: 0.7rem 0.75rem;
+	}
+	.view-choice strong {
+		font-size: 1.05rem;
+	}
+	.view-choice span {
+		font-size: 0.8125rem;
+	}
+}

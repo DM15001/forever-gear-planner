@@ -200,13 +200,14 @@ export function App() {
 					<SimProvider character={character}>
 						{tab === 'upgrades' && (
 							<div className="view-switch" role="group" aria-label="How to pick upgrades">
-								<button className="button button-small" aria-pressed={upgradeView === 'plan'} onClick={() => setUpgradeView('plan')}>
-									Plan for me
+								<button className="view-choice" aria-pressed={upgradeView === 'plan'} onClick={() => setUpgradeView('plan')}>
+									<strong>Plan for me</strong>
+									<span>Say what content you do and get the best set with a to-do list.</span>
 								</button>
-								<button className="button button-small" aria-pressed={upgradeView === 'slots'} onClick={() => setUpgradeView('slots')}>
-									Slot by slot
+								<button className="view-choice" aria-pressed={upgradeView === 'slots'} onClick={() => setUpgradeView('slots')}>
+									<strong>Slot by slot</strong>
+									<span>Every slot with its upgrades and alternatives, to pick by hand.</span>
 								</button>
-								<span className="slot-source">{upgradeView === 'plan' ? 'Say what content you do and get the best set with a to-do list.' : 'Every slot with its upgrades and alternatives, to pick by hand.'}</span>
 							</div>
 						)}
 						{tab === 'upgrades' && baseSpec.role === 'healer' && <HealingPicker character={character} spec={spec} onChange={update} />}
