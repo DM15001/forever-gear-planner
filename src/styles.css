@@ -3967,3 +3967,13 @@ button.character-tile.character-add {
 	margin: 0.9rem 0 0;
 	font-size: 0.875rem;
 }
+
+/* The off hand under a two-hander: crossed out, since nothing can go there */
+.sheet .slot-blocked {
+	position: relative;
+	opacity: 0.75;
+	background-image: linear-gradient(to top right, transparent calc(50% - 1px), var(--ridge) calc(50% - 1px), var(--ridge) calc(50% + 1px), transparent calc(50% + 1px));
+}
+.sheet .slot-blocked .slot-item {
+	color: var(--haze);
+}

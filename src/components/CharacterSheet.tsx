@@ -44,6 +44,9 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 	};
 	const race = spec.races.find(r => r.id === character.race);
 	const enchantCount = character.gear.filter(piece => piece?.enchant).length;
+	// A two-hander in the main hand leaves the off hand unusable; the off-hand card says so.
+	const mainHandItem = data?.itemById.get(character.gear[MAIN_HAND_SLOT]?.id ?? -1);
+	const twoHander = mainHandItem?.weapon?.hand === 'twoHand' ? mainHandItem.name : undefined;
 	// Worn items that come with a random suffix, where none is chosen yet.
 	const noSuffix = data ? character.gear.flatMap((piece, index) => (piece && !piece.randomSuffix && data.itemById.get(piece.id)?.randomSuffixOptions?.length ? [GEAR_SLOTS[index].label] : [])) : [];
 	const stats = data ? gearStats(character, data) : null;
@@ -61,7 +64,7 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 		});
 
 	const slot = (index: number, mirrored = false) => (
-		<GearSlot key={GEAR_SLOTS[index].key} index={index} mirrored={mirrored} piece={character.gear[index]} data={data} onChange={piece => setPiece(index, piece)} onPick={() => setPicking(index)} onEnchant={() => setEnchanting(index)} />
+		<GearSlot key={GEAR_SLOTS[index].key} index={index} mirrored={mirrored} piece={character.gear[index]} data={data} onChange={piece => setPiece(index, piece)} onPick={() => setPicking(index)} onEnchant={() => setEnchanting(index)} blockedBy={index === OFF_HAND_SLOT && !character.gear[index] ? twoHander : undefined} />
 	);
 
 	// Swapping an item by hand keeps the enchant when it also fits the new item.
@@ -301,9 +304,14 @@ interface SlotProps {
 	onPick: () => void;
 	/** Opens the list of enchants for this slot's item. */
 	onEnchant: () => void;
+	/** The two-hander that takes this (off-hand) slot away, by name. */
+	blockedBy?: string;
 }
 
-function GearSlot({ index, mirrored, piece, data, onChange, onPick, onEnchant }: SlotProps) {
+const MAIN_HAND_SLOT = GEAR_SLOTS.findIndex(s => s.key === 'mainHand');
+const OFF_HAND_SLOT = GEAR_SLOTS.findIndex(s => s.key === 'offHand');
+
+function GearSlot({ index, mirrored, piece, data, onChange, onPick, onEnchant, blockedBy }: SlotProps) {
 	const { label } = GEAR_SLOTS[index];
 	const item = piece ? data?.itemById.get(piece.id) : undefined;
 	const enchants = data ? applicableEnchants(index, item, data) : [];
@@ -311,7 +319,7 @@ function GearSlot({ index, mirrored, piece, data, onChange, onPick, onEnchant }:
 	const suffixes = (item?.randomSuffixOptions ?? []).map(id => data?.suffixById.get(id)).filter(s => s !== undefined);
 
 	let name: string;
-	if (!piece) name = 'Empty';
+	if (!piece) name = blockedBy ? 'Taken by your two-hander' : 'Empty';
 	else if (!data) name = 'Loading…';
 	else name = item?.name ?? `Unknown item #${piece.id}`;
 	const suffixName = piece?.randomSuffix ? data?.suffixById.get(piece.randomSuffix)?.name : undefined;
@@ -319,7 +327,7 @@ function GearSlot({ index, mirrored, piece, data, onChange, onPick, onEnchant }:
 	const stats = item && piece && data ? statLine(pieceStats(item, piece, data)) : '';
 
 	return (
-		<div className={`slot${piece ? '' : ' slot-empty'}${mirrored ? ' slot-mirrored' : ''}`}>
+		<div className={`slot${piece ? '' : ' slot-empty'}${mirrored ? ' slot-mirrored' : ''}${blockedBy ? ' slot-blocked' : ''}`} title={blockedBy ? `${blockedBy} is a two-handed weapon, so the off hand stays empty. Picking an off-hand item here takes the two-hander off.` : undefined}>
 			<button className="slot-button" onClick={onPick} disabled={!data} title={`Change the ${label.toLowerCase()} item`} aria-label={`Change the ${label.toLowerCase()} item`}>
 				<ItemIcon icon={item?.icon} quality={quality} />
 			</button>
