@@ -4,7 +4,7 @@ import { GEAR_SLOTS, PROFESSIONS, SHEET_LAYOUT } from '../lib/constants';
 import { applicableEnchants, enchantLine } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
 import { gearStats, hitSummary, pieceStats, STAT_LABELS, statLine, wowheadEnchantUrl, wowheadItemUrl, wowheadData } from '../lib/stats';
-import type { Character, GearPiece, SpecConfig, Stats } from '../lib/types';
+import type { Character, GearPiece, SpecConfig, Stats, Item } from '../lib/types';
 import { EVERYTHING, withItem } from '../lib/scoring';
 import { FactionMark } from './CharacterBar';
 import { ClassIcon } from './ClassIcon';
@@ -46,7 +46,7 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 	const enchantCount = character.gear.filter(piece => piece?.enchant).length;
 	// A two-hander in the main hand leaves the off hand unusable; the off-hand card says so.
 	const mainHandItem = data?.itemById.get(character.gear[MAIN_HAND_SLOT]?.id ?? -1);
-	const twoHander = mainHandItem?.weapon?.hand === 'twoHand' ? mainHandItem.name : undefined;
+	const twoHander = mainHandItem?.weapon?.hand === 'twoHand' ? mainHandItem : undefined;
 	// Worn items that come with a random suffix, where none is chosen yet.
 	const noSuffix = data ? character.gear.flatMap((piece, index) => (piece && !piece.randomSuffix && data.itemById.get(piece.id)?.randomSuffixOptions?.length ? [GEAR_SLOTS[index].label] : [])) : [];
 	const stats = data ? gearStats(character, data) : null;
@@ -304,8 +304,8 @@ interface SlotProps {
 	onPick: () => void;
 	/** Opens the list of enchants for this slot's item. */
 	onEnchant: () => void;
-	/** The two-hander that takes this (off-hand) slot away, by name. */
-	blockedBy?: string;
+	/** The two-hander in the main hand, which takes this (off-hand) slot too. */
+	blockedBy?: Item;
 }
 
 const MAIN_HAND_SLOT = GEAR_SLOTS.findIndex(s => s.key === 'mainHand');
@@ -319,7 +319,7 @@ function GearSlot({ index, mirrored, piece, data, onChange, onPick, onEnchant, b
 	const suffixes = (item?.randomSuffixOptions ?? []).map(id => data?.suffixById.get(id)).filter(s => s !== undefined);
 
 	let name: string;
-	if (!piece) name = blockedBy ? 'Taken by your two-hander' : 'Empty';
+	if (!piece) name = blockedBy ? blockedBy.name : 'Empty';
 	else if (!data) name = 'Loading…';
 	else name = item?.name ?? `Unknown item #${piece.id}`;
 	const suffixName = piece?.randomSuffix ? data?.suffixById.get(piece.randomSuffix)?.name : undefined;
@@ -327,14 +327,14 @@ function GearSlot({ index, mirrored, piece, data, onChange, onPick, onEnchant, b
 	const stats = item && piece && data ? statLine(pieceStats(item, piece, data)) : '';
 
 	return (
-		<div className={`slot${piece ? '' : ' slot-empty'}${mirrored ? ' slot-mirrored' : ''}${blockedBy ? ' slot-blocked' : ''}`} title={blockedBy ? `${blockedBy} is a two-handed weapon, so the off hand stays empty. Picking an off-hand item here takes the two-hander off.` : undefined}>
-			<button className="slot-button" onClick={onPick} disabled={!data} title={`Change the ${label.toLowerCase()} item`} aria-label={`Change the ${label.toLowerCase()} item`}>
-				<ItemIcon icon={item?.icon} quality={quality} />
+		<div className={`slot${piece ? '' : ' slot-empty'}${mirrored ? ' slot-mirrored' : ''}${blockedBy ? ' slot-blocked' : ''}`} title={blockedBy ? `${blockedBy.name} is held in both hands. To use the off hand, put a one-handed weapon in the main hand first.` : undefined}>
+			<button className="slot-button" onClick={onPick} disabled={!data || !!blockedBy} title={blockedBy ? undefined : `Change the ${label.toLowerCase()} item`} aria-label={blockedBy ? `${label}: taken by ${blockedBy.name}` : `Change the ${label.toLowerCase()} item`}>
+				<ItemIcon icon={blockedBy ? blockedBy.icon : item?.icon} quality={blockedBy ? 'none' : quality} />
 			</button>
 			<div className="slot-body">
 				<span className="slot-label">
 					{label}
-					{data && (
+					{data && !blockedBy && (
 						<button className="link slot-change" onClick={onPick}>
 							Change
 						</button>
@@ -348,6 +348,7 @@ function GearSlot({ index, mirrored, piece, data, onChange, onPick, onEnchant, b
 				) : (
 					<span className="slot-item">{name}</span>
 				)}
+				{blockedBy && <span className="slot-source">Held in both hands</span>}
 				{item && (
 					<>
 						<span className="slot-stats">

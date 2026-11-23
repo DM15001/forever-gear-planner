@@ -3968,11 +3968,17 @@ button.character-tile.character-add {
 	font-size: 0.875rem;
 }
 
-/* The off hand under a two-hander: crossed out, since nothing can go there */
+/* The off hand under a two-hander: the same weapon again, greyed, as in the game's character pane */
 .sheet .slot-blocked {
-	position: relative;
-	opacity: 0.75;
-	background-image: linear-gradient(to top right, transparent calc(50% - 1px), var(--ridge) calc(50% - 1px), var(--ridge) calc(50% + 1px), transparent calc(50% + 1px));
+	opacity: 0.6;
+	border-style: dashed;
+}
+.sheet .slot-blocked .slot-button {
+	cursor: default;
+}
+.sheet .slot-blocked .slot-icon,
+.sheet .slot-blocked .slot-button img {
+	filter: grayscale(1);
 }
 .sheet .slot-blocked .slot-item {
 	color: var(--haze);
