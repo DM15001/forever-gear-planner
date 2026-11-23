@@ -260,7 +260,8 @@ function usableBy(item, spec) {
 
 function isUsable(item) {
 	if (!ITEM_TYPES[item.type]) return false;
-	if (item.phase !== PHASE_RELEASED) return false;
+	// Items WoWSims does not list as released (phase 2) are kept and marked: the planner hides them
+	// behind "Not in game yet" instead of losing them, since that list is not always right for Forever.
 	if ((item.reqLvl ?? 0) > 60) return false;
 	if ((item.quality ?? 0) < 2) return false; // uncommon and better
 	return specs.some(spec => usableBy(item, spec));
@@ -308,6 +309,7 @@ function convertItem(item) {
 		unique: item.unique,
 		// Items sharing a limit category cannot be worn together (the four Warden's Signets, for example).
 		limitCategory: item.limitCategory || undefined,
+		unreleased: item.phase !== PHASE_RELEASED ? true : undefined,
 		// Class ids that may use the item; unset = every class.
 		classes: item.classAllowlist?.length ? item.classAllowlist : undefined,
 		faction: FACTIONS[item.factionRestriction],

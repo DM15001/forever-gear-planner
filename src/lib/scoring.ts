@@ -14,6 +14,7 @@ const CLOSED_ITEMS: Record<string, string> = notAvailable.items;
 /** Why an item cannot be had in the game yet, or undefined when nothing is known against it. */
 export function notYetAvailable(item: Item): string | undefined {
 	if (CLOSED_ITEMS[item.id]) return CLOSED_ITEMS[item.id];
+	if (item.unreleased) return 'WoWSims does not list this item as released yet (later raids and events, old PvP ranks). If you can get it in the game, tell us';
 	if (item.tag && CLOSED_TAGS[item.tag]) return CLOSED_TAGS[item.tag];
 	const byIcon = item.icon ? CLOSED_ICON_WORDS.find(([word]) => item.icon!.includes(word)) : undefined;
 	if (byIcon) return byIcon[1];

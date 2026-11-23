@@ -1987,6 +1987,107 @@
 		}
 	},
 	{
+		"id": 13188,
+		"name": "of the Eagle",
+		"stats": {
+			"stamina": 3666,
+			"intellect": 3666
+		}
+	},
+	{
+		"id": 13189,
+		"name": "of the Whale",
+		"stats": {
+			"stamina": 3666,
+			"spirit": 3666
+		}
+	},
+	{
+		"id": 13190,
+		"name": "of the Monkey",
+		"stats": {
+			"agility": 3666,
+			"stamina": 3666
+		}
+	},
+	{
+		"id": 13191,
+		"name": "of the Bear",
+		"stats": {
+			"strength": 3666,
+			"stamina": 3666
+		}
+	},
+	{
+		"id": 13192,
+		"name": "of the Gorilla",
+		"stats": {
+			"strength": 3666,
+			"intellect": 3666
+		}
+	},
+	{
+		"id": 13193,
+		"name": "of the Boar",
+		"stats": {
+			"strength": 3666,
+			"spirit": 3666
+		}
+	},
+	{
+		"id": 13194,
+		"name": "of the Tiger",
+		"stats": {
+			"strength": 3666,
+			"agility": 3666
+		}
+	},
+	{
+		"id": 13195,
+		"name": "of the Beast",
+		"stats": {
+			"strength": 1522,
+			"agility": 1957,
+			"stamina": 3463
+		}
+	},
+	{
+		"id": 13196,
+		"name": "of the Knight",
+		"stats": {
+			"strength": 1957,
+			"stamina": 3463,
+			"healingPower": 1775,
+			"spellDamage": 1775
+		}
+	},
+	{
+		"id": 13197,
+		"name": "of Defense",
+		"stats": {
+			"defenseRating": 3667
+		}
+	},
+	{
+		"id": 13198,
+		"name": "of the Champion",
+		"stats": {
+			"strength": 1957,
+			"stamina": 3463,
+			"defenseRating": 1014
+		}
+	},
+	{
+		"id": 13199,
+		"name": "of the Defender",
+		"stats": {
+			"stamina": 3463,
+			"healingPower": 1775,
+			"spellDamage": 1775,
+			"defenseRating": 1304
+		}
+	},
+	{
 		"id": 13200,
 		"name": "of the Eagle",
 		"stats": {

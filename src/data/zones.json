@@ -280,6 +280,11 @@
 		"kind": "world"
 	},
 	{
+		"id": 1977,
+		"name": "Zul'Gurub",
+		"kind": "raid"
+	},
+	{
 		"id": 2017,
 		"name": "Stratholme",
 		"kind": "dungeon"
@@ -308,6 +313,31 @@
 		"id": 2597,
 		"name": "Alterac Valley",
 		"kind": "world"
+	},
+	{
+		"id": 2677,
+		"name": "Blackwing Lair",
+		"kind": "raid"
+	},
+	{
+		"id": 2717,
+		"name": "Molten Core",
+		"kind": "raid"
+	},
+	{
+		"id": 3428,
+		"name": "Ahn'Qiraj",
+		"kind": "raid"
+	},
+	{
+		"id": 3429,
+		"name": "Ruins of Ahn'Qiraj",
+		"kind": "raid"
+	},
+	{
+		"id": 3456,
+		"name": "Naxxramas",
+		"kind": "raid"
 	},
 	{
 		"id": 16591,

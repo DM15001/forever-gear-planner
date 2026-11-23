@@ -62,6 +62,8 @@ export interface Item {
 	classes?: number[];
 	faction?: Faction;
 	requiredProfession?: string;
+	/** WoWSims does not list the item as released (its "phase 2": later raids and events, old PvP ranks). */
+	unreleased?: boolean;
 	setId?: number;
 	setName?: string;
 	effects?: { name?: string; kind: string }[];

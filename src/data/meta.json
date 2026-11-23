@@ -1,5 +1,5 @@
 {
-	"generatedAt": "2026-11-23T01:10:25.747Z",
+	"generatedAt": "2026-11-23T09:13:51.259Z",
 	"specs": [
 		"druid-balance",
 		"druid-cat",
@@ -43,33 +43,34 @@
 		"commit": null
 	},
 	"counts": {
-		"items": 6581,
+		"items": 7398,
 		"itemsBySlot": {
-			"weapon": 1206,
-			"hands": 541,
-			"trinket": 208,
-			"finger": 273,
-			"chest": 585,
-			"feet": 581,
-			"neck": 179,
-			"head": 495,
-			"legs": 516,
-			"wrist": 445,
-			"back": 268,
-			"ranged": 255,
-			"shoulder": 477,
-			"waist": 552
+			"weapon": 1305,
+			"hands": 613,
+			"trinket": 261,
+			"finger": 352,
+			"chest": 658,
+			"feet": 645,
+			"neck": 248,
+			"head": 561,
+			"legs": 585,
+			"wrist": 482,
+			"back": 284,
+			"ranged": 275,
+			"shoulder": 544,
+			"waist": 585
 		},
-		"itemsWithoutSource": 2225,
-		"itemsWithEffects": 769,
+		"itemsWithoutSource": 2261,
+		"itemsWithEffects": 886,
 		"enchants": 223,
 		"zones": {
 			"world": 45,
-			"dungeon": 22
+			"dungeon": 22,
+			"raid": 6
 		},
-		"npcs": 456,
-		"randomSuffixes": 257,
+		"npcs": 503,
+		"randomSuffixes": 269,
 		"simSets": 34,
-		"simItems": 6584
+		"simItems": 7398
 	}
 }

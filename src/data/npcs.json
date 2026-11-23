@@ -1725,6 +1725,11 @@
 		"zoneId": 2057
 	},
 	{
+		"id": 11380,
+		"name": "Jin'do the Hexxer",
+		"zoneId": 1977
+	},
+	{
 		"id": 11467,
 		"name": "Tsu'zee",
 		"zoneId": 2557
@@ -1770,6 +1775,11 @@
 		"zoneId": 2557
 	},
 	{
+		"id": 11502,
+		"name": "Ragnaros",
+		"zoneId": 2717
+	},
+	{
 		"id": 11517,
 		"name": "Oggleflint",
 		"zoneId": 2437
@@ -1790,9 +1800,64 @@
 		"zoneId": 2437
 	},
 	{
+		"id": 11583,
+		"name": "Nefarian",
+		"zoneId": 2677
+	},
+	{
 		"id": 11622,
 		"name": "Rattlegore",
 		"zoneId": 2057
+	},
+	{
+		"id": 11981,
+		"name": "Flamegor",
+		"zoneId": 2677
+	},
+	{
+		"id": 11982,
+		"name": "Magmadar",
+		"zoneId": 2717
+	},
+	{
+		"id": 11983,
+		"name": "Firemaw",
+		"zoneId": 2677
+	},
+	{
+		"id": 11988,
+		"name": "Golemagg the Incinerator",
+		"zoneId": 2717
+	},
+	{
+		"id": 12017,
+		"name": "Broodlord Lashlayer",
+		"zoneId": 2677
+	},
+	{
+		"id": 12018,
+		"name": "Majordomo Executus",
+		"zoneId": 2717
+	},
+	{
+		"id": 12056,
+		"name": "Baron Geddon",
+		"zoneId": 2717
+	},
+	{
+		"id": 12057,
+		"name": "Garr",
+		"zoneId": 2717
+	},
+	{
+		"id": 12098,
+		"name": "Sulfuron Harbinger",
+		"zoneId": 2717
+	},
+	{
+		"id": 12118,
+		"name": "Lucifron",
+		"zoneId": 2717
 	},
 	{
 		"id": 12201,
@@ -1825,9 +1890,29 @@
 		"zoneId": 2100
 	},
 	{
+		"id": 12259,
+		"name": "Gehennas",
+		"zoneId": 2717
+	},
+	{
+		"id": 12264,
+		"name": "Shazzrah",
+		"zoneId": 2717
+	},
+	{
+		"id": 12435,
+		"name": "Razorgore the Untamed",
+		"zoneId": 2677
+	},
+	{
 		"id": 12902,
 		"name": "Lorgus Jett",
 		"zoneId": 719
+	},
+	{
+		"id": 13020,
+		"name": "Vaelastrasz the Corrupt",
+		"zoneId": 2677
 	},
 	{
 		"id": 13280,
@@ -1848,6 +1933,11 @@
 		"id": 13601,
 		"name": "Tinkerer Gizlock",
 		"zoneId": 2100
+	},
+	{
+		"id": 14020,
+		"name": "Chromaggus",
+		"zoneId": 2677
 	},
 	{
 		"id": 14224,
@@ -2000,6 +2090,11 @@
 		"zoneId": 2057
 	},
 	{
+		"id": 14601,
+		"name": "Ebonroc",
+		"zoneId": 2677
+	},
+	{
 		"id": 14684,
 		"name": "Balzaphon",
 		"zoneId": 2017
@@ -2015,9 +2110,134 @@
 		"zoneId": 1377
 	},
 	{
+		"id": 15263,
+		"name": "The Prophet Skeram",
+		"zoneId": 3428
+	},
+	{
+		"id": 15275,
+		"name": "Twin Emperors",
+		"zoneId": 3428
+	},
+	{
+		"id": 15299,
+		"name": "Viscidus",
+		"zoneId": 3428
+	},
+	{
 		"id": 15305,
 		"name": "Lord Skwol",
 		"zoneId": 1377
+	},
+	{
+		"id": 15340,
+		"name": "Moam",
+		"zoneId": 3429
+	},
+	{
+		"id": 15341,
+		"name": "General Rajaxx",
+		"zoneId": 3429
+	},
+	{
+		"id": 15369,
+		"name": "Ayamiss the Hunter",
+		"zoneId": 3429
+	},
+	{
+		"id": 15370,
+		"name": "Buru the Gorger",
+		"zoneId": 3429
+	},
+	{
+		"id": 15509,
+		"name": "Princess Huhuran",
+		"zoneId": 3428
+	},
+	{
+		"id": 15510,
+		"name": "Fankriss the Unyielding",
+		"zoneId": 3428
+	},
+	{
+		"id": 15516,
+		"name": "Battleguard Sartura",
+		"zoneId": 3428
+	},
+	{
+		"id": 15517,
+		"name": "Ouro",
+		"zoneId": 3428
+	},
+	{
+		"id": 15543,
+		"name": "Bug Trio",
+		"zoneId": 3428
+	},
+	{
+		"id": 15727,
+		"name": "C'Thun",
+		"zoneId": 3428
+	},
+	{
+		"id": 15928,
+		"name": "Thaddius",
+		"zoneId": 3456
+	},
+	{
+		"id": 15931,
+		"name": "Grobbulus",
+		"zoneId": 3456
+	},
+	{
+		"id": 15932,
+		"name": "Gluth",
+		"zoneId": 3456
+	},
+	{
+		"id": 15936,
+		"name": "Heigan the Unclean",
+		"zoneId": 3456
+	},
+	{
+		"id": 15952,
+		"name": "Maexxna",
+		"zoneId": 3456
+	},
+	{
+		"id": 15953,
+		"name": "Grand Widow Faerlina",
+		"zoneId": 3456
+	},
+	{
+		"id": 15954,
+		"name": "Noth the Plaguebringer",
+		"zoneId": 3456
+	},
+	{
+		"id": 15956,
+		"name": "Anub'Rekhan",
+		"zoneId": 3456
+	},
+	{
+		"id": 15989,
+		"name": "Sapphiron",
+		"zoneId": 3456
+	},
+	{
+		"id": 15990,
+		"name": "Kel'Thuzad",
+		"zoneId": 3456
+	},
+	{
+		"id": 16011,
+		"name": "Loatheb",
+		"zoneId": 3456
+	},
+	{
+		"id": 16028,
+		"name": "Patchwerk",
+		"zoneId": 3456
 	},
 	{
 		"id": 16042,
@@ -2028,6 +2248,21 @@
 		"id": 16059,
 		"name": "Theldren",
 		"zoneId": 1584
+	},
+	{
+		"id": 16060,
+		"name": "Gothik the Harvester",
+		"zoneId": 3456
+	},
+	{
+		"id": 16061,
+		"name": "Instructor Razuvious",
+		"zoneId": 3456
+	},
+	{
+		"id": 16064,
+		"name": "The Four Horsemen",
+		"zoneId": 3456
 	},
 	{
 		"id": 16080,
