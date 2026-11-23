@@ -3635,3 +3635,26 @@ a.enchant-gives:hover {
 .rotation-remark .tag-estimate {
 	margin-right: 0.25rem;
 }
+
+/* Race portraits next to the class icon */
+.race-icon {
+	width: 1.1rem;
+	height: 1.1rem;
+	border-radius: 50%;
+	border: 1px solid var(--ridge);
+	vertical-align: middle;
+}
+.sheet-portrait {
+	position: relative;
+	flex: none;
+	display: inline-flex;
+}
+.race-icon-corner {
+	position: absolute;
+	right: -0.45rem;
+	bottom: -0.35rem;
+	width: 2rem;
+	height: 2rem;
+	border: 2px solid var(--brass);
+	box-shadow: 0 0 0 2px #000;
+}

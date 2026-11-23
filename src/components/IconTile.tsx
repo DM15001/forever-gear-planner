@@ -47,3 +47,11 @@ export const raceIcons = (name: string): string[] => {
 	const scourge = key === 'undead' ? 'scourge' : key;
 	return [`race_${scourge}_male`, `achievement_character_${key}_male`];
 };
+
+/** A race's portrait, small, for a line of text or the corner of a class icon. Shows nothing when no image loads. */
+export function RaceIcon({ name, className = 'race-icon' }: { name: string; className?: string }) {
+	const [attempt, setAttempt] = useState(0);
+	const icons = raceIcons(name);
+	if (attempt >= icons.length * ICON_SOURCES.length) return null;
+	return <img className={className} src={ICON_SOURCES[attempt % ICON_SOURCES.length](icons[Math.floor(attempt / ICON_SOURCES.length)])} alt="" title={name} loading="lazy" onError={() => setAttempt(attempt + 1)} />;
+}

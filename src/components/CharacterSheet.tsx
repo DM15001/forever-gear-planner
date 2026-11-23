@@ -8,7 +8,7 @@ import type { Character, GearPiece, SpecConfig, Stats } from '../lib/types';
 import { EVERYTHING, withItem } from '../lib/scoring';
 import { ClassIcon } from './ClassIcon';
 import { EnchantPicker } from './EnchantPicker';
-import { IconTile, PROFESSION_ICONS, raceIcons } from './IconTile';
+import { IconTile, PROFESSION_ICONS, RaceIcon, raceIcons } from './IconTile';
 import { ItemIcon } from './ItemIcon';
 import { SourceLabel } from './SourceLabel';
 import { ItemPicker } from './ItemPicker';
@@ -79,7 +79,10 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 	return (
 		<section className="panel sheet-panel" aria-labelledby="sheet-title">
 			<header className="sheet-head">
-				<ClassIcon className={spec.className} />
+				<span className="sheet-portrait">
+					<ClassIcon className={spec.className} />
+					{race && <RaceIcon name={race.name} className="race-icon race-icon-corner" />}
+				</span>
 				<div className="sheet-head-text">
 					<h2 id="sheet-title">{character.name ?? `Your ${spec.className}`}</h2>
 					<p className="identity-line">
@@ -94,11 +97,6 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 			<div className="sheet-column">{SHEET_LAYOUT.left.map(i => slot(i))}</div>
 
 			<div className="sheet-center">
-				<div className="card sheet-crest">
-					<ClassIcon className={spec.className} />
-					<strong>{spec.name}</strong>
-					<span className="slot-source">{race ? race.name : 'Race not set'}{character.level ? `, level ${character.level}` : ''}</span>
-				</div>
 				<div className="card identity">
 					<h3>Stats from gear</h3>
 					{stats && <StatsPanel stats={stats} character={character} spec={spec} />}

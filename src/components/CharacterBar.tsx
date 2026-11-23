@@ -3,6 +3,7 @@ import { useState } from 'react';
 import type { Roster } from '../lib/roster';
 import { specOf } from '../lib/specs';
 import { ClassIcon } from './ClassIcon';
+import { RaceIcon } from './IconTile';
 import { ICON_SOURCES } from './ItemIcon';
 
 /** The game's battleground banners stand for the two factions. */
@@ -33,6 +34,7 @@ export function CharacterBar({ roster, onSelect, onAdd }: { roster: Roster; onSe
 							<strong>{character.name ?? `${race?.name ?? 'Unnamed'} ${spec.className}`}</strong>
 							<span>{spec.name}</span>
 							<span className="character-tile-meta">
+								{race && <RaceIcon name={race.name} />}
 								{race ? race.name : 'Race not set'}
 								{character.level ? `, level ${character.level}` : ''}
 								{race && <FactionMark faction={race.faction} />}
