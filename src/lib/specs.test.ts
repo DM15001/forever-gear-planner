@@ -58,6 +58,16 @@ describe('importing other classes', () => {
 	});
 });
 
+describe('set bonuses per build', async () => {
+	it('knows what the Sorcerer set is worth to a Fire Mage, so a plan does not break it for a few stats', async () => {
+		const data = await loadGameData(specById('mage-fire'));
+		const sorcerer = data.simValues.sets.get(1671);
+		expect(sorcerer?.get(6)).toBeGreaterThan(5);
+		expect(sorcerer?.get(5)).toBeUndefined();
+		expect(data.simValues.measuredSets.has(1671)).toBe(true);
+	});
+});
+
 describe('a caster in the planner', async () => {
 	const spec = specById('warlock-sm-ruin');
 	const data = await loadGameData(spec);

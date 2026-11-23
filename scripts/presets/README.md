@@ -52,3 +52,13 @@ prints whether the engine can cast it by now. Once it can: add the spell to the 
 
 Step 3 writes `healing.scenarios` and the default `weights` into `src/specs/priest-holy.json`
 and `priest-disc.json`. Run it again when the engine's Priest changes.
+
+## Set bonuses per build
+
+`scripts/build-set-values.mjs` (one level up) measures what set bonuses are worth for every damage
+build and writes `src/data/setValues.json`; the plan needs it to keep a set together. A full run
+takes about two hours on two cores. `QUICK=1` measures only the sets in the preset gear, the
+class's own sets and its dungeon set (about 20 minutes). State on 2026-11-23: Fire Mage, both
+Druids, both Shamans, BM and MM Hunter have the full run, the other builds the quick one. Healers
+are not measured yet.
+

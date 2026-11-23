@@ -22,14 +22,15 @@ export async function loadSim(wasmPath, dbPath) {
 	const rppByIlvl = new Map(db.itemEffectRandPropPoints.map(r => [r.ilvl, r]));
 
 	/** player: a sim player JSON without `database`. Returns { dps, stdev, error? }. */
-	function run(request, iterations = 3000) {
+	// `extraItems`: item records of the caller's own (changed copies under ids of their own), added to the database.
+	function run(request, iterations = 3000, extraItems = []) {
 		const req = structuredClone(request);
 		delete req.requestId;
 		req.simOptions = { iterations, randomSeed: '1' };
 		const player = req.raid.parties[0].players[0];
 		const pieces = [...(player.equipment?.items ?? []), ...(player.itemSwap?.items ?? [])].filter(p => p?.id);
-		const items = [...new Set(pieces.map(p => p.id))].map(id => itemById.get(id)).filter(Boolean);
-		const missing = pieces.filter(p => !itemById.has(p.id)).map(p => p.id);
+		const items = [...[...new Set(pieces.map(p => p.id))].map(id => itemById.get(id)).filter(Boolean), ...extraItems];
+		const missing = pieces.filter(p => !itemById.has(p.id) && !extraItems.some(e => e.id === p.id)).map(p => p.id);
 		const enchantIds = new Set(pieces.map(p => p.enchant).filter(Boolean));
 		player.database = {
 			items: items.map(i => pick(i, ITEM_FIELDS)),

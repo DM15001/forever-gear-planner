@@ -22,7 +22,7 @@ export function notYetAvailable(item: Item): string | undefined {
 	const closed = sources.map(source => (source.npcId ? CLOSED_NPCS[source.npcId] : undefined) ?? (source.kind === 'drop' && source.zoneId ? CLOSED_ZONES[source.zoneId] : undefined));
 	return closed.every(Boolean) ? closed[0] : undefined;
 }
-import type { Character, Faction, GearPiece, Item, ItemSource, SpecConfig, Stats } from './types';
+import type { Character, Enchant, Faction, GearPiece, Item, ItemSource, SpecConfig, Stats } from './types';
 
 export type Gear = (GearPiece | null)[];
 
@@ -46,13 +46,15 @@ export function clash(a: Item | undefined, b: Item | undefined): boolean {
 /** In a plan: the slot is to be left empty (a two-hander takes the place of main hand and off hand). */
 export const EMPTY_SLOT = 0;
 
-export function plannedGear(character: Character, data?: Pick<GameData, 'itemById'>): Gear {
+export function plannedGear(character: Character, data?: Pick<GameData, 'itemById'> & Partial<Pick<GameData, 'enchantsBySlot'>>): Gear {
 	const gear = character.gear.map((piece, index) => {
 		const plannedId = character.plan?.[index];
 		if (plannedId === EMPTY_SLOT) return null;
 		const id = plannedId ?? piece?.id;
 		if (!id) return null;
-		const enchant = character.planEnchants?.[index] ?? piece?.enchant;
+		// The worn enchant moves to a planned item only if it can sit on it.
+		const worn = id === piece?.id || !data?.enchantsBySlot ? piece?.enchant : carriedEnchant(piece?.enchant, index, data.itemById.get(id), data as Pick<GameData, 'enchantsBySlot'>);
+		const enchant = character.planEnchants?.[index] ?? worn;
 		// The equipped item keeps the suffix it has; a planned one counts with the suffix that suits the spec best.
 		const randomSuffix = id === piece?.id ? piece?.randomSuffix : data?.itemById.get(id)?.bestSuffix;
 		return { id, ...(enchant ? { enchant } : {}), ...(randomSuffix ? { randomSuffix } : {}) };
@@ -116,9 +118,15 @@ export function scoreSet(gear: Gear, character: Character, data: GameData, spec:
 		const byCount = simValues.sets.get(setId);
 		if (!byCount) continue;
 		// The bonuses active at this many pieces: the value measured at the highest count reached.
-		let best = 0;
-		for (const [pieces, ep] of byCount) if (pieces <= count) best = Math.max(best, ep);
-		effectScore += best;
+		let reached = 0;
+		let worth = 0;
+		for (const [pieces, ep] of byCount) {
+			if (pieces <= count && pieces > reached) {
+				reached = pieces;
+				worth = ep;
+			}
+		}
+		effectScore += worth;
 	}
 
 	const hit = hitSummary(stats, character, spec);
@@ -233,8 +241,47 @@ function fitsSlot(item: Item, slotIndex: number, spec: SpecConfig): boolean {
 	return hand === 'mainHand' || hand === 'oneHand' || (spec.weaponSetup === 'either' && hand === 'twoHand');
 }
 
+/** Enchants that can go on this item in this slot. */
+export function applicableEnchants(slotIndex: number, item: Item | undefined, data: Pick<GameData, 'enchantsBySlot'>): Enchant[] {
+	if (!item || item.rangedType === 'totem' || item.rangedType === 'idol') return []; // relics cannot be enchanted
+	const kind = GEAR_SLOTS[slotIndex].kind;
+	// Scopes go on bows, guns and crossbows; wands and thrown weapons take nothing.
+	if (kind === 'ranged' && !['bow', 'gun', 'crossbow'].includes(item.rangedType ?? '')) return [];
+	return (data.enchantsBySlot.get(kind) ?? []).filter(enchant => {
+		if (/fishing line/i.test(enchant.name)) return false; // fishing poles only
+		// The data marks most two-hand enchants; the name catches the rest.
+		const only = enchant.only ?? (/^Enchant 2H Weapon/.test(enchant.name) ? 'twoHand' : undefined);
+		switch (only) {
+			case undefined:
+				// A plain weapon enchant needs a real weapon: not a shield, not an item held in the off hand.
+				return kind !== 'weapon' || (!!item.weapon && item.weapon.type !== 'shield' && item.weapon.type !== 'offHand');
+			case 'twoHand':
+				return item.weapon?.hand === 'twoHand';
+			case 'staff':
+				return item.weapon?.type === 'staff';
+			case 'shield':
+				return item.weapon?.type === 'shield';
+			case 'offHand':
+				return item.weapon?.type === 'offHand';
+			default:
+				return false; // armor kits and anything new: not offered until checked
+		}
+	});
+}
+
 /**
- * `gear` with one slot changed (null empties it). The slot's enchant stays. A two-hander pushes
+ * The enchant a slot keeps when another item goes into it: the same one if it can sit on the new
+ * item, none if it cannot (a two-hand enchant on a sword, a weapon enchant on a held off-hand).
+ * An enchant the data does not know for this slot at all is kept: nothing says it does not fit.
+ */
+export function carriedEnchant(enchant: number | undefined, slotIndex: number, item: Item | undefined, data: Pick<GameData, 'enchantsBySlot'>): number | undefined {
+	if (!enchant) return undefined;
+	const known = data.enchantsBySlot.get(GEAR_SLOTS[slotIndex].kind)?.some(e => e.effectId === enchant);
+	return !known || applicableEnchants(slotIndex, item, data).some(e => e.effectId === enchant) ? enchant : undefined;
+}
+
+/**
+ * `gear` with one slot changed (null empties it). The slot's enchant stays if it fits the new item. A two-hander pushes
  * the off hand out, and an off-hand item pushes a two-hander out.
  */
 export function withItem(gear: Gear, slotIndex: number, itemId: number | null, data: GameData): Gear {
@@ -243,7 +290,8 @@ export function withItem(gear: Gear, slotIndex: number, itemId: number | null, d
 		if (index === slotIndex) {
 			if (itemId === null) return null;
 			const randomSuffix = data.itemById.get(itemId)?.bestSuffix;
-			return { id: itemId, ...(piece?.enchant ? { enchant: piece.enchant } : {}), ...(randomSuffix ? { randomSuffix } : {}) };
+			const enchant = piece?.id === itemId ? piece.enchant : carriedEnchant(piece?.enchant, slotIndex, data.itemById.get(itemId), data);
+			return { id: itemId, ...(enchant ? { enchant } : {}), ...(randomSuffix ? { randomSuffix } : {}) };
 		}
 		if (itemId !== null && slotIndex === MAIN_HAND && index === OFF_HAND && isTwoHand(itemId)) return null;
 		if (itemId !== null && slotIndex === OFF_HAND && index === MAIN_HAND && isTwoHand(piece?.id)) return null;

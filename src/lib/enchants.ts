@@ -1,37 +1,10 @@
-import { GEAR_SLOTS } from './constants';
 import { allUpgrades, type FarmDrop } from './farm';
 import type { GameData } from './gameData';
-import { type CandidateOptions, type Gear, scoreSet, usableSources } from './scoring';
+import { applicableEnchants, type CandidateOptions, type Gear, scoreSet, usableSources } from './scoring';
+
+export { applicableEnchants };
 import { statLine } from './stats';
 import type { Character, Enchant, Item, SpecConfig } from './types';
-
-/** Enchants that can go on this item in this slot. */
-export function applicableEnchants(slotIndex: number, item: Item | undefined, data: GameData): Enchant[] {
-	if (!item || item.rangedType === 'totem' || item.rangedType === 'idol') return []; // relics cannot be enchanted
-	const kind = GEAR_SLOTS[slotIndex].kind;
-	// Scopes go on bows, guns and crossbows; wands and thrown weapons take nothing.
-	if (kind === 'ranged' && !['bow', 'gun', 'crossbow'].includes(item.rangedType ?? '')) return [];
-	return (data.enchantsBySlot.get(kind) ?? []).filter(enchant => {
-		if (/fishing line/i.test(enchant.name)) return false; // fishing poles only
-		// The data marks most two-hand enchants; the name catches the rest.
-		const only = enchant.only ?? (/^Enchant 2H Weapon/.test(enchant.name) ? 'twoHand' : undefined);
-		switch (only) {
-			case undefined:
-				// A plain weapon enchant needs a real weapon: not a shield, not an item held in the off hand.
-				return kind !== 'weapon' || (!!item.weapon && item.weapon.type !== 'shield' && item.weapon.type !== 'offHand');
-			case 'twoHand':
-				return item.weapon?.hand === 'twoHand';
-			case 'staff':
-				return item.weapon?.type === 'staff';
-			case 'shield':
-				return item.weapon?.type === 'shield';
-			case 'offHand':
-				return item.weapon?.type === 'offHand';
-			default:
-				return false; // armor kits and anything new: not offered until checked
-		}
-	});
-}
 
 const ENCHANT_STAT_LABELS: Record<string, string> = {
 	mana: 'Mana',

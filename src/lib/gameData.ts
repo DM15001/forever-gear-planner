@@ -25,7 +25,7 @@ const byId = <T extends { id: number }>(list: unknown) => new Map((list as T[]).
  * and narrows it to what one spec can use: its items, its enchants, its guide lists.
  */
 export async function loadGameData(spec: SpecConfig = DEFAULT_SPEC): Promise<GameData> {
-	const [items, enchants, suffixes, zones, npcs, simSets, simValuesJson, meta] = await Promise.all([
+	const [items, enchants, suffixes, zones, npcs, simSets, simValuesJson, setValuesJson, meta] = await Promise.all([
 		import('../data/items.json'),
 		import('../data/enchants.json'),
 		import('../data/randomSuffixes.json'),
@@ -33,6 +33,7 @@ export async function loadGameData(spec: SpecConfig = DEFAULT_SPEC): Promise<Gam
 		import('../data/npcs.json'),
 		import('../data/simSets.json'),
 		import('../data/simValues.json'),
+		import('../data/setValues.json'),
 		import('../data/meta.json'),
 	]);
 	const enchantsBySlot = new Map<SlotKind, Enchant[]>();
@@ -75,7 +76,10 @@ export async function loadGameData(spec: SpecConfig = DEFAULT_SPEC): Promise<Gam
 		npcById,
 		guides: buildGuides((simSets.default as unknown as SimSet[]).filter(set => set.spec === spec.id), spec.id),
 		// Effects, proc enchants and set bonuses have only been measured for the Enhancement Shaman so far.
-		simValues: readSimValues(spec.id === DEFAULT_SPEC.id ? (simValuesJson.default as unknown as RawSimValues) : EMPTY_SIM_VALUES, spec.weights.dpsPerPoint ?? 1),
+		simValues: withSetValues(
+			readSimValues(spec.id === DEFAULT_SPEC.id ? (simValuesJson.default as unknown as RawSimValues) : EMPTY_SIM_VALUES, spec.weights.dpsPerPoint ?? 1),
+			(setValuesJson.default as unknown as RawSetValues).specs[spec.id],
+		),
 		builtAt: meta.default.generatedAt,
 	};
 }
@@ -109,6 +113,23 @@ interface RawSimValues {
 	enchants: Record<string, { ep: number }>;
 	sets: Record<string, { byCount: Record<string, { ep: number }> }>;
 	measured: { items: number[]; enchants: number[]; sets: number[] };
+}
+
+interface RawSetValues {
+	specs: Record<string, { sets: Record<string, { byCount: Record<string, number> }>; measured: number[] } | undefined>;
+}
+
+/**
+ * Adds the set bonuses measured for this build (scripts/build-set-values.mjs, already in DPS).
+ * Where the big measurement (simValues.json, Enhancement only) has a set too, that one stays.
+ */
+function withSetValues(values: SimValues, own: RawSetValues['specs'][string]): SimValues {
+	if (!own) return values;
+	for (const [id, set] of Object.entries(own.sets)) {
+		if (!values.sets.has(Number(id))) values.sets.set(Number(id), new Map(Object.entries(set.byCount).map(([count, dps]) => [Number(count), dps])));
+	}
+	for (const id of own.measured) values.measuredSets.add(id);
+	return values;
 }
 
 /** The measured values are stored in the spec's points; `factor` turns them into estimated DPS like the weights. */
