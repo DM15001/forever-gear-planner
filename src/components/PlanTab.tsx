@@ -137,7 +137,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 							<span className="summary-hit">{openCount === 1 ? 'change' : 'changes'}</span>
 						</div>
 					</div>
-					<SimSummary equipped={character.gear} planned={gear} hasPlan={hasPlan} auto />
+					<SimSummary equipped={character.gear} planned={gear} hasPlan={hasPlan} auto estimated={hasPlan ? planned.score - equipped.score : undefined} />
 					<div className="actions">
 						<button className="button" onClick={() => rebuild()} disabled={refining !== null}>
 							Rebuild the plan

@@ -301,7 +301,7 @@ function Breakdown({ title, outcome, names }: { title: string; outcome: SimOutco
 }
 
 /** Simulated DPS of the equipped and the planned gear, side by side. */
-export function SimSummary({ equipped, planned, hasPlan, auto = false }: { equipped: Gear; planned: Gear; hasPlan: boolean; auto?: boolean }) {
+export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated }: { equipped: Gear; planned: Gear; hasPlan: boolean; auto?: boolean; /** The plan's gain as the lists estimate it, to warn when the simulator disagrees. */ estimated?: number }) {
 	const sim = useSim();
 	const a = sim.result(equipped, SET_ITERATIONS);
 	const b = hasPlan ? sim.result(planned, SET_ITERATIONS) : undefined;
@@ -362,6 +362,16 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false }: { equip
 				)}
 			</div>
 			<SimProgress />
+			{hasPlan && a && b && b.dps < a.dps - 1 && (
+				<p className="notice notice-error sim-verdict" role="alert">
+					<strong>The simulator says this plan is worse than what you wear</strong> ({signed(b.dps - a.dps, 0)} {unit()}). Do not farm for it as it stands. Press "Check the plan with the simulator" below: it tries the closest alternatives with real simulations and keeps what is better.
+				</p>
+			)}
+			{hasPlan && a && b && b.dps >= a.dps - 1 && estimated !== undefined && Math.abs(estimated - (b.dps - a.dps)) > Math.max(10, 0.35 * Math.abs(estimated)) && (
+				<p className="notice sim-verdict" role="status">
+					<strong>Estimate and simulator are far apart:</strong> the lists estimate {signed(estimated, 0)} {unit()}, the simulator measures {signed(b.dps - a.dps, 0)}. The simulator is the one to trust. "Check the plan with the simulator" below goes through the plan with real simulations.
+				</p>
+			)}
 			{sim.error && (
 				<p className="field-error" role="alert">
 					The simulator failed: {sim.error}
