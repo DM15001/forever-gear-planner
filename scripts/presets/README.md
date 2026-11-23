@@ -68,3 +68,13 @@ Healing builds are measured in healing per second, in their default healing figh
 normal fight). `npx vite-node scripts/presets/healer-measure-template.ts` writes the request they
 are measured on; run it again after a change to `src/lib/sim/healing.ts` or a healer's preset.
 Prayer of Mending is not in these numbers (the engine cannot cast it).
+
+## Stat weights, kept current
+
+`scripts/build-weights.mjs --spec <id>` measures a damage build's stat weights on its preset and
+writes `src/data/weights/<id>.json`; the planner uses that file instead of the weights in
+`src/specs/<id>.json`. `.github/workflows/weights.yml` runs it for every damage build when the
+simulator or a preset changes. A measurement that moves a weight by more than 40% is written with
+`"held": true` and not used; the workflow opens an issue (label `planner-followup`) listing what
+moved, and running the workflow by hand with `accept` applies it. Healing builds keep the weights
+from `healer-weights.ts`.

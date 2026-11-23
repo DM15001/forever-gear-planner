@@ -56,7 +56,32 @@ function inDps(spec: SpecConfig): SpecConfig {
 	};
 }
 
-export const SPECS = ([enhancementShaman, elementalShaman, warlockSmRuin, warlockDestruction, warlockAffliction, warlockDemoFire, warlockDemoShadow, priestShadow, priestSmite, priestHoly, priestDisc, mageFire, mageFrost, mageFrostIncin, mageArcane, mageArcaneFire, mageFfb, warriorFury, warriorArms, rogueCombatSs, rogueCombatBs, rogueCombatVenom, rogueAsnMuti, rogueSubHemo, rogueHemoSf, druidBalance, druidCat, hunterMm, hunterBm, hunterSv, hunterSvWeave, hunterSvMelee, paladinRet, paladinRetHolyShock] as unknown as SpecConfig[]).map(inDps);
+/** src/data/weights/<build>.json: weights measured by scripts/build-weights.mjs whenever the simulator or a preset changes. */
+interface MeasuredWeights {
+	measuredOn: string;
+	dpsPerPoint: number;
+	stats: Record<string, number>;
+	/** A weight moved so far that the measurement waits for a person; the planner keeps the old weights. */
+	held?: boolean;
+}
+const MEASURED = Object.fromEntries(Object.entries(import.meta.glob<MeasuredWeights>('../data/weights/*.json', { eager: true, import: 'default' })).map(([path, file]) => [path.slice(path.lastIndexOf('/') + 1, -'.json'.length), file]));
+
+/** A build with its latest measured weights, if there are any that were not held back. */
+function withMeasured(spec: SpecConfig): SpecConfig {
+	const measured = MEASURED[spec.id];
+	if (!measured || measured.held) return spec;
+	return {
+		...spec,
+		weights: {
+			...spec.weights,
+			source: `${spec.weights.source} Stat weights measured again on ${measured.measuredOn} with the current simulator.`,
+			dpsPerPoint: measured.dpsPerPoint,
+			stats: { ...spec.weights.stats, ...measured.stats },
+		},
+	};
+}
+
+export const SPECS = ([enhancementShaman, elementalShaman, warlockSmRuin, warlockDestruction, warlockAffliction, warlockDemoFire, warlockDemoShadow, priestShadow, priestSmite, priestHoly, priestDisc, mageFire, mageFrost, mageFrostIncin, mageArcane, mageArcaneFire, mageFfb, warriorFury, warriorArms, rogueCombatSs, rogueCombatBs, rogueCombatVenom, rogueAsnMuti, rogueSubHemo, rogueHemoSf, druidBalance, druidCat, hunterMm, hunterBm, hunterSv, hunterSvWeave, hunterSvMelee, paladinRet, paladinRetHolyShock] as unknown as SpecConfig[]).map(withMeasured).map(inDps);
 
 export const DEFAULT_SPEC = SPECS[0];
 
