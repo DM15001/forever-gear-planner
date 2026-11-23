@@ -524,6 +524,8 @@ const collectIds = node => {
 };
 for (const template of simTemplates.values()) collectIds(template.raid.parties[0].players[0].rotation);
 for (const id of rotationIds.item) itemNames[id] ??= db.items.find(item => item.id === id)?.name;
+// A result also lists items that did something in the fight: trinkets, procs, runes.
+for (const item of db.items) if (item.itemEffects?.length) itemNames[item.id] ??= item.name;
 const unnamedSpells = [...rotationIds.spell].filter(id => !spellNames[id]);
 if (unnamedSpells.length) {
 	const spellTable = args.repo ? await readFile(join(args.repo, 'sim/core/spelldata/spells_auto_gen.go'), 'utf8').catch(() => '') : '';
@@ -547,6 +549,17 @@ if (args.repo) {
 	for (const spell of db.spellIcons ?? []) remember(spell.name, spell.icon);
 	for (const item of db.itemIcons ?? []) remember(item.name, item.icon);
 	for (const item of db.items) remember(item.name, item.icon);
+	// A set bonus proc is named after its set: it borrows the icon of a piece.
+	for (const item of db.items) remember(item.setName, item.icon || ICON_OVERRIDES[item.id]);
+	// ... or after the word its set and the set's pieces share ("Bloodmail" for Bloodmail Regalia).
+	for (const item of db.items) {
+		const word = item.setName?.split(' ')[0];
+		if (word && word.length >= 6 && item.name.startsWith(`${word} `) && item.type === 5) remember(word, item.icon || ICON_OVERRIDES[item.id]);
+	}
+	for (const item of db.items) {
+		const word = item.setName?.split(' ')[0];
+		if (word && word.length >= 6 && item.name.startsWith(`${word} `)) remember(word, item.icon || ICON_OVERRIDES[item.id]);
+	}
 	const iconOfEffect = new Map();
 	for (const item of db.items) for (const effect of item.itemEffects ?? []) if (effect.buffId && item.icon && !iconOfEffect.has(effect.buffId)) iconOfEffect.set(effect.buffId, item.icon);
 	const consumableIcons = new Map((db.itemIcons ?? []).map(item => [item.id, item.icon]));
@@ -567,7 +580,7 @@ if (args.repo) {
 }
 // Every buff and debuff the sim knows, from its proto definition, with the labels and steps of the
 // sim's own settings page.
-const itemIconById = new Map([...(db.itemIcons ?? []), ...db.items].filter(item => item.icon).map(item => [item.id, item.icon]));
+const itemIconById = new Map([...(db.itemIcons ?? []), ...db.items.map(item => ({ id: item.id, icon: item.icon || ICON_OVERRIDES[item.id] }))].filter(item => item.icon).map(item => [item.id, item.icon]));
 const spellByName = new Map();
 for (const spell of db.spellIcons ?? []) if (spell.icon && !spellByName.has(spell.name.toLowerCase())) spellByName.set(spell.name.toLowerCase(), spell);
 const buffsProto = await readRepoText('proto/buffs.proto');

@@ -5,7 +5,7 @@ import type { Gear } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
 import { type SimActionId, simKey, type SimOutcome } from '../lib/sim/request';
 import type { SimSetupData } from '../lib/sim/setup';
-import { wowheadSpellUrl, wowheadData } from '../lib/stats';
+import { wowheadItemUrl, wowheadSpellUrl, wowheadData } from '../lib/stats';
 import type { Character } from '../lib/types';
 import { ICON_SOURCES } from './ItemIcon';
 
@@ -154,6 +154,16 @@ export function ProgressBar({ done, total, label, detail }: { done: number; tota
 	);
 }
 
+/** Icons for result rows that are neither a spell nor an item: plain attacks and the like. */
+const OTHER_ICONS: Record<string, string> = {
+	OtherActionAttack: 'ability_meleedamage',
+	OtherActionShoot: 'ability_marksmanship',
+	OtherActionPet: 'ability_hunter_pet_wolf',
+	OtherActionManaRegen: 'spell_magic_managain',
+	OtherActionPotion: 'inv_potion_76',
+	OtherActionExplosives: 'inv_misc_bomb_05',
+};
+
 /** What a run is made of: damage per spell with bars, effects with their uptime, and how the fights spread. */
 function Breakdown({ title, outcome, names }: { title: string; outcome: SimOutcome; names: SimSetupData | null }) {
 	// The damage source under the pointer: its row, its bar and its part of the strip light up together.
@@ -235,9 +245,13 @@ function Breakdown({ title, outcome, names }: { title: string; outcome: SimOutco
 						{breakdown.actions.map((row, index) => (
 							<tr key={index} className={lit === index ? 'result-lit' : lit !== null ? 'result-dim' : undefined} onMouseEnter={() => setLit(index)}>
 								<th scope="row">
-									<ActionIcon icon={row.id.spellId ? names?.spellIcons?.[row.id.spellId] : undefined} />
+									<ActionIcon icon={row.id.spellId ? names?.spellIcons?.[row.id.spellId] : row.id.itemId ? names?.itemIcons?.[row.id.itemId] : OTHER_ICONS[String(row.id.otherId ?? '')]} />
 									{row.id.spellId ? (
 										<a href={wowheadSpellUrl(row.id.spellId)} data-wowhead={wowheadData('spell', row.id.spellId)} target="_blank" rel="noreferrer">
+											{nameOf(row.id)}
+										</a>
+									) : row.id.itemId ? (
+										<a href={wowheadItemUrl(row.id.itemId)} data-wowhead={wowheadData('item', row.id.itemId)} target="_blank" rel="noreferrer">
 											{nameOf(row.id)}
 										</a>
 									) : (
