@@ -4029,3 +4029,30 @@ button.character-tile.character-add {
 	font-size: 0.8125rem;
 	justify-self: start;
 }
+
+/* News: search, filter chips, tags, and older days folded by month */
+.news-filter {
+	display: grid;
+	gap: 0.5rem;
+	margin: 0.75rem 0 0.25rem;
+}
+.news-filter input[type='search'] {
+	max-width: 28rem;
+}
+.news-foot {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.25rem 0.5rem;
+	font-size: 0.8125rem;
+}
+.news-tag {
+	padding: 0 0.45rem;
+	font-size: 0.6875rem;
+	color: var(--haze);
+	border: 1px solid var(--hairline);
+	border-radius: 999px;
+}
+.news-month {
+	margin-top: 1rem;
+}

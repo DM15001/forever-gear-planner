@@ -78,7 +78,10 @@ export function App() {
 	const [importing, setImporting] = useState(false);
 	const [tab, setTab] = useState('character');
 	// A dot on the News tab until today's entry has been opened.
-	const [newsDot, setNewsDot] = useState(newsUnseen);
+	const [newsDot, setNewsDot] = useState(false);
+	useEffect(() => {
+		void newsUnseen().then(setNewsDot);
+	}, []);
 	const newsSeen = useCallback(() => setNewsDot(false), []);
 	// Step 2 has two ways in: the automatic plan, or every slot by hand.
 	const [upgradeView, setUpgradeView] = useState<'plan' | 'slots'>(() => (Object.keys(character?.plan ?? {}).length > 0 ? 'slots' : 'plan'));
@@ -187,7 +190,7 @@ export function App() {
 
 						{tab === 'enchants' && (data ? <EnchantsTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
 
-						{tab === 'news' && <NewsTab onSeen={newsSeen} />}
+						{tab === 'news' && <NewsTab myClass={baseSpec.className} onSeen={newsSeen} />}
 						{tab === 'sim' && <SimSetupTab spec={spec} character={character} data={data} onChange={update} />}
 						{tab === 'character' && (
 							<>
