@@ -1,17 +1,17 @@
 import { applicableEnchants, bestEnchants } from './enchants';
 import type { GameData } from './gameData';
-import { type Candidate, type CandidateOptions, EVERYTHING, filterKey, plannedGear, reputationOf, scoreSet, slotCandidates, suggestPlan, tierSets, usableSources } from './scoring';
+import { type Candidate, type CandidateOptions, EVERYTHING, filterKey, plannedGear, reputationOf, scoreSet, planWithCost, slotCandidates, tierSets, usableSources } from './scoring';
 import { effortLine } from './loot';
 import { sourceLine, vendorCurrency } from './stats';
 import type { Character, Enchant, Item, ItemSource } from './types';
 
 /** A full plan: the items to get and the enchants to put on the finished set. */
-export function buildPlan(options: CandidateOptions): Pick<Character, 'plan' | 'planEnchants'> {
+export function buildPlan(options: CandidateOptions): Pick<Character, 'plan' | 'planEnchants' | 'planTier'> {
 	const { character, data, spec } = options;
 	const blank: Character = { ...character, plan: {}, planEnchants: {} };
-	const plan = suggestPlan({ ...options, character: blank });
+	const { plan, tierCount, tierCost } = planWithCost({ ...options, character: blank });
 	const planEnchants = bestEnchants(plannedGear({ ...blank, plan }, data), blank, data, spec);
-	return { plan, planEnchants };
+	return { plan, planEnchants, planTier: tierCount !== undefined ? { asked: options.filter.tierMinimum, count: tierCount, cost: tierCost ?? 0 } : undefined };
 }
 
 /** The best other items for a slot of the planned gear, for when the goal is out of reach. */

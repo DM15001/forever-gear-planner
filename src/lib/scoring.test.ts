@@ -5,7 +5,7 @@ import simExport from './__fixtures__/sim-export.json';
 import { GEAR_SLOTS } from './constants';
 import { loadGameData } from './gameData';
 import { importCharacter } from './importCharacter';
-import { clash, DEFAULT_FILTER, notYetAvailable, type Gear, oneRandomRoll, plannedGear, scoreSet, setChanges, setStandings, slotCandidates, type SourceFilter, suggestPlan, tierSets, usableSources } from './scoring';
+import { clash, DEFAULT_FILTER, notYetAvailable, type Gear, oneRandomRoll, plannedGear, planWithCost, scoreSet, setChanges, setStandings, slotCandidates, type SourceFilter, suggestPlan, tierSets, usableSources } from './scoring';
 import { vendorReputation } from './stats';
 import type { Character, Item, SpecConfig } from './types';
 
@@ -121,6 +121,22 @@ describe('Tier 0.5 filter', () => {
 			const item = data.itemById.get(id)!;
 			if (item.setId === setId || item.setId === tier0) expect(item.slot).toBe('wrist');
 		}
+	});
+
+	it('holds at least the number of set pieces asked for, and says what that costs', () => {
+		const count = (plan: Record<number, number>) => {
+			const gear = plannedGear({ ...dwarf, plan }, data);
+			const tiers = tierSets(spec)!;
+			return Math.max(...[tiers.tier0, tiers.tier05].map(id => gear.filter(p => p && data.itemById.get(p.id)?.setId === id).length));
+		};
+		const forced = planWithCost({ ...options, filter: { ...DEFAULT_FILTER, tierMinimum: 8 } });
+		expect(count(forced.plan)).toBe(8);
+		expect(forced.tierCount).toBe(8);
+		expect(forced.tierCost).toBeGreaterThanOrEqual(0);
+		// Only three slots ticked: no more than three can be reached, and the result says so.
+		const three = planWithCost({ ...options, filter: { ...DEFAULT_FILTER, tierMinimum: 4, tierSlots: ['wrist', 'waist', 'feet'] } });
+		expect(three.tierCount).toBe(3);
+		expect(planWithCost(options).tierCount).toBeUndefined();
 	});
 
 	it('plans a set without any Tier 0.5 piece when switched off', () => {

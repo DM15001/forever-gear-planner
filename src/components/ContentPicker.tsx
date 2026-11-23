@@ -70,6 +70,17 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 							None
 						</button>
 					</p>
+					<label className="field-label tier-minimum">
+						How many set pieces
+						<select value={filter.tierMinimum} onChange={e => set({ tierMinimum: Number(e.target.value) })}>
+							<option value={0}>Whatever is best</option>
+							{[2, 4, 6, 8].map(n => (
+								<option key={n} value={n} disabled={filter.tierSlots.length < n}>
+									At least {n} of one set
+								</option>
+							))}
+						</select>
+					</label>
 					{TIER_SLOTS.map(([kind, label]) => check(`${label} (set piece)`, filter.tierSlots.includes(kind), on => set({ tierSlots: on ? [...filter.tierSlots, kind] : filter.tierSlots.filter(slot => slot !== kind) })))}
 				</fieldset>
 			)}

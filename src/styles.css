@@ -4342,3 +4342,14 @@ a.source-link:focus-visible {
 .result-table tfoot .result-bar {
 	visibility: hidden;
 }
+
+.tier-minimum {
+	grid-column: 1 / -1;
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	margin-bottom: 0.3rem;
+}
+.tier-minimum select {
+	width: auto;
+}

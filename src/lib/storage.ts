@@ -58,6 +58,7 @@ export function normalFilter(saved: Partial<SourceFilter> & { tier05?: boolean }
 	const { tier05, ...rest } = saved;
 	const merged: SourceFilter = { ...DEFAULT_FILTER, ...rest, ...(tier05 === false && !rest.tierSlots ? { tierSlots: [] } : {}) };
 	if (![merged.excludedDungeons, merged.excludedReputations, merged.hiddenItems, merged.tierSlots].every(Array.isArray)) return null;
+	if (![0, 2, 4, 6, 8].includes(merged.tierMinimum)) merged.tierMinimum = 0;
 	return merged;
 }
 

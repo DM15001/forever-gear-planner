@@ -31,6 +31,8 @@ import {
 } from '../lib/sim/setup';
 import { healingChoice, healingFight } from '../lib/sim/healing';
 import { wowheadItemUrl, wowheadSpellUrl, wowheadData } from '../lib/stats';
+import { specsOfClass } from '../lib/specs';
+import talentPresets from '../config/talentPresets.json';
 import type { Character, SpecConfig } from '../lib/types';
 import { ICON_SOURCES } from './ItemIcon';
 
@@ -171,6 +173,16 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 	const points = parseTalents(talents, trees);
 	const spent = talentPointsSpent(points);
 	const available = talentPointsAt(character.level ?? MAX_LEVEL);
+	// Ready-made talent sets: the WoWSims builds of this class, then extra ones with a named source (src/config/talentPresets.json).
+	const talentChoices = (() => {
+		const fromBuilds = specsOfClass(spec.className).map(build => ({ key: `build:${build.id}`, label: `WoWSims: ${build.preset ?? build.name}`, talents: build.talents ?? '', source: undefined as string | undefined, url: undefined as string | undefined }));
+		const extra = ((talentPresets.byClass as Record<string, { name: string; talents: string; source: string; url?: string }[] | undefined>)[spec.className] ?? []).map((preset, i) => ({ key: `extra:${i}`, label: `${preset.source}: ${preset.name}`, talents: preset.talents, source: preset.source, url: preset.url }));
+		return [...fromBuilds, ...extra].filter((choice, i, all) => choice.talents && all.findIndex(other => other.talents === choice.talents) === i);
+	})();
+	const shownChoice = talentChoices.find(choice => choice.talents === talents);
+	// How far the talents are from the build's own: points that sit somewhere else.
+	const own = parseTalents(presetTalents, trees);
+	const moved = Math.round(points.reduce((sum, list, t) => sum + list.reduce((inner, value, i) => inner + Math.abs(value - (own[t]?.[i] ?? 0)), 0), 0) / 2);
 	// No talents at all is written as "0": an empty string means "the build's own talents".
 	const setTalents = (next: string) => onChange({ ...character, talents: next === presetTalents ? '' : next || '0' });
 	const step = (tree: number, index: number, by: number) => {
@@ -334,12 +346,30 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 				</p>
 				<div className="talent-bar">
 					<label>
-						<span className="field-label">Talent string</span>
+						<span className="field-label">Talent presets</span>
+						<select
+							value={talentChoices.find(choice => choice.talents === talents)?.key ?? ''}
+							onChange={e => {
+								const choice = talentChoices.find(c => c.key === e.target.value);
+								if (choice) setTalents(choice.talents);
+							}}>
+							<option value="">{talentChoices.some(choice => choice.talents === talents) ? '' : 'Your own talents'}</option>
+							{talentChoices.map(choice => (
+								<option key={choice.key} value={choice.key}>
+									{choice.label}
+								</option>
+							))}
+						</select>
+					</label>
+					<label>
+						<span className="field-label">Talent string or talent calculator link</span>
 						<input
 							value={typed ?? talents}
 							onChange={e => setTyped(e.target.value)}
 							onBlur={() => {
-								if (typed !== null && /^[0-9-]*$/.test(typed.trim())) setTalents(serializeTalents(parseTalents(typed.trim(), trees)));
+								// A pasted talent calculator link ends in the same string: digits per talent, trees joined by "-".
+								const pasted = typed?.trim().split(/[?#]/)[0].replace(/\/+$/, '').split('/').pop() ?? '';
+								if (typed !== null && /^[0-9-]*$/.test(pasted)) setTalents(serializeTalents(parseTalents(pasted, trees)));
 								setTyped(null);
 							}}
 							spellCheck={false}
@@ -349,6 +379,16 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 						Use the WoWSims build's talents
 					</button>
 				</div>
+				{moved >= 8 && (
+					<p className="notice" role="status">
+						These talents differ from the build "{spec.preset ?? spec.name}" by {moved} points. "Simulate" still uses them, but the simulator plays that build's rotation, and the quick numbers in the lists were measured with that build's talents. For a very different build, pick the matching build under Character details if there is one.
+					</p>
+				)}
+				{shownChoice?.source && (
+					<p className="hint">
+						Preset from {shownChoice.url ? <a href={shownChoice.url} target="_blank" rel="noreferrer">{shownChoice.source}</a> : shownChoice.source}.
+					</p>
+				)}
 				<div className="talent-trees">
 					{trees.map((tree, t) => (
 						<TalentTreeView

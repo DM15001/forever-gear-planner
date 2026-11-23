@@ -132,6 +132,8 @@ export interface Character {
 	content?: import('./scoring').SourceFilter;
 	/** What-if swaps on top of the equipped gear: slot index -> item id. */
 	plan?: Record<number, number>;
+	/** Set when the plan was built with a number of dungeon set pieces asked for: how many it holds and what that costs against the free choice. */
+	planTier?: { asked: number; count: number; cost: number };
 	/** Enchants the plan aims for: slot index -> enchant effectId. They apply to the planned gear only. */
 	planEnchants?: Record<number, number>;
 }

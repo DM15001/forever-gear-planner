@@ -154,6 +154,14 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						)}
 					</div>
 					{refining && <ProgressBar done={refineSteps.done} total={refineSteps.total} label={`Checking the plan: ${refining}`} />}
+					{character.planTier && character.planTier.asked > 0 && (
+						<p className={character.planTier.count < character.planTier.asked ? 'notice notice-error' : 'notice'} role="status">
+							{character.planTier.count < character.planTier.asked
+								? `You asked for at least ${character.planTier.asked} set pieces, but only ${character.planTier.count} fit the slots you ticked and the content you chose.`
+								: `Built with at least ${character.planTier.asked} set pieces as you asked: ${character.planTier.count} are in the plan.`}{' '}
+							{character.planTier.cost >= 0.05 ? `That costs ${formatGain(-character.planTier.cost)} against the free choice (estimated).` : 'That costs nothing against the free choice.'}
+						</p>
+					)}
 					{refineNote && (
 						<p className="refine-note" role="status">
 							{refineNote}

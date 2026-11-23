@@ -293,6 +293,8 @@ export interface SourceFilter {
 	unknown: boolean; // items the data has no source for
 	/** The slots that may hold a piece of the class's Tier 0 or Tier 0.5 set (TIER_SLOTS). All = the planner takes what is best; none = no set piece at all. */
 	tierSlots: string[];
+	/** How many pieces of one dungeon set the plan must hold at least (0 = whatever is best), to reach a bonus the score does not value enough. */
+	tierMinimum: number;
 	/** Items that drop with a random suffix ("of Shadow Wrath"), counted with the suffix that suits the spec best. */
 	randomSuffix: boolean;
 	/** Items from content that is in the data but not open in the game yet (src/config/not-available.json). */
@@ -316,6 +318,7 @@ export const DEFAULT_FILTER: SourceFilter = {
 	pvp: false,
 	unknown: true,
 	tierSlots: ['head', 'shoulder', 'chest', 'wrist', 'hands', 'waist', 'legs', 'feet'],
+	tierMinimum: 0,
 	randomSuffix: true,
 	notYetAvailable: false,
 	hiddenItems: [],
@@ -325,7 +328,7 @@ export const DEFAULT_FILTER: SourceFilter = {
 	excludedReputations: ['The Watchers'],
 };
 
-export type SourceKindKey = Exclude<keyof SourceFilter, 'tierSlots' | 'randomSuffix' | 'notYetAvailable' | 'hiddenItems' | 'ownCraftsOnly' | 'excludedDungeons' | 'excludedReputations'>;
+export type SourceKindKey = Exclude<keyof SourceFilter, 'tierSlots' | 'tierMinimum' | 'randomSuffix' | 'notYetAvailable' | 'hiddenItems' | 'ownCraftsOnly' | 'excludedDungeons' | 'excludedReputations'>;
 
 /** The reputation a source needs, if any: a reputation reward or a quartermaster's goods. */
 export const reputationOf = (source: ItemSource): string | undefined => (source.kind === 'rep' ? source.repFaction : vendorReputation(source));
@@ -545,7 +548,20 @@ const SEED_STARTS = 3;
  * and last restarts from every full item set to catch set bonuses. Every set is scored as a whole,
  * so hit rating is never stacked past the cap.
  */
+/** A plan and, when a number of set pieces was asked for, what that costs against the free choice. */
+export interface PlanResult {
+	plan: Record<number, number>;
+	/** Set pieces of the chosen dungeon set in the plan, when a minimum was asked for. */
+	tierCount?: number;
+	/** Score given up to hold that many set pieces (0 or more). */
+	tierCost?: number;
+}
+
 export function suggestPlan(options: CandidateOptions): Record<number, number> {
+	return planWithCost(options).plan;
+}
+
+export function planWithCost(options: CandidateOptions): PlanResult {
 	const { character, data, spec, filter } = options;
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
 	const slots = GEAR_SLOTS.map((_, slot) => slot).filter(slot => slotInUse(slot, spec));
@@ -633,6 +649,38 @@ export function suggestPlan(options: CandidateOptions): Record<number, number> {
 	}
 	gear = climb(gear, true);
 
+	// A number of dungeon set pieces was asked for: put the cheapest ones in until it is reached.
+	let tier: { count: number; cost: number } | undefined;
+	const tiers = tierSets(spec);
+	if (filter.tierMinimum > 0 && tiers) {
+		const free = scoreOf(gear);
+		let best: { gear: Gear; count: number; score: number } | undefined;
+		for (const setId of [tiers.tier05, tiers.tier0]) {
+			const pieces = [...data.itemById.values()].filter(item => item.setId === setId && isObtainable(item, character, faction, filter, spec));
+			let forced = gear;
+			const count = () => forced.filter(piece => piece && data.itemById.get(piece.id)?.setId === setId).length;
+			while (count() < filter.tierMinimum) {
+				let step: { gear: Gear; score: number } | undefined;
+				for (const item of pieces) {
+					const slot = slots.find(index => fitsSlot(item, index, spec));
+					if (slot === undefined || data.itemById.get(forced[slot]?.id ?? -1)?.setId === setId) continue;
+					const tried = put(forced, slot, item.id);
+					const triedScore = scoreOf(tried);
+					if (!step || triedScore > step.score) step = { gear: tried, score: triedScore };
+				}
+				if (!step) break; // no ticked slot left for this set
+				forced = step.gear;
+			}
+			const result = { gear: forced, count: count(), score: scoreOf(forced) };
+			const reached = (r: typeof result) => Math.min(r.count, filter.tierMinimum);
+			if (!best || reached(result) > reached(best) || (reached(result) === reached(best) && result.score > best.score)) best = result;
+		}
+		if (best) {
+			gear = best.gear;
+			tier = { count: best.count, cost: Math.max(0, free - best.score) };
+		}
+	}
+
 	const plan: Record<number, number> = {};
 	for (const slot of slots) {
 		const id = gear[slot]?.id;
@@ -640,5 +688,5 @@ export function suggestPlan(options: CandidateOptions): Record<number, number> {
 		// A slot the plan empties: the off hand under a planned two-hander, or the reverse.
 		else if (id === undefined && character.gear[slot]) plan[slot] = EMPTY_SLOT;
 	}
-	return plan;
+	return { plan, ...(tier ? { tierCount: tier.count, tierCost: tier.cost } : {}) };
 }
