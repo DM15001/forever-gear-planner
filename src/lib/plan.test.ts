@@ -33,7 +33,7 @@ describe('content catalog', () => {
 	});
 
 	it('recognises a preset whatever the order of its lists', () => {
-		const noPvp = presets(catalog).find(p => p.id === 'no-pvp')!.filter;
+		const noPvp = { ...presets(catalog).find(p => p.id === 'standard')!.filter, excludedReputations: ['Stormpike Guard', 'Argent Dawn'] };
 		expect(sameFilter(noPvp, { ...noPvp, excludedReputations: [...noPvp.excludedReputations].reverse() })).toBe(true);
 		expect(sameFilter(noPvp, DEFAULT_FILTER)).toBe(false);
 		expect(toggled(['a', 'b'], ['b'], true)).toEqual(['a']);

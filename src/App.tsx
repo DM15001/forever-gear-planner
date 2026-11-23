@@ -123,9 +123,15 @@ export function App() {
 		<div className="page">
 			<header className="masthead">
 				<div className="masthead-title">
-					<Emblem />
+					<button className="masthead-home" onClick={() => setImporting(true)} title="Start page: your characters and import" aria-label="Start page">
+						<Emblem />
+					</button>
 					<div>
-						<h1>Forever Gear Planner</h1>
+						<h1>
+							<button className="masthead-home" onClick={() => setImporting(true)} title="Start page: your characters and import">
+								Forever Gear Planner
+							</button>
+						</h1>
 						<p className="masthead-sub">
 							{character && <ClassIcon className={baseSpec.className} small />}
 							{character ? `${spec.name}, pre-raid` : 'Pre-raid gear for WoW: Forever'}
@@ -137,7 +143,10 @@ export function App() {
 						<BarCap />
 						<nav className="tabs" aria-label="Sections">
 							{TABS.map(t => (
-								<button key={t.id} className="tab" aria-current={t.id === tab ? 'page' : undefined} onClick={() => setTab(t.id)}>
+								<button key={t.id} className="tab" aria-current={t.id === tab ? 'page' : undefined} onClick={() => {
+										setTab(t.id);
+										if (character) setImporting(false);
+									}}>
 									{'step' in t && <span className="tab-step">{t.step}</span>}
 									{t.id === 'news' && newsDot && <span className="tab-dot" title="New since your last visit" aria-label="new" />}
 									{t.label}
@@ -152,6 +161,25 @@ export function App() {
 			<main>
 				{dataError && <p className="notice notice-error">The item data could not be loaded. Reload the page; if that does not help, run "npm run build-data".</p>}
 
+				{character && importing && (
+					<section className="home-characters" aria-labelledby="home-characters">
+						<h2 id="home-characters">Your characters</h2>
+						<p className="hint">Saved in this browser. Click one to open it.</p>
+						<CharacterBar
+							roster={roster}
+							onSelect={index => {
+								changeRoster(selectCharacter(roster, index));
+								setWarnings([]);
+								setTab('character');
+								setImporting(false);
+							}}
+							onRemove={() => {
+								changeRoster(removeActive(roster));
+								setWarnings([]);
+							}}
+						/>
+					</section>
+				)}
 				{(!character || importing) && <ImportPanel hasCharacter={Boolean(character)} onImported={onImported} onCancel={() => setImporting(false)} />}
 
 				{character && !importing && (

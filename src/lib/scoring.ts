@@ -2,6 +2,7 @@ import { GEAR_SLOTS } from './constants';
 import type { GameData } from './gameData';
 import notAvailable from '../config/not-available.json';
 import quests from '../config/quests.json';
+import vendors from '../config/vendors.json';
 import { addStats, type HitSummary, hitSummary, pieceStats, vendorCurrency, vendorReputation } from './stats';
 
 const RAID_QUESTS: Record<string, string> = quests.raidQuests;
@@ -148,8 +149,8 @@ export interface SourceFilter {
 	crafted: boolean;
 	vendor: boolean; // plain vendors
 	currency: boolean; // vendors that take a special currency
-	rep: boolean; // reputation rewards, including battleground quartermasters
-	pvp: boolean;
+	rep: boolean; // reputation rewards and quartermasters
+	pvp: boolean; // rank rewards and everything from battlegrounds: their reputations and quests
 	unknown: boolean; // items the data has no source for
 	tier05: boolean; // the class's Tier 0.5 set (spec.tier05Set)
 	/** Items that drop with a random suffix ("of Shadow Wrath"), counted with the suffix that suits the spec best. */
@@ -188,6 +189,16 @@ export type SourceKindKey = Exclude<keyof SourceFilter, 'tier05' | 'randomSuffix
 /** The reputation a source needs, if any: a reputation reward or a quartermaster's goods. */
 export const reputationOf = (source: ItemSource): string | undefined => (source.kind === 'rep' ? source.repFaction : vendorReputation(source));
 
+const BATTLEGROUND_REPUTATIONS: string[] = vendors.battlegroundReputations;
+const BATTLEGROUND_QUESTS: Record<string, string> = vendors.battlegroundQuests;
+
+/** The battleground reputation a source belongs to: a quartermaster, a reputation reward or a quest done inside the battleground. */
+export function battlegroundOf(source: ItemSource): string | undefined {
+	if (source.kind === 'quest' && source.questId !== undefined) return BATTLEGROUND_QUESTS[String(source.questId)];
+	const reputation = reputationOf(source);
+	return reputation && BATTLEGROUND_REPUTATIONS.includes(reputation) ? reputation : undefined;
+}
+
 /** The filter switch a source falls under. `drop` stands for world drops; dungeons are switched one by one. */
 export const filterKey = (source: ItemSource): SourceKindKey => {
 	if (reputationOf(source)) return 'rep';
@@ -208,7 +219,10 @@ export function usableSources(item: Item, faction: Faction | undefined, filter: 
 		if (s.dungeonKey) {
 			if (filter.excludedDungeons.includes(s.dungeonKey)) return false;
 		} else if (!filter[filterKey(s)]) return false;
-		const reputation = reputationOf(s);
+		// Everything earned in a battleground is PvP, whether a rank, a reputation or a quest pays for it.
+		const battleground = battlegroundOf(s);
+		if (battleground && !filter.pvp) return false;
+		const reputation = reputationOf(s) ?? battleground;
 		if (reputation && filter.excludedReputations.includes(reputation)) return false;
 		if (s.faction && faction && s.faction !== faction) return false;
 		if (s.kind === 'crafted' && filter.ownCraftsOnly && professions && !professions.includes(s.profession ?? '')) return false;
@@ -318,6 +332,27 @@ export interface Candidate {
 	delta: number;
 	/** The score leaves something out: an effect or set bonus nobody measured, or an unpicked random suffix. */
 	incomplete: boolean;
+}
+
+/**
+ * A list with one row for random-suffix items ("of Shadow Wrath"). Many base items roll the same
+ * suffix and would fill a short list with near-copies. The best one stays; the ones worth exactly as
+ * much (to the shown tenth) are returned as its twins, to be named in the same row; the rest go.
+ * `keep` names an item that always stays, such as the worn one.
+ */
+export function oneRandomRoll(list: Candidate[], keep?: number): { list: Candidate[]; twins: Map<number, Item[]> } {
+	const twins = new Map<number, Item[]>();
+	let best: Candidate | undefined;
+	const out = list.filter(candidate => {
+		if (!candidate.item.randomSuffixOptions?.length || candidate.item.id === keep) return true;
+		if (!best) {
+			best = candidate;
+			return true;
+		}
+		if (candidate.delta.toFixed(1) === best.delta.toFixed(1)) twins.set(best.item.id, [...(twins.get(best.item.id) ?? []), candidate.item]);
+		return false;
+	});
+	return { list: out, twins };
 }
 
 export interface CandidateOptions {

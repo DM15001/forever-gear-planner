@@ -6,7 +6,7 @@ import { FightPicker } from './FightPicker';
 import { formatDps, unit } from '../lib/format';
 import type { GameData } from '../lib/gameData';
 import { type Guide, type GuideMark, guideMarks, guidePlan, markLabel, swapDelta } from '../lib/guides';
-import { EVERYTHING, type Candidate, clash, type Gear, pairedSlot, plannedGear, scoreSet, slotCandidates, slotInUse, type SourceFilter, suggestPlan, usableSources, withItem } from '../lib/scoring';
+import { EVERYTHING, type Candidate, clash, type Gear, oneRandomRoll, pairedSlot, plannedGear, scoreSet, slotCandidates, slotInUse, type SourceFilter, suggestPlan, usableSources, withItem } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
 import { measureWeights, weightRuns } from '../lib/sim/live';
 import { conditionalLines, matchesFight, pieceStats, STAT_LABELS, statLine, wowheadItemUrl, wowheadData } from '../lib/stats';
@@ -430,14 +430,19 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 					/>
 				);
 				const limit = expanded.has(index) ? LONG_LIST : SHORT_LIST;
-				const upgrades = candidates.filter(c => c.delta > 0).length;
+				// Random-suffix items take one row of a short list; "Show all" brings every one of them back.
+				const better = candidates.filter(c => c.delta > 0);
+				const upgradeRows = expanded.has(index) ? { list: better, twins: new Map<number, Item[]>() } : oneRandomRoll(better);
+				const upgrades = better.length;
 				const currentPiece = gear[index];
 				const currentItemNow = currentPiece ? data.itemById.get(currentPiece.id) : undefined;
 				const currentStats = currentItemNow && currentPiece ? pieceStats(currentItemNow, currentPiece, data) : {};
 				// What comes next if the planned or worn item stays out of reach: the best items that are not upgrades over it.
 				// With something else planned, the worn item is one of them: it is what you fall back to.
 				const wornId = character.gear[index]?.id;
-				const alternatives = candidates.filter(c => c.delta <= 0 && (c.item.id === wornId || usableSources(c.item, faction, filter).some(source => sourceKind(source) !== 'unknown'))).slice(0, ALTERNATIVES);
+				// One row for the best random-suffix item, so the other rows are real alternatives.
+				const backups = oneRandomRoll(candidates.filter(c => c.delta <= 0 && (c.item.id === wornId || usableSources(c.item, faction, filter).some(source => sourceKind(source) !== 'unknown'))), wornId);
+				const alternatives = backups.list.slice(0, ALTERNATIVES);
 				const wornScore = plannedItem
 					? scoreSet(
 							gear.map((piece, i) => (i === index ? character.gear[index] : piece)),
@@ -480,11 +485,11 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						/>
 						{upgrades > 0 && (
 							<ul className="candidates">
-								{candidates
-									.filter(c => c.delta > 0)
+								{upgradeRows.list
 									.slice(0, limit)
 									.map(candidate => (
 									<CandidateRow
+										twins={upgradeRows.twins.get(candidate.item.id)}
 											healWeights={healWeights}
 												current={currentStats}
 										key={candidate.item.id}
@@ -501,9 +506,9 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 								))}
 							</ul>
 						)}
-						{upgrades > SHORT_LIST && (
+						{(upgrades > SHORT_LIST || upgradeRows.list.length < upgrades) && (
 							<button className="link" onClick={() => toggle(index)}>
-								{expanded.has(index) ? 'Show fewer' : `Show all ${Math.min(LONG_LIST, upgrades)} upgrades`}
+								{expanded.has(index) ? 'Show fewer' : `Show all ${Math.min(LONG_LIST, upgrades)} upgrades${upgradeRows.list.length < upgrades ? ', every random-suffix item included' : ''}`}
 							</button>
 						)}
 						{outside.has(index) && (
@@ -555,6 +560,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 												current={currentStats}
 												key={candidate.item.id}
 												candidate={candidate}
+												twins={backups.twins.get(candidate.item.id)}
 												note={candidate.item.id === wornId ? 'what you wear now' : overWorn !== undefined ? `${formatDelta(overWorn)} over what you wear` : undefined}
 												marks={marks.get(candidate.item.id)}
 												base={gear}
@@ -601,6 +607,8 @@ interface RowProps {
 	/** A healer's stat weights: splits the row's worth into output and mana. */
 	healWeights?: Record<string, number>;
 	marks?: GuideMark[];
+	/** Other random-suffix items worth exactly as much, named in this row instead of rows of their own. */
+	twins?: Item[];
 	base: Gear;
 	variant: Gear;
 	data: GameData;
@@ -610,7 +618,7 @@ interface RowProps {
 	onHide: () => void;
 }
 
-function CandidateRow({ candidate, note, current, healWeights, marks, base, variant, data, faction, filter, onPlan, onHide }: RowProps) {
+function CandidateRow({ candidate, note, current, healWeights, marks, twins, base, variant, data, faction, filter, onPlan, onHide }: RowProps) {
 	const { item, delta, incomplete } = candidate;
 	const sources = usableSources(item, faction, filter);
 	const stats = statLine(
@@ -658,6 +666,17 @@ function CandidateRow({ candidate, note, current, healWeights, marks, base, vari
 						{line.active ? ' (counted)' : ''}
 					</span>
 				))}
+				{twins && twins.length > 0 && (
+					<span className="candidate-twins">
+						Same roll, same value:{' '}
+						{twins.map((twin, i) => (
+							<span key={twin.id}>
+								{i > 0 && ', '}
+								<ItemName item={twin} />
+							</span>
+						))}
+					</span>
+				)}
 				<span className="slot-source">
 					{guideSource(marks) ?? <SourceList sources={sources} data={data} />}
 					{!guideSource(marks) && sources.length > 2 ? `, +${sources.length - 2} more` : ''}

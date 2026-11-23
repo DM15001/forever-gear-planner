@@ -4109,3 +4109,40 @@ button.character-add:focus-visible {
 button.character-add svg {
 	display: block;
 }
+
+.candidate-twins {
+	display: block;
+	font-size: 0.8125rem;
+	color: var(--haze);
+}
+
+/* The emblem and title lead back to the start page */
+button.masthead-home {
+	padding: 0;
+	margin: 0;
+	font: inherit;
+	color: inherit;
+	letter-spacing: inherit;
+	text-transform: inherit;
+	text-shadow: inherit;
+	background: none;
+	border: 0;
+	cursor: pointer;
+}
+button.masthead-home:hover,
+button.masthead-home:focus-visible {
+	filter: brightness(1.2);
+}
+.home-characters {
+	margin-bottom: 1.5rem;
+}
+.home-characters h2 {
+	margin: 0 0 0.2rem;
+}
+.home-characters .hint {
+	margin: 0 0 0.7rem;
+}
+.home-characters .character-bar {
+	flex-wrap: wrap;
+	overflow: visible;
+}

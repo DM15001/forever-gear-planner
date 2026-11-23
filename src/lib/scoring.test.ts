@@ -5,7 +5,7 @@ import simExport from './__fixtures__/sim-export.json';
 import { GEAR_SLOTS } from './constants';
 import { loadGameData } from './gameData';
 import { importCharacter } from './importCharacter';
-import { clash, DEFAULT_FILTER, notYetAvailable, plannedGear, scoreSet, slotCandidates, type SourceFilter, suggestPlan } from './scoring';
+import { clash, DEFAULT_FILTER, notYetAvailable, oneRandomRoll, plannedGear, scoreSet, slotCandidates, type SourceFilter, suggestPlan, usableSources } from './scoring';
 import { vendorReputation } from './stats';
 import type { Character, Item, SpecConfig } from './types';
 
@@ -119,9 +119,30 @@ describe('reputation filter', () => {
 	const noRep = { ...options, filter: { ...DEFAULT_FILTER, rep: false } };
 	const DON_JULIOS_BAND = 19325; // sold by the Alterac Valley quartermasters, listed as a plain vendor item
 
-	it('treats battleground quartermasters as reputation', () => {
-		expect(slotCandidates(10, dwarf.gear, options).some(c => c.item.id === DON_JULIOS_BAND)).toBe(true);
-		expect(slotCandidates(10, dwarf.gear, noRep).some(c => c.item.id === DON_JULIOS_BAND)).toBe(false);
+	const withPvp = { ...options, filter: { ...DEFAULT_FILTER, pvp: true } };
+	const has = (list: { item: { id: number } }[], id: number) => list.some(c => c.item.id === id);
+
+	it('treats battleground quartermasters as reputation, and as PvP', () => {
+		expect(has(slotCandidates(10, dwarf.gear, withPvp), DON_JULIOS_BAND)).toBe(true);
+		expect(has(slotCandidates(10, dwarf.gear, { ...withPvp, filter: { ...withPvp.filter, rep: false } }), DON_JULIOS_BAND)).toBe(false);
+		expect(has(slotCandidates(10, dwarf.gear, { ...withPvp, filter: { ...withPvp.filter, excludedReputations: ['Stormpike Guard'] } }), DON_JULIOS_BAND)).toBe(false);
+		// Without the PvP switch nothing from a battleground is offered.
+		expect(has(slotCandidates(10, dwarf.gear, options), DON_JULIOS_BAND)).toBe(false);
+	});
+
+	it('counts quests done inside a battleground as PvP of that battleground', () => {
+		// Alterac Valley quest rewards, listed as plain quests: Ice Barbed Spear, Cold Forged Hammer.
+		const spear = [19106, 20648].map(id => data.itemById.get(id)).find(Boolean)!;
+		expect(usableSources(spear, 'alliance', DEFAULT_FILTER)).toHaveLength(0);
+		expect(usableSources(spear, 'alliance', withPvp.filter).length).toBeGreaterThan(0);
+		expect(usableSources(spear, 'alliance', { ...withPvp.filter, excludedReputations: ['Stormpike Guard'] })).toHaveLength(0);
+	});
+
+	it('keeps one row for random-suffix items and names equal ones as twins', () => {
+		const row = (id: number, delta: number, random: boolean) => ({ item: { id, ...(random ? { randomSuffixOptions: [1] } : {}) } as unknown as Item, delta, incomplete: false });
+		const { list, twins } = oneRandomRoll([row(1, 9.04, true), row(2, 9.01, true), row(3, 8, false), row(4, 7.5, true), row(5, 7, false), row(6, 1, true)], 6);
+		expect(list.map(c => c.item.id)).toEqual([1, 3, 5, 6]);
+		expect(twins.get(1)?.map(i => i.id)).toEqual([2]);
 	});
 
 	it('keeps plain vendors when reputation is off', () => {

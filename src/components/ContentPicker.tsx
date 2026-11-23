@@ -49,10 +49,10 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				{check('Any reputation', filter.rep, on => set({ rep: on }))}
 				{catalog.reputations.map(r =>
 					check(
-						r.battleground ? `${r.name} (battleground)` : r.name,
-						filter.rep && !filter.excludedReputations.includes(r.name),
+						r.battleground ? `${r.name} (battleground${filter.pvp ? '' : ', needs PvP switched on'})` : r.name,
+						filter.rep && !filter.excludedReputations.includes(r.name) && (!r.battleground || filter.pvp),
 						on => set({ excludedReputations: toggled(filter.excludedReputations, [r.name], on) }),
-						!filter.rep,
+						!filter.rep || (r.battleground && !filter.pvp),
 					),
 				)}
 			</fieldset>
@@ -68,7 +68,7 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				{check('Currency vendors (Tarnished Undermine Reals)', filter.currency, on => set({ currency: on }))}
 				{check('Other vendors', filter.vendor, on => set({ vendor: on }))}
 				{check('World drops', filter.drop, on => set({ drop: on }))}
-				{check('PvP rank rewards', filter.pvp, on => set({ pvp: on }))}
+				{check('PvP: rank rewards and battlegrounds (their reputations and quests)', filter.pvp, on => set({ pvp: on }))}
 				{check('Items with no known source', filter.unknown, on => set({ unknown: on }))}
 			</fieldset>
 			{!faction && <p className="field-error">Pick a race on the Character tab to hide the other faction's items.</p>}

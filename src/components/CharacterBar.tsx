@@ -20,7 +20,7 @@ export function FactionMark({ faction }: { faction: 'alliance' | 'horde' }) {
 }
 
 /** Every saved character as a tile: class icon, name, build, race and faction. A click switches to it. */
-export function CharacterBar({ roster, onSelect, onAdd, onRemove, aside }: { roster: Roster; onSelect: (index: number) => void; onAdd: () => void; /** Removes the active character. */ onRemove: () => void; /** Shown at the right end of the row. */ aside?: ReactNode }) {
+export function CharacterBar({ roster, onSelect, onAdd, onRemove, aside }: { roster: Roster; onSelect: (index: number) => void; /** Left out on the start page, where the import form is right below. */ onAdd?: () => void; /** Removes the active character. */ onRemove: () => void; /** Shown at the right end of the row. */ aside?: ReactNode }) {
 	// Removing asks once more, on the tile itself.
 	const [asking, setAsking] = useState(false);
 	return (
@@ -64,11 +64,13 @@ export function CharacterBar({ roster, onSelect, onAdd, onRemove, aside }: { ros
 					</div>
 				);
 			})}
-			<button className="character-add" onClick={onAdd} title="Add a character: paste an export or load a preset" aria-label="Add a character">
-				<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
-					<path d="M8 2v12M2 8h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
-				</svg>
-			</button>
+{onAdd && (
+				<button className="character-add" onClick={onAdd} title="Add a character: paste an export or load a preset" aria-label="Add a character">
+					<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+						<path d="M8 2v12M2 8h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
+					</svg>
+				</button>
+			)}
 		</nav>
 		{aside && <div className="character-row-aside">{aside}</div>}
 		</div>

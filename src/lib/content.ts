@@ -60,12 +60,10 @@ export interface Preset {
 }
 
 /** Ready-made content choices. The catalog is needed to name what a preset switches off. */
-export function presets(catalog: ContentCatalog): Preset[] {
-	const battlegroundReps = catalog.reputations.filter(r => r.battleground).map(r => r.name);
+export function presets(_catalog: ContentCatalog): Preset[] {
 	return [
-		{ id: 'standard', label: 'Everything but PvP ranks', hint: 'All content except rewards that need a PvP rank.', filter: DEFAULT_FILTER },
+		{ id: 'standard', label: 'Everything but PvP', hint: 'All content except PvP: no rank rewards, no battleground reputations or quests.', filter: DEFAULT_FILTER },
 		{ id: 'all', label: 'Everything', hint: 'Nothing left out.', filter: { ...DEFAULT_FILTER, pvp: true } },
-		{ id: 'no-pvp', label: 'No PvP at all', hint: 'No PvP ranks and no battleground reputations.', filter: { ...DEFAULT_FILTER, excludedReputations: battlegroundReps } },
 		{
 			id: 'dungeons',
 			label: 'Dungeons and quests only',
