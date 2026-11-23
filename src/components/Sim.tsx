@@ -226,13 +226,13 @@ function TimelineGraph({ timeline, rows, lit, onLit, nameOf }: { timeline: SimTi
 const CAST_SCALE = 26;
 
 /** Every cast of one simulated fight: a row per spell, its icon at each moment it was cast. Scrolls sideways. */
-function CastTimeline({ timeline, nameOf, iconOf }: { timeline: SimTimeline; nameOf: (id: SimActionId) => string; iconOf: (id: SimActionId) => string | undefined }) {
+function CastTimeline({ timeline, nameOf, iconOf, neverCast }: { timeline: SimTimeline; nameOf: (id: SimActionId) => string; iconOf: (id: SimActionId) => string | undefined; /** Spells and items that do damage without ever being cast, by the simulator's own count (Ignite): procs and burns. */ neverCast: Set<number> }) {
 	// Attacks and procs fill the picture; they are shown on request.
 	const [everything, setEverything] = useState(false);
 	// One row per spell: the engine tells combo point counts and the like apart, the reader does not need to.
 	const merged = new Map<string, { id: SimActionId; times: number[] }>();
 	for (const row of timeline.casts) {
-		if (!everything && !row.pressed) continue;
+		if (!everything && (!row.pressed || neverCast.has(row.id.spellId ?? row.id.itemId ?? -1))) continue;
 		const key = row.id.spellId ? `s${row.id.spellId}` : row.id.itemId ? `i${row.id.itemId}` : actionKey(row.id);
 		const known = merged.get(key);
 		if (known) known.times.push(...row.times);
@@ -352,7 +352,7 @@ function Breakdown({ title, outcome, names, timeline }: { title: string; outcome
 				</div>
 			)}
 			{timeline && view === 'timeline' ? (
-				<CastTimeline timeline={timeline} nameOf={nameOf} iconOf={iconOf} />
+				<CastTimeline timeline={timeline} nameOf={nameOf} iconOf={iconOf} neverCast={new Set(breakdown.actions.filter(row => row.casts < 0.005).map(row => row.id.spellId ?? row.id.itemId ?? 0))} />
 			) : timeline ? (
 				<TimelineGraph timeline={timeline} rows={breakdown.actions} lit={lit} onLit={setLit} nameOf={nameOf} />
 			) : (
