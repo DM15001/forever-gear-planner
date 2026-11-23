@@ -3727,3 +3727,16 @@ a.enchant-gives:hover {
 	border-style: solid;
 	border-color: var(--hairline);
 }
+
+/* The slot the page is at, in the sticky bar */
+.slot-chip-here,
+.slot-chip-here:hover {
+	color: #0a0806;
+	background: var(--brass);
+	border-color: var(--brass);
+	font-weight: 600;
+}
+.slot-chip-here .num,
+.slot-chip-here .slot-chip-mark {
+	color: inherit;
+}

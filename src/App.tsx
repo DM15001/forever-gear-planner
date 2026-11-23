@@ -219,7 +219,6 @@ export function App() {
 									character={character}
 									data={data}
 									onChange={update}
-									onImportAnother={() => setImporting(true)}
 									onRemove={() => {
 										changeRoster(removeActive(roster));
 										setWarnings([]);

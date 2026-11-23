@@ -19,7 +19,6 @@ interface Props {
 	character: Character;
 	data: GameData | null;
 	onChange: (next: Character) => void;
-	onImportAnother: () => void;
 	onRemove: () => void;
 	/** The names of all saved characters, to switch between them. */
 	names: string[];
@@ -32,7 +31,7 @@ interface Props {
 	next?: ReactNode;
 }
 
-export function CharacterSheet({ spec, character, data, onChange, onImportAnother, onRemove, names, builds, activeIndex, shareLink, next }: Props) {
+export function CharacterSheet({ spec, character, data, onChange, onRemove, names, builds, activeIndex, shareLink, next }: Props) {
 	// 'copied' after the link went to the clipboard, 'shown' when the browser refused and the link is shown to copy by hand.
 	const [shared, setShared] = useState<'idle' | 'copied' | 'shown'>('idle');
 	// The slot whose item is being swapped by hand, if any.
@@ -188,14 +187,11 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 					<button className="button" onClick={removeAllEnchants} disabled={enchantCount === 0}>
 						Remove all enchants{enchantCount > 0 ? ` (${enchantCount})` : ''}
 					</button>
-					<button className="button" onClick={onImportAnother}>
-						Add another character
-					</button>
 					<button className="button" onClick={share}>
 						{shared === 'copied' ? 'Link copied' : 'Copy share link'}
 					</button>
 					{shared === 'shown' && <input type="text" readOnly aria-label="Share link" value={shareLink} onFocus={e => e.target.select()} />}
-					<p className="hint">The link holds this character's gear and plan. Whoever opens it gets a copy next to their own characters.</p>
+					<p className="hint">The link opens a copy of this character and its plan in someone else's browser.</p>
 					<button className="link link-danger" onClick={onRemove}>
 						Remove this character
 					</button>

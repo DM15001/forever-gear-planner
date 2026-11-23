@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
 import { sourceKind } from '../lib/farm';
@@ -169,6 +169,42 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 	const simPlanned = sim.result(gear, SET_ITERATIONS);
 	const hitText = (hit: typeof planned.hit) => `${hit.total.toFixed(1)}% of ${hit.cap}% hit${hit.ratingOver ? `, ${hit.ratingOver} rating over the cap` : ''}`;
 
+	// The slot being read: the bar marks its chip and keeps it in view while the page scrolls.
+	const nav = useRef<HTMLElement>(null);
+	const [here, setHere] = useState<string | null>(null);
+	useEffect(() => {
+		let frame = 0;
+		const find = () => {
+			frame = 0;
+			// A slot counts as "here" once its card has reached the lower edge of the sticky bar.
+			const edge = (nav.current?.getBoundingClientRect().bottom ?? 0) + 96;
+			let current: string | null = null;
+			for (const heading of document.querySelectorAll<HTMLElement>('.upgrade-slot h3[id^="slot-"]')) {
+				if (heading.closest('.upgrade-slot')!.getBoundingClientRect().top <= edge) current = heading.id.slice(5);
+				else break;
+			}
+			setHere(current);
+		};
+		const onScroll = () => {
+			if (!frame) frame = requestAnimationFrame(find);
+		};
+		find();
+		window.addEventListener('scroll', onScroll, { passive: true });
+		window.addEventListener('resize', onScroll);
+		return () => {
+			window.removeEventListener('scroll', onScroll);
+			window.removeEventListener('resize', onScroll);
+			if (frame) cancelAnimationFrame(frame);
+		};
+	}, []);
+	useEffect(() => {
+		const bar = nav.current;
+		const chip = here ? bar?.querySelector<HTMLElement>(`[data-slot="${here}"]`) : null;
+		if (!bar || !chip) return;
+		// Only the row of chips moves, never the page.
+		bar.scrollTo({ left: chip.offsetLeft - bar.offsetLeft - (bar.clientWidth - chip.offsetWidth) / 2, behavior: 'smooth' });
+	}, [here]);
+
 	return (
 		<div className="upgrades">
 			<section className="panel summary" aria-labelledby="upgrades-title">
@@ -338,7 +374,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						</button>
 					)}
 				</p>
-			<nav className="slot-nav" aria-label="Jump to a slot">
+			<nav className="slot-nav" aria-label="Jump to a slot" ref={nav}>
 				{slots.map(({ slot, index, candidates }) => {
 					if (!candidates) return null;
 					const best = candidates[0]?.delta ?? 0;
@@ -347,7 +383,9 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						<a
 							key={slot.key}
 							href={`#slot-${slot.key}`}
-							className={isPlanned ? 'slot-chip slot-chip-planned' : best > 0 ? 'slot-chip slot-chip-open' : 'slot-chip'}
+							data-slot={slot.key}
+							aria-current={here === slot.key ? 'location' : undefined}
+							className={`${isPlanned ? 'slot-chip slot-chip-planned' : best > 0 ? 'slot-chip slot-chip-open' : 'slot-chip'}${here === slot.key ? ' slot-chip-here' : ''}`}
 							title={isPlanned ? 'Planned' : best > 0 ? 'An upgrade is available' : 'Nothing better with these filters'}
 						>
 							{slot.label}
