@@ -84,7 +84,9 @@ describe('buffs in the request', () => {
 		expect(request.raid.parties[0].players[0].buffs.greaterBlessingOfKings).toBe(false);
 		expect(simKey(changed, changed.gear, 10)).not.toBe(simKey(character, character.gear, 10));
 		expect(buffValue({ a: true, b: 2, c: 'TristateEffectImproved' }, 'c')).toBe(2);
-		expect(clashingGroups([13452, 3390], setup.consumables)).toEqual([{ group: 'Agility', names: ['Elixir of the Mongoose', 'Elixir of Lesser Agility'] }]);
+		expect(clashingGroups([9187, 3390], setup.consumables)).toEqual([{ group: 'Agility', names: ['Elixir of Greater Agility', 'Elixir of Lesser Agility'] }]);
+		// Since 23 Nov 2026 the Mongoose sits in the Critical Strike group and no longer clashes with Agility elixirs.
+		expect(clashingGroups([13452, 3390], setup.consumables)).toEqual([]);
 	});
 });
 
