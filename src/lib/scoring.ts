@@ -296,7 +296,8 @@ export const DEFAULT_FILTER: SourceFilter = {
 	hiddenItems: [],
 	ownCraftsOnly: false,
 	excludedDungeons: [],
-	excludedReputations: [],
+	// Off unless asked for: the grind is long and few play it.
+	excludedReputations: ['The Watchers'],
 };
 
 export type SourceKindKey = Exclude<keyof SourceFilter, 'tier05' | 'randomSuffix' | 'notYetAvailable' | 'hiddenItems' | 'ownCraftsOnly' | 'excludedDungeons' | 'excludedReputations'>;
@@ -346,7 +347,7 @@ export function usableSources(item: Item, faction: Faction | undefined, filter: 
 }
 
 /** A filter that lets every source kind through. */
-export const EVERYTHING: SourceFilter = { ...DEFAULT_FILTER, pvp: true, randomSuffix: true };
+export const EVERYTHING: SourceFilter = { ...DEFAULT_FILTER, pvp: true, randomSuffix: true, excludedReputations: [] };
 
 /** Can this character get and use the item at all, given faction, professions and the filter? */
 export function isObtainable(item: Item, character: Character, faction: Faction | undefined, filter: SourceFilter, spec: SpecConfig): boolean {

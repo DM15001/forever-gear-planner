@@ -53,12 +53,26 @@ export function saveWeights(specId: string, weights: Weights | null): void {
 const FILTER_KEY = 'forever-gear-planner.content.v1';
 
 /** The saved content choice. Settings added in a later version fall back to their defaults. */
+/** Counts changes to the default content choice that saved choices should pick up once. */
+const FILTER_DEFAULTS = 1;
+const FILTER_DEFAULTS_KEY = 'forever-gear-planner.filter.defaults';
+
 export function loadFilter(): SourceFilter {
 	try {
 		const raw = localStorage.getItem(FILTER_KEY);
 		const saved = raw ? (JSON.parse(raw) as Partial<SourceFilter>) : null;
-		if (!saved || typeof saved !== 'object') return DEFAULT_FILTER;
+		if (!saved || typeof saved !== 'object') {
+			localStorage.setItem(FILTER_DEFAULTS_KEY, String(FILTER_DEFAULTS));
+			return DEFAULT_FILTER;
+		}
 		const merged = { ...DEFAULT_FILTER, ...saved };
+		// A reputation that became off by default is taken out of a saved choice once; ticking it again sticks.
+		const applied = Number(localStorage.getItem(FILTER_DEFAULTS_KEY) ?? 0);
+		if (applied < FILTER_DEFAULTS && Array.isArray(merged.excludedReputations)) {
+			merged.excludedReputations = [...new Set([...merged.excludedReputations, ...DEFAULT_FILTER.excludedReputations])];
+			localStorage.setItem(FILTER_KEY, JSON.stringify(merged));
+		}
+		localStorage.setItem(FILTER_DEFAULTS_KEY, String(FILTER_DEFAULTS));
 		if (!Array.isArray(merged.excludedDungeons) || !Array.isArray(merged.excludedReputations) || !Array.isArray(merged.hiddenItems)) return DEFAULT_FILTER;
 		return merged;
 	} catch {
