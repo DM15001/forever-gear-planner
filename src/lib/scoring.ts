@@ -89,6 +89,22 @@ export interface SetTotals {
 }
 
 /**
+ * Whole-weapon values are DPS against the preset's weapon in that hand. Weapons nobody measured are
+ * scored by weight instead, so both need one zero point: the preset weapon's own score by weight is
+ * added to every measured value of its hand.
+ */
+function weaponAnchor(hand: 'mainHand' | 'offHand' | 'ranged', data: GameData, spec: SpecConfig): number {
+	const id = data.simValues.weapons?.reference[hand];
+	const item = id !== undefined ? data.itemById.get(id) : undefined;
+	if (!item) return 0;
+	const { weights } = spec;
+	const perDps = hand === 'mainHand' ? weights.mainHandDps : hand === 'offHand' ? (weights.offHandDps ?? 0) : (weights.rangedDps ?? 0);
+	let score = (item.weapon?.dps ?? 0) * perDps + (data.simValues.items.get(item.id) ?? 0);
+	for (const [key, value] of Object.entries(pieceStats(item, { id: item.id }, data))) score += value * (weights.stats[key] ?? 0);
+	return score;
+}
+
+/**
  * Scores a whole set, so hit rating beyond the cap is valued at the over-cap weight. Procs,
  * on-use effects, proc enchants and set bonuses count with the values the simulator measured
  * for them (data.simValues); an effect nobody measured counts as zero.
@@ -101,15 +117,29 @@ export function scoreSet(gear: Gear, character: Character, data: GameData, spec:
 	let offHandDps = 0;
 	let rangedDps = 0;
 	let effectScore = 0;
+	// Weapons the simulator measured as a whole, and their stats, which the weights must not count again.
+	let weaponScore = 0;
+	const unscored: Stats = {};
 	gear.forEach((piece, index) => {
 		if (!piece) return;
 		const item = data.itemById.get(piece.id);
 		if (item) {
-			addStats(stats, pieceStats(item, piece, data));
-			if (index === MAIN_HAND) mainHandDps = item.weapon?.dps ?? 0;
-			if (index === OFF_HAND) offHandDps = item.weapon?.dps ?? 0;
-			if (index === RANGED) rangedDps = item.weapon?.dps ?? 0;
-			effectScore += simValues.items.get(item.id) ?? 0;
+			const worn = pieceStats(item, piece, data);
+			addStats(stats, worn);
+			const hand = index === MAIN_HAND ? 'mainHand' : index === OFF_HAND ? 'offHand' : index === RANGED ? 'ranged' : undefined;
+			const whole = hand ? simValues.weapons?.byItem.get(item.id)?.[hand] : undefined;
+			if (hand && whole !== undefined) {
+				// Measured as a whole: its own stats, damage and proc are in that number already. What a
+				// random suffix adds on top is still scored by weight.
+				weaponScore += whole + weaponAnchor(hand, data, spec);
+				const own = piece.randomSuffix ? pieceStats(item, { id: item.id }, data) : worn;
+				for (const [key, value] of Object.entries(own)) unscored[key] = (unscored[key] ?? 0) + value;
+			} else {
+				if (index === MAIN_HAND) mainHandDps = item.weapon?.dps ?? 0;
+				if (index === OFF_HAND) offHandDps = item.weapon?.dps ?? 0;
+				if (index === RANGED) rangedDps = item.weapon?.dps ?? 0;
+				effectScore += simValues.items.get(item.id) ?? 0;
+			}
 			if (item.setId) setCounts.set(item.setId, (setCounts.get(item.setId) ?? 0) + 1);
 		}
 		if (piece.enchant) {
@@ -134,12 +164,18 @@ export function scoreSet(gear: Gear, character: Character, data: GameData, spec:
 
 	const hit = hitSummary(stats, character, spec);
 	const { weights } = spec;
-	let score = mainHandDps * weights.mainHandDps + offHandDps * (weights.offHandDps ?? 0) + rangedDps * (weights.rangedDps ?? 0) + effectScore;
-	for (const [key, value] of Object.entries(stats)) {
+	// An empty off hand next to a one-handed main hand, where the simulator measured what that costs.
+	const mainHand = gear[MAIN_HAND] ? data.itemById.get(gear[MAIN_HAND]!.id) : undefined;
+	if (!gear[OFF_HAND] && mainHand && mainHand.weapon?.hand !== 'twoHand' && simValues.weapons?.emptyOffHand !== undefined && slotInUse(OFF_HAND, spec)) {
+		weaponScore += simValues.weapons.emptyOffHand + weaponAnchor('offHand', data, spec);
+	}
+	let score = mainHandDps * weights.mainHandDps + offHandDps * (weights.offHandDps ?? 0) + rangedDps * (weights.rangedDps ?? 0) + effectScore + weaponScore;
+	for (const [key, total] of Object.entries(stats)) {
+		const value = total - (unscored[key] ?? 0);
 		if (key === 'hitRating') score += (value - hit.ratingOver) * (weights.stats.hitRating ?? 0) + hit.ratingOver * weights.hitRatingOverCap;
 		else score += value * (weights.stats[key] ?? 0);
 	}
-	return { stats, hit, score, effectScore };
+	return { stats, hit, score, effectScore: effectScore + weaponScore };
 }
 
 /** Where a gear set stands on one item set. */
@@ -399,7 +435,7 @@ export function withItem(gear: Gear, slotIndex: number, itemId: number | null, d
 export function isUnmeasured(item: Item, data: GameData): boolean {
 	const { simValues } = data;
 	if (item.randomSuffixOptions?.length && !item.bestSuffix) return true;
-	if (item.effects?.length && !simValues.measuredItems.has(item.id)) return true;
+	if (item.effects?.length && !simValues.measuredItems.has(item.id) && !simValues.weapons?.byItem.has(item.id)) return true;
 	return Boolean(item.setId && !simValues.measuredSets.has(item.setId));
 }
 

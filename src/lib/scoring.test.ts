@@ -138,6 +138,19 @@ describe('reputation filter', () => {
 		expect(usableSources(spear, 'alliance', { ...withPvp.filter, excludedReputations: ['Stormpike Guard'] })).toHaveLength(0);
 	});
 
+	it('scores a weapon the simulator measured as a whole by that number, not by its stats', () => {
+		const weapons = [...data.itemById.values()].filter(i => i.slot === 'weapon' && i.weapon?.hand === 'twoHand');
+		const [reference, other] = weapons;
+		const gearWith = (id: number): Gear => GEAR_SLOTS.map((_, i) => (i === MAIN_HAND ? { id } : null));
+		const plain = scoreSet(gearWith(other.id), dwarf, data, spec).score - scoreSet(gearWith(reference.id), dwarf, data, spec).score;
+		const measured = { ...data, simValues: { ...data.simValues, weapons: { byItem: new Map([[other.id, { mainHand: plain - 40 }]]), reference: { mainHand: reference.id } } } };
+		const whole = scoreSet(gearWith(other.id), dwarf, measured, spec).score - scoreSet(gearWith(reference.id), dwarf, measured, spec).score;
+		// 40 DPS below what its DPS and stats promise: the measured number wins, and the reference stays the zero point.
+		expect(whole).toBeCloseTo(plain - 40, 5);
+		// The weapon's stats still show in the totals.
+		expect(scoreSet(gearWith(other.id), dwarf, measured, spec).stats).toEqual(scoreSet(gearWith(other.id), dwarf, data, spec).stats);
+	});
+
 	it('says when a swap breaks or activates a set bonus', () => {
 		const setItems = [...data.itemById.values()].filter(i => i.setId !== undefined && data.simValues.sets.has(i.setId!));
 		const setId = setItems[0].setId!;

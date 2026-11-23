@@ -214,4 +214,17 @@ export interface SimValues {
 	measuredItems: Set<number>;
 	measuredEnchants: Set<number>;
 	measuredSets: Set<number>;
+	/**
+	 * Weapons measured as a whole for this build (scripts/build-weapon-values.mjs): item id -> DPS per
+	 * hand, against the weapon the build's preset holds there. Covers damage, speed, stats and proc.
+	 */
+	weapons?: WeaponValues;
+}
+
+export interface WeaponValues {
+	byItem: Map<number, { mainHand?: number; offHand?: number; ranged?: number }>;
+	/** The preset's weapons: the zero point of each hand. */
+	reference: { mainHand?: number; offHand?: number; ranged?: number };
+	/** What an empty off hand is worth next to a one-handed main hand (negative). */
+	emptyOffHand?: number;
 }

@@ -78,9 +78,12 @@ export async function loadGameData(spec: SpecConfig = DEFAULT_SPEC): Promise<Gam
 		npcById,
 		guides: buildGuides((simSets.default as unknown as SimSet[]).filter(set => set.spec === spec.id), spec.id),
 		// Effects, proc enchants and set bonuses have only been measured for the Enhancement Shaman so far.
-		simValues: own ? readMeasured((await own()).default) : withSetValues(
+		simValues: await withWeapons(
+			own ? readMeasured((await own()).default) : withSetValues(
 			readSimValues(spec.id === DEFAULT_SPEC.id ? (simValuesJson.default as unknown as RawSimValues) : EMPTY_SIM_VALUES, spec.weights.dpsPerPoint ?? 1),
 			(setValuesJson.default as unknown as RawSetValues).specs[spec.id],
+		),
+			spec.id,
 		),
 		builtAt: meta.default.generatedAt,
 	};
@@ -126,6 +129,28 @@ interface RawMeasured {
 }
 
 const MEASURED = import.meta.glob<{ default: RawMeasured }>('../data/simValues/*.json');
+
+/** One file per weapon-using build, written by scripts/build-weapon-values.mjs. */
+interface RawWeaponValues {
+	reference: { mainHand?: number; offHand?: number; ranged?: number };
+	emptyOffHand?: number;
+	weapons: Record<string, { mainHand?: number; offHand?: number; ranged?: number }>;
+}
+const WEAPONS = import.meta.glob<{ default: RawWeaponValues }>('../data/weaponValues/*.json');
+
+async function withWeapons(values: SimValues, specId: string): Promise<SimValues> {
+	const file = WEAPONS[`../data/weaponValues/${specId}.json`];
+	if (!file) return values;
+	const raw = (await file()).default;
+	return {
+		...values,
+		weapons: {
+			byItem: new Map(Object.entries(raw.weapons).map(([id, { mainHand, offHand, ranged }]) => [Number(id), { mainHand, offHand, ranged }])),
+			reference: raw.reference,
+			emptyOffHand: raw.emptyOffHand,
+		},
+	};
+}
 
 function readMeasured(raw: RawMeasured): SimValues {
 	const dpsMap = (record: Record<string, { dps: number }>) => new Map(Object.entries(record).map(([id, value]) => [Number(id), value.dps]));
