@@ -74,8 +74,9 @@ comes back. You pick the spells (tank healing, fast heals, group healing) and th
 70% of the time); each combination has its own stat weights, measured with the simulator.
 WoWSims has the Priest's heals, talents and mana rules in its engine but ships no healing
 rotation, so the short rotations are this planner's own (`src/lib/sim/healing.ts`). There is
-no incoming damage in the model, so overhealing is not counted, and Prayer of Mending is left
-out because the engine fails on it.
+no incoming damage in the model, so overhealing is not counted. Prayer of Mending cannot be
+cast in the engine yet (it stops with an error), so for now its healing is an estimate added
+on top of the simulator's number (`src/lib/sim/mending.ts`); it can be switched off.
 
 **Drop chances** are Wowhead's Forever numbers where they exist, otherwise the WoW Classic
 rates from AtlasLoot, marked "Classic rate". Forever may have changed those. Bosses that do

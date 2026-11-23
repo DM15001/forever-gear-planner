@@ -2,6 +2,7 @@ import type { Gear } from '../scoring';
 import type { Character } from '../types';
 import { specOf } from '../specs';
 import { type BonusStats, buildSimRequest, indexSimDb, isHealer, readRotationChecks, readSimResult, type RotationChecks, type SimDb, type SimIndex, simKey, type SimOutcome, type SimTemplate } from './request';
+import { castingShare, countsMending, readMending } from './mending';
 import type { SimSetupData } from './setup';
 
 const SIM_URL = `${import.meta.env.BASE_URL}sim/`;
@@ -110,11 +111,21 @@ export class SimClient {
 		if (!outcome) {
 			outcome = this.load(specOf(character).id).then(index => {
 				const { request } = buildSimRequest(character, gear, index, iterations, bonus);
-				return new Promise<string>((resolve, reject) => {
-					const id = this.nextId++;
-					this.waiting.set(id, { resolve, reject });
-					this.worker!.postMessage({ id, request: JSON.stringify(request) });
-				}).then(json => readSimResult(json, iterations, isHealer(index.template)));
+				const ask = (message: Record<string, unknown>) =>
+					new Promise<string>((resolve, reject) => {
+						const id = this.nextId++;
+						this.waiting.set(id, { resolve, reject });
+						this.worker!.postMessage({ id, ...message });
+					});
+				const healer = isHealer(index.template);
+				const simulated = ask({ request: JSON.stringify(request) }).then(json => readSimResult(json, iterations, healer));
+				if (!healer || !countsMending(character)) return simulated;
+				// The engine cannot cast Prayer of Mending yet: its healing is worked out from the character's stats and added.
+				const stats = ask({ stats: true, request: JSON.stringify({ raid: request.raid, encounter: request.encounter }) }).catch(() => null);
+				return Promise.all([simulated, stats]).then(([outcome, statsJson]) => {
+					const mending = readMending(statsJson, outcome.dps, castingShare(character));
+					return mending ? { ...outcome, dps: outcome.dps + mending.hps, mending } : outcome;
+				});
 			});
 			this.cache.set(key, outcome);
 			outcome.catch(() => this.cache.delete(key));

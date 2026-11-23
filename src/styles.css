@@ -3426,3 +3426,151 @@ html {
 .sheet-details .identity-actions {
 	margin-top: 0.6rem;
 }
+
+/* Your characters: a row of tiles under the tabs, on every page */
+.character-bar {
+	display: flex;
+	gap: 0.6rem;
+	margin-bottom: 1.25rem;
+	padding-bottom: 0.25rem;
+	overflow-x: auto;
+	scrollbar-width: thin;
+}
+.character-tile {
+	flex: none;
+	display: flex;
+	align-items: center;
+	gap: 0.7rem;
+	min-width: 14rem;
+	max-width: 20rem;
+	padding: 0.55rem 0.9rem 0.55rem 0.6rem;
+	font: inherit;
+	text-align: left;
+	color: var(--mist);
+	background: #0a0806;
+	border: 1px solid var(--hairline);
+	border-left: 3px solid var(--ridge);
+	border-radius: 6px;
+	cursor: pointer;
+	transition:
+		border-color 120ms,
+		background 120ms;
+}
+.character-tile-alliance {
+	border-left-color: #3d7fd6;
+}
+.character-tile-horde {
+	border-left-color: #c2382e;
+}
+.character-tile:hover {
+	background: #14110a;
+	border-color: var(--ridge);
+}
+.character-tile-alliance:hover {
+	border-left-color: #3d7fd6;
+}
+.character-tile-horde:hover {
+	border-left-color: #c2382e;
+}
+.character-tile-on,
+.character-tile-on:hover {
+	background: #1c160c;
+	border-color: var(--brass);
+	box-shadow: 0 0 0 1px #000, 0 0 12px -4px var(--brass);
+}
+.character-tile-on.character-tile-alliance {
+	border-left-color: #3d7fd6;
+}
+.character-tile-on.character-tile-horde {
+	border-left-color: #c2382e;
+}
+.character-tile .class-icon {
+	width: 2.75rem;
+	height: 2.75rem;
+	flex: none;
+}
+.character-tile-text {
+	display: grid;
+	min-width: 0;
+	font-size: 0.8125rem;
+	line-height: 1.3;
+	color: var(--haze);
+}
+.character-tile-text strong {
+	font-size: 0.9375rem;
+	color: var(--mist);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.character-tile-on .character-tile-text strong {
+	color: var(--brass);
+}
+.character-tile-meta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0 0.5rem;
+}
+.faction {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+	font-weight: 600;
+}
+.faction img {
+	width: 1rem;
+	height: 1rem;
+	border-radius: 2px;
+}
+.faction-alliance {
+	color: #6ba6ee;
+}
+.faction-horde {
+	color: #e86a5f;
+}
+.character-add {
+	min-width: 12rem;
+	border-style: dashed;
+	border-left: 1px dashed var(--ridge);
+}
+.character-add-plus {
+	display: grid;
+	place-items: center;
+	width: 2.75rem;
+	height: 2.75rem;
+	flex: none;
+	font-size: 1.5rem;
+	color: var(--brass);
+	border: 1px dashed var(--ridge);
+	border-radius: 50%;
+}
+
+/* Prayer of Mending, counted as an estimate */
+.mending-toggle {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.6rem;
+	margin: 0.75rem 0;
+	padding: 0.6rem 0.75rem;
+	background: #0a0806;
+	border: 1px dashed var(--ridge);
+	border-radius: 6px;
+	cursor: pointer;
+}
+.mending-toggle input {
+	margin-top: 0.25rem;
+}
+.mending-toggle .slot-source {
+	display: block;
+	margin-top: 0.2rem;
+}
+.tag-estimate {
+	display: inline-block;
+	padding: 0 0.4rem;
+	font-size: 0.75rem;
+	font-weight: 600;
+	color: #0a0806;
+	background: var(--brass);
+	border-radius: 3px;
+}

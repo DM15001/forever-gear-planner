@@ -117,7 +117,7 @@ export interface Character {
 	/** Buffs and debuffs changed on the Sim setup tab. Missing fields keep the build's own. */
 	buffs?: import('./sim/setup').BuffPicks;
 	/** A healer's spell mix and how much mana matters in the fight (src/lib/sim/healing.ts). Unset = the default scenario. */
-	healing?: { style?: string; pressure?: string };
+	healing?: { style?: string; pressure?: string; /** False = leave the Prayer of Mending estimate out (src/lib/sim/mending.ts). */ mending?: boolean };
 	/** What the character fights: an enemy kind and a terrain, for items that are only strong there. Unset = a plain raid target. */
 	fight?: Fight;
 	/** Up to two profession names. */

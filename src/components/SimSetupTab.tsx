@@ -507,7 +507,7 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 					{healer ? (
 						<>
 							Where it comes from: WoWSims has the Priest's heals in its engine but ships no healing rotation, so this one is written by this site for the healing scenario picked on the Upgrades tab. It is short on purpose. Prayer
-							of Mending is left out, because the engine stops with an error when it is cast as a heal. Hover over a step to see the rule the simulator gets, or show them all:
+							of Mending is not in it, because the engine stops with an error when it is cast as a heal; if you have the talent, its healing is added to the result as an estimate (see "What kind of healing?" on the Upgrades tab). Hover over a step to see the rule the simulator gets, or show them all:
 						</>
 					) : (
 						<>

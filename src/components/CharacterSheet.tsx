@@ -23,14 +23,13 @@ interface Props {
 	/** The builds of this character's class to plan it as. */
 	builds: SpecConfig[];
 	activeIndex: number;
-	onSelect: (index: number) => void;
 	/** A link that opens this character and its plan on another device. */
 	shareLink: string;
 	/** The step that follows, shown in the header of the page. */
 	next?: ReactNode;
 }
 
-export function CharacterSheet({ spec, character, data, onChange, onImportAnother, onRemove, names, builds, activeIndex, onSelect, shareLink, next }: Props) {
+export function CharacterSheet({ spec, character, data, onChange, onImportAnother, onRemove, names, builds, activeIndex, shareLink, next }: Props) {
 	// 'copied' after the link went to the clipboard, 'shown' when the browser refused and the link is shown to copy by hand.
 	const [shared, setShared] = useState<'idle' | 'copied' | 'shown'>('idle');
 	// The slot whose item is being swapped by hand, if any.
@@ -115,26 +114,6 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 			</div>
 			<div className="card sheet-details">
 				<h3>Character details</h3>
-				{names.length > 1 && (
-					<>
-						<label className="field-label" htmlFor="character-pick">
-							Character
-						</label>
-						<select
-							id="character-pick"
-							value={activeIndex}
-							onChange={e => {
-								setShared('idle');
-								onSelect(Number(e.target.value));
-							}}>
-							{names.map((name, index) => (
-								<option key={index} value={index}>
-									{name}
-								</option>
-							))}
-						</select>
-					</>
-				)}
 				<label className="field-label" htmlFor="character-name">
 					Name
 				</label>

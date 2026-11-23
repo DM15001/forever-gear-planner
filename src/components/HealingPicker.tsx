@@ -1,4 +1,5 @@
 import { HEALING_PRESSURES, HEALING_STYLES, healingChoice } from '../lib/sim/healing';
+import { countsMending, hasMendingTalent, MENDING } from '../lib/sim/mending';
 import type { Character, SpecConfig } from '../lib/types';
 
 const WORTH: [key: string, label: string][] = [
@@ -13,11 +14,14 @@ const WORTH: [key: string, label: string][] = [
 /** A healer's scenario: which heals are cast and how much mana matters. It decides what every item is worth. */
 export function HealingPicker({ character, spec, onChange }: { character: Character; spec: SpecConfig; onChange: (next: Character) => void }) {
 	const choice = healingChoice(character);
-	const set = (patch: Partial<typeof choice>) => onChange({ ...character, healing: { ...choice, ...patch } });
+	const set = (patch: Partial<NonNullable<Character['healing']>>) => onChange({ ...character, healing: { ...character.healing, ...choice, ...patch } });
+	const mending = hasMendingTalent(character.talents);
+	const counted = countsMending(character);
 	const style = HEALING_STYLES.find(s => s.id === choice.style)!;
 	const pressure = HEALING_PRESSURES.find(p => p.id === choice.pressure)!;
 	const measured = spec.healing?.scenarios[`${choice.style}.${choice.pressure}`];
-	const weights = measured?.weights ?? spec.weights.stats;
+	// With Prayer of Mending counted, the spec passed in already carries the adjusted weights.
+	const weights = spec.weights.stats;
 	return (
 		<section className="panel healing-picker" aria-label="Healing scenario">
 			<h3>What kind of healing?</h3>
@@ -56,6 +60,18 @@ export function HealingPicker({ character, spec, onChange }: { character: Charac
 					</>
 				)}
 			</p>
+			{mending && (
+				<label className="mending-toggle">
+					<input type="checkbox" checked={counted} onChange={e => set({ mending: e.target.checked })} />
+					<span>
+						<strong>Count Prayer of Mending</strong> <span className="tag-estimate">estimate</span>
+						<span className="slot-source">
+							The simulator cannot cast it yet (an error in the WoWSims engine), so its healing is worked out by hand and added: cast every {MENDING.cooldown} seconds while you are casting, all {MENDING.jumps} jumps heal in full,
+							and the cast it takes the place of is taken off. That is the best case; jumps that find nobody hurt would lower it. It goes away as soon as WoWSims fixes the spell and the simulator plays it for real.
+						</span>
+					</span>
+				</label>
+			)}
 			<p className="heal-worth">
 				<span className="field-label">One point is worth, in this scenario</span>
 				{WORTH.map(([key, label]) => (
@@ -64,7 +80,7 @@ export function HealingPicker({ character, spec, onChange }: { character: Charac
 					</span>
 				))}
 				<span className="slot-source">
-					HPS per point, measured with the simulator. Intellect is worth its mana pool and its crit; spirit and MP5 are worth the extra casts their mana pays for. Each item row splits its number into "from output" and "from mana".
+					HPS per point, measured with the simulator{counted ? ', with the Prayer of Mending estimate worked in (it favours healing power)' : ''}. Intellect is worth its mana pool and its crit; spirit and MP5 are worth the extra casts their mana pays for. Each item row splits its number into "from output" and "from mana".
 				</span>
 			</p>
 		</section>

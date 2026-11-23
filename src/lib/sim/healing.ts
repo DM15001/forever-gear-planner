@@ -73,7 +73,8 @@ export interface HealingFight {
 
 /**
  * The fight and rotation of a scenario. Prayer of Mending is left out on purpose: the engine
- * (wowsims/forever 7322fc0 and c83d90c) stops with an error when it is cast as a heal.
+ * (wowsims/forever 7322fc0 and c83d90c) stops with an error when it is cast as a heal. Until that
+ * is fixed, mending.ts adds its healing as an estimate.
  */
 export function healingFight(choice: HealingChoice): HealingFight {
 	const pressure = HEALING_PRESSURES.find(p => p.id === choice.pressure) ?? HEALING_PRESSURES[1];

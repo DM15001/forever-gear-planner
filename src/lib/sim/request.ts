@@ -1,4 +1,5 @@
 import { applyHealingFight, healingChoice } from './healing';
+import type { MendingEstimate } from './mending';
 import type { Gear } from '../scoring';
 import type { Character } from '../types';
 
@@ -197,6 +198,8 @@ export interface SimOutcome {
 	error: number;
 	iterations: number;
 	breakdown?: SimBreakdown;
+	/** Prayer of Mending, added to `dps` by hand because the engine cannot cast it (mending.ts). */
+	mending?: MendingEstimate;
 }
 
 type RawAction = { id: SimActionId; targets?: Record<string, number>[] };

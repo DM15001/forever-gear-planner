@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { CharacterSheet } from './components/CharacterSheet';
 import { EnchantsTab } from './components/EnchantsTab';
+import { castingShare, countsMending, mendingWeights } from './lib/sim/mending';
+import { CharacterBar } from './components/CharacterBar';
 import { ClassIcon } from './components/ClassIcon';
 import { FarmTab } from './components/FarmTab';
 import { HealingPicker } from './components/HealingPicker';
@@ -48,11 +50,15 @@ export function App() {
 	const [weightsVersion, setWeightsVersion] = useState(0);
 	// A healer has one set of weights per healing scenario; the character's choice picks it.
 	const healingKey = baseSpec.healing ? scenarioKey(healingChoice(character)) : '';
+	const mending = !!baseSpec.healing && !!character && countsMending(character);
 	const scenarioSpec = useMemo(() => {
 		const measured = baseSpec.healing?.scenarios[healingKey];
-		return measured ? { ...baseSpec, weights: { ...baseSpec.weights, stats: measured.weights } } : baseSpec;
-	}, [baseSpec, healingKey]);
-	const weightsKey = healingKey ? `${baseSpec.id}.${healingKey}` : baseSpec.id;
+		if (!measured) return baseSpec;
+		// Prayer of Mending is not in the measured weights (the engine cannot cast it), so its estimate is worked in.
+		const stats = mending ? mendingWeights(measured.weights, castingShare({ healing: { pressure: healingKey.split('.')[1] } })) : measured.weights;
+		return { ...baseSpec, weights: { ...baseSpec.weights, stats } };
+	}, [baseSpec, healingKey, mending]);
+	const weightsKey = healingKey ? `${baseSpec.id}.${healingKey}${mending ? '.mending' : ''}` : baseSpec.id;
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const customWeights = useMemo(() => loadWeights(weightsKey), [weightsKey, weightsVersion]);
 	const spec = useMemo(() => (customWeights ? { ...scenarioSpec, weights: customWeights } : scenarioSpec), [scenarioSpec, customWeights]);
@@ -161,6 +167,16 @@ export function App() {
 				{(!character || importing) && <ImportPanel hasCharacter={Boolean(character)} onImported={onImported} onCancel={() => setImporting(false)} />}
 
 				{character && !importing && (
+					<CharacterBar
+						roster={roster}
+						onSelect={index => {
+							changeRoster(selectCharacter(roster, index));
+							setWarnings([]);
+						}}
+						onAdd={() => setImporting(true)}
+					/>
+				)}
+				{character && !importing && (
 					<SimProvider character={character}>
 						{tab === 'upgrades' && (
 							<div className="view-switch" role="group" aria-label="How to pick upgrades">
@@ -173,7 +189,7 @@ export function App() {
 								<span className="slot-source">{upgradeView === 'plan' ? 'Say what content you do and get the best set with a to-do list.' : 'Every slot with its upgrades and alternatives, to pick by hand.'}</span>
 							</div>
 						)}
-						{tab === 'upgrades' && baseSpec.role === 'healer' && <HealingPicker character={character} spec={baseSpec} onChange={update} />}
+						{tab === 'upgrades' && baseSpec.role === 'healer' && <HealingPicker character={character} spec={spec} onChange={update} />}
 						{tab === 'upgrades' && upgradeView === 'plan' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} /> : <p>Loading item data…</p>)}
 
 						{tab === 'upgrades' && upgradeView === 'slots' && (data ? <UpgradesTab spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
@@ -211,10 +227,6 @@ export function App() {
 									names={roster.characters.map((c, i) => characterLabel(c, i, specOf(c)))}
 									builds={specsOfClass(baseSpec.className)}
 									activeIndex={roster.active}
-									onSelect={index => {
-										changeRoster(selectCharacter(roster, index));
-										setWarnings([]);
-									}}
 									shareLink={shareUrl(character, window.location.href)}
 									next={
 										<>

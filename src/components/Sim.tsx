@@ -367,6 +367,16 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false }: { equip
 					<summary>Show how these numbers come about</summary>
 					{a && <Breakdown title="Equipped gear" outcome={a} names={names} />}
 					{b && <Breakdown title="Planned gear" outcome={b} names={names} />}
+					{(a?.mending ?? b?.mending) && (
+						<p className="hint">
+							<span className="tag-estimate">estimate</span> Prayer of Mending is not in the tables above: the simulator cannot cast it yet, so it is added by hand.{' '}
+							{[a && a.mending && ['Equipped', a.mending] as const, b && b.mending && ['Planned', b.mending] as const]
+								.filter(row => !!row)
+								.map(([label, m]) => `${label}: ${Math.round(m.perCast).toLocaleString('en')} per cast at ${Math.round(m.healingPower)} healing power, ${Math.round(m.gross)} HPS, less ${Math.round(m.displaced)} HPS for the casts it replaces = +${Math.round(m.hps)} HPS.`)
+								.join(' ')}{' '}
+							Switch it off under "What kind of healing?".
+						</p>
+					)}
 					<p className="hint">
 						{a?.healing ?? b?.healing
 							? 'Per spell: healing done over the fight and its part of all healing, casts per fight, how often it crit, and healing per second. "Out of mana" is the time the healer stood without mana to cast.'

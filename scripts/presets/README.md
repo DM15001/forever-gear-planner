@@ -42,5 +42,10 @@ WASM=<lib.wasm, unzipped> DB=<forever/assets/database/db.json> WASM_EXEC=<Go's w
   npx vite-node scripts/presets/healer-weights.ts -- priest-holy priest-disc
 ```
 
+Prayer of Mending: the engine cannot cast it yet, so `src/lib/sim/mending.ts` adds it as an
+estimate. `npx vite-node scripts/presets/check-mending.ts` (same environment variables as step 3)
+prints whether the engine can cast it by now. Once it can: add the spell to the rotation in
+`src/lib/sim/healing.ts`, delete `mending.ts` and its uses, and run step 3 again.
+
 Step 3 writes `healing.scenarios` and the default `weights` into `src/specs/priest-holy.json`
 and `priest-disc.json`. Run it again when the engine's Priest changes.
