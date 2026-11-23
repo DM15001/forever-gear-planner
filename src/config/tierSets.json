@@ -1,0 +1,41 @@
+{
+	"_comment": "The dungeon sets of each class, by class id: Tier 0 (drops in the level 60 dungeons) and Tier 0.5 (its upgrade through the questline). Set ids as in the item data. The content choice switches their pieces on and off slot by slot.",
+	"byClass": {
+		"1": {
+			"tier0": 189,
+			"tier05": 1778
+		},
+		"2": {
+			"tier0": 188,
+			"tier05": 1673
+		},
+		"3": {
+			"tier0": 186,
+			"tier05": 1669
+		},
+		"4": {
+			"tier0": 184,
+			"tier05": 1676
+		},
+		"5": {
+			"tier0": 182,
+			"tier05": 1675
+		},
+		"7": {
+			"tier0": 187,
+			"tier05": 1679
+		},
+		"8": {
+			"tier0": 181,
+			"tier05": 1671
+		},
+		"9": {
+			"tier0": 183,
+			"tier05": 1681
+		},
+		"11": {
+			"tier0": 185,
+			"tier05": 1667
+		}
+	}
+}

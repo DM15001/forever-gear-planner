@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { contentCatalog, presets, sameFilter, toggled } from '../lib/content';
 import type { GameData } from '../lib/gameData';
-import type { SourceFilter } from '../lib/scoring';
+import { type SourceFilter, TIER_SLOTS, tierSets } from '../lib/scoring';
 import type { Character, SpecConfig } from '../lib/types';
 
 interface Props {
@@ -19,6 +19,7 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 	const catalog = useMemo(() => contentCatalog(data, faction), [data, faction]);
 	const options = useMemo(() => presets(catalog), [catalog]);
 	const set = (patch: Partial<SourceFilter>) => onChange({ ...filter, ...patch });
+	const tiers = tierSets(spec);
 	const lowOn = !catalog.lowDungeonKeys.some(key => filter.excludedDungeons.includes(key));
 
 	const check = (label: string, checked: boolean, change: (on: boolean) => void, disabled = false) => (
@@ -57,9 +58,24 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				)}
 			</fieldset>
 
+			{tiers && (
+				<fieldset className="content-group">
+					<legend>Dungeon set pieces (Tier 0 and Tier 0.5)</legend>
+					<p className="hint tier-hint">
+						Tick the slots that may hold a set piece. All ticked: the planner takes as many as are worth it. None ticked: no set piece at all.{' '}
+						<button className="link" onClick={() => set({ tierSlots: TIER_SLOTS.map(([kind]) => kind) })}>
+							All
+						</button>{' '}
+						<button className="link" onClick={() => set({ tierSlots: [] })}>
+							None
+						</button>
+					</p>
+					{TIER_SLOTS.map(([kind, label]) => check(`${label} (set piece)`, filter.tierSlots.includes(kind), on => set({ tierSlots: on ? [...filter.tierSlots, kind] : filter.tierSlots.filter(slot => slot !== kind) })))}
+				</fieldset>
+			)}
+
 			<fieldset className="content-group">
 				<legend>Everything else</legend>
-				{spec.tier05Set && check(`Tier 0.5 questline (${spec.tier05Set.name})`, filter.tier05, on => set({ tier05: on }))}
 				{check('Random-suffix items ("of Shadow Wrath"), best roll', filter.randomSuffix, on => set({ randomSuffix: on }))}
 				{check('Items not in the game yet', filter.notYetAvailable, on => set({ notYetAvailable: on }))}
 				{check('Quest rewards', filter.quest, on => set({ quest: on }))}

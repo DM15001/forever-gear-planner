@@ -18,10 +18,10 @@ import { SimProvider } from './components/Sim';
 import { UpgradesTab } from './components/UpgradesTab';
 import { type GameData, loadGameData } from './lib/gameData';
 import type { ImportResult } from './lib/importCharacter';
-import type { SourceFilter } from './lib/scoring';
+import { DEFAULT_FILTER, type SourceFilter } from './lib/scoring';
 import { activeCharacter, addCharacter, characterLabel, removeActive, replaceActive, type Roster, selectCharacter, sharedCharacter, shareUrl } from './lib/roster';
 import { specOf, specsOfClass } from './lib/specs';
-import { loadFilter, loadRoster, loadWeights, saveFilter, saveRoster, saveWeights } from './lib/storage';
+import { loadFilter, loadRoster, loadWeights, normalFilter, saveRoster, saveWeights } from './lib/storage';
 import type { Character, SpecConfig } from './lib/types';
 
 
@@ -84,13 +84,16 @@ export function App() {
 	}, []);
 	const newsSeen = useCallback(() => setNewsDot(false), []);
 	// Step 2 has two ways in: the automatic plan, or every slot by hand.
-	const [upgradeView, setUpgradeView] = useState<'plan' | 'slots'>(() => (Object.keys(character?.plan ?? {}).length > 0 ? 'slots' : 'plan'));
+	const [upgradeView, setUpgradeView] = useState<'plan' | 'slots'>('slots');
 	// The content choice, shared by every tab and remembered between visits.
-	const [filter, setFilterState] = useState<SourceFilter>(loadFilter);
+	// Each character keeps its own choice. One saved before that existed starts from the browser's last choice;
+	// a new one starts from the defaults.
+	const [legacyFilter] = useState<SourceFilter>(loadFilter);
+	const filter = useMemo(() => (character?.content ? (normalFilter(character.content) ?? DEFAULT_FILTER) : legacyFilter), [character?.content, legacyFilter]);
 	const setFilter = (next: SourceFilter) => {
-		setFilterState(next);
-		saveFilter(next);
+		if (character) changeRoster(replaceActive(roster, { ...character, content: next }));
 	};
+
 	// The item data is narrowed to the spec, so it is loaded again when the spec changes.
 	const [loaded, setLoaded] = useState<{ specId: string; data: GameData } | null>(null);
 	const [dataError, setDataError] = useState(false);
@@ -113,7 +116,8 @@ export function App() {
 	const update = (next: Character) => changeRoster(replaceActive(roster, next));
 
 	const onImported = (result: ImportResult) => {
-		changeRoster(addCharacter(roster, result.character));
+		// A new character starts from the default content choice, not from another character's ticks.
+		changeRoster(addCharacter(roster, { ...result.character, content: result.character.content ?? DEFAULT_FILTER }));
 		setTab('character');
 		setWarnings(result.warnings);
 		setImporting(false);
@@ -200,13 +204,13 @@ export function App() {
 					<SimProvider character={character}>
 						{tab === 'upgrades' && (
 							<div className="view-switch" role="group" aria-label="How to pick upgrades">
-								<button className="view-choice" aria-pressed={upgradeView === 'plan'} onClick={() => setUpgradeView('plan')}>
-									<strong>Plan for me</strong>
-									<span>Say what content you do and get the best set with a to-do list.</span>
-								</button>
 								<button className="view-choice" aria-pressed={upgradeView === 'slots'} onClick={() => setUpgradeView('slots')}>
 									<strong>Slot by slot</strong>
 									<span>Every slot with its upgrades and alternatives, to pick by hand.</span>
+								</button>
+								<button className="view-choice" aria-pressed={upgradeView === 'plan'} onClick={() => setUpgradeView('plan')}>
+									<strong>Plan for me</strong>
+									<span>Say what content you do and get the best set with a to-do list.</span>
 								</button>
 							</div>
 						)}

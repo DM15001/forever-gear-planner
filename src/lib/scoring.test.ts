@@ -5,7 +5,7 @@ import simExport from './__fixtures__/sim-export.json';
 import { GEAR_SLOTS } from './constants';
 import { loadGameData } from './gameData';
 import { importCharacter } from './importCharacter';
-import { clash, DEFAULT_FILTER, notYetAvailable, type Gear, oneRandomRoll, plannedGear, scoreSet, setChanges, setStandings, slotCandidates, type SourceFilter, suggestPlan, usableSources } from './scoring';
+import { clash, DEFAULT_FILTER, notYetAvailable, type Gear, oneRandomRoll, plannedGear, scoreSet, setChanges, setStandings, slotCandidates, type SourceFilter, suggestPlan, tierSets, usableSources } from './scoring';
 import { vendorReputation } from './stats';
 import type { Character, Item, SpecConfig } from './types';
 
@@ -100,12 +100,27 @@ describe('suggestPlan', () => {
 
 describe('Tier 0.5 filter', () => {
 	const setId = spec.tier05Set!.setId;
-	const without = { ...options, filter: { ...DEFAULT_FILTER, tier05: false } };
+	const without = { ...options, filter: { ...DEFAULT_FILTER, tierSlots: [] } };
 
 	it('offers the set by default and hides it when switched off', () => {
 		const SHOULDER = 2;
 		expect(slotCandidates(SHOULDER, dwarf.gear, options).some(c => c.item.setId === setId)).toBe(true);
 		expect(slotCandidates(SHOULDER, dwarf.gear, without).some(c => c.item.setId === setId)).toBe(false);
+	});
+
+	it('allows set pieces only in the ticked slots, Tier 0 included', () => {
+		const SHOULDER = 2;
+		const WRIST = 5;
+		const wristsOnly = { ...options, filter: { ...DEFAULT_FILTER, tierSlots: ['wrist'] } };
+		const tier0 = tierSets(spec)!.tier0;
+		const sets = (slot: number, o: typeof options) => slotCandidates(slot, dwarf.gear, o).filter(c => c.item.setId === setId || c.item.setId === tier0);
+		expect(sets(WRIST, wristsOnly).length).toBeGreaterThan(0);
+		expect(sets(SHOULDER, wristsOnly)).toHaveLength(0);
+		expect(sets(SHOULDER, options).some(c => c.item.setId === tier0)).toBe(true);
+		for (const id of Object.values(suggestPlan(wristsOnly))) {
+			const item = data.itemById.get(id)!;
+			if (item.setId === setId || item.setId === tier0) expect(item.slot).toBe('wrist');
+		}
 	});
 
 	it('plans a set without any Tier 0.5 piece when switched off', () => {

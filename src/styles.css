@@ -4265,3 +4265,24 @@ button.masthead-home:focus-visible {
 .sim-verdict {
 	margin: 0.75rem 0 0;
 }
+
+/* A source that leads to its Wowhead page: quiet until pointed at */
+a.source-link {
+	color: inherit;
+	text-decoration: underline dotted;
+	text-underline-offset: 2px;
+}
+a.source-link:hover,
+a.source-link:focus-visible {
+	color: var(--brass);
+	text-decoration-style: solid;
+}
+
+.tier-hint {
+	margin: 0 0 0.4rem;
+	flex-basis: 100%;
+}
+.tier-hint {
+	grid-column: 1 / -1;
+	max-width: none;
+}

@@ -68,7 +68,7 @@ export function presets(_catalog: ContentCatalog): Preset[] {
 			id: 'dungeons',
 			label: 'Dungeons and quests only',
 			hint: 'No crafting, vendors, reputations, Tier 0.5 or world drops.',
-			filter: { ...DEFAULT_FILTER, drop: false, crafted: false, vendor: false, currency: false, rep: false, unknown: false, tier05: false },
+			filter: { ...DEFAULT_FILTER, drop: false, crafted: false, vendor: false, currency: false, rep: false, unknown: false },
 		},
 	];
 }

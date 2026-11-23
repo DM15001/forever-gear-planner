@@ -1,6 +1,6 @@
 import { applicableEnchants, bestEnchants } from './enchants';
 import type { GameData } from './gameData';
-import { type Candidate, type CandidateOptions, EVERYTHING, filterKey, plannedGear, reputationOf, scoreSet, slotCandidates, suggestPlan, usableSources } from './scoring';
+import { type Candidate, type CandidateOptions, EVERYTHING, filterKey, plannedGear, reputationOf, scoreSet, slotCandidates, suggestPlan, tierSets, usableSources } from './scoring';
 import { effortLine } from './loot';
 import { sourceLine, vendorCurrency } from './stats';
 import type { Character, Enchant, Item, ItemSource } from './types';
@@ -97,9 +97,9 @@ export function planSteps(options: CandidateOptions): PlanStep[] {
 		const source = usableSources(item, faction, filter, character.professions)[0] ?? usableSources(item, faction, EVERYTHING)[0];
 		const current = character.gear[slotIndex];
 		const swapped = character.gear.map((piece, i) => (i === slotIndex ? (current?.enchant ? { id: itemId, enchant: current.enchant } : { id: itemId }) : piece));
-		const { kind, title } = stepOf(source, character, item, spec.tier05Set?.setId);
+		const { kind, title } = stepOf(source, character, item, tierSets(spec)?.tier05);
 		const isTier05 = title === 'Tier 0.5 questline';
-		add(kind, title, { slotIndex, item, detail: isTier05 ? (spec.tier05Set?.name ?? '') : sourceLine(source, data), effort: isTier05 ? undefined : effortLine(source), gain: scoreSet(swapped, character, data, spec).score - equipped, ready: true });
+		add(kind, title, { slotIndex, item, detail: isTier05 ? (item.setName ?? '') : sourceLine(source, data), effort: isTier05 ? undefined : effortLine(source), gain: scoreSet(swapped, character, data, spec).score - equipped, ready: true });
 	}
 
 	const planned = plannedGear(character, data);

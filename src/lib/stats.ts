@@ -186,8 +186,18 @@ export function sourceLine(source: ItemSource | undefined, data: GameData): stri
 }
 
 /** What Wowhead's tooltip script reads off an element: which tooltip to show, from the Forever data. */
-export const wowheadData = (kind: 'spell' | 'item', id: number) => `${kind}=${id}&domain=forever&dataEnv=16`;
+export const wowheadData = (kind: 'spell' | 'item' | 'quest' | 'npc', id: number) => `${kind}=${id}&domain=forever&dataEnv=16`;
 export const wowheadItemUrl = (id: number) => `https://www.wowhead.com/forever/item=${id}`;
+/** The Wowhead page that says most about a source: the quest, the creature or vendor, the recipe, else the zone. */
+export function wowheadSourceLink(source: ItemSource | undefined): { url: string; tooltip?: string } | undefined {
+	if (!source) return undefined;
+	const base = 'https://www.wowhead.com/forever';
+	if (source.kind === 'quest' && source.questId) return { url: `${base}/quest=${source.questId}`, tooltip: wowheadData('quest', source.questId) };
+	if (source.kind === 'crafted' && source.spellId) return { url: `${base}/spell=${source.spellId}`, tooltip: wowheadData('spell', source.spellId) };
+	if ((source.kind === 'drop' || source.kind === 'vendor') && source.npcId) return { url: `${base}/npc=${source.npcId}`, tooltip: wowheadData('npc', source.npcId) };
+	if (source.kind === 'drop' && source.zoneId) return { url: `${base}/zone=${source.zoneId}` };
+	return undefined;
+}
 export const wowheadSpellUrl = (id: number) => `https://www.wowhead.com/forever/spell=${id}`;
 /** An enchanter's enchant is a spell on Wowhead; a kit, oil or arcanum is the item that applies it. */
 export const wowheadEnchantUrl = (enchant: { name: string; itemId?: number; spellId?: number }) =>

@@ -2,6 +2,7 @@ import { GEAR_SLOTS } from './constants';
 import type { GameData } from './gameData';
 import notAvailable from '../config/not-available.json';
 import quests from '../config/quests.json';
+import tierSetsJson from '../config/tierSets.json';
 import vendors from '../config/vendors.json';
 import { addStats, type HitSummary, hitSummary, pieceStats, vendorCurrency, vendorReputation } from './stats';
 
@@ -257,6 +258,29 @@ export function setChanges(base: Gear, variant: Gear, data: GameData): SetChange
 	return changes;
 }
 
+/** The eight slots a dungeon set has a piece for. */
+export const TIER_SLOTS: [kind: string, label: string][] = [
+	['head', 'Head'],
+	['shoulder', 'Shoulders'],
+	['chest', 'Chest'],
+	['wrist', 'Wrists'],
+	['hands', 'Hands'],
+	['waist', 'Waist'],
+	['legs', 'Legs'],
+	['feet', 'Feet'],
+];
+
+const TIER_SETS: Record<string, { tier0: number; tier05: number } | undefined> = tierSetsJson.byClass;
+
+/** The class's Tier 0 and Tier 0.5 set ids, if it has them. */
+export const tierSets = (spec: Pick<SpecConfig, 'classId'>) => TIER_SETS[String(spec.classId)];
+
+/** True for a piece of the class's Tier 0 or Tier 0.5 set. */
+export function isTierPiece(item: Item, spec: Pick<SpecConfig, 'classId'>): boolean {
+	const sets = tierSets(spec);
+	return item.setId !== undefined && !!sets && (item.setId === sets.tier0 || item.setId === sets.tier05);
+}
+
 /** Which kinds of item sources the upgrade lists include. */
 export interface SourceFilter {
 	drop: boolean;
@@ -267,7 +291,8 @@ export interface SourceFilter {
 	rep: boolean; // reputation rewards and quartermasters
 	pvp: boolean; // rank rewards and everything from battlegrounds: their reputations and quests
 	unknown: boolean; // items the data has no source for
-	tier05: boolean; // the class's Tier 0.5 set (spec.tier05Set)
+	/** The slots that may hold a piece of the class's Tier 0 or Tier 0.5 set (TIER_SLOTS). All = the planner takes what is best; none = no set piece at all. */
+	tierSlots: string[];
 	/** Items that drop with a random suffix ("of Shadow Wrath"), counted with the suffix that suits the spec best. */
 	randomSuffix: boolean;
 	/** Items from content that is in the data but not open in the game yet (src/config/not-available.json). */
@@ -290,7 +315,7 @@ export const DEFAULT_FILTER: SourceFilter = {
 	rep: true,
 	pvp: false,
 	unknown: true,
-	tier05: true,
+	tierSlots: ['head', 'shoulder', 'chest', 'wrist', 'hands', 'waist', 'legs', 'feet'],
 	randomSuffix: true,
 	notYetAvailable: false,
 	hiddenItems: [],
@@ -300,7 +325,7 @@ export const DEFAULT_FILTER: SourceFilter = {
 	excludedReputations: ['The Watchers'],
 };
 
-export type SourceKindKey = Exclude<keyof SourceFilter, 'tier05' | 'randomSuffix' | 'notYetAvailable' | 'hiddenItems' | 'ownCraftsOnly' | 'excludedDungeons' | 'excludedReputations'>;
+export type SourceKindKey = Exclude<keyof SourceFilter, 'tierSlots' | 'randomSuffix' | 'notYetAvailable' | 'hiddenItems' | 'ownCraftsOnly' | 'excludedDungeons' | 'excludedReputations'>;
 
 /** The reputation a source needs, if any: a reputation reward or a quartermaster's goods. */
 export const reputationOf = (source: ItemSource): string | undefined => (source.kind === 'rep' ? source.repFaction : vendorReputation(source));
@@ -354,7 +379,7 @@ export const EVERYTHING: SourceFilter = { ...DEFAULT_FILTER, pvp: true, randomSu
 
 /** Can this character get and use the item at all, given faction, professions and the filter? */
 export function isObtainable(item: Item, character: Character, faction: Faction | undefined, filter: SourceFilter, spec: SpecConfig): boolean {
-	if (!filter.tier05 && item.setId !== undefined && item.setId === spec.tier05Set?.setId) return false;
+	if (isTierPiece(item, spec) && !filter.tierSlots.includes(item.slot)) return false;
 	if (!filter.randomSuffix && item.randomSuffixOptions?.length) return false;
 	if (!filter.notYetAvailable && notYetAvailable(item)) return false;
 	if (filter.hiddenItems.includes(item.id)) return false;

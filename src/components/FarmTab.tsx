@@ -7,7 +7,7 @@ import type { GameData } from '../lib/gameData';
 import { guideMarks } from '../lib/guides';
 import { effortLine, effortParts, LOOT_DATE } from '../lib/loot';
 import type { SourceFilter } from '../lib/scoring';
-import { sourceLine, wowheadItemUrl, wowheadData } from '../lib/stats';
+import { sourceLine, wowheadItemUrl, wowheadData, wowheadSourceLink } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
 import { ItemIcon } from './ItemIcon';
 import { SuffixNote, suffixText } from './SuffixNote';
@@ -210,7 +210,15 @@ function ShoppingRow({ entry, data, inDungeon, onGot, guideSource }: { entry: Pl
 				</span>
 				<span className="shopping-where">
 					<span className="shopping-slot">{GEAR_SLOTS[entry.slotIndex].label}</span>
-					{guideSource ? `${guideSource.source} (per ${guideSource.guide.label})` : whereText(entry, data, inDungeon)}
+					{guideSource ? (
+						`${guideSource.source} (per ${guideSource.guide.label})`
+					) : wowheadSourceLink(entry.source) ? (
+						<a className="source-link" href={wowheadSourceLink(entry.source)!.url} data-wowhead={wowheadSourceLink(entry.source)!.tooltip} target="_blank" rel="noreferrer">
+							{whereText(entry, data, inDungeon)}
+						</a>
+					) : (
+						whereText(entry, data, inDungeon)
+					)}
 					{entry.source?.kind === 'crafted' && (entry.craftable ? ' (your profession)' : ' (not your profession)')}
 				</span>
 			</span>

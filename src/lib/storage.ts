@@ -53,6 +53,14 @@ export function saveWeights(specId: string, weights: Weights | null): void {
 const FILTER_KEY = 'forever-gear-planner.content.v1';
 
 /** The saved content choice. Settings added in a later version fall back to their defaults. */
+/** A saved content choice with today's fields: missing ones take their default, and the old Tier 0.5 switch becomes the slot list. */
+export function normalFilter(saved: Partial<SourceFilter> & { tier05?: boolean }): SourceFilter | null {
+	const { tier05, ...rest } = saved;
+	const merged: SourceFilter = { ...DEFAULT_FILTER, ...rest, ...(tier05 === false && !rest.tierSlots ? { tierSlots: [] } : {}) };
+	if (![merged.excludedDungeons, merged.excludedReputations, merged.hiddenItems, merged.tierSlots].every(Array.isArray)) return null;
+	return merged;
+}
+
 /** Counts changes to the default content choice that saved choices should pick up once. */
 const FILTER_DEFAULTS = 1;
 const FILTER_DEFAULTS_KEY = 'forever-gear-planner.filter.defaults';
@@ -65,15 +73,15 @@ export function loadFilter(): SourceFilter {
 			localStorage.setItem(FILTER_DEFAULTS_KEY, String(FILTER_DEFAULTS));
 			return DEFAULT_FILTER;
 		}
-		const merged = { ...DEFAULT_FILTER, ...saved };
+		const merged = normalFilter(saved);
+		if (!merged) return DEFAULT_FILTER;
 		// A reputation that became off by default is taken out of a saved choice once; ticking it again sticks.
 		const applied = Number(localStorage.getItem(FILTER_DEFAULTS_KEY) ?? 0);
-		if (applied < FILTER_DEFAULTS && Array.isArray(merged.excludedReputations)) {
+		if (applied < FILTER_DEFAULTS) {
 			merged.excludedReputations = [...new Set([...merged.excludedReputations, ...DEFAULT_FILTER.excludedReputations])];
 			localStorage.setItem(FILTER_KEY, JSON.stringify(merged));
 		}
 		localStorage.setItem(FILTER_DEFAULTS_KEY, String(FILTER_DEFAULTS));
-		if (!Array.isArray(merged.excludedDungeons) || !Array.isArray(merged.excludedReputations) || !Array.isArray(merged.hiddenItems)) return DEFAULT_FILTER;
 		return merged;
 	} catch {
 		return DEFAULT_FILTER;

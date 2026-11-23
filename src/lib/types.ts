@@ -128,6 +128,8 @@ export interface Character {
 	professions: string[];
 	/** Always GEAR_SLOTS.length entries, in GEAR_SLOTS order. null = empty slot. */
 	gear: (GearPiece | null)[];
+	/** This character's own content choice (dungeons, reputations, PvP, set slots ...). Unset = the browser's last saved choice. */
+	content?: import('./scoring').SourceFilter;
 	/** What-if swaps on top of the equipped gear: slot index -> item id. */
 	plan?: Record<number, number>;
 	/** Enchants the plan aims for: slot index -> enchant effectId. They apply to the planned gear only. */
