@@ -4551,3 +4551,22 @@ summary.breakdown-toggle:focus-visible {
 		bottom: 0.75rem;
 	}
 }
+
+/* The enchant a plan aims for, in the green of an enchant line in the game */
+.plan-enchant {
+	display: block;
+	font-size: 0.875rem;
+	color: #1eff00;
+}
+.plan-enchant-state {
+	margin-left: 0.5rem;
+	padding: 0 0.4rem;
+	font-size: 0.75rem;
+	color: var(--haze);
+	border: 1px solid var(--hairline);
+	border-radius: 3px;
+}
+.plan-enchant-open .plan-enchant-state {
+	color: var(--brass);
+	border-color: var(--brass-deep);
+}

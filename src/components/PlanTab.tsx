@@ -230,9 +230,9 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 									</span>
 								)}
 								{goalEnchant && (
-									<span className="slot-source">
-										Enchant: {goalEnchant.name}
-										{enchantOpen ? '' : ' (done)'}
+									<span className={enchantOpen ? 'plan-enchant plan-enchant-open' : 'plan-enchant'}>
+										{goalEnchant.name}
+										<span className="plan-enchant-state">{enchantOpen ? 'enchant to get' : 'enchant, you have it'}</span>
 									</span>
 								)}
 								{isChange && others.length > 0 && (
