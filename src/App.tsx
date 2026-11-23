@@ -4,6 +4,7 @@ import { CharacterSheet } from './components/CharacterSheet';
 import { EnchantsTab } from './components/EnchantsTab';
 import { castingShare, countsMending, mendingWeights } from './lib/sim/mending';
 import { NewsTab, newsUnseen } from './components/NewsTab';
+import { GearRails } from './components/GearRail';
 import { CharacterBar } from './components/CharacterBar';
 import { ClassIcon } from './components/ClassIcon';
 import { FarmTab } from './components/FarmTab';
@@ -27,8 +28,9 @@ import type { Character, SpecConfig } from './lib/types';
 
 const TABS = [
 	{ id: 'character', label: 'Character', step: 1 },
-	{ id: 'upgrades', label: 'Upgrades', step: 2 },
-	{ id: 'farm', label: 'Farm plan', step: 3 },
+	{ id: 'simulate', label: 'Simulation', step: 2 },
+	{ id: 'upgrades', label: 'Upgrades', step: 3 },
+	{ id: 'farm', label: 'Farm plan', step: 4 },
 	{ id: 'enchants', label: 'Enchants & professions' },
 	{ id: 'sim', label: 'Sim setup' },
 	{ id: 'news', label: 'News' },
@@ -253,7 +255,8 @@ export function App() {
 				)}
 				{character && !importing && (
 					<SimProvider character={character}>
-						{tab === 'upgrades' && (
+						{data && <GearRails spec={spec} character={character} data={data} />}
+						{tab === 'simulate' && (
 							<div className="view-switch" role="group" aria-label="How to pick upgrades">
 								<button className="view-choice" aria-pressed={upgradeView === 'slots'} onClick={() => setUpgradeView('slots')}>
 									<strong>Slot by slot</strong>
@@ -265,10 +268,10 @@ export function App() {
 								</button>
 							</div>
 						)}
-						{tab === 'upgrades' && baseSpec.role === 'healer' && <HealingPicker character={character} spec={spec} onChange={update} />}
-						{tab === 'upgrades' && upgradeView === 'plan' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} /> : <p>Loading item data…</p>)}
+						{tab === 'simulate' && baseSpec.role === 'healer' && <HealingPicker character={character} spec={spec} onChange={update} />}
+						{(tab === 'simulate' || tab === 'upgrades') && upgradeView === 'plan' && (data ? <PlanTab part={tab === 'simulate' ? 'sim' : 'list'} spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} /> : <p>Loading item data…</p>)}
 
-						{tab === 'upgrades' && upgradeView === 'slots' && (data ? <UpgradesTab spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
+						{(tab === 'simulate' || tab === 'upgrades') && upgradeView === 'slots' && (data ? <UpgradesTab part={tab === 'simulate' ? 'sim' : 'list'} spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
 
 						{tab === 'farm' && (data ? <FarmTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
 
@@ -307,7 +310,7 @@ export function App() {
 												className="button button-primary"
 												onClick={() => {
 													setUpgradeView('plan');
-													setTab('upgrades');
+													setTab('simulate');
 												}}>
 												Build my gear plan
 											</button>

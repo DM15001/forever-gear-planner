@@ -81,13 +81,14 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 						How many set pieces
 						<select value={filter.tierMinimum} onChange={e => set({ tierMinimum: Number(e.target.value) })}>
 							<option value={0}>Whatever is best</option>
-							{[2, 4, 6, 8].map(n => (
+							{[2, 3, 4, 6, 8].map(n => (
 								<option key={n} value={n} disabled={filter.tierSlots.length < n}>
 									At least {n} of one set
 								</option>
 							))}
 						</select>
 					</label>
+					{check('I do the Tier 0.5 questline (the upgraded dungeon set)', filter.tier05, on => set({ tier05: on }))}
 					{TIER_SLOTS.map(([kind, label]) => check(`${label} (set piece)`, filter.tierSlots.includes(kind), on => set({ tierSlots: on ? [...filter.tierSlots, kind] : filter.tierSlots.filter(slot => slot !== kind) })))}
 				</fieldset>
 			)}
@@ -110,7 +111,6 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 
 			<fieldset className="content-group">
 				<legend>Everything else</legend>
-				{tiers && check('Tier 0.5 questline (the upgraded dungeon set)', filter.tier05, on => set({ tier05: on }))}
 				{check('Random-suffix items ("of Shadow Wrath"), best roll', filter.randomSuffix, on => set({ randomSuffix: on }))}
 				{check('Items not in the game yet', filter.notYetAvailable, on => set({ notYetAvailable: on }))}
 				{check('Quest rewards', filter.quest, on => set({ quest: on }))}

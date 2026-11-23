@@ -28,21 +28,10 @@ interface Props {
 	defaultWeights: SpecConfig['weights'];
 	/** null resets to the defaults. */
 	onWeightsChange: (weights: SpecConfig['weights'] | null) => void;
+	/** 'sim': content, stat weights and the simulation. 'list': the possible upgrades per slot. */
+	part: 'sim' | 'list';
 }
 
-/** The yes/no parts of the content choice, as chips above the lists. */
-const FILTER_CHIPS: [key: 'quest' | 'crafted' | 'rep' | 'vendor' | 'currency' | 'drop' | 'pvp' | 'randomSuffix' | 'unknown' | 'notYetAvailable', label: string][] = [
-	['quest', 'Quests'],
-	['crafted', 'Crafted'],
-	['rep', 'Reputation'],
-	['vendor', 'Vendors'],
-	['currency', 'Currency vendors'],
-	['drop', 'World drops'],
-	['pvp', 'PvP'],
-	['randomSuffix', 'Random suffix'],
-	['unknown', 'Unknown source'],
-	['notYetAvailable', 'Not in game yet'],
-];
 /** How many items the list for a picked enemy or terrain shows. */
 const FIGHT_PICKS = 12;
 const SHORT_LIST = 6;
@@ -50,7 +39,7 @@ const SHORT_LIST = 6;
 const ALTERNATIVES = 5;
 const LONG_LIST = 25;
 
-export function UpgradesTab({ spec, character, data, onChange, filter, onFilterChange: setFilter, defaultWeights, onWeightsChange }: Props) {
+export function UpgradesTab({ spec, character, data, onChange, filter, onFilterChange: setFilter, defaultWeights, onWeightsChange, part }: Props) {
 	const [expanded, setExpanded] = useState<Set<number>>(new Set());
 	const [guideNotice, setGuideNotice] = useState<{
 		title: string;
@@ -208,6 +197,8 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 
 	return (
 		<div className="upgrades">
+			{part === 'sim' && (
+				<>
 			<details className="weights fold">
 				<summary>Content: dungeons, reputations, crafting and more</summary>
 				<ContentPicker spec={spec} character={character} data={data} filter={filter} onChange={setFilter} />
@@ -224,7 +215,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 			/>
 
 			<section className="panel summary" aria-labelledby="upgrades-title">
-				<h2 id="upgrades-title">Pick your upgrades</h2>
+				<h2 id="upgrades-title">Simulate your character</h2>
 				<div className="summary-scores">
 					<div>
 						<span className="field-label">Your plan, estimated</span>
@@ -302,7 +293,12 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 					</p>
 				</details>
 			</section>
+					<p className="hint part-pointer">The lists of possible upgrades are on the Upgrades tab.</p>
+				</>
+			)}
 
+			{part === 'list' && (
+				<>
 			{fightPicks && (
 				<section className="panel fight-picks" aria-label="Items for this fight">
 					<h3>Items with a bonus for this fight</h3>
@@ -335,16 +331,6 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 			)}
 
 			<SetStatus worn={character.gear} planned={gear} data={data} />
-			<div className="filter-chips" role="group" aria-label="What the lists include">
-				<span className="field-label">Showing</span>
-				{FILTER_CHIPS.map(([key, label]) => (
-					<button key={key} className="chip" aria-pressed={filter[key]} title={filter[key] ? `Leave out: ${label}` : `Include: ${label}`} onClick={() => setFilter({ ...filter, [key]: !filter[key] })}>
-						{label}
-					</button>
-				))}
-				<span className="slot-source">Dungeons and reputations: under Content above.</span>
-			</div>
-
 			<div className="slot-bar">
 				<p className="slot-bar-summary">
 					<span>
@@ -595,6 +581,8 @@ const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, open: char
 					</section>
 				);
 			})}
+				</>
+			)}
 		</div>
 	);
 }
