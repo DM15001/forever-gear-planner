@@ -70,10 +70,11 @@ if (!isMainThread) {
 		});
 		const ilvls = new Set(records.map(i => i.scalingOptions?.['0']?.ilvl));
 		const swapEnchants = new Set((player.itemSwap?.items ?? []).map(piece => piece?.enchant).filter(Boolean));
+		const swapSuffixes = new Set((player.itemSwap?.items ?? []).map(piece => piece?.randomSuffix).filter(Boolean));
 		player.database = {
 			items: records,
 			enchants: db.enchants.filter(e => swapEnchants.has(e.effectId)),
-			randomSuffixes: [],
+			randomSuffixes: (db.randomSuffixes ?? []).filter(suffix => swapSuffixes.has(suffix.id)),
 			itemEffectRandPropPoints: db.itemEffectRandPropPoints.filter(r => ilvls.has(r.ilvl)),
 			consumables: db.consumables,
 			spellEffects: db.spellEffects,
@@ -208,7 +209,7 @@ if (isMainThread) {
 				if (!message.ready) {
 					results.push(message);
 					done++;
-					if (message.error && message.task.kind === 'reference') console.warn(`  the reference run failed: ${message.error}`);
+					if (message.error && message.task.kind === 'reference') console.error(`  the reference run failed: ${message.error}`);
 					if (done % 25 === 0 || done === tasks.length) console.log(`  ${done}/${tasks.length} after ${Math.round((Date.now() - started) / 60000)} min`);
 				}
 				feed();
