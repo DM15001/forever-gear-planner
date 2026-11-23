@@ -4574,3 +4574,11 @@ summary.breakdown-toggle:focus-visible {
 .upgrade-head .plan-enchant {
 	margin: 0.15rem 0 0;
 }
+/* Class icons in a square frame, like item icons in the game. The pictures are the game's own and not all of
+   them sit in the middle of their square, so a round cut-out showed some of them off-centre. */
+.class-icon {
+	border-radius: 6px;
+}
+.class-icon-small {
+	border-radius: 3px;
+}
