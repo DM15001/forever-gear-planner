@@ -45,7 +45,9 @@ export const PROFESSION_ICONS: Record<string, string[]> = {
 export const raceIcons = (name: string): string[] => {
 	const key = name.toLowerCase().replace(/\s+/g, '');
 	const scourge = key === 'undead' ? 'scourge' : key;
-	return [`race_${scourge}_male`, `achievement_character_${key}_male`];
+	// The Skyborne have no portrait icon that could be found, so their faction's own racial ability stands in (Read Leyline, Skysight).
+	const racial = { highorderskyborne: 'ability_mage_incantersabsorbtion', windshaperskyborne: 'ability_skyreach_lens_flare' }[key];
+	return [`race_${scourge}_male`, `achievement_character_${key}_male`, ...(racial ? [racial] : [])];
 };
 
 /** A race's portrait, small, for a line of text or the corner of a class icon. Shows nothing when no image loads. */

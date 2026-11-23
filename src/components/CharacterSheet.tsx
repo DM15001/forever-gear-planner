@@ -103,12 +103,6 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 					<h3>Stats from gear</h3>
 					{stats && <StatsPanel stats={stats} character={character} spec={spec} />}
 				</div>
-
-			</div>
-
-			<div className="sheet-column">{SHEET_LAYOUT.right.map(i => slot(i, true))}</div>
-			<div className="sheet-weapons">{SHEET_LAYOUT.bottom.map(i => slot(i))}</div>
-			</div>
 			<div className="card sheet-details">
 				<h3>Character details</h3>
 				<label className="field-label" htmlFor="character-name">
@@ -183,7 +177,14 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 					</p>
 				)}
 
-				<div className="identity-actions">
+			</div>
+
+			</div>
+
+			<div className="sheet-column">{SHEET_LAYOUT.right.map(i => slot(i, true))}</div>
+			<div className="sheet-weapons">{SHEET_LAYOUT.bottom.map(i => slot(i))}</div>
+			</div>
+				<div className="card sheet-actions identity-actions">
 					<button className="button" onClick={removeAllEnchants} disabled={enchantCount === 0}>
 						Remove all enchants{enchantCount > 0 ? ` (${enchantCount})` : ''}
 					</button>
@@ -199,7 +200,6 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 						Remove this character
 					</button>
 				</div>
-			</div>
 			{enchanting !== null && data && (
 				<EnchantPicker
 					slotIndex={enchanting}

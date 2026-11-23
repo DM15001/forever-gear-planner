@@ -21,10 +21,10 @@ export const GEAR_SLOTS: { key: string; label: string; kind: SlotKind }[] = [
 	{ key: 'ranged', label: 'Relic or wand', kind: 'ranged' },
 ];
 
-/** The in-game character pane: armor down the left, the rest down the right, weapons along the bottom. */
+/** Like the in-game character pane, with seven slots a side so the columns end level: armor left, the rest right, weapons along the bottom. */
 export const SHEET_LAYOUT = {
-	left: [0, 1, 2, 3, 4, 5],
-	right: [6, 7, 8, 9, 10, 11, 12, 13],
+	left: [0, 1, 2, 3, 4, 5, 6],
+	right: [7, 8, 9, 10, 11, 12, 13],
 	bottom: [14, 15, 16],
 };
 

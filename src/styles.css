@@ -3691,3 +3691,33 @@ a.enchant-gives:hover {
 	width: 1.15rem;
 	height: 1.15rem;
 }
+
+/* Character details sit in the middle column, under the stats, so the three columns end at about the same height */
+.sheet-center .sheet-details {
+	margin-top: 0;
+	columns: auto;
+}
+.sheet-center .sheet-details .fight-tile {
+	width: 4.4rem;
+}
+
+/* What can be done with the character, in one row under the weapons */
+.sheet-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.6rem 0.75rem;
+	margin-top: 1.25rem;
+	padding: 0.8rem 1rem;
+}
+.sheet-actions .button {
+	width: auto;
+	margin: 0;
+}
+.sheet-actions .hint {
+	flex: 1 1 16rem;
+	margin: 0;
+}
+.sheet-actions .link-danger {
+	margin-left: auto;
+}
