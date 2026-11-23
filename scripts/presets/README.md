@@ -20,6 +20,9 @@ They expect:
 | `mkbuilds3.mjs` | Warrior Fury and Arms. |
 | `mkbuilds4.mjs` | The six Rogue builds. |
 | `mkbuilds5.mjs` | Druid Balance and Feral Cat. |
+| `extract-bundle.mjs` | Reads presets that WoWSims writes in its .siml format out of the built site's bundle. |
+| `mkbuilds6.mjs` | Hunter (five builds) and Retribution Paladin (two), from `extract-bundle.mjs`' output. |
+| `weights-melee.mjs` | Measures stat weights in attack-power units (used to check Retribution). |
 | `weights.mjs` | Measures stat weights for builds WoWSims ships none for (one run per stat). |
 | `class-capabilities.py` | Reads armor, weapons and races per class from WoWSims. |
 | `make-guide.py` | Turns "slot|item name" lines into a guide file. |

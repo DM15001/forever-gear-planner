@@ -44,6 +44,8 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 	};
 	const race = spec.races.find(r => r.id === character.race);
 	const enchantCount = character.gear.filter(piece => piece?.enchant).length;
+	// Worn items that come with a random suffix, where none is chosen yet.
+	const noSuffix = data ? character.gear.flatMap((piece, index) => (piece && !piece.randomSuffix && data.itemById.get(piece.id)?.randomSuffixOptions?.length ? [GEAR_SLOTS[index].label] : [])) : [];
 	const stats = data ? gearStats(character, data) : null;
 
 	const setPiece = (index: number, piece: GearPiece | null) => onChange({ ...character, gear: character.gear.map((old, i) => (i === index ? piece : old)) });
@@ -93,6 +95,15 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 				</div>
 				{next && <div className="sheet-next">{next}</div>}
 			</header>
+			{noSuffix.length > 0 && (
+				<p className="notice sheet-notice">
+					<strong>
+						{noSuffix.length === 1 ? 'One item has' : `${noSuffix.length} items have`} a random suffix the export does not name: {noSuffix.join(', ')}.
+					</strong>{' '}
+					The addon leaves out which one ("of Healing", "of the Owl" ...), so {noSuffix.length === 1 ? 'it counts' : 'they count'} with no stats until you pick it under the item. Upgrades for
+					{noSuffix.length === 1 ? ' that slot' : ' those slots'} look bigger than they are until then.
+				</p>
+			)}
 			<div className="sheet">
 			<div className="sheet-column">{SHEET_LAYOUT.left.map(i => slot(i))}</div>
 

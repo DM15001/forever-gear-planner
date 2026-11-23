@@ -1,0 +1,111 @@
+{
+	"id": "hunter-mm",
+	"name": "Hunter: Marksmanship",
+	"preset": "MM",
+	"talents": "5-0053452511522051-5",
+	"classId": 3,
+	"className": "hunter",
+	"simKey": "hunter",
+	"races": [
+		{
+			"id": "RaceHuman",
+			"name": "Human",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceDwarf",
+			"name": "Dwarf",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceNightElf",
+			"name": "Night Elf",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceHighOrderSkyborne",
+			"name": "High Order Skyborne",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceOrc",
+			"name": "Orc",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceTauren",
+			"name": "Tauren",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceTroll",
+			"name": "Troll",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceWindshaperSkyborne",
+			"name": "Windshaper Skyborne",
+			"faction": "horde"
+		}
+	],
+	"armorTypes": [
+		"cloth",
+		"leather",
+		"mail"
+	],
+	"weaponTypes": {
+		"oneHand": [
+			"axe",
+			"dagger",
+			"fist",
+			"sword"
+		],
+		"twoHand": [
+			"axe",
+			"polearm",
+			"staff",
+			"sword"
+		],
+		"offHand": []
+	},
+	"rangedTypes": [
+		"bow",
+		"crossbow",
+		"gun"
+	],
+	"canDualWield": true,
+	"weaponSetup": "either",
+	"simBuilds": [
+		{
+			"id": "wowsims",
+			"label": "WoWSims",
+			"title": "WoWSims preset set",
+			"local": "scripts/builds/hunter-mm.build.json"
+		}
+	],
+	"hitCapPercent": 8,
+	"ratingPerPercent": {
+		"hitRating": 10,
+		"critRating": 14,
+		"hasteRating": 10,
+		"expertiseRating": 10
+	},
+	"raceBonuses": {},
+	"weights": {
+		"source": "WoWSims Forever, Hunter 'Turret' EP preset (ui/specs/hunter/dps/presets.ts). 1 point = 1 agility.",
+		"mainHandDps": 0,
+		"rangedDps": 3.29,
+		"hitRatingOverCap": 0,
+		"dpsPerPoint": 0.89,
+		"stats": {
+			"agility": 1,
+			"intellect": 0.64,
+			"rangedAttackPower": 0.34,
+			"hitRating": 1.26,
+			"critRating": 0.87,
+			"hasteRating": 0.75,
+			"mp5": 0.41
+		}
+	},
+	"hitBonusPercent": 2
+}

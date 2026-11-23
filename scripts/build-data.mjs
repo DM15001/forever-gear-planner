@@ -176,6 +176,8 @@ const SPEC_DIRS = {
 	rogue: 'rogue/dps',
 	warlock: 'warlock/dps',
 	dpsWarrior: 'warrior/dps',
+	hunter: 'hunter/dps',
+	retributionPaladin: 'paladin/retribution',
 };
 const timingCache = new Map();
 /**
@@ -278,7 +280,10 @@ function convertItem(item) {
 					damageMin: scaling.weaponDamageMin,
 					damageMax: scaling.weaponDamageMax,
 				})
-			: undefined;
+			: slot === 'ranged' && scaling.unroundedDps
+				? // Bows, guns and crossbows: what a Hunter's shots are built on.
+					compact({ speed: item.weaponSpeed, dps: round(scaling.unroundedDps), damageMin: scaling.weaponDamageMin, damageMax: scaling.weaponDamageMax })
+				: undefined;
 	return compact({
 		id: item.id,
 		name: item.name,

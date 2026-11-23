@@ -25,6 +25,13 @@ import warlockDemoFire from '../specs/warlock-demo-fire.json';
 import warlockDemoShadow from '../specs/warlock-demo-shadow.json';
 import warlockDestruction from '../specs/warlock-destruction.json';
 import warlockSmRuin from '../specs/warlock-sm-ruin.json';
+import hunterMm from '../specs/hunter-mm.json';
+import hunterBm from '../specs/hunter-bm.json';
+import hunterSv from '../specs/hunter-sv.json';
+import hunterSvWeave from '../specs/hunter-sv-weave.json';
+import hunterSvMelee from '../specs/hunter-sv-melee.json';
+import paladinRet from '../specs/paladin-ret.json';
+import paladinRetHolyShock from '../specs/paladin-ret-holy-shock.json';
 import type { Character, Enchant, Item, SpecConfig } from './types';
 
 /** Every spec the planner knows, in the order they are offered. */
@@ -42,13 +49,14 @@ function inDps(spec: SpecConfig): SpecConfig {
 			...spec.weights,
 			mainHandDps: scale(spec.weights.mainHandDps),
 			...(spec.weights.offHandDps !== undefined ? { offHandDps: scale(spec.weights.offHandDps) } : {}),
+			...(spec.weights.rangedDps !== undefined ? { rangedDps: scale(spec.weights.rangedDps) } : {}),
 			hitRatingOverCap: scale(spec.weights.hitRatingOverCap),
 			stats: Object.fromEntries(Object.entries(spec.weights.stats).map(([key, value]) => [key, scale(value)])),
 		},
 	};
 }
 
-export const SPECS = ([enhancementShaman, elementalShaman, warlockSmRuin, warlockDestruction, warlockAffliction, warlockDemoFire, warlockDemoShadow, priestShadow, priestSmite, priestHoly, priestDisc, mageFire, mageFrost, mageFrostIncin, mageArcane, mageArcaneFire, mageFfb, warriorFury, warriorArms, rogueCombatSs, rogueCombatBs, rogueCombatVenom, rogueAsnMuti, rogueSubHemo, rogueHemoSf, druidBalance, druidCat] as unknown as SpecConfig[]).map(inDps);
+export const SPECS = ([enhancementShaman, elementalShaman, warlockSmRuin, warlockDestruction, warlockAffliction, warlockDemoFire, warlockDemoShadow, priestShadow, priestSmite, priestHoly, priestDisc, mageFire, mageFrost, mageFrostIncin, mageArcane, mageArcaneFire, mageFfb, warriorFury, warriorArms, rogueCombatSs, rogueCombatBs, rogueCombatVenom, rogueAsnMuti, rogueSubHemo, rogueHemoSf, druidBalance, druidCat, hunterMm, hunterBm, hunterSv, hunterSvWeave, hunterSvMelee, paladinRet, paladinRetHolyShock] as unknown as SpecConfig[]).map(inDps);
 
 export const DEFAULT_SPEC = SPECS[0];
 

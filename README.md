@@ -9,7 +9,7 @@ It is a fan project, not affiliated with or endorsed by Blizzard.
 
 ## What it covers
 
-Damage builds of seven classes, each one a preset configuration that WoWSims ships:
+Damage builds of all nine classes, each one a preset configuration that WoWSims ships:
 
 | Class | Builds |
 |---|---|
@@ -20,9 +20,11 @@ Damage builds of seven classes, each one a preset configuration that WoWSims shi
 | Warrior | Fury, Arms |
 | Rogue | Combat SS, Combat BS, Combat Venom, Asn Muti, Subtlety Hemo, Hemo Seal Fate |
 | Druid | Balance, Feral Cat |
+| Hunter | MM, BM, SV, SV Weave, SV Melee |
+| Paladin | Retribution: Unsealed Wrath, Holy Shock |
 
 Healing is covered for the Priest (Holy and Discipline), scored in healing per second instead
-of DPS, see below. Hunter, Paladin, the other healers and tank specs are not covered. Raid
+of DPS, see below. The other healers and tank specs are not covered. Raid
 items are not in the data.
 
 ## What it does

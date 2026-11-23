@@ -186,6 +186,13 @@ export const ROTATION_SOURCES: Record<string, string> = {
 	'mage-ffb': 'ui/specs/mage/dps/apls/ffb.apl.json',
 	'mage-frost-incin': 'ui/specs/mage/dps/apls/frost.apl.json',
 	'priest-smite': 'ui/specs/priest/dps/builds/smite_testing.build.json',
+	'hunter-mm': 'ui/specs/hunter/dps/apls/turret.apl.siml',
+	'hunter-bm': 'ui/specs/hunter/dps/apls/turret_hawk.apl.siml',
+	'hunter-sv': 'ui/specs/hunter/dps/apls/turret.apl.siml',
+	'hunter-sv-weave': 'ui/specs/hunter/dps/apls/default.apl.siml',
+	'hunter-sv-melee': 'ui/specs/hunter/dps/apls/melee.apl.siml',
+	'paladin-ret': 'ui/specs/paladin/retribution/apls/default.apl.siml',
+	'paladin-ret-holy-shock': 'ui/specs/paladin/retribution/apls/holy_shock.apl.siml',
 };
 export const rotationSourceUrl = (specId: string) => (ROTATION_SOURCES[specId] ? `https://github.com/wowsims/forever/blob/master/${ROTATION_SOURCES[specId]}` : undefined);
 

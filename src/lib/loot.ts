@@ -1,6 +1,7 @@
 import atlasConfig from '../config/atlasloot/sources.json';
 import classicConfig from '../config/droprates.classic.json';
 import encounterConfig from '../config/encounters.json';
+import manualConfig from '../config/sources.manual.json';
 import lootConfig from '../config/wowhead/loot.json';
 import type { Faction, Item, ItemSource, Npc, Zone } from './types';
 
@@ -9,6 +10,8 @@ interface LootEntry {
 	containers?: { name: string; zoneId?: number; count: number; outOf: number }[];
 	quests?: { questId: number; name: string; faction?: Faction }[];
 	crafted?: { spellId: number; profession: string };
+	/** A random drop from many creatures (bind on equip): in practice an auction house item. */
+	worldDrop?: boolean;
 }
 interface Encounter {
 	chance: number;
@@ -20,6 +23,9 @@ const LOOT = lootConfig as unknown as { fetchedAt: string; items: Record<string,
 const ATLAS = atlasConfig as unknown as { zones: Zone[]; sources: Record<string, { zoneId: number; boss: string; npcId?: number }[]> };
 const CLASSIC = (classicConfig as unknown as { rates: Record<string, Record<string, number>> }).rates;
 const ENCOUNTERS = encounterConfig as unknown as Record<string, Encounter | string>;
+
+/** Item ids from here on are new in Forever. */
+const FIRST_FOREVER_ITEM = 200000;
 
 /** The day the Wowhead loot numbers were read. */
 export const LOOT_DATE = LOOT.fetchedAt;
@@ -44,7 +50,9 @@ export function applyLoot(itemById: Map<number, Item>, npcById: Map<number, Npc>
 	for (const [id, npc] of Object.entries(LOOT.npcs)) {
 		if (!npcById.has(Number(id))) npcById.set(Number(id), { id: Number(id), ...npc });
 	}
-	for (const [id, entry] of Object.entries(LOOT.items)) {
+	// Hand-kept sources win over the fetched ones for the same item.
+	const MANUAL = (manualConfig as unknown as { items: Record<string, LootEntry> }).items;
+	for (const [id, entry] of Object.entries({ ...LOOT.items, ...MANUAL })) {
 		const item = itemById.get(Number(id));
 		if (!item) continue;
 		if (!item.sources?.length) {
@@ -93,6 +101,13 @@ export function applyLoot(itemById: Map<number, Item>, npcById: Map<number, Npc>
 			source.spawnNote = encounter.note;
 		}
 	}
+	// What is left without a source and is an item of the original game (ids below 200,000) is, almost always, a
+	// bind-on-equip random drop: the WoWSims data only lists bosses, quests, vendors and crafts. They are taken as
+	// world drops, marked as assumed. Items new in Forever stay "source unknown": nothing says where they are from.
+	for (const item of itemById.values()) {
+		if (item.sources?.length || item.id >= FIRST_FOREVER_ITEM) continue;
+		item.sources = [{ kind: 'drop', otherName: 'World drop', assumed: true }];
+	}
 }
 
 /** Sources for an item the WoWSims data has none for. Drops under 1% are left out: nobody farms those on purpose. */
@@ -110,7 +125,7 @@ function sourcesFrom(entry: LootEntry, npcById: Map<number, Npc>, zoneById: Map<
 	for (const quest of entry.quests ?? []) sources.push({ kind: 'quest', questId: quest.questId, name: quest.name, faction: quest.faction });
 	if (entry.crafted) sources.push({ kind: 'crafted', profession: entry.crafted.profession, spellId: entry.crafted.spellId });
 	// Only tiny chances from many creatures or chests: a random world drop, in practice an auction house item.
-	if (!sources.length && (entry.drops?.length || entry.containers?.length)) sources.push({ kind: 'drop', otherName: 'World drop' });
+	if (!sources.length && (entry.worldDrop || entry.drops?.length || entry.containers?.length)) sources.push({ kind: 'drop', otherName: 'World drop' });
 	return sources;
 }
 

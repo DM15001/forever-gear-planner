@@ -2896,6 +2896,12 @@
 		"stats": {
 			"strength": 3,
 			"agility": 3
+		},
+		"weapon": {
+			"speed": 2.3,
+			"dps": 13.43,
+			"damageMin": 21,
+			"damageMax": 40
 		}
 	},
 	{
@@ -2907,6 +2913,12 @@
 		"quality": "epic",
 		"ilvl": 58,
 		"reqLvl": 53,
+		"weapon": {
+			"speed": 2.9,
+			"dps": 32.89,
+			"damageMin": 66,
+			"damageMax": 124
+		},
 		"effects": [
 			{
 				"name": "Flaming Cannonball (29639)",
@@ -2927,6 +2939,12 @@
 		"stats": {
 			"agility": 7,
 			"critRating": 7
+		},
+		"weapon": {
+			"speed": 2.7,
+			"dps": 27.99,
+			"damageMin": 52,
+			"damageMax": 98
 		}
 	},
 	{
@@ -3823,6 +3841,12 @@
 		"quality": "epic",
 		"ilvl": 53,
 		"reqLvl": 48,
+		"weapon": {
+			"speed": 2.7,
+			"dps": 30.37,
+			"damageMin": 57,
+			"damageMax": 107
+		},
 		"effects": [
 			{
 				"name": "Frost Arrow (1316319)",
@@ -3839,6 +3863,12 @@
 		"quality": "epic",
 		"ilvl": 42,
 		"reqLvl": 37,
+		"weapon": {
+			"speed": 2.7,
+			"dps": 25.18,
+			"damageMin": 47,
+			"damageMax": 88
+		},
 		"effects": [
 			{
 				"name": "Searing Arrow (29638)",
@@ -4157,6 +4187,12 @@
 		"reqLvl": 20,
 		"stats": {
 			"agility": 1
+		},
+		"weapon": {
+			"speed": 2.7,
+			"dps": 12.68,
+			"damageMin": 23,
+			"damageMax": 45
 		}
 	},
 	{
@@ -4185,6 +4221,12 @@
 		"quality": "rare",
 		"ilvl": 27,
 		"reqLvl": 22,
+		"weapon": {
+			"speed": 2.4,
+			"dps": 13.43,
+			"damageMin": 22,
+			"damageMax": 42
+		},
 		"effects": [
 			{
 				"name": "Pierce Heart (1292647)",
@@ -4602,6 +4644,12 @@
 		"quality": "uncommon",
 		"ilvl": 44,
 		"reqLvl": 39,
+		"weapon": {
+			"speed": 3,
+			"dps": 20.23,
+			"damageMin": 42,
+			"damageMax": 79
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -5247,6 +5295,12 @@
 		"quality": "uncommon",
 		"ilvl": 41,
 		"reqLvl": 36,
+		"weapon": {
+			"speed": 1.9,
+			"dps": 18.1,
+			"damageMin": 24,
+			"damageMax": 45
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -5338,6 +5392,12 @@
 		"quality": "uncommon",
 		"ilvl": 48,
 		"reqLvl": 43,
+		"weapon": {
+			"speed": 2.3,
+			"dps": 22.4,
+			"damageMin": 36,
+			"damageMax": 67
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -5661,6 +5721,12 @@
 		"stats": {
 			"agility": 4,
 			"intellect": 3
+		},
+		"weapon": {
+			"speed": 1.9,
+			"dps": 17.4,
+			"damageMin": 23,
+			"damageMax": 43
 		},
 		"sources": [
 			{
@@ -6312,6 +6378,12 @@
 			"stamina": 4,
 			"healingPower": 3,
 			"spellDamage": 3
+		},
+		"weapon": {
+			"speed": 1.3,
+			"dps": 32.87,
+			"damageMin": 29,
+			"damageMax": 56
 		},
 		"sources": [
 			{
@@ -7207,6 +7279,12 @@
 		"quality": "rare",
 		"ilvl": 22,
 		"reqLvl": 17,
+		"weapon": {
+			"speed": 1.3,
+			"dps": 22.33,
+			"damageMin": 20,
+			"damageMax": 38
+		},
 		"effects": [
 			{
 				"name": "Cookie's Stirring Rod (1322312)",
@@ -7345,6 +7423,12 @@
 		"quality": "uncommon",
 		"ilvl": 41,
 		"reqLvl": 36,
+		"weapon": {
+			"speed": 1.5,
+			"dps": 33.64,
+			"damageMin": 35,
+			"damageMax": 66
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -7382,6 +7466,12 @@
 		"quality": "uncommon",
 		"ilvl": 45,
 		"reqLvl": 40,
+		"weapon": {
+			"speed": 1.5,
+			"dps": 36.13,
+			"damageMin": 37,
+			"damageMax": 70
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -7419,6 +7509,12 @@
 		"quality": "rare",
 		"ilvl": 23,
 		"reqLvl": 18,
+		"weapon": {
+			"speed": 1.7,
+			"dps": 23.36,
+			"damageMin": 27,
+			"damageMax": 52
+		},
 		"effects": [
 			{
 				"name": "Firebelch (1291686)",
@@ -7448,6 +7544,12 @@
 			"stamina": 4,
 			"spirit": 3
 		},
+		"weapon": {
+			"speed": 1.9,
+			"dps": 32.87,
+			"damageMin": 43,
+			"damageMax": 81
+		},
 		"sources": [
 			{
 				"kind": "quest",
@@ -7469,6 +7571,12 @@
 			"healingPower": 6,
 			"spellDamage": 6
 		},
+		"weapon": {
+			"speed": 1.3,
+			"dps": 32.87,
+			"damageMin": 29,
+			"damageMax": 56
+		},
 		"sources": [
 			{
 				"kind": "quest",
@@ -7489,6 +7597,12 @@
 		"stats": {
 			"intellect": 4,
 			"spirit": 3
+		},
+		"weapon": {
+			"speed": 2,
+			"dps": 32.87,
+			"damageMin": 46,
+			"damageMax": 85
 		},
 		"sources": [
 			{
@@ -8773,6 +8887,12 @@
 		"quality": "rare",
 		"ilvl": 24,
 		"reqLvl": 19,
+		"weapon": {
+			"speed": 2.4,
+			"dps": 12.29,
+			"damageMin": 20,
+			"damageMax": 38
+		},
 		"effects": [
 			{
 				"name": "Venom Shot (29653)",
@@ -9559,6 +9679,12 @@
 		"stats": {
 			"agility": 3,
 			"shadowResistance": 5
+		},
+		"weapon": {
+			"speed": 1.7,
+			"dps": 17.4,
+			"damageMin": 20,
+			"damageMax": 38
 		},
 		"sources": [
 			{
@@ -10496,6 +10622,51 @@
 		]
 	},
 	{
+		"id": 6953,
+		"name": "Verigan's Fist",
+		"icon": "inv_hammer_05",
+		"slot": "weapon",
+		"quality": "rare",
+		"ilvl": 31,
+		"stats": {
+			"stamina": 5,
+			"intellect": 6,
+			"spirit": 10
+		},
+		"fightTags": {
+			"families": [
+				"EarthElemental",
+				"FireElemental"
+			]
+		},
+		"weapon": {
+			"type": "mace",
+			"hand": "twoHand",
+			"speed": 3.2,
+			"dps": 25.7,
+			"damageMin": 65,
+			"damageMax": 99
+		},
+		"classes": [
+			2
+		],
+		"effects": [
+			{
+				"name": "Holy Forgefire (1322218)",
+				"kind": "proc",
+				"ppm": 2.2
+			}
+		],
+		"sources": [
+			{
+				"kind": "quest",
+				"questId": 1806,
+				"name": "The Test of Righteousness",
+				"faction": "alliance"
+			}
+		]
+	},
+	{
 		"id": 6972,
 		"name": "Fire Hardened Hauberk",
 		"icon": "inv_chest_chain_07",
@@ -10627,6 +10798,12 @@
 		"stats": {
 			"shadowDamage": 6,
 			"spirit": 3
+		},
+		"weapon": {
+			"speed": 1.5,
+			"dps": 29.17,
+			"damageMin": 30,
+			"damageMax": 57
 		},
 		"sources": [
 			{
@@ -12491,6 +12668,12 @@
 			"intellect": 3,
 			"fireDamage": 9
 		},
+		"weapon": {
+			"speed": 1.4,
+			"dps": 37.33,
+			"damageMin": 36,
+			"damageMax": 68
+		},
 		"classes": [
 			8
 		],
@@ -12513,6 +12696,12 @@
 		"stats": {
 			"intellect": 3,
 			"frostDamage": 9
+		},
+		"weapon": {
+			"speed": 1.6,
+			"dps": 37.33,
+			"damageMin": 41,
+			"damageMax": 78
 		},
 		"classes": [
 			8
@@ -14599,6 +14788,12 @@
 			"spellDamage": 3,
 			"shadowResistance": 4
 		},
+		"weapon": {
+			"speed": 1.4,
+			"dps": 33.64,
+			"damageMin": 32,
+			"damageMax": 61
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -15045,6 +15240,12 @@
 		"reqLvl": 28,
 		"stats": {
 			"stamina": 6
+		},
+		"weapon": {
+			"speed": 2.3,
+			"dps": 16.72,
+			"damageMin": 26,
+			"damageMax": 50
 		},
 		"sources": [
 			{
@@ -20342,6 +20543,12 @@
 			"spellDamage": 3,
 			"natureResistance": 5
 		},
+		"weapon": {
+			"speed": 1.7,
+			"dps": 35.63,
+			"damageMin": 42,
+			"damageMax": 79
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -20938,6 +21145,12 @@
 			"strength": 5,
 			"stamina": 5
 		},
+		"weapon": {
+			"speed": 2.3,
+			"dps": 22.86,
+			"damageMin": 36,
+			"damageMax": 68
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -21286,6 +21499,12 @@
 		"quality": "rare",
 		"ilvl": 47,
 		"reqLvl": 42,
+		"weapon": {
+			"speed": 2.6,
+			"dps": 24.72,
+			"damageMin": 44,
+			"damageMax": 84
+		},
 		"effects": [
 			{
 				"name": "Fire Blast (29644)",
@@ -21519,6 +21738,12 @@
 		"stats": {
 			"shadowResistance": 8
 		},
+		"weapon": {
+			"speed": 2.9,
+			"dps": 22.86,
+			"damageMin": 46,
+			"damageMax": 86
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -21637,6 +21862,12 @@
 		"stats": {
 			"strength": 6,
 			"agility": 3
+		},
+		"weapon": {
+			"speed": 2.7,
+			"dps": 21.94,
+			"damageMin": 41,
+			"damageMax": 77
 		},
 		"sources": [
 			{
@@ -22225,6 +22456,12 @@
 		"stats": {
 			"attackPower": 12,
 			"rangedAttackPower": 12
+		},
+		"weapon": {
+			"speed": 2.9,
+			"dps": 18.1,
+			"damageMin": 36,
+			"damageMax": 68
 		},
 		"sources": [
 			{
@@ -22819,6 +23056,12 @@
 		"stats": {
 			"fireResistance": 6
 		},
+		"weapon": {
+			"speed": 1.8,
+			"dps": 47.27,
+			"damageMin": 59,
+			"damageMax": 111
+		},
 		"effects": [
 			{
 				"name": "Incinerator (1294530)",
@@ -22938,6 +23181,12 @@
 		"stats": {
 			"defenseRating": 3
 		},
+		"weapon": {
+			"speed": 2.3,
+			"dps": 14.32,
+			"damageMin": 23,
+			"damageMax": 43
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -22987,6 +23236,12 @@
 		"reqLvl": 26,
 		"stats": {
 			"frostResistance": 5
+		},
+		"weapon": {
+			"speed": 1.4,
+			"dps": 30.61,
+			"damageMin": 29,
+			"damageMax": 56
 		},
 		"sources": [
 			{
@@ -24149,6 +24404,12 @@
 		"stats": {
 			"intellect": 5,
 			"spirit": 5
+		},
+		"weapon": {
+			"speed": 1.8,
+			"dps": 41.47,
+			"damageMin": 52,
+			"damageMax": 97
 		},
 		"sources": [
 			{
@@ -42386,6 +42647,12 @@
 		"stats": {
 			"agility": 5
 		},
+		"weapon": {
+			"speed": 2.9,
+			"dps": 18.1,
+			"damageMin": 36,
+			"damageMax": 68
+		},
 		"sources": [
 			{
 				"kind": "crafted",
@@ -42405,6 +42672,12 @@
 		"reqLvl": 39,
 		"stats": {
 			"rangedAttackPower": 14
+		},
+		"weapon": {
+			"speed": 2.9,
+			"dps": 20.23,
+			"damageMin": 41,
+			"damageMax": 76
 		},
 		"sources": [
 			{
@@ -42519,6 +42792,12 @@
 		"quality": "rare",
 		"ilvl": 38,
 		"reqLvl": 33,
+		"weapon": {
+			"speed": 2.8,
+			"dps": 20.23,
+			"damageMin": 39,
+			"damageMax": 74
+		},
 		"effects": [
 			{
 				"name": "Quill Shot (29646)",
@@ -42621,6 +42900,12 @@
 		"reqLvl": 34,
 		"stats": {
 			"frostDamage": 10
+		},
+		"weapon": {
+			"speed": 1.3,
+			"dps": 36.13,
+			"damageMin": 32,
+			"damageMax": 61
 		},
 		"classes": [
 			8
@@ -42900,6 +43185,12 @@
 			"strength": 3,
 			"attackPower": 14,
 			"rangedAttackPower": 14
+		},
+		"weapon": {
+			"speed": 2.1,
+			"dps": 24.72,
+			"damageMin": 36,
+			"damageMax": 67
 		},
 		"sources": [
 			{
@@ -43510,6 +43801,12 @@
 		"ilvl": 46,
 		"stats": {
 			"spirit": 6
+		},
+		"weapon": {
+			"speed": 1.4,
+			"dps": 37.33,
+			"damageMin": 36,
+			"damageMax": 68
 		},
 		"sources": [
 			{
@@ -44259,6 +44556,12 @@
 			"healingPower": 6,
 			"spellDamage": 6,
 			"shadowResistance": 5
+		},
+		"weapon": {
+			"speed": 1.6,
+			"dps": 39.29,
+			"damageMin": 44,
+			"damageMax": 82
 		},
 		"sources": [
 			{
@@ -45820,6 +46123,12 @@
 		"stats": {
 			"natureResistance": 10
 		},
+		"weapon": {
+			"speed": 1.3,
+			"dps": 54.97,
+			"damageMin": 50,
+			"damageMax": 93
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -46442,6 +46751,12 @@
 			"intellect": 3,
 			"arcaneDamage": 9
 		},
+		"weapon": {
+			"speed": 1.5,
+			"dps": 37.33,
+			"damageMin": 39,
+			"damageMax": 73
+		},
 		"classes": [
 			8
 		],
@@ -46514,6 +46829,12 @@
 		"stats": {
 			"blockValue": 9
 		},
+		"weapon": {
+			"speed": 2.8,
+			"dps": 21.94,
+			"damageMin": 43,
+			"damageMax": 80
+		},
 		"sources": [
 			{
 				"kind": "vendor",
@@ -46549,6 +46870,12 @@
 		"reqLvl": 44,
 		"stats": {
 			"natureResistance": 6
+		},
+		"weapon": {
+			"speed": 2,
+			"dps": 22.86,
+			"damageMin": 32,
+			"damageMax": 59
 		},
 		"sources": [
 			{
@@ -46971,6 +47298,12 @@
 				"Beast"
 			]
 		},
+		"weapon": {
+			"speed": 1.8,
+			"dps": 27.52,
+			"damageMin": 34,
+			"damageMax": 64
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -47009,6 +47342,12 @@
 			"mobTypes": [
 				"Beast"
 			]
+		},
+		"weapon": {
+			"speed": 2.3,
+			"dps": 27.52,
+			"damageMin": 44,
+			"damageMax": 82
 		},
 		"sources": [
 			{
@@ -47822,6 +48161,12 @@
 		"stats": {
 			"fireDamage": 13,
 			"spirit": 3
+		},
+		"weapon": {
+			"speed": 1.8,
+			"dps": 52.39,
+			"damageMin": 66,
+			"damageMax": 123
 		},
 		"sources": [
 			{
@@ -49101,6 +49446,12 @@
 			"intellect": 4,
 			"healingPower": 5,
 			"spellDamage": 5
+		},
+		"weapon": {
+			"speed": 1.5,
+			"dps": 37.33,
+			"damageMin": 39,
+			"damageMax": 73
 		},
 		"sources": [
 			{
@@ -55311,6 +55662,12 @@
 			"spellPiercing": 2,
 			"shadowResistance": 9
 		},
+		"weapon": {
+			"speed": 1.4,
+			"dps": 59.86,
+			"damageMin": 58,
+			"damageMax": 109
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -56036,6 +56393,12 @@
 			"agility": 3,
 			"hitRating": 9
 		},
+		"weapon": {
+			"speed": 3.2,
+			"dps": 30.37,
+			"damageMin": 77,
+			"damageMax": 117
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -56057,6 +56420,12 @@
 		"stats": {
 			"attackPower": 22,
 			"rangedAttackPower": 22
+		},
+		"weapon": {
+			"speed": 2.2,
+			"dps": 30.37,
+			"damageMin": 46,
+			"damageMax": 87
 		},
 		"sources": [
 			{
@@ -57581,6 +57950,12 @@
 		"stats": {
 			"arcaneDamage": 6
 		},
+		"weapon": {
+			"speed": 1.6,
+			"dps": 21.48,
+			"damageMin": 24,
+			"damageMax": 45
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -57893,6 +58268,12 @@
 		"reqLvl": 53,
 		"stats": {
 			"fireResistance": 10
+		},
+		"weapon": {
+			"speed": 1.4,
+			"dps": 57.07,
+			"damageMin": 55,
+			"damageMax": 104
 		}
 	},
 	{
@@ -58196,6 +58577,12 @@
 			"mobTypes": [
 				"Humanoid"
 			]
+		},
+		"weapon": {
+			"speed": 1.8,
+			"dps": 16.07,
+			"damageMin": 20,
+			"damageMax": 38
 		}
 	},
 	{
@@ -58210,6 +58597,12 @@
 		"stats": {
 			"agility": 5,
 			"intellect": 5
+		},
+		"weapon": {
+			"speed": 2.1,
+			"dps": 20.85,
+			"damageMin": 30,
+			"damageMax": 57
 		}
 	},
 	{
@@ -58224,6 +58617,12 @@
 		"stats": {
 			"stamina": 6,
 			"spirit": 4
+		},
+		"weapon": {
+			"speed": 2,
+			"dps": 24.72,
+			"damageMin": 34,
+			"damageMax": 64
 		}
 	},
 	{
@@ -58238,6 +58637,12 @@
 		"stats": {
 			"agility": 8,
 			"stamina": 4
+		},
+		"weapon": {
+			"speed": 2.7,
+			"dps": 28.47,
+			"damageMin": 53,
+			"damageMax": 100
 		}
 	},
 	{
@@ -58252,6 +58657,12 @@
 		"stats": {
 			"agility": 10,
 			"stamina": 4
+		},
+		"weapon": {
+			"speed": 1.8,
+			"dps": 32.37,
+			"damageMin": 40,
+			"damageMax": 76
 		}
 	},
 	{
@@ -58543,6 +58954,12 @@
 		"stats": {
 			"agility": 4,
 			"intellect": 4
+		},
+		"weapon": {
+			"speed": 2.8,
+			"dps": 16.07,
+			"damageMin": 35,
+			"damageMax": 54
 		}
 	},
 	{
@@ -58556,6 +58973,12 @@
 		"reqLvl": 35,
 		"stats": {
 			"agility": 7
+		},
+		"weapon": {
+			"speed": 2,
+			"dps": 21.42,
+			"damageMin": 34,
+			"damageMax": 51
 		}
 	},
 	{
@@ -58571,6 +58994,12 @@
 			"strength": 3,
 			"attackPower": 14,
 			"rangedAttackPower": 14
+		},
+		"weapon": {
+			"speed": 2.6,
+			"dps": 25.18,
+			"damageMin": 52,
+			"damageMax": 79
 		}
 	},
 	{
@@ -58585,6 +59014,12 @@
 		"stats": {
 			"agility": 9,
 			"stamina": 4
+		},
+		"weapon": {
+			"speed": 3.1,
+			"dps": 28.94,
+			"damageMin": 71,
+			"damageMax": 108
 		},
 		"effects": [
 			{
@@ -59044,6 +59479,12 @@
 		"stats": {
 			"healingPower": 6,
 			"spellDamage": 6
+		},
+		"weapon": {
+			"speed": 1.9,
+			"dps": 27.2,
+			"damageMin": 36,
+			"damageMax": 67
 		}
 	},
 	{
@@ -59058,6 +59499,12 @@
 		"stats": {
 			"intellect": 4,
 			"arcaneDamage": 6
+		},
+		"weapon": {
+			"speed": 1.4,
+			"dps": 32.87,
+			"damageMin": 32,
+			"damageMax": 60
 		},
 		"sources": [
 			{
@@ -59079,6 +59526,12 @@
 		"stats": {
 			"intellect": 6,
 			"spirit": 3
+		},
+		"weapon": {
+			"speed": 1.6,
+			"dps": 39.29,
+			"damageMin": 44,
+			"damageMax": 82
 		}
 	},
 	{
@@ -59092,6 +59545,12 @@
 		"reqLvl": 45,
 		"stats": {
 			"arcaneResistance": 9
+		},
+		"weapon": {
+			"speed": 1.9,
+			"dps": 48.71,
+			"damageMin": 64,
+			"damageMax": 120
 		}
 	},
 	{
@@ -60188,6 +60647,12 @@
 		"reqLvl": 16,
 		"stats": {
 			"agility": 4
+		},
+		"weapon": {
+			"speed": 2.6,
+			"dps": 11.02,
+			"damageMin": 20,
+			"damageMax": 37
 		}
 	},
 	{
@@ -60202,6 +60667,12 @@
 		"stats": {
 			"stamina": 4,
 			"defenseRating": 3
+		},
+		"weapon": {
+			"speed": 2.6,
+			"dps": 17.4,
+			"damageMin": 31,
+			"damageMax": 59
 		}
 	},
 	{
@@ -60216,6 +60687,12 @@
 		"stats": {
 			"attackPower": 14,
 			"rangedAttackPower": 14
+		},
+		"weapon": {
+			"speed": 2.8,
+			"dps": 22.4,
+			"damageMin": 43,
+			"damageMax": 82
 		}
 	},
 	{
@@ -60230,6 +60707,12 @@
 		"stats": {
 			"strength": 3,
 			"agility": 8
+		},
+		"weapon": {
+			"speed": 2.7,
+			"dps": 26.11,
+			"damageMin": 49,
+			"damageMax": 92
 		}
 	},
 	{
@@ -60344,6 +60827,12 @@
 		"quality": "rare",
 		"ilvl": 58,
 		"reqLvl": 53,
+		"weapon": {
+			"speed": 2.3,
+			"dps": 29.89,
+			"damageMin": 48,
+			"damageMax": 89
+		},
 		"effects": [
 			{
 				"name": "Flaming Shell (29647)",
@@ -60636,6 +61125,12 @@
 		"stats": {
 			"strength": 9,
 			"spirit": 6
+		},
+		"weapon": {
+			"speed": 2.2,
+			"dps": 35.6,
+			"damageMin": 54,
+			"damageMax": 102
 		},
 		"sources": [
 			{
@@ -62398,6 +62893,12 @@
 			"attackPower": 10,
 			"rangedAttackPower": 10
 		},
+		"weapon": {
+			"speed": 2.9,
+			"dps": 31.35,
+			"damageMin": 63,
+			"damageMax": 118
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -62894,6 +63395,12 @@
 			"shadowDamage": 14,
 			"shadowResistance": 3
 		},
+		"weapon": {
+			"speed": 1.8,
+			"dps": 59.86,
+			"damageMin": 75,
+			"damageMax": 140
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -63252,6 +63759,12 @@
 		"ilvl": 56,
 		"stats": {
 			"stamina": 8
+		},
+		"weapon": {
+			"speed": 1.9,
+			"dps": 26.11,
+			"damageMin": 34,
+			"damageMax": 64
 		},
 		"sources": [
 			{
@@ -63673,6 +64186,12 @@
 			"spellPiercing": 1,
 			"mp5": 1,
 			"frostResistance": 10
+		},
+		"weapon": {
+			"speed": 1.9,
+			"dps": 59.86,
+			"damageMin": 79,
+			"damageMax": 148
 		},
 		"sources": [
 			{
@@ -64178,6 +64697,12 @@
 			"intellect": 5,
 			"healingPower": 11,
 			"spellDamage": 11
+		},
+		"weapon": {
+			"speed": 1.9,
+			"dps": 62.67,
+			"damageMin": 83,
+			"damageMax": 155
 		},
 		"sources": [
 			{
@@ -85370,6 +85895,12 @@
 		"quality": "uncommon",
 		"ilvl": 51,
 		"reqLvl": 46,
+		"weapon": {
+			"speed": 1.4,
+			"dps": 42.32,
+			"damageMin": 41,
+			"damageMax": 77
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -85407,6 +85938,12 @@
 		"quality": "uncommon",
 		"ilvl": 53,
 		"reqLvl": 48,
+		"weapon": {
+			"speed": 1.8,
+			"dps": 44.63,
+			"damageMin": 56,
+			"damageMax": 104
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -85444,6 +85981,12 @@
 		"quality": "uncommon",
 		"ilvl": 57,
 		"reqLvl": 52,
+		"weapon": {
+			"speed": 1.5,
+			"dps": 50.09,
+			"damageMin": 52,
+			"damageMax": 98
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -85481,6 +86024,12 @@
 		"quality": "uncommon",
 		"ilvl": 60,
 		"reqLvl": 55,
+		"weapon": {
+			"speed": 1.4,
+			"dps": 53.37,
+			"damageMin": 52,
+			"damageMax": 97
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -85518,6 +86067,12 @@
 		"quality": "uncommon",
 		"ilvl": 64,
 		"reqLvl": 59,
+		"weapon": {
+			"speed": 1.7,
+			"dps": 57.07,
+			"damageMin": 67,
+			"damageMax": 126
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -85555,6 +86110,12 @@
 		"quality": "uncommon",
 		"ilvl": 45,
 		"reqLvl": 40,
+		"weapon": {
+			"speed": 2.2,
+			"dps": 20.85,
+			"damageMin": 32,
+			"damageMax": 60
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -85593,6 +86154,12 @@
 		"quality": "uncommon",
 		"ilvl": 61,
 		"reqLvl": 56,
+		"weapon": {
+			"speed": 2.6,
+			"dps": 28.47,
+			"damageMin": 51,
+			"damageMax": 96
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -85631,6 +86198,12 @@
 		"quality": "uncommon",
 		"ilvl": 65,
 		"reqLvl": 60,
+		"weapon": {
+			"speed": 2.3,
+			"dps": 30.37,
+			"damageMin": 48,
+			"damageMax": 91
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -85669,6 +86242,12 @@
 		"quality": "uncommon",
 		"ilvl": 51,
 		"reqLvl": 46,
+		"weapon": {
+			"speed": 2.7,
+			"dps": 23.79,
+			"damageMin": 44,
+			"damageMax": 84
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -85707,6 +86286,12 @@
 		"quality": "uncommon",
 		"ilvl": 53,
 		"reqLvl": 48,
+		"weapon": {
+			"speed": 2.8,
+			"dps": 24.72,
+			"damageMin": 48,
+			"damageMax": 90
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -85745,6 +86330,12 @@
 		"quality": "uncommon",
 		"ilvl": 55,
 		"reqLvl": 50,
+		"weapon": {
+			"speed": 2.3,
+			"dps": 25.65,
+			"damageMin": 41,
+			"damageMax": 77
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -85783,6 +86374,12 @@
 		"quality": "uncommon",
 		"ilvl": 63,
 		"reqLvl": 58,
+		"weapon": {
+			"speed": 1.7,
+			"dps": 29.41,
+			"damageMin": 35,
+			"damageMax": 65
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -85821,6 +86418,12 @@
 		"quality": "uncommon",
 		"ilvl": 50,
 		"reqLvl": 45,
+		"weapon": {
+			"speed": 2.3,
+			"dps": 23.32,
+			"damageMin": 37,
+			"damageMax": 70
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -85859,6 +86462,12 @@
 		"quality": "uncommon",
 		"ilvl": 56,
 		"reqLvl": 51,
+		"weapon": {
+			"speed": 2.5,
+			"dps": 26.11,
+			"damageMin": 45,
+			"damageMax": 85
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -85897,6 +86506,12 @@
 		"quality": "uncommon",
 		"ilvl": 60,
 		"reqLvl": 55,
+		"weapon": {
+			"speed": 2.2,
+			"dps": 27.99,
+			"damageMin": 43,
+			"damageMax": 80
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -96383,6 +96998,12 @@
 		"stats": {
 			"rangedAttackPower": 17
 		},
+		"weapon": {
+			"speed": 2.5,
+			"dps": 24.26,
+			"damageMin": 42,
+			"damageMax": 79
+		},
 		"sources": [
 			{
 				"kind": "crafted",
@@ -96421,6 +97042,12 @@
 		"quality": "rare",
 		"ilvl": 55,
 		"reqLvl": 50,
+		"weapon": {
+			"speed": 2.7,
+			"dps": 28.47,
+			"damageMin": 53,
+			"damageMax": 100
+		},
 		"effects": [
 			{
 				"name": "Shadow Shot (29641)",
@@ -96447,6 +97074,12 @@
 		"stats": {
 			"stamina": 9,
 			"rangedAttackPower": 10
+		},
+		"weapon": {
+			"speed": 3,
+			"dps": 31.35,
+			"damageMin": 65,
+			"damageMax": 122
 		},
 		"sources": [
 			{
@@ -97082,6 +97715,111 @@
 		]
 	},
 	{
+		"id": 16400,
+		"name": "Knight-Captain's Chain Girdle",
+		"icon": "inv_belt_28",
+		"slot": "waist",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"agility": 14,
+			"stamina": 15,
+			"intellect": 9,
+			"armor": 199
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16401,
+		"name": "Knight-Lieutenant's Chain Boots",
+		"icon": "inv_boots_07",
+		"slot": "feet",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 63,
+		"reqLvl": 58,
+		"stats": {
+			"agility": 10,
+			"stamina": 17,
+			"dodgeRating": 12,
+			"armor": 255
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16402,
+		"name": "Knight-Captain's Chain Armguards",
+		"icon": "inv_bracer_17",
+		"slot": "wrist",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"strength": 5,
+			"agility": 17,
+			"armor": 155
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16403,
+		"name": "Knight-Lieutenant's Chain Gauntlets",
+		"icon": "inv_gauntlets_10",
+		"slot": "hands",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 63,
+		"reqLvl": 58,
+		"stats": {
+			"agility": 11,
+			"stamina": 18,
+			"armor": 231
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"effects": [
+			{
+				"name": "Arcane Shot Mana Reduction (23157)",
+				"kind": "passive",
+				"durationMs": -1
+			}
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
 		"id": 16405,
 		"name": "Knight-Lieutenant's Plate Boots",
 		"icon": "inv_boots_plate_09",
@@ -97130,6 +97868,114 @@
 				"kind": "passive",
 				"durationMs": -1
 			}
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16409,
+		"name": "Knight-Lieutenant's Lamellar Sabatons",
+		"icon": "inv_boots_plate_03",
+		"slot": "feet",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 63,
+		"reqLvl": 58,
+		"stats": {
+			"strength": 15,
+			"agility": 6,
+			"stamina": 16,
+			"intellect": 7,
+			"armor": 452
+		},
+		"unique": true,
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16410,
+		"name": "Knight-Lieutenant's Lamellar Gauntlets",
+		"icon": "inv_gauntlets_29",
+		"slot": "hands",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 63,
+		"reqLvl": 58,
+		"stats": {
+			"strength": 15,
+			"stamina": 16,
+			"armor": 410
+		},
+		"unique": true,
+		"classes": [
+			2
+		],
+		"effects": [
+			{
+				"name": "Seal of the Crusader Judgement Increase (23300)",
+				"kind": "passive",
+				"durationMs": -1
+			}
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16411,
+		"name": "Knight-Captain's Lamellar Cinch",
+		"icon": "inv_belt_27",
+		"slot": "waist",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"strength": 9,
+			"stamina": 15,
+			"intellect": 10,
+			"spirit": 9,
+			"armor": 353
+		},
+		"unique": true,
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16412,
+		"name": "Knight-Captain's Lamellar Armsplints",
+		"icon": "inv_bracer_18",
+		"slot": "wrist",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"strength": 7,
+			"stamina": 13,
+			"intellect": 7,
+			"armor": 274
+		},
+		"unique": true,
+		"classes": [
+			2
 		],
 		"sources": [
 			{
@@ -97464,6 +98310,112 @@
 		]
 	},
 	{
+		"id": 16425,
+		"name": "Knight-Captain's Chain Hauberk",
+		"icon": "inv_chest_chain_06",
+		"slot": "chest",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 63,
+		"reqLvl": 58,
+		"stats": {
+			"agility": 16,
+			"stamina": 18,
+			"attackPower": 26,
+			"rangedAttackPower": 26,
+			"critRating": 14,
+			"armor": 370
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16426,
+		"name": "Knight-Captain's Chain Leggings",
+		"icon": "inv_pants_10",
+		"slot": "legs",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 63,
+		"reqLvl": 58,
+		"stats": {
+			"agility": 18,
+			"stamina": 17,
+			"critRating": 14,
+			"dodgeRating": 12,
+			"armor": 324
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16427,
+		"name": "Lieutenant Commander's Chain Pauldrons",
+		"icon": "inv_shoulder_18",
+		"slot": "shoulder",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 63,
+		"reqLvl": 58,
+		"stats": {
+			"agility": 10,
+			"stamina": 20,
+			"attackPower": 12,
+			"rangedAttackPower": 12,
+			"armor": 278
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16428,
+		"name": "Lieutenant Commander's Chain Helmet",
+		"icon": "inv_helmet_21",
+		"slot": "head",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 63,
+		"reqLvl": 58,
+		"stats": {
+			"agility": 15,
+			"stamina": 24,
+			"intellect": 10,
+			"attackPower": 12,
+			"rangedAttackPower": 12,
+			"armor": 301
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
 		"id": 16429,
 		"name": "Lieutenant Commander's Plate Helm",
 		"icon": "inv_helmet_05",
@@ -97557,6 +98509,109 @@
 		"unique": true,
 		"classes": [
 			1
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16433,
+		"name": "Knight-Captain's Lamellar Breastplate",
+		"icon": "inv_chest_plate03",
+		"slot": "chest",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 63,
+		"reqLvl": 58,
+		"stats": {
+			"strength": 9,
+			"agility": 8,
+			"stamina": 25,
+			"critRating": 14,
+			"armor": 657
+		},
+		"unique": true,
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16434,
+		"name": "Lieutenant Commander's Lamellar Headguard",
+		"icon": "inv_helmet_05",
+		"slot": "head",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 63,
+		"reqLvl": 58,
+		"stats": {
+			"strength": 9,
+			"agility": 8,
+			"stamina": 31,
+			"armor": 534
+		},
+		"unique": true,
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16435,
+		"name": "Knight-Captain's Lamellar Leggings",
+		"icon": "inv_pants_06",
+		"slot": "legs",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 63,
+		"reqLvl": 58,
+		"stats": {
+			"strength": 7,
+			"stamina": 13,
+			"critRating": 28,
+			"armor": 575
+		},
+		"unique": true,
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16436,
+		"name": "Lieutenant Commander's Lamellar Shoulders",
+		"icon": "inv_shoulder_28",
+		"slot": "shoulder",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 63,
+		"reqLvl": 58,
+		"stats": {
+			"strength": 12,
+			"agility": 12,
+			"stamina": 12,
+			"intellect": 7,
+			"spirit": 5,
+			"armor": 493
+		},
+		"unique": true,
+		"classes": [
+			2
 		],
 		"sources": [
 			{
@@ -97707,6 +98762,109 @@
 		"unique": true,
 		"classes": [
 			4
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16461,
+		"name": "Marshal's Chain Bracers",
+		"icon": "inv_bracer_17",
+		"slot": "wrist",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 20,
+			"stamina": 10,
+			"intellect": 7,
+			"armor": 182
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16464,
+		"name": "Marshal's Chain Girdle",
+		"icon": "inv_belt_28",
+		"slot": "waist",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 5,
+			"agility": 18,
+			"stamina": 18,
+			"intellect": 18,
+			"armor": 234
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16469,
+		"name": "Marshal's Lamellar Armguards",
+		"icon": "inv_bracer_18",
+		"slot": "wrist",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 14,
+			"stamina": 19,
+			"intellect": 4,
+			"armor": 323
+		},
+		"unique": true,
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16470,
+		"name": "Marshal's Lamellar Belt",
+		"icon": "inv_belt_27",
+		"slot": "waist",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 8,
+			"agility": 8,
+			"stamina": 16,
+			"intellect": 16,
+			"spirit": 16,
+			"armor": 415
+		},
+		"unique": true,
+		"classes": [
+			2
 		],
 		"sources": [
 			{
@@ -98265,6 +99423,30 @@
 		]
 	},
 	{
+		"id": 16517,
+		"name": "Legionnaire's Chain Bracers",
+		"icon": "inv_bracer_16",
+		"slot": "wrist",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"strength": 5,
+			"agility": 17,
+			"armor": 155
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
 		"id": 16518,
 		"name": "Blood Guard's Mail Walkers",
 		"icon": "inv_boots_07",
@@ -98423,6 +99605,166 @@
 		"unique": true,
 		"classes": [
 			7
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16525,
+		"name": "Legionnaire's Chain Breastplate",
+		"icon": "inv_chest_chain_04",
+		"slot": "chest",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 63,
+		"reqLvl": 58,
+		"stats": {
+			"agility": 16,
+			"stamina": 18,
+			"attackPower": 26,
+			"rangedAttackPower": 26,
+			"critRating": 14,
+			"armor": 370
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16527,
+		"name": "Legionnaire's Chain Leggings",
+		"icon": "inv_pants_03",
+		"slot": "legs",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 63,
+		"reqLvl": 58,
+		"stats": {
+			"agility": 18,
+			"stamina": 17,
+			"critRating": 14,
+			"dodgeRating": 12,
+			"armor": 324
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16528,
+		"name": "Champion's Chain Pauldrons",
+		"icon": "inv_shoulder_01",
+		"slot": "shoulder",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 63,
+		"reqLvl": 58,
+		"stats": {
+			"agility": 10,
+			"stamina": 20,
+			"attackPower": 12,
+			"rangedAttackPower": 12,
+			"armor": 278
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16529,
+		"name": "Legionnaire's Chain Girdle",
+		"icon": "inv_belt_14",
+		"slot": "waist",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"agility": 14,
+			"stamina": 15,
+			"intellect": 9,
+			"armor": 199
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16530,
+		"name": "Blood Guard's Chain Gauntlets",
+		"icon": "inv_gauntlets_17",
+		"slot": "hands",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 63,
+		"reqLvl": 58,
+		"stats": {
+			"agility": 11,
+			"stamina": 18,
+			"armor": 231
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"effects": [
+			{
+				"name": "Arcane Shot Mana Reduction (23157)",
+				"kind": "passive",
+				"durationMs": -1
+			}
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16531,
+		"name": "Blood Guard's Chain Boots",
+		"icon": "inv_boots_05",
+		"slot": "feet",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 63,
+		"reqLvl": 58,
+		"stats": {
+			"agility": 10,
+			"stamina": 17,
+			"dodgeRating": 12,
+			"armor": 255
+		},
+		"unique": true,
+		"classes": [
+			3
 		],
 		"sources": [
 			{
@@ -98663,6 +100005,57 @@
 		]
 	},
 	{
+		"id": 16570,
+		"name": "General's Chain Wristguards",
+		"icon": "inv_bracer_16",
+		"slot": "wrist",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 20,
+			"stamina": 10,
+			"intellect": 7,
+			"armor": 182
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 16572,
+		"name": "General's Chain Girdle",
+		"icon": "inv_belt_14",
+		"slot": "waist",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 5,
+			"agility": 18,
+			"stamina": 18,
+			"intellect": 18,
+			"armor": 234
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
 		"id": 16575,
 		"name": "General's Mail Waistband",
 		"icon": "inv_belt_14",
@@ -98723,6 +100116,12 @@
 		"ilvl": 57,
 		"stats": {
 			"agility": 8
+		},
+		"weapon": {
+			"speed": 2.8,
+			"dps": 26.57,
+			"damageMin": 52,
+			"damageMax": 97
 		},
 		"sources": [
 			{
@@ -101046,6 +102445,12 @@
 		"stats": {
 			"fireResistance": 8
 		},
+		"weapon": {
+			"speed": 2.7,
+			"dps": 27.99,
+			"damageMin": 52,
+			"damageMax": 98
+		},
 		"sources": [
 			{
 				"kind": "quest",
@@ -101064,6 +102469,12 @@
 		"ilvl": 60,
 		"stats": {
 			"fireResistance": 8
+		},
+		"weapon": {
+			"speed": 1.9,
+			"dps": 53.37,
+			"damageMin": 70,
+			"damageMax": 132
 		},
 		"sources": [
 			{
@@ -101131,6 +102542,12 @@
 			"agility": 3,
 			"stamina": 9
 		},
+		"weapon": {
+			"speed": 2.5,
+			"dps": 31.85,
+			"damageMin": 55,
+			"damageMax": 104
+		},
 		"sources": [
 			{
 				"kind": "quest",
@@ -101157,6 +102574,12 @@
 		"stats": {
 			"stamina": 8,
 			"intellect": 5
+		},
+		"weapon": {
+			"speed": 1.3,
+			"dps": 62.67,
+			"damageMin": 57,
+			"damageMax": 106
 		},
 		"sources": [
 			{
@@ -102427,6 +103850,12 @@
 		"stats": {
 			"agility": 6
 		},
+		"weapon": {
+			"speed": 2.4,
+			"dps": 19.54,
+			"damageMin": 32,
+			"damageMax": 61
+		},
 		"sources": [
 			{
 				"kind": "quest",
@@ -102446,6 +103875,12 @@
 		"stats": {
 			"strength": 4,
 			"agility": 4
+		},
+		"weapon": {
+			"speed": 2.6,
+			"dps": 19.54,
+			"damageMin": 35,
+			"damageMax": 66
 		},
 		"sources": [
 			{
@@ -102724,6 +104159,12 @@
 		"stats": {
 			"rangedAttackPower": 19,
 			"arcaneResistance": 5
+		},
+		"weapon": {
+			"speed": 2.5,
+			"dps": 27.52,
+			"damageMin": 48,
+			"damageMax": 89
 		},
 		"sources": [
 			{
@@ -103166,6 +104607,12 @@
 			"spellDamage": 5,
 			"natureResistance": 5
 		},
+		"weapon": {
+			"speed": 1.6,
+			"dps": 50.09,
+			"damageMin": 56,
+			"damageMax": 104
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -103342,6 +104789,12 @@
 		"rangedType": "bow",
 		"quality": "rare",
 		"ilvl": 53,
+		"weapon": {
+			"speed": 2.8,
+			"dps": 27.52,
+			"damageMin": 53,
+			"damageMax": 100
+		},
 		"effects": [
 			{
 				"name": "Keeper's Sting (29655)",
@@ -104506,6 +105959,12 @@
 			"spellDamage": 9,
 			"arcaneResistance": 5
 		},
+		"weapon": {
+			"speed": 1.7,
+			"dps": 57.07,
+			"damageMin": 67,
+			"damageMax": 126
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -105085,6 +106544,12 @@
 				"Elemental"
 			]
 		},
+		"weapon": {
+			"speed": 2.4,
+			"dps": 29.89,
+			"damageMin": 50,
+			"damageMax": 93
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -105265,6 +106730,12 @@
 		"reqLvl": 54,
 		"stats": {
 			"arcaneDamage": 16
+		},
+		"weapon": {
+			"speed": 1.6,
+			"dps": 58.52,
+			"damageMin": 65,
+			"damageMax": 122
 		},
 		"sources": [
 			{
@@ -105660,6 +107131,24 @@
 				"zoneId": 2557,
 				"npcId": 14349,
 				"zoneKind": "dungeon"
+			}
+		]
+	},
+	{
+		"id": 18355,
+		"name": "Ferra's Collar",
+		"icon": "inv_jewelry_necklace_06",
+		"slot": "trinket",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"classes": [
+			3
+		],
+		"effects": [
+			{
+				"name": "Increased Hunter Pet Damage (22854)",
+				"kind": "passive"
 			}
 		]
 	},
@@ -106268,6 +107757,12 @@
 			"families": [
 				"EarthElemental"
 			]
+		},
+		"weapon": {
+			"speed": 2.9,
+			"dps": 31.85,
+			"damageMin": 73,
+			"damageMax": 111
 		},
 		"effects": [
 			{
@@ -107536,6 +109031,80 @@
 		]
 	},
 	{
+		"id": 18448,
+		"name": "Sergeant Major's Chain Armguards",
+		"icon": "inv_bracer_06",
+		"slot": "wrist",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 63,
+		"reqLvl": 58,
+		"stats": {
+			"stamina": 17,
+			"intellect": 7,
+			"armor": 162
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 12781,
+				"npcName": "Master Sergeant Biggins",
+				"zoneId": 2918
+			},
+			{
+				"kind": "vendor",
+				"npcId": 12805,
+				"npcName": "Officer Areyn",
+				"zoneId": 1519,
+				"faction": "alliance"
+			},
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 18449,
+		"name": "Sergeant Major's Chain Armguards",
+		"icon": "inv_bracer_06",
+		"slot": "wrist",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 50,
+		"reqLvl": 45,
+		"stats": {
+			"stamina": 14,
+			"intellect": 6,
+			"armor": 131
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 12781,
+				"npcName": "Master Sergeant Biggins",
+				"zoneId": 2918
+			},
+			{
+				"kind": "vendor",
+				"npcId": 12805,
+				"npcName": "Officer Areyn",
+				"zoneId": 1519,
+				"faction": "alliance"
+			},
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
 		"id": 18450,
 		"name": "Robe of Combustion",
 		"icon": "inv_chest_cloth_24",
@@ -107916,6 +109485,12 @@
 		"reqLvl": 55,
 		"stats": {
 			"strength": 8
+		},
+		"weapon": {
+			"speed": 2.5,
+			"dps": 27.99,
+			"damageMin": 48,
+			"damageMax": 91
 		},
 		"sources": [
 			{
@@ -108331,6 +109906,82 @@
 		]
 	},
 	{
+		"id": 18472,
+		"name": "Royal Seal of Eldre'Thalas",
+		"icon": "inv_jewelry_talisman_10",
+		"slot": "trinket",
+		"quality": "rare",
+		"ilvl": 62,
+		"stats": {
+			"healingPower": 22,
+			"spellDamage": 7,
+			"natureResistance": 15
+		},
+		"inArea": [
+			{
+				"area": "Haunted",
+				"stats": {
+					"mp5": 9
+				}
+			}
+		],
+		"fightTags": {
+			"areas": [
+				"Haunted"
+			]
+		},
+		"unique": true,
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "quest",
+				"questId": 7501,
+				"name": "The Light and How To Swing It"
+			}
+		]
+	},
+	{
+		"id": 18473,
+		"name": "Royal Seal of Eldre'Thalas",
+		"icon": "inv_jewelry_talisman_10",
+		"slot": "trinket",
+		"quality": "rare",
+		"ilvl": 62,
+		"stats": {
+			"agility": 10,
+			"natureResistance": 15
+		},
+		"versus": [
+			{
+				"mobTypes": [
+					"Demon"
+				],
+				"stats": {
+					"attackPower": 45,
+					"rangedAttackPower": 45
+				}
+			}
+		],
+		"fightTags": {
+			"mobTypes": [
+				"Demon"
+			]
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "quest",
+				"questId": 7503,
+				"name": "The Greatest Race of Hunters"
+			}
+		]
+	},
+	{
 		"id": 18475,
 		"name": "Oddly Magical Belt",
 		"icon": "inv_belt_07",
@@ -108535,6 +110186,12 @@
 			"agility": 6,
 			"stamina": 5
 		},
+		"weapon": {
+			"speed": 2.2,
+			"dps": 27.99,
+			"damageMin": 61,
+			"damageMax": 62
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -108555,6 +110212,12 @@
 		"reqLvl": 56,
 		"stats": {
 			"mp5": 2
+		},
+		"weapon": {
+			"speed": 1.6,
+			"dps": 61.26,
+			"damageMin": 68,
+			"damageMax": 127
 		},
 		"effects": [
 			{
@@ -110155,6 +111818,12 @@
 		"stats": {
 			"agility": 11
 		},
+		"weapon": {
+			"speed": 2.8,
+			"dps": 31.35,
+			"damageMin": 61,
+			"damageMax": 114
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -111191,6 +112860,12 @@
 			"stamina": 4,
 			"shadowResistance": 10
 		},
+		"weapon": {
+			"speed": 2.3,
+			"dps": 30.85,
+			"damageMin": 70,
+			"damageMax": 71
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -111356,6 +113031,12 @@
 		"stats": {
 			"agility": 5,
 			"stamina": 9
+		},
+		"weapon": {
+			"speed": 3.3,
+			"dps": 31.35,
+			"damageMin": 82,
+			"damageMax": 124
 		},
 		"sources": [
 			{
@@ -111580,6 +113261,12 @@
 			"stamina": 4,
 			"shadowResistance": 4
 		},
+		"weapon": {
+			"speed": 2.6,
+			"dps": 31.85,
+			"damageMin": 57,
+			"damageMax": 108
+		},
 		"effects": [
 			{
 				"name": "Xorothian Fire (1302343)",
@@ -111757,6 +113444,12 @@
 			"healingPower": 9,
 			"spellDamage": 9
 		},
+		"weapon": {
+			"speed": 1.8,
+			"dps": 62.67,
+			"damageMin": 78,
+			"damageMax": 147
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -111851,6 +113544,37 @@
 		"unique": true,
 		"classes": [
 			7
+		],
+		"effects": [
+			{
+				"name": "Immune Root/Snare/Stun (5579)",
+				"kind": "onUse",
+				"durationMs": 100
+			}
+		],
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 12799,
+				"npcName": "Sergeant Ba'sha",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 18846,
+		"name": "Insignia of the Horde",
+		"icon": "inv_jewelry_trinketpvp_02",
+		"slot": "trinket",
+		"quality": "rare",
+		"ilvl": 1,
+		"unique": true,
+		"classes": [
+			3
 		],
 		"effects": [
 			{
@@ -112065,6 +113789,43 @@
 		]
 	},
 	{
+		"id": 18856,
+		"name": "Insignia of the Alliance",
+		"icon": "inv_jewelry_trinketpvp_01",
+		"slot": "trinket",
+		"quality": "rare",
+		"ilvl": 1,
+		"unique": true,
+		"classes": [
+			3
+		],
+		"effects": [
+			{
+				"name": "Immune Root/Snare/Stun (5579)",
+				"kind": "onUse",
+				"durationMs": 100
+			}
+		],
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 12781,
+				"npcName": "Master Sergeant Biggins",
+				"zoneId": 2918
+			},
+			{
+				"kind": "vendor",
+				"npcId": 12805,
+				"npcName": "Officer Areyn",
+				"zoneId": 1519,
+				"faction": "alliance"
+			},
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
 		"id": 18857,
 		"name": "Insignia of the Alliance",
 		"icon": "inv_jewelry_trinketpvp_01",
@@ -112226,6 +113987,43 @@
 		"effects": [
 			{
 				"name": "Immune Charm/Fear/Stun (23277)",
+				"kind": "onUse",
+				"durationMs": 100
+			}
+		],
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 12781,
+				"npcName": "Master Sergeant Biggins",
+				"zoneId": 2918
+			},
+			{
+				"kind": "vendor",
+				"npcId": 12805,
+				"npcName": "Officer Areyn",
+				"zoneId": 1519,
+				"faction": "alliance"
+			},
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 18864,
+		"name": "Insignia of the Alliance",
+		"icon": "inv_jewelry_trinketpvp_01",
+		"slot": "trinket",
+		"quality": "rare",
+		"ilvl": 1,
+		"unique": true,
+		"classes": [
+			2
+		],
+		"effects": [
+			{
+				"name": "Immune Fear/Polymorph/Stun (23276)",
 				"kind": "onUse",
 				"durationMs": 100
 			}
@@ -113634,6 +115432,12 @@
 			"strength": 8,
 			"agility": 7
 		},
+		"weapon": {
+			"speed": 3.3,
+			"dps": 32.37,
+			"damageMin": 85,
+			"damageMax": 128
+		},
 		"sources": [
 			{
 				"kind": "quest",
@@ -113671,6 +115475,12 @@
 		"ilvl": 63,
 		"stats": {
 			"frostDamage": 16
+		},
+		"weapon": {
+			"speed": 1.5,
+			"dps": 64.05,
+			"damageMin": 67,
+			"damageMax": 125
 		},
 		"sources": [
 			{
@@ -113725,6 +115535,12 @@
 		"stats": {
 			"agility": 5,
 			"stamina": 4
+		},
+		"weapon": {
+			"speed": 2.5,
+			"dps": 23.79,
+			"damageMin": 41,
+			"damageMax": 77
 		},
 		"sources": [
 			{
@@ -113816,6 +115632,12 @@
 		"stats": {
 			"stamina": 3,
 			"intellect": 6
+		},
+		"weapon": {
+			"speed": 1.4,
+			"dps": 41.47,
+			"damageMin": 40,
+			"damageMax": 75
 		},
 		"sources": [
 			{
@@ -116230,6 +118052,12 @@
 			"agility": 4,
 			"stamina": 10
 		},
+		"weapon": {
+			"speed": 2.4,
+			"dps": 32.37,
+			"damageMin": 54,
+			"damageMax": 101
+		},
 		"sources": [
 			{
 				"kind": "vendor",
@@ -116255,6 +118083,12 @@
 		"stats": {
 			"agility": 3,
 			"stamina": 8
+		},
+		"weapon": {
+			"speed": 2.4,
+			"dps": 27.52,
+			"damageMin": 46,
+			"damageMax": 86
 		},
 		"sources": [
 			{
@@ -116282,6 +118116,12 @@
 			"agility": 3,
 			"stamina": 6
 		},
+		"weapon": {
+			"speed": 2.4,
+			"dps": 22.86,
+			"damageMin": 38,
+			"damageMax": 71
+		},
 		"sources": [
 			{
 				"kind": "vendor",
@@ -116307,6 +118147,12 @@
 		"stats": {
 			"agility": 2,
 			"stamina": 5
+		},
+		"weapon": {
+			"speed": 2.4,
+			"dps": 16.72,
+			"damageMin": 28,
+			"damageMax": 52
 		},
 		"sources": [
 			{
@@ -116334,6 +118180,12 @@
 			"agility": 4,
 			"stamina": 10
 		},
+		"weapon": {
+			"speed": 2.4,
+			"dps": 32.37,
+			"damageMin": 54,
+			"damageMax": 101
+		},
 		"sources": [
 			{
 				"kind": "vendor",
@@ -116356,6 +118208,12 @@
 		"stats": {
 			"agility": 3,
 			"stamina": 8
+		},
+		"weapon": {
+			"speed": 2.4,
+			"dps": 27.52,
+			"damageMin": 46,
+			"damageMax": 86
 		},
 		"sources": [
 			{
@@ -116380,6 +118238,12 @@
 			"agility": 3,
 			"stamina": 6
 		},
+		"weapon": {
+			"speed": 2.4,
+			"dps": 22.86,
+			"damageMin": 38,
+			"damageMax": 71
+		},
 		"sources": [
 			{
 				"kind": "vendor",
@@ -116402,6 +118266,12 @@
 		"stats": {
 			"agility": 2,
 			"stamina": 5
+		},
+		"weapon": {
+			"speed": 2.4,
+			"dps": 16.72,
+			"damageMin": 28,
+			"damageMax": 52
 		},
 		"sources": [
 			{
@@ -117281,6 +119151,65 @@
 				"kind": "quest",
 				"questId": 8257,
 				"name": "Blood of Morphaz"
+			}
+		]
+	},
+	{
+		"id": 19991,
+		"name": "Devilsaur Eye",
+		"icon": "inv_misc_eye_01",
+		"slot": "trinket",
+		"quality": "rare",
+		"ilvl": 52,
+		"stats": {
+			"attackPower": 16,
+			"rangedAttackPower": 16
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"effects": [
+			{
+				"name": "Devilsaur Glare (24352)",
+				"kind": "onUse",
+				"durationMs": 10000
+			}
+		],
+		"sources": [
+			{
+				"kind": "quest",
+				"questId": 8232,
+				"name": "The Green Drake"
+			}
+		]
+	},
+	{
+		"id": 19992,
+		"name": "Devilsaur Tooth",
+		"icon": "inv_misc_bone_07",
+		"slot": "trinket",
+		"quality": "rare",
+		"ilvl": 52,
+		"stats": {
+			"agility": 7
+		},
+		"unique": true,
+		"classes": [
+			3
+		],
+		"effects": [
+			{
+				"name": "Devilsaur Tooth (24353)",
+				"kind": "onUse",
+				"durationMs": 30000
+			}
+		],
+		"sources": [
+			{
+				"kind": "quest",
+				"questId": 8232,
+				"name": "The Green Drake"
 			}
 		]
 	},
@@ -118498,6 +120427,12 @@
 			"stamina": 3,
 			"shadowDamage": 11
 		},
+		"weapon": {
+			"speed": 1.9,
+			"dps": 51.25,
+			"damageMin": 68,
+			"damageMax": 127
+		},
 		"classes": [
 			5
 		],
@@ -118506,6 +120441,37 @@
 				"kind": "quest",
 				"questId": 8257,
 				"name": "Blood of Morphaz"
+			}
+		]
+	},
+	{
+		"id": 20083,
+		"name": "Hunting Spear",
+		"icon": "inv_spear_02",
+		"slot": "weapon",
+		"quality": "rare",
+		"ilvl": 52,
+		"stats": {
+			"stamina": 17,
+			"critRating": 14,
+			"mp5": 6
+		},
+		"weapon": {
+			"type": "polearm",
+			"hand": "twoHand",
+			"speed": 3.1,
+			"dps": 45.08,
+			"damageMin": 111,
+			"damageMax": 168
+		},
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "quest",
+				"questId": 8232,
+				"name": "The Green Drake"
 			}
 		]
 	},
@@ -118519,6 +120485,12 @@
 		"ilvl": 52,
 		"stats": {
 			"agility": 7
+		},
+		"weapon": {
+			"speed": 1.8,
+			"dps": 27.99,
+			"damageMin": 35,
+			"damageMax": 65
 		},
 		"sources": [
 			{
@@ -123236,6 +125208,12 @@
 			"agility": 2,
 			"stamina": 3
 		},
+		"weapon": {
+			"speed": 2.4,
+			"dps": 11.89,
+			"damageMin": 19,
+			"damageMax": 37
+		},
 		"sources": [
 			{
 				"kind": "vendor",
@@ -123261,6 +125239,12 @@
 		"stats": {
 			"agility": 2,
 			"stamina": 3
+		},
+		"weapon": {
+			"speed": 2.4,
+			"dps": 11.89,
+			"damageMin": 19,
+			"damageMax": 37
 		},
 		"sources": [
 			{
@@ -123638,6 +125622,101 @@
 				"questId": 8413,
 				"name": "Da Voodoo",
 				"faction": "horde"
+			}
+		]
+	},
+	{
+		"id": 20504,
+		"name": "Lightforged Blade",
+		"icon": "inv_sword_39",
+		"slot": "weapon",
+		"quality": "rare",
+		"ilvl": 52,
+		"reqLvl": 47,
+		"stats": {
+			"strength": 12,
+			"stamina": 12,
+			"holyDamage": 17,
+			"arcaneResistance": 5,
+			"fireResistance": 5,
+			"frostResistance": 5,
+			"natureResistance": 5,
+			"shadowResistance": 5
+		},
+		"weapon": {
+			"type": "sword",
+			"hand": "twoHand",
+			"speed": 3.3,
+			"dps": 45.08,
+			"damageMin": 118,
+			"damageMax": 178
+		},
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "quest",
+				"questId": 8418,
+				"name": "Forging the Mightstone",
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 20505,
+		"name": "Chivalrous Signet",
+		"icon": "inv_jewelry_ring_43",
+		"slot": "finger",
+		"quality": "rare",
+		"ilvl": 52,
+		"stats": {
+			"strength": 7,
+			"stamina": 7,
+			"intellect": 7,
+			"healingPower": 18,
+			"spellDamage": 6
+		},
+		"unique": true,
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "quest",
+				"questId": 8418,
+				"name": "Forging the Mightstone",
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 20512,
+		"name": "Sanctified Orb",
+		"icon": "inv_misc_gem_pearl_04",
+		"slot": "trinket",
+		"quality": "rare",
+		"ilvl": 52,
+		"stats": {
+			"healingPower": 15,
+			"spellDamage": 15
+		},
+		"unique": true,
+		"classes": [
+			2
+		],
+		"effects": [
+			{
+				"name": "Sanctified Orb (24865)",
+				"kind": "onUse"
+			}
+		],
+		"sources": [
+			{
+				"kind": "quest",
+				"questId": 8418,
+				"name": "Forging the Mightstone",
+				"faction": "alliance"
 			}
 		]
 	},
@@ -124631,6 +126710,12 @@
 		"reqLvl": 58,
 		"stats": {
 			"agility": 11
+		},
+		"weapon": {
+			"speed": 3,
+			"dps": 37.35,
+			"damageMin": 78,
+			"damageMax": 146
 		}
 	},
 	{
@@ -125595,6 +127680,12 @@
 			"spellDamage": 3,
 			"mp5": 2
 		},
+		"weapon": {
+			"speed": 1.5,
+			"dps": 55.96,
+			"damageMin": 58,
+			"damageMax": 109
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -126341,6 +128432,12 @@
 			"stamina": 4,
 			"attackPower": 18,
 			"rangedAttackPower": 18
+		},
+		"weapon": {
+			"speed": 2.9,
+			"dps": 31.35,
+			"damageMin": 63,
+			"damageMax": 118
 		},
 		"sources": [
 			{
@@ -127132,6 +129229,54 @@
 		]
 	},
 	{
+		"id": 22400,
+		"name": "Libram of Truth",
+		"icon": "inv_relics_libramoftruth",
+		"slot": "ranged",
+		"rangedType": "libram",
+		"quality": "rare",
+		"ilvl": 57,
+		"reqLvl": 52,
+		"effects": [
+			{
+				"name": "Purify and Cleanse Cost Reduced (27850)",
+				"kind": "passive"
+			}
+		],
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 1584,
+				"npcId": 9938,
+				"zoneKind": "dungeon"
+			}
+		]
+	},
+	{
+		"id": 22401,
+		"name": "Libram of Hope",
+		"icon": "inv_relics_libramofhope",
+		"slot": "ranged",
+		"rangedType": "libram",
+		"quality": "rare",
+		"ilvl": 62,
+		"reqLvl": 57,
+		"effects": [
+			{
+				"name": "Seal Duration Increase (27848)",
+				"kind": "passive"
+			}
+		],
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 2557,
+				"npcId": 16097,
+				"zoneKind": "dungeon"
+			}
+		]
+	},
+	{
 		"id": 22403,
 		"name": "Nacreous Shell Necklace",
 		"icon": "inv_jewelry_necklace_10",
@@ -127281,6 +129426,12 @@
 			"stamina": 5,
 			"healingPower": 11,
 			"spellDamage": 11
+		},
+		"weapon": {
+			"speed": 1.3,
+			"dps": 64.05,
+			"damageMin": 58,
+			"damageMax": 108
 		},
 		"sources": [
 			{
@@ -128001,6 +130152,77 @@
 		]
 	},
 	{
+		"id": 23201,
+		"name": "Libram of Divinity",
+		"icon": "inv_relics_libramofhope",
+		"slot": "ranged",
+		"rangedType": "libram",
+		"quality": "rare",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"effects": [
+			{
+				"name": "Libram of Divinity (28853)",
+				"kind": "proc"
+			}
+		],
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 2057,
+				"npcId": 10505,
+				"zoneKind": "dungeon"
+			},
+			{
+				"kind": "drop",
+				"zoneId": 2057,
+				"npcId": 11261,
+				"zoneKind": "dungeon"
+			},
+			{
+				"kind": "drop",
+				"zoneId": 2057,
+				"npcId": 10901,
+				"zoneKind": "dungeon"
+			},
+			{
+				"kind": "drop",
+				"zoneId": 2057,
+				"npcId": 10507,
+				"zoneKind": "dungeon"
+			},
+			{
+				"kind": "drop",
+				"zoneId": 2057,
+				"npcId": 10504,
+				"zoneKind": "dungeon"
+			},
+			{
+				"kind": "drop",
+				"zoneId": 2057,
+				"npcId": 10502,
+				"zoneKind": "dungeon"
+			}
+		]
+	},
+	{
+		"id": 23203,
+		"name": "Libram of Fervor",
+		"icon": "inv_relics_libramoftruth",
+		"slot": "ranged",
+		"rangedType": "libram",
+		"quality": "rare",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"unique": true,
+		"effects": [
+			{
+				"name": "Improved Seal of the Crusader (28852)",
+				"kind": "passive"
+			}
+		]
+	},
+	{
 		"id": 24222,
 		"name": "The Shadowfoot Stabber",
 		"icon": "inv_weapon_shortblade_18",
@@ -128068,6 +130290,30 @@
 		]
 	},
 	{
+		"id": 209611,
+		"name": "Insignia of the Alliance",
+		"icon": "inv_jewelry_trinketpvp_01",
+		"slot": "trinket",
+		"quality": "rare",
+		"ilvl": 1,
+		"unique": true,
+		"classes": [
+			3
+		],
+		"effects": [
+			{
+				"name": "Immune Root/Snare/Stun (5579)",
+				"kind": "onUse",
+				"durationMs": 100
+			}
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
 		"id": 209612,
 		"name": "Insignia of the Alliance",
 		"icon": "inv_jewelry_trinketpvp_01",
@@ -128101,6 +130347,30 @@
 		"unique": true,
 		"classes": [
 			5
+		],
+		"effects": [
+			{
+				"name": "Immune Fear/Polymorph/Stun (23276)",
+				"kind": "onUse",
+				"durationMs": 100
+			}
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 209614,
+		"name": "Insignia of the Alliance",
+		"icon": "inv_jewelry_trinketpvp_01",
+		"slot": "trinket",
+		"quality": "rare",
+		"ilvl": 1,
+		"unique": true,
+		"classes": [
+			2
 		],
 		"effects": [
 			{
@@ -128365,6 +130635,30 @@
 		"unique": true,
 		"classes": [
 			7
+		],
+		"effects": [
+			{
+				"name": "Immune Root/Snare/Stun (5579)",
+				"kind": "onUse",
+				"durationMs": 100
+			}
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 209626,
+		"name": "Insignia of the Horde",
+		"icon": "inv_jewelry_trinketpvp_02",
+		"slot": "trinket",
+		"quality": "rare",
+		"ilvl": 1,
+		"unique": true,
+		"classes": [
+			3
 		],
 		"effects": [
 			{
@@ -130666,6 +132960,323 @@
 		]
 	},
 	{
+		"id": 226881,
+		"name": "Beastmaster's Treads",
+		"icon": "inv_boots_plate_07",
+		"slot": "feet",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 60,
+		"stats": {
+			"agility": 24,
+			"stamina": 13,
+			"intellect": 7,
+			"armor": 266
+		},
+		"classes": [
+			3
+		],
+		"setId": 1669,
+		"setName": "Beastmaster Armor",
+		"effects": [
+			{
+				"name": "Increased Pet Damage +3% (27206)",
+				"kind": "passive"
+			}
+		],
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226882,
+		"name": "Beastmaster's Pants",
+		"icon": "inv_pants_03",
+		"slot": "legs",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 66,
+		"stats": {
+			"agility": 28,
+			"stamina": 14,
+			"intellect": 11,
+			"armor": 339
+		},
+		"classes": [
+			3
+		],
+		"setId": 1669,
+		"setName": "Beastmaster Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226883,
+		"name": "Beastmaster's Gauntlets",
+		"icon": "inv_gauntlets_10",
+		"slot": "hands",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 55,
+		"stats": {
+			"agility": 14,
+			"stamina": 12,
+			"intellect": 10,
+			"armor": 223
+		},
+		"classes": [
+			3
+		],
+		"setId": 1669,
+		"setName": "Beastmaster Armor",
+		"effects": [
+			{
+				"name": "Increased Pet Crit +2% (27043)",
+				"kind": "passive",
+				"durationMs": -1
+			}
+		],
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226884,
+		"name": "Beastmaster's Mantle",
+		"icon": "inv_shoulder_10",
+		"slot": "shoulder",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 65,
+		"stats": {
+			"agility": 13,
+			"stamina": 18,
+			"intellect": 12,
+			"armor": 286
+		},
+		"classes": [
+			3
+		],
+		"setId": 1669,
+		"setName": "Beastmaster Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226885,
+		"name": "Beastmaster's Bindings",
+		"icon": "inv_bracer_17",
+		"slot": "wrist",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 65,
+		"stats": {
+			"agility": 16,
+			"stamina": 6,
+			"intellect": 7,
+			"spirit": 5,
+			"armor": 167
+		},
+		"classes": [
+			3
+		],
+		"setId": 1669,
+		"setName": "Beastmaster Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226886,
+		"name": "Beastmaster's Tunic",
+		"icon": "inv_chest_chain_03",
+		"slot": "chest",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 60,
+		"stats": {
+			"agility": 25,
+			"stamina": 16,
+			"intellect": 13,
+			"critRating": 14,
+			"armor": 387
+		},
+		"classes": [
+			3
+		],
+		"setId": 1669,
+		"setName": "Beastmaster Armor",
+		"effects": [
+			{
+				"name": "Increased Pet Armor +10% (27225)",
+				"kind": "passive",
+				"durationMs": -1
+			}
+		],
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226887,
+		"name": "Beastmaster's Cap",
+		"icon": "inv_helmet_24",
+		"slot": "head",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 60,
+		"stats": {
+			"agility": 23,
+			"stamina": 23,
+			"intellect": 14,
+			"hitRating": 10,
+			"armor": 314
+		},
+		"classes": [
+			3
+		],
+		"setId": 1669,
+		"setName": "Beastmaster Armor",
+		"effects": [
+			{
+				"name": "Increased Pet Health +3% (27038)",
+				"kind": "passive"
+			}
+		],
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226888,
+		"name": "Beastmaster's Belt",
+		"icon": "inv_belt_28",
+		"slot": "waist",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 65,
+		"stats": {
+			"agility": 16,
+			"stamina": 16,
+			"intellect": 10,
+			"armor": 214
+		},
+		"classes": [
+			3
+		],
+		"setId": 1669,
+		"setName": "Beastmaster Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
 		"id": 226905,
 		"name": "Deathmist Belt",
 		"icon": "inv_belt_12",
@@ -131893,6 +134504,932 @@
 		]
 	},
 	{
+		"id": 226969,
+		"name": "Soulforge Spaulders",
+		"icon": "inv_shoulder_10",
+		"slot": "shoulder",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 65,
+		"stats": {
+			"strength": 10,
+			"stamina": 11,
+			"intellect": 11,
+			"healingPower": 8,
+			"spellDamage": 8,
+			"expertiseRating": 10,
+			"armor": 507
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226970,
+		"name": "Soulforge Bracers",
+		"icon": "inv_bracer_14",
+		"slot": "wrist",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 65,
+		"stats": {
+			"strength": 9,
+			"stamina": 10,
+			"intellect": 9,
+			"healingPower": 9,
+			"spellDamage": 9,
+			"armor": 296
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226971,
+		"name": "Soulforge Belt",
+		"icon": "inv_belt_11",
+		"slot": "waist",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 65,
+		"stats": {
+			"strength": 10,
+			"stamina": 11,
+			"intellect": 11,
+			"healingPower": 8,
+			"spellDamage": 8,
+			"hitRating": 10,
+			"armor": 380
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226972,
+		"name": "Soulforge Legplates",
+		"icon": "inv_pants_04",
+		"slot": "legs",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 66,
+		"stats": {
+			"strength": 17,
+			"stamina": 17,
+			"intellect": 19,
+			"healingPower": 11,
+			"spellDamage": 11,
+			"armor": 601
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226973,
+		"name": "Soulforge Breastplate",
+		"icon": "inv_chest_plate03",
+		"slot": "chest",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"stats": {
+			"strength": 16,
+			"stamina": 17,
+			"intellect": 17,
+			"healingPower": 18,
+			"spellDamage": 18,
+			"critRating": 14,
+			"armor": 684
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226974,
+		"name": "Soulforge Warboots",
+		"icon": "inv_boots_plate_03",
+		"slot": "feet",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"stats": {
+			"strength": 12,
+			"stamina": 13,
+			"intellect": 12,
+			"healingPower": 13,
+			"spellDamage": 13,
+			"armor": 470,
+			"mp5": 4
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226975,
+		"name": "Soulforge Gauntlets",
+		"icon": "inv_gauntlets_19",
+		"slot": "hands",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 55,
+		"stats": {
+			"strength": 9,
+			"stamina": 10,
+			"intellect": 10,
+			"healingPower": 9,
+			"spellDamage": 9,
+			"critRating": 14,
+			"armor": 393
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226976,
+		"name": "Soulforge Greathelm",
+		"icon": "inv_helmet_08",
+		"slot": "head",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"stats": {
+			"strength": 16,
+			"stamina": 17,
+			"intellect": 17,
+			"healingPower": 14,
+			"spellDamage": 14,
+			"critRating": 14,
+			"armor": 556,
+			"mp5": 2
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226977,
+		"name": "Soulforge Bindings",
+		"icon": "inv_bracer_14",
+		"slot": "wrist",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 65,
+		"stats": {
+			"stamina": 8,
+			"intellect": 9,
+			"healingPower": 18,
+			"spellDamage": 6,
+			"spirit": 11,
+			"armor": 296
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226978,
+		"name": "Soulforge Cord",
+		"icon": "inv_belt_11",
+		"slot": "waist",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 65,
+		"stats": {
+			"stamina": 12,
+			"intellect": 13,
+			"healingPower": 18,
+			"spellDamage": 6,
+			"spirit": 12,
+			"critRating": 7,
+			"armor": 380
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226979,
+		"name": "Soulforge Epaulets",
+		"icon": "inv_shoulder_10",
+		"slot": "shoulder",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 65,
+		"stats": {
+			"stamina": 12,
+			"intellect": 13,
+			"healingPower": 22,
+			"spellDamage": 7,
+			"spirit": 12,
+			"armor": 507
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226980,
+		"name": "Soulforge Leggings",
+		"icon": "inv_pants_04",
+		"slot": "legs",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 66,
+		"stats": {
+			"stamina": 15,
+			"intellect": 16,
+			"healingPower": 31,
+			"spellDamage": 10,
+			"spirit": 18,
+			"armor": 601
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226981,
+		"name": "Soulforge Crown",
+		"icon": "inv_helmet_08",
+		"slot": "head",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"stats": {
+			"stamina": 16,
+			"intellect": 17,
+			"healingPower": 33,
+			"spellDamage": 11,
+			"spirit": 16,
+			"critRating": 14,
+			"armor": 556
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226982,
+		"name": "Soulforge Fists",
+		"icon": "inv_gauntlets_19",
+		"slot": "hands",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 55,
+		"stats": {
+			"stamina": 10,
+			"intellect": 11,
+			"healingPower": 24,
+			"spellDamage": 8,
+			"spirit": 18,
+			"armor": 393
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226983,
+		"name": "Soulforge Treads",
+		"icon": "inv_boots_plate_03",
+		"slot": "feet",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"stats": {
+			"stamina": 11,
+			"intellect": 13,
+			"healingPower": 20,
+			"spellDamage": 7,
+			"spirit": 20,
+			"armor": 470,
+			"mp5": 2
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226984,
+		"name": "Soulforge Embrace",
+		"icon": "inv_chest_plate03",
+		"slot": "chest",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"stats": {
+			"stamina": 23,
+			"intellect": 16,
+			"healingPower": 37,
+			"spellDamage": 12,
+			"spirit": 15,
+			"armor": 684
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226985,
+		"name": "Soulforge Wristguards",
+		"icon": "inv_bracer_14",
+		"slot": "wrist",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 65,
+		"stats": {
+			"stamina": 16,
+			"intellect": 8,
+			"healingPower": 6,
+			"spellDamage": 6,
+			"defenseRating": 3,
+			"armor": 296
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226986,
+		"name": "Soulforge Waistguard",
+		"icon": "inv_belt_11",
+		"slot": "waist",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 65,
+		"stats": {
+			"stamina": 18,
+			"intellect": 13,
+			"healingPower": 12,
+			"spellDamage": 12,
+			"defenseRating": 3,
+			"armor": 380
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226987,
+		"name": "Soulforge Pauldrons",
+		"icon": "inv_shoulder_10",
+		"slot": "shoulder",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 65,
+		"stats": {
+			"stamina": 18,
+			"intellect": 12,
+			"healingPower": 9,
+			"spellDamage": 9,
+			"defenseRating": 5,
+			"blockRating": 5,
+			"armor": 507
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226988,
+		"name": "Soulforge Legguards",
+		"icon": "inv_pants_04",
+		"slot": "legs",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 66,
+		"stats": {
+			"stamina": 24,
+			"intellect": 16,
+			"healingPower": 16,
+			"spellDamage": 16,
+			"defenseRating": 9,
+			"blockValue": 14,
+			"armor": 601
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226989,
+		"name": "Soulforge Faceguard",
+		"icon": "inv_helmet_08",
+		"slot": "head",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"stats": {
+			"stamina": 33,
+			"intellect": 18,
+			"healingPower": 13,
+			"spellDamage": 13,
+			"defenseRating": 4,
+			"armor": 556
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226990,
+		"name": "Soulforge Handguards",
+		"icon": "inv_gauntlets_19",
+		"slot": "hands",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 55,
+		"stats": {
+			"stamina": 15,
+			"intellect": 11,
+			"healingPower": 12,
+			"spellDamage": 12,
+			"defenseRating": 5,
+			"parryRating": 12,
+			"armor": 393
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226991,
+		"name": "Soulforge Sabatons",
+		"icon": "inv_boots_plate_03",
+		"slot": "feet",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"stats": {
+			"stamina": 26,
+			"intellect": 12,
+			"healingPower": 8,
+			"spellDamage": 8,
+			"defenseRating": 3,
+			"armor": 470
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
+		"id": 226992,
+		"name": "Soulforge Chestguards",
+		"icon": "inv_chest_plate03",
+		"slot": "chest",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"stats": {
+			"stamina": 29,
+			"intellect": 18,
+			"healingPower": 14,
+			"spellDamage": 14,
+			"expertiseRating": 12,
+			"defenseRating": 5,
+			"armor": 684
+		},
+		"classes": [
+			2
+		],
+		"setId": 1673,
+		"setName": "Soulforge Armor",
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 230317,
+				"npcName": "Mokvar",
+				"zoneId": 1637,
+				"faction": "horde"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 230319,
+				"npcName": "Deliana",
+				"zoneId": 1537,
+				"faction": "alliance"
+			}
+		]
+	},
+	{
 		"id": 227001,
 		"name": "Bindings of The Five Thunders",
 		"icon": "inv_bracer_02",
@@ -132843,6 +136380,36 @@
 		}
 	},
 	{
+		"id": 228175,
+		"name": "Libram of Holy Alacrity",
+		"icon": "inv_relics_libramofhope",
+		"slot": "ranged",
+		"rangedType": "libram",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"effects": [
+			{
+				"name": "Libram of Holy Alacrity (449980)",
+				"kind": "proc",
+				"durationMs": 10000
+			}
+		],
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Enchanting",
+				"spellId": 1249152
+			},
+			{
+				"kind": "vendor",
+				"npcId": 227853,
+				"npcName": "Pix Xizzix",
+				"zoneId": 33
+			}
+		]
+	},
+	{
 		"id": 228176,
 		"name": "Totem of Thunder",
 		"icon": "inv_relics_totemofrebirth",
@@ -132884,6 +136451,12 @@
 			"healingPower": 6,
 			"spellDamage": 6
 		},
+		"weapon": {
+			"speed": 1.5,
+			"dps": 34.2,
+			"damageMin": 35,
+			"damageMax": 67
+		},
 		"sources": [
 			{
 				"kind": "crafted",
@@ -132904,6 +136477,12 @@
 		"stats": {
 			"healingPower": 8,
 			"spellDamage": 8
+		},
+		"weapon": {
+			"speed": 2,
+			"dps": 45.79,
+			"damageMin": 64,
+			"damageMax": 119
 		},
 		"sources": [
 			{
@@ -132926,6 +136505,12 @@
 			"healingPower": 7,
 			"spellDamage": 7
 		},
+		"weapon": {
+			"speed": 1.8,
+			"dps": 39.29,
+			"damageMin": 49,
+			"damageMax": 92
+		},
 		"sources": [
 			{
 				"kind": "crafted",
@@ -132946,6 +136531,12 @@
 		"stats": {
 			"healingPower": 9,
 			"spellDamage": 9
+		},
+		"weapon": {
+			"speed": 1.5,
+			"dps": 53.37,
+			"damageMin": 56,
+			"damageMax": 104
 		},
 		"sources": [
 			{
@@ -132968,6 +136559,12 @@
 			"intellect": 7,
 			"healingPower": 9,
 			"spellDamage": 9
+		},
+		"weapon": {
+			"speed": 1.2,
+			"dps": 59.86,
+			"damageMin": 50,
+			"damageMax": 93
 		},
 		"sources": [
 			{
@@ -133116,6 +136713,37 @@
 		]
 	},
 	{
+		"id": 249397,
+		"name": "Tenets of the Silver Hand",
+		"icon": "inv_misc_book_13",
+		"slot": "ranged",
+		"rangedType": "libram",
+		"quality": "rare",
+		"ilvl": 25,
+		"reqLvl": 20,
+		"fightTags": {
+			"mobTypes": [
+				"Undead"
+			]
+		},
+		"classes": [
+			2
+		],
+		"effects": [
+			{
+				"name": "Increased Damage Undead 01 (1302545)",
+				"kind": "passive"
+			}
+		],
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Enchanting",
+				"spellId": 1248754
+			}
+		]
+	},
+	{
 		"id": 249398,
 		"name": "Polished Driftwood Icon",
 		"icon": "spell_shaman_totemrecall",
@@ -133165,6 +136793,29 @@
 				"kind": "crafted",
 				"profession": "Enchanting",
 				"spellId": 1248974
+			}
+		]
+	},
+	{
+		"id": 249442,
+		"name": "Libram of Invocation",
+		"icon": "inv_relics_libramofhope",
+		"slot": "ranged",
+		"rangedType": "libram",
+		"quality": "rare",
+		"ilvl": 45,
+		"reqLvl": 40,
+		"effects": [
+			{
+				"name": "Seal Cost Reduction (1249005)",
+				"kind": "passive"
+			}
+		],
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Enchanting",
+				"spellId": 1249006
 			}
 		]
 	},
@@ -143425,7 +147076,13 @@
 		"rangedType": "gun",
 		"quality": "uncommon",
 		"ilvl": 48,
-		"reqLvl": 45
+		"reqLvl": 45,
+		"weapon": {
+			"speed": 3,
+			"dps": 22.4,
+			"damageMin": 47,
+			"damageMax": 87
+		}
 	},
 	{
 		"id": 259892,
@@ -144143,6 +147800,50 @@
 		]
 	},
 	{
+		"id": 267369,
+		"name": "Wolfsbane",
+		"icon": "inv_sword_25",
+		"slot": "weapon",
+		"quality": "rare",
+		"ilvl": 31,
+		"stats": {
+			"stamina": 9,
+			"intellect": 10
+		},
+		"fightTags": {
+			"families": [
+				"Wolf",
+				"Worgen"
+			]
+		},
+		"weapon": {
+			"type": "sword",
+			"hand": "twoHand",
+			"speed": 3.4,
+			"dps": 25.7,
+			"damageMin": 69,
+			"damageMax": 105
+		},
+		"classes": [
+			2
+		],
+		"effects": [
+			{
+				"name": "Blazewind Blast (1282503)",
+				"kind": "proc",
+				"ppm": 2.25
+			}
+		],
+		"sources": [
+			{
+				"kind": "quest",
+				"questId": 95140,
+				"name": "Old Fire-Eye",
+				"faction": "horde"
+			}
+		]
+	},
+	{
 		"id": 268873,
 		"name": "Defender of the Barkskin",
 		"icon": "inv_misc_horn_02",
@@ -144701,6 +148402,12 @@
 		"stats": {
 			"healingPower": 7,
 			"spellDamage": 7
+		},
+		"weapon": {
+			"speed": 1.5,
+			"dps": 34.98,
+			"damageMin": 36,
+			"damageMax": 68
 		}
 	},
 	{
@@ -145060,6 +148767,12 @@
 		"stats": {
 			"strength": 5,
 			"agility": 5
+		},
+		"weapon": {
+			"speed": 1.8,
+			"dps": 26.91,
+			"damageMin": 33,
+			"damageMax": 63
 		}
 	},
 	{
@@ -145073,6 +148786,12 @@
 		"stats": {
 			"agility": 6,
 			"stamina": 2
+		},
+		"weapon": {
+			"speed": 2.7,
+			"dps": 23.32,
+			"damageMin": 44,
+			"damageMax": 82
 		}
 	},
 	{
@@ -149620,6 +153339,33 @@
 		]
 	},
 	{
+		"id": 272397,
+		"name": "Ranger's Belt",
+		"icon": "inv_belt_25",
+		"slot": "waist",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 60,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 24,
+			"stamina": 11,
+			"intellect": 14,
+			"armor": 217
+		},
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 227853,
+				"npcName": "Pix Xizzix",
+				"zoneId": 33
+			}
+		]
+	},
+	{
 		"id": 272398,
 		"name": "Caretaker's Cord",
 		"icon": "inv_belt_05",
@@ -149748,6 +153494,62 @@
 		},
 		"classes": [
 			1
+		],
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 227853,
+				"npcName": "Pix Xizzix",
+				"zoneId": 33
+			}
+		]
+	},
+	{
+		"id": 272404,
+		"name": "Vindicator's Belt",
+		"icon": "inv_belt_07",
+		"slot": "waist",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 24,
+			"stamina": 11,
+			"healingPower": 16,
+			"spellDamage": 16,
+			"armor": 385
+		},
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 227853,
+				"npcName": "Pix Xizzix",
+				"zoneId": 33
+			}
+		]
+	},
+	{
+		"id": 272405,
+		"name": "Redeemer's Waistcord",
+		"icon": "inv_belt_11",
+		"slot": "waist",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 24,
+			"healingPower": 23,
+			"spellDamage": 8,
+			"critRating": 14,
+			"armor": 385
+		},
+		"classes": [
+			2
 		],
 		"sources": [
 			{
@@ -150135,6 +153937,81 @@
 		"effects": [
 			{
 				"name": "Increased Flame Shock Duration (1291077)",
+				"kind": "passive"
+			}
+		],
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 227853,
+				"npcName": "Pix Xizzix",
+				"zoneId": 33
+			}
+		]
+	},
+	{
+		"id": 272434,
+		"name": "Sentinel's Libram",
+		"icon": "inv_misc_book_12",
+		"slot": "ranged",
+		"rangedType": "libram",
+		"quality": "rare",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"effects": [
+			{
+				"name": "Swift Judgement Cooldown Reduction (1291083)",
+				"kind": "passive"
+			}
+		],
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 227853,
+				"npcName": "Pix Xizzix",
+				"zoneId": 33
+			},
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272435,
+		"name": "Libram of Law",
+		"icon": "inv_misc_book_04",
+		"slot": "ranged",
+		"rangedType": "libram",
+		"quality": "rare",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"effects": [
+			{
+				"name": "Judgement Increased Damage (1291086)",
+				"kind": "passive"
+			}
+		],
+		"sources": [
+			{
+				"kind": "vendor",
+				"npcId": 227853,
+				"npcName": "Pix Xizzix",
+				"zoneId": 33
+			}
+		]
+	},
+	{
+		"id": 272436,
+		"name": "Libram of Economy",
+		"icon": "inv_misc_book_11",
+		"slot": "ranged",
+		"rangedType": "libram",
+		"quality": "rare",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"effects": [
+			{
+				"name": "Holy Light Mana Cost Reduction (1291089)",
 				"kind": "passive"
 			}
 		],
@@ -151051,6 +154928,31 @@
 		]
 	},
 	{
+		"id": 272483,
+		"name": "Premier Chain Bracers",
+		"icon": "inv_bracer_16",
+		"slot": "wrist",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"stamina": 15,
+			"intellect": 7,
+			"attackPower": 8,
+			"rangedAttackPower": 8,
+			"armor": 155
+		},
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
 		"id": 272484,
 		"name": "Premier Mail Walkers",
 		"icon": "inv_boots_07",
@@ -151218,6 +155120,176 @@
 		],
 		"setId": 301,
 		"setName": "Champion's Earthshaker",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272490,
+		"name": "Premier Chain Breastplate",
+		"icon": "inv_chest_chain_04",
+		"slot": "chest",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"agility": 14,
+			"stamina": 19,
+			"intellect": 8,
+			"attackPower": 14,
+			"rangedAttackPower": 14,
+			"armor": 354
+		},
+		"classes": [
+			3
+		],
+		"setId": 361,
+		"setName": "Champion's Pursuit",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272491,
+		"name": "Premier Chain Headguard",
+		"icon": "inv_helmet_03",
+		"slot": "head",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"agility": 10,
+			"stamina": 19,
+			"intellect": 7,
+			"attackPower": 12,
+			"rangedAttackPower": 12,
+			"armor": 288
+		},
+		"classes": [
+			3
+		],
+		"setId": 361,
+		"setName": "Champion's Pursuit",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272492,
+		"name": "Premier Chain Leggings",
+		"icon": "inv_pants_03",
+		"slot": "legs",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"agility": 13,
+			"stamina": 19,
+			"intellect": 9,
+			"dodgeRating": 6,
+			"armor": 310
+		},
+		"classes": [
+			3
+		],
+		"setId": 361,
+		"setName": "Champion's Pursuit",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272494,
+		"name": "Premier Chain Girdle",
+		"icon": "inv_belt_14",
+		"slot": "waist",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"agility": 12,
+			"stamina": 19,
+			"intellect": 7,
+			"armor": 199
+		},
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272495,
+		"name": "Premier Chain Gauntlets",
+		"icon": "inv_gauntlets_17",
+		"slot": "hands",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"agility": 8,
+			"stamina": 20,
+			"intellect": 6,
+			"attackPower": 12,
+			"rangedAttackPower": 12,
+			"armor": 221
+		},
+		"classes": [
+			3
+		],
+		"setId": 361,
+		"setName": "Champion's Pursuit",
+		"effects": [
+			{
+				"name": "Multi-Shot Damage Increase (28539)",
+				"kind": "passive",
+				"durationMs": -1
+			}
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272496,
+		"name": "Premier Chain Boots",
+		"icon": "inv_boots_05",
+		"slot": "feet",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"agility": 11,
+			"stamina": 19,
+			"intellect": 5,
+			"attackPower": 12,
+			"rangedAttackPower": 12,
+			"armor": 244
+		},
+		"classes": [
+			3
+		],
+		"setId": 361,
+		"setName": "Champion's Pursuit",
 		"sources": [
 			{
 				"kind": "pvp"
@@ -152108,6 +156180,228 @@
 		],
 		"setId": 393,
 		"setName": "Warlord's Vestments",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272530,
+		"name": "Premier Warlord's Chain Chestpiece",
+		"icon": "inv_chest_chain_11",
+		"slot": "chest",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 18,
+			"stamina": 34,
+			"intellect": 12,
+			"attackPower": 24,
+			"rangedAttackPower": 24,
+			"armor": 416
+		},
+		"classes": [
+			3
+		],
+		"setId": 396,
+		"setName": "Warlord's Pursuit",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272531,
+		"name": "Premier Warlord's Chain Helmet",
+		"icon": "inv_helmet_09",
+		"slot": "head",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 18,
+			"stamina": 34,
+			"intellect": 12,
+			"attackPower": 24,
+			"rangedAttackPower": 24,
+			"armor": 338
+		},
+		"classes": [
+			3
+		],
+		"setId": 396,
+		"setName": "Warlord's Pursuit",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272532,
+		"name": "Premier General's Chain Legguards",
+		"icon": "inv_pants_mail_16",
+		"slot": "legs",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 17,
+			"stamina": 34,
+			"intellect": 12,
+			"dodgeRating": 12,
+			"armor": 364
+		},
+		"classes": [
+			3
+		],
+		"setId": 396,
+		"setName": "Warlord's Pursuit",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272533,
+		"name": "Premier General's Chain Shoulders",
+		"icon": "inv_shoulder_29",
+		"slot": "shoulder",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 17,
+			"stamina": 26,
+			"attackPower": 18,
+			"rangedAttackPower": 18,
+			"armor": 312
+		},
+		"classes": [
+			3
+		],
+		"setId": 396,
+		"setName": "Warlord's Pursuit",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272534,
+		"name": "Premier Centurion's Chain Sabatons",
+		"icon": "inv_boots_plate_06",
+		"slot": "feet",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 14,
+			"stamina": 26,
+			"intellect": 7,
+			"attackPower": 18,
+			"rangedAttackPower": 18,
+			"armor": 286
+		},
+		"classes": [
+			3
+		],
+		"setId": 396,
+		"setName": "Warlord's Pursuit",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272535,
+		"name": "Premier Legionnaire's Chain Wristguards",
+		"icon": "inv_bracer_16",
+		"slot": "wrist",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 21,
+			"intellect": 10,
+			"attackPower": 12,
+			"rangedAttackPower": 12,
+			"armor": 182
+		},
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272536,
+		"name": "Premier Champion's Chain Gloves",
+		"icon": "inv_gauntlets_11",
+		"slot": "hands",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 10,
+			"stamina": 27,
+			"intellect": 10,
+			"attackPower": 18,
+			"rangedAttackPower": 18,
+			"armor": 260
+		},
+		"classes": [
+			3
+		],
+		"setId": 396,
+		"setName": "Warlord's Pursuit",
+		"effects": [
+			{
+				"name": "Multi-Shot Damage Increase (28539)",
+				"kind": "passive",
+				"durationMs": -1
+			}
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272537,
+		"name": "Premier Legionnaire's Chain Girdle",
+		"icon": "inv_belt_14",
+		"slot": "waist",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 17,
+			"stamina": 26,
+			"intellect": 10,
+			"armor": 234
+		},
+		"classes": [
+			3
+		],
 		"sources": [
 			{
 				"kind": "pvp"
@@ -153402,6 +157696,12 @@
 			"attackPower": 32,
 			"rangedAttackPower": 32
 		},
+		"weapon": {
+			"speed": 1.8,
+			"dps": 36.93,
+			"damageMin": 53,
+			"damageMax": 80
+		},
 		"sources": [
 			{
 				"kind": "pvp"
@@ -153421,6 +157721,12 @@
 			"stamina": 6,
 			"attackPower": 32,
 			"rangedAttackPower": 32
+		},
+		"weapon": {
+			"speed": 2.9,
+			"dps": 36.93,
+			"damageMin": 85,
+			"damageMax": 129
 		},
 		"sources": [
 			{
@@ -153525,6 +157831,12 @@
 			"stamina": 6,
 			"attackPower": 32,
 			"rangedAttackPower": 32
+		},
+		"weapon": {
+			"speed": 2.9,
+			"dps": 36.93,
+			"damageMin": 85,
+			"damageMax": 129
 		},
 		"sources": [
 			{
@@ -154072,6 +158384,33 @@
 		],
 		"setId": 281,
 		"setName": "Champion's Battlegear",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272640,
+		"name": "Premier Chain Shoulders",
+		"icon": "inv_shoulder_01",
+		"slot": "shoulder",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"agility": 13,
+			"stamina": 19,
+			"attackPower": 12,
+			"rangedAttackPower": 12,
+			"armor": 266
+		},
+		"classes": [
+			3
+		],
+		"setId": 361,
+		"setName": "Champion's Pursuit",
 		"sources": [
 			{
 				"kind": "pvp"
@@ -155080,6 +159419,93 @@
 		]
 	},
 	{
+		"id": 272712,
+		"name": "Premier Chainmail Girdle",
+		"icon": "inv_belt_28",
+		"slot": "waist",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"agility": 12,
+			"stamina": 19,
+			"intellect": 7,
+			"armor": 199
+		},
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272713,
+		"name": "Premier Chainmail Boots",
+		"icon": "inv_boots_07",
+		"slot": "feet",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"agility": 11,
+			"stamina": 19,
+			"intellect": 5,
+			"attackPower": 12,
+			"rangedAttackPower": 12,
+			"armor": 244
+		},
+		"classes": [
+			3
+		],
+		"setId": 362,
+		"setName": "Lieutenant Commander's Pursuit",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272715,
+		"name": "Premier Chainmail Gauntlets",
+		"icon": "inv_gauntlets_10",
+		"slot": "hands",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"agility": 8,
+			"stamina": 20,
+			"intellect": 6,
+			"attackPower": 12,
+			"rangedAttackPower": 12,
+			"armor": 221
+		},
+		"classes": [
+			3
+		],
+		"setId": 362,
+		"setName": "Lieutenant Commander's Pursuit",
+		"effects": [
+			{
+				"name": "Multi-Shot Damage Increase (28539)",
+				"kind": "passive",
+				"durationMs": -1
+			}
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
 		"id": 272716,
 		"name": "Premier Plate Boots",
 		"icon": "inv_boots_plate_09",
@@ -155131,6 +159557,116 @@
 				"kind": "passive",
 				"durationMs": -1
 			}
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272718,
+		"name": "Premier Chevalier Sabatons",
+		"icon": "inv_boots_plate_03",
+		"slot": "feet",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"strength": 10,
+			"stamina": 19,
+			"intellect": 7,
+			"healingPower": 7,
+			"spellDamage": 7,
+			"armor": 431
+		},
+		"classes": [
+			2
+		],
+		"setId": 2086,
+		"setName": "Lieutenant Commander's Vindication",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272719,
+		"name": "Premier Chevalier Gauntlets",
+		"icon": "inv_gauntlets_29",
+		"slot": "hands",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"strength": 11,
+			"stamina": 19,
+			"intellect": 5,
+			"healingPower": 7,
+			"spellDamage": 7,
+			"armor": 392
+		},
+		"classes": [
+			2
+		],
+		"setId": 2086,
+		"setName": "Lieutenant Commander's Vindication",
+		"effects": [
+			{
+				"name": "Repentance Duration Increase (1316101)",
+				"kind": "passive"
+			}
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272720,
+		"name": "Premier Chevalier Cinch",
+		"icon": "inv_belt_27",
+		"slot": "waist",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"strength": 12,
+			"stamina": 19,
+			"intellect": 7,
+			"armor": 353
+		},
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272721,
+		"name": "Premier Chevalier Armsplints",
+		"icon": "inv_bracer_18",
+		"slot": "wrist",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"strength": 9,
+			"stamina": 14,
+			"intellect": 5,
+			"armor": 274
+		},
+		"classes": [
+			2
 		],
 		"sources": [
 			{
@@ -155465,6 +160001,116 @@
 		]
 	},
 	{
+		"id": 272734,
+		"name": "Premier Chainmail Hauberk",
+		"icon": "inv_chest_chain_06",
+		"slot": "chest",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"agility": 14,
+			"stamina": 19,
+			"intellect": 8,
+			"attackPower": 14,
+			"rangedAttackPower": 14,
+			"armor": 354
+		},
+		"classes": [
+			3
+		],
+		"setId": 362,
+		"setName": "Lieutenant Commander's Pursuit",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272735,
+		"name": "Premier Chainmail Leggings",
+		"icon": "inv_pants_10",
+		"slot": "legs",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"agility": 13,
+			"stamina": 19,
+			"intellect": 9,
+			"dodgeRating": 6,
+			"armor": 310
+		},
+		"classes": [
+			3
+		],
+		"setId": 362,
+		"setName": "Lieutenant Commander's Pursuit",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272736,
+		"name": "Premier Chainmail Pauldrons",
+		"icon": "inv_shoulder_18",
+		"slot": "shoulder",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"agility": 13,
+			"stamina": 19,
+			"attackPower": 12,
+			"rangedAttackPower": 12,
+			"armor": 266
+		},
+		"classes": [
+			3
+		],
+		"setId": 362,
+		"setName": "Lieutenant Commander's Pursuit",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272737,
+		"name": "Premier Chainmail Helmet",
+		"icon": "inv_helmet_21",
+		"slot": "head",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"agility": 10,
+			"stamina": 19,
+			"intellect": 7,
+			"attackPower": 12,
+			"rangedAttackPower": 12,
+			"armor": 288
+		},
+		"classes": [
+			3
+		],
+		"setId": 362,
+		"setName": "Lieutenant Commander's Pursuit",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
 		"id": 272738,
 		"name": "Premier Plate Helm",
 		"icon": "inv_helmet_05",
@@ -155562,6 +160208,118 @@
 		],
 		"setId": 282,
 		"setName": "Lieutenant Commander's Battlegear",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272742,
+		"name": "Premier Chevalier Breastplate",
+		"icon": "inv_chest_plate03",
+		"slot": "chest",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"strength": 11,
+			"stamina": 25,
+			"intellect": 11,
+			"critRating": 7,
+			"armor": 627
+		},
+		"classes": [
+			2
+		],
+		"setId": 2086,
+		"setName": "Lieutenant Commander's Vindication",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272743,
+		"name": "Premier Chevalier Headguard",
+		"icon": "inv_helmet_05",
+		"slot": "head",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"strength": 11,
+			"stamina": 25,
+			"intellect": 7,
+			"healingPower": 7,
+			"spellDamage": 7,
+			"critRating": 7,
+			"armor": 509
+		},
+		"classes": [
+			2
+		],
+		"setId": 2086,
+		"setName": "Lieutenant Commander's Vindication",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272744,
+		"name": "Premier Chevalier Leggings",
+		"icon": "inv_pants_06",
+		"slot": "legs",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"strength": 13,
+			"stamina": 25,
+			"healingPower": 7,
+			"spellDamage": 7,
+			"critRating": 7,
+			"armor": 548
+		},
+		"classes": [
+			2
+		],
+		"setId": 2086,
+		"setName": "Lieutenant Commander's Vindication",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272745,
+		"name": "Premier Chevalier Shoulders",
+		"icon": "inv_shoulder_28",
+		"slot": "shoulder",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"strength": 11,
+			"stamina": 19,
+			"intellect": 5,
+			"healingPower": 7,
+			"spellDamage": 7,
+			"armor": 470
+		},
+		"classes": [
+			2
+		],
+		"setId": 2086,
+		"setName": "Lieutenant Commander's Vindication",
 		"sources": [
 			{
 				"kind": "pvp"
@@ -156217,6 +160975,451 @@
 		"classes": [
 			4
 		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272770,
+		"name": "Premier Knight-Captain's Chainmail Bracers",
+		"icon": "inv_bracer_17",
+		"slot": "wrist",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 21,
+			"intellect": 10,
+			"attackPower": 12,
+			"rangedAttackPower": 12,
+			"armor": 182
+		},
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272771,
+		"name": "Premier Knight-Champion's Chainmail Boots",
+		"icon": "inv_boots_plate_07",
+		"slot": "feet",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 14,
+			"stamina": 26,
+			"intellect": 7,
+			"attackPower": 18,
+			"rangedAttackPower": 18,
+			"armor": 286
+		},
+		"classes": [
+			3
+		],
+		"setId": 395,
+		"setName": "Field Marshal's Pursuit",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272772,
+		"name": "Premier Lieutenant Commander's Chainmail Grips",
+		"icon": "inv_gauntlets_10",
+		"slot": "hands",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 10,
+			"stamina": 27,
+			"intellect": 10,
+			"attackPower": 18,
+			"rangedAttackPower": 18,
+			"armor": 260
+		},
+		"classes": [
+			3
+		],
+		"setId": 395,
+		"setName": "Field Marshal's Pursuit",
+		"effects": [
+			{
+				"name": "Multi-Shot Damage Increase (28539)",
+				"kind": "passive",
+				"durationMs": -1
+			}
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272773,
+		"name": "Premier Knight-Captain's Chainmail Girdle",
+		"icon": "inv_belt_28",
+		"slot": "waist",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 17,
+			"stamina": 26,
+			"intellect": 10,
+			"armor": 234
+		},
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272774,
+		"name": "Premier Field Marshal's Chainmail Helm",
+		"icon": "inv_helmet_05",
+		"slot": "head",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 18,
+			"stamina": 34,
+			"intellect": 12,
+			"attackPower": 24,
+			"rangedAttackPower": 24,
+			"armor": 338
+		},
+		"classes": [
+			3
+		],
+		"setId": 395,
+		"setName": "Field Marshal's Pursuit",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272775,
+		"name": "Premier Field Marshal's Chainmail Breastplate",
+		"icon": "inv_chest_chain_03",
+		"slot": "chest",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 18,
+			"stamina": 34,
+			"intellect": 12,
+			"attackPower": 24,
+			"rangedAttackPower": 24,
+			"armor": 416
+		},
+		"classes": [
+			3
+		],
+		"setId": 395,
+		"setName": "Field Marshal's Pursuit",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272776,
+		"name": "Premier Marshal's Chainmail Legguards",
+		"icon": "inv_pants_mail_17",
+		"slot": "legs",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 17,
+			"stamina": 34,
+			"intellect": 12,
+			"dodgeRating": 12,
+			"armor": 364
+		},
+		"classes": [
+			3
+		],
+		"setId": 395,
+		"setName": "Field Marshal's Pursuit",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272777,
+		"name": "Premier Marshal's Chainmail Spaulders",
+		"icon": "inv_shoulder_10",
+		"slot": "shoulder",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 17,
+			"stamina": 26,
+			"attackPower": 18,
+			"rangedAttackPower": 18,
+			"armor": 312
+		},
+		"classes": [
+			3
+		],
+		"setId": 395,
+		"setName": "Field Marshal's Pursuit",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272778,
+		"name": "Premier Knight-Captain's Chevalier Armguards",
+		"icon": "inv_bracer_18",
+		"slot": "wrist",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 12,
+			"stamina": 20,
+			"intellect": 7,
+			"armor": 323
+		},
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272779,
+		"name": "Premier Knight-Captain's Chevalier Belt",
+		"icon": "inv_belt_27",
+		"slot": "waist",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 17,
+			"stamina": 26,
+			"intellect": 10,
+			"armor": 415
+		},
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272780,
+		"name": "Premier Lieutenant Commander's Chevalier Gloves",
+		"icon": "inv_gauntlets_29",
+		"slot": "hands",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 13,
+			"stamina": 26,
+			"intellect": 7,
+			"healingPower": 7,
+			"spellDamage": 7,
+			"critRating": 7,
+			"armor": 461
+		},
+		"classes": [
+			2
+		],
+		"setId": 2087,
+		"setName": "Field Marshal's Vindication",
+		"effects": [
+			{
+				"name": "Repentance Duration Increase (1316101)",
+				"kind": "passive"
+			}
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272781,
+		"name": "Premier Knight-Champion's Chevalier Boots",
+		"icon": "inv_boots_plate_09",
+		"slot": "feet",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 12,
+			"stamina": 26,
+			"intellect": 8,
+			"healingPower": 14,
+			"spellDamage": 14,
+			"armor": 507
+		},
+		"classes": [
+			2
+		],
+		"setId": 2087,
+		"setName": "Field Marshal's Vindication",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272782,
+		"name": "Premier Field Marshal's Chevalier Chestplate",
+		"icon": "inv_chest_plate03",
+		"slot": "chest",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 15,
+			"stamina": 34,
+			"intellect": 12,
+			"critRating": 14,
+			"armor": 738
+		},
+		"classes": [
+			2
+		],
+		"setId": 2087,
+		"setName": "Field Marshal's Vindication",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272783,
+		"name": "Premier Field Marshal's Chevalier Faceguard",
+		"icon": "inv_helmet_05",
+		"slot": "head",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 12,
+			"stamina": 34,
+			"intellect": 8,
+			"healingPower": 14,
+			"spellDamage": 14,
+			"critRating": 14,
+			"armor": 599
+		},
+		"classes": [
+			2
+		],
+		"setId": 2087,
+		"setName": "Field Marshal's Vindication",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272784,
+		"name": "Premier Marshal's Chevalier Legplates",
+		"icon": "inv_pants_04",
+		"slot": "legs",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 15,
+			"stamina": 34,
+			"healingPower": 14,
+			"spellDamage": 14,
+			"critRating": 14,
+			"armor": 646
+		},
+		"classes": [
+			2
+		],
+		"setId": 2087,
+		"setName": "Field Marshal's Vindication",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272785,
+		"name": "Premier Marshal's Chevalier Pauldrons",
+		"icon": "inv_shoulder_20",
+		"slot": "shoulder",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 12,
+			"stamina": 26,
+			"intellect": 8,
+			"healingPower": 14,
+			"spellDamage": 14,
+			"armor": 553
+		},
+		"classes": [
+			2
+		],
+		"setId": 2087,
+		"setName": "Field Marshal's Vindication",
 		"sources": [
 			{
 				"kind": "pvp"
@@ -157286,6 +162489,31 @@
 		]
 	},
 	{
+		"id": 272830,
+		"name": "Premier Chainmail Armguards",
+		"icon": "inv_bracer_06",
+		"slot": "wrist",
+		"armorType": "mail",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"stamina": 15,
+			"intellect": 7,
+			"attackPower": 8,
+			"rangedAttackPower": 8,
+			"armor": 155
+		},
+		"classes": [
+			3
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
 		"id": 272834,
 		"name": "Premier Dreamhide Armsplints",
 		"icon": "inv_bracer_03",
@@ -157436,6 +162664,12 @@
 			"attackPower": 32,
 			"rangedAttackPower": 32
 		},
+		"weapon": {
+			"speed": 1.8,
+			"dps": 36.93,
+			"damageMin": 53,
+			"damageMax": 80
+		},
 		"sources": [
 			{
 				"kind": "pvp"
@@ -157455,6 +162689,12 @@
 			"stamina": 6,
 			"attackPower": 32,
 			"rangedAttackPower": 32
+		},
+		"weapon": {
+			"speed": 2.9,
+			"dps": 36.93,
+			"damageMin": 85,
+			"damageMax": 129
 		},
 		"sources": [
 			{
@@ -157559,6 +162799,12 @@
 			"stamina": 6,
 			"attackPower": 32,
 			"rangedAttackPower": 32
+		},
+		"weapon": {
+			"speed": 2.9,
+			"dps": 36.93,
+			"damageMin": 85,
+			"damageMax": 129
 		},
 		"sources": [
 			{
@@ -157698,6 +162944,117 @@
 			"damageMin": 187,
 			"damageMax": 281
 		},
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272852,
+		"name": "Premier Luminous Breastplate",
+		"icon": "inv_chest_plate03",
+		"slot": "chest",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"stamina": 26,
+			"intellect": 7,
+			"healingPower": 22,
+			"spellDamage": 7,
+			"armor": 627,
+			"mp5": 4
+		},
+		"classes": [
+			2
+		],
+		"setId": 401,
+		"setName": "Lieutenant Commander's Aegis",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272853,
+		"name": "Premier Luminous Leggings",
+		"icon": "inv_pants_06",
+		"slot": "legs",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"stamina": 25,
+			"intellect": 14,
+			"healingPower": 22,
+			"spellDamage": 7,
+			"armor": 548
+		},
+		"classes": [
+			2
+		],
+		"setId": 401,
+		"setName": "Lieutenant Commander's Aegis",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272854,
+		"name": "Premier Luminous Headguard",
+		"icon": "inv_helmet_05",
+		"slot": "head",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"stamina": 25,
+			"intellect": 9,
+			"healingPower": 24,
+			"spellDamage": 8,
+			"armor": 509,
+			"mp5": 4
+		},
+		"classes": [
+			2
+		],
+		"setId": 401,
+		"setName": "Lieutenant Commander's Aegis",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 272855,
+		"name": "Premier Luminous Shoulders",
+		"icon": "inv_shoulder_28",
+		"slot": "shoulder",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"stamina": 19,
+			"intellect": 4,
+			"healingPower": 18,
+			"spellDamage": 6,
+			"armor": 470,
+			"mp5": 4
+		},
+		"classes": [
+			2
+		],
+		"setId": 401,
+		"setName": "Lieutenant Commander's Aegis",
 		"sources": [
 			{
 				"kind": "pvp"
@@ -157962,6 +163319,12 @@
 		"quality": "rare",
 		"ilvl": 18,
 		"reqLvl": 13,
+		"weapon": {
+			"speed": 2,
+			"dps": 9.63,
+			"damageMin": 15,
+			"damageMax": 23
+		},
 		"effects": [
 			{
 				"name": "Wound (1291551)",
@@ -158207,6 +163570,12 @@
 		"reqLvl": 28,
 		"stats": {
 			"agility": 6
+		},
+		"weapon": {
+			"speed": 2.5,
+			"dps": 16.72,
+			"damageMin": 29,
+			"damageMax": 54
 		}
 	},
 	{
@@ -158283,6 +163652,12 @@
 			"mobTypes": [
 				"Humanoid"
 			]
+		},
+		"weapon": {
+			"speed": 2.3,
+			"dps": 15.42,
+			"damageMin": 28,
+			"damageMax": 43
 		}
 	},
 	{
@@ -158508,6 +163883,12 @@
 		"stats": {
 			"intellect": 4,
 			"mp5": 2
+		},
+		"weapon": {
+			"speed": 1.7,
+			"dps": 31.34,
+			"damageMin": 37,
+			"damageMax": 69
 		},
 		"sources": [
 			{
@@ -159052,6 +164433,231 @@
 		"classes": [
 			1
 		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 273327,
+		"name": "Premier Knight-Captain's Luminous Armguards",
+		"icon": "inv_bracer_18",
+		"slot": "wrist",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 20,
+			"intellect": 12,
+			"healingPower": 18,
+			"spellDamage": 6,
+			"armor": 323
+		},
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 273328,
+		"name": "Premier Knight-Captain's Luminous Belt",
+		"icon": "inv_belt_27",
+		"slot": "waist",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 26,
+			"intellect": 11,
+			"healingPower": 24,
+			"spellDamage": 8,
+			"armor": 415,
+			"mp5": 4
+		},
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 273329,
+		"name": "Premier Lieutenant Commander's Luminous Gloves",
+		"icon": "inv_gauntlets_29",
+		"slot": "hands",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 28,
+			"intellect": 12,
+			"healingPower": 26,
+			"spellDamage": 8,
+			"armor": 461
+		},
+		"classes": [
+			2
+		],
+		"setId": 402,
+		"setName": "Field Marshal's Aegis",
+		"effects": [
+			{
+				"name": "Increased Flash of Light Crit Chance (1293544)",
+				"kind": "passive"
+			}
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 273330,
+		"name": "Premier Knight-Champion's Luminous Boots",
+		"icon": "inv_boots_plate_09",
+		"slot": "feet",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 26,
+			"intellect": 11,
+			"healingPower": 26,
+			"spellDamage": 8,
+			"armor": 507,
+			"mp5": 4
+		},
+		"classes": [
+			2
+		],
+		"setId": 402,
+		"setName": "Field Marshal's Aegis",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 273331,
+		"name": "Premier Field Marshal's Luminous Chestplate",
+		"icon": "inv_chest_plate03",
+		"slot": "chest",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 33,
+			"intellect": 13,
+			"healingPower": 33,
+			"spellDamage": 11,
+			"critRating": 7,
+			"armor": 738,
+			"mp5": 5
+		},
+		"classes": [
+			2
+		],
+		"setId": 402,
+		"setName": "Field Marshal's Aegis",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 273332,
+		"name": "Premier Field Marshal's Luminous Faceguard",
+		"icon": "inv_helmet_05",
+		"slot": "head",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 34,
+			"intellect": 15,
+			"healingPower": 29,
+			"spellDamage": 10,
+			"armor": 599,
+			"mp5": 5
+		},
+		"classes": [
+			2
+		],
+		"setId": 402,
+		"setName": "Field Marshal's Aegis",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 273333,
+		"name": "Premier Marshal's Luminous Legplates",
+		"icon": "inv_pants_04",
+		"slot": "legs",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 34,
+			"intellect": 18,
+			"healingPower": 33,
+			"spellDamage": 11,
+			"critRating": 7,
+			"armor": 646
+		},
+		"classes": [
+			2
+		],
+		"setId": 402,
+		"setName": "Field Marshal's Aegis",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 273334,
+		"name": "Premier Marshal's Luminous Pauldrons",
+		"icon": "inv_shoulder_20",
+		"slot": "shoulder",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 26,
+			"intellect": 12,
+			"healingPower": 24,
+			"spellDamage": 8,
+			"armor": 553,
+			"mp5": 4
+		},
+		"classes": [
+			2
+		],
+		"setId": 402,
+		"setName": "Field Marshal's Aegis",
 		"sources": [
 			{
 				"kind": "pvp"
@@ -159773,6 +165379,117 @@
 		},
 		"classes": [
 			7
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 273363,
+		"name": "Premier Luminous Gauntlets",
+		"icon": "inv_gauntlets_29",
+		"slot": "hands",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"stamina": 20,
+			"intellect": 9,
+			"healingPower": 18,
+			"spellDamage": 6,
+			"armor": 392
+		},
+		"classes": [
+			2
+		],
+		"setId": 401,
+		"setName": "Lieutenant Commander's Aegis",
+		"effects": [
+			{
+				"name": "Increased Flash of Light Crit Chance (1293544)",
+				"kind": "passive"
+			}
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 273364,
+		"name": "Premier Luminous Armsplints",
+		"icon": "inv_bracer_18",
+		"slot": "wrist",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"stamina": 14,
+			"intellect": 9,
+			"healingPower": 11,
+			"spellDamage": 4,
+			"armor": 274
+		},
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 273365,
+		"name": "Premier Luminous Sabatons",
+		"icon": "inv_boots_plate_03",
+		"slot": "feet",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"stamina": 19,
+			"intellect": 10,
+			"healingPower": 22,
+			"spellDamage": 7,
+			"armor": 431
+		},
+		"classes": [
+			2
+		],
+		"setId": 401,
+		"setName": "Lieutenant Commander's Aegis",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 273366,
+		"name": "Premier Luminous Cinch",
+		"icon": "inv_belt_27",
+		"slot": "waist",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"stamina": 19,
+			"intellect": 7,
+			"healingPower": 13,
+			"spellDamage": 4,
+			"armor": 353,
+			"mp5": 4
+		},
+		"classes": [
+			2
 		],
 		"sources": [
 			{
@@ -162549,6 +168266,12 @@
 		"stats": {
 			"rangedAttackPower": 12
 		},
+		"weapon": {
+			"speed": 2,
+			"dps": 15.42,
+			"damageMin": 24,
+			"damageMax": 37
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -162691,6 +168414,12 @@
 		"stats": {
 			"agility": 2,
 			"stamina": 4
+		},
+		"weapon": {
+			"speed": 2.2,
+			"dps": 13.85,
+			"damageMin": 21,
+			"damageMax": 40
 		},
 		"sources": [
 			{
@@ -163233,6 +168962,132 @@
 		]
 	},
 	{
+		"id": 273900,
+		"name": "Wildstalker's Legguards",
+		"slot": "legs",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 60,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 20,
+			"stamina": 18,
+			"intellect": 18,
+			"critRating": 14,
+			"armor": 338,
+			"natureResistance": 9
+		},
+		"limitCategory": 708,
+		"classes": [
+			3
+		],
+		"setId": 2101,
+		"setName": "Wildstalker Armor",
+		"tag": "Crafted",
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Leatherworking",
+				"spellId": 1292937
+			}
+		]
+	},
+	{
+		"id": 273901,
+		"name": "Wildstalker's Gauntlets",
+		"slot": "hands",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 60,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 13,
+			"stamina": 11,
+			"intellect": 12,
+			"spirit": 7,
+			"critRating": 14,
+			"armor": 242,
+			"natureResistance": 7
+		},
+		"limitCategory": 708,
+		"classes": [
+			3
+		],
+		"setId": 2101,
+		"setName": "Wildstalker Armor",
+		"tag": "Crafted",
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Leatherworking",
+				"spellId": 1292938
+			}
+		]
+	},
+	{
+		"id": 273902,
+		"name": "Wildstalker's Spaulders",
+		"slot": "shoulder",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 60,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 17,
+			"stamina": 17,
+			"intellect": 11,
+			"spirit": 9,
+			"armor": 290,
+			"natureResistance": 7
+		},
+		"limitCategory": 708,
+		"classes": [
+			3
+		],
+		"setId": 2101,
+		"setName": "Wildstalker Armor",
+		"tag": "Crafted",
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Leatherworking",
+				"spellId": 1292939
+			}
+		]
+	},
+	{
+		"id": 273903,
+		"name": "Wildstalker's Greaves",
+		"slot": "feet",
+		"armorType": "mail",
+		"quality": "epic",
+		"ilvl": 60,
+		"reqLvl": 60,
+		"stats": {
+			"agility": 15,
+			"stamina": 11,
+			"intellect": 10,
+			"spirit": 12,
+			"hitRating": 9,
+			"armor": 266,
+			"natureResistance": 7
+		},
+		"limitCategory": 708,
+		"classes": [
+			3
+		],
+		"setId": 2101,
+		"setName": "Wildstalker Armor",
+		"tag": "Crafted",
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Leatherworking",
+				"spellId": 1292940
+			}
+		]
+	},
+	{
 		"id": 273904,
 		"name": "Manaflare Pants",
 		"slot": "legs",
@@ -163359,6 +169214,398 @@
 				"kind": "crafted",
 				"profession": "Tailoring",
 				"spellId": 1292944
+			}
+		]
+	},
+	{
+		"id": 273908,
+		"name": "Justice Leggings",
+		"slot": "legs",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 18,
+			"stamina": 19,
+			"intellect": 17,
+			"healingPower": 8,
+			"spellDamage": 8,
+			"critRating": 14,
+			"armor": 598,
+			"natureResistance": 9
+		},
+		"limitCategory": 708,
+		"classes": [
+			2
+		],
+		"setId": 2106,
+		"setName": "Justice Battlegear",
+		"tag": "Crafted",
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Blacksmithing",
+				"spellId": 1292945
+			}
+		]
+	},
+	{
+		"id": 273909,
+		"name": "Justice Gauntlets",
+		"slot": "hands",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 12,
+			"stamina": 14,
+			"intellect": 11,
+			"healingPower": 13,
+			"spellDamage": 13,
+			"hitRating": 9,
+			"armor": 427,
+			"natureResistance": 7
+		},
+		"limitCategory": 708,
+		"classes": [
+			2
+		],
+		"setId": 2106,
+		"setName": "Justice Battlegear",
+		"tag": "Crafted",
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Blacksmithing",
+				"spellId": 1292946
+			}
+		]
+	},
+	{
+		"id": 273910,
+		"name": "Justice Spaulders",
+		"slot": "shoulder",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 15,
+			"stamina": 11,
+			"intellect": 11,
+			"healingPower": 10,
+			"spellDamage": 10,
+			"hitRating": 9,
+			"armor": 513,
+			"natureResistance": 7
+		},
+		"limitCategory": 708,
+		"classes": [
+			2
+		],
+		"setId": 2106,
+		"setName": "Justice Battlegear",
+		"tag": "Crafted",
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Blacksmithing",
+				"spellId": 1292947
+			}
+		]
+	},
+	{
+		"id": 273911,
+		"name": "Justice Greaves",
+		"slot": "feet",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 14,
+			"stamina": 10,
+			"intellect": 9,
+			"healingPower": 11,
+			"spellDamage": 11,
+			"critRating": 14,
+			"armor": 470
+		},
+		"limitCategory": 708,
+		"classes": [
+			2
+		],
+		"setId": 2106,
+		"setName": "Justice Battlegear",
+		"tag": "Crafted",
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Blacksmithing",
+				"spellId": 1292948
+			}
+		]
+	},
+	{
+		"id": 273912,
+		"name": "Justice Legplates",
+		"slot": "legs",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 19,
+			"intellect": 16,
+			"healingPower": 31,
+			"spellDamage": 10,
+			"spirit": 13,
+			"critRating": 14,
+			"armor": 598,
+			"natureResistance": 9
+		},
+		"limitCategory": 708,
+		"classes": [
+			2
+		],
+		"setId": 2107,
+		"setName": "Justice Armor",
+		"tag": "Crafted",
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Blacksmithing",
+				"spellId": 1292949
+			}
+		]
+	},
+	{
+		"id": 273913,
+		"name": "Justice Gloves",
+		"slot": "hands",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 14,
+			"intellect": 21,
+			"healingPower": 24,
+			"spellDamage": 8,
+			"armor": 427,
+			"natureResistance": 7
+		},
+		"limitCategory": 708,
+		"classes": [
+			2
+		],
+		"setId": 2107,
+		"setName": "Justice Armor",
+		"tag": "Crafted",
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Blacksmithing",
+				"spellId": 1292950
+			}
+		]
+	},
+	{
+		"id": 273914,
+		"name": "Justice Epaulets",
+		"slot": "shoulder",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 14,
+			"intellect": 10,
+			"healingPower": 20,
+			"spellDamage": 6,
+			"spirit": 9,
+			"critRating": 14,
+			"armor": 513,
+			"natureResistance": 7
+		},
+		"limitCategory": 708,
+		"classes": [
+			2
+		],
+		"setId": 2107,
+		"setName": "Justice Armor",
+		"tag": "Crafted",
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Blacksmithing",
+				"spellId": 1292951
+			}
+		]
+	},
+	{
+		"id": 273915,
+		"name": "Justice Treads",
+		"slot": "feet",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 13,
+			"intellect": 11,
+			"healingPower": 18,
+			"spellDamage": 6,
+			"critRating": 14,
+			"armor": 470,
+			"mp5": 5,
+			"natureResistance": 7
+		},
+		"limitCategory": 708,
+		"classes": [
+			2
+		],
+		"setId": 2107,
+		"setName": "Justice Armor",
+		"tag": "Crafted",
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Blacksmithing",
+				"spellId": 1292952
+			}
+		]
+	},
+	{
+		"id": 273916,
+		"name": "Justice Legguards",
+		"slot": "legs",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 23,
+			"intellect": 21,
+			"healingPower": 11,
+			"spellDamage": 11,
+			"hitRating": 12,
+			"defenseRating": 7,
+			"armor": 598,
+			"natureResistance": 9
+		},
+		"limitCategory": 708,
+		"classes": [
+			2
+		],
+		"setId": 2108,
+		"setName": "Justice Battleplate",
+		"tag": "Crafted",
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Blacksmithing",
+				"spellId": 1292953
+			}
+		]
+	},
+	{
+		"id": 273917,
+		"name": "Justice Handguards",
+		"slot": "hands",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 18,
+			"intellect": 13,
+			"healingPower": 18,
+			"spellDamage": 18,
+			"defenseRating": 5,
+			"armor": 427,
+			"natureResistance": 7
+		},
+		"limitCategory": 708,
+		"classes": [
+			2
+		],
+		"setId": 2108,
+		"setName": "Justice Battleplate",
+		"tag": "Crafted",
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Blacksmithing",
+				"spellId": 1292954
+			}
+		]
+	},
+	{
+		"id": 273918,
+		"name": "Justice Pauldrons",
+		"slot": "shoulder",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 19,
+			"intellect": 13,
+			"healingPower": 11,
+			"spellDamage": 11,
+			"defenseRating": 5,
+			"blockValue": 11,
+			"armor": 513,
+			"natureResistance": 7
+		},
+		"limitCategory": 708,
+		"classes": [
+			2
+		],
+		"setId": 2108,
+		"setName": "Justice Battleplate",
+		"tag": "Crafted",
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Blacksmithing",
+				"spellId": 1292955
+			}
+		]
+	},
+	{
+		"id": 273919,
+		"name": "Justice Sabatons",
+		"slot": "feet",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 60,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 19,
+			"intellect": 13,
+			"healingPower": 11,
+			"spellDamage": 11,
+			"expertiseRating": 7,
+			"defenseRating": 5,
+			"armor": 470,
+			"natureResistance": 7
+		},
+		"limitCategory": 708,
+		"classes": [
+			2
+		],
+		"setId": 2108,
+		"setName": "Justice Battleplate",
+		"tag": "Crafted",
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Blacksmithing",
+				"spellId": 1292956
 			}
 		]
 	},
@@ -164575,6 +170822,12 @@
 			"agility": 4,
 			"spirit": 4
 		},
+		"weapon": {
+			"speed": 2.8,
+			"dps": 18.82,
+			"damageMin": 36,
+			"damageMax": 68
+		},
 		"sources": [
 			{
 				"kind": "quest",
@@ -164601,6 +170854,12 @@
 		"reqLvl": 19,
 		"stats": {
 			"physicalDamage": 1
+		},
+		"weapon": {
+			"speed": 1.8,
+			"dps": 15.06,
+			"damageMin": 18,
+			"damageMax": 35
 		},
 		"sources": [
 			{
@@ -164783,6 +171042,12 @@
 		"stats": {
 			"strength": 4,
 			"bonusArmor": 40
+		},
+		"weapon": {
+			"speed": 1.8,
+			"dps": 21.71,
+			"damageMin": 27,
+			"damageMax": 51
 		},
 		"sources": [
 			{
@@ -166154,6 +172419,898 @@
 		]
 	},
 	{
+		"id": 274226,
+		"name": "Premier Scaled Sabatons",
+		"icon": "inv_boots_plate_03",
+		"slot": "feet",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"strength": 10,
+			"stamina": 19,
+			"intellect": 7,
+			"healingPower": 7,
+			"spellDamage": 7,
+			"armor": 431
+		},
+		"classes": [
+			2
+		],
+		"setId": 2084,
+		"setName": "Champion's Vindication",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274227,
+		"name": "Premier Scaled Gauntlets",
+		"icon": "inv_gauntlets_29",
+		"slot": "hands",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"strength": 11,
+			"stamina": 19,
+			"intellect": 5,
+			"healingPower": 7,
+			"spellDamage": 7,
+			"armor": 392
+		},
+		"classes": [
+			2
+		],
+		"setId": 2084,
+		"setName": "Champion's Vindication",
+		"effects": [
+			{
+				"name": "Repentance Duration Increase (1316101)",
+				"kind": "passive"
+			}
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274228,
+		"name": "Premier Scaled Cinch",
+		"icon": "inv_belt_27",
+		"slot": "waist",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"strength": 12,
+			"stamina": 19,
+			"intellect": 7,
+			"armor": 353
+		},
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274229,
+		"name": "Premier Scaled Armsplints",
+		"icon": "inv_bracer_18",
+		"slot": "wrist",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"strength": 9,
+			"stamina": 14,
+			"intellect": 5,
+			"armor": 274
+		},
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274230,
+		"name": "Premier Scaled Breastplate",
+		"icon": "inv_chest_plate03",
+		"slot": "chest",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"strength": 11,
+			"stamina": 25,
+			"intellect": 11,
+			"critRating": 7,
+			"armor": 627
+		},
+		"classes": [
+			2
+		],
+		"setId": 2084,
+		"setName": "Champion's Vindication",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274231,
+		"name": "Premier Scaled Headguard",
+		"icon": "inv_helmet_05",
+		"slot": "head",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"strength": 11,
+			"stamina": 25,
+			"intellect": 7,
+			"healingPower": 7,
+			"spellDamage": 7,
+			"critRating": 7,
+			"armor": 509
+		},
+		"classes": [
+			2
+		],
+		"setId": 2084,
+		"setName": "Champion's Vindication",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274232,
+		"name": "Premier Scaled Leggings",
+		"icon": "inv_pants_06",
+		"slot": "legs",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"strength": 13,
+			"stamina": 25,
+			"healingPower": 7,
+			"spellDamage": 7,
+			"critRating": 7,
+			"armor": 548
+		},
+		"classes": [
+			2
+		],
+		"setId": 2084,
+		"setName": "Champion's Vindication",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274233,
+		"name": "Premier Scaled Shoulders",
+		"icon": "inv_shoulder_28",
+		"slot": "shoulder",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"strength": 11,
+			"stamina": 19,
+			"intellect": 5,
+			"healingPower": 7,
+			"spellDamage": 7,
+			"armor": 470
+		},
+		"classes": [
+			2
+		],
+		"setId": 2084,
+		"setName": "Champion's Vindication",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274234,
+		"name": "Premier Legionnaire's Scaled Armguards",
+		"icon": "inv_bracer_18",
+		"slot": "wrist",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 12,
+			"stamina": 20,
+			"intellect": 7,
+			"armor": 323
+		},
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274235,
+		"name": "Premier Legionnaire's Scaled Belt",
+		"icon": "inv_belt_27",
+		"slot": "waist",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 17,
+			"stamina": 26,
+			"intellect": 10,
+			"armor": 415
+		},
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274236,
+		"name": "Premier Champion's Scaled Gloves",
+		"icon": "inv_gauntlets_29",
+		"slot": "hands",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 13,
+			"stamina": 26,
+			"intellect": 7,
+			"healingPower": 7,
+			"spellDamage": 7,
+			"critRating": 7,
+			"armor": 461
+		},
+		"classes": [
+			2
+		],
+		"setId": 2085,
+		"setName": "Warlord's Vindication",
+		"effects": [
+			{
+				"name": "Repentance Duration Increase (1316101)",
+				"kind": "passive"
+			}
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274237,
+		"name": "Premier Centurion's Scaled Boots",
+		"icon": "inv_boots_plate_09",
+		"slot": "feet",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 12,
+			"stamina": 26,
+			"intellect": 8,
+			"healingPower": 14,
+			"spellDamage": 14,
+			"armor": 507
+		},
+		"classes": [
+			2
+		],
+		"setId": 2085,
+		"setName": "Warlord's Vindication",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274238,
+		"name": "Premier Warlord's Scaled Chestplate",
+		"icon": "inv_chest_plate03",
+		"slot": "chest",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 15,
+			"stamina": 34,
+			"intellect": 12,
+			"critRating": 14,
+			"armor": 738
+		},
+		"classes": [
+			2
+		],
+		"setId": 2085,
+		"setName": "Warlord's Vindication",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274239,
+		"name": "Premier Warlord's Scaled Faceguard",
+		"icon": "inv_helmet_05",
+		"slot": "head",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 12,
+			"stamina": 34,
+			"intellect": 8,
+			"healingPower": 14,
+			"spellDamage": 14,
+			"critRating": 14,
+			"armor": 599
+		},
+		"classes": [
+			2
+		],
+		"setId": 2085,
+		"setName": "Warlord's Vindication",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274240,
+		"name": "Premier General's Scaled Legplates",
+		"icon": "inv_pants_04",
+		"slot": "legs",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 15,
+			"stamina": 34,
+			"healingPower": 14,
+			"spellDamage": 14,
+			"critRating": 14,
+			"armor": 646
+		},
+		"classes": [
+			2
+		],
+		"setId": 2085,
+		"setName": "Warlord's Vindication",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274241,
+		"name": "Premier General's Scaled Pauldrons",
+		"icon": "inv_shoulder_20",
+		"slot": "shoulder",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"strength": 12,
+			"stamina": 26,
+			"intellect": 8,
+			"healingPower": 14,
+			"spellDamage": 14,
+			"armor": 553
+		},
+		"classes": [
+			2
+		],
+		"setId": 2085,
+		"setName": "Warlord's Vindication",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274244,
+		"name": "Premier Lamellar Breastplate",
+		"icon": "inv_chest_plate03",
+		"slot": "chest",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"stamina": 26,
+			"intellect": 7,
+			"healingPower": 22,
+			"spellDamage": 7,
+			"armor": 627,
+			"mp5": 4
+		},
+		"classes": [
+			2
+		],
+		"setId": 2082,
+		"setName": "Champion's Aegis",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274245,
+		"name": "Premier Lamellar Leggings",
+		"icon": "inv_pants_06",
+		"slot": "legs",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"stamina": 25,
+			"intellect": 14,
+			"healingPower": 22,
+			"spellDamage": 7,
+			"armor": 548
+		},
+		"classes": [
+			2
+		],
+		"setId": 2082,
+		"setName": "Champion's Aegis",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274246,
+		"name": "Premier Lamellar Headguard",
+		"icon": "inv_helmet_05",
+		"slot": "head",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"stamina": 25,
+			"intellect": 9,
+			"healingPower": 24,
+			"spellDamage": 8,
+			"armor": 509,
+			"mp5": 4
+		},
+		"classes": [
+			2
+		],
+		"setId": 2082,
+		"setName": "Champion's Aegis",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274247,
+		"name": "Premier Lamellar Shoulders",
+		"icon": "inv_shoulder_28",
+		"slot": "shoulder",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"stamina": 19,
+			"intellect": 4,
+			"healingPower": 18,
+			"spellDamage": 6,
+			"armor": 470,
+			"mp5": 4
+		},
+		"classes": [
+			2
+		],
+		"setId": 2082,
+		"setName": "Champion's Aegis",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274248,
+		"name": "Premier Legionnaire's Lamellar Armguards",
+		"icon": "inv_bracer_18",
+		"slot": "wrist",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 20,
+			"intellect": 12,
+			"healingPower": 18,
+			"spellDamage": 6,
+			"armor": 323
+		},
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274249,
+		"name": "Premier Legionnaire's Lamellar Belt",
+		"icon": "inv_belt_27",
+		"slot": "waist",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 26,
+			"intellect": 11,
+			"healingPower": 24,
+			"spellDamage": 8,
+			"armor": 415,
+			"mp5": 4
+		},
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274250,
+		"name": "Premier Champion's Lamellar Gloves",
+		"icon": "inv_gauntlets_29",
+		"slot": "hands",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 28,
+			"intellect": 12,
+			"healingPower": 26,
+			"spellDamage": 8,
+			"armor": 461
+		},
+		"classes": [
+			2
+		],
+		"setId": 2083,
+		"setName": "Warlord's Aegis",
+		"effects": [
+			{
+				"name": "Increased Flash of Light Crit Chance (1293544)",
+				"kind": "passive"
+			}
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274251,
+		"name": "Premier Centurion's Lamellar Boots",
+		"icon": "inv_boots_plate_09",
+		"slot": "feet",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 26,
+			"intellect": 11,
+			"healingPower": 26,
+			"spellDamage": 8,
+			"armor": 507,
+			"mp5": 4
+		},
+		"classes": [
+			2
+		],
+		"setId": 2083,
+		"setName": "Warlord's Aegis",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274252,
+		"name": "Premier Warlord's Lamellar Chestplate",
+		"icon": "inv_chest_plate03",
+		"slot": "chest",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 33,
+			"intellect": 13,
+			"healingPower": 33,
+			"spellDamage": 11,
+			"critRating": 7,
+			"armor": 738,
+			"mp5": 5
+		},
+		"classes": [
+			2
+		],
+		"setId": 2083,
+		"setName": "Warlord's Aegis",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274253,
+		"name": "Premier Warlord's Lamellar Faceguard",
+		"icon": "inv_helmet_05",
+		"slot": "head",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 34,
+			"intellect": 15,
+			"healingPower": 29,
+			"spellDamage": 10,
+			"armor": 599,
+			"mp5": 5
+		},
+		"classes": [
+			2
+		],
+		"setId": 2083,
+		"setName": "Warlord's Aegis",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274254,
+		"name": "Premier General's Lamellar Legplates",
+		"icon": "inv_pants_04",
+		"slot": "legs",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 34,
+			"intellect": 18,
+			"healingPower": 33,
+			"spellDamage": 11,
+			"critRating": 7,
+			"armor": 646
+		},
+		"classes": [
+			2
+		],
+		"setId": 2083,
+		"setName": "Warlord's Aegis",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274255,
+		"name": "Premier General's Lamellar Pauldrons",
+		"icon": "inv_shoulder_20",
+		"slot": "shoulder",
+		"armorType": "plate",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"stats": {
+			"stamina": 26,
+			"intellect": 12,
+			"healingPower": 24,
+			"spellDamage": 8,
+			"armor": 553,
+			"mp5": 4
+		},
+		"classes": [
+			2
+		],
+		"setId": 2083,
+		"setName": "Warlord's Aegis",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274256,
+		"name": "Premier Lamellar Gauntlets",
+		"icon": "inv_gauntlets_29",
+		"slot": "hands",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"stamina": 20,
+			"intellect": 9,
+			"healingPower": 18,
+			"spellDamage": 6,
+			"armor": 392
+		},
+		"classes": [
+			2
+		],
+		"setId": 2082,
+		"setName": "Champion's Aegis",
+		"effects": [
+			{
+				"name": "Increased Flash of Light Crit Chance (1293544)",
+				"kind": "passive"
+			}
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274257,
+		"name": "Premier Lamellar Armsplints",
+		"icon": "inv_bracer_18",
+		"slot": "wrist",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"stamina": 14,
+			"intellect": 9,
+			"healingPower": 11,
+			"spellDamage": 4,
+			"armor": 274
+		},
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274258,
+		"name": "Premier Lamellar Sabatons",
+		"icon": "inv_boots_plate_03",
+		"slot": "feet",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"stamina": 19,
+			"intellect": 10,
+			"healingPower": 22,
+			"spellDamage": 7,
+			"armor": 431
+		},
+		"classes": [
+			2
+		],
+		"setId": 2082,
+		"setName": "Champion's Aegis",
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
+		"id": 274259,
+		"name": "Premier Lamellar Cinch",
+		"icon": "inv_belt_27",
+		"slot": "waist",
+		"armorType": "plate",
+		"quality": "rare",
+		"ilvl": 60,
+		"reqLvl": 55,
+		"stats": {
+			"stamina": 19,
+			"intellect": 7,
+			"healingPower": 13,
+			"spellDamage": 4,
+			"armor": 353,
+			"mp5": 4
+		},
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "pvp"
+			}
+		]
+	},
+	{
 		"id": 274265,
 		"name": "Brush Cutter",
 		"icon": "inv_axe_14",
@@ -166339,6 +173496,12 @@
 				"Beast"
 			]
 		},
+		"weapon": {
+			"speed": 1.8,
+			"dps": 21.71,
+			"damageMin": 27,
+			"damageMax": 51
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -166360,6 +173523,12 @@
 		"stats": {
 			"attackPower": 8,
 			"rangedAttackPower": 8
+		},
+		"weapon": {
+			"speed": 2.4,
+			"dps": 20.85,
+			"damageMin": 40,
+			"damageMax": 60
 		},
 		"effects": [
 			{
@@ -166652,6 +173821,12 @@
 		"stats": {
 			"healingPower": 6,
 			"spellDamage": 6
+		},
+		"weapon": {
+			"speed": 1.7,
+			"dps": 41.47,
+			"damageMin": 49,
+			"damageMax": 92
 		},
 		"effects": [
 			{
@@ -167058,6 +174233,12 @@
 			"stamina": 4,
 			"attackPower": 10,
 			"rangedAttackPower": 10
+		},
+		"weapon": {
+			"speed": 2.8,
+			"dps": 21.42,
+			"damageMin": 41,
+			"damageMax": 78
 		}
 	},
 	{
@@ -167381,6 +174562,12 @@
 			"attackPower": 12,
 			"rangedAttackPower": 12
 		},
+		"weapon": {
+			"speed": 2,
+			"dps": 29.06,
+			"damageMin": 40,
+			"damageMax": 76
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -167451,6 +174638,12 @@
 		"stats": {
 			"agility": 5,
 			"natureResistance": 6
+		},
+		"weapon": {
+			"speed": 2.6,
+			"dps": 24.72,
+			"damageMin": 44,
+			"damageMax": 84
 		},
 		"sources": [
 			{
@@ -167654,6 +174847,12 @@
 			"healingPower": 4,
 			"spellDamage": 4,
 			"mp5": 3
+		},
+		"weapon": {
+			"speed": 1.9,
+			"dps": 45.79,
+			"damageMin": 60,
+			"damageMax": 113
 		},
 		"sources": [
 			{
@@ -167902,6 +175101,12 @@
 			"stamina": 3,
 			"attackPower": 9,
 			"rangedAttackPower": 9
+		},
+		"weapon": {
+			"speed": 2.8,
+			"dps": 18.1,
+			"damageMin": 35,
+			"damageMax": 66
 		},
 		"sources": [
 			{
@@ -168318,6 +175523,12 @@
 		"ilvl": 40,
 		"stats": {
 			"shadowDamage": 7
+		},
+		"weapon": {
+			"speed": 2,
+			"dps": 32.87,
+			"damageMin": 46,
+			"damageMax": 85
 		}
 	},
 	{
@@ -169115,6 +176326,12 @@
 				"Humanoid"
 			]
 		},
+		"weapon": {
+			"speed": 2.7,
+			"dps": 20.85,
+			"damageMin": 45,
+			"damageMax": 68
+		},
 		"sources": [
 			{
 				"kind": "quest",
@@ -169326,6 +176543,12 @@
 			"mobTypes": [
 				"Beast"
 			]
+		},
+		"weapon": {
+			"speed": 3,
+			"dps": 27.05,
+			"damageMin": 56,
+			"damageMax": 105
 		}
 	},
 	{
@@ -169431,6 +176654,12 @@
 		"rangedType": "bow",
 		"quality": "uncommon",
 		"ilvl": 57,
+		"weapon": {
+			"speed": 2.8,
+			"dps": 26.57,
+			"damageMin": 52,
+			"damageMax": 97
+		},
 		"effects": [
 			{
 				"name": "Blunderflame (1296730)",
@@ -169447,6 +176676,12 @@
 		"rangedType": "bow",
 		"quality": "uncommon",
 		"ilvl": 57,
+		"weapon": {
+			"speed": 2.8,
+			"dps": 26.57,
+			"damageMin": 52,
+			"damageMax": 97
+		},
 		"effects": [
 			{
 				"name": "Cremate (1297921)",
@@ -170630,6 +177865,12 @@
 			"healingPower": 8,
 			"spellDamage": 8,
 			"spellPiercing": 1
+		},
+		"weapon": {
+			"speed": 2.4,
+			"dps": 51.25,
+			"damageMin": 86,
+			"damageMax": 160
 		}
 	},
 	{
@@ -171387,6 +178628,12 @@
 		"stats": {
 			"strength": 5,
 			"stamina": 6
+		},
+		"weapon": {
+			"speed": 2.7,
+			"dps": 26.57,
+			"damageMin": 57,
+			"damageMax": 86
 		}
 	},
 	{
@@ -172164,6 +179411,12 @@
 			"stamina": 3,
 			"intellect": 4,
 			"critRating": 7
+		},
+		"weapon": {
+			"speed": 2,
+			"dps": 51.25,
+			"damageMin": 71,
+			"damageMax": 133
 		}
 	},
 	{
@@ -172554,6 +179807,12 @@
 			"stamina": 5,
 			"attackPower": 7,
 			"rangedAttackPower": 7
+		},
+		"weapon": {
+			"speed": 2.8,
+			"dps": 25.18,
+			"damageMin": 49,
+			"damageMax": 92
 		}
 	},
 	{
@@ -172632,6 +179891,31 @@
 			"agility": 8,
 			"stamina": 14
 		}
+	},
+	{
+		"id": 277205,
+		"name": "Cloak of the Divine Storm",
+		"slot": "back",
+		"armorType": "cloth",
+		"quality": "rare",
+		"ilvl": 35,
+		"stats": {
+			"strength": 5,
+			"stamina": 5,
+			"holyDamage": 8,
+			"armor": 26
+		},
+		"classes": [
+			2
+		],
+		"sources": [
+			{
+				"kind": "quest",
+				"questId": 78093,
+				"name": "Return to Delgren",
+				"faction": "alliance"
+			}
+		]
 	},
 	{
 		"id": 277206,
@@ -173244,6 +180528,12 @@
 			"agility": 7,
 			"stamina": 3
 		},
+		"weapon": {
+			"speed": 2.8,
+			"dps": 23.79,
+			"damageMin": 46,
+			"damageMax": 87
+		},
 		"sources": [
 			{
 				"kind": "quest",
@@ -173263,6 +180553,12 @@
 		"stats": {
 			"intellect": 5,
 			"mp5": 1
+		},
+		"weapon": {
+			"speed": 1.5,
+			"dps": 36.13,
+			"damageMin": 37,
+			"damageMax": 70
 		}
 	},
 	{
@@ -173654,11 +180950,63 @@
 			"spellDamage": 6,
 			"spirit": 11
 		},
+		"weapon": {
+			"speed": 1.7,
+			"dps": 76.72,
+			"damageMin": 91,
+			"damageMax": 170
+		},
 		"sources": [
 			{
 				"kind": "crafted",
 				"profession": "Enchanting",
 				"spellId": 1306520
+			}
+		]
+	},
+	{
+		"id": 279247,
+		"name": "Steadfast Libram",
+		"icon": "inv_relics_libramofgrace",
+		"slot": "ranged",
+		"rangedType": "libram",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"effects": [
+			{
+				"name": "Holy Shield Block Value Increase (1306433)",
+				"kind": "passive"
+			}
+		],
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Enchanting",
+				"spellId": 1306521
+			}
+		]
+	},
+	{
+		"id": 279248,
+		"name": "Libram of Infusion",
+		"icon": "inv_misc_book_13",
+		"slot": "ranged",
+		"rangedType": "libram",
+		"quality": "epic",
+		"ilvl": 65,
+		"reqLvl": 60,
+		"effects": [
+			{
+				"name": "Holy Shock Critical Chance Increase (1306429)",
+				"kind": "passive"
+			}
+		],
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Enchanting",
+				"spellId": 1306522
 			}
 		]
 	},
@@ -174193,6 +181541,12 @@
 			"stamina": 8,
 			"spirit": 6,
 			"rangedAttackPower": 21
+		},
+		"weapon": {
+			"speed": 2.5,
+			"dps": 36.93,
+			"damageMin": 64,
+			"damageMax": 120
 		},
 		"sources": [
 			{
@@ -175403,6 +182757,12 @@
 		"stats": {
 			"stamina": 3
 		},
+		"weapon": {
+			"speed": 2.3,
+			"dps": 9.63,
+			"damageMin": 15,
+			"damageMax": 29
+		},
 		"sources": [
 			{
 				"kind": "quest",
@@ -175455,6 +182815,12 @@
 		"reqLvl": 1,
 		"stats": {
 			"fireResistance": 3
+		},
+		"weapon": {
+			"speed": 1.7,
+			"dps": 18.74,
+			"damageMin": 22,
+			"damageMax": 41
 		},
 		"sources": [
 			{
@@ -175971,6 +183337,12 @@
 			"attackPower": 14,
 			"rangedAttackPower": 14,
 			"hitRating": 5
+		},
+		"weapon": {
+			"speed": 3.1,
+			"dps": 32.37,
+			"damageMin": 70,
+			"damageMax": 130
 		}
 	},
 	{
@@ -176154,6 +183526,12 @@
 			"arcaneDamage": 7,
 			"spirit": 4,
 			"critRating": 7
+		},
+		"weapon": {
+			"speed": 1.7,
+			"dps": 64.05,
+			"damageMin": 76,
+			"damageMax": 142
 		}
 	},
 	{
@@ -176728,6 +184106,12 @@
 			"attackPower": 8,
 			"rangedAttackPower": 8,
 			"critRating": 7
+		},
+		"weapon": {
+			"speed": 2.8,
+			"dps": 29.41,
+			"damageMin": 57,
+			"damageMax": 107
 		}
 	},
 	{
@@ -177730,7 +185114,36 @@
 		"stats": {
 			"stamina": 6,
 			"spirit": 4
+		},
+		"weapon": {
+			"speed": 1.8,
+			"dps": 54.09,
+			"damageMin": 68,
+			"damageMax": 127
 		}
+	},
+	{
+		"id": 281628,
+		"name": "Blade of Bandarion",
+		"icon": "inv_sword_39",
+		"slot": "weapon",
+		"quality": "rare",
+		"ilvl": 52,
+		"stats": {
+			"strength": 5,
+			"stamina": 11
+		},
+		"weapon": {
+			"type": "sword",
+			"hand": "oneHand",
+			"speed": 2,
+			"dps": 34.67,
+			"damageMin": 48,
+			"damageMax": 90
+		},
+		"classes": [
+			2
+		]
 	},
 	{
 		"id": 281634,
@@ -178278,6 +185691,12 @@
 			"stamina": 6,
 			"healingPower": 7
 		},
+		"weapon": {
+			"speed": 1.5,
+			"dps": 42.32,
+			"damageMin": 44,
+			"damageMax": 83
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -178376,6 +185795,12 @@
 		"stats": {
 			"stamina": 5,
 			"rangedAttackPower": 13
+		},
+		"weapon": {
+			"speed": 2.7,
+			"dps": 27.05,
+			"damageMin": 51,
+			"damageMax": 95
 		}
 	},
 	{
@@ -178750,6 +186175,12 @@
 		"quality": "rare",
 		"ilvl": 42,
 		"reqLvl": 37,
+		"weapon": {
+			"speed": 2.6,
+			"dps": 22.4,
+			"damageMin": 40,
+			"damageMax": 76
+		},
 		"effects": [
 			{
 				"name": "Burning Shell (1314040)",
@@ -179033,6 +186464,12 @@
 			"agility": 3,
 			"spirit": 3
 		},
+		"weapon": {
+			"speed": 2.6,
+			"dps": 14.84,
+			"damageMin": 27,
+			"damageMax": 50
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -179212,6 +186649,12 @@
 		"stats": {
 			"agility": 3
 		},
+		"weapon": {
+			"speed": 2.5,
+			"dps": 23.79,
+			"damageMin": 41,
+			"damageMax": 77
+		},
 		"effects": [
 			{
 				"name": "Poison Sting (1314888)",
@@ -179374,6 +186817,12 @@
 		"reqLvl": 55,
 		"stats": {
 			"stamina": 11
+		},
+		"weapon": {
+			"speed": 1.6,
+			"dps": 53.37,
+			"damageMin": 59,
+			"damageMax": 111
 		}
 	},
 	{
@@ -180199,6 +187648,12 @@
 			"attackPower": 12,
 			"rangedAttackPower": 12
 		},
+		"weapon": {
+			"speed": 1.8,
+			"dps": 41.2,
+			"damageMin": 51,
+			"damageMax": 96
+		},
 		"effects": [
 			{
 				"name": "Sliced Ankle (1316346)",
@@ -180416,6 +187871,12 @@
 		"stats": {
 			"agility": 3,
 			"stamina": 5
+		},
+		"weapon": {
+			"speed": 2.7,
+			"dps": 22.86,
+			"damageMin": 49,
+			"damageMax": 74
 		},
 		"sources": [
 			{
@@ -180641,6 +188102,12 @@
 			"mobTypes": [
 				"Beast"
 			]
+		},
+		"weapon": {
+			"speed": 1.7,
+			"dps": 20.08,
+			"damageMin": 23,
+			"damageMax": 44
 		}
 	},
 	{
@@ -180779,6 +188246,12 @@
 		"stats": {
 			"stamina": 6
 		},
+		"weapon": {
+			"speed": 2,
+			"dps": 24.72,
+			"damageMin": 1,
+			"damageMax": 32
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -180805,6 +188278,12 @@
 		"reqLvl": 52,
 		"stats": {
 			"stamina": 8
+		},
+		"weapon": {
+			"speed": 2,
+			"dps": 30.66,
+			"damageMin": 2,
+			"damageMax": 39
 		},
 		"effects": [
 			{
@@ -180833,6 +188312,12 @@
 			"strength": 6,
 			"spirit": 4
 		},
+		"weapon": {
+			"speed": 2.2,
+			"dps": 32.3,
+			"damageMin": 49,
+			"damageMax": 92
+		},
 		"effects": [
 			{
 				"name": "Cracked Skull (1318178)",
@@ -180857,6 +188342,12 @@
 		"quality": "uncommon",
 		"ilvl": 56,
 		"reqLvl": 51,
+		"weapon": {
+			"speed": 1.7,
+			"dps": 30.12,
+			"damageMin": 35,
+			"damageMax": 67
+		},
 		"randomSuffixOptions": [
 			12718,
 			12719,
@@ -180907,6 +188398,12 @@
 			"stamina": 2,
 			"attackPower": 6,
 			"rangedAttackPower": 6
+		},
+		"weapon": {
+			"speed": 1.7,
+			"dps": 12.72,
+			"damageMin": 15,
+			"damageMax": 28
 		},
 		"sources": [
 			{
@@ -181206,6 +188703,12 @@
 		"stats": {
 			"agility": 4,
 			"spirit": 3
+		},
+		"weapon": {
+			"speed": 2.4,
+			"dps": 13.43,
+			"damageMin": 22,
+			"damageMax": 42
 		},
 		"sources": [
 			{
@@ -182772,6 +190275,12 @@
 		"stats": {
 			"intellect": 5,
 			"frostDamage": 5
+		},
+		"weapon": {
+			"speed": 1.9,
+			"dps": 37.33,
+			"damageMin": 49,
+			"damageMax": 92
 		}
 	},
 	{
@@ -183191,6 +190700,12 @@
 		"stats": {
 			"agility": 11
 		},
+		"weapon": {
+			"speed": 2.8,
+			"dps": 27.99,
+			"damageMin": 54,
+			"damageMax": 102
+		},
 		"effects": [
 			{
 				"name": "Disarm (13534)",
@@ -183395,6 +190910,12 @@
 		"stats": {
 			"stamina": 9,
 			"hitRating": 5
+		},
+		"weapon": {
+			"speed": 1.9,
+			"dps": 58.52,
+			"damageMin": 77,
+			"damageMax": 145
 		},
 		"sources": [
 			{
@@ -183627,6 +191148,12 @@
 			"strength": 4,
 			"agility": 4
 		},
+		"weapon": {
+			"speed": 1.8,
+			"dps": 19.3,
+			"damageMin": 24,
+			"damageMax": 45
+		},
 		"sources": [
 			{
 				"kind": "drop",
@@ -183659,6 +191186,12 @@
 		"stats": {
 			"strength": 3,
 			"critRating": 7
+		},
+		"weapon": {
+			"speed": 2.9,
+			"dps": 27.45,
+			"damageMin": 55,
+			"damageMax": 104
 		},
 		"sources": [
 			{
@@ -183696,6 +191229,12 @@
 				"Beast"
 			]
 		},
+		"weapon": {
+			"speed": 1.5,
+			"dps": 20.89,
+			"damageMin": 21,
+			"damageMax": 41
+		},
 		"sources": [
 			{
 				"kind": "quest",
@@ -183731,6 +191270,12 @@
 				"Humanoid"
 			]
 		},
+		"weapon": {
+			"speed": 2.1,
+			"dps": 21.71,
+			"damageMin": 31,
+			"damageMax": 59
+		},
 		"sources": [
 			{
 				"kind": "quest",
@@ -183752,6 +191297,12 @@
 			"strength": 4,
 			"stamina": 4
 		},
+		"weapon": {
+			"speed": 2,
+			"dps": 22.55,
+			"damageMin": 31,
+			"damageMax": 59
+		},
 		"sources": [
 			{
 				"kind": "quest",
@@ -183771,6 +191322,12 @@
 		"reqLvl": 1,
 		"stats": {
 			"stamina": 5
+		},
+		"weapon": {
+			"speed": 1.6,
+			"dps": 26.38,
+			"damageMin": 29,
+			"damageMax": 55
 		}
 	},
 	{
@@ -183784,6 +191341,12 @@
 		"stats": {
 			"attackPower": 14,
 			"rangedAttackPower": 14
+		},
+		"weapon": {
+			"speed": 1.6,
+			"dps": 29.59,
+			"damageMin": 33,
+			"damageMax": 62
 		},
 		"sources": [
 			{
@@ -183805,6 +191368,12 @@
 		"stats": {
 			"strength": 2,
 			"agility": 7
+		},
+		"weapon": {
+			"speed": 1.9,
+			"dps": 31.21,
+			"damageMin": 41,
+			"damageMax": 77
 		}
 	},
 	{
@@ -183836,6 +191405,12 @@
 			"mobTypes": [
 				"Demon"
 			]
+		},
+		"weapon": {
+			"speed": 1.8,
+			"dps": 31.75,
+			"damageMin": 40,
+			"damageMax": 74
 		},
 		"sources": [
 			{
@@ -184120,6 +191695,12 @@
 		"ilvl": 48,
 		"stats": {
 			"strength": 6
+		},
+		"weapon": {
+			"speed": 3,
+			"dps": 22.4,
+			"damageMin": 47,
+			"damageMax": 87
 		},
 		"sources": [
 			{

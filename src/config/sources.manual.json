@@ -1,0 +1,26 @@
+{
+	"_comment": "Sources added by hand for items the WoWSims data, AtlasLoot and the Wowhead loot file have none for. Same shape as src/config/wowhead/loot.json (quests, drops, containers, crafted). Each entry names where it was checked.",
+	"items": {
+		"260212": {
+			"_name": "Bad Hat",
+			"_checked": "Dan played the quest in Forever; https://www.wowhead.com/forever/item=260212/bad-hat (2026-11-23)",
+			"quests": [
+				{
+					"questId": 89015,
+					"name": "Deadliest Catch",
+					"faction": "alliance"
+				},
+				{
+					"questId": 91611,
+					"name": "Deadliest Catch",
+					"faction": "horde"
+				}
+			]
+		},
+		"1443": {
+			"_name": "Jeweled Amulet of Cainwyn",
+			"_checked": "Dan: bind-on-equip world drop from very many creatures; https://www.wowhead.com/forever/item=1443/jeweled-amulet-of-cainwyn (2026-11-23)",
+			"worldDrop": true
+		}
+	}
+}

@@ -3957,3 +3957,13 @@ button.character-tile.character-add {
 .compare-fold {
 	margin-top: 1rem;
 }
+
+.source-assumed {
+	color: var(--haze);
+	font-style: italic;
+	cursor: help;
+}
+.sheet-notice {
+	margin: 0.9rem 0 0;
+	font-size: 0.875rem;
+}

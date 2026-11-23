@@ -50,10 +50,11 @@ describe('importing other classes', () => {
 		expect(() => importCharacter(JSON.stringify(healer))).toThrow(ImportError);
 	});
 
-	it('refuses a class without any spec', () => {
-		const hunter = JSON.parse(build('priest-shadow'));
-		hunter.player.class = 'ClassHunter';
-		expect(() => importCharacter(JSON.stringify(hunter))).toThrow(/Shaman, Warlock, Priest, Mage, Warrior, Rogue, Druid/);
+	it('covers every class of the game', () => {
+		expect(new Set(SPECS.map(spec => spec.className))).toEqual(new Set(['druid', 'hunter', 'mage', 'paladin', 'priest', 'rogue', 'shaman', 'warlock', 'warrior']));
+		// A Hunter's preset comes in as the Hunter build with those talents, a Paladin's as Retribution.
+		expect(importCharacter(build('hunter-bm')).character.specId).toBe('hunter-bm');
+		expect(importCharacter(build('paladin-ret-holy-shock')).character.specId).toBe('paladin-ret-holy-shock');
 	});
 });
 

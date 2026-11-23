@@ -9,6 +9,12 @@ export function SourceLabel({ source, data }: { source: ItemSource | undefined; 
 	return (
 		<span className="source-label">
 			<SourceSymbol kind={sourceKind(source)} /> {sourceLine(source, data)}
+			{source?.assumed && (
+				<span className="source-assumed" title="The data names no source for this item. It is an item of the original game that is not from a boss, quest, vendor or craft, so it is taken as a random bind-on-equip drop: look for it in the auction house.">
+					{' '}
+					(assumed)
+				</span>
+			)}
 		</span>
 	);
 }

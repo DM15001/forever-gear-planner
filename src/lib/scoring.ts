@@ -28,6 +28,7 @@ export type Gear = (GearPiece | null)[];
 
 const MAIN_HAND = GEAR_SLOTS.findIndex(s => s.key === 'mainHand');
 const OFF_HAND = GEAR_SLOTS.findIndex(s => s.key === 'offHand');
+const RANGED = GEAR_SLOTS.findIndex(s => s.key === 'ranged');
 /** Slots that come in pairs; a unique item can only sit in one of them. */
 const PAIRED: Record<number, number> = { 10: 11, 11: 10, 12: 13, 13: 12 };
 
@@ -93,6 +94,7 @@ export function scoreSet(gear: Gear, character: Character, data: GameData, spec:
 	const setCounts = new Map<number, number>();
 	let mainHandDps = 0;
 	let offHandDps = 0;
+	let rangedDps = 0;
 	let effectScore = 0;
 	gear.forEach((piece, index) => {
 		if (!piece) return;
@@ -101,6 +103,7 @@ export function scoreSet(gear: Gear, character: Character, data: GameData, spec:
 			addStats(stats, pieceStats(item, piece, data));
 			if (index === MAIN_HAND) mainHandDps = item.weapon?.dps ?? 0;
 			if (index === OFF_HAND) offHandDps = item.weapon?.dps ?? 0;
+			if (index === RANGED) rangedDps = item.weapon?.dps ?? 0;
 			effectScore += simValues.items.get(item.id) ?? 0;
 			if (item.setId) setCounts.set(item.setId, (setCounts.get(item.setId) ?? 0) + 1);
 		}
@@ -120,7 +123,7 @@ export function scoreSet(gear: Gear, character: Character, data: GameData, spec:
 
 	const hit = hitSummary(stats, character, spec);
 	const { weights } = spec;
-	let score = mainHandDps * weights.mainHandDps + offHandDps * (weights.offHandDps ?? 0) + effectScore;
+	let score = mainHandDps * weights.mainHandDps + offHandDps * (weights.offHandDps ?? 0) + rangedDps * (weights.rangedDps ?? 0) + effectScore;
 	for (const [key, value] of Object.entries(stats)) {
 		if (key === 'hitRating') score += (value - hit.ratingOver) * (weights.stats.hitRating ?? 0) + hit.ratingOver * weights.hitRatingOverCap;
 		else score += value * (weights.stats[key] ?? 0);

@@ -18,7 +18,7 @@ export const GEAR_SLOTS: { key: string; label: string; kind: SlotKind }[] = [
 	{ key: 'trinket2', label: 'Trinket 2', kind: 'trinket' },
 	{ key: 'mainHand', label: 'Main hand', kind: 'weapon' },
 	{ key: 'offHand', label: 'Off hand', kind: 'weapon' },
-	{ key: 'ranged', label: 'Relic or wand', kind: 'ranged' },
+	{ key: 'ranged', label: 'Ranged or relic', kind: 'ranged' },
 ];
 
 /** Like the in-game character pane, with seven slots a side so the columns end level: armor left, the rest right, weapons along the bottom. */

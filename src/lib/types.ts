@@ -10,6 +10,8 @@ export interface ItemSource {
 	npcId?: number;
 	npcName?: string;
 	otherName?: string;
+	/** Not in any data: worked out from what the item is (see `applyLoot`). */
+	assumed?: boolean;
 	zoneKind?: 'dungeon' | 'raid' | 'world';
 	/** Set when the data is loaded: the dungeon or dungeon wing a drop belongs to, e.g. "1583:Lower". */
 	dungeonKey?: string;
@@ -169,6 +171,8 @@ export interface SpecConfig {
 		dpsPerPoint?: number;
 		/** Worth of one point of off-hand weapon DPS, for dual wielders. */
 		offHandDps?: number;
+		/** Worth of one point of ranged weapon DPS, for Hunters. */
+		rangedDps?: number;
 		/** Value of hit rating beyond the cap. */
 		hitRatingOverCap: number;
 		stats: Record<string, number>;
