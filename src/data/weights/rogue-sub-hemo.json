@@ -17,8 +17,7 @@
 		"attackPower": 1,
 		"hitRating": 1.71
 	},
-	"held": true,
-	"reasons": [
+	"accepted": [
 		"spellPiercing: 0.16 in use, 0.34 measured"
 	]
 }

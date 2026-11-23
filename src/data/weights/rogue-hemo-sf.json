@@ -19,8 +19,7 @@
 	},
 	"hitCapPercent": 7.3,
 	"hitRatingOverCap": 1.62,
-	"held": true,
-	"reasons": [
+	"accepted": [
 		"spellPiercing: 0.16 in use, 0.41 measured",
 		"hit cap: 27% in use, 7.3% measured"
 	]

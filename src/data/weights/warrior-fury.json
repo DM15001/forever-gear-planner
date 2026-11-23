@@ -18,8 +18,7 @@
 	},
 	"hitCapPercent": 5.7,
 	"hitRatingOverCap": 1.75,
-	"held": true,
-	"reasons": [
+	"accepted": [
 		"hitRating: 1.69 in use, 4.34 measured",
 		"hit cap: 27% in use, 5.7% measured"
 	]

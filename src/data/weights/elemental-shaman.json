@@ -18,8 +18,7 @@
 	},
 	"hitCapPercent": 16.9,
 	"hitRatingOverCap": 0,
-	"held": true,
-	"reasons": [
+	"accepted": [
 		"intellect: 0.19 in use, 0.33 measured",
 		"fireDamage: 0.31 in use, 0.11 measured"
 	]

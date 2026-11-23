@@ -22,8 +22,7 @@
 	},
 	"hitCapPercent": 6.3,
 	"hitRatingOverCap": 1.91,
-	"held": true,
-	"reasons": [
+	"accepted": [
 		"expertiseRating: 3.5 in use, 5.11 measured",
 		"spellPiercing: 2.52 in use, 3.83 measured",
 		"hitRating: 5.2 in use, 7.48 measured"
