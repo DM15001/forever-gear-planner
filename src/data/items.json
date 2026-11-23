@@ -2999,7 +2999,7 @@
 			{
 				"name": "Shadow Bolt (18138)",
 				"kind": "proc",
-				"ppm": 1.05
+				"ppm": 1.15
 			}
 		]
 	},
@@ -10861,6 +10861,33 @@
 		]
 	},
 	{
+		"id": 7284,
+		"name": "Red Whelp Gloves",
+		"icon": "inv_gauntlets_05",
+		"slot": "hands",
+		"armorType": "leather",
+		"quality": "uncommon",
+		"ilvl": 24,
+		"reqLvl": 19,
+		"stats": {
+			"armor": 52
+		},
+		"effects": [
+			{
+				"name": "Firebolt (9233)",
+				"kind": "proc",
+				"procChance": 0.1
+			}
+		],
+		"sources": [
+			{
+				"kind": "crafted",
+				"profession": "Leatherworking",
+				"spellId": 9072
+			}
+		]
+	},
+	{
 		"id": 7332,
 		"name": "Regal Armor",
 		"icon": "inv_shirt_03",
@@ -17602,8 +17629,7 @@
 			"intellect": 5,
 			"healingPower": 6,
 			"spellDamage": 6,
-			"armor": 104,
-			"bonusArmor": 100
+			"armor": 104
 		},
 		"sources": [
 			{
@@ -21583,7 +21609,7 @@
 			{
 				"name": "Fatal Wound (10373)",
 				"kind": "proc",
-				"ppm": 0.9
+				"ppm": 0.95
 			},
 			{
 				"name": "Pendulum of Doom (1293881)",
@@ -47120,7 +47146,8 @@
 			{
 				"name": "Corrosive Poison (13526)",
 				"kind": "proc",
-				"durationMs": 14000
+				"durationMs": 14000,
+				"ppm": 2.1
 			}
 		],
 		"sources": [
@@ -55060,7 +55087,8 @@
 		"effects": [
 			{
 				"name": "Fatal Wound (16549)",
-				"kind": "proc"
+				"kind": "proc",
+				"ppm": 0.9
 			}
 		],
 		"sources": [
@@ -55382,7 +55410,6 @@
 		"stats": {
 			"stamina": 14,
 			"armor": 427,
-			"bonusArmor": 100,
 			"fireResistance": 10,
 			"natureResistance": 10
 		},
@@ -55406,7 +55433,6 @@
 		"stats": {
 			"stamina": 14,
 			"armor": 392,
-			"bonusArmor": 100,
 			"fireResistance": 10,
 			"natureResistance": 10
 		},
@@ -55430,7 +55456,6 @@
 		"stats": {
 			"stamina": 19,
 			"armor": 471,
-			"bonusArmor": 150,
 			"fireResistance": 14,
 			"natureResistance": 14
 		},
@@ -55454,7 +55479,6 @@
 		"stats": {
 			"stamina": 18,
 			"armor": 588,
-			"bonusArmor": 150,
 			"fireResistance": 15,
 			"natureResistance": 15
 		},
@@ -55478,7 +55502,6 @@
 		"stats": {
 			"stamina": 19,
 			"armor": 515,
-			"bonusArmor": 150,
 			"fireResistance": 14,
 			"natureResistance": 14
 		},
@@ -60857,7 +60880,8 @@
 			{
 				"name": "Stun (17308)",
 				"kind": "proc",
-				"durationMs": 1000
+				"durationMs": 1000,
+				"ppm": 1.95
 			}
 		],
 		"sources": [
@@ -61215,7 +61239,7 @@
 				"name": "Fang of the Crystal Spider (17331)",
 				"kind": "proc",
 				"durationMs": 10000,
-				"ppm": 1
+				"ppm": 1.1
 			}
 		],
 		"sources": [
@@ -62795,7 +62819,7 @@
 				"name": "Malown's Slam (17500)",
 				"kind": "proc",
 				"durationMs": 2000,
-				"ppm": 1.8
+				"ppm": 1.95
 			}
 		],
 		"sources": [
@@ -71386,7 +71410,8 @@
 			{
 				"name": "Siphon Health (18652)",
 				"kind": "proc",
-				"durationMs": 5000
+				"durationMs": 5000,
+				"ppm": 1.9
 			}
 		],
 		"sources": [
@@ -79612,7 +79637,6 @@
 		"stats": {
 			"stamina": 11,
 			"armor": 148,
-			"bonusArmor": 120,
 			"fireResistance": 20
 		},
 		"setId": 141,
@@ -79637,7 +79661,6 @@
 		"stats": {
 			"stamina": 10,
 			"armor": 124,
-			"bonusArmor": 80,
 			"fireResistance": 20
 		},
 		"setId": 141,
@@ -79662,7 +79685,6 @@
 		"stats": {
 			"stamina": 4,
 			"armor": 117,
-			"bonusArmor": 50,
 			"frostResistance": 13
 		},
 		"setId": 141,
@@ -87521,7 +87543,8 @@
 		"effects": [
 			{
 				"name": "Lightning Bolt (19874)",
-				"kind": "proc"
+				"kind": "proc",
+				"ppm": 1.85
 			}
 		],
 		"sources": [
@@ -106114,7 +106137,7 @@
 			"stamina": 14,
 			"defenseRating": 7,
 			"armor": 398,
-			"bonusArmor": 140
+			"bonusArmor": 80
 		},
 		"effects": [
 			{
@@ -114639,7 +114662,7 @@
 				"name": "Brain Damage (1290950)",
 				"kind": "proc",
 				"durationMs": 30000,
-				"ppm": 0.4
+				"ppm": 0.55
 			}
 		],
 		"sources": [
@@ -123436,7 +123459,6 @@
 		"stats": {
 			"stamina": 7,
 			"armor": 160,
-			"bonusArmor": 60,
 			"natureResistance": 15
 		},
 		"sources": [
@@ -123459,7 +123481,6 @@
 		"stats": {
 			"stamina": 9,
 			"armor": 228,
-			"bonusArmor": 80,
 			"natureResistance": 20
 		},
 		"sources": [
@@ -123482,7 +123503,6 @@
 		"stats": {
 			"stamina": 13,
 			"armor": 365,
-			"bonusArmor": 120,
 			"natureResistance": 25
 		},
 		"sources": [
@@ -126025,7 +126045,7 @@
 			"intellect": 15,
 			"hitRating": 10,
 			"armor": 77,
-			"bonusArmor": 130
+			"bonusArmor": 70
 		},
 		"classes": [
 			5,
@@ -129467,8 +129487,7 @@
 			"agility": 5,
 			"stamina": 16,
 			"defenseRating": 3,
-			"armor": 79,
-			"bonusArmor": 50
+			"armor": 79
 		},
 		"classes": [
 			11
@@ -144160,7 +144179,7 @@
 			"healingPower": 5,
 			"spellDamage": 5,
 			"armor": 34,
-			"bonusArmor": 100
+			"bonusArmor": 150
 		}
 	},
 	{
@@ -149875,8 +149894,7 @@
 			"healingPower": 16,
 			"spellDamage": 16,
 			"hitRating": 10,
-			"armor": 46,
-			"bonusArmor": 70
+			"armor": 46
 		},
 		"sources": [
 			{
@@ -151245,8 +151263,7 @@
 			"healingPower": 14,
 			"spellDamage": 14,
 			"critRating": 14,
-			"armor": 81,
-			"bonusArmor": 70
+			"armor": 81
 		},
 		"classes": [
 			8
@@ -151274,8 +151291,7 @@
 			"healingPower": 18,
 			"spellDamage": 18,
 			"critRating": 7,
-			"armor": 88,
-			"bonusArmor": 60
+			"armor": 88
 		},
 		"classes": [
 			8
@@ -151303,8 +151319,7 @@
 			"healingPower": 18,
 			"spellDamage": 18,
 			"critRating": 14,
-			"armor": 100,
-			"bonusArmor": 70
+			"armor": 100
 		},
 		"classes": [
 			8
@@ -151331,8 +151346,7 @@
 			"intellect": 17,
 			"healingPower": 12,
 			"spellDamage": 12,
-			"armor": 75,
-			"bonusArmor": 50
+			"armor": 75
 		},
 		"classes": [
 			8
@@ -151409,8 +151423,7 @@
 			"intellect": 15,
 			"healingPower": 14,
 			"spellDamage": 14,
-			"armor": 69,
-			"bonusArmor": 40
+			"armor": 69
 		},
 		"classes": [
 			8
@@ -151437,8 +151450,7 @@
 			"intellect": 15,
 			"healingPower": 14,
 			"spellDamage": 14,
-			"armor": 63,
-			"bonusArmor": 40
+			"armor": 63
 		},
 		"classes": [
 			8
@@ -151471,8 +151483,7 @@
 			"strength": 21,
 			"stamina": 34,
 			"critRating": 14,
-			"armor": 738,
-			"bonusArmor": 40
+			"armor": 738
 		},
 		"classes": [
 			1
@@ -151499,7 +151510,7 @@
 			"stamina": 34,
 			"critRating": 14,
 			"armor": 599,
-			"bonusArmor": 40
+			"bonusArmor": 70
 		},
 		"classes": [
 			1
@@ -151525,8 +151536,7 @@
 			"strength": 21,
 			"agility": 13,
 			"stamina": 34,
-			"armor": 646,
-			"bonusArmor": 40
+			"armor": 646
 		},
 		"classes": [
 			1
@@ -151578,8 +151588,7 @@
 			"strength": 13,
 			"agility": 11,
 			"stamina": 28,
-			"armor": 507,
-			"bonusArmor": 40
+			"armor": 507
 		},
 		"classes": [
 			1
@@ -151652,8 +151661,7 @@
 			"strength": 14,
 			"agility": 14,
 			"stamina": 26,
-			"armor": 461,
-			"bonusArmor": 30
+			"armor": 461
 		},
 		"classes": [
 			1
@@ -151687,8 +151695,7 @@
 			"stamina": 37,
 			"intellect": 8,
 			"critRating": 14,
-			"armor": 197,
-			"bonusArmor": 40
+			"armor": 197
 		},
 		"classes": [
 			11
@@ -151715,7 +151722,7 @@
 			"agility": 9,
 			"stamina": 37,
 			"armor": 160,
-			"bonusArmor": 30
+			"bonusArmor": 50
 		},
 		"classes": [
 			11
@@ -151743,7 +151750,7 @@
 			"stamina": 28,
 			"intellect": 6,
 			"armor": 148,
-			"bonusArmor": 50
+			"bonusArmor": 40
 		},
 		"classes": [
 			11
@@ -151770,8 +151777,7 @@
 			"agility": 11,
 			"stamina": 34,
 			"dodgeRating": 12,
-			"armor": 173,
-			"bonusArmor": 30
+			"armor": 173
 		},
 		"classes": [
 			11
@@ -151822,8 +151828,7 @@
 			"agility": 10,
 			"stamina": 26,
 			"intellect": 8,
-			"armor": 136,
-			"bonusArmor": 30
+			"armor": 136
 		},
 		"classes": [
 			11
@@ -151988,8 +151993,7 @@
 			"attackPower": 28,
 			"rangedAttackPower": 28,
 			"critRating": 14,
-			"armor": 123,
-			"bonusArmor": 60
+			"armor": 123
 		},
 		"classes": [
 			4
@@ -152017,8 +152021,7 @@
 			"rangedAttackPower": 16,
 			"critRating": 14,
 			"dodgeRating": 12,
-			"armor": 160,
-			"bonusArmor": 50
+			"armor": 160
 		},
 		"classes": [
 			4
@@ -152045,8 +152048,7 @@
 			"attackPower": 28,
 			"rangedAttackPower": 28,
 			"critRating": 14,
-			"armor": 148,
-			"bonusArmor": 50
+			"armor": 148
 		},
 		"classes": [
 			4
@@ -152073,8 +152075,7 @@
 			"attackPower": 32,
 			"rangedAttackPower": 32,
 			"critRating": 14,
-			"armor": 197,
-			"bonusArmor": 40
+			"armor": 197
 		},
 		"classes": [
 			4
@@ -152100,8 +152101,7 @@
 			"agility": 17,
 			"stamina": 37,
 			"dodgeRating": 12,
-			"armor": 173,
-			"bonusArmor": 50
+			"armor": 173
 		},
 		"classes": [
 			4
@@ -152164,8 +152164,7 @@
 			"intellect": 10,
 			"healingPower": 14,
 			"spellDamage": 14,
-			"armor": 260,
-			"bonusArmor": 70
+			"armor": 260
 		},
 		"classes": [
 			7
@@ -152514,8 +152513,7 @@
 			"intellect": 12,
 			"healingPower": 18,
 			"spellDamage": 18,
-			"armor": 69,
-			"bonusArmor": 60
+			"armor": 69
 		},
 		"classes": [
 			9
@@ -152627,8 +152625,7 @@
 			"healingPower": 14,
 			"spellDamage": 14,
 			"critRating": 7,
-			"armor": 75,
-			"bonusArmor": 30
+			"armor": 75
 		},
 		"classes": [
 			9
@@ -152684,8 +152681,7 @@
 			"healingPower": 23,
 			"spellDamage": 23,
 			"critRating": 7,
-			"armor": 100,
-			"bonusArmor": 40
+			"armor": 100
 		},
 		"classes": [
 			9
@@ -152712,8 +152708,7 @@
 			"intellect": 20,
 			"healingPower": 18,
 			"spellDamage": 18,
-			"armor": 88,
-			"bonusArmor": 40
+			"armor": 88
 		},
 		"classes": [
 			9
@@ -152959,8 +152954,7 @@
 			"intellect": 13,
 			"healingPower": 19,
 			"spellDamage": 19,
-			"armor": 69,
-			"bonusArmor": 50
+			"armor": 69
 		},
 		"classes": [
 			5
@@ -153012,8 +153006,7 @@
 			"intellect": 15,
 			"healingPower": 14,
 			"spellDamage": 14,
-			"armor": 63,
-			"bonusArmor": 50
+			"armor": 63
 		},
 		"classes": [
 			5
@@ -153072,8 +153065,7 @@
 			"intellect": 14,
 			"healingPower": 16,
 			"spellDamage": 16,
-			"armor": 75,
-			"bonusArmor": 60
+			"armor": 75
 		},
 		"classes": [
 			5
@@ -153101,8 +153093,7 @@
 			"healingPower": 19,
 			"spellDamage": 19,
 			"critRating": 7,
-			"armor": 81,
-			"bonusArmor": 70
+			"armor": 81
 		},
 		"classes": [
 			5
@@ -153130,7 +153121,7 @@
 			"healingPower": 21,
 			"spellDamage": 21,
 			"armor": 100,
-			"bonusArmor": 70
+			"bonusArmor": 40
 		},
 		"classes": [
 			5
@@ -153158,8 +153149,7 @@
 			"healingPower": 18,
 			"spellDamage": 18,
 			"critRating": 7,
-			"armor": 88,
-			"bonusArmor": 70
+			"armor": 88
 		},
 		"classes": [
 			5
@@ -153187,8 +153177,7 @@
 			"stamina": 8,
 			"intellect": 8,
 			"spirit": 8,
-			"armor": 43,
-			"bonusArmor": 40
+			"armor": 43
 		},
 		"sources": [
 			{
@@ -153304,7 +153293,7 @@
 		"stats": {
 			"stamina": 16,
 			"armor": 43,
-			"bonusArmor": 70
+			"bonusArmor": 67
 		},
 		"sources": [
 			{
@@ -153722,7 +153711,7 @@
 			"agility": 14,
 			"stamina": 19,
 			"armor": 116,
-			"bonusArmor": 40
+			"bonusArmor": 30
 		},
 		"classes": [
 			4
@@ -153878,8 +153867,7 @@
 			"intellect": 9,
 			"healingPower": 18,
 			"spellDamage": 6,
-			"armor": 53,
-			"bonusArmor": 40
+			"armor": 53
 		},
 		"classes": [
 			5
@@ -153940,8 +153928,7 @@
 			"healingPower": 33,
 			"spellDamage": 11,
 			"spirit": 7,
-			"armor": 169,
-			"bonusArmor": 30
+			"armor": 169
 		},
 		"classes": [
 			11
@@ -153969,8 +153956,7 @@
 			"healingPower": 20,
 			"spellDamage": 7,
 			"spirit": 4,
-			"armor": 148,
-			"bonusArmor": 50
+			"armor": 148
 		},
 		"classes": [
 			11
@@ -154025,8 +154011,7 @@
 			"healingPower": 26,
 			"spellDamage": 9,
 			"spirit": 6,
-			"armor": 85,
-			"bonusArmor": 60
+			"armor": 85
 		},
 		"classes": [
 			5
@@ -154108,8 +154093,7 @@
 			"healingPower": 24,
 			"spellDamage": 8,
 			"spirit": 6,
-			"armor": 137,
-			"bonusArmor": 40
+			"armor": 137
 		},
 		"classes": [
 			11
@@ -154137,8 +154121,7 @@
 			"healingPower": 15,
 			"spellDamage": 5,
 			"spirit": 4,
-			"armor": 127,
-			"bonusArmor": 60
+			"armor": 127
 		},
 		"classes": [
 			11
@@ -154247,8 +154230,7 @@
 			"healingPower": 20,
 			"spellDamage": 7,
 			"spirit": 10,
-			"armor": 69,
-			"bonusArmor": 50
+			"armor": 69
 		},
 		"classes": [
 			5
@@ -154276,8 +154258,7 @@
 			"healingPower": 15,
 			"spellDamage": 5,
 			"spirit": 8,
-			"armor": 64,
-			"bonusArmor": 40
+			"armor": 64
 		},
 		"classes": [
 			5
@@ -154305,8 +154286,7 @@
 			"healingPower": 9,
 			"spellDamage": 9,
 			"critRating": 7,
-			"armor": 148,
-			"bonusArmor": 50
+			"armor": 148
 		},
 		"classes": [
 			11
@@ -154360,8 +154340,7 @@
 			"intellect": 14,
 			"healingPower": 24,
 			"spellDamage": 8,
-			"armor": 75,
-			"bonusArmor": 60
+			"armor": 75
 		},
 		"classes": [
 			5
@@ -154388,8 +154367,7 @@
 			"intellect": 14,
 			"healingPower": 9,
 			"spellDamage": 9,
-			"armor": 137,
-			"bonusArmor": 40
+			"armor": 137
 		},
 		"classes": [
 			11
@@ -154417,7 +154395,7 @@
 			"healingPower": 7,
 			"spellDamage": 7,
 			"armor": 127,
-			"bonusArmor": 60
+			"bonusArmor": 50
 		},
 		"classes": [
 			11
@@ -154472,8 +154450,7 @@
 			"healingPower": 20,
 			"spellDamage": 7,
 			"spirit": 10,
-			"armor": 69,
-			"bonusArmor": 50
+			"armor": 69
 		},
 		"classes": [
 			5
@@ -154501,8 +154478,7 @@
 			"healingPower": 15,
 			"spellDamage": 5,
 			"spirit": 8,
-			"armor": 64,
-			"bonusArmor": 40
+			"armor": 64
 		},
 		"classes": [
 			5
@@ -154529,8 +154505,7 @@
 			"intellect": 10,
 			"healingPower": 7,
 			"spellDamage": 7,
-			"armor": 64,
-			"bonusArmor": 60
+			"armor": 64
 		},
 		"classes": [
 			8
@@ -154770,7 +154745,7 @@
 		"stats": {
 			"stamina": 16,
 			"armor": 43,
-			"bonusArmor": 70
+			"bonusArmor": 67
 		},
 		"sources": [
 			{
@@ -155607,8 +155582,7 @@
 			"intellect": 15,
 			"healingPower": 14,
 			"spellDamage": 14,
-			"armor": 69,
-			"bonusArmor": 40
+			"armor": 69
 		},
 		"classes": [
 			8
@@ -155685,8 +155659,7 @@
 			"intellect": 15,
 			"healingPower": 14,
 			"spellDamage": 14,
-			"armor": 63,
-			"bonusArmor": 40
+			"armor": 63
 		},
 		"classes": [
 			8
@@ -155721,8 +155694,7 @@
 			"healingPower": 14,
 			"spellDamage": 14,
 			"critRating": 14,
-			"armor": 81,
-			"bonusArmor": 70
+			"armor": 81
 		},
 		"classes": [
 			8
@@ -155750,8 +155722,7 @@
 			"healingPower": 18,
 			"spellDamage": 18,
 			"critRating": 7,
-			"armor": 88,
-			"bonusArmor": 60
+			"armor": 88
 		},
 		"classes": [
 			8
@@ -155779,8 +155750,7 @@
 			"healingPower": 18,
 			"spellDamage": 18,
 			"critRating": 14,
-			"armor": 100,
-			"bonusArmor": 70
+			"armor": 100
 		},
 		"classes": [
 			8
@@ -155807,8 +155777,7 @@
 			"intellect": 17,
 			"healingPower": 12,
 			"spellDamage": 12,
-			"armor": 75,
-			"bonusArmor": 50
+			"armor": 75
 		},
 		"classes": [
 			8
@@ -155951,7 +155920,7 @@
 			"stamina": 28,
 			"intellect": 6,
 			"armor": 148,
-			"bonusArmor": 50
+			"bonusArmor": 40
 		},
 		"classes": [
 			11
@@ -155978,8 +155947,7 @@
 			"agility": 11,
 			"stamina": 34,
 			"dodgeRating": 12,
-			"armor": 173,
-			"bonusArmor": 30
+			"armor": 173
 		},
 		"classes": [
 			11
@@ -156006,7 +155974,7 @@
 			"agility": 9,
 			"stamina": 37,
 			"armor": 160,
-			"bonusArmor": 30
+			"bonusArmor": 50
 		},
 		"classes": [
 			11
@@ -156033,8 +156001,7 @@
 			"stamina": 37,
 			"intellect": 8,
 			"critRating": 14,
-			"armor": 197,
-			"bonusArmor": 40
+			"armor": 197
 		},
 		"classes": [
 			11
@@ -156061,8 +156028,7 @@
 			"attackPower": 32,
 			"rangedAttackPower": 32,
 			"critRating": 14,
-			"armor": 197,
-			"bonusArmor": 40
+			"armor": 197
 		},
 		"classes": [
 			4
@@ -156089,8 +156055,7 @@
 			"attackPower": 28,
 			"rangedAttackPower": 28,
 			"critRating": 14,
-			"armor": 123,
-			"bonusArmor": 60
+			"armor": 123
 		},
 		"classes": [
 			4
@@ -156118,8 +156083,7 @@
 			"rangedAttackPower": 16,
 			"critRating": 14,
 			"dodgeRating": 12,
-			"armor": 160,
-			"bonusArmor": 50
+			"armor": 160
 		},
 		"classes": [
 			4
@@ -156145,8 +156109,7 @@
 			"agility": 17,
 			"stamina": 37,
 			"dodgeRating": 12,
-			"armor": 173,
-			"bonusArmor": 50
+			"armor": 173
 		},
 		"classes": [
 			4
@@ -156173,8 +156136,7 @@
 			"attackPower": 28,
 			"rangedAttackPower": 28,
 			"critRating": 14,
-			"armor": 148,
-			"bonusArmor": 50
+			"armor": 148
 		},
 		"classes": [
 			4
@@ -156225,8 +156187,7 @@
 			"agility": 10,
 			"stamina": 26,
 			"intellect": 8,
-			"armor": 136,
-			"bonusArmor": 30
+			"armor": 136
 		},
 		"classes": [
 			11
@@ -156275,8 +156236,7 @@
 			"strength": 21,
 			"stamina": 34,
 			"critRating": 14,
-			"armor": 738,
-			"bonusArmor": 40
+			"armor": 738
 		},
 		"classes": [
 			1
@@ -156303,7 +156263,7 @@
 			"stamina": 34,
 			"critRating": 14,
 			"armor": 599,
-			"bonusArmor": 40
+			"bonusArmor": 70
 		},
 		"classes": [
 			1
@@ -156329,8 +156289,7 @@
 			"strength": 21,
 			"agility": 13,
 			"stamina": 34,
-			"armor": 646,
-			"bonusArmor": 40
+			"armor": 646
 		},
 		"classes": [
 			1
@@ -156429,8 +156388,7 @@
 			"strength": 13,
 			"agility": 11,
 			"stamina": 28,
-			"armor": 507,
-			"bonusArmor": 40
+			"armor": 507
 		},
 		"classes": [
 			1
@@ -156456,8 +156414,7 @@
 			"strength": 14,
 			"agility": 14,
 			"stamina": 26,
-			"armor": 461,
-			"bonusArmor": 30
+			"armor": 461
 		},
 		"classes": [
 			1
@@ -156684,8 +156641,7 @@
 			"intellect": 20,
 			"healingPower": 18,
 			"spellDamage": 18,
-			"armor": 88,
-			"bonusArmor": 40
+			"armor": 88
 		},
 		"classes": [
 			9
@@ -156713,8 +156669,7 @@
 			"healingPower": 14,
 			"spellDamage": 14,
 			"critRating": 7,
-			"armor": 75,
-			"bonusArmor": 30
+			"armor": 75
 		},
 		"classes": [
 			9
@@ -156742,8 +156697,7 @@
 			"healingPower": 23,
 			"spellDamage": 23,
 			"critRating": 7,
-			"armor": 100,
-			"bonusArmor": 40
+			"armor": 100
 		},
 		"classes": [
 			9
@@ -156795,8 +156749,7 @@
 			"intellect": 12,
 			"healingPower": 18,
 			"spellDamage": 18,
-			"armor": 69,
-			"bonusArmor": 60
+			"armor": 69
 		},
 		"classes": [
 			9
@@ -157102,8 +157055,7 @@
 			"healingPower": 19,
 			"spellDamage": 19,
 			"critRating": 7,
-			"armor": 81,
-			"bonusArmor": 70
+			"armor": 81
 		},
 		"classes": [
 			5
@@ -157131,8 +157083,7 @@
 			"healingPower": 18,
 			"spellDamage": 18,
 			"critRating": 7,
-			"armor": 88,
-			"bonusArmor": 70
+			"armor": 88
 		},
 		"classes": [
 			5
@@ -157159,8 +157110,7 @@
 			"intellect": 14,
 			"healingPower": 16,
 			"spellDamage": 16,
-			"armor": 75,
-			"bonusArmor": 60
+			"armor": 75
 		},
 		"classes": [
 			5
@@ -157188,7 +157138,7 @@
 			"healingPower": 21,
 			"spellDamage": 21,
 			"armor": 100,
-			"bonusArmor": 70
+			"bonusArmor": 40
 		},
 		"classes": [
 			5
@@ -157240,8 +157190,7 @@
 			"intellect": 13,
 			"healingPower": 19,
 			"spellDamage": 19,
-			"armor": 69,
-			"bonusArmor": 50
+			"armor": 69
 		},
 		"classes": [
 			5
@@ -157268,8 +157217,7 @@
 			"intellect": 15,
 			"healingPower": 14,
 			"spellDamage": 14,
-			"armor": 63,
-			"bonusArmor": 50
+			"armor": 63
 		},
 		"classes": [
 			5
@@ -159159,8 +159107,7 @@
 			"intellect": 14,
 			"healingPower": 16,
 			"spellDamage": 16,
-			"armor": 260,
-			"bonusArmor": 70
+			"armor": 260
 		},
 		"classes": [
 			7
@@ -159383,8 +159330,7 @@
 			"healingPower": 26,
 			"spellDamage": 8,
 			"spirit": 11,
-			"armor": 260,
-			"bonusArmor": 70
+			"armor": 260
 		},
 		"classes": [
 			7
@@ -160013,8 +159959,7 @@
 			"healingPower": 20,
 			"spellDamage": 7,
 			"spirit": 4,
-			"armor": 148,
-			"bonusArmor": 50
+			"armor": 148
 		},
 		"classes": [
 			11
@@ -160042,8 +159987,7 @@
 			"healingPower": 24,
 			"spellDamage": 8,
 			"spirit": 6,
-			"armor": 137,
-			"bonusArmor": 40
+			"armor": 137
 		},
 		"classes": [
 			11
@@ -160071,8 +160015,7 @@
 			"healingPower": 15,
 			"spellDamage": 5,
 			"spirit": 4,
-			"armor": 127,
-			"bonusArmor": 60
+			"armor": 127
 		},
 		"classes": [
 			11
@@ -160301,8 +160244,7 @@
 			"healingPower": 9,
 			"spellDamage": 9,
 			"critRating": 7,
-			"armor": 169,
-			"bonusArmor": 30
+			"armor": 169
 		},
 		"classes": [
 			11
@@ -160330,8 +160272,7 @@
 			"healingPower": 9,
 			"spellDamage": 9,
 			"critRating": 7,
-			"armor": 148,
-			"bonusArmor": 50
+			"armor": 148
 		},
 		"classes": [
 			11
@@ -160358,8 +160299,7 @@
 			"intellect": 14,
 			"healingPower": 9,
 			"spellDamage": 9,
-			"armor": 137,
-			"bonusArmor": 40
+			"armor": 137
 		},
 		"classes": [
 			11
@@ -160387,7 +160327,7 @@
 			"healingPower": 7,
 			"spellDamage": 7,
 			"armor": 127,
-			"bonusArmor": 60
+			"bonusArmor": 50
 		},
 		"classes": [
 			11
@@ -160489,8 +160429,7 @@
 			"intellect": 14,
 			"healingPower": 11,
 			"spellDamage": 11,
-			"armor": 123,
-			"bonusArmor": 40
+			"armor": 123
 		},
 		"classes": [
 			11
@@ -160524,7 +160463,7 @@
 			"healingPower": 11,
 			"spellDamage": 11,
 			"armor": 148,
-			"bonusArmor": 50
+			"bonusArmor": 70
 		},
 		"classes": [
 			11
@@ -160552,8 +160491,7 @@
 			"healingPower": 14,
 			"spellDamage": 14,
 			"critRating": 14,
-			"armor": 173,
-			"bonusArmor": 30
+			"armor": 173
 		},
 		"classes": [
 			11
@@ -160580,8 +160518,7 @@
 			"intellect": 18,
 			"healingPower": 13,
 			"spellDamage": 13,
-			"armor": 160,
-			"bonusArmor": 30
+			"armor": 160
 		},
 		"classes": [
 			11
@@ -160609,8 +160546,7 @@
 			"healingPower": 14,
 			"spellDamage": 14,
 			"critRating": 14,
-			"armor": 197,
-			"bonusArmor": 40
+			"armor": 197
 		},
 		"classes": [
 			11
@@ -160637,8 +160573,7 @@
 			"intellect": 14,
 			"healingPower": 11,
 			"spellDamage": 11,
-			"armor": 136,
-			"bonusArmor": 30
+			"armor": 136
 		},
 		"classes": [
 			11
@@ -160717,8 +160652,7 @@
 			"healingPower": 22,
 			"spellDamage": 7,
 			"spirit": 8,
-			"armor": 123,
-			"bonusArmor": 40
+			"armor": 123
 		},
 		"classes": [
 			11
@@ -160752,8 +160686,7 @@
 			"healingPower": 22,
 			"spellDamage": 7,
 			"spirit": 7,
-			"armor": 148,
-			"bonusArmor": 50
+			"armor": 148
 		},
 		"classes": [
 			11
@@ -160781,8 +160714,7 @@
 			"healingPower": 33,
 			"spellDamage": 11,
 			"spirit": 5,
-			"armor": 173,
-			"bonusArmor": 30
+			"armor": 173
 		},
 		"classes": [
 			11
@@ -160810,8 +160742,7 @@
 			"healingPower": 33,
 			"spellDamage": 11,
 			"spirit": 13,
-			"armor": 160,
-			"bonusArmor": 30
+			"armor": 160
 		},
 		"classes": [
 			11
@@ -160839,8 +160770,7 @@
 			"healingPower": 44,
 			"spellDamage": 15,
 			"spirit": 8,
-			"armor": 197,
-			"bonusArmor": 40
+			"armor": 197
 		},
 		"classes": [
 			11
@@ -160868,8 +160798,7 @@
 			"healingPower": 22,
 			"spellDamage": 7,
 			"spirit": 8,
-			"armor": 136,
-			"bonusArmor": 30
+			"armor": 136
 		},
 		"classes": [
 			11
@@ -160897,8 +160826,7 @@
 			"healingPower": 14,
 			"spellDamage": 14,
 			"critRating": 14,
-			"armor": 197,
-			"bonusArmor": 40
+			"armor": 197
 		},
 		"classes": [
 			11
@@ -160925,8 +160853,7 @@
 			"intellect": 18,
 			"healingPower": 13,
 			"spellDamage": 13,
-			"armor": 160,
-			"bonusArmor": 30
+			"armor": 160
 		},
 		"classes": [
 			11
@@ -160954,7 +160881,7 @@
 			"healingPower": 11,
 			"spellDamage": 11,
 			"armor": 148,
-			"bonusArmor": 50
+			"bonusArmor": 70
 		},
 		"classes": [
 			11
@@ -160982,8 +160909,7 @@
 			"healingPower": 14,
 			"spellDamage": 14,
 			"critRating": 14,
-			"armor": 173,
-			"bonusArmor": 30
+			"armor": 173
 		},
 		"classes": [
 			11
@@ -161035,8 +160961,7 @@
 			"intellect": 14,
 			"healingPower": 11,
 			"spellDamage": 11,
-			"armor": 136,
-			"bonusArmor": 30
+			"armor": 136
 		},
 		"classes": [
 			11
@@ -161063,8 +160988,7 @@
 			"intellect": 14,
 			"healingPower": 11,
 			"spellDamage": 11,
-			"armor": 123,
-			"bonusArmor": 40
+			"armor": 123
 		},
 		"classes": [
 			11
@@ -161123,8 +161047,7 @@
 			"healingPower": 44,
 			"spellDamage": 15,
 			"spirit": 8,
-			"armor": 197,
-			"bonusArmor": 40
+			"armor": 197
 		},
 		"classes": [
 			11
@@ -161152,8 +161075,7 @@
 			"healingPower": 33,
 			"spellDamage": 11,
 			"spirit": 13,
-			"armor": 160,
-			"bonusArmor": 30
+			"armor": 160
 		},
 		"classes": [
 			11
@@ -161181,8 +161103,7 @@
 			"healingPower": 22,
 			"spellDamage": 7,
 			"spirit": 7,
-			"armor": 148,
-			"bonusArmor": 50
+			"armor": 148
 		},
 		"classes": [
 			11
@@ -161210,8 +161131,7 @@
 			"healingPower": 33,
 			"spellDamage": 11,
 			"spirit": 5,
-			"armor": 173,
-			"bonusArmor": 30
+			"armor": 173
 		},
 		"classes": [
 			11
@@ -161264,8 +161184,7 @@
 			"healingPower": 22,
 			"spellDamage": 7,
 			"spirit": 8,
-			"armor": 136,
-			"bonusArmor": 30
+			"armor": 136
 		},
 		"classes": [
 			11
@@ -161293,8 +161212,7 @@
 			"healingPower": 22,
 			"spellDamage": 7,
 			"spirit": 8,
-			"armor": 123,
-			"bonusArmor": 40
+			"armor": 123
 		},
 		"classes": [
 			11
@@ -161354,8 +161272,7 @@
 			"healingPower": 33,
 			"spellDamage": 11,
 			"spirit": 13,
-			"armor": 81,
-			"bonusArmor": 70
+			"armor": 81
 		},
 		"classes": [
 			5
@@ -161383,8 +161300,7 @@
 			"healingPower": 33,
 			"spellDamage": 11,
 			"spirit": 8,
-			"armor": 88,
-			"bonusArmor": 70
+			"armor": 88
 		},
 		"classes": [
 			5
@@ -161412,8 +161328,7 @@
 			"healingPower": 26,
 			"spellDamage": 9,
 			"spirit": 10,
-			"armor": 75,
-			"bonusArmor": 60
+			"armor": 75
 		},
 		"classes": [
 			5
@@ -161441,8 +161356,7 @@
 			"healingPower": 40,
 			"spellDamage": 13,
 			"spirit": 9,
-			"armor": 100,
-			"bonusArmor": 70
+			"armor": 100
 		},
 		"classes": [
 			5
@@ -161495,8 +161409,7 @@
 			"healingPower": 22,
 			"spellDamage": 7,
 			"spirit": 11,
-			"armor": 69,
-			"bonusArmor": 50
+			"armor": 69
 		},
 		"classes": [
 			5
@@ -161523,8 +161436,7 @@
 			"intellect": 12,
 			"healingPower": 26,
 			"spellDamage": 9,
-			"armor": 63,
-			"bonusArmor": 50
+			"armor": 63
 		},
 		"classes": [
 			5
@@ -161584,8 +161496,7 @@
 			"healingPower": 22,
 			"spellDamage": 7,
 			"spirit": 11,
-			"armor": 69,
-			"bonusArmor": 50
+			"armor": 69
 		},
 		"classes": [
 			5
@@ -161637,8 +161548,7 @@
 			"intellect": 12,
 			"healingPower": 26,
 			"spellDamage": 9,
-			"armor": 63,
-			"bonusArmor": 50
+			"armor": 63
 		},
 		"classes": [
 			5
@@ -161698,8 +161608,7 @@
 			"healingPower": 26,
 			"spellDamage": 9,
 			"spirit": 10,
-			"armor": 75,
-			"bonusArmor": 60
+			"armor": 75
 		},
 		"classes": [
 			5
@@ -161727,8 +161636,7 @@
 			"healingPower": 33,
 			"spellDamage": 11,
 			"spirit": 13,
-			"armor": 81,
-			"bonusArmor": 70
+			"armor": 81
 		},
 		"classes": [
 			5
@@ -161756,8 +161664,7 @@
 			"healingPower": 40,
 			"spellDamage": 13,
 			"spirit": 9,
-			"armor": 100,
-			"bonusArmor": 70
+			"armor": 100
 		},
 		"classes": [
 			5
@@ -161785,8 +161692,7 @@
 			"healingPower": 33,
 			"spellDamage": 11,
 			"spirit": 8,
-			"armor": 88,
-			"bonusArmor": 70
+			"armor": 88
 		},
 		"classes": [
 			5
@@ -165159,8 +165065,7 @@
 			"intellect": 10,
 			"healingPower": 14,
 			"spellDamage": 14,
-			"armor": 260,
-			"bonusArmor": 70
+			"armor": 260
 		},
 		"classes": [
 			7
@@ -165550,8 +165455,7 @@
 			"intellect": 14,
 			"healingPower": 16,
 			"spellDamage": 16,
-			"armor": 260,
-			"bonusArmor": 70
+			"armor": 260
 		},
 		"classes": [
 			7
@@ -165774,8 +165678,7 @@
 			"healingPower": 26,
 			"spellDamage": 8,
 			"spirit": 11,
-			"armor": 260,
-			"bonusArmor": 70
+			"armor": 260
 		},
 		"classes": [
 			7
@@ -178851,7 +178754,8 @@
 			{
 				"name": "Burning Shell (1314040)",
 				"kind": "proc",
-				"durationMs": 9000
+				"durationMs": 9000,
+				"ppm": 5.3
 			}
 		],
 		"sources": [
@@ -184132,7 +184036,7 @@
 		"stats": {
 			"stamina": 10,
 			"defenseRating": 2,
-			"bonusArmor": 110
+			"bonusArmor": 53
 		},
 		"unique": true,
 		"sources": [

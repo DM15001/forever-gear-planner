@@ -110,16 +110,16 @@
 	"raceBonuses": {},
 	"weights": {
 		"source": "WoWSims Forever, Arms 'Pre-BiS' EP preset (ui/specs/warrior/dps/presets.ts). 1 point = 1 attack power.",
-		"mainHandDps": 16.63,
+		"mainHandDps": 16.71,
 		"stats": {
 			"strength": 2.2,
-			"agility": 1.71,
+			"agility": 1.76,
 			"attackPower": 1,
-			"armorPenetration": 0.45,
-			"hitRating": 4.7,
-			"hasteRating": 1.19,
-			"critRating": 2.23,
-			"expertiseRating": 1.46
+			"armorPenetration": 0.46,
+			"hitRating": 5.03,
+			"hasteRating": 1.29,
+			"critRating": 2.32,
+			"expertiseRating": 1.57
 		},
 		"hitRatingOverCap": 0,
 		"dpsPerPoint": 0.2633

@@ -3,7 +3,7 @@ import { loadSim } from './sim.mjs';
 const R = '/home/claude/ref/forever/ui/specs/';
 const OUT = '/home/claude/forever-gear-planner/scripts/builds/';
 const read = p => JSON.parse(readFileSync(R + p, 'utf8'));
-const encounter = JSON.parse(readFileSync('/home/claude/forever-gear-planner/public/sim/template.json', 'utf8')).encounter;
+const encounter = JSON.parse(readFileSync(OUT + 'warlock-sm-ruin.build.json', 'utf8')).encounter;
 const builds = {};
 for (const [id, f] of Object.entries({ 'warlock-sm-ruin': 'sm_ruin', 'warlock-destruction': 'destro', 'warlock-affliction': 'aff_wrack', 'warlock-demo-fire': 'demo_fire_brand', 'warlock-demo-shadow': 'demo_shadow_brand' })) {
 	const b = read(`warlock/dps/builds/${f}.build.json`);
