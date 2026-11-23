@@ -130,6 +130,18 @@ describe('reputation filter', () => {
 		expect(has(slotCandidates(10, dwarf.gear, options), DON_JULIOS_BAND)).toBe(false);
 	});
 
+	it('does not let a vendor entry bring a PvP item back', () => {
+		// Highlander's Mail Pauldrons: League of Arathor at Exalted, also listed under the quartermaster as a vendor item.
+		const pauldrons = data.itemById.get(20056);
+		if (pauldrons) {
+			expect(usableSources(pauldrons, 'alliance', DEFAULT_FILTER)).toHaveLength(0);
+			expect(usableSources(pauldrons, 'alliance', withPvp.filter).length).toBeGreaterThan(0);
+		}
+		for (const item of data.itemById.values()) {
+			if (item.sources?.some(s => s.kind === 'pvp')) expect(usableSources(item, undefined, DEFAULT_FILTER).filter(s => s.kind === 'vendor')).toHaveLength(0);
+		}
+	});
+
 	it('counts quests done inside a battleground as PvP of that battleground', () => {
 		// Alterac Valley quest rewards, listed as plain quests: Ice Barbed Spear, Cold Forged Hammer.
 		const spear = [19106, 20648].map(id => data.itemById.get(id)).find(Boolean)!;

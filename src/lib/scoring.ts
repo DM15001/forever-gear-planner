@@ -330,8 +330,11 @@ const isRaidQuest = (source: ItemSource) => source.kind === 'quest' && source.qu
  * quest rewards never count. Pass `professions` to apply the "own crafts only" switch.
  */
 export function usableSources(item: Item, faction: Faction | undefined, filter: SourceFilter, professions?: string[]): ItemSource[] {
+	// What a PvP rank or a battleground pays for is PvP, and so is the vendor who hands it over.
+	const pvpItem = (item.sources ?? []).some(s => s.kind === 'pvp' || battlegroundOf(s));
 	return (item.sources ?? []).filter(s => {
 		if (s.zoneKind === 'raid' || isRaidQuest(s)) return false;
+		if (pvpItem && s.kind === 'vendor' && !filter.pvp) return false;
 		if (s.dungeonKey) {
 			if (filter.excludedDungeons.includes(s.dungeonKey)) return false;
 		} else if (!filter[filterKey(s)]) return false;
