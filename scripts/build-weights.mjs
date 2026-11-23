@@ -8,8 +8,8 @@
 //   node scripts/build-weights.mjs --spec mage-fire --accept       apply even a large change
 //
 // How: the build's preset (public/sim/template.<build>.json) is simulated once as it is and once
-// per stat with a little of that stat added (hit and expertise: taken away, since the preset sits
-// at the cap). All runs share one random seed, so the difference is the stat and not luck.
+// per stat with a little of that stat added (expertise: taken away, since the preset sits at the
+// cap; hit: four runs around the preset, to find its worth below and past the cap and the cap itself). All runs share one random seed, so the difference is the stat and not luck.
 // A weight is the stat's DPS per point divided by the DPS per point of the build's unit stat
 // (attack power, spell damage or, for Hunters, agility); "dpsPerPoint" is that unit's worth.
 //
@@ -133,15 +133,52 @@ function dps(index, delta) {
 	return value;
 }
 
+/** Hit rating on the preset's gear, enchants and random suffixes, added up the way the planner does (src/lib/stats.ts). */
+function hitRatingWorn() {
+	const list = file => {
+		const loaded = readJson(join(ROOT, 'src', 'data', file));
+		return Array.isArray(loaded) ? loaded : (loaded.items ?? loaded.enchants ?? loaded.suffixes ?? []);
+	};
+	const itemsById = new Map(list('items.json').map(item => [item.id, item]));
+	const enchantHit = new Map(list('enchants.json').map(enchant => [enchant.effectId, enchant.stats?.hitRating ?? 0]));
+	const suffixes = new Map(list('randomSuffixes.json').map(suffix => [suffix.id, suffix]));
+	let total = 0;
+	for (const piece of template.raid.parties[0].players[0].equipment.items) {
+		const item = piece?.id ? itemsById.get(piece.id) : undefined;
+		if (!item) continue;
+		total += item.stats?.hitRating ?? 0;
+		total += enchantHit.get(piece.enchant) ?? 0;
+		const share = suffixes.get(piece.randomSuffix)?.stats?.hitRating;
+		if (share && item.randPropPoints) total += Math.floor((item.randPropPoints * share) / 10000);
+	}
+	return total;
+}
+
 // ---------------------------------------------------------------- measure
 
 const started = Date.now();
 const base = dps();
 const perPoint = {};
 for (const name of Object.keys(spec.weights.stats)) {
-	if (!STATS[name]) continue;
+	if (!STATS[name] || name === 'hitRating') continue; // hit has its own measurement below
 	const [index, delta] = STATS[name];
 	perPoint[name] = (dps(index, delta) - base) / delta;
+}
+// Hit is not one number: below the cap a point is worth a lot, past it little or nothing. Four more
+// runs find the worth on either side and where the bend is, so the planner knows the cap the
+// simulator really has (it depends on the target's level and on hit from talents and race).
+let hitCurve;
+if (spec.weights.stats.hitRating !== undefined) {
+	const at = delta => dps(STATS.hitRating[0], delta) - base;
+	const [low2, low1, high1, high2] = [at(-40), at(-20), at(60), at(80)];
+	const below = (low1 - low2) / 20;
+	const above = (high2 - high1) / 20;
+	perPoint.hitRating = below;
+	if (below > 0 && above < 0.7 * below) {
+		// Where the line through the two low points meets the line through the two high ones, in rating from the preset.
+		const toCap = (high2 - low1 - 80 * above - 20 * below) / (below - above);
+		if (toCap > -20 && toCap < 60) hitCurve = { below, above: Math.max(0, above), toCap };
+	}
 }
 const unitWorth = perPoint[unit];
 if (!(unitWorth > 0)) {
@@ -157,7 +194,7 @@ const dpsPerPoint = round(unitWorth, 4);
 // ---------------------------------------------------------------- guard
 
 // Compared with what the planner uses now: the last applied measurement, else the build file.
-const inUse = previous && !previous.held ? previous : { stats: spec.weights.stats, dpsPerPoint: spec.weights.dpsPerPoint };
+const inUse = previous && !previous.held ? { hitCapPercent: spec.hitCapPercent, ...previous } : { stats: spec.weights.stats, dpsPerPoint: spec.weights.dpsPerPoint, hitCapPercent: spec.hitCapPercent };
 const reasons = [];
 const far = (now, before) => Math.abs(now - before) > FAR * Math.max(Math.abs(before), MATTERS);
 for (const [name, now] of Object.entries(stats)) {
@@ -166,6 +203,17 @@ for (const [name, now] of Object.entries(stats)) {
 	if (Math.max(Math.abs(now), Math.abs(before)) >= MATTERS && far(now, before)) reasons.push(`${name}: ${before} in use, ${now} measured`);
 }
 if (inUse.dpsPerPoint && Math.abs(dpsPerPoint - inUse.dpsPerPoint) > FAR * inUse.dpsPerPoint) reasons.push(`DPS per point of ${unit}: ${inUse.dpsPerPoint} in use, ${dpsPerPoint} measured`);
+
+// The cap in the planner's own terms: hit from gear, race and talents, as src/lib/stats.ts adds them.
+let hitCap;
+if (hitCurve) {
+	const race = template.raid.parties[0].players[0].race;
+	const fromRace = spec.raceBonuses?.[race]?.hitPercent ?? 0;
+	const capPercent = (hitRatingWorn() + hitCurve.toCap) / spec.ratingPerPercent.hitRating + fromRace + (spec.hitBonusPercent ?? 0);
+	hitCap = { hitCapPercent: round(capPercent, 1), hitRatingOverCap: round(hitCurve.above / unitWorth, 2) };
+	if (inUse.hitCapPercent !== undefined && Math.abs(hitCap.hitCapPercent - inUse.hitCapPercent) > 4) reasons.push(`hit cap: ${inUse.hitCapPercent}% in use, ${hitCap.hitCapPercent}% measured`);
+}
+
 const held = reasons.length > 0 && !args.includes('--accept');
 
 const out = {
@@ -177,12 +225,13 @@ const out = {
 	referenceDps: round(base, 1),
 	dpsPerPoint,
 	stats,
+	...(hitCap ?? {}),
 	...(held ? { held: true, reasons } : {}),
 	...(reasons.length > 0 && !held ? { accepted: reasons } : {}),
 };
 mkdirSync(dirname(outFile), { recursive: true });
 writeFileSync(outFile, JSON.stringify(out, null, '\t') + '\n');
 console.log = log;
-console.log(`${specId}: ${round(base, 1)} DPS, 1 ${unit} = ${dpsPerPoint} DPS, ${JSON.stringify(stats)} (${Math.round((Date.now() - started) / 1000)} s)`);
+console.log(`${specId}: ${round(base, 1)} DPS, 1 ${unit} = ${dpsPerPoint} DPS, ${JSON.stringify(stats)}${hitCap ? `, hit cap ${hitCap.hitCapPercent}% (was ${spec.hitCapPercent}%), past it ${hitCap.hitRatingOverCap}` : ''} (${Math.round((Date.now() - started) / 1000)} s)`);
 if (held) console.log(`${specId}: HELD, not applied:\n  ${reasons.join('\n  ')}`);
 process.exit(0);

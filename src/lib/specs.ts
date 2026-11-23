@@ -61,6 +61,9 @@ interface MeasuredWeights {
 	measuredOn: string;
 	dpsPerPoint: number;
 	stats: Record<string, number>;
+	/** The hit cap the simulator really has for this build, and what a point of hit is worth past it. */
+	hitCapPercent?: number;
+	hitRatingOverCap?: number;
 	/** A weight moved so far that the measurement waits for a person; the planner keeps the old weights. */
 	held?: boolean;
 }
@@ -72,8 +75,10 @@ function withMeasured(spec: SpecConfig): SpecConfig {
 	if (!measured || measured.held) return spec;
 	return {
 		...spec,
+		...(measured.hitCapPercent !== undefined ? { hitCapPercent: measured.hitCapPercent } : {}),
 		weights: {
 			...spec.weights,
+			...(measured.hitRatingOverCap !== undefined ? { hitRatingOverCap: measured.hitRatingOverCap } : {}),
 			source: `${spec.weights.source} Stat weights measured again on ${measured.measuredOn} with the current simulator.`,
 			dpsPerPoint: measured.dpsPerPoint,
 			stats: { ...spec.weights.stats, ...measured.stats },
