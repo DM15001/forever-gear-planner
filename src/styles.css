@@ -4286,3 +4286,59 @@ a.source-link:focus-visible {
 	grid-column: 1 / -1;
 	max-width: none;
 }
+
+/* The fight over time, above the breakdown table */
+.result-timeline {
+	margin: 0 0 0.75rem;
+}
+.result-timeline-plot {
+	position: relative;
+	height: 11rem;
+	background: #070605;
+	border: 1px solid var(--hairline);
+	border-radius: 4px;
+	overflow: hidden;
+}
+.result-timeline-plot svg {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.result-timeline-plot path {
+	transition: opacity 120ms;
+}
+.result-timeline-grid {
+	stroke: #ffffff14;
+	stroke-width: 1;
+	vector-effect: non-scaling-stroke;
+}
+.result-timeline-peak {
+	position: absolute;
+	top: 0.2rem;
+	left: 0.4rem;
+	font-size: 0.75rem;
+	color: var(--haze);
+	pointer-events: none;
+}
+.result-timeline figcaption {
+	margin-top: 0.3rem;
+	font-size: 0.8125rem;
+	color: var(--haze);
+}
+.result-timeline .result-axis {
+	display: flex;
+	justify-content: space-between;
+}
+/* The table in the style of a combat log site: dark stripes, a total at the foot */
+.result-table tbody tr:nth-child(even) {
+	background: #ffffff08;
+}
+.result-table tfoot th,
+.result-table tfoot td {
+	border-top: 1px solid var(--ridge);
+	font-weight: 600;
+	color: var(--mist);
+}
+.result-table tfoot .result-bar {
+	visibility: hidden;
+}

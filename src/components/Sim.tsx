@@ -3,7 +3,7 @@ import { createContext, type ReactNode, useCallback, useContext, useEffect, useM
 import { unit } from '../lib/format';
 import type { Gear } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
-import { type SimActionId, simKey, type SimOutcome } from '../lib/sim/request';
+import { type SimActionId, type SimActionRow, simKey, type SimOutcome, actionKey, type SimTimeline } from '../lib/sim/request';
 import type { SimSetupData } from '../lib/sim/setup';
 import { wowheadItemUrl, wowheadSpellUrl, wowheadData } from '../lib/stats';
 import type { Character } from '../lib/types';
@@ -164,14 +164,78 @@ const OTHER_ICONS: Record<string, string> = {
 	OtherActionExplosives: 'inv_misc_bomb_05',
 };
 
+/** One colour per row of the breakdown, the same in the graph, the strip and the bar. */
+const ROW_COLORS = ['#e8c170', '#b9a4f5', '#e4572e', '#4fb0c6', '#8fd694', '#f28fb0', '#f2d541', '#7d8cf0', '#c98b5a', '#5fd3bc', '#d96fd0', '#a3b35a', '#f29e4c', '#6fa8dc', '#c27ba0', '#93c47d'];
+const rowColor = (index: number) => ROW_COLORS[index % ROW_COLORS.length];
+
+const clock = (seconds: number) => `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(Math.round(seconds % 60)).padStart(2, '0')}`;
+
+/**
+ * One simulated fight over time, stacked by damage source, biggest source at the bottom. The
+ * breakdown's numbers are averages over thousands of fights; this is a single one of them, so
+ * procs and cooldowns show as the peaks they are.
+ */
+function TimelineGraph({ timeline, rows, lit, onLit, nameOf }: { timeline: SimTimeline; rows: SimActionRow[]; lit: number | null; onLit: (index: number | null) => void; nameOf: (id: SimActionId) => string }) {
+	const WIDTH = 1000;
+	const HEIGHT = 200;
+	const slices = Math.max(1, ...Object.values(timeline.series).map(list => list.length));
+	// A little smoothing, or five-second slices look like a comb.
+	const smooth = (list: number[] | undefined) => Array.from({ length: slices }, (_, i) => ((list?.[i - 1] ?? list?.[i] ?? 0) + 2 * (list?.[i] ?? 0) + (list?.[i + 1] ?? list?.[i] ?? 0)) / 4);
+	const layers = rows.map(row => smooth(timeline.series[actionKey(row.id)]));
+	const totals = Array.from({ length: slices }, (_, i) => layers.reduce((sum, layer) => sum + layer[i], 0));
+	const peak = Math.max(1, ...totals);
+	const x = (i: number) => (slices === 1 ? WIDTH : (i / (slices - 1)) * WIDTH);
+	const y = (value: number) => HEIGHT - (value / peak) * HEIGHT;
+	const below = new Array<number>(slices).fill(0);
+	const areas = layers.map(layer => {
+		const lower = below.slice();
+		layer.forEach((value, i) => (below[i] += value));
+		const top = below.map((value, i) => `${x(i).toFixed(1)},${y(value).toFixed(1)}`);
+		const bottom = lower.map((value, i) => `${x(i).toFixed(1)},${y(value).toFixed(1)}`).reverse();
+		return `M${top.join('L')}L${bottom.join('L')}Z`;
+	});
+	const marks = [0, 0.25, 0.5, 0.75, 1].map(part => part * timeline.seconds);
+	return (
+		<figure className="result-timeline">
+			<div className="result-timeline-plot">
+				<span className="result-timeline-peak num">{thousands(peak)}</span>
+				<svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} preserveAspectRatio="none" role="img" aria-label={`${unit()} over the time of one simulated fight, by source`} onMouseLeave={() => onLit(null)}>
+					{[0.25, 0.5, 0.75].map(part => (
+						<line key={part} x1={0} x2={WIDTH} y1={HEIGHT * part} y2={HEIGHT * part} className="result-timeline-grid" />
+					))}
+					{areas.map((path, index) => (
+						<path key={index} d={path} fill={rowColor(index)} opacity={lit === null || lit === index ? 0.9 : 0.15} onMouseEnter={() => onLit(index)}>
+							<title>{nameOf(rows[index].id)}</title>
+						</path>
+					))}
+				</svg>
+			</div>
+			<div className="result-axis num">
+				{marks.map(mark => (
+					<span key={mark}>{clock(mark)}</span>
+				))}
+			</div>
+			<figcaption>
+				{unit()} over time in one simulated fight, stacked by source. Point at a row below to pick it out{lit !== null ? `: ${nameOf(rows[lit].id)}` : ''}.
+			</figcaption>
+		</figure>
+	);
+}
+
 /** What a run is made of: damage per spell with bars, effects with their uptime, and how the fights spread. */
-function Breakdown({ title, outcome, names }: { title: string; outcome: SimOutcome; names: SimSetupData | null }) {
+function Breakdown({ title, outcome, names, timeline }: { title: string; outcome: SimOutcome; names: SimSetupData | null; /** One logged fight, for the graph over time; undefined while it loads or if it failed. */ timeline?: SimTimeline }) {
 	// The damage source under the pointer: its row, its bar and its part of the strip light up together.
 	const [lit, setLit] = useState<number | null>(null);
 	const breakdown = outcome.breakdown;
 	if (!breakdown) return null;
 	const nameOf = (id: SimActionId) => {
 		const base = id.spellId ? (names?.spells[id.spellId] ?? `Spell ${id.spellId}`) : id.itemId ? (names?.items[id.itemId] ?? `Item ${id.itemId}`) : String(id.otherId ?? 'Other').replace(/^OtherAction/, '').replace(/([a-z])([A-Z])/g, '$1 $2');
+		// Plain attacks come once per hand, and once more for every effect that grants an extra swing.
+		if (id.otherId === 'OtherActionAttack') {
+			if (id.tag === 14) return 'Main-hand attack';
+			if (id.tag === 15) return 'Off-hand attack';
+			if (id.tag) return `Extra attack (${names?.spells[id.tag] ?? `effect ${id.tag}`})`;
+		}
 		return id.rank ? `${base} (Rank ${id.rank})` : base;
 	};
 	// Effects that are simply always on say nothing about the run; the ones that come and go do.
@@ -204,17 +268,21 @@ function Breakdown({ title, outcome, names }: { title: string; outcome: SimOutco
 					<dd className="result-sub">about {breakdown.seconds.toFixed(0)} s each</dd>
 				</div>
 			</dl>
-			<div className="result-strip" role="img" aria-label="Share of the damage per source">
-				{breakdown.actions.map((row, index) => (
-					<span key={index} className={lit === index ? 'result-strip-part result-lit' : 'result-strip-part'} style={{ width: `${row.share * 100}%`, opacity: lit === null || lit === index ? 1 : 0.3 }} title={`${nameOf(row.id)}: ${percent(row.share, 1)}`} onMouseEnter={() => setLit(index)} onMouseLeave={() => setLit(null)} />
-				))}
-			</div>
+			{timeline ? (
+				<TimelineGraph timeline={timeline} rows={breakdown.actions} lit={lit} onLit={setLit} nameOf={nameOf} />
+			) : (
+				<div className="result-strip" role="img" aria-label="Share of the damage per source">
+					{breakdown.actions.map((row, index) => (
+						<span key={index} className={lit === index ? 'result-strip-part result-lit' : 'result-strip-part'} style={{ width: `${row.share * 100}%`, background: rowColor(index), opacity: lit === null || lit === index ? 1 : 0.3 }} title={`${nameOf(row.id)}: ${percent(row.share, 1)}`} onMouseEnter={() => setLit(index)} onMouseLeave={() => setLit(null)} />
+					))}
+				</div>
+			)}
 			<div className="result-scroll">
 				<table className="result-table" onMouseLeave={() => setLit(null)}>
 					<thead>
 						<tr>
 							<th scope="col">Name</th>
-							<th scope="col">{outcome.healing ? 'Healing done' : 'Damage done'}</th>
+							<th scope="col">Amount</th>
 							<th scope="col" className="num">
 								Casts
 							</th>
@@ -230,11 +298,11 @@ function Breakdown({ title, outcome, names }: { title: string; outcome: SimOutco
 							<th scope="col" className="num">
 								Crit %
 							</th>
+							<th scope="col" className="num" title="The largest single hit or tick in any of the simulated fights, crits included">
+								Max hit
+							</th>
 							<th scope="col" className="num">
 								Miss %
-							</th>
-							<th scope="col" className="num" title={outcome.healing ? 'Healing per second of cast time' : 'Damage per second of cast time'}>
-								{outcome.healing ? 'HPET' : 'DPET'}
 							</th>
 							<th scope="col" className="num">
 								{unit()}
@@ -267,7 +335,7 @@ function Breakdown({ title, outcome, names }: { title: string; outcome: SimOutco
 								<td className="result-bar-cell">
 									<span className="num result-share">{percent(row.share, 2)}</span>
 									<span className="result-bar">
-										<span style={{ width: `${(row.share / top) * 100}%` }} />
+										<span style={{ width: `${(row.share / top) * 100}%`, background: rowColor(index) }} />
 									</span>
 									<span className="num result-total">{thousands(row.damage)}</span>
 								</td>
@@ -276,12 +344,24 @@ function Breakdown({ title, outcome, names }: { title: string; outcome: SimOutco
 								<td className="num">{row.hits.toFixed(2)}</td>
 								<td className="num">{row.hits ? thousands(row.damage / row.hits) : ''}</td>
 								<td className="num">{percent(row.crit, 2)}</td>
-								<td className="num">{row.miss !== undefined ? percent(row.miss, 2) : ''}</td>
-								<td className="num">{row.dpet !== undefined ? thousands(row.dpet) : ''}</td>
+								<td className="num">{row.maxHit !== undefined ? thousands(row.maxHit) : '-'}</td>
+								<td className="num">{row.miss !== undefined ? percent(row.miss, 2) : '-'}</td>
 								<td className="num result-dps">{row.dps.toFixed(2)}</td>
 							</tr>
 						))}
 					</tbody>
+					<tfoot>
+						<tr>
+							<th scope="row">Total</th>
+							<td className="result-bar-cell">
+								<span className="num result-share">100%</span>
+								<span className="result-bar" />
+								<span className="num result-total">{thousands(breakdown.actions.reduce((sum, row) => sum + row.damage, 0))}</span>
+							</td>
+							<td colSpan={7} />
+							<td className="num result-dps">{outcome.dps.toFixed(2)}</td>
+						</tr>
+					</tfoot>
 				</table>
 			</div>
 			{breakdown.histogram.length > 1 && (
@@ -323,9 +403,28 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 	const complete = Boolean(a && (!hasPlan || b));
 	// Spell and item names for the breakdown, fetched when it is first opened.
 	const [names, setNames] = useState<SimSetupData | null>(null);
+	// The graph over time needs one logged fight per set; it is run when the breakdown is first opened.
+	const [opened, setOpened] = useState(false);
+	const [timelines, setTimelines] = useState<Record<string, SimTimeline | undefined>>({});
 	const loadNames = () => {
 		if (!names) simClient.setup().then(setNames, () => undefined);
+		setOpened(true);
 	};
+	const character = sim.character;
+	const keyA = simKey(character, equipped, -1);
+	const keyB = simKey(character, planned, -1);
+	useEffect(() => {
+		if (!opened || !SIM_AVAILABLE) return;
+		for (const [key, gear, wanted] of [[keyA, equipped, Boolean(a)], [keyB, planned, Boolean(b)]] as const) {
+			if (!wanted || key in timelines) continue;
+			setTimelines(old => ({ ...old, [key]: undefined }));
+			simClient.timeline(character, gear).then(
+				timeline => setTimelines(old => ({ ...old, [key]: timeline })),
+				() => undefined,
+			);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [opened, keyA, keyB, Boolean(a), Boolean(b)]);
 	const show = (outcome: typeof a) => (outcome ? `${outcome.dps.toFixed(0)} ${unit()}` : '—');
 
 	// With `auto`, a short pause after the last change starts the missing runs by itself.
@@ -394,8 +493,8 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 			{(a?.breakdown || b?.breakdown) && (
 				<details className="sim-details" onToggle={loadNames}>
 					<summary>Show how these numbers come about</summary>
-					{a && <Breakdown title="Equipped gear" outcome={a} names={names} />}
-					{b && <Breakdown title="Planned gear" outcome={b} names={names} />}
+					{a && <Breakdown title="Equipped gear" outcome={a} names={names} timeline={timelines[keyA]} />}
+					{b && <Breakdown title="Planned gear" outcome={b} names={names} timeline={timelines[keyB]} />}
 					{(a?.mending ?? b?.mending) && (
 						<p className="hint">
 							<span className="tag-estimate">estimate</span> The simulator cannot cast Prayer of Mending yet, so its row is worked out by hand and the other rows are lowered by the casts it replaces.{' '}

@@ -1,7 +1,7 @@
 import type { Gear } from '../scoring';
 import type { Character } from '../types';
 import { specOf } from '../specs';
-import { type BonusStats, buildSimRequest, indexSimDb, isHealer, readRotationChecks, readSimResult, type RotationChecks, type SimDb, type SimIndex, simKey, type SimOutcome, type SimTemplate } from './request';
+import { type BonusStats, buildSimRequest, indexSimDb, isHealer, readRotationChecks, readSimResult, readTimeline, type RotationChecks, type SimDb, type SimIndex, simKey, type SimOutcome, type SimTemplate, type SimTimeline } from './request';
 import { castingShare, countsMending, readMending, withMending } from './mending';
 import type { SimSetupData } from './setup';
 
@@ -100,6 +100,28 @@ export class SimClient {
 			});
 			this.checks.set(key, outcome);
 			outcome.catch(() => this.checks.delete(key));
+		}
+		return outcome;
+	}
+
+	private timelines = new Map<string, Promise<SimTimeline | undefined>>();
+
+	/** One logged fight of `gear`, second by second, for the graph over the breakdown. */
+	timeline(character: Character, gear: Gear): Promise<SimTimeline | undefined> {
+		const key = simKey(character, gear, -1);
+		let outcome = this.timelines.get(key);
+		if (!outcome) {
+			outcome = this.load(specOf(character).id).then(index => {
+				const { request } = buildSimRequest(character, gear, index, 1);
+				request.simOptions = { ...((request.simOptions as object | undefined) ?? {}), iterations: 1, debug: true };
+				return new Promise<string>((resolve, reject) => {
+					const id = this.nextId++;
+					this.waiting.set(id, { resolve, reject });
+					this.worker!.postMessage({ id, request: JSON.stringify(request) });
+				}).then(json => readTimeline(json, isHealer(index.template)));
+			});
+			this.timelines.set(key, outcome);
+			outcome.catch(() => this.timelines.delete(key));
 		}
 		return outcome;
 	}

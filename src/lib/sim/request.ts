@@ -161,6 +161,8 @@ export interface SimActionRow {
 	hits: number;
 	/** Damage per second of cast time; undefined for effects without one. */
 	dpet?: number;
+	/** The largest single hit or tick seen in any fight, crits included. */
+	maxHit?: number;
 	/** Worked out by hand, not played by the simulator (Prayer of Mending, mending.ts). */
 	estimate?: boolean;
 }
@@ -204,7 +206,7 @@ export interface SimOutcome {
 	mending?: MendingEstimate;
 }
 
-type RawAction = { id: SimActionId; targets?: Record<string, number>[] };
+type RawAction = { id: SimActionId; targets?: (Record<string, number> & { ranges?: Record<string, { max?: number }> })[] };
 type RawAura = { id: SimActionId; uptimeSecondsAvg?: number };
 type RawUnit = { name?: string; actions?: RawAction[]; auras?: RawAura[]; pets?: RawUnit[]; secondsOomAvg?: number };
 
@@ -217,7 +219,8 @@ function readBreakdown(result: any, iterations: number, healing = false): SimBre
 	let allCasts = 0;
 	const collect = (unit: RawUnit, pet?: string) => {
 		for (const action of unit.actions ?? []) {
-			const sum = (field: string) => (action.targets ?? []).reduce((total, target) => total + (target[field] ?? 0), 0);
+			const sum = (field: string) => (action.targets ?? []).reduce((total, target) => total + ((target[field] as number | undefined) ?? 0), 0);
+			const maxHit = Math.max(0, ...(action.targets ?? []).flatMap(target => Object.values(target.ranges ?? {}).map(range => range.max ?? 0)));
 			// For a healer the rows are healing done, shields included.
 			const damage = healing ? sum('healing') + sum('shielding') : sum('damage');
 			if (!pet) allCasts += sum('casts');
@@ -231,6 +234,7 @@ function readBreakdown(result: any, iterations: number, healing = false): SimBre
 				damage: damage / iterations,
 				hits: landed / iterations,
 				...(sum('castTimeMs') > 0 ? { dpet: damage / (sum('castTimeMs') / 1000) } : {}),
+				...(maxHit > 0 && !healing ? { maxHit } : {}),
 				dps: damage / iterations / seconds,
 				share: 0,
 				crit: landed ? (sum('crits') + sum('critTicks')) / landed : 0,
@@ -260,6 +264,47 @@ function readBreakdown(result: any, iterations: number, healing = false): SimBre
 		auras: auras(player.auras),
 		targetAuras: auras(result.encounterMetrics?.targets?.[0]?.auras),
 	};
+}
+
+/** One row's name in a timeline: the same for a result row and for a line of the fight log. */
+export const actionKey = (id: SimActionId): string => (id.spellId ? `s${id.spellId}` : id.itemId ? `i${id.itemId}` : `o${id.otherId ?? ''}`) + `:${id.tag ?? 0}`;
+
+/** The simulator's numbers for the actions that are neither spell nor item, as its fight log prints them. */
+const OTHER_BY_NUMBER: Record<string, string> = { 3: 'OtherActionAttack', 4: 'OtherActionShoot', 7: 'OtherActionPet' };
+
+/** One fight, second by second: what each damage source did in each slice of time. */
+export interface SimTimeline {
+	/** Length of one slice in seconds. */
+	slice: number;
+	/** Length of the fight in seconds. */
+	seconds: number;
+	/** actionKey -> damage (or healing) per second in each slice. */
+	series: Record<string, number[]>;
+}
+
+const LOG_LINE = /^\[(-?[\d.]+)\] \[([^\]]+)\] \[[^\]]+\] \{(SpellID|ItemID|OtherID): (\d+)(?:, Tag: (-?\d+))?[^}]*\} (?:tick )?\w+ for ([\d.]+) (damage|healing)/;
+
+/** Reads the log of one simulated fight (simOptions.debug) into a timeline. */
+export function readTimeline(json: string | null | undefined, healing = false, slice = 5): SimTimeline | undefined {
+	if (!json) return undefined;
+	const result = JSON.parse(json);
+	const seconds: number = result.firstIterationDuration ?? result.avgIterationDuration;
+	if (typeof result.logs !== 'string' || !seconds) return undefined;
+	const slices = Math.max(1, Math.ceil(seconds / slice));
+	const series: Record<string, number[]> = {};
+	for (const line of result.logs.split('\n')) {
+		const match = LOG_LINE.exec(line);
+		if (!match) continue;
+		const [, time, source, kind, id, tag, amount, what] = match;
+		// What the enemy does to the player is not the player's damage.
+		if (source.startsWith('Target') || (what === 'healing') !== healing) continue;
+		const at = Number(time);
+		if (at < 0 || at > seconds) continue;
+		const key = (kind === 'SpellID' ? `s${id}` : kind === 'ItemID' ? `i${id}` : `o${OTHER_BY_NUMBER[id] ?? id}`) + `:${tag ?? 0}`;
+		const row = (series[key] ??= new Array<number>(slices).fill(0));
+		row[Math.min(slices - 1, Math.floor(at / slice))] += Number(amount) / slice;
+	}
+	return { slice, seconds, series };
 }
 
 /** Reads the sim's JSON answer. Throws with the sim's message when it reports an error. */
