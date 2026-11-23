@@ -1,9 +1,9 @@
 {
-	"_comment": "The News tab. One entry per day, newest first, written once a day by the scheduled task 'WoW Forever daily news (gear planner)'. Sections in this order when they have items: 'Game' (hotfixes, patch notes, fixed quests, announcements), 'WoWSims' (changes to the simulator), 'This site' (what changed in the planner). Every item is written in the planner's own words, one or two sentences, with the link it came from; never copied text. Entries older than 60 days are dropped.",
+	"_comment": "The News tab. One entry per day, newest first, written once a day by the scheduled task 'WoW Forever daily news (gear planner)'. Sections in this order when they have items: 'Game' (hotfixes, patch notes, fixed quests, announcements), 'WoWSims' (changes to the simulator). Nothing about this site's own changes. Every item is written in the planner's own words, one or two sentences, with the link it came from; never copied text. Entries older than 60 days are dropped.",
 	"entries": [
 		{
 			"date": "2026-11-23",
-			"summary": "Every class is in the planner now, set bonuses count in plans, and a measurement of all item procs is running.",
+			"summary": "WoWSims made the Druid dungeon set bonuses work in the simulator.",
 			"sections": [
 				{
 					"title": "WoWSims",
@@ -20,18 +20,6 @@
 							"url": "https://github.com/wowsims/forever/pull/1165",
 							"source": "WoWSims on GitHub"
 						}
-					]
-				},
-				{
-					"title": "This site",
-					"items": [
-						{ "title": "Hunter and Retribution Paladin", "text": "Five Hunter builds and two Retribution builds were added, so all nine classes are covered. Ranged weapons count with their damage." },
-						{ "title": "Plans keep sets together", "text": "Set bonuses are now measured for every build, so a plan no longer breaks a 6-piece set for one item with slightly better stats." },
-						{ "title": "Procs and item effects for every build", "text": "A measurement of every weapon proc, trinket effect, proc enchant and set bonus is running for all builds, healers included. Until it finishes, those effects only show in a simulated plan." },
-						{ "title": "Rogues keep their daggers", "text": "Mutilate and Backstab builds are only offered daggers where the ability needs them, and one unique weapon is no longer planned into both hands." },
-						{ "title": "More items and sources", "text": "Items WoWSims marks as unreleased are in the data behind \"Not in game yet\". Old-world items without a source count as world drops, and Bad Hat has its quest." },
-						{ "title": "Healing Priest: Prayer of Mending", "text": "The simulator cannot cast it yet, so its healing is added as an estimate that can be switched off." },
-						{ "title": "Character page", "text": "Character tiles with class, race and faction, an enchant window that shows what each enchant gives, icon tiles for race and professions, and a greyed two-hander in the off hand." }
 					]
 				}
 			]

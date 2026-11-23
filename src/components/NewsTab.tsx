@@ -29,7 +29,7 @@ export function newsUnseen(): boolean {
 
 const longDate = (date: string) => new Date(`${date}T12:00:00Z`).toLocaleDateString('en', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
-/** What changed, day by day: in the game, in the WoWSims simulator and on this site. Written once a day. */
+/** What changed, day by day: in the game and in the WoWSims simulator. Written once a day. */
 export function NewsTab({ onSeen }: { onSeen: () => void }) {
 	useEffect(() => {
 		try {
@@ -43,7 +43,7 @@ export function NewsTab({ onSeen }: { onSeen: () => void }) {
 	return (
 		<section className="panel news">
 			<h2>News</h2>
-			<p className="hint">Once a day: what changed in the game (hotfixes, patch notes, fixed quests), in the WoWSims simulator, and on this site. Each item links to where it comes from.</p>
+			<p className="hint">Once a day: what changed in WoW Forever (hotfixes, patch notes, fixed quests, announcements) and in the WoWSims simulator. Each item links to where it comes from.</p>
 			{ENTRIES.length === 0 && <p>Nothing yet. The first entry comes with the next daily run.</p>}
 			{ENTRIES.map(entry => (
 				<article key={entry.date} className="card news-day">
