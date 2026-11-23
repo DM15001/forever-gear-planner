@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
-import { castingShare, countsMending, hasMendingTalent, mendingEstimate, mendingWeights, readMending } from './mending';
+import { castingShare, countsMending, hasMendingTalent, mendingEstimate, mendingWeights, readMending, withMending } from './mending';
 
 describe('Prayer of Mending, estimated', () => {
 	it('finds the talent where the talent tree has it', () => {
@@ -39,5 +39,19 @@ describe('Prayer of Mending, estimated', () => {
 		const w = mendingWeights({ healingPower: 0.2, spirit: 0.4 }, 0.5);
 		expect(w.spirit).toBeCloseTo(0.34);
 		expect(w.healingPower).toBeCloseTo(0.17 + 0.10725);
+	});
+
+	it('gets its own row in the table and the rows add up to the total', () => {
+		const row = { id: { spellId: 25314 }, casts: 50, damage: 180000, hits: 50, dps: 600, share: 1, crit: 0.1 };
+		const outcome = { dps: 600, error: 1, iterations: 100, healing: true, breakdown: { min: 500, max: 700, stdev: 30, seconds: 300, oomSeconds: 0, apm: 20, histogram: [[600, 100]] as [number, number][], actions: [row], auras: [], targetAuras: [] } };
+		const e = mendingEstimate(413, 700, 0, 600, 0.5);
+		const out = withMending(outcome, e, 0.5);
+		expect(out.dps).toBeCloseTo(600 + e.hps);
+		const rows = out.breakdown!.actions;
+		expect(rows.find(r => r.estimate)?.casts).toBeCloseTo(15);
+		expect(rows.reduce((sum, r) => sum + r.dps, 0)).toBeCloseTo(out.dps);
+		expect(rows.reduce((sum, r) => sum + r.share, 0)).toBeCloseTo(1);
+		expect(out.breakdown!.histogram[0][0]).toBeCloseTo(600 + e.hps);
+		expect(withMending(outcome, undefined, 0.5)).toBe(outcome);
 	});
 });

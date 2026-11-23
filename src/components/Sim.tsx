@@ -244,6 +244,11 @@ function Breakdown({ title, outcome, names }: { title: string; outcome: SimOutco
 										nameOf(row.id)
 									)}
 									{row.pet && <span className="slot-source"> ({row.pet})</span>}
+									{row.estimate && (
+										<span className="tag-estimate" title="Worked out by hand: the simulator cannot cast this spell yet. The other rows are lowered by the casts it replaces.">
+											estimate
+										</span>
+									)}
 								</th>
 								<td className="result-bar-cell">
 									<span className="num result-share">{percent(row.share, 2)}</span>
@@ -369,12 +374,12 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false }: { equip
 					{b && <Breakdown title="Planned gear" outcome={b} names={names} />}
 					{(a?.mending ?? b?.mending) && (
 						<p className="hint">
-							<span className="tag-estimate">estimate</span> Prayer of Mending is not in the tables above: the simulator cannot cast it yet, so it is added by hand.{' '}
+							<span className="tag-estimate">estimate</span> The simulator cannot cast Prayer of Mending yet, so its row is worked out by hand and the other rows are lowered by the casts it replaces.{' '}
 							{[a && a.mending && ['Equipped', a.mending] as const, b && b.mending && ['Planned', b.mending] as const]
 								.filter(row => !!row)
 								.map(([label, m]) => `${label}: ${Math.round(m.perCast).toLocaleString('en')} per cast at ${Math.round(m.healingPower)} healing power, ${Math.round(m.gross)} HPS, less ${Math.round(m.displaced)} HPS for the casts it replaces = +${Math.round(m.hps)} HPS.`)
 								.join(' ')}{' '}
-							Switch it off under "What kind of healing?".
+							Untick "Count Prayer of Mending" under "What kind of healing?" to take it out of every number, the table and the rotation.
 						</p>
 					)}
 					<p className="hint">

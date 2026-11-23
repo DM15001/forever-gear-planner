@@ -161,6 +161,8 @@ export interface SimActionRow {
 	hits: number;
 	/** Damage per second of cast time; undefined for effects without one. */
 	dpet?: number;
+	/** Worked out by hand, not played by the simulator (Prayer of Mending, mending.ts). */
+	estimate?: boolean;
 }
 
 export interface SimAuraRow {

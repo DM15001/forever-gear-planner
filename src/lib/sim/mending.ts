@@ -1,5 +1,7 @@
 import type { Character } from '../types';
+import type { SimOutcome } from './request';
 import { HEALING_PRESSURES, healingChoice } from './healing';
+import type { RotationLine } from './setup';
 
 /**
  * Prayer of Mending, worked out by hand. TEMPORARY: the WoWSims engine (wowsims/forever 7322fc0
@@ -90,3 +92,40 @@ export function mendingWeights(weights: Record<string, number>, casting: number)
 	scaled.healingPower = (scaled.healingPower ?? 0) + (casting * MENDING.jumps * MENDING.coefficient) / MENDING.cooldown;
 	return scaled;
 }
+
+/** The highest rank, for the name, icon and tooltip of the estimate's row. */
+export const MENDING_SPELL = { spellId: 1240827, rank: 3 };
+
+/**
+ * The simulator's outcome with the estimate worked in everywhere: the total, the spread of
+ * fights, and the table per spell, where the other spells give way by the displaced part and
+ * Prayer of Mending gets a row of its own, marked as an estimate.
+ */
+export function withMending(outcome: SimOutcome, mending: MendingEstimate | undefined, casting: number): SimOutcome {
+	if (!mending || mending.hps <= 0) return outcome;
+	const result: SimOutcome = { ...outcome, dps: outcome.dps + mending.hps, mending };
+	const breakdown = outcome.breakdown;
+	if (!breakdown) return result;
+	const keep = 1 - MENDING_DISPLACED;
+	const casts = (casting * breakdown.seconds) / MENDING.cooldown;
+	const rows = [
+		...breakdown.actions.map(row => ({ ...row, casts: row.casts * keep, damage: row.damage * keep, hits: row.hits * keep, dps: row.dps * keep })),
+		{ id: MENDING_SPELL, casts, damage: mending.gross * breakdown.seconds, hits: casts * MENDING.jumps, dpet: mending.perCast / MENDING.globalCooldown, dps: mending.gross, share: 0, crit: mending.crit, estimate: true },
+	].sort((a, b) => b.damage - a.damage);
+	const total = rows.reduce((sum, row) => sum + row.damage, 0) || 1;
+	result.breakdown = {
+		...breakdown,
+		min: breakdown.min + mending.hps,
+		max: breakdown.max + mending.hps,
+		histogram: breakdown.histogram.map(([bucket, fights]): [number, number] => [bucket + mending.hps, fights]),
+		actions: rows.map(row => ({ ...row, share: row.damage / total })),
+	};
+	return result;
+}
+
+/** The step the estimate stands for, for the rotation list: first in line, since it is cast whenever it is ready. */
+export const MENDING_STEP: RotationLine = {
+	text: `Heal a group member with \u27e6s:${MENDING_SPELL.spellId}|Prayer of Mending\u27e7`,
+	when: `it is ready (every ${MENDING.cooldown} seconds)`,
+	estimate: true,
+};

@@ -3628,3 +3628,10 @@ a.enchant-gives:hover {
 	opacity: 0.4;
 	cursor: not-allowed;
 }
+
+.result-table .tag-estimate {
+	margin-left: 0.4rem;
+}
+.rotation-remark .tag-estimate {
+	margin-right: 0.25rem;
+}

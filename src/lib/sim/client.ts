@@ -2,7 +2,7 @@ import type { Gear } from '../scoring';
 import type { Character } from '../types';
 import { specOf } from '../specs';
 import { type BonusStats, buildSimRequest, indexSimDb, isHealer, readRotationChecks, readSimResult, type RotationChecks, type SimDb, type SimIndex, simKey, type SimOutcome, type SimTemplate } from './request';
-import { castingShare, countsMending, readMending } from './mending';
+import { castingShare, countsMending, readMending, withMending } from './mending';
 import type { SimSetupData } from './setup';
 
 const SIM_URL = `${import.meta.env.BASE_URL}sim/`;
@@ -123,8 +123,8 @@ export class SimClient {
 				// The engine cannot cast Prayer of Mending yet: its healing is worked out from the character's stats and added.
 				const stats = ask({ stats: true, request: JSON.stringify({ raid: request.raid, encounter: request.encounter }) }).catch(() => null);
 				return Promise.all([simulated, stats]).then(([outcome, statsJson]) => {
-					const mending = readMending(statsJson, outcome.dps, castingShare(character));
-					return mending ? { ...outcome, dps: outcome.dps + mending.hps, mending } : outcome;
+					const casting = castingShare(character);
+					return withMending(outcome, readMending(statsJson, outcome.dps, casting), casting);
 				});
 			});
 			this.cache.set(key, outcome);

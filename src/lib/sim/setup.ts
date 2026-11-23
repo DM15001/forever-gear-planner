@@ -199,6 +199,8 @@ export interface RotationLine {
 	when?: string;
 	/** Steps of a group or sequence, shown under the line. */
 	children?: RotationLine[];
+	/** A step the simulator does not play; its effect is worked out by hand (mending.ts). */
+	estimate?: boolean;
 }
 
 /** Text with ⟦s:id|name⟧ marks, cut into plain parts and named spells or items. */

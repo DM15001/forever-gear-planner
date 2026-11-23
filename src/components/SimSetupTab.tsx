@@ -4,6 +4,7 @@ import { simClient } from '../lib/sim/client';
 import type { GameData } from '../lib/gameData';
 import { plannedGear } from '../lib/scoring';
 import { type RotationChecks, type SimTemplate, wowsimsSettings } from '../lib/sim/request';
+import { countsMending, MENDING_STEP } from '../lib/sim/mending';
 import {
 	BUFF_SCOPES,
 	type BuffField,
@@ -64,6 +65,12 @@ function Steps({ lines, showRaw, checks, names }: { lines: RotationLine[]; showR
 								when <Rich text={line.when} names={names} />
 							</span>
 						)}
+						{line.estimate && (
+							<span className="rotation-remark">
+								<span className="tag-estimate">estimate</span> The simulator cannot cast this spell yet. Its healing is worked out by hand and added to the result, and the other steps give up the casts it takes. Switch it off
+								with "Count Prayer of Mending" on the Upgrades tab.
+							</span>
+						)}
 						{remarks.map(remark => (
 							<span key={remark} className="rotation-remark">
 								{lacksOwn(remark) ? 'Skipped for you: ' : 'Note: '}
@@ -116,7 +123,15 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 	const player = ready?.template.raid.parties[0].players[0];
 	// A healer's rotation is the planner's own scenario, not a file of the WoWSims project.
 	const healer = spec.role === 'healer';
-	const rotation = useMemo(() => (ready && player ? describeRotation(healer ? healingFight(healingChoice(character)).rotation : player.rotation, ready.setup, true) : null), [ready, player, healer, character]);
+	const rotation = useMemo(() => {
+		if (!ready || !player) return null;
+		const text = describeRotation(healer ? healingFight(healingChoice(character)).rotation : player.rotation, ready.setup, true);
+		if (!healer || !countsMending(character)) return text;
+		// Prayer of Mending is counted as an estimate: it gets its place in the list, ahead of the first heal.
+		const firstHeal = text.priority.findIndex(line => /castFriendlySpell/.test(line.raw ?? ''));
+		const at = firstHeal < 0 ? text.priority.length : firstHeal;
+		return { ...text, priority: [...text.priority.slice(0, at), MENDING_STEP, ...text.priority.slice(at)] };
+	}, [ready, player, healer, character]);
 	// The talent string is typed into a field of its own, so a half-typed string never reaches the sim.
 	const [typed, setTyped] = useState<string | null>(null);
 	const [showRaw, setShowRaw] = useState(false);
@@ -507,7 +522,7 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 					{healer ? (
 						<>
 							Where it comes from: WoWSims has the Priest's heals in its engine but ships no healing rotation, so this one is written by this site for the healing scenario picked on the Upgrades tab. It is short on purpose. Prayer
-							of Mending is not in it, because the engine stops with an error when it is cast as a heal; if you have the talent, its healing is added to the result as an estimate (see "What kind of healing?" on the Upgrades tab). Hover over a step to see the rule the simulator gets, or show them all:
+							of Mending cannot be cast in the engine yet (it stops with an error), so with the talent it is listed as an estimate: its healing is worked out by hand and added (see "What kind of healing?" on the Upgrades tab). Hover over a step to see the rule the simulator gets, or show them all:
 						</>
 					) : (
 						<>
