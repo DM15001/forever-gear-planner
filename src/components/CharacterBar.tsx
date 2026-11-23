@@ -20,7 +20,9 @@ export function FactionMark({ faction }: { faction: 'alliance' | 'horde' }) {
 }
 
 /** Every saved character as a tile: class icon, name, build, race and faction. A click switches to it. */
-export function CharacterBar({ roster, onSelect, onAdd, aside }: { roster: Roster; onSelect: (index: number) => void; onAdd: () => void; /** Shown at the right end of the row. */ aside?: ReactNode }) {
+export function CharacterBar({ roster, onSelect, onAdd, onRemove, aside }: { roster: Roster; onSelect: (index: number) => void; onAdd: () => void; /** Removes the active character. */ onRemove: () => void; /** Shown at the right end of the row. */ aside?: ReactNode }) {
+	// Removing asks once more, on the tile itself.
+	const [asking, setAsking] = useState(false);
 	return (
 		<div className="character-row">
 		<nav className="character-bar" aria-label="Your characters">
@@ -29,7 +31,8 @@ export function CharacterBar({ roster, onSelect, onAdd, aside }: { roster: Roste
 				const race = spec.races.find(r => r.id === character.race);
 				const active = index === roster.active;
 				return (
-					<button key={index} className={`character-tile${active ? ' character-tile-on' : ''}${race ? ` character-tile-${race.faction}` : ''}`} aria-current={active ? 'true' : undefined} onClick={() => onSelect(index)}>
+					<div key={index} className={`character-tile${active ? ' character-tile-on' : ''}${race ? ` character-tile-${race.faction}` : ''}`}>
+						<button className="character-tile-pick" aria-current={active ? 'true' : undefined} onClick={() => { setAsking(false); onSelect(index); }}>
 						<ClassIcon className={spec.className} />
 						<span className="character-tile-text">
 							<strong>{character.name ?? `${race?.name ?? 'Unnamed'} ${spec.className}`}</strong>
@@ -41,7 +44,24 @@ export function CharacterBar({ roster, onSelect, onAdd, aside }: { roster: Roste
 								{race && <FactionMark faction={race.faction} />}
 							</span>
 						</span>
-					</button>
+						</button>
+						{active &&
+							(asking ? (
+								<span className="character-tile-ask">
+									Remove?
+									<button className="link link-danger" onClick={() => { setAsking(false); onRemove(); }}>
+										Yes
+									</button>
+									<button className="link" onClick={() => setAsking(false)}>
+										No
+									</button>
+								</span>
+							) : (
+								<button className="character-tile-remove" onClick={() => setAsking(true)} title="Remove this character from this browser" aria-label={`Remove ${character.name ?? 'this character'}`}>
+									×
+								</button>
+							))}
+					</div>
 				);
 			})}
 			<button className="character-tile character-add" onClick={onAdd}>

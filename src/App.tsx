@@ -169,20 +169,29 @@ export function App() {
 							setWarnings([]);
 						}}
 						onAdd={() => setImporting(true)}
+						onRemove={() => {
+							changeRoster(removeActive(roster));
+							setWarnings([]);
+						}}
 						aside={
 							<button
 								type="button"
 								className={expert ? 'expert-switch expert-switch-on' : 'expert-switch'}
 								role="switch"
 								aria-checked={expert}
-								onClick={() => setExpert(!expert)}
-								title={
-									'Expert details: ' +
-									(expert ? 'on' : 'off') +
-									'.\nOn, two extra sections appear:\n• Upgrades tab: the stat weights (what one point of each stat is worth), to edit or re-measure with the simulator.\n• Sim setup tab: "Compare with another sim", every setting of a run to rebuild it elsewhere.\nOff, they are hidden. Nothing else changes; all numbers stay the same.'
-								}>
+								onClick={() => setExpert(!expert)}>
 								<span className="expert-switch-knob" aria-hidden="true" />
 								Expert details
+								<span className="expert-tip" role="tooltip">
+									<strong>Expert details: {expert ? 'on' : 'off'}</strong>
+									Shows two extra sections for people who want to check the maths. All numbers stay the same.
+									<span>
+										<b>Upgrades tab:</b> the stat weights, what one point of each stat is worth, to edit or re-measure.
+									</span>
+									<span>
+										<b>Sim setup tab:</b> "Compare with another sim", every setting of a run to rebuild it elsewhere.
+									</span>
+								</span>
 							</button>
 						}
 					/>
@@ -230,10 +239,6 @@ export function App() {
 									character={character}
 									data={data}
 									onChange={update}
-									onRemove={() => {
-										changeRoster(removeActive(roster));
-										setWarnings([]);
-									}}
 									names={roster.characters.map((c, i) => characterLabel(c, i, specOf(c)))}
 									builds={specsOfClass(baseSpec.className)}
 									activeIndex={roster.active}

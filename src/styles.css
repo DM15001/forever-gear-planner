@@ -3813,3 +3813,135 @@ a.enchant-gives:hover {
 		align-self: flex-end;
 	}
 }
+
+/* Character tile: a pick area and, on the active one, a small remove control */
+.character-tile {
+	position: relative;
+	padding: 0;
+	cursor: default;
+}
+.character-tile-pick {
+	display: flex;
+	align-items: center;
+	gap: 0.7rem;
+	flex: 1 1 auto;
+	min-width: 0;
+	padding: 0.55rem 0.9rem 0.55rem 0.6rem;
+	font: inherit;
+	text-align: left;
+	color: inherit;
+	background: none;
+	border: 0;
+	cursor: pointer;
+}
+.character-tile-on .character-tile-pick {
+	padding-right: 1.9rem;
+}
+.character-tile-remove {
+	position: absolute;
+	top: 0.2rem;
+	right: 0.25rem;
+	width: 1.4rem;
+	height: 1.4rem;
+	padding: 0;
+	font-size: 1rem;
+	line-height: 1;
+	color: var(--haze);
+	background: none;
+	border: 1px solid transparent;
+	border-radius: 50%;
+	cursor: pointer;
+}
+.character-tile-remove:hover,
+.character-tile-remove:focus-visible {
+	color: var(--ember);
+	border-color: var(--ember);
+}
+.character-tile-ask {
+	position: absolute;
+	top: 0.25rem;
+	right: 0.4rem;
+	display: inline-flex;
+	gap: 0.45rem;
+	padding: 0.1rem 0.45rem;
+	font-size: 0.75rem;
+	color: var(--mist);
+	background: #0a0806;
+	border: 1px solid var(--ember);
+	border-radius: 999px;
+}
+button.character-tile.character-add {
+	padding: 0.55rem 0.9rem 0.55rem 0.6rem;
+	cursor: pointer;
+}
+
+/* Race and profession tiles fill the card, and long names wrap instead of sticking out */
+.sheet-center .sheet-choice .fight-tiles {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(5.4rem, 1fr));
+}
+.sheet-center .sheet-details .fight-tile {
+	width: auto;
+	min-width: 0;
+}
+.fight-tile-label {
+	max-width: 100%;
+	overflow-wrap: anywhere;
+}
+.sheet-center .fight-tile-label {
+	font-size: 0.625rem;
+	letter-spacing: -0.01em;
+}
+.sheet-details .identity-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-top: 0.9rem;
+}
+.sheet-details .identity-actions .button {
+	flex: 1 1 9rem;
+	margin: 0;
+}
+
+/* What the expert switch does, shown on hover and keyboard focus */
+.expert-switch {
+	position: relative;
+	cursor: pointer;
+}
+.expert-tip {
+	position: absolute;
+	top: calc(100% + 0.5rem);
+	right: 0;
+	z-index: 20;
+	display: none;
+	width: 19rem;
+	padding: 0.7rem 0.85rem;
+	font-size: 0.8125rem;
+	line-height: 1.45;
+	font-weight: 400;
+	text-align: left;
+	color: var(--mist);
+	background: #14110a;
+	border: 1px solid var(--brass-deep);
+	border-radius: 6px;
+	box-shadow: 0 8px 24px #000c;
+}
+.expert-tip strong,
+.expert-tip span {
+	display: block;
+}
+.expert-tip strong {
+	margin-bottom: 0.25rem;
+	color: var(--brass);
+}
+.expert-tip span {
+	margin-top: 0.4rem;
+	color: var(--haze);
+}
+.expert-tip b {
+	color: var(--mist);
+}
+.expert-switch:hover .expert-tip,
+.expert-switch:focus-visible .expert-tip {
+	display: block;
+}
