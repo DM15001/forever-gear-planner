@@ -10,6 +10,8 @@ interface LootEntry {
 	containers?: { name: string; zoneId?: number; count: number; outOf: number }[];
 	quests?: { questId: number; name: string; faction?: Faction }[];
 	crafted?: { spellId: number; profession: string };
+	/** Drops somewhere in this dungeon or zone; which creature is not known. */
+	zoneDrops?: { zoneId: number }[];
 	/** A random drop from many creatures (bind on equip): in practice an auction house item. */
 	worldDrop?: boolean;
 }
@@ -122,6 +124,7 @@ function sourcesFrom(entry: LootEntry, npcById: Map<number, Npc>, zoneById: Map<
 		if (!box.zoneId || box.count / box.outOf < 0.01) continue;
 		sources.push({ kind: 'drop', otherName: box.name, zoneId: box.zoneId, zoneKind: zoneById.get(box.zoneId)?.kind });
 	}
+	for (const drop of entry.zoneDrops ?? []) sources.push({ kind: 'drop', zoneId: drop.zoneId, zoneKind: zoneById.get(drop.zoneId)?.kind });
 	for (const quest of entry.quests ?? []) sources.push({ kind: 'quest', questId: quest.questId, name: quest.name, faction: quest.faction });
 	if (entry.crafted) sources.push({ kind: 'crafted', profession: entry.crafted.profession, spellId: entry.crafted.spellId });
 	// Only tiny chances from many creatures or chests: a random world drop, in practice an auction house item.

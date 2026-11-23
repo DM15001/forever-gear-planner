@@ -268,11 +268,33 @@ export function App() {
 					</SimProvider>
 				)}
 			</main>
+			<BackToTop />
 
 			<footer className="colophon">
 				Item data and stat weights from <a href="https://github.com/wowsims/forever">WoWSims Forever</a>
 				{data && <>, data built {new Date(data.builtAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</>}. Drop chances, extra sources and the top picks of the linked guides from <a href="https://www.wowhead.com/forever">Wowhead</a>; the full guides are there. Further loot data from <a href="https://github.com/Hoizame/AtlasLootClassic">AtlasLootClassic</a> and <a href="https://www.curseforge.com/wow/addons/atlasloot-forever">AtlasLoot Classic Forever</a>. Item icons and game content are © Blizzard Entertainment. This is a fan project, not affiliated with or endorsed by Blizzard.
 			</footer>
 		</div>
+	);
+}
+
+/** A button that brings the page back to its top; it appears once the page is scrolled a screen down. */
+function BackToTop() {
+	const [shown, setShown] = useState(false);
+	useEffect(() => {
+		const check = () => setShown(window.scrollY > window.innerHeight * 0.8);
+		check();
+		window.addEventListener('scroll', check, { passive: true });
+		return () => window.removeEventListener('scroll', check);
+	}, []);
+	if (!shown) return null;
+	const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	return (
+		<button className="back-to-top" onClick={() => window.scrollTo({ top: 0, behavior: still ? 'auto' : 'smooth' })} title="Back to the top of the page" aria-label="Back to the top of the page">
+			<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+				<path d="M8 13V3M3.5 7.5 8 3l4.5 4.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+			</svg>
+			Top
+		</button>
 	);
 }

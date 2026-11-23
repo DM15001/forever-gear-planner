@@ -1,5 +1,5 @@
 {
-	"_comment": "Sources added by hand for items the WoWSims data, AtlasLoot and the Wowhead loot file have none for. Same shape as src/config/wowhead/loot.json (quests, drops, containers, crafted). Each entry names where it was checked.",
+	"_comment": "Sources added by hand for items the WoWSims data, AtlasLoot and the Wowhead loot file have none for. Same shape as src/config/wowhead/loot.json (quests, drops, containers, crafted), plus zoneDrops for a drop in a dungeon whose creature is not known. Each entry names where it was checked.",
 	"items": {
 		"260212": {
 			"_name": "Bad Hat",
@@ -21,6 +21,15 @@
 			"_name": "Jeweled Amulet of Cainwyn",
 			"_checked": "Dan: bind-on-equip world drop from very many creatures; https://www.wowhead.com/forever/item=1443/jeweled-amulet-of-cainwyn (2026-11-23)",
 			"worldDrop": true
+		},
+		"18316": {
+			"_name": "Obsidian Bauble",
+			"_checked": "Dan: drops in Dire Maul, not a world drop (2026-11-23); boss not confirmed",
+			"zoneDrops": [
+				{
+					"zoneId": 2557
+				}
+			]
 		}
 	}
 }
