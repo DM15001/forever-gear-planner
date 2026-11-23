@@ -90,7 +90,7 @@
 		"hasteRating": 10,
 		"expertiseRating": 10
 	},
-	"raceBonuses": {},
+	"raceBonuses": {"RaceDwarf": {"hitPercent": 1}},
 	"weights": {
 		"source": "WoWSims Forever, Hunter 'Weave' EP preset (ui/specs/hunter/dps/presets.ts). 1 point = 1 agility. The weave swings a two-hander between shots.",
 		"mainHandDps": 2.93,

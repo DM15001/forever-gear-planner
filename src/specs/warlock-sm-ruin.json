@@ -69,7 +69,7 @@
 		"hasteRating": 10,
 		"expertiseRating": 10
 	},
-	"raceBonuses": {},
+	"raceBonuses": {"RaceHuman": {"statPercent": {"spirit": 10}}},
 	"weights": {
 		"source": "Measured for this planner on 2026-11-22 with the WoWSims Forever simulator (4000 iterations per stat, raid-buffed single target, the WoWSims preset gear and rotation). WoWSims itself ships no weights for this build. 1 point = 1 spell damage.",
 		"mainHandDps": 0,

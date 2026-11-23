@@ -66,7 +66,7 @@
 		"hasteRating": 10,
 		"expertiseRating": 10
 	},
-	"raceBonuses": {},
+	"raceBonuses": {"RaceDwarf": {"hitPercent": 1}},
 	"weights": {
 		"source": "WoWSims Forever, Retribution 'Holy Shock' EP preset (ui/specs/paladin/retribution/presets.ts). 1 point = 1 attack power. WoWSims calls its Retribution gear a placeholder until the Phase 1 gear is known.",
 		"mainHandDps": 13.04,

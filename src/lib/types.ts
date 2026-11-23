@@ -158,7 +158,8 @@ export interface SpecConfig {
 	/** Hit the default talents of this build give on top of gear, in percent. */
 	hitBonusPercent?: number;
 	ratingPerPercent: Record<string, number>;
-	raceBonuses: Record<string, { hitPercent?: number }>;
+	/** Racials that change what gear is worth: hit that counts toward the cap, and stats the race multiplies (Human: 10% more Spirit). */
+	raceBonuses: Record<string, { hitPercent?: number; statPercent?: Record<string, number> }>;
 	/**
 	 * 'twoHand': the main hand takes two-handers only and the off hand stays empty. 'either': a
 	 * two-hander, or a one-hander with something in the off hand.

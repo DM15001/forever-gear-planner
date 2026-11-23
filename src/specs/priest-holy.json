@@ -65,7 +65,7 @@
 		"hasteRating": 10,
 		"expertiseRating": 10
 	},
-	"raceBonuses": {},
+	"raceBonuses": {"RaceDwarf": {"hitPercent": 1}, "RaceHuman": {"statPercent": {"spirit": 10}}},
 	"simBuilds": [
 		{
 			"id": "wowsims",

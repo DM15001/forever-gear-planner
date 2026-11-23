@@ -169,11 +169,13 @@ export function scoreSet(gear: Gear, character: Character, data: GameData, spec:
 	if (!gear[OFF_HAND] && mainHand && mainHand.weapon?.hand !== 'twoHand' && simValues.weapons?.emptyOffHand !== undefined && slotInUse(OFF_HAND, spec)) {
 		weaponScore += simValues.weapons.emptyOffHand + weaponAnchor('offHand', data, spec);
 	}
+	// A race that multiplies a stat gets that much more out of the stat on gear.
+	const raceStats = character.race ? spec.raceBonuses[character.race]?.statPercent : undefined;
 	let score = mainHandDps * weights.mainHandDps + offHandDps * (weights.offHandDps ?? 0) + rangedDps * (weights.rangedDps ?? 0) + effectScore + weaponScore;
 	for (const [key, total] of Object.entries(stats)) {
 		const value = total - (unscored[key] ?? 0);
 		if (key === 'hitRating') score += (value - hit.ratingOver) * (weights.stats.hitRating ?? 0) + hit.ratingOver * weights.hitRatingOverCap;
-		else score += value * (weights.stats[key] ?? 0);
+		else score += value * (weights.stats[key] ?? 0) * (1 + (raceStats?.[key] ?? 0) / 100);
 	}
 	return { stats, hit, score, effectScore: effectScore + weaponScore };
 }
