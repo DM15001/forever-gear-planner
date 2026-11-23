@@ -72,6 +72,19 @@ export function HealingPicker({ character, spec, onChange }: { character: Charac
 					</span>
 				</label>
 			)}
+			{!mending && (
+				<p className="mending-toggle mending-off">
+					<span>
+						<strong>Prayer of Mending is not counted</strong>
+						<span className="slot-source">
+							{character.talents
+								? `Your talents (${character.talents}) have no point in it: it is the last talent of the Holy tree and needs 31 points there. `
+								: "This build's talents have no point in it. "}
+							If you do play with it, set the point under Sim setup, Talents; the switch to count it then appears here.
+						</span>
+					</span>
+				</p>
+			)}
 			<p className="heal-worth">
 				<span className="field-label">One point is worth, in this scenario</span>
 				{WORTH.map(([key, label]) => (

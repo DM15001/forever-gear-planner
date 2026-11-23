@@ -3721,3 +3721,9 @@ a.enchant-gives:hover {
 .sheet-actions .link-danger {
 	margin-left: auto;
 }
+
+.mending-off {
+	cursor: default;
+	border-style: solid;
+	border-color: var(--hairline);
+}
