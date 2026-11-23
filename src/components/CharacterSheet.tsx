@@ -98,126 +98,131 @@ export function CharacterSheet({ spec, character, data, onChange, onImportAnothe
 			<div className="sheet-column">{SHEET_LAYOUT.left.map(i => slot(i))}</div>
 
 			<div className="sheet-center">
+				<div className="card sheet-crest">
+					<ClassIcon className={spec.className} />
+					<strong>{spec.name}</strong>
+					<span className="slot-source">{race ? race.name : 'Race not set'}{character.level ? `, level ${character.level}` : ''}</span>
+				</div>
 				<div className="card identity">
 					<h3>Stats from gear</h3>
 					{stats && <StatsPanel stats={stats} character={character} spec={spec} />}
 				</div>
 
-				<div className="card">
-					<h3>Character details</h3>
-					{names.length > 1 && (
-						<>
-							<label className="field-label" htmlFor="character-pick">
-								Character
-							</label>
-							<select
-								id="character-pick"
-								value={activeIndex}
-								onChange={e => {
-									setShared('idle');
-									onSelect(Number(e.target.value));
-								}}>
-								{names.map((name, index) => (
-									<option key={index} value={index}>
-										{name}
-									</option>
-								))}
-							</select>
-						</>
-					)}
-					<label className="field-label" htmlFor="character-name">
-						Name
-					</label>
-					<input id="character-name" type="text" maxLength={60} placeholder={names[activeIndex]} value={character.name ?? ''} onChange={e => onChange({ ...character, name: e.target.value || undefined })} />
-					{builds.length > 0 && (
-						<>
-							<label className="field-label" htmlFor="build">
-								Build
-							</label>
-							{/* Another build has other stat weights, so the old plan no longer holds. Its talents, consumables and buffs replace the ones set before. */}
-							<select
-								id="build"
-								value={spec.id}
-								onChange={e => {
-									const { consumables: _consumables, buffs: _buffs, ...rest } = character;
-									onChange({ ...rest, specId: e.target.value, talents: '', plan: undefined, planEnchants: undefined });
-								}}>
-								{builds.map(build => (
-									<option key={build.id} value={build.id}>
-										{build.preset ?? build.name}
-									</option>
-								))}
-							</select>
-							<p className="hint build-note">
-								The WoWSims preset configurations for this class. Picking one sets its talents, rotation, consumables, buffs, debuffs and class options for the sim; see the Sim setup tab.
-								{character.talents && (
-									<>
-										{' '}
-										The sim is using your own talents ({character.talents}), not the preset's.{' '}
-										<button className="link" onClick={() => onChange({ ...character, talents: '' })}>
-											Use the preset's talents
-										</button>
-									</>
-								)}
-							</p>
-						</>
-					)}
-					<label className="field-label" htmlFor="race">
-						Race
-					</label>
-					<select id="race" value={character.race ?? ''} onChange={e => onChange({ ...character, race: e.target.value || null })}>
-						<option value="">Pick a race</option>
-						{spec.races.map(r => (
-							<option key={r.id} value={r.id}>
-								{r.name}
-							</option>
-						))}
-					</select>
-
-					{[0, 1].map(index => (
-						<div key={index}>
-							<label className="field-label" htmlFor={`profession-${index}`}>
-								Profession {index + 1}
-							</label>
-							<select id={`profession-${index}`} value={character.professions[index] ?? ''} onChange={e => setProfession(index, e.target.value)}>
-								<option value="">None</option>
-								{PROFESSIONS.filter(p => p === character.professions[index] || !character.professions.includes(p)).map(p => (
-									<option key={p} value={p}>
-										{p}
-									</option>
-								))}
-							</select>
-						</div>
-					))}
-
-					{character.talents && (
-						<p className="identity-talents">
-							<span className="field-label">Talents</span>
-							<span className="talents">{character.talents}</span>
-						</p>
-					)}
-
-					<div className="identity-actions">
-						<button className="button" onClick={removeAllEnchants} disabled={enchantCount === 0}>
-							Remove all enchants{enchantCount > 0 ? ` (${enchantCount})` : ''}
-						</button>
-						<button className="button" onClick={onImportAnother}>
-							Add another character
-						</button>
-						<button className="button" onClick={share}>
-							{shared === 'copied' ? 'Link copied' : 'Copy share link'}
-						</button>
-						{shared === 'shown' && <input type="text" readOnly aria-label="Share link" value={shareLink} onFocus={e => e.target.select()} />}
-						<p className="hint">The link holds this character's gear and plan. Whoever opens it gets a copy next to their own characters.</p>
-						<button className="link link-danger" onClick={onRemove}>
-							Remove this character
-						</button>
-					</div>
-				</div>
 			</div>
 
 			<div className="sheet-column">{SHEET_LAYOUT.right.map(i => slot(i, true))}</div>
 			<div className="sheet-weapons">{SHEET_LAYOUT.bottom.map(i => slot(i))}</div>
+			</div>
+			<div className="card sheet-details">
+				<h3>Character details</h3>
+				{names.length > 1 && (
+					<>
+						<label className="field-label" htmlFor="character-pick">
+							Character
+						</label>
+						<select
+							id="character-pick"
+							value={activeIndex}
+							onChange={e => {
+								setShared('idle');
+								onSelect(Number(e.target.value));
+							}}>
+							{names.map((name, index) => (
+								<option key={index} value={index}>
+									{name}
+								</option>
+							))}
+						</select>
+					</>
+				)}
+				<label className="field-label" htmlFor="character-name">
+					Name
+				</label>
+				<input id="character-name" type="text" maxLength={60} placeholder={names[activeIndex]} value={character.name ?? ''} onChange={e => onChange({ ...character, name: e.target.value || undefined })} />
+				{builds.length > 0 && (
+					<>
+						<label className="field-label" htmlFor="build">
+							Build
+						</label>
+						{/* Another build has other stat weights, so the old plan no longer holds. Its talents, consumables and buffs replace the ones set before. */}
+						<select
+							id="build"
+							value={spec.id}
+							onChange={e => {
+								const { consumables: _consumables, buffs: _buffs, ...rest } = character;
+								onChange({ ...rest, specId: e.target.value, talents: '', plan: undefined, planEnchants: undefined });
+							}}>
+							{builds.map(build => (
+								<option key={build.id} value={build.id}>
+									{build.preset ?? build.name}
+								</option>
+							))}
+						</select>
+						<p className="hint build-note">
+							The WoWSims preset configurations for this class. Picking one sets its talents, rotation, consumables, buffs, debuffs and class options for the sim; see the Sim setup tab.
+							{character.talents && (
+								<>
+									{' '}
+									The sim is using your own talents ({character.talents}), not the preset's.{' '}
+									<button className="link" onClick={() => onChange({ ...character, talents: '' })}>
+										Use the preset's talents
+									</button>
+								</>
+							)}
+						</p>
+					</>
+				)}
+				<label className="field-label" htmlFor="race">
+					Race
+				</label>
+				<select id="race" value={character.race ?? ''} onChange={e => onChange({ ...character, race: e.target.value || null })}>
+					<option value="">Pick a race</option>
+					{spec.races.map(r => (
+						<option key={r.id} value={r.id}>
+							{r.name}
+						</option>
+					))}
+				</select>
+
+				{[0, 1].map(index => (
+					<div key={index}>
+						<label className="field-label" htmlFor={`profession-${index}`}>
+							Profession {index + 1}
+						</label>
+						<select id={`profession-${index}`} value={character.professions[index] ?? ''} onChange={e => setProfession(index, e.target.value)}>
+							<option value="">None</option>
+							{PROFESSIONS.filter(p => p === character.professions[index] || !character.professions.includes(p)).map(p => (
+								<option key={p} value={p}>
+									{p}
+								</option>
+							))}
+						</select>
+					</div>
+				))}
+
+				{character.talents && (
+					<p className="identity-talents">
+						<span className="field-label">Talents</span>
+						<span className="talents">{character.talents}</span>
+					</p>
+				)}
+
+				<div className="identity-actions">
+					<button className="button" onClick={removeAllEnchants} disabled={enchantCount === 0}>
+						Remove all enchants{enchantCount > 0 ? ` (${enchantCount})` : ''}
+					</button>
+					<button className="button" onClick={onImportAnother}>
+						Add another character
+					</button>
+					<button className="button" onClick={share}>
+						{shared === 'copied' ? 'Link copied' : 'Copy share link'}
+					</button>
+					{shared === 'shown' && <input type="text" readOnly aria-label="Share link" value={shareLink} onFocus={e => e.target.select()} />}
+					<p className="hint">The link holds this character's gear and plan. Whoever opens it gets a copy next to their own characters.</p>
+					<button className="link link-danger" onClick={onRemove}>
+						Remove this character
+					</button>
+				</div>
 			</div>
 			{picking !== null && data && (
 				<ItemPicker slotIndex={picking} gear={character.gear} character={character} data={data} spec={spec} filter={EVERYTHING} startWithAll allowEmpty onPick={id => pickItem(picking, id)} onClose={() => setPicking(null)} />

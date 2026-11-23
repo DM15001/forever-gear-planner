@@ -544,6 +544,25 @@ for (const block of buffInputs.split(/\nexport const /).slice(1)) {
 	const itemId = spellId ? undefined : Number(block.match(/ActionId\.fromItemId\((\d+)\)/)?.[1] ?? 0) || undefined;
 	buffLabels.set(fieldName, { label, ranks, numStates: Number(block.match(/numStates: (\d+)/)?.[1] ?? 0), spellId, itemId });
 }
+const HAND_KEPT_BUFF_ICONS = {
+	natureResistanceTotem: 'spell_nature_natureresistancetotem',
+	furiousHowl: 'ability_hunter_pet_wolf',
+	aspectOfTheWild: 'spell_nature_protectionformnature',
+	atieshDruid: 'inv_staff_medivh',
+	atieshPriest: 'inv_staff_medivh',
+	atieshMage: 'inv_staff_medivh',
+	atieshWarlock: 'inv_staff_medivh',
+	stoneskinTotem: 'spell_nature_stoneskintotem',
+	admiralsHat: 'inv_helmet_66',
+	greaterBlessingOfSalvation: 'spell_holy_greaterblessingofsalvation',
+	greaterBlessingOfLight: 'spell_holy_greaterblessingoflight',
+	hexOfWeakness: 'spell_shadow_fingerofdeath',
+	demoralizingScreech: 'ability_hunter_pet_bat',
+	dustCloud: 'ability_hunter_pet_tallstrider',
+	armorShatter: 'inv_axe_12',
+	thunderfury: 'inv_sword_39',
+	punctureArmor: 'ability_warrior_sunder',
+};
 const HAND_KEPT_STEPS = {
 	battleShout: ['Rank 6', 'Rank 7 (Manual of Battle Shout VII)', 'Rank 7 with three pieces of Battlegear of Wrath'],
 	punctureArmor: ['Bashguuder', 'Rivenspike', 'Vibroblade'],
@@ -557,9 +576,10 @@ const buffFields = message => {
 		const known = buffLabels.get(key);
 		const label = known?.label ?? titled(key);
 		// A buff the sim's page has no icon for is looked up by its name among the spells.
+		// And where the name finds nothing, an icon picked by hand.
 		const byName = known?.spellId || known?.itemId ? undefined : spellByName.get(label.toLowerCase());
 		const spellId = known?.spellId ?? byName?.id;
-		const shown = compact({ spellId, itemId: known?.itemId, icon: spellId ? talentIcons.get(spellId) : known?.itemId ? itemIconById.get(known.itemId) : undefined });
+		const shown = compact({ spellId, itemId: known?.itemId, icon: (spellId ? talentIcons.get(spellId) : known?.itemId ? itemIconById.get(known.itemId) : undefined) ?? HAND_KEPT_BUFF_ICONS[key] });
 		if (type === 'bool') return { key, label, ...shown };
 		if (type === 'TristateEffect') return { key, label, steps: ['On', 'Improved'], ...shown };
 		const steps = HAND_KEPT_STEPS[key] ?? (known?.ranks.length ? known.ranks.map(rank => rank.replace(`${label} `, '')) : known?.numStates ? Array.from({ length: known.numStates - 1 }, (_, i) => String(i + 1)) : null);

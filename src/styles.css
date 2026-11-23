@@ -3382,3 +3382,47 @@ html {
 .heal-worth-item {
 	color: var(--mist);
 }
+
+/* Character page: class crest in the middle, details in their own card below the gear */
+.sheet-crest {
+	display: grid;
+	justify-items: center;
+	gap: 0.3rem;
+	text-align: center;
+	padding: 1.1rem 1rem;
+}
+.sheet-crest .class-icon {
+	width: 5rem;
+	height: 5rem;
+}
+.sheet-crest strong {
+	font-family: var(--display);
+	color: var(--brass);
+	letter-spacing: 0.02em;
+}
+.sheet-crest .slot-source {
+	display: block;
+}
+.sheet-details {
+	margin-top: 1.25rem;
+	padding: 1rem 1.1rem;
+	columns: 3 16rem;
+	column-gap: 2rem;
+}
+.sheet-details h3 {
+	column-span: all;
+	margin-bottom: 0.7rem;
+}
+.sheet-details label,
+.sheet-details .field-label {
+	break-after: avoid;
+}
+.sheet-details select,
+.sheet-details input[type='text'],
+.sheet-details p,
+.sheet-details .identity-actions {
+	break-inside: avoid;
+}
+.sheet-details .identity-actions {
+	margin-top: 0.6rem;
+}
