@@ -87,6 +87,7 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 
 			<fieldset className="content-group">
 				<legend>Everything else</legend>
+				{tiers && check('Tier 0.5 questline (the upgraded dungeon set)', filter.tier05, on => set({ tier05: on }))}
 				{check('Random-suffix items ("of Shadow Wrath"), best roll', filter.randomSuffix, on => set({ randomSuffix: on }))}
 				{check('Items not in the game yet', filter.notYetAvailable, on => set({ notYetAvailable: on }))}
 				{check('Quest rewards', filter.quest, on => set({ quest: on }))}

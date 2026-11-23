@@ -10,7 +10,11 @@ import { vendorReputation } from './stats';
 import type { Character, Item, SpecConfig } from './types';
 
 const spec = specJson as unknown as SpecConfig;
-const data = await loadGameData();
+// These tests count in the build file's own points (the spec is read raw, not turned into DPS), with numbers
+// checked by hand. Whole-weapon values are in DPS and would mix units here, so they are left out; the test
+// "scores a weapon the simulator measured as a whole" puts its own in.
+const loaded = await loadGameData();
+const data = { ...loaded, simValues: { ...loaded.simValues, weapons: undefined } };
 const imported = importCharacter(JSON.stringify(simExport), spec).character;
 const dwarf: Character = { ...imported, race: 'RaceDwarf', professions: ['Skinning', 'Leatherworking'], gear: imported.gear.map(p => (p ? { id: p.id } : null)) };
 const options = { character: dwarf, data, spec, filter: DEFAULT_FILTER };
@@ -106,6 +110,14 @@ describe('Tier 0.5 filter', () => {
 		const SHOULDER = 2;
 		expect(slotCandidates(SHOULDER, dwarf.gear, options).some(c => c.item.setId === setId)).toBe(true);
 		expect(slotCandidates(SHOULDER, dwarf.gear, without).some(c => c.item.setId === setId)).toBe(false);
+	});
+
+	it('leaves the Tier 0.5 set out when its questline is switched off, and keeps Tier 0', () => {
+		const SHOULDER = 2;
+		const noQuest = { ...options, filter: { ...DEFAULT_FILTER, tier05: false } };
+		const list = slotCandidates(SHOULDER, dwarf.gear, noQuest);
+		expect(list.some(c => c.item.setId === setId)).toBe(false);
+		expect(list.some(c => c.item.setId === tierSets(spec)!.tier0)).toBe(true);
 	});
 
 	it('allows set pieces only in the ticked slots, Tier 0 included', () => {

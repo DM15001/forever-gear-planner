@@ -222,10 +222,83 @@ function TimelineGraph({ timeline, rows, lit, onLit, nameOf }: { timeline: SimTi
 	);
 }
 
+/** Pixels per second of fight on the cast time line. */
+const CAST_SCALE = 26;
+
+/** Every cast of one simulated fight: a row per spell, its icon at each moment it was cast. Scrolls sideways. */
+function CastTimeline({ timeline, nameOf, iconOf }: { timeline: SimTimeline; nameOf: (id: SimActionId) => string; iconOf: (id: SimActionId) => string | undefined }) {
+	// Attacks and procs fill the picture; they are shown on request.
+	const [everything, setEverything] = useState(false);
+	// One row per spell: the engine tells combo point counts and the like apart, the reader does not need to.
+	const merged = new Map<string, { id: SimActionId; times: number[] }>();
+	for (const row of timeline.casts) {
+		if (!everything && !row.pressed) continue;
+		const key = row.id.spellId ? `s${row.id.spellId}` : row.id.itemId ? `i${row.id.itemId}` : actionKey(row.id);
+		const known = merged.get(key);
+		if (known) known.times.push(...row.times);
+		else merged.set(key, { id: row.id.spellId || row.id.itemId ? { ...row.id, tag: undefined } : row.id, times: [...row.times] });
+	}
+	const shown = [...merged.values()].sort((x, y) => y.times.length - x.times.length);
+	const width = Math.ceil(timeline.seconds) * CAST_SCALE + 40;
+	const ticks = Array.from({ length: Math.floor(timeline.seconds) + 1 }, (_, second) => second);
+	if (timeline.casts.length === 0) return <p className="hint">The log of this fight lists no casts.</p>;
+	return (
+		<figure className="cast-timeline">
+			<div className="cast-timeline-frame">
+				<div className="cast-names">
+					<div className="cast-ruler-gap" />
+					{shown.map(row => (
+						<div key={actionKey(row.id)} className="cast-name" title={`${nameOf(row.id)}: ${row.times.length} cast${row.times.length === 1 ? '' : 's'}`}>
+							<ActionIcon icon={iconOf(row.id)} />
+							{row.id.spellId ? (
+								<a href={wowheadSpellUrl(row.id.spellId)} data-wowhead={wowheadData('spell', row.id.spellId)} target="_blank" rel="noreferrer">
+									{nameOf(row.id)}
+								</a>
+							) : (
+								nameOf(row.id)
+							)}
+						</div>
+					))}
+				</div>
+				<div className="cast-scroll" tabIndex={0} aria-label="Casts over the time of the fight; scroll sideways">
+					<div style={{ width }}>
+						<div className="cast-ruler num">
+							{ticks.map(second => (
+								<span key={second} className={second % 5 === 0 ? 'cast-tick cast-tick-major' : 'cast-tick'} style={{ left: second * CAST_SCALE }}>
+									{second % 5 === 0 ? clock(second) : ''}
+								</span>
+							))}
+						</div>
+						{shown.map(row => (
+							<div key={actionKey(row.id)} className="cast-row">
+								{row.times.map((time, i) => (
+									<span key={i} className="cast-mark" style={{ left: time * CAST_SCALE }} title={`${nameOf(row.id)} at ${clock(time)} (${time.toFixed(1)} s)`}>
+										<ActionIcon icon={iconOf(row.id)} />
+									</span>
+								))}
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+			<figcaption>
+				What was pressed in one simulated fight, most used first. Scroll sideways to follow the fight.{' '}
+				<label className="check cast-all">
+					<input type="checkbox" checked={everything} onChange={e => setEverything(e.target.checked)} />
+					Also show attacks and procs
+				</label>
+			</figcaption>
+		</figure>
+	);
+}
+
 /** What a run is made of: damage per spell with bars, effects with their uptime, and how the fights spread. */
 function Breakdown({ title, outcome, names, timeline }: { title: string; outcome: SimOutcome; names: SimSetupData | null; /** One logged fight, for the graph over time; undefined while it loads or if it failed. */ timeline?: SimTimeline }) {
 	// The damage source under the pointer: its row, its bar and its part of the strip light up together.
 	const [lit, setLit] = useState<number | null>(null);
+	// Above the table: the damage over time, or every cast on a time line.
+	const [view, setView] = useState<'graph' | 'timeline'>('graph');
+	const iconOf = (id: SimActionId) => (id.spellId ? names?.spellIcons?.[id.spellId] : id.itemId ? names?.itemIcons?.[id.itemId] : OTHER_ICONS[String(id.otherId ?? '')]);
 	const breakdown = outcome.breakdown;
 	if (!breakdown) return null;
 	const nameOf = (id: SimActionId) => {
@@ -268,7 +341,19 @@ function Breakdown({ title, outcome, names, timeline }: { title: string; outcome
 					<dd className="result-sub">about {breakdown.seconds.toFixed(0)} s each</dd>
 				</div>
 			</dl>
-			{timeline ? (
+			{timeline && (
+				<div className="result-tabs" role="tablist" aria-label="How to show the fight">
+					<button role="tab" aria-selected={view === 'graph'} className="result-tab" onClick={() => setView('graph')}>
+						Graph
+					</button>
+					<button role="tab" aria-selected={view === 'timeline'} className="result-tab" onClick={() => setView('timeline')}>
+						Timeline
+					</button>
+				</div>
+			)}
+			{timeline && view === 'timeline' ? (
+				<CastTimeline timeline={timeline} nameOf={nameOf} iconOf={iconOf} />
+			) : timeline ? (
 				<TimelineGraph timeline={timeline} rows={breakdown.actions} lit={lit} onLit={setLit} nameOf={nameOf} />
 			) : (
 				<div className="result-strip" role="img" aria-label="Share of the damage per source">
@@ -313,7 +398,7 @@ function Breakdown({ title, outcome, names, timeline }: { title: string; outcome
 						{breakdown.actions.map((row, index) => (
 							<tr key={index} className={lit === index ? 'result-lit' : lit !== null ? 'result-dim' : undefined} onMouseEnter={() => setLit(index)}>
 								<th scope="row">
-									<ActionIcon icon={row.id.spellId ? names?.spellIcons?.[row.id.spellId] : row.id.itemId ? names?.itemIcons?.[row.id.itemId] : OTHER_ICONS[String(row.id.otherId ?? '')]} />
+									<ActionIcon icon={iconOf(row.id)} />
 									{row.id.spellId ? (
 										<a href={wowheadSpellUrl(row.id.spellId)} data-wowhead={wowheadData('spell', row.id.spellId)} target="_blank" rel="noreferrer">
 											{nameOf(row.id)}
@@ -492,7 +577,7 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 			)}
 			{(a?.breakdown || b?.breakdown) && (
 				<details className="sim-details" onToggle={loadNames}>
-					<summary>Show how these numbers come about</summary>
+					<summary className="breakdown-toggle">{(a?.healing ?? b?.healing) ? 'Healing breakdown' : 'Damage breakdown'}</summary>
 					{a && <Breakdown title="Equipped gear" outcome={a} names={names} timeline={timelines[keyA]} />}
 					{b && <Breakdown title="Planned gear" outcome={b} names={names} timeline={timelines[keyB]} />}
 					{(a?.mending ?? b?.mending) && (

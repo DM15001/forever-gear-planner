@@ -26,6 +26,10 @@ on:
         description: Measure even if nothing changed
         type: boolean
         default: false
+      collect_from:
+        description: Do not measure; commit the results of this earlier run (its run id) instead
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -55,6 +59,7 @@ jobs:
 
   measure:
     needs: list
+    if: ${{ !inputs.collect_from }}
     runs-on: ubuntu-latest
     timeout-minutes: 300
     strategy:
@@ -86,6 +91,9 @@ jobs:
           pattern: weapons-*
           path: src/data/weaponValues
           merge-multiple: true
+          # The results of an earlier run can be committed without measuring again (input collect_from).
+          run-id: ${{ inputs.collect_from || github.run_id }}
+          github-token: ${{ github.token }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22

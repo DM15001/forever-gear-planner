@@ -293,6 +293,8 @@ export interface SourceFilter {
 	unknown: boolean; // items the data has no source for
 	/** The slots that may hold a piece of the class's Tier 0 or Tier 0.5 set (TIER_SLOTS). All = the planner takes what is best; none = no set piece at all. */
 	tierSlots: string[];
+	/** False = no piece of the Tier 0.5 set at all, for someone who will not do its questline. */
+	tier05: boolean;
 	/** How many pieces of one dungeon set the plan must hold at least (0 = whatever is best), to reach a bonus the score does not value enough. */
 	tierMinimum: number;
 	/** Items that drop with a random suffix ("of Shadow Wrath"), counted with the suffix that suits the spec best. */
@@ -318,6 +320,7 @@ export const DEFAULT_FILTER: SourceFilter = {
 	pvp: false,
 	unknown: true,
 	tierSlots: ['head', 'shoulder', 'chest', 'wrist', 'hands', 'waist', 'legs', 'feet'],
+	tier05: true,
 	tierMinimum: 0,
 	randomSuffix: true,
 	notYetAvailable: false,
@@ -328,7 +331,7 @@ export const DEFAULT_FILTER: SourceFilter = {
 	excludedReputations: ['The Watchers'],
 };
 
-export type SourceKindKey = Exclude<keyof SourceFilter, 'tierSlots' | 'tierMinimum' | 'randomSuffix' | 'notYetAvailable' | 'hiddenItems' | 'ownCraftsOnly' | 'excludedDungeons' | 'excludedReputations'>;
+export type SourceKindKey = Exclude<keyof SourceFilter, 'tierSlots' | 'tier05' | 'tierMinimum' | 'randomSuffix' | 'notYetAvailable' | 'hiddenItems' | 'ownCraftsOnly' | 'excludedDungeons' | 'excludedReputations'>;
 
 /** The reputation a source needs, if any: a reputation reward or a quartermaster's goods. */
 export const reputationOf = (source: ItemSource): string | undefined => (source.kind === 'rep' ? source.repFaction : vendorReputation(source));
@@ -383,6 +386,7 @@ export const EVERYTHING: SourceFilter = { ...DEFAULT_FILTER, pvp: true, randomSu
 /** Can this character get and use the item at all, given faction, professions and the filter? */
 export function isObtainable(item: Item, character: Character, faction: Faction | undefined, filter: SourceFilter, spec: SpecConfig): boolean {
 	if (isTierPiece(item, spec) && !filter.tierSlots.includes(item.slot)) return false;
+	if (!filter.tier05 && item.setId !== undefined && item.setId === tierSets(spec)?.tier05) return false;
 	if (!filter.randomSuffix && item.randomSuffixOptions?.length) return false;
 	if (!filter.notYetAvailable && notYetAvailable(item)) return false;
 	if (filter.hiddenItems.includes(item.id)) return false;

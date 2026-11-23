@@ -53,10 +53,9 @@ export function saveWeights(specId: string, weights: Weights | null): void {
 const FILTER_KEY = 'forever-gear-planner.content.v1';
 
 /** The saved content choice. Settings added in a later version fall back to their defaults. */
-/** A saved content choice with today's fields: missing ones take their default, and the old Tier 0.5 switch becomes the slot list. */
-export function normalFilter(saved: Partial<SourceFilter> & { tier05?: boolean }): SourceFilter | null {
-	const { tier05, ...rest } = saved;
-	const merged: SourceFilter = { ...DEFAULT_FILTER, ...rest, ...(tier05 === false && !rest.tierSlots ? { tierSlots: [] } : {}) };
+/** A saved content choice with today's fields: missing ones take their default. */
+export function normalFilter(saved: Partial<SourceFilter>): SourceFilter | null {
+	const merged: SourceFilter = { ...DEFAULT_FILTER, ...saved };
 	if (![merged.excludedDungeons, merged.excludedReputations, merged.hiddenItems, merged.tierSlots].every(Array.isArray)) return null;
 	if (![0, 2, 4, 6, 8].includes(merged.tierMinimum)) merged.tierMinimum = 0;
 	return merged;

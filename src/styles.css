@@ -4353,3 +4353,167 @@ a.source-link:focus-visible {
 .tier-minimum select {
 	width: auto;
 }
+
+/* Damage breakdown: the fold opens from a button that stands out */
+summary.breakdown-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	font-family: var(--display);
+	font-size: 1rem;
+	letter-spacing: 0.03em;
+	color: var(--brass);
+	background: #1c160c;
+	border: 1px solid var(--brass-deep);
+	border-radius: 5px;
+	cursor: pointer;
+	list-style: none;
+}
+summary.breakdown-toggle::-webkit-details-marker {
+	display: none;
+}
+summary.breakdown-toggle::before {
+	content: '▸';
+}
+details[open] > summary.breakdown-toggle::before {
+	content: '▾';
+}
+summary.breakdown-toggle:hover,
+summary.breakdown-toggle:focus-visible {
+	border-color: var(--brass);
+	box-shadow: 0 0 12px -4px var(--brass);
+}
+/* Graph or Timeline */
+.result-tabs {
+	display: flex;
+	gap: 0.3rem;
+	margin-bottom: 0.4rem;
+}
+.result-tab {
+	padding: 0.3rem 0.9rem;
+	font: inherit;
+	font-size: 0.875rem;
+	color: var(--haze);
+	background: #0a0806;
+	border: 1px solid var(--hairline);
+	border-radius: 4px 4px 0 0;
+	cursor: pointer;
+}
+.result-tab[aria-selected='true'] {
+	color: var(--brass);
+	border-color: var(--brass-deep);
+	background: #1c160c;
+}
+/* Casts on a time line: names stay put, the lines scroll sideways */
+.cast-timeline {
+	margin: 0 0 0.75rem;
+}
+.cast-timeline-frame {
+	display: flex;
+	background: #070605;
+	border: 1px solid var(--hairline);
+	border-radius: 4px;
+	overflow: hidden;
+}
+.cast-names {
+	flex: none;
+	width: 13rem;
+	border-right: 1px solid var(--ridge);
+}
+.cast-ruler-gap,
+.cast-ruler {
+	height: 1.6rem;
+	border-bottom: 1px solid var(--ridge);
+}
+.cast-name,
+.cast-row {
+	height: 1.7rem;
+	border-bottom: 1px solid #ffffff10;
+}
+.cast-name:nth-child(odd),
+.cast-row:nth-child(odd) {
+	background: #ffffff08;
+}
+.cast-name {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0 0.5rem;
+	font-size: 0.8125rem;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.cast-name a {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: #f1c98a;
+	text-decoration: none;
+}
+.cast-name .result-icon,
+.cast-mark .result-icon {
+	width: 1.25rem;
+	height: 1.25rem;
+	flex: none;
+}
+.cast-scroll {
+	flex: 1 1 auto;
+	overflow-x: auto;
+	scrollbar-width: thin;
+}
+.cast-ruler,
+.cast-row {
+	position: relative;
+}
+.cast-tick {
+	position: absolute;
+	bottom: 0;
+	height: 0.3rem;
+	padding-left: 0.2rem;
+	border-left: 1px solid #ffffff40;
+	font-size: 0.6875rem;
+	line-height: 2.2;
+	color: var(--haze);
+	white-space: nowrap;
+}
+.cast-tick-major {
+	height: 1.5rem;
+	border-left-color: #ffffff80;
+}
+.cast-mark {
+	position: absolute;
+	top: 0.2rem;
+	display: block;
+	outline: 1px solid #ffffff50;
+}
+.cast-timeline figcaption {
+	margin-top: 0.3rem;
+	font-size: 0.8125rem;
+	color: var(--haze);
+}
+@media (max-width: 640px) {
+	.cast-names {
+		width: 8rem;
+	}
+}
+
+.cast-timeline-frame {
+	max-width: 100%;
+}
+.cast-scroll {
+	min-width: 0;
+}
+.cast-all {
+	display: inline-flex;
+	margin-left: 0.5rem;
+}
+.breakdown,
+.sim-details {
+	min-width: 0;
+	max-width: 100%;
+}
+/* The long line must never widen the page: the figure takes the width it is given, not the width of its content */
+.cast-timeline {
+	contain: inline-size;
+	width: 100%;
+}

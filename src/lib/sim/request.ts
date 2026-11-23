@@ -280,8 +280,11 @@ export interface SimTimeline {
 	seconds: number;
 	/** actionKey -> damage (or healing) per second in each slice. */
 	series: Record<string, number[]>;
+	/** Every cast of the fight, by what was cast: the moments it started, in seconds. */
+	casts: { id: SimActionId; times: number[]; /** True for something the player presses: it costs a resource or the global cooldown, or it is used only a few times (a cooldown, a potion). */ pressed: boolean }[];
 }
 
+const CAST_LINE = /^\[(-?[\d.]+)\] \[([^\]]+)\] Casting \{(SpellID|ItemID|OtherID): (\d+)(?:, Tag: (-?\d+))?[^}]*\}(?: \(Cost = ([\d.]+), Cast Time = [^,]*, GCD = ([\d.]+))?/;
 const LOG_LINE = /^\[(-?[\d.]+)\] \[([^\]]+)\] \[[^\]]+\] \{(SpellID|ItemID|OtherID): (\d+)(?:, Tag: (-?\d+))?[^}]*\} (?:tick )?\w+ for ([\d.]+) (damage|healing)/;
 
 /** Reads the log of one simulated fight (simOptions.debug) into a timeline. */
@@ -292,7 +295,20 @@ export function readTimeline(json: string | null | undefined, healing = false, s
 	if (typeof result.logs !== 'string' || !seconds) return undefined;
 	const slices = Math.max(1, Math.ceil(seconds / slice));
 	const series: Record<string, number[]> = {};
+	const casts = new Map<string, { id: SimActionId; times: number[]; free: boolean }>();
 	for (const line of result.logs.split('\n')) {
+		const cast = CAST_LINE.exec(line);
+		if (cast) {
+			const [, time, source, kind, id, tag, cost, gcd] = cast;
+			if (source.startsWith('Target') || Number(time) < 0) continue;
+			const action: SimActionId = { ...(kind === 'SpellID' ? { spellId: Number(id) } : kind === 'ItemID' ? { itemId: Number(id) } : { otherId: OTHER_BY_NUMBER[id] ?? id }), ...(tag ? { tag: Number(tag) } : {}) };
+			const key = actionKey(action);
+			if (!casts.has(key)) casts.set(key, { id: action, times: [], free: true });
+			const row = casts.get(key)!;
+			row.times.push(Number(time));
+			if (Number(cost ?? 0) > 0 || Number(gcd ?? 0) > 0) row.free = false;
+			continue;
+		}
 		const match = LOG_LINE.exec(line);
 		if (!match) continue;
 		const [, time, source, kind, id, tag, amount, what] = match;
@@ -304,7 +320,9 @@ export function readTimeline(json: string | null | undefined, healing = false, s
 		const row = (series[key] ??= new Array<number>(slices).fill(0));
 		row[Math.min(slices - 1, Math.floor(at / slice))] += Number(amount) / slice;
 	}
-	return { slice, seconds, series };
+	// Attacks and procs are "cast" by the engine too. What costs nothing, skips the global cooldown and still happens all the time is a proc.
+	const rows = [...casts.values()].map(({ id, times, free }) => ({ id, times, pressed: !id.otherId && (!free || times.length <= 8) }));
+	return { slice, seconds, series, casts: rows.sort((x, y) => Number(y.pressed) - Number(x.pressed) || y.times.length - x.times.length) };
 }
 
 /** Reads the sim's JSON answer. Throws with the sim's message when it reports an error. */
