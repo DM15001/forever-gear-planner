@@ -1,6 +1,6 @@
 name: Keep the simulator current
 
-# wowsims.com ships a new simulator several times a day. This looks every three hours whether the copy in
+# wowsims.com ships a new simulator several times a day. This looks every half hour whether the copy in
 # public/sim is still the one wowsims.com runs; if not, it rebuilds the planner's data from WoWSims
 # (scripts/build-data.mjs), runs the tests, commits and republishes. So "Simulate" on the site gives the
 # same number as wowsims.com for the same character and settings.
@@ -14,7 +14,7 @@ name: Keep the simulator current
 
 on:
   schedule:
-    - cron: '23 */3 * * *'
+    - cron: '7,37 * * * *'
     - cron: '41 1 * * *'
   workflow_dispatch:
 

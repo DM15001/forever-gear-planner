@@ -532,6 +532,9 @@ for (const template of simTemplates.values()) collectIds(template.raid.parties[0
 for (const id of rotationIds.item) itemNames[id] ??= db.items.find(item => item.id === id)?.name;
 // A result also lists items that did something in the fight: trinkets, procs, runes.
 for (const item of db.items) if (item.itemEffects?.length) itemNames[item.id] ??= item.name;
+// Conjured items the sim uses but its database does not list.
+const HAND_KEPT_ITEMS = { 5514: { name: 'Mana Agate', icon: 'inv_misc_gem_emerald_01' } };
+for (const [id, item] of Object.entries(HAND_KEPT_ITEMS)) itemNames[id] ??= item.name;
 const unnamedSpells = [...rotationIds.spell].filter(id => !spellNames[id]);
 if (unnamedSpells.length) {
 	const spellTable = args.repo ? await readFile(join(args.repo, 'sim/core/spelldata/spells_auto_gen.go'), 'utf8').catch(() => '') : '';
@@ -661,7 +664,7 @@ const simSetup = {
 	// Icon names for the spells a result or a buff can show.
 	spellIcons: { ...borrowedSpellIcons, ...Object.fromEntries((db.spellIcons ?? []).filter(spell => spell.icon).map(spell => [spell.id, spell.icon])) },
 	items: Object.fromEntries(Object.entries(itemNames).filter(([, name]) => name)),
-	itemIcons: Object.fromEntries(Object.keys(itemNames).filter(id => itemIconById.get(Number(id))).map(id => [id, itemIconById.get(Number(id))])),
+	itemIcons: Object.fromEntries(Object.keys(itemNames).map(id => [id, itemIconById.get(Number(id)) ?? HAND_KEPT_ITEMS[id]?.icon]).filter(([, icon]) => icon)),
 	consumables: (db.consumables ?? [])
 		.filter(c => CONSUMABLE_KINDS[c.type])
 		.map(c => compact({ id: c.id, name: c.name, icon: itemIconById.get(c.id), kind: CONSUMABLE_KINDS[c.type], level: c.lvl, resource: c.potionClasses?.includes(1) || undefined, group: c.groupName, groupKey: c.groupKey })),

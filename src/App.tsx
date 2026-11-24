@@ -1,3 +1,4 @@
+import { createPortal } from 'react-dom';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { CharacterSheet } from './components/CharacterSheet';
@@ -57,7 +58,7 @@ function switchUnlocked(): boolean {
 	}
 }
 
-/** The site owner's dwarf as a cartoon: chain coif, long red beard, white tabard, big gauntlets. Sunglasses on, a smoke in the mouth, one finger for the world and the other hand pointing up at the Live/Dev switch. Drawn here. */
+/** The site owner's dwarf as a cartoon: chain coif, long red beard, white tabard, big gauntlets, trousers down around his boots. Sunglasses on, a smoke in the mouth, one finger for the world and the other hand pointing up at the Live/Dev switch. Drawn here. */
 function CheerDwarf() {
 	return (
 		<svg className="cheer-dwarf" viewBox="0 0 180 240" width="180" height="240" aria-hidden="true">
@@ -93,13 +94,14 @@ function CheerDwarf() {
 				<path d="M25 50 L25 22" stroke="#6f8076" strokeWidth="8" strokeLinecap="round" />
 				<path d="M16 50 V46 M34 50 V46" stroke="#4f5d55" strokeWidth="2" strokeLinecap="round" />
 			</g>
-			{/* legs and boots */}
-			<rect x="64" y="150" width="22" height="26" rx="6" fill="#7a5a3c" />
-			<rect x="94" y="150" width="22" height="26" rx="6" fill="#7a5a3c" />
-			<rect x="62" y="158" width="26" height="7" rx="3" fill="#b8402e" />
-			<rect x="92" y="158" width="26" height="7" rx="3" fill="#b8402e" />
-			<ellipse cx="72" cy="182" rx="18" ry="10" fill="#8a7fb8" />
-			<ellipse cx="108" cy="182" rx="18" ry="10" fill="#8a7fb8" />
+			{/* bare legs, heart boxers, and the trousers down around the boots */}
+			<rect x="66" y="156" width="18" height="22" rx="6" fill="#dba77e" />
+			<rect x="96" y="156" width="18" height="22" rx="6" fill="#dba77e" />
+			<path d="M70 164 l2 1 M78 168 l-2 1 M100 166 l2 1 M108 162 l-2 1" stroke="#b5531f" strokeWidth="1.2" strokeLinecap="round" />
+			<path d="M54 170 Q72 164 90 172 Q108 164 126 170 L124 182 Q90 176 56 182 Z" fill="#7a5a3c" />
+			<path d="M60 174 q6 -3 12 0 M82 176 q8 -3 16 0 M108 174 q6 -3 12 0" fill="none" stroke="#5c4229" strokeWidth="2" strokeLinecap="round" />
+			<ellipse cx="72" cy="184" rx="18" ry="9" fill="#8a7fb8" />
+			<ellipse cx="108" cy="184" rx="18" ry="9" fill="#8a7fb8" />
 			{/* shoulder pads, mail, tabard, belt */}
 			<ellipse cx="54" cy="98" rx="23" ry="14" fill="#f7f3ea" />
 			<ellipse cx="126" cy="98" rx="23" ry="14" fill="#f7f3ea" />
@@ -111,6 +113,9 @@ function CheerDwarf() {
 			<circle cx="74" cy="137.5" r="3.5" fill="#5fc4e8" />
 			<circle cx="90" cy="137.5" r="4.5" fill="#5fc4e8" />
 			<circle cx="106" cy="137.5" r="3.5" fill="#5fc4e8" />
+			{/* heart boxers, in plain sight */}
+			<path d="M60 146 H120 V160 Q120 166 113 166 H96 L90 158 L84 166 H67 Q60 166 60 160 Z" fill="#f7f3ea" stroke="#cfc8b4" strokeWidth="1" />
+			<path d="M70 153 q-3 -4 0 -5 q2 0 2 2 q0 -2 2 -2 q3 1 0 5 l-2 2 Z M106 153 q-3 -4 0 -5 q2 0 2 2 q0 -2 2 -2 q3 1 0 5 l-2 2 Z M88 151 q-2 -3 0 -4 q1.5 0 2 1.5 q0.5 -1.5 2 -1.5 q2 1 0 4 l-2 2 Z" fill="#e8455a" />
 			{/* head, chain coif */}
 			<circle cx="90" cy="60" r="28" fill="#dba77e" />
 			<path d="M60 64 Q56 22 90 22 Q124 22 120 64 L112 58 Q112 40 90 40 Q68 40 68 58 Z" fill="#9aa3ad" />
@@ -216,7 +221,8 @@ function ChannelSwitch() {
 				{IS_DEV ? <a href={other}>Live</a> : <span aria-current="page">Live</span>}
 				{IS_DEV ? <span aria-current="page">Dev</span> : <a href={other}>Dev</a>}
 			</nav>
-			{cheer && <CheerDwarf />}
+			{/* He stands in the middle of the tab bar. */}
+			{cheer && createPortal(<CheerDwarf />, document.querySelector('.tab-bar') ?? document.body)}
 		</>
 	);
 }

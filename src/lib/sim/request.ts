@@ -427,7 +427,7 @@ export function readTimeline(json: string | null | undefined, healing = false, s
 		const cast = CAST_LINE.exec(line);
 		if (cast) {
 			const [, time, source, kind, id, tag, cost, gcd] = cast;
-			if (source.startsWith('Target') || Number(time) < 0) continue;
+			if (source.startsWith('Target')) continue;
 			const action: SimActionId = { ...(kind === 'SpellID' ? { spellId: Number(id) } : kind === 'ItemID' ? { itemId: Number(id) } : { otherId: OTHER_BY_NUMBER[id] ?? id }), ...(tag ? { tag: Number(tag) } : {}) };
 			const key = actionKey(action);
 			if (!casts.has(key)) casts.set(key, { id: action, times: [], free: true });

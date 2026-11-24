@@ -4242,6 +4242,11 @@ button.masthead-home:focus-visible {
 	display: block;
 	font-size: 0.8125rem;
 }
+.set-outlook {
+	display: block;
+	font-size: 0.8125rem;
+	color: var(--haze);
+}
 .set-change-breaks {
 	color: #ff8a65;
 }
@@ -5244,4 +5249,103 @@ summary.breakdown-toggle:focus-visible {
 }
 .source-report:hover {
 	color: var(--brass);
+}
+
+/* The dwarf who says hello when the Live/Dev switch is unlocked: in the middle of the tab bar, gone after a few seconds. */
+.tab-bar {
+	position: relative;
+}
+.cheer-dwarf {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 60;
+	margin: -120px 0 0 -90px;
+	pointer-events: none;
+	filter: drop-shadow(0 6px 14px rgb(0 0 0 / 0.6));
+	transform-origin: 50% 100%;
+	animation: cheer-pop 4s ease both;
+}
+.cheer-smoke {
+	opacity: 0;
+	animation: cheer-puff 1.6s ease-out infinite;
+}
+.cheer-smoke-2 {
+	animation-delay: 0.5s;
+}
+.cheer-smoke-3 {
+	animation-delay: 1s;
+}
+.cheer-bling {
+	transform-box: fill-box;
+	transform-origin: center;
+	animation: cheer-twinkle 0.9s ease-in-out infinite alternate;
+}
+.cheer-bling-2 {
+	animation-delay: 0.3s;
+}
+.cheer-bling-3 {
+	animation-delay: 0.6s;
+}
+.cheer-shine {
+	animation: cheer-sweep 1.8s ease-in-out infinite;
+}
+@keyframes cheer-pop {
+	0% {
+		opacity: 0;
+		transform: scale(0.2) rotate(-12deg);
+	}
+	10% {
+		opacity: 1;
+		transform: scale(1.08) rotate(3deg);
+	}
+	16%,
+	88% {
+		opacity: 1;
+		transform: scale(1) rotate(0);
+	}
+	100% {
+		opacity: 0;
+		transform: scale(0.6) translateY(30px);
+	}
+}
+@keyframes cheer-puff {
+	0% {
+		opacity: 0.7;
+		transform: translate(0, 0) scale(0.5);
+	}
+	100% {
+		opacity: 0;
+		transform: translate(14px, -26px) scale(1.5);
+	}
+}
+@keyframes cheer-twinkle {
+	from {
+		opacity: 0.2;
+		transform: scale(0.6);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1.15);
+	}
+}
+@keyframes cheer-sweep {
+	0%,
+	40% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(190px);
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.cheer-dwarf,
+	.cheer-smoke,
+	.cheer-bling,
+	.cheer-shine {
+		animation: none;
+	}
+	.cheer-smoke {
+		opacity: 0.6;
+	}
 }

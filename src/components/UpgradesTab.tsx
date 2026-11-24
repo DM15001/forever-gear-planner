@@ -661,9 +661,35 @@ interface RowProps {
 	onHide: () => void;
 }
 
+/** For a set piece: how many pieces the set would have, what its bonuses are worth for this build, and whether one is in the row's number. */
+function setOutlook(setId: number | undefined, base: Gear, variant: Gear, data: GameData): string | null {
+	const standing = setId ? setStandings(variant, data).get(setId) : undefined;
+	if (!standing) return null;
+	const worn = `${standing.name}: ${standing.count} piece${standing.count === 1 ? '' : 's'} with this item`;
+	if (standing.ignored) return `${worn}. You switched its set bonuses off, so the number is the item alone.`;
+	if (!standing.measured) return `${worn}. Its set bonuses are not measured for this build, so the number is the item alone.`;
+	if (standing.steps.length === 0) return `${worn}. Its set bonuses do nothing for this build, so the number is the item alone.`;
+	const byCount = data.simValues.sets.get(standing.setId)!;
+	const bonuses = standing.steps.map(step => `${step} pieces ${formatDelta(byCount.get(step)!)}`).join(', ');
+	const next = standing.steps.find(step => step > standing.count);
+	const before = setStandings(base, data).get(standing.setId)?.reached ?? 0;
+	const missing = next ? next - standing.count : 0;
+	const toNext = next ? `; ${missing} more piece${missing === 1 ? '' : 's'} for the ${next}-piece bonus` : '';
+	const state =
+		standing.reached > before
+			? `This item completes the ${standing.reached}-piece bonus, and the number counts it.`
+			: standing.reached < before
+				? ''
+				: standing.reached > 0
+					? `You keep the ${standing.reached}-piece bonus${toNext}.`
+					: `The number is the item alone${toNext}.`;
+	return `${worn}. Set bonuses for this build, in total: ${bonuses}. ${state}`.trim();
+}
+
 function CandidateRow({ candidate, note, current, healWeights, marks, base, variant, data, faction, filter, onPlan, onHide }: RowProps) {
 	const { item, delta, incomplete } = candidate;
 	const sets = setChanges(base, variant, data);
+	const setLine = setOutlook(item.setId, base, variant, data);
 	const sources = usableSources(item, faction, filter);
 	const stats = statLine(
 		pieceStats(
@@ -710,6 +736,7 @@ function CandidateRow({ candidate, note, current, healWeights, marks, base, vari
 						{line.active ? ' (counted)' : ''}
 					</span>
 				))}
+				{setLine && <span className="set-outlook">{setLine}</span>}
 				{sets.map(change => (
 					<span key={change.name + change.kind} className={`set-change set-change-${change.kind}`}>
 						{change.kind === 'breaks' && `Breaks the ${change.step}-piece bonus of ${change.name} (${change.before} → ${change.after} pieces): ${formatDelta(change.worth)}, already in the number.`}

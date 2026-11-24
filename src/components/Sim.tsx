@@ -298,7 +298,7 @@ function CastTimeline({ timeline, nameOf, iconOf, neverCast, look }: { timeline:
 						{shown.map(row => (
 							<div key={actionKey(row.id)} className="cast-row">
 								{row.times.map((time, i) => (
-									<span key={i} className="cast-mark" style={{ left: time * CAST_SCALE }} title={`${nameOf(row.id)} at ${clock(time)} (${time.toFixed(1)} s)`}>
+									<span key={i} className="cast-mark" style={{ left: Math.max(0, time) * CAST_SCALE }} title={time < 0 ? `${nameOf(row.id)}, ${(-time).toFixed(1)} s before the pull` : `${nameOf(row.id)} at ${clock(time)} (${time.toFixed(1)} s)`}>
 										<ActionIcon icon={iconOf(row.id)} />
 									</span>
 								))}
