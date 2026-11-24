@@ -1,0 +1,203 @@
+import type { ReactNode } from 'react';
+
+const REPO = 'https://github.com/DM15001/forever-gear-planner';
+
+interface Question {
+	q: string;
+	a: ReactNode;
+}
+
+/** Questions and answers about the planner, in groups. Kept by hand: change it when the site changes. */
+const GROUPS: { title: string; questions: Question[] }[] = [
+	{
+		title: 'What it is',
+		questions: [
+			{
+				q: 'What does this site do?',
+				a: (
+					<>
+						<p>It plans gear for a WoW Forever character. You bring the character, it shows which items are better than what you wear, where they come from, and which dungeons are worth running, alone or as a group.</p>
+						<p>The numbers come from the WoWSims simulator, which runs inside your browser. For the same character and settings, "Simulate" here gives the same result as wowsims.com.</p>
+					</>
+				),
+			},
+			{
+				q: 'Who is it for?',
+				a: <p>Level 60 characters gearing up before raids: dungeons, quests, crafting, reputation and world drops. Every class has at least one build; damage dealers and healers are covered, tanks are not.</p>,
+			},
+			{
+				q: 'Does it cost anything, and do I need an account?',
+				a: <p>No and no. There is no login and no server. It is a fan project, not affiliated with or endorsed by Blizzard.</p>,
+			},
+		],
+	},
+	{
+		title: 'How to use it',
+		questions: [
+			{
+				q: 'How do I start?',
+				a: (
+					<ol>
+						<li>On the start page, paste your character: an export from wowsims.com or a link somebody copied from this site. No export at hand? Load the WoWSims preset for your build and change the items by clicking the slots.</li>
+						<li>Pick your build on the Character page. Talents, consumables and buffs follow the build; change them under "Sim setup".</li>
+						<li>Open "Upgrades". Each slot lists the better items with the gain in front. "Plan" puts one into your plan, "Plan the best set" fills every slot.</li>
+						<li>"Plan" shows the result and simulates your gear against the plan.</li>
+						<li>"Farm plan" sorts the planned items by dungeon, "Enchants &amp; professions" does the same for enchants.</li>
+					</ol>
+				),
+			},
+			{
+				q: 'What do the tabs do?',
+				a: (
+					<ul>
+						<li><strong>Character</strong>: what you wear, your build, talents and the link to copy your character.</li>
+						<li><strong>Plan</strong>: your plan slot by slot, what to count (dungeons, crafting, set bonuses) and the simulation.</li>
+						<li><strong>Upgrades</strong>: every better item per slot, with source and gain.</li>
+						<li><strong>Enchants &amp; professions</strong>: the best enchant per slot and what your professions add.</li>
+						<li><strong>Farm plan</strong>: where your planned items drop, best dungeon first.</li>
+						<li><strong>Group plan</strong>: the same for several characters at once, with who wants which drop.</li>
+						<li><strong>Sim setup</strong>: talents, rotation, consumables, buffs, the fight.</li>
+						<li><strong>News</strong>: what changed in WoW Forever and in WoWSims, and items the simulator cannot value yet.</li>
+					</ul>
+				),
+			},
+			{
+				q: 'How do I plan with friends?',
+				a: (
+					<>
+						<p>Everyone presses "Copy character (equipped + planned gear)" on their Character page and sends what it copies. Paste each one into the box on "Group plan". Or one person collects everybody and presses "Share the whole group": that link carries all of them.</p>
+						<p>Nothing is synced. A link is a snapshot of the moment it was copied; after changes, copy it again.</p>
+					</>
+				),
+			},
+			{
+				q: 'What do "planned", "BiS" and "upgrade" mean in the Group plan?',
+				a: <p>"planned": the item is in that character's plan. "BiS": nothing in the game is better for that character in that slot. "upgrade": better than what they wear, but not their best option.</p>,
+			},
+		],
+	},
+	{
+		title: 'The numbers',
+		questions: [
+			{
+				q: 'Where do the DPS numbers come from?',
+				a: (
+					<>
+						<p>From two places, and it matters which one you are looking at.</p>
+						<ul>
+							<li><strong>Simulate</strong> runs the real WoWSims simulator on your exact character. This is the number to trust.</li>
+							<li><strong>The lists</strong> (Upgrades, Farm plan, Group plan) use values measured in advance: stat weights per build, plus a measured value for every item effect, set bonus and weapon. They are estimates, good for ranking, not exact for your character.</li>
+						</ul>
+						<p>When it counts, press "Check the top 5 with the simulator" in a slot, or simulate your plan.</p>
+					</>
+				),
+			},
+			{
+				q: 'Why does a list say an item is better and the simulator says it is not?',
+				a: <p>The list values are measured on the build's standard gear, once a night. Your gear is different, and caps (hit, for example) or set bonuses shift what a stat is worth. Small differences in the lists are noise; the simulator decides.</p>,
+			},
+			{
+				q: 'How current is it?',
+				a: <p>The site looks for a new WoWSims version every half hour and takes it over together with WoWSims' own presets. The long measurements for the lists run once a night; the note above each list says from when they are.</p>,
+			},
+			{
+				q: 'How are healers handled?',
+				a: <p>Healers get healing per second instead of DPS, for the healing situation you pick. Prayer of Mending is worked out by hand, because the simulator cannot cast it yet; its row is marked as an estimate.</p>,
+			},
+		],
+	},
+	{
+		title: 'Where the data comes from',
+		questions: [
+			{
+				q: 'Which sources does the site use?',
+				a: (
+					<ul>
+						<li><strong>Items, stats, sets, enchants, the simulator itself</strong>: <a href="https://github.com/wowsims/forever">WoWSims Forever</a>.</li>
+						<li><strong>Where items drop</strong>: <a href="https://github.com/Hoizame/AtlasLootClassic">AtlasLootClassic</a> and <a href="https://www.curseforge.com/wow/addons/atlasloot-forever">AtlasLoot Classic Forever</a>, drop chances and guide picks from <a href="https://www.wowhead.com/forever">Wowhead</a>, and a hand-kept list for what those miss.</li>
+						<li><strong>Icons</strong>: Blizzard's and Wowhead's image servers. Item tooltips are Wowhead's.</li>
+						<li><strong>News</strong>: written by hand from official posts and the WoWSims changes, with links.</li>
+					</ul>
+				),
+			},
+			{
+				q: 'An item is missing or its source is wrong. What now?',
+				a: (
+					<>
+						<p>First check "Content: dungeons, reputations, crafting and more" on the Plan and Upgrades pages: items with no known source and items not in the game yet are switched off by default, and a hidden item stays hidden until you bring it back there. Class-only items show only for that class.</p>
+						<p>If the source really is unknown or wrong: next to such items there is a link "know where it drops?", which opens a filled-in report. Or write an <a href={`${REPO}/issues`}>issue</a>.</p>
+					</>
+				),
+			},
+		],
+	},
+	{
+		title: 'The limits',
+		questions: [
+			{
+				q: 'What can the site not do?',
+				a: (
+					<ul>
+						<li><strong>No raids yet.</strong> Raid loot is not planned for.</li>
+						<li><strong>No tanks.</strong> There is no number for survival.</li>
+						<li><strong>One target, one standard fight</strong> unless you change it under "Sim setup". Movement, mistakes and your group's real buffs are not in it.</li>
+						<li><strong>Some item effects are unknown.</strong> Where WoWSims has no trigger rate for an effect, the item is left out instead of guessed. "News" lists them under "On the radar".</li>
+						<li><strong>Some sources are unknown.</strong> Forever has new items nobody has documented yet.</li>
+						<li><strong>Drop chances are Wowhead's</strong> and can be off for Forever.</li>
+						<li><strong>It cannot read your character from the game.</strong> You paste an export.</li>
+					</ul>
+				),
+			},
+			{
+				q: 'Is the simulator always right?',
+				a: <p>It is as right as WoWSims is. Forever is new, and WoWSims changes several times a day. A number can move from one day to the next without your gear changing.</p>,
+			},
+		],
+	},
+	{
+		title: 'Your data',
+		questions: [
+			{
+				q: 'Where are my characters saved?',
+				a: (
+					<>
+						<p>Only in this browser, on this device. Nothing is sent anywhere. Another browser or device starts empty, and clearing the browser's site data deletes them.</p>
+						<p>To keep a copy or move a character, use "Copy character" and keep the link: opening it adds the character again.</p>
+					</>
+				),
+			},
+			{
+				q: 'What is in a share link?',
+				a: <p>The character itself: name, race, build, talents, professions, worn and planned gear with enchants. Nothing else, and it is not stored on a server: the link is the data.</p>,
+			},
+			{
+				q: 'What are "Live" and "Dev"?',
+				a: <p>"Live" is this site. "Dev" is a copy for trying changes first. Both keep their own characters.</p>,
+			},
+		],
+	},
+];
+
+/** Everything a new visitor asks: what the planner does, how to use it, where its numbers and data come from, and where it stops. */
+export function FaqTab() {
+	return (
+		<section className="panel faq" aria-labelledby="faq">
+			<h2 id="faq">Questions and answers</h2>
+			<p className="hint">What the planner does, how to use it, where the numbers come from and where it stops.</p>
+			{GROUPS.map(group => (
+				<div key={group.title} className="faq-group">
+					<h3>{group.title}</h3>
+					{group.questions.map(({ q, a }) => (
+						<details key={q} className="faq-item">
+							<summary>{q}</summary>
+							<div className="faq-answer">{a}</div>
+						</details>
+					))}
+				</div>
+			))}
+			<p className="hint">
+				Something missing here? <a href={`${REPO}/issues`}>Ask on GitHub</a>.
+			</p>
+		</section>
+	);
+}

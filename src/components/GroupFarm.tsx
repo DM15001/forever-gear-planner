@@ -19,14 +19,14 @@ interface Saved {
 	scope: GroupScope;
 	sort: 'total' | 'people';
 	/** Dungeons as cards side by side, or as one row each. */
-	view: 'cards' | 'list';
+	layout: 'cards' | 'list';
 }
 function loadSaved(): Saved {
 	try {
 		const saved = JSON.parse(localStorage.getItem(GROUP_KEY) ?? '{}') as Partial<Saved>;
-		return { out: Array.isArray(saved.out) ? saved.out.filter(Number.isInteger) : [], scope: saved.scope === 'any' ? 'any' : 'plan', sort: saved.sort === 'people' ? 'people' : 'total', view: saved.view === 'list' ? 'list' : 'cards' };
+		return { out: Array.isArray(saved.out) ? saved.out.filter(Number.isInteger) : [], scope: saved.scope === 'any' ? 'any' : 'plan', sort: saved.sort === 'people' ? 'people' : 'total', layout: saved.layout === 'cards' ? 'cards' : 'list' };
 	} catch {
-		return { out: [], scope: 'plan', sort: 'total', view: 'cards' };
+		return { out: [], scope: 'plan', sort: 'total', layout: 'list' };
 	}
 }
 
@@ -199,11 +199,11 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 				</div>
 				<div className="farm-order" role="group" aria-label="How the dungeons are shown">
 					<span className="slot-source">View</span>
-					<button className="button button-small" aria-pressed={saved.view === 'cards'} onClick={() => change({ view: 'cards' })}>
-						Cards
-					</button>
-					<button className="button button-small" aria-pressed={saved.view === 'list'} onClick={() => change({ view: 'list' })}>
+					<button className="button button-small" aria-pressed={saved.layout === 'list'} onClick={() => change({ layout: 'list' })}>
 						List
+					</button>
+					<button className="button button-small" aria-pressed={saved.layout === 'cards'} onClick={() => change({ layout: 'cards' })}>
+						Cards
 					</button>
 				</div>
 			</div>
@@ -226,7 +226,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 			{!waiting && members.length > 0 && dungeons.length === 0 && (
 				<p className="farm-empty">{saved.scope === 'plan' ? 'Nobody in the group has a dungeon drop in their plan. Switch to "Every upgrade", or build the plans first.' : 'No dungeon has an upgrade for anybody in the group.'}</p>
 			)}
-			<ol className={`plain-list group-dungeons group-dungeons-${saved.view}`}>
+			<ol className={`plain-list group-dungeons group-dungeons-${saved.layout}`}>
 				{dungeons.map((dungeon, rank) => {
 					const isOpen = open.has(dungeon.key);
 					// Every drop once, biggest gain first: the row of icons on the card.
@@ -238,7 +238,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 							if (!known || best > known.best) byItem.set(item.id, { item, best, people: wants.length, who: wants.map(want => `${want.member.label} ${gain(want.delta)}`).join(', ') });
 						}
 					const strip = [...byItem.values()].sort((x, y) => y.best - x.best);
-					const shown = strip.slice(0, 10);
+					const shown = strip.slice(0, saved.layout === 'cards' ? 6 : 12);
 					return (
 						<li key={dungeon.key} className={`group-dungeon${rank === 0 ? ' group-dungeon-top' : ''}${isOpen ? ' group-dungeon-open' : ''}`}>
 							<button className="group-dungeon-head" aria-expanded={isOpen} onClick={() => toggle(dungeon.key)} title={isOpen ? 'Hide the bosses and who wants what' : 'Show the bosses and who wants what'}>
@@ -252,7 +252,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 							</button>
 							<span className="group-prio" title={saved.sort === 'total' ? 'Ranked by what the group gains in total' : 'Ranked by how many of the group gain something'}>
 								<strong className="num">{rank + 1}</strong>
-								Priority
+								<span>Priority</span>
 							</span>
 							<ul className="plain-list group-strip">
 								{shown.map(({ item, best, people, who }) => (

@@ -5050,13 +5050,13 @@ summary.breakdown-toggle:focus-visible {
 }
 .group-dungeons {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
-	gap: 0.9rem;
+	grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+	gap: 1rem;
 	align-items: start;
 }
 .group-dungeon {
 	display: grid;
-	grid-template-columns: 1fr auto;
+	grid-template-columns: minmax(0, 1fr) auto;
 	grid-template-areas:
 		'head prio'
 		'strip strip'
@@ -5064,10 +5064,35 @@ summary.breakdown-toggle:focus-visible {
 		'numbers numbers'
 		'bosses bosses';
 	gap: 0.7rem;
-	padding: 0.8rem 0.9rem;
-	background: var(--slate-raised);
-	border: 2px solid var(--ridge);
-	border-radius: 4px;
+	padding: 0.9rem 1rem;
+	background: linear-gradient(180deg, rgb(255 255 255 / 0.035), transparent 45%), var(--slate-raised);
+	border: 1px solid var(--ridge);
+	border-radius: 8px;
+	box-shadow: 0 2px 6px rgb(0 0 0 / 0.45);
+}
+/* Cards: every one the same size, whatever is in it. */
+.group-dungeons-cards .group-dungeon:not(.group-dungeon-open) {
+	grid-template-rows: 3.4rem 3.6rem 3.4rem auto;
+	transition:
+		transform 0.15s,
+		border-color 0.15s;
+}
+.group-dungeons-cards .group-dungeon:not(.group-dungeon-open):hover {
+	border-color: var(--brass-deep);
+	transform: translateY(-2px);
+}
+.group-dungeons-cards .group-dungeon:not(.group-dungeon-open) .dungeon-name {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.group-dungeons-cards .group-dungeon:not(.group-dungeon-open) .group-strip {
+	flex-wrap: nowrap;
+	overflow: hidden;
+}
+.group-dungeons-cards .group-dungeon:not(.group-dungeon-open) .group-split {
+	align-content: flex-start;
+	overflow: hidden;
 }
 .group-dungeon-head {
 	grid-area: head;
@@ -5094,6 +5119,7 @@ summary.breakdown-toggle:focus-visible {
 	gap: 0;
 }
 .group-dungeons-list .group-dungeon {
+	box-shadow: none;
 	grid-template-columns: 15rem 1fr auto 4rem;
 	grid-template-areas:
 		'head strip numbers prio'
@@ -5107,8 +5133,11 @@ summary.breakdown-toggle:focus-visible {
 	border-top: 1px solid var(--hairline);
 	border-radius: 0;
 }
+.group-dungeons-list .group-prio {
+	align-self: center;
+}
 .group-dungeons-list .group-dungeon-top {
-	background: linear-gradient(90deg, rgb(214 174 95 / 0.09), transparent 60%);
+	background: linear-gradient(90deg, rgb(214 174 95 / 0.1), transparent 60%);
 }
 .group-dungeons-list .group-dungeon-numbers {
 	padding-top: 0;
@@ -5123,7 +5152,7 @@ summary.breakdown-toggle:focus-visible {
 }
 @media (max-width: 60rem) {
 	.group-dungeons-list .group-dungeon {
-		grid-template-columns: 1fr auto;
+		grid-template-columns: minmax(0, 1fr) auto;
 		grid-template-areas:
 			'head prio'
 			'strip strip'
@@ -5148,8 +5177,11 @@ summary.breakdown-toggle:focus-visible {
 .group-want .badge {
 	margin-left: 0;
 }
-.group-dungeon-top {
+.group-dungeons-cards .group-dungeon-top {
 	border-color: var(--brass);
+	box-shadow:
+		0 0 0 1px var(--brass),
+		0 0 18px -4px var(--brass);
 }
 /* An open card takes the whole row, so the boss lists have room. */
 .group-dungeon-open {
@@ -5185,13 +5217,33 @@ summary.breakdown-toggle:focus-visible {
 	flex: none;
 	flex-direction: column;
 	align-items: center;
-	font-size: 0.75rem;
+	align-self: start;
+	gap: 0.15rem;
+	font-size: 0.6875rem;
 	color: var(--haze);
 }
 .group-prio strong {
-	font-size: 1.6rem;
+	display: grid;
+	place-items: center;
+	width: 2.6rem;
+	height: 2.6rem;
+	font-size: 1.5rem;
 	line-height: 1;
 	color: var(--brass);
+	background: #0006;
+	border: 2px solid var(--brass-deep);
+	border-radius: 50%;
+}
+.group-dungeon-top .group-prio strong {
+	color: var(--on-brass);
+	background: linear-gradient(180deg, #ffe45c, var(--brass) 55%, #c98a00);
+	border-color: #fff6b0;
+	box-shadow: 0 0 12px var(--brass);
+}
+.group-dungeon:nth-child(2) .group-prio strong,
+.group-dungeon:nth-child(3) .group-prio strong {
+	border-color: var(--brass);
+	box-shadow: 0 0 8px -2px var(--brass);
 }
 .group-people {
 	font-size: 0.8125rem;
@@ -5586,5 +5638,53 @@ summary.breakdown-toggle:focus-visible {
 	}
 	.cheer-smoke {
 		opacity: 0.6;
+	}
+}
+
+/* FAQ: questions that open, in groups */
+.faq {
+	max-width: 52rem;
+}
+.faq-group h3 {
+	margin: 1.6rem 0 0.4rem;
+	font-size: 1.125rem;
+	color: var(--brass);
+	border-bottom: 1px solid var(--hairline);
+	padding-bottom: 0.25rem;
+}
+.faq-item {
+	border-bottom: 1px solid var(--hairline);
+}
+.faq-item summary {
+	padding: 0.6rem 0;
+	font-weight: 600;
+	cursor: pointer;
+}
+.faq-item summary:hover {
+	color: var(--brass);
+}
+.faq-answer {
+	max-width: 70ch;
+	padding: 0 0 0.8rem 1.1rem;
+	color: var(--mist);
+}
+.faq-answer p {
+	margin: 0 0 0.6rem;
+}
+.faq-answer ul,
+.faq-answer ol {
+	margin: 0 0 0.6rem;
+	padding-left: 1.2rem;
+}
+.faq-answer li {
+	margin-bottom: 0.35rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.group-dungeons-cards .group-dungeon:not(.group-dungeon-open) {
+		transition: none;
+	}
+	.group-dungeons-cards .group-dungeon:not(.group-dungeon-open):hover {
+		transform: none;
 	}
 }

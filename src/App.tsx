@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { CharacterSheet } from './components/CharacterSheet';
 import { EnchantsTab } from './components/EnchantsTab';
 import { castingShare, countsMending, mendingWeights } from './lib/sim/mending';
+import { FaqTab } from './components/FaqTab';
 import { NewsTab, newsUnseen } from './components/NewsTab';
 import { GearRails } from './components/GearRail';
 import { CharacterBar } from './components/CharacterBar';
@@ -42,6 +43,7 @@ const TABS = [
 const SIDE_TABS = [
 	{ id: 'sim', label: 'Sim setup' },
 	{ id: 'news', label: 'News' },
+	{ id: 'faq', label: 'FAQ' },
 ];
 
 /** Two copies of the site are published: the live one, and under dev/ the one with changes still being tried out. Both read the same saved characters. */
@@ -178,7 +180,7 @@ function CheerDwarf() {
 	);
 }
 
-/** Bogdan's friends, drawn in his style: Larry, a gnome holy priest under a far too big backpack, hauls Afly, a warlock in a purple robe who would rather be carried, along on a rope. Both are the owner's own characters. */
+/** Bogdan's friends, drawn in his style: Larry, a gnome holy priest (she) under a far too big backpack, hauls Afly, a warlock in a purple robe who would rather be carried, along on a rope. Both are the owner's own characters. */
 function CheerFriends() {
 	return (
 		<svg className="cheer-friends" viewBox="0 0 300 240" width="300" height="240" aria-hidden="true">
@@ -235,31 +237,50 @@ function CheerFriends() {
 				<path d="M222 182 L210 198 M236 182 L250 196" stroke="#f2c9a8" strokeWidth="9" strokeLinecap="round" />
 				<ellipse cx="206" cy="201" rx="11" ry="6" fill="#e9e4d2" />
 				<ellipse cx="256" cy="199" rx="11" ry="6" fill="#e9e4d2" />
-				{/* robe: white and gold on top, red below */}
-				<path d="M212 150 Q208 186 214 190 H246 Q252 186 246 150 Z" fill="#b8402e" />
-				<path d="M214 178 H246" stroke="#d6a52c" strokeWidth="3" />
+				{/* robe: white tabard with an emblem, belt, red skirt with a gold hem */}
+				<path d="M212 150 Q206 188 212 192 H248 Q254 188 248 150 Z" fill="#b8402e" />
+				<path d="M210 184 Q230 190 250 184 L249 191 Q230 196 211 191 Z" fill="#e2a93a" />
 				<path d="M212 136 Q210 158 214 160 H246 Q250 158 246 136 Q230 128 212 136 Z" fill="#f4f1e8" stroke="#d6a52c" strokeWidth="2" />
-				<rect x="212" y="156" width="35" height="6" rx="2" fill="#3a3a44" />
-				{/* strap and arms on the rope */}
+				<path d="M220 140 Q224 150 230 147 Q236 150 240 140 Q240 152 230 156 Q220 152 220 140 Z" fill="#3a3a44" />
+				<path d="M222 138 Q230 133 238 138" fill="none" stroke="#d6a52c" strokeWidth="2" strokeLinecap="round" />
+				<rect x="211" y="157" width="37" height="7" rx="2" fill="#23232b" />
+				<rect x="225" y="156" width="10" height="9" rx="2" fill="none" stroke="#d6a52c" strokeWidth="2" />
+				{/* spiked purple shoulder pads */}
+				<path d="M196 138 L190 126 L202 130 L204 120 L212 130 L222 128 Q224 142 212 146 Q200 146 196 138 Z" fill="#5b3a8a" stroke="#2f1d4d" strokeWidth="1.5" strokeLinejoin="round" />
+				<path d="M264 138 L270 126 L258 130 L256 120 L248 130 L238 128 Q236 142 248 146 Q260 146 264 138 Z" fill="#5b3a8a" stroke="#2f1d4d" strokeWidth="1.5" strokeLinejoin="round" />
+				{/* strap, one hand on the rope, the other holding a ball of holy light */}
 				<path d="M218 134 Q214 150 216 160" fill="none" stroke="#5c3814" strokeWidth="5" strokeLinecap="round" />
-				<path d="M226 146 L246 146" stroke="#f2c9a8" strokeWidth="8" strokeLinecap="round" />
-				<circle cx="248" cy="146" r="6" fill="#f2c9a8" />
-				{/* head: big, as gnomes have them */}
+				<path d="M222 148 L240 148" stroke="#f2c9a8" strokeWidth="8" strokeLinecap="round" />
+				<circle cx="243" cy="148" r="6" fill="#6a4a9c" />
+				<path d="M250 148 L266 160" stroke="#f2c9a8" strokeWidth="8" strokeLinecap="round" />
+				<circle className="cheer-bling cheer-bling-2" cx="272" cy="164" r="15" fill="#fff6b0" opacity="0.35" />
+				<circle cx="272" cy="164" r="9" fill="#fff9d6" opacity="0.8" />
+				<circle cx="272" cy="164" r="5" fill="#ffffff" />
+				{/* head: big, as gnomes have them; brown hair parted in the middle, ponytail, earrings */}
 				<path d="M216 92 Q184 80 172 108 Q172 124 184 118 Q188 104 212 108 Z" fill="#8a4b22" />
 				<circle cx="206" cy="98" r="4.5" fill="#d6a52c" />
-				<path d="M214 112 l-9 -4 l7 9 Z M262 112 l9 -4 l-7 9 Z" fill="#f2c9a8" />
+				<path d="M214 112 l-10 -5 l8 11 Z M262 112 l10 -5 l-8 11 Z" fill="#f2c9a8" />
+				<circle cx="207" cy="117" r="3" fill="none" stroke="#9fd8ff" strokeWidth="2" />
+				<circle cx="269" cy="117" r="3" fill="none" stroke="#9fd8ff" strokeWidth="2" />
 				<circle cx="238" cy="110" r="24" fill="#f2c9a8" />
-				<path d="M214 108 Q212 82 238 82 Q264 82 262 108 Q254 92 240 96 Q238 90 236 96 Q222 92 214 108 Z" fill="#8a4b22" />
-				{/* light blue eyes, annoyed brows, gritted teeth */}
-				<ellipse cx="229" cy="112" rx="6" ry="6.5" fill="#ffffff" />
-				<ellipse cx="248" cy="112" rx="6" ry="6.5" fill="#ffffff" />
-				<circle cx="231" cy="113" r="3.6" fill="#7fd0ff" />
-				<circle cx="250" cy="113" r="3.6" fill="#7fd0ff" />
-				<circle cx="231.5" cy="113" r="1.5" fill="#12222c" />
-				<circle cx="250.5" cy="113" r="1.5" fill="#12222c" />
-				<path d="M221 103 L236 107 M257 103 L242 107" stroke="#5c3014" strokeWidth="3" strokeLinecap="round" />
-				<rect x="231" y="122" width="16" height="6" rx="2" fill="#ffffff" stroke="#8a3d2f" strokeWidth="1.5" />
-				<path d="M235 122 V128 M239 122 V128 M243 122 V128" stroke="#8a3d2f" strokeWidth="1" />
+				<path d="M212 114 Q206 78 238 78 Q270 78 264 114 Q264 98 240 87 L238 84 L236 87 Q212 98 212 114 Z" fill="#8a4b22" />
+				<path d="M213 106 Q208 124 216 134 L219 112 Z M263 106 Q268 124 260 134 L257 112 Z" fill="#8a4b22" />
+				<path d="M238 84 Q230 80 222 84 M238 84 Q246 80 254 84" fill="none" stroke="#a9632f" strokeWidth="1.5" strokeLinecap="round" />
+				{/* big light blue eyes with lashes, annoyed brows, gritted teeth */}
+				<ellipse cx="228" cy="112" rx="7" ry="7.5" fill="#ffffff" />
+				<ellipse cx="248" cy="112" rx="7" ry="7.5" fill="#ffffff" />
+				<circle cx="229.5" cy="113" r="4.4" fill="#8fdcff" />
+				<circle cx="249.5" cy="113" r="4.4" fill="#8fdcff" />
+				<circle cx="230" cy="113" r="1.8" fill="#12222c" />
+				<circle cx="250" cy="113" r="1.8" fill="#12222c" />
+				<circle cx="231.5" cy="111" r="1.1" fill="#ffffff" />
+				<circle cx="251.5" cy="111" r="1.1" fill="#ffffff" />
+				<path d="M221 108 Q228 102 235 107 M241 107 Q248 102 255 108" fill="none" stroke="#3a2414" strokeWidth="1.8" strokeLinecap="round" />
+				<path d="M221 108 l-3 -2 M255 108 l3 -2" stroke="#3a2414" strokeWidth="1.6" strokeLinecap="round" />
+				<path d="M220 101 L234 104 M256 101 L242 104" stroke="#6b3a18" strokeWidth="2.2" strokeLinecap="round" />
+				<path d="M237 118 q1 2 3 1" fill="none" stroke="#d9a587" strokeWidth="1.5" strokeLinecap="round" />
+				<rect x="230" y="123" width="16" height="6" rx="3" fill="#ffffff" stroke="#c0566a" strokeWidth="2" />
+				<path d="M234 123 V129 M238 123 V129 M242 123 V129" stroke="#c9a0a8" strokeWidth="1" />
 				{/* sweat */}
 				<path className="cheer-bling cheer-bling-1" d="M268 92 q4 7 0 9 q-4 -2 0 -9 Z" fill="#7fd0ff" />
 				<path className="cheer-bling cheer-bling-3" d="M276 108 q3 6 0 8 q-3 -2 0 -8 Z" fill="#7fd0ff" />
@@ -542,7 +563,7 @@ export function App() {
 						</p>
 					</div>
 				</div>
-				<nav className="masthead-tools" aria-label="Settings and news">
+				<nav className="masthead-tools" aria-label="Settings, news and questions">
 					{SIDE_TABS.map(t => (
 						<button key={t.id} className="tool-link" aria-current={t.id === tab ? 'page' : undefined} onClick={() => {
 								setTab(t.id);
@@ -593,7 +614,9 @@ export function App() {
 						/>
 					</section>
 				)}
-				{(!character || importing) && <ImportPanel hasCharacter={Boolean(character)} onImported={onImported} onCancel={() => setImporting(false)} />}
+				{/* The FAQ needs no character: it is there for the first visit too. */}
+				{tab === 'faq' && !character && <FaqTab />}
+				{(!character || importing) && tab !== 'faq' && <ImportPanel hasCharacter={Boolean(character)} onImported={onImported} onCancel={() => setImporting(false)} />}
 
 				{character && !importing && (
 					<CharacterBar
@@ -636,6 +659,7 @@ export function App() {
 
 						{tab === 'enchants' && (data ? <EnchantsTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
 
+						{tab === 'faq' && <FaqTab />}
 						{tab === 'news' && <NewsTab myClass={baseSpec.className} onSeen={newsSeen} />}
 						{tab === 'sim' && <SimSetupTab spec={spec} character={character} data={data} onChange={update} />}
 						{tab === 'character' && (
