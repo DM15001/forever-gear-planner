@@ -5,6 +5,9 @@ name: Keep the simulator current
 # (scripts/build-data.mjs), runs the tests, commits and republishes. So "Simulate" on the site gives the
 # same number as wowsims.com for the same character and settings.
 #
+# Each update also writes what it changed in the item list to docs/item-changes.md and refreshes
+# docs/items-to-check.md, the list of items whose source is still a guess.
+#
 # The long measurements (item effects, stat weights, weapons) are started afterwards only if none of them
 # is running, so a measurement in flight can finish; a nightly pass catches up on anything left over.
 # If the tests fail on the new data, nothing is committed and an issue says so.
@@ -79,10 +82,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/sim src/data
-          if git diff --cached --quiet; then echo "Nothing changed."; exit 0; fi
           short=$(echo "${{ steps.check.outputs.theirs }}" | cut -c1-10)
-          git commit -q -m "Simulator updated to WoWSims $short" -m "Written by .github/workflows/engine.yml with scripts/build-data.mjs."
+          # What the update changed in the items (docs/item-changes.md) and which sources are still guessed (docs/items-to-check.md).
+          items=$(node scripts/item-report.mjs --log "WoWSims $short" | head -1) || items="item report failed"
+          npx vite-node scripts/items-to-check.ts || echo "::warning::items-to-check failed"
+          git add public/sim src/data docs
+          if git diff --cached --quiet; then echo "Nothing changed."; exit 0; fi
+          git commit -q -m "Simulator updated to WoWSims $short" -m "Items: $items" -m "Written by .github/workflows/engine.yml with scripts/build-data.mjs."
           for attempt in 1 2 3; do
             git pull -q --rebase origin main && git push -q origin HEAD:main && echo "pushed=true" >> "$GITHUB_OUTPUT" && break
             sleep 10
