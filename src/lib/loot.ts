@@ -6,8 +6,9 @@ import lootConfig from '../config/wowhead/loot.json';
 import type { Faction, Item, ItemSource, Npc, Zone } from './types';
 
 interface LootEntry {
-	drops?: { npcId: number; count: number; outOf: number }[];
-	containers?: { name: string; zoneId?: number; count: number; outOf: number }[];
+	/** `count` of `outOf` kills gave the item; left out when only the creature is known. */
+	drops?: { npcId: number; count?: number; outOf?: number }[];
+	containers?: { name: string; zoneId?: number; count?: number; outOf?: number }[];
 	quests?: { questId: number; name: string; faction?: Faction }[];
 	crafted?: { spellId: number; profession: string };
 	/** Drops somewhere in this dungeon or zone; which creature is not known. */
@@ -53,7 +54,11 @@ export function applyLoot(itemById: Map<number, Item>, npcById: Map<number, Npc>
 		if (!npcById.has(Number(id))) npcById.set(Number(id), { id: Number(id), ...npc });
 	}
 	// Hand-kept sources win over the fetched ones for the same item.
-	const MANUAL = (manualConfig as unknown as { items: Record<string, LootEntry> }).items;
+	const manual = manualConfig as unknown as { items: Record<string, LootEntry>; npcs?: Record<string, { name: string; zoneId?: number }> };
+	for (const [id, npc] of Object.entries(manual.npcs ?? {})) {
+		if (!npcById.has(Number(id))) npcById.set(Number(id), { id: Number(id), ...npc });
+	}
+	const MANUAL = manual.items;
 	for (const [id, entry] of Object.entries({ ...LOOT.items, ...MANUAL })) {
 		const item = itemById.get(Number(id));
 		if (!item) continue;
@@ -64,7 +69,7 @@ export function applyLoot(itemById: Map<number, Item>, npcById: Map<number, Npc>
 		const sources = item.sources ?? [];
 		for (const drop of entry.drops ?? []) {
 			const source = sources.find(s => s.kind === 'drop' && s.npcId === drop.npcId);
-			if (!source) continue;
+			if (!source || !drop.count || !drop.outOf) continue;
 			source.dropChance = drop.count / drop.outOf;
 			source.dropBasis = 'forever';
 			source.dropSample = drop.outOf;
@@ -72,7 +77,7 @@ export function applyLoot(itemById: Map<number, Item>, npcById: Map<number, Npc>
 		for (const box of entry.containers ?? []) {
 			// The WoWSims data names chests loosely ("Tribute" for "Gordok Tribute"), so match on the zone and a shared name.
 			const source = sources.find(s => s.kind === 'drop' && !s.npcId && Boolean(s.otherName?.trim()) && (box.name.includes(s.otherName!.trim()) || s.otherName!.includes(box.name)) && (!box.zoneId || !s.zoneId || s.zoneId === box.zoneId));
-			if (!source) continue;
+			if (!source || !box.count || !box.outOf) continue;
 			source.dropChance = box.count / box.outOf;
 			source.dropBasis = 'forever';
 			source.dropSample = box.outOf;
@@ -80,7 +85,7 @@ export function applyLoot(itemById: Map<number, Item>, npcById: Map<number, Npc>
 		// A chest the WoWSims data files under a boss of the same dungeon (the Gordok Tribute under Cho'Rush).
 		for (const box of entry.containers ?? []) {
 			const source = box.zoneId ? sources.find(s => s.kind === 'drop' && s.zoneId === box.zoneId && s.dropChance === undefined) : undefined;
-			if (!source || sources.some(s => s.dropBasis === 'forever')) continue;
+			if (!source || !box.count || !box.outOf || sources.some(s => s.dropBasis === 'forever')) continue;
 			source.dropChance = box.count / box.outOf;
 			source.dropBasis = 'forever';
 			source.dropSample = box.outOf;
@@ -116,12 +121,12 @@ export function applyLoot(itemById: Map<number, Item>, npcById: Map<number, Npc>
 function sourcesFrom(entry: LootEntry, npcById: Map<number, Npc>, zoneById: Map<number, Zone>): ItemSource[] {
 	const sources: ItemSource[] = [];
 	for (const drop of entry.drops ?? []) {
-		if (drop.count / drop.outOf < 0.01) continue;
+		if (drop.count && drop.outOf && drop.count / drop.outOf < 0.01) continue;
 		const zoneId = npcById.get(drop.npcId)?.zoneId;
 		sources.push({ kind: 'drop', npcId: drop.npcId, zoneId, zoneKind: zoneId ? zoneById.get(zoneId)?.kind : undefined });
 	}
 	for (const box of entry.containers ?? []) {
-		if (!box.zoneId || box.count / box.outOf < 0.01) continue;
+		if (!box.zoneId || (box.count && box.outOf && box.count / box.outOf < 0.01)) continue;
 		sources.push({ kind: 'drop', otherName: box.name, zoneId: box.zoneId, zoneKind: zoneById.get(box.zoneId)?.kind });
 	}
 	for (const drop of entry.zoneDrops ?? []) sources.push({ kind: 'drop', zoneId: drop.zoneId, zoneKind: zoneById.get(drop.zoneId)?.kind });
