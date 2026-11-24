@@ -4716,25 +4716,26 @@ summary.breakdown-toggle:focus-visible {
 .gear-rail {
 	display: none;
 }
-@media (min-width: 88rem) {
+@media (min-width: 90rem) {
 	.gear-rail {
 		position: fixed;
-		top: 9.5rem;
+		top: 50%;
+		transform: translateY(-50%);
 		z-index: 20;
 		display: block;
 		box-sizing: border-box;
-		width: 6.6rem;
-		padding: 0.4rem;
+		width: 8rem;
+		padding: 0.5rem;
 		background: var(--slate);
 		border: 1px solid var(--ridge);
 		border-radius: 8px;
-		font-size: 0.72rem;
+		font-size: 0.8rem;
 	}
 	.gear-rail-equipped {
-		left: max(0.25rem, calc(50% - 36rem - 7.1rem));
+		left: max(0.25rem, calc(50% - 36rem - 8.5rem));
 	}
 	.gear-rail-planned {
-		right: max(0.25rem, calc(50% - 36rem - 7.1rem));
+		right: max(0.25rem, calc(50% - 36rem - 8.5rem));
 	}
 }
 .gear-rail-head {
@@ -4747,7 +4748,7 @@ summary.breakdown-toggle:focus-visible {
 	min-width: 0;
 	margin: 0;
 	font-family: var(--display);
-	font-size: 0.66rem;
+	font-size: 0.8rem;
 	color: var(--brass);
 }
 .gear-rail-planned .gear-rail-head h2 {
@@ -4756,8 +4757,8 @@ summary.breakdown-toggle:focus-visible {
 .gear-rail-open {
 	display: grid;
 	place-items: center;
-	width: 1.1rem;
-	height: 1.1rem;
+	width: 1.35rem;
+	height: 1.35rem;
 	padding: 0;
 	flex-shrink: 0;
 	color: var(--brass);
@@ -4798,8 +4799,8 @@ summary.breakdown-toggle:focus-visible {
 	line-height: 0;
 }
 .gear-rail .slot-icon-small {
-	width: 1.75rem;
-	height: 1.75rem;
+	width: 2.15rem;
+	height: 2.15rem;
 	border-radius: 3px;
 }
 .gear-rail-changed .slot-icon {
@@ -4817,10 +4818,11 @@ summary.breakdown-toggle:focus-visible {
 .gear-rail-show {
 	display: none;
 }
-@media (min-width: 88rem) {
+@media (min-width: 90rem) {
 	.gear-rail-show {
 		position: fixed;
-		top: 9.5rem;
+		top: 50%;
+		transform: translateY(-50%);
 		z-index: 20;
 		display: block;
 		padding: 0.6rem 0.35rem;
@@ -4862,4 +4864,133 @@ summary.breakdown-toggle:focus-visible {
 	color: var(--mist);
 	background: #3a2a08;
 	border-bottom: 1px solid var(--brass);
+}
+
+/* Breakdown tabs: buffs, debuffs, casts, resources, log. */
+.result-tabs {
+	flex-wrap: wrap;
+}
+.result-tab:disabled {
+	opacity: 0.45;
+	cursor: default;
+}
+.result-table-plain {
+	min-width: 30rem;
+}
+.result-table-plain .result-bar-cell {
+	min-width: 12rem;
+}
+.result-table-plain .result-bar > span {
+	display: block;
+	height: 100%;
+	background: var(--brass);
+}
+.result-cost {
+	color: var(--ember);
+}
+.result-group h4 {
+	margin: 0.9rem 0 0.2rem;
+	font-family: var(--display);
+	font-size: 1rem;
+	color: var(--brass);
+}
+.log-tools {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem 1rem;
+	margin: 0.6rem 0;
+}
+.log-tools input[type='search'] {
+	flex: 1 1 16rem;
+	max-width: 28rem;
+	padding: 0.4rem 0.6rem;
+	font: inherit;
+	color: var(--mist);
+	background: #0a0806;
+	border: 1px solid var(--ridge);
+	border-radius: 4px;
+}
+.log-scroll {
+	max-height: 60vh;
+	overflow: auto;
+	border: 1px solid var(--hairline);
+	border-radius: 4px;
+	background: #070605;
+}
+.log-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.8125rem;
+}
+.log-table th,
+.log-table td {
+	padding: 0.2rem 0.6rem;
+	border-bottom: 1px solid #ffffff10;
+	text-align: left;
+	vertical-align: top;
+}
+.log-table thead th {
+	position: sticky;
+	top: 0;
+	background: #14100a;
+	color: var(--haze);
+}
+.log-table td.num {
+	width: 6.5rem;
+	white-space: nowrap;
+	color: var(--haze);
+}
+.log-who {
+	color: var(--brass);
+}
+.log-who-target {
+	color: var(--ember);
+}
+.log-action {
+	white-space: nowrap;
+}
+.log-action .result-icon {
+	width: 1rem;
+	height: 1rem;
+	margin-right: 0.2rem;
+	vertical-align: -0.15rem;
+}
+.log-action a {
+	color: #f1c98a;
+	text-decoration: none;
+}
+.log-more {
+	margin: 0.6rem;
+	text-align: center;
+}
+/* Timeline: resource lanes on top, effect bars below the casts. */
+.cast-name-resource {
+	color: var(--haze);
+	font-weight: 600;
+}
+.cast-resource {
+	display: block;
+	margin-top: 0.1rem;
+}
+.cast-resource path {
+	fill: #f2d54199;
+	stroke: #f2d541;
+	stroke-width: 1;
+}
+.cast-name-effect .slot-source {
+	margin-left: auto;
+	font-size: 0.7rem;
+}
+.cast-span {
+	position: absolute;
+	top: 0.35rem;
+	height: 1rem;
+	border-radius: 3px;
+	background: #3d4bd0;
+	box-shadow: inset 2px 0 0 #9aa5ff;
+}
+.cast-span-target {
+	background: #8a2f2f;
+	box-shadow: inset 2px 0 0 #ff9a8a;
 }
