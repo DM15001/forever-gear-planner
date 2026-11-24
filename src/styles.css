@@ -1122,8 +1122,8 @@ h2::after {
 /* Masthead */
 .masthead {
 	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-areas: 'title' 'tabs';
+	grid-template-columns: 1fr auto;
+	grid-template-areas: 'title tools' 'tabs tabs';
 	align-items: center;
 	gap: 1rem 2rem;
 	border-bottom: 0;
@@ -1213,7 +1213,7 @@ h2::after {
 	white-space: nowrap;
 }
 /* All sections on one line wherever the page is wide enough for them */
-@media (min-width: 68rem) {
+@media (min-width: 57rem) {
 	.tabs {
 		flex-wrap: nowrap;
 	}
@@ -5147,4 +5147,41 @@ summary.breakdown-toggle:focus-visible {
 .news-radar-items {
 	margin: 0.5rem 0 0;
 	line-height: 1.7;
+}
+
+/* Sim setup and News: small links beside the title */
+.masthead-tools {
+	grid-area: tools;
+	display: flex;
+	align-items: center;
+	gap: 0.35rem;
+	align-self: start;
+}
+.tool-link {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.35rem 0.7rem;
+	font: inherit;
+	font-size: 0.875rem;
+	color: var(--haze);
+	background: none;
+	border: 1px solid transparent;
+	border-radius: 999px;
+	cursor: pointer;
+	white-space: nowrap;
+}
+.tool-link:hover,
+.tool-link:focus-visible {
+	color: var(--mist);
+	border-color: var(--brass-deep);
+}
+.tool-link[aria-current='page'] {
+	color: var(--brass);
+	border-color: var(--brass);
+}
+@media (max-width: 640px) {
+	.masthead {
+		grid-template-columns: 1fr;
+		grid-template-areas: 'title' 'tools' 'tabs';
+	}
 }

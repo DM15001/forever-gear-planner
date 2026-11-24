@@ -28,13 +28,17 @@ import { loadFilter, loadRoster, loadWeights, normalFilter, saveRoster, saveWeig
 import type { Character, SpecConfig } from './lib/types';
 
 
+/** The planner's sections, in the bar. */
 const TABS = [
-	{ id: 'character', label: 'Character', step: 1 },
-	{ id: 'simulate', label: 'Simulation', step: 2 },
-	{ id: 'upgrades', label: 'Upgrades', step: 3 },
-	{ id: 'farm', label: 'Farm plan', step: 4 },
+	{ id: 'character', label: 'Character' },
+	{ id: 'simulate', label: 'Simulation' },
+	{ id: 'upgrades', label: 'Upgrades' },
+	{ id: 'farm', label: 'Farm plan' },
 	{ id: 'group', label: 'Group plan' },
-	{ id: 'enchants', label: 'Enchants', title: 'Enchants and professions' },
+	{ id: 'enchants', label: 'Enchants & professions' },
+];
+/** Settings and reading: small links beside the title, out of the way of the planner's own sections. */
+const SIDE_TABS = [
 	{ id: 'sim', label: 'Sim setup' },
 	{ id: 'news', label: 'News' },
 ];
@@ -410,17 +414,26 @@ export function App() {
 						</p>
 					</div>
 				</div>
+				<nav className="masthead-tools" aria-label="Settings and news">
+					{SIDE_TABS.map(t => (
+						<button key={t.id} className="tool-link" aria-current={t.id === tab ? 'page' : undefined} onClick={() => {
+								setTab(t.id);
+								if (character) setImporting(false);
+							}}>
+							{t.id === 'news' && newsDot && <span className="tab-dot" title="New since your last visit" aria-label="new" />}
+							{t.label}
+						</button>
+					))}
+				</nav>
 				<div className="masthead-side">
 					<div className="tab-bar">
 						<BarCap />
 						<nav className="tabs" aria-label="Sections">
 							{TABS.map(t => (
-								<button key={t.id} className="tab" title={'title' in t ? t.title : undefined} aria-current={t.id === tab ? 'page' : undefined} onClick={() => {
+								<button key={t.id} className="tab" aria-current={t.id === tab ? 'page' : undefined} onClick={() => {
 										setTab(t.id);
 										if (character) setImporting(false);
 									}}>
-									{'step' in t && <span className="tab-step">{t.step}</span>}
-									{t.id === 'news' && newsDot && <span className="tab-dot" title="New since your last visit" aria-label="new" />}
 									{t.label}
 								</button>
 							))}
