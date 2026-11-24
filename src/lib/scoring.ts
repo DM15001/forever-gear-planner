@@ -337,7 +337,8 @@ export const DEFAULT_FILTER: SourceFilter = {
 	rep: true,
 	pvp: false,
 	pvpMaxRank: 14,
-	unknown: true,
+	// Off for a new character: an item nobody knows the source of cannot be planned for. One switch turns them on.
+	unknown: false,
 	tierSlots: ['head', 'shoulder', 'chest', 'wrist', 'hands', 'waist', 'legs', 'feet'],
 	tier05: true,
 	ignoredSets: [],

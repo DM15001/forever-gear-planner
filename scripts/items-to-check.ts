@@ -34,7 +34,7 @@ for (const spec of SPECS) {
 	const character = { race: spec.races[0]?.id ?? null, level: 60, talents: '', gear, specId: spec.id, professions: [] } as unknown as Character;
 	const seen = new Set<number>();
 	for (let slot = 0; slot < GEAR_SLOTS.length; slot++) {
-		const list = slotCandidates(slot, gear, { character, data, spec, filter: { ...DEFAULT_FILTER, randomSuffix: true } });
+		const list = slotCandidates(slot, gear, { character, data, spec, filter: { ...DEFAULT_FILTER, randomSuffix: true, unknown: true } });
 		list.slice(0, TOP).forEach((candidate, rank) => {
 			if (!guessed(candidate.item) || seen.has(candidate.item.id)) return;
 			seen.add(candidate.item.id);
