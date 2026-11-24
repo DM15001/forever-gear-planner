@@ -1,16 +1,16 @@
 {
-	"_comment": "News of one month, newest day first. Written once a day by the scheduled task 'WoW Forever daily news (gear planner)'; nothing is ever deleted, this is also the changelog. Sections in this order when they have items: 'Game' (hotfixes, patch notes, fixed quests, announcements), 'WoWSims' (changes to the simulator). Every item: title, text (own words, one or two sentences), url, source, and tags. Tags, one to three per item, only from this list: Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior, Items, Dungeons, Quests, Professions, PvP, World, Races, Upcoming, WoWSims. A last section 'Gear Planner' holds the planner's own patch notes (tag 'Planner', source 'Gear Planner', no url); it is written when the site changes and must be kept when the day's news is added.",
+	"_comment": "News of one month, newest day first. Written once a day by the scheduled task 'WoW Forever daily news (gear planner)'; nothing is ever deleted, this is also the changelog. Sections in this order when they have items: 'Game' (hotfixes, patch notes, fixed quests, announcements), 'WoWSims' (changes to the simulator). Every item: title, text (own words, one or two sentences), url, source, and tags. Tags, one to three per item, only from this list: Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior, Items, Dungeons, Quests, Professions, PvP, World, Races, Upcoming, WoWSims. A last section 'Gear Planner' holds the planner's own patch notes (tag 'Planner', source 'Gear Planner', no url; the News page shows it as a feed of its own); it is written when the site changes and must be kept when the day's news is added.",
 	"entries": [
 		{
 			"date": "2026-11-25",
-			"summary": "Planner update: gear sets per character, the group plan as cards or list, and an FAQ.",
+			"summary": "Planner update: presets per character, the group plan as cards or list, an FAQ, and a changelog of its own.",
 			"sections": [
 				{
 					"title": "Gear Planner",
 					"items": [
 						{
-							"title": "Gear sets per character",
-							"text": "\"New gear set from this character\" on the Character page makes a named copy to change: another build, other gear, another enemy. Both stay in the bar at the top.",
+							"title": "Presets per character",
+							"text": "One character can have several presets, each with its own build, worn gear and plan: one for fire, one for frost, one against beasts. Pick, create and delete them under Build on the Character page, or in the menu at the top of the gear panes at the side. They stay one tile in the character bar.",
 							"source": "Gear Planner",
 							"tags": [
 								"Planner"
@@ -18,7 +18,7 @@
 						},
 						{
 							"title": "Group plan: cards and list",
-							"text": "Dungeons show as cards or as a list, each with the drops as icons, the gain under them, who needs what, the total for the group and a priority. Names carry a tag: planned, BiS or upgrade.",
+							"text": "Dungeons show as cards or as a list, each with the drops as icons, the gain under them, who needs what, the total for the group and a priority. Cards stay in order; the details of an open card show below its row. Names carry a tag: planned, BiS or upgrade.",
 							"source": "Gear Planner",
 							"tags": [
 								"Planner"
@@ -27,6 +27,14 @@
 						{
 							"title": "FAQ",
 							"text": "A new page next to Sim setup and News: what the planner does, how to use it, where the numbers and the data come from, and where it stops.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Changelog of its own",
+							"text": "News now has two feeds: WoW Forever and WoWSims, and this site's own changelog.",
 							"source": "Gear Planner",
 							"tags": [
 								"Planner"

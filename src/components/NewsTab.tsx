@@ -35,7 +35,9 @@ const SEEN_KEY = 'forever-gear-planner.news-seen';
 const OPEN_DAYS = 7;
 /** The tags an item can carry, in the order the filter shows them. */
 const CLASS_TAGS = ['Druid', 'Hunter', 'Mage', 'Paladin', 'Priest', 'Rogue', 'Shaman', 'Warlock', 'Warrior'];
-const TOPIC_TAGS = ['Items', 'Dungeons', 'Quests', 'Professions', 'PvP', 'World', 'Races', 'Upcoming', 'WoWSims', 'Planner'];
+const TOPIC_TAGS = ['Items', 'Dungeons', 'Quests', 'Professions', 'PvP', 'World', 'Races', 'Upcoming', 'WoWSims'];
+/** The section that holds this site's own patch notes; it has a page of its own. */
+const PLANNER = 'Gear Planner';
 
 /** True when the newest day in the news has not been opened in this browser yet. */
 export async function newsUnseen(): Promise<boolean> {
@@ -92,6 +94,7 @@ function Day({ entry, keep }: { entry: NewsEntry; keep: (item: NewsItem) => bool
  */
 export function NewsTab({ myClass, onSeen }: { myClass?: string; onSeen: () => void }) {
 	const [loaded, setLoaded] = useState<Record<string, NewsEntry[]>>({});
+	const [feed, setFeed] = useState<'news' | 'planner'>('news');
 	const [tag, setTag] = useState<string | null>(null);
 	const [query, setQuery] = useState('');
 	const [opened, setOpened] = useState<Set<string>>(new Set());
@@ -124,7 +127,15 @@ export function NewsTab({ myClass, onSeen }: { myClass?: string; onSeen: () => v
 		[tag, words],
 	);
 	const hasItems = (entry: NewsEntry) => entry.sections.some(section => section.items.some(keep));
-	const all = MONTHS.flatMap(month => loaded[month] ?? []);
+	// Two feeds from the same files: the game and WoWSims, or this site's own patch notes.
+	const inFeed = (entries: NewsEntry[] | undefined) =>
+		entries
+			?.map(entry => {
+				const own = entry.sections.every(section => section.title === PLANNER);
+				return { ...entry, summary: (feed === 'planner') === own ? entry.summary : undefined, sections: entry.sections.filter(section => (section.title === PLANNER) === (feed === 'planner')) };
+			})
+			.filter(entry => entry.sections.length > 0);
+	const all = MONTHS.flatMap(month => inFeed(loaded[month]) ?? []);
 	const recent = all.slice(0, OPEN_DAYS);
 	const recentDates = new Set(recent.map(entry => entry.date));
 	const matches = narrowed ? all.filter(hasItems) : [];
@@ -139,9 +150,19 @@ export function NewsTab({ myClass, onSeen }: { myClass?: string; onSeen: () => v
 	return (
 		<section className="panel news">
 			<h2>News and changelog</h2>
-			<p className="hint">Once a day: what changed in WoW Forever (hotfixes, patch notes, fixed quests, announcements) and in the WoWSims simulator. Nothing is removed, so this is also the record of when something changed. Each item links to where it comes from.</p>
+			<div className="news-feeds" role="group" aria-label="Which news">
+				<button className="view-choice" aria-pressed={feed === 'news'} onClick={() => { setFeed('news'); setTag(null); }}>
+					<strong>WoW Forever and WoWSims</strong>
+					<span>Hotfixes, patch notes, simulator changes.</span>
+				</button>
+				<button className="view-choice" aria-pressed={feed === 'planner'} onClick={() => { setFeed('planner'); setTag(null); }}>
+					<strong>Gear Planner changelog</strong>
+					<span>What changed on this site.</span>
+				</button>
+			</div>
+			{feed === 'news' ? <p className="hint">Once a day: what changed in WoW Forever (hotfixes, patch notes, fixed quests, announcements) and in the WoWSims simulator. Nothing is removed, so this is also the record of when something changed. Each item links to where it comes from.</p> : <p className="hint">What is new on this site, day by day. Nothing is removed.</p>}
 
-			{(RADAR.length > 0 || WRONG.length > 0) && (
+			{feed === 'news' && (RADAR.length > 0 || WRONG.length > 0) && (
 				<div className="card news-radar">
 					<h3>On the radar: items the simulator cannot value yet ({RADAR.length + WRONG.length})</h3>
 					<p className="hint">
@@ -174,7 +195,9 @@ export function NewsTab({ myClass, onSeen }: { myClass?: string; onSeen: () => v
 			)}
 
 			<div className="news-filter">
-				<input type="search" placeholder="Search: a spell, an item, a quest ..." aria-label="Search the news" value={query} onChange={event => setQuery(event.target.value)} />
+				<input type="search" placeholder={feed === 'news' ? 'Search: a spell, an item, a quest ...' : 'Search the changelog'} aria-label="Search the news" value={query} onChange={event => setQuery(event.target.value)} />
+				{feed === 'news' && (
+					<>
 				<div className="filter-chips" role="group" aria-label="Show only">
 					{chip(null, 'Everything')}
 					{mine && chip(mine, `My class: ${mine}`)}
@@ -183,6 +206,8 @@ export function NewsTab({ myClass, onSeen }: { myClass?: string; onSeen: () => v
 				<div className="filter-chips" role="group" aria-label="Show only a topic">
 					{TOPIC_TAGS.map(name => chip(name, name))}
 				</div>
+					</>
+				)}
 			</div>
 
 			{MONTHS.length === 0 && <p>Nothing yet. The first entry comes with the next daily run.</p>}
@@ -206,7 +231,7 @@ export function NewsTab({ myClass, onSeen }: { myClass?: string; onSeen: () => v
 						<Day key={entry.date} entry={entry} keep={keep} />
 					))}
 					{MONTHS.map(month => {
-						const entries = loaded[month];
+						const entries = inFeed(loaded[month]);
 						const older = entries?.filter(entry => !recentDates.has(entry.date));
 						if (entries && older!.length === 0) return null;
 						const open = opened.has(month);

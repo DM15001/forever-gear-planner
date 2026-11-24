@@ -5,6 +5,7 @@ import { CharacterSheet } from './components/CharacterSheet';
 import { EnchantsTab } from './components/EnchantsTab';
 import { castingShare, countsMending, mendingWeights } from './lib/sim/mending';
 import { FaqTab } from './components/FaqTab';
+import { PresetContext, type Presets } from './components/Presets';
 import { NewsTab, newsUnseen } from './components/NewsTab';
 import { GearRails } from './components/GearRail';
 import { CharacterBar } from './components/CharacterBar';
@@ -24,7 +25,7 @@ import { UpgradesTab } from './components/UpgradesTab';
 import { type GameData, loadGameData, dataFor } from './lib/gameData';
 import type { ImportResult } from './lib/importCharacter';
 import { DEFAULT_FILTER, type SourceFilter } from './lib/scoring';
-import { activeCharacter, addCharacter, addGroup, addSet, characterLabel, groupFromShareText, removeActive, replaceActive, type Roster, selectCharacter, sharedCharacter, shareUrl } from './lib/roster';
+import { activeCharacter, addCharacter, addGroup, addSet, characterLabel, groupFromShareText, removeActive, removeAt, replaceActive, type Roster, selectCharacter, setsOf, sharedCharacter, shareUrl } from './lib/roster';
 import { specOf, specsOfClass } from './lib/specs';
 import { loadFilter, loadRoster, loadWeights, normalFilter, saveRoster, saveWeights } from './lib/storage';
 import type { Character, SpecConfig } from './lib/types';
@@ -242,6 +243,11 @@ function CheerFriends() {
 				<path d="M108 168 L110 188" stroke="#5b2a86" strokeWidth="14" strokeLinecap="round" />
 				<ellipse cx="116" cy="192" rx="9" ry="5" fill="#2a1840" />
 				<path d="M104 196 H126 M108 178 L112 194" fill="none" stroke="#8d949c" strokeWidth="4" strokeLinecap="round" />
+				{/* a little bag taped under the seat */}
+				<path d="M82 180 q-2 14 6 16 q10 2 10 -8 l-1 -8 Z" fill="#e8f3ea" fillOpacity="0.55" stroke="#cfd4d8" strokeWidth="1" />
+				<path d="M86 188 q2 -3 4 0 q3 -2 3 2 q2 2 -1 4 q-3 2 -6 0 q-2 -3 0 -6 Z" fill="#4f9a3a" />
+				<path d="M88 191 l2 1 M91 189 l1 2" stroke="#2f6b22" strokeWidth="0.9" strokeLinecap="round" />
+				<rect x="80" y="177" width="20" height="5" rx="1" fill="#cfd4d8" opacity="0.9" transform="rotate(-6 90 179)" />
 				{/* wheels */}
 				<circle cx="58" cy="178" r="21" fill="none" stroke="#23232b" strokeWidth="6" />
 				<circle cx="58" cy="178" r="16.5" fill="none" stroke="#8d949c" strokeWidth="2" />
@@ -532,6 +538,14 @@ export function App() {
 		setRoster(next);
 		saveRoster(next);
 	};
+	// The presets of the open character, for the Character page and the gear panes.
+	const presets: Presets = {
+		list: setsOf(roster),
+		active: roster.active,
+		create: name => changeRoster(addSet(roster, name)),
+		select: index => changeRoster(selectCharacter(roster, index)),
+		remove: index => changeRoster(removeAt(roster, index)),
+	};
 	const [warnings, setWarnings] = useState<string[]>([]);
 	const [importing, setImporting] = useState(false);
 	const [tab, setTab] = useState('character');
@@ -608,7 +622,6 @@ export function App() {
 			builds={specsOfClass(baseSpec.className)}
 			activeIndex={roster.active}
 			shareLink={shareUrl(character, window.location.href)}
-			onNewSet={name => changeRoster(addSet(roster, name))}
 			onOpenTalents={() => setTab('sim')}
 			next={
 				<>
@@ -677,6 +690,7 @@ export function App() {
 			</header>
 
 			<main>
+				<PresetContext.Provider value={presets}>
 				{dataError && <p className="notice notice-error">The item data could not be loaded. Reload the page; if that does not help, run "npm run build-data".</p>}
 
 				{character && importing && (
@@ -767,6 +781,7 @@ export function App() {
 						)}
 					</SimProvider>
 				)}
+				</PresetContext.Provider>
 			</main>
 			<BackToTop />
 

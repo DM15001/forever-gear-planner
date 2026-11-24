@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 
 import { type GameData, dataFor, loadGameData } from '../lib/gameData';
-import { type GroupMember, type GroupScope, groupFarm, sortGroup, withDrop } from '../lib/group';
+import { type GroupDungeon, type GroupMember, type GroupScope, groupFarm, sortGroup, withDrop } from '../lib/group';
 import { addCharacter, addGroup, characterFromShareText, characterLabel, groupFromShareText, groupUrl, type Roster, shareUrl } from '../lib/roster';
 import { DEFAULT_FILTER } from '../lib/scoring';
 import { specOf } from '../lib/specs';
@@ -91,6 +91,18 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 	const chosen = picked.slice(0, MOST);
 	// The item data is narrowed to a build, so each build in the group loads its own once.
 	const specIds = [...new Set(chosen.map(({ character }) => specOf(character).id))].sort().join(' ');
+	// How many cards fit in a row right now: an open card's details go under its row.
+	const gridRef = useRef<HTMLOListElement>(null);
+	const [cols, setCols] = useState(3);
+	useEffect(() => {
+		const grid = gridRef.current;
+		if (!grid) return;
+		const measure = () => setCols(Math.max(1, getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length));
+		measure();
+		const watcher = new ResizeObserver(measure);
+		watcher.observe(grid);
+		return () => watcher.disconnect();
+	}, [saved.look]);
 	const [copiedGroup, setCopiedGroup] = useState(false);
 	const copyGroup = () => {
 		groupUrl(picked.map(({ character }) => character), window.location.href)
@@ -147,6 +159,47 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 			if (!next.delete(key)) next.add(key);
 			return next;
 		});
+
+	/** The bosses of a dungeon with their drops and who wants each. */
+	const bossList = (dungeon: GroupDungeon) => (
+								<div className="group-bosses">
+								{dungeon.bosses.map(boss => (
+									<div key={boss.name} className="group-boss">
+										<h3>{boss.name}</h3>
+										<ul className="plain-list">
+											{boss.items.map(({ item, wants }) => (
+												<li key={item.id} className="group-item">
+													<a href={wowheadItemUrl(item.id)} data-wowhead={wowheadData('item', item.id)} target="_blank" rel="noreferrer" className="group-item-name">
+														<ItemIcon icon={item.icon} quality={item.quality} small />
+														<span className={`quality-${item.quality}`}>{item.name}</span>
+													</a>
+													{wants.length > 1 && <span className="group-contested">{wants.length} want it</span>}
+													<span className="group-wants">
+														{wants.map((want, order) => (
+															<span key={want.member.index} className={`group-want${order === 0 && wants.length > 1 ? ' group-want-first' : ''}${!want.planned && saved.scope === 'plan' ? ' group-want-extra' : ''}`}>
+																{want.member.label} <span className="num">{gain(want.delta)}</span>
+																{want.planned && <span className="badge badge-plan group-tag-planned" title="In this character's plan">planned</span>}
+																{want.best ? (
+																	<span className="badge badge-plan group-tag-bis" title="Nothing in the game is better for this character in that slot">BiS</span>
+																) : (
+																	!want.planned && <span className="badge badge-plan group-tag-upgrade" title="Better than what this character wears, but not their best option">upgrade</span>
+																)}
+																<button className="button button-small" onClick={event => {
+																		cheerBurst(event.currentTarget);
+																		got(want.member, want.slotIndex, item);
+																	}} title={`${item.name} dropped for ${want.member.label}: equip it and take it out of the plan`}>
+																	Got it
+																</button>
+															</span>
+														))}
+													</span>
+												</li>
+											))}
+										</ul>
+									</div>
+								))}
+								</div>
+	);
 
 	return (
 		<section className="panel group-farm" aria-labelledby="group-farm">
@@ -253,7 +306,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 			{!waiting && members.length > 0 && dungeons.length === 0 && (
 				<p className="farm-empty">{saved.scope === 'plan' ? 'Nobody in the group has a dungeon drop in their plan. Switch to "Every upgrade", or build the plans first.' : 'No dungeon has an upgrade for anybody in the group.'}</p>
 			)}
-			<ol className={`plain-list group-dungeons group-dungeons-${saved.look}`}>
+			<ol ref={gridRef} className={`plain-list group-dungeons group-dungeons-${saved.look}`}>
 				{dungeons.map((dungeon, rank) => {
 					const isOpen = open.has(dungeon.key);
 					// Every drop once, biggest gain first: the row of icons on the card.
@@ -266,8 +319,13 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 						}
 					const strip = [...byItem.values()].sort((x, y) => y.best - x.best);
 					const shown = strip.slice(0, saved.look === 'cards' ? 6 : 12);
+					// In the card view the details of an open card go below its row, full width, so the cards keep their order.
+					const rowEnd = saved.look === 'cards' && (rank % cols === cols - 1 || rank === dungeons.length - 1);
+					const rowStart = rank - (rank % cols);
+					const details = rowEnd ? dungeons.slice(rowStart, rank + 1).filter(other => open.has(other.key)) : [];
 					return (
-						<li key={dungeon.key} className={`group-dungeon${rank === 0 ? ' group-dungeon-top' : ''}${isOpen ? ' group-dungeon-open' : ''}`}>
+						<Fragment key={dungeon.key}>
+						<li className={`group-dungeon${rank === 0 ? ' group-dungeon-top' : ''}${isOpen ? ' group-dungeon-open' : ''}`}>
 							<button className="group-dungeon-head" aria-expanded={isOpen} onClick={() => toggle(dungeon.key)} title={isOpen ? 'Hide the bosses and who wants what' : 'Show the bosses and who wants what'}>
 								<DungeonIcon icons={(DUNGEON_ICONS as unknown as Record<string, string[] | undefined>)[dungeon.key.split(':')[0]] ?? []} />
 								<span className="group-dungeon-title">
@@ -316,46 +374,20 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 										</li>
 									))}
 							</ul>
-							{isOpen && (
-								<div className="group-bosses">
-								{dungeon.bosses.map(boss => (
-									<div key={boss.name} className="group-boss">
-										<h3>{boss.name}</h3>
-										<ul className="plain-list">
-											{boss.items.map(({ item, wants }) => (
-												<li key={item.id} className="group-item">
-													<a href={wowheadItemUrl(item.id)} data-wowhead={wowheadData('item', item.id)} target="_blank" rel="noreferrer" className="group-item-name">
-														<ItemIcon icon={item.icon} quality={item.quality} small />
-														<span className={`quality-${item.quality}`}>{item.name}</span>
-													</a>
-													{wants.length > 1 && <span className="group-contested">{wants.length} want it</span>}
-													<span className="group-wants">
-														{wants.map((want, order) => (
-															<span key={want.member.index} className={`group-want${order === 0 && wants.length > 1 ? ' group-want-first' : ''}${!want.planned && saved.scope === 'plan' ? ' group-want-extra' : ''}`}>
-																{want.member.label} <span className="num">{gain(want.delta)}</span>
-																{want.planned && <span className="badge badge-plan group-tag-planned" title="In this character's plan">planned</span>}
-																{want.best ? (
-																	<span className="badge badge-plan group-tag-bis" title="Nothing in the game is better for this character in that slot">BiS</span>
-																) : (
-																	!want.planned && <span className="badge badge-plan group-tag-upgrade" title="Better than what this character wears, but not their best option">upgrade</span>
-																)}
-																<button className="button button-small" onClick={event => {
-																		cheerBurst(event.currentTarget);
-																		got(want.member, want.slotIndex, item);
-																	}} title={`${item.name} dropped for ${want.member.label}: equip it and take it out of the plan`}>
-																	Got it
-																</button>
-															</span>
-														))}
-													</span>
-												</li>
-											))}
-										</ul>
-									</div>
-								))}
-								</div>
-							)}
+							{isOpen && saved.look === 'list' && bossList(dungeon)}
 						</li>
+						{details.map(other => (
+							<li key={`${other.key}-detail`} className="group-detail">
+								<header>
+									<h3>{other.name}: who wants what</h3>
+									<button className="link" onClick={() => toggle(other.key)}>
+										Close
+									</button>
+								</header>
+								{bossList(other)}
+							</li>
+						))}
+						</Fragment>
 					);
 				})}
 			</ol>

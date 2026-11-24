@@ -5088,9 +5088,8 @@ summary.breakdown-toggle:focus-visible {
 	border-radius: 8px;
 	box-shadow: 0 2px 6px rgb(0 0 0 / 0.45);
 }
-/* Cards: every one the same size, whatever is in it. An open card takes a whole row; the others close the gap. */
+/* Cards: every one the same size, whatever is in it, and always in order. The details of an open card sit below its row. */
 .group-dungeons-cards {
-	grid-auto-flow: dense;
 	grid-template-columns: repeat(auto-fill, minmax(18.5rem, 1fr));
 	gap: 0.8rem;
 }
@@ -5105,33 +5104,33 @@ summary.breakdown-toggle:focus-visible {
 .group-dungeons-cards .group-dungeon-numbers {
 	padding-top: 0.45rem;
 }
-.group-dungeons-cards .group-dungeon:not(.group-dungeon-open) {
+.group-dungeons-cards .group-dungeon {
 	grid-template-rows: 3rem 3.3rem 1.75rem auto;
 	transition:
 		transform 0.15s,
 		border-color 0.15s;
 }
-.group-dungeons-cards .group-dungeon:not(.group-dungeon-open) .group-split {
+.group-dungeons-cards .group-dungeon .group-split {
 	flex-wrap: nowrap;
 }
-.group-dungeons-cards .group-dungeon:not(.group-dungeon-open) .group-split li {
+.group-dungeons-cards .group-dungeon .group-split li {
 	flex: none;
 	white-space: nowrap;
 }
-.group-dungeons-cards .group-dungeon:not(.group-dungeon-open):hover {
+.group-dungeons-cards .group-dungeon:hover {
 	border-color: var(--brass-deep);
 	transform: translateY(-2px);
 }
-.group-dungeons-cards .group-dungeon:not(.group-dungeon-open) .dungeon-name {
+.group-dungeons-cards .group-dungeon .dungeon-name {
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
-.group-dungeons-cards .group-dungeon:not(.group-dungeon-open) .group-strip {
+.group-dungeons-cards .group-dungeon .group-strip {
 	flex-wrap: nowrap;
 	overflow: hidden;
 }
-.group-dungeons-cards .group-dungeon:not(.group-dungeon-open) .group-split {
+.group-dungeons-cards .group-dungeon .group-split {
 	align-content: flex-start;
 	overflow: hidden;
 }
@@ -5256,9 +5255,27 @@ summary.breakdown-toggle:focus-visible {
 		0 0 0 1px var(--brass),
 		0 0 18px -4px var(--brass);
 }
-/* An open card takes the whole row, so the boss lists have room. */
-.group-dungeon-open {
+/* The open card is marked, and its details follow as a panel across the whole width. */
+.group-dungeons-cards .group-dungeon-open {
+	border-color: var(--brass);
+	background: linear-gradient(180deg, rgb(214 174 95 / 0.12), transparent 60%), var(--slate-raised);
+}
+.group-detail {
 	grid-column: 1 / -1;
+	padding: 0.8rem 1rem 1rem;
+	background: #0a0806;
+	border: 1px solid var(--brass);
+	border-radius: 8px;
+}
+.group-detail header {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 1rem;
+}
+.group-detail header h3 {
+	margin: 0;
+	color: var(--brass);
 }
 .group-dungeon-head {
 	display: flex;
@@ -5810,10 +5827,10 @@ summary.breakdown-toggle:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.group-dungeons-cards .group-dungeon:not(.group-dungeon-open) {
+	.group-dungeons-cards .group-dungeon {
 		transition: none;
 	}
-	.group-dungeons-cards .group-dungeon:not(.group-dungeon-open):hover {
+	.group-dungeons-cards .group-dungeon:hover {
 		transform: none;
 	}
 }
@@ -5882,4 +5899,187 @@ summary.breakdown-toggle:focus-visible {
 }
 .character-tile-on .character-tile-text .character-tile-spec {
 	color: #fff;
+}
+
+/* Character page: the copy button stands out */
+.button-strong {
+	color: var(--brass);
+	border-color: var(--brass);
+	box-shadow: 0 0 10px -4px var(--brass);
+	font-weight: 600;
+}
+.button-strong:hover {
+	color: var(--on-brass);
+	background: var(--brass);
+}
+
+/* Presets: the field on the Character page */
+.preset-field {
+	display: grid;
+	gap: 0.45rem;
+	margin-top: 0.9rem;
+}
+.preset-buttons {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.5rem;
+}
+.preset-new {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.4rem;
+}
+.preset-new input {
+	flex: 1 1 8rem;
+	min-width: 0;
+	padding: 0.4rem 0.6rem;
+	font: inherit;
+	color: inherit;
+	background: #0006;
+	border: 1px solid var(--ridge);
+	border-radius: 6px;
+}
+/* Presets: the small menu in the gear panes */
+.preset-menu {
+	position: relative;
+	margin: 0.3rem 0 0.2rem;
+}
+.preset-menu-button {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.4rem;
+	width: 100%;
+	padding: 0.25rem 0.5rem;
+	font: inherit;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	color: var(--brass);
+	background: #0a0806;
+	border: 1px solid var(--brass-deep);
+	border-radius: 5px;
+	cursor: pointer;
+}
+.preset-menu-button span {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.preset-menu-list {
+	position: absolute;
+	top: calc(100% + 4px);
+	left: 0;
+	z-index: 30;
+	min-width: 13rem;
+	padding: 0.3rem;
+	background: var(--slate);
+	border: 1px solid var(--brass);
+	border-radius: 6px;
+	box-shadow: 0 8px 22px rgb(0 0 0 / 0.7);
+}
+.gear-rail-planned .preset-menu-list {
+	left: auto;
+	right: 0;
+}
+.preset-menu-new,
+.preset-menu-pick,
+.preset-menu-minus {
+	font: inherit;
+	font-size: 0.875rem;
+	color: var(--mist);
+	background: none;
+	border: 0;
+	border-radius: 4px;
+	cursor: pointer;
+}
+.preset-menu-new {
+	width: 100%;
+	padding: 0.4rem 0.5rem;
+	font-weight: 600;
+	text-align: left;
+	color: var(--brass);
+	border-bottom: 1px solid var(--hairline);
+	border-radius: 4px 4px 0 0;
+	margin-bottom: 0.2rem;
+}
+.preset-menu-row {
+	display: flex;
+	align-items: center;
+	gap: 0.2rem;
+}
+.preset-menu-minus {
+	flex: none;
+	width: 1.6rem;
+	height: 1.6rem;
+	font-size: 1.1rem;
+	line-height: 1;
+	color: #ff8a65;
+}
+.preset-menu-minus:disabled {
+	opacity: 0.3;
+	cursor: default;
+}
+.preset-menu-pick {
+	flex: 1;
+	padding: 0.35rem 0.5rem;
+	text-align: left;
+}
+.preset-menu-new:hover,
+.preset-menu-pick:hover,
+.preset-menu-minus:not(:disabled):hover {
+	background: rgb(214 174 95 / 0.14);
+}
+.preset-menu-on .preset-menu-pick {
+	font-weight: 700;
+	color: var(--brass);
+}
+.preset-menu-list .preset-new {
+	padding: 0.2rem 0.2rem 0.4rem;
+	border-bottom: 1px solid var(--hairline);
+	margin-bottom: 0.2rem;
+}
+/* Presets: the question before one is deleted */
+.preset-confirm-veil {
+	position: fixed;
+	inset: 0;
+	z-index: 100;
+	display: grid;
+	place-items: center;
+	background: rgb(0 0 0 / 0.6);
+}
+.preset-confirm {
+	width: min(24rem, calc(100vw - 2rem));
+	padding: 1.1rem 1.2rem;
+	background: var(--slate);
+	border: 1px solid var(--brass);
+	border-radius: 8px;
+	box-shadow: 0 12px 40px rgb(0 0 0 / 0.8);
+}
+.preset-confirm h3 {
+	margin: 0 0 0.4rem;
+	font-size: 1.05rem;
+}
+.preset-confirm p {
+	margin: 0 0 0.9rem;
+	color: var(--haze);
+}
+.preset-confirm-actions {
+	display: flex;
+	gap: 0.5rem;
+}
+.button-danger {
+	color: #fff;
+	background: #a3352a;
+	border-color: #c9483b;
+	font-weight: 600;
+}
+
+/* News: two feeds, the game's and this site's own */
+.news-feeds {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+	gap: 0.75rem;
+	max-width: 44rem;
+	margin: 0.8rem 0;
 }

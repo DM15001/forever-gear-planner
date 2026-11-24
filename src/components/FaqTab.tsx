@@ -71,6 +71,10 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 				),
 			},
 			{
+				q: 'Can one character have several gear sets?',
+				a: <p>Yes, as presets. Under Build on the Character page, "Create preset" makes a copy of the open preset under a name of your choice: one for fire, one for frost, one against beasts. Each has its own build, worn gear and plan. Switch there or in the menu at the top of the gear panes at the side. A new item you equip in one preset is not equipped in the others.</p>,
+			},
+			{
 				q: 'What do "planned", "BiS" and "upgrade" mean in the Group plan?',
 				a: <p>"planned": the item is in that character's plan. "BiS": nothing in the game is better for that character in that slot. "upgrade": better than what they wear, but not their best option.</p>,
 			},

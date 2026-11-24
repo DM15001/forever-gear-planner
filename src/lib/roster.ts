@@ -20,13 +20,35 @@ export function characterLabel(character: Character, index: number, spec: SpecCo
 	return `${race ?? 'Character'} ${index + 1}${set}`;
 }
 
-/** A second copy of the open character under a set name, to change into another build or for another enemy. It becomes the open one. */
+/** A second copy of the open character under a set name, to change into another build or for another enemy. It becomes the open one. Both carry the same group, so they show as one character with a choice of sets. */
 export function addSet(roster: Roster, setName: string): Roster {
 	const base = activeCharacter(roster);
 	const name = setName.trim().slice(0, 30);
 	if (!base || !name) return roster;
+	const group = base.group ?? `g${Date.now().toString(36)}${Math.floor(Math.random() * 1296).toString(36)}`;
+	const characters = roster.characters.map((c, i) => (i === roster.active ? { ...c, group } : c));
 	// At the end, so the places of the others stay as the group plan remembers them.
-	return addCharacter(roster, { ...structuredClone(base), set: name });
+	return addCharacter({ ...roster, characters }, { ...structuredClone(base), group, set: name });
+}
+
+/** The gear sets of the open character: every saved character of its group, with its place in the list. Just itself when it has no other set. */
+export function setsOf(roster: Roster): { index: number; label: string }[] {
+	const open = activeCharacter(roster);
+	if (!open) return [];
+	return roster.characters.flatMap((c, index) => (index === roster.active || (open.group && c.group === open.group) ? [{ index, label: c.set ?? 'Main' }] : []));
+}
+
+/** Which saved characters get a tile: one per character. Of a character with several gear sets, the open set, or else its first. */
+export function tileIndexes(roster: Roster): number[] {
+	const openGroup = activeCharacter(roster)?.group;
+	const seen = new Set<string>();
+	return roster.characters.flatMap((c, index) => {
+		if (!c.group) return [index];
+		if (c.group === openGroup) return index === roster.active ? [index] : [];
+		if (seen.has(c.group)) return [];
+		seen.add(c.group);
+		return [index];
+	});
 }
 
 export function addCharacter(roster: Roster, character: Character): Roster {
@@ -39,8 +61,18 @@ export function replaceActive(roster: Roster, character: Character): Roster {
 }
 
 export function removeActive(roster: Roster): Roster {
+	const gone = roster.characters[roster.active];
 	const characters = roster.characters.filter((_, i) => i !== roster.active);
-	return { characters, active: Math.max(0, Math.min(roster.active, characters.length - 1)) };
+	// Removing one gear set opens another set of the same character, if there is one.
+	const sibling = gone?.group ? characters.findIndex(c => c.group === gone.group) : -1;
+	return { characters, active: sibling >= 0 ? sibling : Math.max(0, Math.min(roster.active, characters.length - 1)) };
+}
+
+/** Removes the saved character at that place. The open one stays open; if it was the one removed, a sibling preset or a neighbour opens. */
+export function removeAt(roster: Roster, index: number): Roster {
+	if (index === roster.active) return removeActive(roster);
+	if (index < 0 || index >= roster.characters.length) return roster;
+	return { characters: roster.characters.filter((_, i) => i !== index), active: roster.active - (index < roster.active ? 1 : 0) };
 }
 
 export function selectCharacter(roster: Roster, index: number): Roster {

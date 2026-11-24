@@ -1,5 +1,6 @@
 import talentPresets from '../config/talentPresets.json';
-import { type ReactNode, useState } from 'react';
+import { type ReactNode, useContext, useState } from 'react';
+import { PresetContext, PresetField } from './Presets';
 
 import { GEAR_SLOTS, PROFESSIONS, SHEET_LAYOUT } from '../lib/constants';
 import { applicableEnchants, enchantLine } from '../lib/enchants';
@@ -27,17 +28,13 @@ interface Props {
 	activeIndex: number;
 	/** A link that opens this character and its plan on another device. */
 	shareLink: string;
-	/** Saves a copy of this character as another gear set with that name, and opens it. */
-	onNewSet?: (name: string) => void;
 	/** Opens the page where the talents are picked. */
 	onOpenTalents?: () => void;
 	/** The step that follows, shown in the header of the page. */
 	next?: ReactNode;
 }
 
-export function CharacterSheet({ spec, character, data, onChange, names, builds, activeIndex, shareLink, onNewSet, onOpenTalents, next }: Props) {
-	// The name being typed for a new gear set; null while the form is closed.
-	const [setName, setSetName] = useState<string | null>(null);
+export function CharacterSheet({ spec, character, data, onChange, names, builds, activeIndex, shareLink, onOpenTalents, next }: Props) {
 	// 'copied' after the link went to the clipboard, 'shown' when the browser refused and the link is shown to copy by hand.
 	const [shared, setShared] = useState<'idle' | 'copied' | 'shown'>('idle');
 	// The slot whose item is being swapped by hand, if any.
@@ -49,6 +46,7 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 			() => setShared('shown'),
 		);
 	};
+	const presets = useContext(PresetContext);
 	const race = spec.races.find(r => r.id === character.race);
 	// The talents the sim uses, readable: points per tree and where the set is from.
 	const talents = character.talents || spec.talents || '';
@@ -103,7 +101,7 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 				<div className="sheet-head-text">
 					<h2 id="sheet-title">
 						{character.name ?? `Your ${spec.className}`}
-						{character.set && <span className="set-chip">{character.set}</span>}
+						{presets && presets.list.length > 1 && <span className="set-chip">{character.set ?? 'Main'}</span>}
 					</h2>
 					<p className="identity-line">
 						{spec.name}
@@ -123,33 +121,10 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 					)}
 				</div>
 				<div className="sheet-share">
-					<button className="button" onClick={share} title="Copies a link with this character's equipped gear, plan, talents and professions. A friend opens it, or pastes it into Import or the Group plan, to get a copy of the character.">
+					<button className="button button-strong" onClick={share} title="Copies a link with this character's equipped gear, plan, talents and professions. A friend opens it, or pastes it into Import or the Group plan, to get a copy of the character.">
 						{shared === 'copied' ? 'Copied: send it to your friend' : 'Copy character (equipped + planned gear)'}
 					</button>
 					{shared === 'shown' && <input type="text" readOnly aria-label="Share link" value={shareLink} onFocus={e => e.target.select()} />}
-					{onNewSet &&
-						(setName === null ? (
-							<button className="button" onClick={() => setSetName('')} title="Keeps this character as it is and makes a copy to change: another build, other gear, another enemy. Both stay in the bar at the top.">
-								New gear set from this character
-							</button>
-						) : (
-							<form
-								className="sheet-set"
-								onSubmit={event => {
-									event.preventDefault();
-									if (!setName.trim()) return;
-									onNewSet(setName);
-									setSetName(null);
-								}}>
-								<input type="text" autoFocus maxLength={30} value={setName} onChange={event => setSetName(event.target.value)} placeholder="Name: Fire, vs beasts…" aria-label="Name of the new gear set" />
-								<button className="button button-primary" type="submit" disabled={!setName.trim()}>
-									Create
-								</button>
-								<button className="link" type="button" onClick={() => setSetName(null)}>
-									Cancel
-								</button>
-							</form>
-						))}
 				</div>
 				{next && <div className="sheet-next">{next}</div>}
 			</header>
@@ -203,6 +178,7 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 								</>
 							)}
 						</p>
+						<PresetField />
 					</>
 				)}
 				<fieldset className="fight-group sheet-choice">

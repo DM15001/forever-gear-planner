@@ -7,6 +7,7 @@ import { wowheadData, wowheadItemUrl } from '../lib/stats';
 import type { Character, SpecConfig } from '../lib/types';
 import { ItemIcon } from './ItemIcon';
 import { ItemPicker } from './ItemPicker';
+import { PresetMenu } from './Presets';
 import { SET_ITERATIONS, useSim } from './Sim';
 
 interface Props {
@@ -62,6 +63,7 @@ function Rail({ kind, gear, other, spec, character, data, onSlot, onHide }: Prop
 					</svg>
 				</button>
 			</header>
+			<PresetMenu />
 			<p className="gear-rail-facts">
 				{result ? (
 					<span>

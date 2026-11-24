@@ -1,6 +1,6 @@
 import { type ReactNode, useState } from 'react';
 
-import type { Roster } from '../lib/roster';
+import { type Roster, tileIndexes } from '../lib/roster';
 import { specOf } from '../lib/specs';
 import { ClassIcon } from './ClassIcon';
 import { RaceIcon } from './IconTile';
@@ -26,8 +26,10 @@ export function CharacterBar({ roster, onSelect, onAdd, onRemove, aside }: { ros
 	return (
 		<div className="character-row">
 		<nav className="character-bar" aria-label="Your characters">
-			{roster.characters.map((character, index) => {
+			{tileIndexes(roster).map(index => {
+				const character = roster.characters[index];
 				const spec = specOf(character);
+				const sets = character.group ? roster.characters.filter(c => c.group === character.group).length : 1;
 				const race = spec.races.find(r => r.id === character.race);
 				const active = index === roster.active;
 				return (
@@ -37,7 +39,7 @@ export function CharacterBar({ roster, onSelect, onAdd, onRemove, aside }: { ros
 						<span className="character-tile-text">
 							<strong>
 								{character.name ?? `${race?.name ?? 'Unnamed'} ${spec.className}`}
-								{character.set && <span className="set-chip">{character.set}</span>}
+								{sets > 1 && <span className="set-chip" title={`${sets} gear sets; switch on the Character page`}>{character.set ?? 'Main'}</span>}
 							</strong>
 							<span className="character-tile-spec">{spec.name}</span>
 							<span className="character-tile-meta">
