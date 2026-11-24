@@ -122,7 +122,7 @@ export function ItemPicker({ slotIndex, gear, character, data, spec, filter, sta
 										{stats || (item.weapon?.dps ? '' : 'No stats')}
 									</span>
 									<span className="slot-source">
-										<SourceLabel source={source} data={data} />
+										<SourceLabel source={source} data={data} item={item} />
 										{effort && <span className="effort"> {effort}</span>}
 									</span>
 								</span>

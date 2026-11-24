@@ -9,7 +9,10 @@ interface LootEntry {
 	/** `count` of `outOf` kills gave the item; left out when only the creature is known. */
 	drops?: { npcId: number; count?: number; outOf?: number }[];
 	containers?: { name: string; zoneId?: number; count?: number; outOf?: number }[];
-	quests?: { questId: number; name: string; faction?: Faction }[];
+	/** `questId` is left out when only the quest's name is known. */
+	quests?: { questId?: number; name: string; faction?: Faction }[];
+	/** A drop from a creature the data does not have, by name. */
+	namedDrops?: { name: string; zoneId?: number }[];
 	crafted?: { spellId: number; profession: string };
 	/** Drops somewhere in this dungeon or zone; which creature is not known. */
 	zoneDrops?: { zoneId: number }[];
@@ -132,6 +135,7 @@ function sourcesFrom(entry: LootEntry, npcById: Map<number, Npc>, zoneById: Map<
 		if (!box.zoneId || (box.count && box.outOf && box.count / box.outOf < 0.01)) continue;
 		sources.push({ kind: 'drop', otherName: box.name, zoneId: box.zoneId, zoneKind: zoneById.get(box.zoneId)?.kind });
 	}
+	for (const drop of entry.namedDrops ?? []) sources.push({ kind: 'drop', otherName: drop.name, zoneId: drop.zoneId, zoneKind: drop.zoneId ? zoneById.get(drop.zoneId)?.kind : undefined });
 	for (const drop of entry.zoneDrops ?? []) sources.push({ kind: 'drop', zoneId: drop.zoneId, zoneKind: zoneById.get(drop.zoneId)?.kind });
 	for (const quest of entry.quests ?? []) sources.push({ kind: 'quest', questId: quest.questId, name: quest.name, faction: quest.faction });
 	if (entry.crafted) sources.push({ kind: 'crafted', profession: entry.crafted.profession, spellId: entry.crafted.spellId });

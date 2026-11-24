@@ -1,44 +1,26 @@
 # Items to check
 
 Items whose source the planner does not know: it either guesses "World drop (assumed)" or shows "Source unknown".
-1157 such items are in the data; this page lists the ones worth checking first. Written by
+1137 such items are in the data; this page lists the ones worth checking first. Written by
 `scripts/items-to-check.ts`; do not edit by hand. To fix one, add its source to `src/config/sources.manual.json`
 (or to `src/config/not-available.json` when it cannot be had), or open an issue saying where it comes from.
 
-## In a build's top 10 for a slot (93)
+## In a build's top 10 for a slot (75)
 
 Most builds first. "best #2" = second-best item of its slot for at least one build, starting from empty gear.
 
 - [Horn of Ve'han](https://www.wowhead.com/forever/item=275736) (275736, rare 61, neck): no source; 27 builds, best #4 (Enhancement Shaman, Elemental Shaman, Warlock: Destro, Warlock: Demo (Fire Brand), …)
 - [Cleansed Vilebranch Medallion](https://www.wowhead.com/forever/item=270275) (270275, uncommon 51, trinket): no source; 23 builds, best #3 (Enhancement Shaman, Elemental Shaman, Mage: Fire, Mage: Frost Med, …)
-- [Maiden's Circle](https://www.wowhead.com/forever/item=13001) (13001, rare 61, finger): no source; 17 builds, best #3 (Elemental Shaman, Warlock: SM/Ruin, Warlock: Destro, Warlock: Aff (Wrack), …)
-- [Jereman's Bauble](https://www.wowhead.com/forever/item=275738) (275738, rare 61, finger): no source; 16 builds, best #1 (Elemental Shaman, Warlock: SM/Ruin, Warlock: Destro, Warlock: Aff (Wrack), …)
 - [Highborne Research Tablet](https://www.wowhead.com/forever/item=260205) (260205, uncommon 55, trinket): no source; 16 builds, best #2 (Enhancement Shaman, Priest: Smite Testing, Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), …)
 - [Staff of Sorrow](https://www.wowhead.com/forever/item=280082) (280082, rare 57, weapon): no source; 16 builds, best #3 (Elemental Shaman, Warlock: SM/Ruin, Warlock: Destro, Warlock: Aff (Wrack), …)
 - [Cleansed Vilebranch Icon](https://www.wowhead.com/forever/item=270276) (270276, uncommon 51, trinket): no source; 16 builds, best #4 (Elemental Shaman, Warlock: SM/Ruin, Warlock: Destro, Warlock: Aff (Wrack), …)
 - [Jewel of the Guard Captain](https://www.wowhead.com/forever/item=270225) (270225, uncommon 51, trinket): no source; 16 builds, best #5 (Elemental Shaman, Warlock: SM/Ruin, Warlock: Destro, Warlock: Aff (Wrack), …)
-- [Staff of Jordan](https://www.wowhead.com/forever/item=873) (873, epic 40, weapon): no source; 15 builds, best #5 (Elemental Shaman, Warlock: SM/Ruin, Warlock: Destro, Warlock: Demo (Fire Brand), …)
-- [Scarlet Executioner's Guise](https://www.wowhead.com/forever/item=284086) (284086, rare 62, head): no source; 12 builds, best #2 (Enhancement Shaman, Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Rogue: Combat SS, …)
-- [Gloves of Holy Might](https://www.wowhead.com/forever/item=867) (867, epic 42, hands): no source; 12 builds, best #2 (Enhancement Shaman, Rogue: Combat SS, Rogue: Combat BS, Rogue: Combat Venom, …)
-- [Deepfury Bracers](https://www.wowhead.com/forever/item=13120) (13120, rare 55, wrist): no source; 11 builds, best #3 (Rogue: Combat SS, Rogue: Combat BS, Rogue: Combat Venom, Rogue: Asn Muti, …)
-- [Lord Sakrasis' Scepter](https://www.wowhead.com/forever/item=5028) (5028, uncommon 47, weapon): guessed world drop; 10 builds, best #1 (Elemental Shaman, Warlock: SM/Ruin, Warlock: Destro, Warlock: Aff (Wrack), …)
 - [Furbolg Rib Protector](https://www.wowhead.com/forever/item=280084) (280084, rare 57, chest): no source; 10 builds, best #2 (Enhancement Shaman, Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Hunter: Marksmanship, …)
-- [Precisely Calibrated Boomstick](https://www.wowhead.com/forever/item=2100) (2100, epic 48, ranged): no source; 10 builds, best #3 (Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Rogue: Combat SS, Rogue: Combat BS, …)
-- [Compound Gloves](https://www.wowhead.com/forever/item=287018) (287018, rare 52, hands): no source; 10 builds, best #4 (Elemental Shaman, Warlock: Destro, Warlock: Demo (Fire Brand), Warlock: Demo (Shadow Brand), …)
-- [Felflick's Fire Flicker](https://www.wowhead.com/forever/item=275837) (275837, uncommon 58, ranged): no source; 10 builds, best #5 (Warlock: SM/Ruin, Warlock: Destro, Warlock: Demo (Fire Brand), Warlock: Demo (Shadow Brand), …)
-- [Eaglehorn Long Bow](https://www.wowhead.com/forever/item=13023) (13023, rare 63, ranged): no source; 9 builds, best #1 (Rogue: Combat SS, Rogue: Combat BS, Rogue: Combat Venom, Rogue: Asn Muti, …)
-- [Warpwood Bracers](https://www.wowhead.com/forever/item=270124) (270124, rare 57, wrist): no source; 9 builds, best #1 (Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Rogue: Combat SS, Rogue: Combat BS, …)
-- [Hermit's Pauldron](https://www.wowhead.com/forever/item=275737) (275737, rare 61, shoulder): no source; 9 builds, best #2 (Enhancement Shaman, Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Hunter: Marksmanship, …)
 - [Truesight Rifle](https://www.wowhead.com/forever/item=280083) (280083, rare 57, ranged): no source; 9 builds, best #5 (Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Rogue: Combat SS, Rogue: Combat BS, …)
-- [Spaulders of the Unseen](https://www.wowhead.com/forever/item=13116) (13116, rare 61, shoulder): no source; 9 builds, best #6 (Rogue: Combat SS, Rogue: Combat Venom, Rogue: Asn Muti, Rogue: Subtlety Hemo, …)
 - [Everstaring Abomination Eye](https://www.wowhead.com/forever/item=284097) (284097, rare 60, neck): no source; 9 builds, best #6 (Enhancement Shaman, Mage: Fire, Mage: Frost Med, Mage: Frost Incin, …)
 - [Conqueror's Pendant](https://www.wowhead.com/forever/item=270126) (270126, rare 58, neck): no source; 8 builds, best #5 (Warlock: SM/Ruin, Warlock: Destro, Warlock: Aff (Wrack), Warlock: Demo (Fire Brand), …)
-- [Guttbuster](https://www.wowhead.com/forever/item=13139) (13139, rare 50, ranged): no source; 8 builds, best #8 (Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Rogue: Combat SS, Rogue: Combat BS, …)
-- [Cloak of Flames](https://www.wowhead.com/forever/item=3475) (3475, epic 65, back): no source; 7 builds, best #3 (Enhancement Shaman, Mage: Arcane Fire, Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), …)
 - [Belt of Shadows](https://www.wowhead.com/forever/item=260196) (260196, uncommon 55, waist): no source; 7 builds, best #4 (Rogue: Combat SS, Rogue: Combat BS, Rogue: Combat Venom, Rogue: Asn Muti, …)
 - [Escape Plan](https://www.wowhead.com/forever/item=287026) (287026, rare 54, ranged): no source; 7 builds, best #6 (Rogue: Combat SS, Rogue: Combat BS, Rogue: Combat Venom, Rogue: Asn Muti, …)
-- [Teebu's Blazing Longsword](https://www.wowhead.com/forever/item=1728) (1728, epic 65, weapon): no source; 6 builds, best #1 (Warrior: Fury (Pre-BiS), Rogue: Combat SS, Rogue: Combat Venom, Rogue: Subtlety Hemo, …)
-- [Elemental Mage Staff](https://www.wowhead.com/forever/item=944) (944, epic 61, weapon): no source; 6 builds, best #1 (Warlock: Destro, Warlock: Demo (Fire Brand), Mage: Fire, Mage: Frost Med, …)
 - [Shadowblade](https://www.wowhead.com/forever/item=2163) (2163, epic 53, weapon): no source; 6 builds, best #1 (Rogue: Combat BS, Rogue: Combat Venom, Rogue: Asn Muti, Hunter: Marksmanship, …)
 - [Flurry Axe](https://www.wowhead.com/forever/item=871) (871, epic 47, weapon): no source; 6 builds, best #1 (Warrior: Fury (Pre-BiS), Rogue: Combat SS, Rogue: Combat Venom, Rogue: Subtlety Hemo, …)
 - [Sword of Zeal](https://www.wowhead.com/forever/item=6622) (6622, rare 63, weapon): no source; 6 builds, best #2 (Warrior: Fury (Pre-BiS), Rogue: Combat SS, Rogue: Combat Venom, Rogue: Subtlety Hemo, …)
@@ -59,8 +41,8 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Cloudkeeper Legplates](https://www.wowhead.com/forever/item=14554) (14554, epic 62, legs): no source; 3 builds, best #4 (Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Paladin: Retribution (Unsealed Wrath))
 - [Mageflame Cloak](https://www.wowhead.com/forever/item=13007) (13007, rare 58, back): no source; 3 builds, best #4 (Warlock: Demo (Fire Brand), Mage: Fire, Mage: FFB)
 - [Furbolg Berserker's Boots](https://www.wowhead.com/forever/item=287033) (287033, rare 58, feet): no source; 3 builds, best #4 (Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Paladin: Retribution (Unsealed Wrath))
+- [Personal Spellbook](https://www.wowhead.com/forever/item=221344) (221344, rare 55, weapon): no source; 3 builds, best #4 (Mage: Fire, Mage: Arcane, Mage: Arcane Fire)
 - [Ankh of Life](https://www.wowhead.com/forever/item=1713) (1713, rare 45, trinket): no source; 3 builds, best #4 (Priest: Smite Testing, Priest: Holy (healing), Priest: Discipline (healing))
-- [Personal Spellbook](https://www.wowhead.com/forever/item=221344) (221344, rare 55, weapon): no source; 3 builds, best #5 (Mage: Fire, Mage: Arcane, Mage: Arcane Fire)
 - [Deeproar Cord](https://www.wowhead.com/forever/item=280011) (280011, rare 63, waist): no source; 3 builds, best #7 (Priest: Smite Testing, Priest: Holy (healing), Priest: Discipline (healing))
 - [Kanai's Knife](https://www.wowhead.com/forever/item=274383) (274383, uncommon 58, weapon): no source; 3 builds, best #7 (Hunter: Marksmanship, Hunter: Beast Mastery, Hunter: Survival)
 - [Skull Splitting Crossbow](https://www.wowhead.com/forever/item=13039) (13039, rare 48, ranged): no source; 3 builds, best #7 (Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Hunter: Survival (melee weave))
@@ -72,8 +54,8 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Alcor's Sunrazor](https://www.wowhead.com/forever/item=14555) (14555, epic 63, weapon): no source; 2 builds, best #2 (Rogue: Combat BS, Rogue: Asn Muti)
 - [Mardenholde Armbands](https://www.wowhead.com/forever/item=278570) (278570, rare 63, wrist): no source; 2 builds, best #3 (Priest: Smite Testing, Paladin: Retribution (Holy Shock))
 - [Ring of Nature's Cycles](https://www.wowhead.com/forever/item=275740) (275740, rare 61, finger): no source; 2 builds, best #3 (Priest: Holy (healing), Priest: Discipline (healing))
+- [Lapidis Tankard of Tidesippe](https://www.wowhead.com/forever/item=4696) (4696, rare 59, weapon): no source; 2 builds, best #3 (Warlock: Destro, Warlock: Demo (Shadow Brand))
 - [Kang the Decapitator](https://www.wowhead.com/forever/item=2291) (2291, epic 49, weapon): no source; 2 builds, best #3 (Enhancement Shaman, Hunter: Survival (melee weave))
-- [Lapidis Tankard of Tidesippe](https://www.wowhead.com/forever/item=4696) (4696, rare 59, weapon): no source; 2 builds, best #4 (Warlock: Destro, Warlock: Demo (Shadow Brand))
 - [Barkskin Baubles](https://www.wowhead.com/forever/item=274417) (274417, rare 58, weapon): no source; 2 builds, best #4 (Priest: Holy (healing), Priest: Discipline (healing))
 - [Mass of McGowan](https://www.wowhead.com/forever/item=13006) (13006, rare 62, weapon): no source; 2 builds, best #5 (Warrior: Fury (Pre-BiS), Rogue: Combat Venom)
 - [Taran Icebreaker](https://www.wowhead.com/forever/item=2915) (2915, epic 52, weapon): no source; 2 builds, best #6 (Enhancement Shaman, Paladin: Retribution (Unsealed Wrath))

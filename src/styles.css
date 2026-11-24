@@ -5235,3 +5235,13 @@ summary.breakdown-toggle:focus-visible {
 .verify-done {
 	color: var(--haze);
 }
+
+/* The link to report an item's real source */
+.source-report {
+	font-size: 0.8125rem;
+	color: var(--haze);
+	text-decoration: underline dotted;
+}
+.source-report:hover {
+	color: var(--brass);
+}

@@ -718,7 +718,7 @@ function CandidateRow({ candidate, note, current, healWeights, marks, base, vari
 					</span>
 				))}
 				<span className="slot-source">
-					{guideSource(marks) ?? <SourceList sources={sources} data={data} />}
+					{guideSource(marks) ?? <SourceList sources={sources} data={data} item={candidate.item} />}
 					{!guideSource(marks) && sources.length > 2 ? `, +${sources.length - 2} more` : ''}
 				</span>
 			</span>

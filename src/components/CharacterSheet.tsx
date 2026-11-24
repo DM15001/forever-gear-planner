@@ -399,7 +399,7 @@ function GearSlot({ index, mirrored, piece, data, onChange, onPick, onEnchant, b
 							{!stats && !item.weapon?.dps && (item.effects ? 'Effect only, no stats' : 'No stats')}
 						</span>
 						<span className="slot-source">
-							<SourceLabel source={item.sources?.[0]} data={data!} />
+							<SourceLabel source={item.sources?.[0]} data={data!} item={item} />
 						</span>
 					</>
 				)}

@@ -125,7 +125,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 	const sourceOf = (item: Item) => {
 		const guide = marks.get(item.id)?.find(m => m.source);
 		if (guide) return `${guide.source} (per ${guide.guide.label})`;
-		return <SourceLabel source={usableSources(item, faction, filter, character.professions)[0] ?? usableSources(item, faction, EVERYTHING)[0]} data={data} />;
+		return <SourceLabel source={usableSources(item, faction, filter, character.professions)[0] ?? usableSources(item, faction, EVERYTHING)[0]} data={data} item={item} />;
 	};
 
 	return (

@@ -1,5 +1,5 @@
 {
-	"_comment": "Sources added by hand for items the WoWSims data, AtlasLoot and the Wowhead loot file have none for. Same shape as src/config/wowhead/loot.json (quests, drops, containers, crafted), plus zoneDrops for a drop in a dungeon whose creature is not known. Each entry names where it was checked. `npcs`: creatures the WoWSims data does not know. A drop without count/outOf: the creature is known, the chance is not.",
+	"_comment": "Sources added by hand for items the WoWSims data, AtlasLoot and the Wowhead loot file have none for. Same shape as src/config/wowhead/loot.json (quests, drops, containers, crafted), plus zoneDrops for a drop in a dungeon whose creature is not known. Each entry names where it was checked. `npcs`: creatures the WoWSims data does not know. A drop without count/outOf: the creature is known, the chance is not. `namedDrops`: a drop from a creature the data does not have, by name. A quest without questId: only its name is known.",
 	"items": {
 		"260212": {
 			"_name": "Bad Hat",
@@ -120,6 +120,116 @@
 		"23203": {
 			"_name": "Libram of Fervor",
 			"_checked": "https://warcraft.wiki.gg/wiki/Libram_of_Fervor: random drop in level 60 zones and dungeons (2026-11-24)",
+			"worldDrop": true
+		},
+		"275738": {
+			"_name": "Jereman's Bauble",
+			"_checked": "https://warcraft.wiki.gg/wiki/Jereman%27s_Bauble: reward of the quest Return to Jereman (2026-11-24)",
+			"quests": [
+				{
+					"name": "Return to Jereman"
+				}
+			]
+		},
+		"270124": {
+			"_name": "Warpwood Bracers",
+			"_checked": "https://warcraft.wiki.gg/wiki/Warpwood_Bracers: reward of the quest Lethtendris's Web (2026-11-24)",
+			"quests": [
+				{
+					"name": "Lethtendris's Web"
+				}
+			]
+		},
+		"275737": {
+			"_name": "Hermit's Pauldron",
+			"_checked": "https://warcraft.wiki.gg/wiki/Hermit%27s_Pauldron: reward of the quest Work Well Done (2026-11-24)",
+			"quests": [
+				{
+					"name": "Work Well Done"
+				}
+			]
+		},
+		"275837": {
+			"_name": "Felflick's Fire Flicker",
+			"_checked": "https://warcraft.wiki.gg/wiki/Felflick%27s_Fire_Flicker: reward of the quest A Revenge Now Bitter (2026-11-24)",
+			"quests": [
+				{
+					"name": "A Revenge Now Bitter"
+				}
+			]
+		},
+		"284086": {
+			"_name": "Scarlet Executioner's Guise",
+			"_checked": "https://warcraft.wiki.gg/wiki/Scarlet_Executioner%27s_Guise: drops from the Scarlet Executioner in the Western Plaguelands (2026-11-24)",
+			"namedDrops": [
+				{
+					"name": "Scarlet Executioner",
+					"zoneId": 28
+				}
+			]
+		},
+		"287018": {
+			"_name": "Compound Gloves",
+			"_checked": "https://warcraft.wiki.gg/wiki/Compound_Gloves: drops from trash in Alcaz Prison (2026-11-24)",
+			"zoneDrops": [
+				{
+					"zoneId": 16620
+				}
+			]
+		},
+		"13001": {
+			"_name": "Maiden's Circle",
+			"_checked": "A bind-on-equip world drop of the original game; not looked up one by one (2026-11-24)",
+			"worldDrop": true
+		},
+		"873": {
+			"_name": "Staff of Jordan",
+			"_checked": "A bind-on-equip world drop of the original game; not looked up one by one (2026-11-24)",
+			"worldDrop": true
+		},
+		"867": {
+			"_name": "Gloves of Holy Might",
+			"_checked": "A bind-on-equip world drop of the original game; not looked up one by one (2026-11-24)",
+			"worldDrop": true
+		},
+		"13120": {
+			"_name": "Deepfury Bracers",
+			"_checked": "A bind-on-equip world drop of the original game; not looked up one by one (2026-11-24)",
+			"worldDrop": true
+		},
+		"2100": {
+			"_name": "Precisely Calibrated Boomstick",
+			"_checked": "A bind-on-equip world drop of the original game; not looked up one by one (2026-11-24)",
+			"worldDrop": true
+		},
+		"13023": {
+			"_name": "Eaglehorn Long Bow",
+			"_checked": "A bind-on-equip world drop of the original game; not looked up one by one (2026-11-24)",
+			"worldDrop": true
+		},
+		"13116": {
+			"_name": "Spaulders of the Unseen",
+			"_checked": "A bind-on-equip world drop of the original game; not looked up one by one (2026-11-24)",
+			"worldDrop": true
+		},
+		"13139": {
+			"_name": "Guttbuster",
+			"_checked": "A bind-on-equip world drop of the original game; not looked up one by one (2026-11-24)",
+			"worldDrop": true
+		},
+		"3475": {
+			"_name": "Cloak of Flames",
+			"_checked": "A bind-on-equip world drop of the original game; not looked up one by one (2026-11-24)",
+			"worldDrop": true
+		},
+		"1728": {
+			"_name": "Teebu's Blazing Longsword",
+			"_checked": "A bind-on-equip world drop of the original game; not looked up one by one (2026-11-24)",
+			"worldDrop": true
+		},
+		"944": {
+			"_name": "Elemental Mage Staff",
+			"_checked": "A bind-on-equip world drop of the original game; not looked up one by one (2026-11-24)",
 			"worldDrop": true
 		}
 	},
