@@ -8,6 +8,7 @@ import { GearRails } from './components/GearRail';
 import { CharacterBar } from './components/CharacterBar';
 import { ClassIcon } from './components/ClassIcon';
 import { FarmTab } from './components/FarmTab';
+import { GroupFarm } from './components/GroupFarm';
 import { HealingPicker } from './components/HealingPicker';
 import { setUnit } from './lib/format';
 import { healingChoice, scenarioKey } from './lib/sim/healing';
@@ -32,6 +33,7 @@ const TABS = [
 	{ id: 'simulate', label: 'Simulation', step: 2 },
 	{ id: 'upgrades', label: 'Upgrades', step: 3 },
 	{ id: 'farm', label: 'Farm plan', step: 4 },
+	{ id: 'group', label: 'Group plan' },
 	{ id: 'enchants', label: 'Enchants & professions' },
 	{ id: 'sim', label: 'Sim setup' },
 	{ id: 'news', label: 'News' },
@@ -468,7 +470,8 @@ export function App() {
 				)}
 				{character && !importing && (
 					<SimProvider character={character}>
-						{data && <GearRails spec={spec} character={character} data={data} showEquipped={options.equippedPanel} showPlanned={options.plannedPanel} onShow={(kind, on) => changeOptions({ ...options, [kind === 'equipped' ? 'equippedPanel' : 'plannedPanel']: on })} filter={filter} onChange={update} />}
+						{/* The Character page shows both sets itself, so the side panes stay away there. */}
+						{data && tab !== 'character' && tab !== 'group' && <GearRails spec={spec} character={character} data={data} showEquipped={options.equippedPanel} showPlanned={options.plannedPanel} onShow={(kind, on) => changeOptions({ ...options, [kind === 'equipped' ? 'equippedPanel' : 'plannedPanel']: on })} filter={filter} onChange={update} />}
 						{tab === 'simulate' && (
 							<div className="view-switch" role="group" aria-label="How to pick upgrades">
 								<button className="view-choice" aria-pressed={upgradeView === 'slots'} onClick={() => setUpgradeView('slots')}>
@@ -486,7 +489,9 @@ export function App() {
 
 						{(tab === 'simulate' || tab === 'upgrades') && upgradeView === 'slots' && (data ? <UpgradesTab part={tab === 'simulate' ? 'sim' : 'list'} spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
 
-						{tab === 'farm' && (data ? <FarmTab spec={spec} character={character} data={data} filter={filter} onChange={update} roster={roster} onRosterChange={changeRoster} /> : <p>Loading item data…</p>)}
+						{tab === 'farm' && (data ? <FarmTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
+						{/* The group plan is about all saved characters, not the one that is open. */}
+						{tab === 'group' && <div className="farm"><GroupFarm roster={roster} onRosterChange={changeRoster} /></div>}
 
 						{tab === 'enchants' && (data ? <EnchantsTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
 

@@ -188,8 +188,8 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 					<button className="button" onClick={removeAllEnchants} disabled={enchantCount === 0}>
 						Remove all enchants{enchantCount > 0 ? ` (${enchantCount})` : ''}
 					</button>
-					<button className="button" onClick={share} title="The link opens a copy of this character and its plan in someone else's browser.">
-						{shared === 'copied' ? 'Link copied' : 'Copy share link'}
+					<button className="button" onClick={share} title="Copies a link with this character's equipped gear, plan, talents and professions. A friend opens it, or pastes it into Import or the Group plan, to get a copy of the character.">
+						{shared === 'copied' ? 'Copied: send it to your friend' : 'Copy character (equipped + planned gear)'}
 					</button>
 					{shared === 'shown' && <input type="text" readOnly aria-label="Share link" value={shareLink} onFocus={e => e.target.select()} />}
 				</div>
