@@ -1,6 +1,6 @@
 {
 	"note": "Stat weights of this build, measured with the WoWSims simulator on its preset by scripts/build-weights.mjs. The planner uses them instead of the weights in src/specs, unless \"held\" is true: then a weight moved so far that a person should look first.",
-	"inputs": "05513e57211a8b66",
+	"inputs": "51a6ace8337e0161",
 	"measuredOn": "2026-11-24",
 	"iterations": 8000,
 	"unit": "attackPower",
@@ -19,8 +19,8 @@
 	},
 	"hitCapPercent": 5.4,
 	"hitRatingOverCap": 1.55,
-	"held": true,
-	"reasons": [
+	"accepted": [
+		"spellPiercing: 0.21 in use, 0.36 measured",
 		"hit cap: 27% in use, 5.4% measured"
 	]
 }
