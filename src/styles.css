@@ -5055,13 +5055,98 @@ summary.breakdown-toggle:focus-visible {
 	align-items: start;
 }
 .group-dungeon {
-	display: flex;
-	flex-direction: column;
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-template-areas:
+		'head prio'
+		'strip strip'
+		'split split'
+		'numbers numbers'
+		'bosses bosses';
 	gap: 0.7rem;
 	padding: 0.8rem 0.9rem;
 	background: var(--slate-raised);
 	border: 2px solid var(--ridge);
 	border-radius: 4px;
+}
+.group-dungeon-head {
+	grid-area: head;
+}
+.group-prio {
+	grid-area: prio;
+}
+.group-strip {
+	grid-area: strip;
+}
+.group-split {
+	grid-area: split;
+}
+.group-dungeon-numbers {
+	grid-area: numbers;
+}
+.group-bosses {
+	grid-area: bosses;
+	min-width: 0;
+}
+/* The other view: one row per dungeon, drops in the middle, numbers and priority at the right. */
+.group-dungeons-list {
+	grid-template-columns: 1fr;
+	gap: 0;
+}
+.group-dungeons-list .group-dungeon {
+	grid-template-columns: 15rem 1fr auto 4rem;
+	grid-template-areas:
+		'head strip numbers prio'
+		'head split numbers prio'
+		'bosses bosses bosses bosses';
+	align-items: center;
+	gap: 0.4rem 1.2rem;
+	padding: 0.8rem 0.6rem;
+	background: none;
+	border: 0;
+	border-top: 1px solid var(--hairline);
+	border-radius: 0;
+}
+.group-dungeons-list .group-dungeon-top {
+	background: linear-gradient(90deg, rgb(214 174 95 / 0.09), transparent 60%);
+}
+.group-dungeons-list .group-dungeon-numbers {
+	padding-top: 0;
+	border-top: 0;
+	flex-wrap: wrap;
+	max-width: 13rem;
+}
+.group-dungeons-list .group-dungeon-numbers .link {
+	flex-basis: 100%;
+	margin-left: 0;
+	text-align: left;
+}
+@media (max-width: 60rem) {
+	.group-dungeons-list .group-dungeon {
+		grid-template-columns: 1fr auto;
+		grid-template-areas:
+			'head prio'
+			'strip strip'
+			'split split'
+			'numbers numbers'
+			'bosses bosses';
+	}
+}
+.group-tag-planned {
+	color: var(--on-brass);
+	background: var(--brass);
+	border-color: var(--brass);
+}
+.group-tag-bis {
+	color: #ff8000;
+	border-color: #ff8000;
+}
+.group-tag-upgrade {
+	color: var(--haze);
+	border-color: var(--ridge);
+}
+.group-want .badge {
+	margin-left: 0;
 }
 .group-dungeon-top {
 	border-color: var(--brass);
@@ -5396,6 +5481,52 @@ summary.breakdown-toggle:focus-visible {
 .cheer-shine {
 	animation: cheer-sweep 1.8s ease-in-out infinite;
 }
+.cheer-friends {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 59;
+	margin: -120px 0 0 -380px;
+	pointer-events: none;
+	filter: drop-shadow(0 6px 14px rgb(0 0 0 / 0.6));
+	animation: cheer-arrive 4s ease-out both;
+}
+.cheer-haul {
+	transform-box: fill-box;
+	transform-origin: 50% 100%;
+	animation: cheer-heave 0.5s ease-in-out infinite alternate;
+}
+@keyframes cheer-arrive {
+	0% {
+		opacity: 0;
+		transform: translateX(-140px);
+	}
+	14% {
+		opacity: 1;
+	}
+	60%,
+	88% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+	100% {
+		opacity: 0;
+		transform: translateX(0);
+	}
+}
+@keyframes cheer-heave {
+	from {
+		transform: rotate(4deg);
+	}
+	to {
+		transform: rotate(9deg);
+	}
+}
+@media (max-width: 56rem) {
+	.cheer-friends {
+		display: none;
+	}
+}
 @keyframes cheer-pop {
 	0% {
 		opacity: 0;
@@ -5446,6 +5577,8 @@ summary.breakdown-toggle:focus-visible {
 }
 @media (prefers-reduced-motion: reduce) {
 	.cheer-dwarf,
+	.cheer-friends,
+	.cheer-haul,
 	.cheer-smoke,
 	.cheer-bling,
 	.cheer-shine {

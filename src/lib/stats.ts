@@ -169,7 +169,7 @@ export function sourceLine(source: ItemSource | undefined, data: GameData): stri
 		case 'quest':
 			return `Quest: ${source.name ?? 'unknown'}`;
 		case 'crafted':
-			return `Crafted: ${source.profession}`;
+			return source.profession ? `Crafted: ${source.profession}` : `Crafted${source.otherName ? `: ${source.otherName}` : ''}`;
 		case 'rep':
 			return `Reputation: ${source.repFaction}${source.repLevel ? ` (${source.repLevel})` : ''}`;
 		case 'vendor': {

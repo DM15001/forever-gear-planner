@@ -13,7 +13,8 @@ interface LootEntry {
 	quests?: { questId?: number; name: string; faction?: Faction }[];
 	/** A drop from a creature the data does not have, by name. */
 	namedDrops?: { name: string; zoneId?: number }[];
-	crafted?: { spellId: number; profession: string };
+	/** `from`: free text for a craft whose recipe is not known yet, for example "from a crafted item". */
+	crafted?: { spellId?: number; profession?: string; from?: string };
 	/** Drops somewhere in this dungeon or zone; which creature is not known. */
 	zoneDrops?: { zoneId: number }[];
 	/** A random drop from many creatures (bind on equip): in practice an auction house item. */
@@ -138,7 +139,7 @@ function sourcesFrom(entry: LootEntry, npcById: Map<number, Npc>, zoneById: Map<
 	for (const drop of entry.namedDrops ?? []) sources.push({ kind: 'drop', otherName: drop.name, zoneId: drop.zoneId, zoneKind: drop.zoneId ? zoneById.get(drop.zoneId)?.kind : undefined });
 	for (const drop of entry.zoneDrops ?? []) sources.push({ kind: 'drop', zoneId: drop.zoneId, zoneKind: zoneById.get(drop.zoneId)?.kind });
 	for (const quest of entry.quests ?? []) sources.push({ kind: 'quest', questId: quest.questId, name: quest.name, faction: quest.faction });
-	if (entry.crafted) sources.push({ kind: 'crafted', profession: entry.crafted.profession, spellId: entry.crafted.spellId });
+	if (entry.crafted) sources.push({ kind: 'crafted', profession: entry.crafted.profession, spellId: entry.crafted.spellId, ...(entry.crafted.from ? { otherName: entry.crafted.from } : {}) });
 	// Only tiny chances from many creatures or chests: a random world drop, in practice an auction house item.
 	if (!sources.length && (entry.worldDrop || entry.drops?.length || entry.containers?.length)) sources.push({ kind: 'drop', otherName: 'World drop' });
 	return sources;

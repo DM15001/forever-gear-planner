@@ -231,6 +231,13 @@
 			"_name": "Elemental Mage Staff",
 			"_checked": "A bind-on-equip world drop of the original game; not looked up one by one (2026-11-24)",
 			"worldDrop": true
+		},
+		"276632": {
+			"_name": "Wit's Edge",
+			"_checked": "Dan, in Forever: made from a crafted item, mage only; which item and profession still open (2026-11-24)",
+			"crafted": {
+				"from": "made from a crafted item, mage only"
+			}
 		}
 	},
 	"npcs": {

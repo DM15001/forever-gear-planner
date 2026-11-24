@@ -178,6 +178,105 @@ function CheerDwarf() {
 	);
 }
 
+/** Bogdan's friends, drawn in his style: Larry, a gnome holy priest under a far too big backpack, hauls Afly, a warlock in a purple robe who would rather be carried, along on a rope. Both are the owner's own characters. */
+function CheerFriends() {
+	return (
+		<svg className="cheer-friends" viewBox="0 0 300 240" width="300" height="240" aria-hidden="true">
+			{/* dust where Afly is dragged along */}
+			<path d="M14 200 h14 M8 192 h10 M30 206 h18" stroke="#cfd4d8" strokeWidth="3" strokeLinecap="round" opacity="0.6" />
+			{/* Afly: sitting, leaning back, arms crossed */}
+			<g className="cheer-dragged">
+				<path d="M52 176 Q84 170 128 190 L126 202 Q86 200 50 198 Z" fill="#6a329c" />
+				<path d="M56 190 Q88 188 124 198" fill="none" stroke="#4a1f70" strokeWidth="2" strokeLinecap="round" />
+				<ellipse cx="132" cy="194" rx="9" ry="6" fill="#2a1840" />
+				<path d="M46 150 Q44 196 70 198 Q96 196 92 150 Q70 138 46 150 Z" fill="#6a329c" />
+				<path d="M60 146 L70 162 L80 146" fill="none" stroke="#d6a52c" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+				{/* medium-length black hair, behind the head */}
+				<path d="M42 132 Q36 92 68 92 Q100 92 94 132 L96 152 Q88 158 86 148 L50 148 Q48 158 40 152 Z" fill="#17131c" />
+				<circle cx="68" cy="124" r="20" fill="#f0d2bd" />
+				<path d="M48 122 Q50 100 68 102 Q88 100 88 122 Q80 108 68 112 Q58 106 48 122 Z" fill="#17131c" />
+				{/* half-closed eyes with eyeliner */}
+				<ellipse cx="60" cy="126" rx="4.5" ry="3" fill="#ffffff" />
+				<ellipse cx="78" cy="126" rx="4.5" ry="3" fill="#ffffff" />
+				<circle cx="61" cy="126.5" r="2" fill="#5b2a86" />
+				<circle cx="79" cy="126.5" r="2" fill="#5b2a86" />
+				<path d="M54 125 Q60 121 66 125 M72 125 Q78 121 84 125 L87 122" fill="none" stroke="#0a0908" strokeWidth="2.4" strokeLinecap="round" />
+				<path d="M54 125 L51 122" stroke="#0a0908" strokeWidth="2.4" strokeLinecap="round" />
+				<path d="M54 119 L65 120 M73 120 L84 119" stroke="#17131c" strokeWidth="1.8" strokeLinecap="round" />
+				<path d="M63 137 H74" stroke="#8a3d4f" strokeWidth="2" strokeLinecap="round" />
+				{/* crossed arms */}
+				<path d="M48 162 Q70 176 90 164" fill="none" stroke="#4a1f70" strokeWidth="11" strokeLinecap="round" />
+				<path d="M50 172 Q70 160 90 170" fill="none" stroke="#5b2a86" strokeWidth="11" strokeLinecap="round" />
+				<circle cx="91" cy="165" r="5.5" fill="#f0d2bd" />
+				<circle cx="49" cy="172" r="5.5" fill="#f0d2bd" />
+				{/* the rope around her */}
+				<path d="M46 180 Q70 190 94 180" fill="none" stroke="#c9a36a" strokeWidth="5" strokeLinecap="round" />
+				<circle cx="94" cy="180" r="4" fill="#a8824a" />
+				{/* a small green flame, because warlock */}
+				<path className="cheer-bling cheer-bling-2" d="M30 150 q-6 -10 2 -18 q0 8 6 10 q4 6 -2 10 q-4 2 -6 -2 Z" fill="#7dff6a" opacity="0.85" />
+			</g>
+			{/* the rope, taut */}
+			<path d="M94 180 Q160 150 216 136 L246 146" fill="none" stroke="#c9a36a" strokeWidth="4" strokeLinecap="round" />
+			<path d="M110 173 l3 3 M140 160 l3 3 M170 149 l3 3 M198 141 l3 3" stroke="#a8824a" strokeWidth="2" strokeLinecap="round" />
+			{/* Larry: the backpack first, it is most of her */}
+			<g className="cheer-haul">
+				<ellipse cx="184" cy="52" rx="30" ry="11" fill="#7fa37a" />
+				<path d="M158 52 q-4 -8 4 -10 M210 52 q4 -8 -4 -10" fill="none" stroke="#5c7d58" strokeWidth="3" strokeLinecap="round" />
+				<rect x="150" y="58" width="68" height="112" rx="20" fill="#8a5a2b" />
+				<path d="M150 96 Q184 112 218 96 V78 Q218 58 198 58 H170 Q150 58 150 78 Z" fill="#a06a34" />
+				<rect x="178" y="98" width="12" height="14" rx="3" fill="#d6a52c" />
+				<rect x="158" y="124" width="52" height="34" rx="8" fill="#75491f" />
+				<path d="M158 134 H210" stroke="#5c3814" strokeWidth="2" />
+				<circle cx="146" cy="120" r="12" fill="none" stroke="#3a3a44" strokeWidth="5" />
+				<path d="M146 132 V152" stroke="#3a3a44" strokeWidth="5" strokeLinecap="round" />
+				<path d="M222 62 L214 176" stroke="#d6a52c" strokeWidth="4" strokeLinecap="round" />
+				<circle cx="222" cy="58" r="7" fill="#fff6b0" stroke="#d6a52c" strokeWidth="2" />
+				{/* legs, mid-stride */}
+				<path d="M222 182 L210 198 M236 182 L250 196" stroke="#f2c9a8" strokeWidth="9" strokeLinecap="round" />
+				<ellipse cx="206" cy="201" rx="11" ry="6" fill="#e9e4d2" />
+				<ellipse cx="256" cy="199" rx="11" ry="6" fill="#e9e4d2" />
+				{/* robe: white and gold on top, red below */}
+				<path d="M212 150 Q208 186 214 190 H246 Q252 186 246 150 Z" fill="#b8402e" />
+				<path d="M214 178 H246" stroke="#d6a52c" strokeWidth="3" />
+				<path d="M212 136 Q210 158 214 160 H246 Q250 158 246 136 Q230 128 212 136 Z" fill="#f4f1e8" stroke="#d6a52c" strokeWidth="2" />
+				<rect x="212" y="156" width="35" height="6" rx="2" fill="#3a3a44" />
+				{/* strap and arms on the rope */}
+				<path d="M218 134 Q214 150 216 160" fill="none" stroke="#5c3814" strokeWidth="5" strokeLinecap="round" />
+				<path d="M226 146 L246 146" stroke="#f2c9a8" strokeWidth="8" strokeLinecap="round" />
+				<circle cx="248" cy="146" r="6" fill="#f2c9a8" />
+				{/* head: big, as gnomes have them */}
+				<path d="M216 92 Q184 80 172 108 Q172 124 184 118 Q188 104 212 108 Z" fill="#8a4b22" />
+				<circle cx="206" cy="98" r="4.5" fill="#d6a52c" />
+				<path d="M214 112 l-9 -4 l7 9 Z M262 112 l9 -4 l-7 9 Z" fill="#f2c9a8" />
+				<circle cx="238" cy="110" r="24" fill="#f2c9a8" />
+				<path d="M214 108 Q212 82 238 82 Q264 82 262 108 Q254 92 240 96 Q238 90 236 96 Q222 92 214 108 Z" fill="#8a4b22" />
+				{/* light blue eyes, annoyed brows, gritted teeth */}
+				<ellipse cx="229" cy="112" rx="6" ry="6.5" fill="#ffffff" />
+				<ellipse cx="248" cy="112" rx="6" ry="6.5" fill="#ffffff" />
+				<circle cx="231" cy="113" r="3.6" fill="#7fd0ff" />
+				<circle cx="250" cy="113" r="3.6" fill="#7fd0ff" />
+				<circle cx="231.5" cy="113" r="1.5" fill="#12222c" />
+				<circle cx="250.5" cy="113" r="1.5" fill="#12222c" />
+				<path d="M221 103 L236 107 M257 103 L242 107" stroke="#5c3014" strokeWidth="3" strokeLinecap="round" />
+				<rect x="231" y="122" width="16" height="6" rx="2" fill="#ffffff" stroke="#8a3d2f" strokeWidth="1.5" />
+				<path d="M235 122 V128 M239 122 V128 M243 122 V128" stroke="#8a3d2f" strokeWidth="1" />
+				{/* sweat */}
+				<path className="cheer-bling cheer-bling-1" d="M268 92 q4 7 0 9 q-4 -2 0 -9 Z" fill="#7fd0ff" />
+				<path className="cheer-bling cheer-bling-3" d="M276 108 q3 6 0 8 q-3 -2 0 -8 Z" fill="#7fd0ff" />
+			</g>
+			{/* name plates */}
+			<rect x="34" y="210" width="72" height="22" rx="6" fill="#3b1560" stroke="#d6a52c" strokeWidth="2.5" />
+			<text x="70" y="226.5" textAnchor="middle" fontFamily="Cinzel, Georgia, serif" fontWeight="700" fontStyle="italic" fontSize="15" fill="#ffd100">
+				Afly
+			</text>
+			<rect x="190" y="210" width="84" height="22" rx="6" fill="#3b1560" stroke="#d6a52c" strokeWidth="2.5" />
+			<text x="232" y="226.5" textAnchor="middle" fontFamily="Cinzel, Georgia, serif" fontWeight="700" fontStyle="italic" fontSize="15" fill="#ffd100">
+				Larry
+			</text>
+		</svg>
+	);
+}
+
 /** Hidden on the live site until the unlock word is typed anywhere outside a text field; typing it again hides it. The dev copy always shows it, as the way back. */
 function ChannelSwitch() {
 	const [unlocked, setUnlocked] = useState(switchUnlocked);
@@ -222,7 +321,14 @@ function ChannelSwitch() {
 				{IS_DEV ? <span aria-current="page">Dev</span> : <a href={other}>Dev</a>}
 			</nav>
 			{/* He stands in the middle of the tab bar. */}
-			{cheer && createPortal(<CheerDwarf />, document.querySelector('.tab-bar') ?? document.body)}
+			{cheer &&
+				createPortal(
+					<>
+						<CheerFriends />
+						<CheerDwarf />
+					</>,
+					document.querySelector('.tab-bar') ?? document.body,
+				)}
 		</>
 	);
 }

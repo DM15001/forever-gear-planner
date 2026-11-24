@@ -433,7 +433,7 @@ export function usableSources(item: Item, faction: Faction | undefined, filter: 
 		const reputation = reputationOf(s) ?? battleground;
 		if (reputation && filter.excludedReputations.includes(reputation)) return false;
 		if (s.faction && faction && s.faction !== faction) return false;
-		if (s.kind === 'crafted' && filter.ownCraftsOnly && professions && !professions.includes(s.profession ?? '')) return false;
+		if (s.kind === 'crafted' && s.profession && filter.ownCraftsOnly && professions && !professions.includes(s.profession)) return false;
 		return true;
 	});
 }

@@ -1,31 +1,113 @@
 {
-	"_comment": "A small picture per dungeon, by zone id: icon names tried in order (the game's own icon for the dungeon first, a plain classic icon as fallback).",
-	"209": ["achievement_boss_archmagearugal", "spell_shadow_raisedead"],
-	"491": ["achievement_boss_charlgarazorflank", "inv_misc_head_tauren_01"],
-	"717": ["achievement_boss_bazil_thredd", "inv_misc_key_03"],
-	"718": ["achievement_boss_mutanus_the_devourer", "spell_nature_sleep"],
-	"719": ["achievement_boss_bazil_akumai", "spell_frost_summonwaterelemental"],
-	"721": ["achievement_boss_mekgineer_thermaplugg", "inv_misc_gear_01"],
-	"722": ["achievement_boss_amnennar_the_coldbringer", "spell_frost_frostbolt02"],
-	"796": ["inv_helmet_52", "spell_holy_sealofmight"],
-	"1176": ["achievement_boss_chiefukorzsandscalp", "inv_misc_head_troll_01"],
-	"1337": ["achievement_boss_archaedas", "inv_pick_02"],
-	"1477": ["achievement_boss_shadeoferanikus", "inv_misc_head_dragon_green"],
-	"1581": ["achievement_boss_edwinvancleef", "inv_misc_bandana_03"],
-	"1583": ["achievement_boss_generaldrakkisath", "inv_misc_head_dragon_01"],
-	"1584": ["achievement_boss_emperordagranthaurissan", "spell_fire_fire"],
-	"2017": ["spell_deathknight_armyofthedead", "spell_shadow_raisedead"],
-	"2057": ["spell_holy_senseundead", "inv_misc_bone_humanskull_01"],
-	"2100": ["achievement_boss_princesstheradras", "spell_nature_earthquake"],
-	"2437": ["achievement_boss_bazzalan", "spell_fire_fire"],
-	"2557": ["ability_warrior_decisivestrike", "inv_misc_book_09"],
-	"16544": ["spell_arcane_portaldalaran", "spell_nature_starfall"],
-	"16550": ["spell_frost_summonwaterelemental"],
-	"16554": ["inv_misc_pelt_bear_03", "ability_druid_maul"],
-	"16611": ["spell_shadow_raisedead"],
-	"16620": ["inv_misc_key_03"],
-	"16667": ["spell_nature_earthquake"],
-	"16732": ["inv_pick_02"],
-	"16842": ["ability_warrior_warcry"],
-	"16919": ["inv_misc_head_dwarf_01", "inv_hammer_05"]
+	"_comment": "A small picture per dungeon, by zone id: icon names tried in order. The classic dungeons use the icon of the dungeon's achievement (checked against warcraft.wiki.gg/wiki/Classic_Dungeonmaster on 2026-11-24); the dungeons new in Forever have a plain icon until the game shows one.",
+	"209": [
+		"achievement_boss_archmagearugal",
+		"inv_helm_robe_dungeonrobe_c_04",
+		"spell_shadow_raisedead"
+	],
+	"491": [
+		"achievement_boss_charlgarazorflank",
+		"inv_misc_head_tauren_01"
+	],
+	"717": [
+		"achievement_boss_bazil_thredd",
+		"inv_misc_head_gnoll_01",
+		"inv_misc_key_03"
+	],
+	"718": [
+		"achievement_boss_mutanus_the_devourer",
+		"spell_nature_sleep"
+	],
+	"719": [
+		"achievement_boss_bazil_akumai",
+		"spell_frost_summonwaterelemental"
+	],
+	"721": [
+		"achievement_boss_mekgineer_thermaplugg",
+		"inv_misc_gear_01"
+	],
+	"722": [
+		"achievement_boss_amnennar_the_coldbringer",
+		"spell_frost_frostbolt02"
+	],
+	"796": [
+		"spell_holy_resurrection",
+		"inv_helmet_52"
+	],
+	"1176": [
+		"achievement_boss_chiefukorzsandscalp",
+		"inv_misc_head_troll_01"
+	],
+	"1337": [
+		"achievement_boss_archaedas",
+		"inv_pick_02"
+	],
+	"1477": [
+		"achievement_boss_shadeoferanikus",
+		"inv_misc_head_dragon_green"
+	],
+	"1581": [
+		"achievement_boss_edwinvancleef",
+		"inv_misc_head_murloc_01",
+		"inv_misc_bandana_03"
+	],
+	"1583": [
+		"achievement_boss_overlord_wyrmthalak",
+		"achievement_boss_generaldrakkisath",
+		"inv_misc_head_dragon_01"
+	],
+	"1584": [
+		"achievement_boss_emperordagranthaurissan",
+		"spell_fire_fire"
+	],
+	"2017": [
+		"spell_deathknight_armyofthedead",
+		"spell_shadow_raisedead"
+	],
+	"2057": [
+		"spell_holy_senseundead",
+		"inv_misc_bone_humanskull_01"
+	],
+	"2100": [
+		"achievement_boss_princesstheradras",
+		"spell_nature_earthquake"
+	],
+	"2437": [
+		"racial_orc_berserkerstrength",
+		"spell_fire_fire"
+	],
+	"2557": [
+		"ability_warrior_decisivestrike",
+		"inv_misc_book_09"
+	],
+	"16544": [
+		"spell_arcane_portaldalaran",
+		"spell_nature_starfall"
+	],
+	"16550": [
+		"spell_frost_summonwaterelemental"
+	],
+	"16554": [
+		"inv_misc_pelt_bear_03",
+		"ability_druid_maul"
+	],
+	"16611": [
+		"spell_shadow_raisedead"
+	],
+	"16620": [
+		"inv_misc_key_03"
+	],
+	"16667": [
+		"spell_nature_earthquake"
+	],
+	"16732": [
+		"inv_pick_02"
+	],
+	"16842": [
+		"ability_warrior_warcry"
+	],
+	"16919": [
+		"inv_misc_head_dwarf_01",
+		"inv_hammer_05"
+	]
 }
