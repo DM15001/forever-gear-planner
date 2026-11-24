@@ -669,6 +669,16 @@ const simSetup = {
 if (Object.keys(talentTrees).length) await writeFile(join(SIM_DIR, 'setup.json'), JSON.stringify(simSetup));
 for (const spec of specs) if (!simTemplates.has(spec.id)) console.warn(`Sim template for ${spec.id} not written: its build could not be read. The existing file stays.`);
 const write = (name, data) => writeFile(join(OUT_DIR, name), JSON.stringify(data, null, '\t') + '\n');
+
+// Items whose effect WoWSims itself marks as "waiting for PPM data": the game files give no rate for it (the
+// proc chance reads the placeholder 101), and until WoWSims has one the simulator triggers it on every hit or
+// cast. Their simulated worth is far too high; the app keeps them out of the lists by default.
+const procText = await readRepoText('tools/database/overrides/weapon_procs.go');
+const unknownProcs = {};
+for (const match of (procText ?? '').matchAll(/\/\/\s*ItemID:\s*(\d+),\s*\n\s*\/\/\s*SpellID:\s*\d+,\s*\n\s*\/\/\s*PPM:\s*0,\s*\/\/ TODO: waiting for PPM data\s*\n\s*\/\/\s*Reason:\s*"([^"]*)"/g)) {
+	if (match[2].includes('column reads 101')) unknownProcs[match[1]] = match[2].split(':')[0];
+}
+if (!procText) console.warn('Proc overrides not read; src/data/unknownProcs.json stays as it is.');
 await Promise.all([
 	write('items.json', items),
 	write('enchants.json', enchants),
@@ -677,6 +687,7 @@ await Promise.all([
 	write('randomSuffixes.json', randomSuffixes),
 	...(simSets.length ? [write('simSets.json', simSets)] : []),
 	write('meta.json', meta),
+	...(procText ? [write('unknownProcs.json', unknownProcs)] : []),
 ]);
 
 console.log(`Wrote ${OUT_DIR} and ${SIM_DIR} (simulator: ${wasmStatus})`);
