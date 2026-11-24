@@ -53,7 +53,22 @@ function switchUnlocked(): boolean {
 /** The site owner's dwarf as a cartoon: chain coif, long red beard, white tabard, big gauntlets. Sunglasses on, a smoke in the mouth, one finger for the world and the other hand pointing up at the Live/Dev switch. Drawn here. */
 function CheerDwarf() {
 	return (
-		<svg className="cheer-dwarf" viewBox="0 0 180 220" width="180" height="220" aria-hidden="true">
+		<svg className="cheer-dwarf" viewBox="0 0 180 240" width="180" height="240" aria-hidden="true">
+			<defs>
+				<linearGradient id="cheer-gold" x1="0" y1="0" x2="0" y2="1">
+					<stop offset="0" stopColor="#fff6b0" />
+					<stop offset="0.45" stopColor="#ffd100" />
+					<stop offset="0.55" stopColor="#c98a00" />
+					<stop offset="1" stopColor="#ffe45c" />
+				</linearGradient>
+				<clipPath id="cheer-plate">
+					<rect x="22" y="196" width="136" height="34" rx="8" />
+				</clipPath>
+			</defs>
+			{/* fur coat, worn open */}
+			<path d="M40 96 Q24 140 38 176 L64 176 L64 100 Z M140 96 Q156 140 142 176 L116 176 L116 100 Z" fill="#5b2a86" />
+			<path d="M40 96 Q24 140 38 176 M140 96 Q156 140 142 176 M38 176 H64 M116 176 H142" fill="none" stroke="#f7f3ea" strokeWidth="9" strokeLinecap="round" />
+			<path d="M33 120 l3 2 M31 144 l3 2 M35 164 l3 1 M147 120 l-3 2 M149 144 l-3 2 M145 164 l-3 1 M48 176 l2 2 M130 176 l2 2" stroke="#1a1203" strokeWidth="2.4" strokeLinecap="round" />
 			{/* arm pointing up at the switch */}
 			<g className="cheer-point">
 				<path d="M118 104 L146 62" stroke="#c9895f" strokeWidth="15" strokeLinecap="round" />
@@ -79,9 +94,9 @@ function CheerDwarf() {
 			<ellipse cx="72" cy="182" rx="18" ry="10" fill="#8a7fb8" />
 			<ellipse cx="108" cy="182" rx="18" ry="10" fill="#8a7fb8" />
 			{/* shoulder pads, mail, tabard, belt */}
-			<ellipse cx="54" cy="98" rx="22" ry="14" fill="#2b2a33" />
-			<ellipse cx="126" cy="98" rx="22" ry="14" fill="#2b2a33" />
-			<path d="M40 94 Q52 82 66 90 M114 90 Q128 82 140 94" fill="none" stroke="#55535f" strokeWidth="3" strokeLinecap="round" />
+			<ellipse cx="54" cy="98" rx="23" ry="14" fill="#f7f3ea" />
+			<ellipse cx="126" cy="98" rx="23" ry="14" fill="#f7f3ea" />
+			<path d="M42 94 l3 3 M54 90 l2 4 M64 98 l3 2 M48 104 l3 1 M116 98 l-3 2 M126 90 l-2 4 M138 94 l-3 3 M132 104 l-3 1" stroke="#1a1203" strokeWidth="2.4" strokeLinecap="round" />
 			<rect x="58" y="92" width="64" height="64" rx="16" fill="#8d949c" />
 			<path d="M68 92 H112 V148 Q90 160 68 148 Z" fill="#f4f1e8" stroke="#d6a52c" strokeWidth="3" />
 			<path d="M80 108 L90 118 L100 108 L96 124 L90 130 L84 124 Z" fill="#3a3a44" />
@@ -99,11 +114,29 @@ function CheerDwarf() {
 			<path d="M72 112 H80 M71 122 H79 M100 112 H108 M101 122 H109" stroke="#d6a52c" strokeWidth="3" strokeLinecap="round" />
 			<path d="M90 74 Q76 72 64 86 Q78 90 90 80 Q102 90 116 86 Q104 72 90 74 Z" fill="#cf6a2a" />
 			<ellipse cx="90" cy="70" rx="7" ry="6" fill="#c98f66" />
+			{/* gold chain with a medallion */}
+			<path d="M66 92 Q90 150 114 92" fill="none" stroke="url(#cheer-gold)" strokeWidth="5" strokeDasharray="5 2.5" strokeLinecap="round" />
+			<circle cx="90" cy="124" r="12" fill="url(#cheer-gold)" stroke="#8f6d1c" strokeWidth="2" />
+			<text x="90" y="129.5" textAnchor="middle" fontFamily="Georgia, serif" fontWeight="700" fontSize="16" fill="#3b1560">
+				B
+			</text>
+			{/* wide hat with a leopard band and a feather */}
+			<path d="M112 20 Q128 -2 118 -8 Q104 2 106 20 Z" fill="#e8455a" />
+			<path d="M110 20 Q118 6 117 -6" fill="none" stroke="#ffd7dc" strokeWidth="1.5" strokeLinecap="round" />
+			<ellipse cx="90" cy="36" rx="48" ry="9" fill="#4a1f70" />
+			<path d="M66 36 Q62 4 90 4 Q118 4 114 36 Q90 42 66 36 Z" fill="#6a329c" />
+			<path d="M66 27 Q90 34 114 27 L114 36 Q90 42 66 36 Z" fill="#e2a93a" />
+			<path d="M72 32 l3 1 M82 35 l3 0.5 M93 36 l3 0 M103 34 l3 -0.5 M110 31 l2 -0.5" stroke="#3a2414" strokeWidth="3" strokeLinecap="round" />
+			<ellipse cx="90" cy="38" rx="48" ry="7" fill="none" stroke="#ffd100" strokeWidth="1.5" />
+			{/* rings */}
+			<path d="M21 36 H29" stroke="url(#cheer-gold)" strokeWidth="5" strokeLinecap="round" />
+			<circle cx="25" cy="36" r="2.5" fill="#7fe0ff" />
 			{/* sunglasses */}
 			<path d="M64 52 H116" stroke="#0a0908" strokeWidth="3" />
 			<path d="M66 52 H87 V60 Q87 68 77 68 Q66 68 66 60 Z" fill="#0a0908" />
 			<path d="M93 52 H114 V60 Q114 68 103 68 Q93 68 93 60 Z" fill="#0a0908" />
 			<path d="M70 56 L78 56 M97 56 L105 56" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" opacity="0.65" />
+			<path d="M66 52 H87 V60 Q87 68 77 68 Q66 68 66 60 Z M93 52 H114 V60 Q114 68 103 68 Q93 68 93 60 Z M64 52 H116" fill="none" stroke="url(#cheer-gold)" strokeWidth="1.6" />
 			{/* a big one: fat cone, twisted tip, glowing end, smoke */}
 			<path d="M94 83 L100 91 L150 106 L152 90 Z" fill="#f4f1e8" stroke="#cfc8b4" strokeWidth="1" strokeLinejoin="round" />
 			<path d="M112 90 L113 95 M124 91 L125 99 M136 92 L137 102" stroke="#cfc8b4" strokeWidth="1.2" strokeLinecap="round" />
@@ -113,12 +146,22 @@ function CheerDwarf() {
 			<circle className="cheer-smoke cheer-smoke-2" cx="161" cy="92" r="9" fill="#cfd4d8" />
 			<circle className="cheer-smoke cheer-smoke-3" cx="157" cy="93" r="6" fill="#cfd4d8" />
 			<circle className="cheer-smoke cheer-smoke-2" cx="164" cy="96" r="5" fill="#e3e6e8" />
-			{/* name plate */}
-			<path d="M40 196 L48 206 L40 216 H140 L132 206 L140 196 Z" fill="#8f6d1c" />
-			<rect x="46" y="192" width="88" height="22" rx="4" fill="#ffd100" stroke="#8f6d1c" strokeWidth="2" />
-			<text x="90" y="208.5" textAnchor="middle" fontFamily="Cinzel, Georgia, serif" fontWeight="700" fontSize="15" fill="#1a1203">
+			{/* name plate, as loud as it gets */}
+			<path d="M10 204 L22 213 L10 222 H170 L158 213 L170 204 Z" fill="#8f6d1c" />
+			<rect x="22" y="196" width="136" height="34" rx="8" fill="#3b1560" stroke="url(#cheer-gold)" strokeWidth="4" />
+			<rect x="27" y="201" width="126" height="24" rx="5" fill="none" stroke="#ffd100" strokeWidth="1" strokeDasharray="1.5 3" />
+			<text x="90" y="221" textAnchor="middle" fontFamily="Cinzel, Georgia, serif" fontWeight="700" fontStyle="italic" fontSize="23" letterSpacing="1" fill="url(#cheer-gold)" stroke="#5a3d00" strokeWidth="0.8" paintOrder="stroke">
 				Bogdan
 			</text>
+			<g clipPath="url(#cheer-plate)">
+				<path className="cheer-shine" d="M0 190 L14 190 L-2 236 L-16 236 Z" fill="#ffffff" opacity="0.55" />
+			</g>
+			<path d="M22 208 l5 5 l-5 5 l-5 -5 Z M158 208 l5 5 l-5 5 l-5 -5 Z" fill="#bff3ff" stroke="#5fc4e8" strokeWidth="1" />
+			{/* bling */}
+			<path className="cheer-bling cheer-bling-1" d="M36 186 l2 6 l6 2 l-6 2 l-2 6 l-2 -6 l-6 -2 l6 -2 Z" fill="#fff6b0" />
+			<path className="cheer-bling cheer-bling-2" d="M150 182 l2 6 l6 2 l-6 2 l-2 6 l-2 -6 l-6 -2 l6 -2 Z" fill="#fff6b0" />
+			<path className="cheer-bling cheer-bling-3" d="M90 108 l1.5 5 l5 1.5 l-5 1.5 l-1.5 5 l-1.5 -5 l-5 -1.5 l5 -1.5 Z" fill="#ffffff" />
+			<path className="cheer-bling cheer-bling-2" d="M60 14 l1.5 5 l5 1.5 l-5 1.5 l-1.5 5 l-1.5 -5 l-5 -1.5 l5 -1.5 Z" fill="#fff6b0" />
 		</svg>
 	);
 }
