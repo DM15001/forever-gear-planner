@@ -27,13 +27,17 @@ interface Props {
 	activeIndex: number;
 	/** A link that opens this character and its plan on another device. */
 	shareLink: string;
+	/** Saves a copy of this character as another gear set with that name, and opens it. */
+	onNewSet?: (name: string) => void;
 	/** Opens the page where the talents are picked. */
 	onOpenTalents?: () => void;
 	/** The step that follows, shown in the header of the page. */
 	next?: ReactNode;
 }
 
-export function CharacterSheet({ spec, character, data, onChange, names, builds, activeIndex, shareLink, onOpenTalents, next }: Props) {
+export function CharacterSheet({ spec, character, data, onChange, names, builds, activeIndex, shareLink, onNewSet, onOpenTalents, next }: Props) {
+	// The name being typed for a new gear set; null while the form is closed.
+	const [setName, setSetName] = useState<string | null>(null);
 	// 'copied' after the link went to the clipboard, 'shown' when the browser refused and the link is shown to copy by hand.
 	const [shared, setShared] = useState<'idle' | 'copied' | 'shown'>('idle');
 	// The slot whose item is being swapped by hand, if any.
@@ -97,7 +101,10 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 					{race && <RaceIcon name={race.name} className="race-icon race-icon-corner" />}
 				</span>
 				<div className="sheet-head-text">
-					<h2 id="sheet-title">{character.name ?? `Your ${spec.className}`}</h2>
+					<h2 id="sheet-title">
+						{character.name ?? `Your ${spec.className}`}
+						{character.set && <span className="set-chip">{character.set}</span>}
+					</h2>
 					<p className="identity-line">
 						{spec.name}
 						{race ? `, ${race.name}` : ', race not set'}
@@ -120,6 +127,29 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 						{shared === 'copied' ? 'Copied: send it to your friend' : 'Copy character (equipped + planned gear)'}
 					</button>
 					{shared === 'shown' && <input type="text" readOnly aria-label="Share link" value={shareLink} onFocus={e => e.target.select()} />}
+					{onNewSet &&
+						(setName === null ? (
+							<button className="button" onClick={() => setSetName('')} title="Keeps this character as it is and makes a copy to change: another build, other gear, another enemy. Both stay in the bar at the top.">
+								New gear set from this character
+							</button>
+						) : (
+							<form
+								className="sheet-set"
+								onSubmit={event => {
+									event.preventDefault();
+									if (!setName.trim()) return;
+									onNewSet(setName);
+									setSetName(null);
+								}}>
+								<input type="text" autoFocus maxLength={30} value={setName} onChange={event => setSetName(event.target.value)} placeholder="Name: Fire, vs beasts…" aria-label="Name of the new gear set" />
+								<button className="button button-primary" type="submit" disabled={!setName.trim()}>
+									Create
+								</button>
+								<button className="link" type="button" onClick={() => setSetName(null)}>
+									Cancel
+								</button>
+							</form>
+						))}
 				</div>
 				{next && <div className="sheet-next">{next}</div>}
 			</header>

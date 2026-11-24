@@ -19,14 +19,41 @@ interface Saved {
 	scope: GroupScope;
 	sort: 'total' | 'people';
 	/** Dungeons as cards side by side, or as one row each. */
-	layout: 'cards' | 'list';
+	look: 'cards' | 'list';
 }
 function loadSaved(): Saved {
 	try {
 		const saved = JSON.parse(localStorage.getItem(GROUP_KEY) ?? '{}') as Partial<Saved>;
-		return { out: Array.isArray(saved.out) ? saved.out.filter(Number.isInteger) : [], scope: saved.scope === 'any' ? 'any' : 'plan', sort: saved.sort === 'people' ? 'people' : 'total', layout: saved.layout === 'cards' ? 'cards' : 'list' };
+		return { out: Array.isArray(saved.out) ? saved.out.filter(Number.isInteger) : [], scope: saved.scope === 'any' ? 'any' : 'plan', sort: saved.sort === 'people' ? 'people' : 'total', look: saved.look === 'list' ? 'list' : 'cards' };
 	} catch {
-		return { out: [], scope: 'plan', sort: 'total', layout: 'list' };
+		return { out: [], scope: 'plan', sort: 'total', look: 'cards' };
+	}
+}
+
+/** A tiny Bogdan: hat, shades, beard. Drawn here so it needs no image file. */
+const MINI_BOGDAN =
+	'<svg viewBox="0 0 40 40" width="40" height="40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="12" fill="#dba77e"/><path d="M9 22 Q8 38 20 39 Q32 38 31 22 Q26 28 20 28 Q14 28 9 22 Z" fill="#b5531f"/><path d="M14 30 Q20 36 26 30 Q20 33 14 30 Z" fill="#fff"/><ellipse cx="20" cy="12" rx="17" ry="4" fill="#4a1f70"/><path d="M11 12 Q10 1 20 1 Q30 1 29 12 Z" fill="#6a329c"/><path d="M11 9 Q20 12 29 9 V12 Q20 15 11 12 Z" fill="#e2a93a"/><path d="M10 17 H19 V20 Q19 24 14.5 24 Q10 24 10 20 Z M21 17 H30 V20 Q30 24 25.5 24 Q21 24 21 20 Z" fill="#0a0908" stroke="#ffd100" stroke-width="0.8"/><path d="M9 17 H31" stroke="#0a0908" stroke-width="1.5"/></svg>';
+
+/** A handful of small Bogdans fly off the button that was pressed: the drop is yours. Nothing for people who asked for less motion. */
+function cheerBurst(from: HTMLElement) {
+	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+	const box = from.getBoundingClientRect();
+	for (let i = 0; i < 9; i++) {
+		const emote = document.createElement('span');
+		emote.className = 'got-emote';
+		emote.setAttribute('aria-hidden', 'true');
+		emote.innerHTML = MINI_BOGDAN;
+		const angle = -Math.PI / 2 + (Math.random() - 0.5) * 2.4;
+		const reach = 110 + Math.random() * 150;
+		emote.style.left = `${box.left + box.width / 2}px`;
+		emote.style.top = `${box.top + box.height / 2}px`;
+		emote.style.setProperty('--dx', `${Math.cos(angle) * reach}px`);
+		emote.style.setProperty('--dy', `${Math.sin(angle) * reach}px`);
+		emote.style.setProperty('--turn', `${(Math.random() - 0.5) * 90}deg`);
+		emote.style.setProperty('--size', `${0.8 + Math.random() * 0.9}`);
+		emote.style.animationDelay = `${i * 45}ms`;
+		emote.addEventListener('animationend', () => emote.remove());
+		document.body.append(emote);
 	}
 }
 
@@ -199,11 +226,11 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 				</div>
 				<div className="farm-order" role="group" aria-label="How the dungeons are shown">
 					<span className="slot-source">View</span>
-					<button className="button button-small" aria-pressed={saved.layout === 'list'} onClick={() => change({ layout: 'list' })}>
-						List
-					</button>
-					<button className="button button-small" aria-pressed={saved.layout === 'cards'} onClick={() => change({ layout: 'cards' })}>
+					<button className="button button-small" aria-pressed={saved.look === 'cards'} onClick={() => change({ look: 'cards' })}>
 						Cards
+					</button>
+					<button className="button button-small" aria-pressed={saved.look === 'list'} onClick={() => change({ look: 'list' })}>
+						List
 					</button>
 				</div>
 			</div>
@@ -226,7 +253,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 			{!waiting && members.length > 0 && dungeons.length === 0 && (
 				<p className="farm-empty">{saved.scope === 'plan' ? 'Nobody in the group has a dungeon drop in their plan. Switch to "Every upgrade", or build the plans first.' : 'No dungeon has an upgrade for anybody in the group.'}</p>
 			)}
-			<ol className={`plain-list group-dungeons group-dungeons-${saved.layout}`}>
+			<ol className={`plain-list group-dungeons group-dungeons-${saved.look}`}>
 				{dungeons.map((dungeon, rank) => {
 					const isOpen = open.has(dungeon.key);
 					// Every drop once, biggest gain first: the row of icons on the card.
@@ -238,7 +265,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 							if (!known || best > known.best) byItem.set(item.id, { item, best, people: wants.length, who: wants.map(want => `${want.member.label} ${gain(want.delta)}`).join(', ') });
 						}
 					const strip = [...byItem.values()].sort((x, y) => y.best - x.best);
-					const shown = strip.slice(0, saved.layout === 'cards' ? 6 : 12);
+					const shown = strip.slice(0, saved.look === 'cards' ? 6 : 12);
 					return (
 						<li key={dungeon.key} className={`group-dungeon${rank === 0 ? ' group-dungeon-top' : ''}${isOpen ? ' group-dungeon-open' : ''}`}>
 							<button className="group-dungeon-head" aria-expanded={isOpen} onClick={() => toggle(dungeon.key)} title={isOpen ? 'Hide the bosses and who wants what' : 'Show the bosses and who wants what'}>
@@ -312,7 +339,10 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 																) : (
 																	!want.planned && <span className="badge badge-plan group-tag-upgrade" title="Better than what this character wears, but not their best option">upgrade</span>
 																)}
-																<button className="button button-small" onClick={() => got(want.member, want.slotIndex, item)} title={`${item.name} dropped for ${want.member.label}: equip it and take it out of the plan`}>
+																<button className="button button-small" onClick={event => {
+																		cheerBurst(event.currentTarget);
+																		got(want.member, want.slotIndex, item);
+																	}} title={`${item.name} dropped for ${want.member.label}: equip it and take it out of the plan`}>
 																	Got it
 																</button>
 															</span>

@@ -24,7 +24,7 @@ import { UpgradesTab } from './components/UpgradesTab';
 import { type GameData, loadGameData, dataFor } from './lib/gameData';
 import type { ImportResult } from './lib/importCharacter';
 import { DEFAULT_FILTER, type SourceFilter } from './lib/scoring';
-import { activeCharacter, addCharacter, addGroup, characterLabel, groupFromShareText, removeActive, replaceActive, type Roster, selectCharacter, sharedCharacter, shareUrl } from './lib/roster';
+import { activeCharacter, addCharacter, addGroup, addSet, characterLabel, groupFromShareText, removeActive, replaceActive, type Roster, selectCharacter, sharedCharacter, shareUrl } from './lib/roster';
 import { specOf, specsOfClass } from './lib/specs';
 import { loadFilter, loadRoster, loadWeights, normalFilter, saveRoster, saveWeights } from './lib/storage';
 import type { Character, SpecConfig } from './lib/types';
@@ -275,17 +275,29 @@ function CheerFriends() {
 					<path d="M160 138 H208" stroke="#3a4d2c" strokeWidth="2" />
 					<rect x="180" y="134" width="8" height="8" rx="2" fill="#d6a52c" />
 					<rect x="132" y="118" width="18" height="34" rx="7" fill="#4d653b" />
-					<rect x="137" y="108" width="8" height="14" rx="3" fill="#7fd0ff" stroke="#cfd4d8" strokeWidth="1" />
-					<rect x="138" y="105" width="6" height="4" rx="1" fill="#75491f" />
 					{/* frying pan, rope coil and a lantern hanging off it */}
-					<circle cx="140" cy="88" r="11" fill="#3a3a44" />
-					<circle cx="140" cy="88" r="7.5" fill="#23232b" />
-					<path d="M148 96 L160 110" stroke="#3a3a44" strokeWidth="5" strokeLinecap="round" />
+					<circle cx="226" cy="118" r="11" fill="#3a3a44" />
+					<circle cx="226" cy="118" r="7.5" fill="#23232b" />
+					<path d="M222 108 L214 92" stroke="#3a3a44" strokeWidth="5" strokeLinecap="round" />
 					<circle cx="216" cy="150" r="10" fill="none" stroke="#c9a36a" strokeWidth="4" />
 					<circle cx="216" cy="150" r="5" fill="none" stroke="#a8824a" strokeWidth="3" />
 					<path d="M150 164 V176" stroke="#23232b" strokeWidth="2" />
 					<rect x="144" y="176" width="12" height="15" rx="3" fill="#ffd100" stroke="#3a3a44" strokeWidth="2.5" />
 					<path className="cheer-bling cheer-bling-1" d="M150 180 q3 4 0 8 q-3 -4 0 -8 Z" fill="#ff7a1a" />
+					{/* a small pils looks out of the side pocket */}
+					<g transform="rotate(-10 140 110)">
+						<rect x="138" y="84" width="5" height="12" rx="1.5" fill="#6b3a16" />
+						<rect x="137" y="81" width="7" height="4" rx="1" fill="#ffd100" />
+						<path d="M134 100 Q134 94 138 94 H143 Q147 94 147 100 V124 H134 Z" fill="#6b3a16" />
+						<rect x="134" y="103" width="13" height="12" fill="#f4f1e8" />
+						<rect x="134" y="103" width="13" height="2.5" fill="#b8402e" />
+						<text x="140.5" y="112.5" textAnchor="middle" fontFamily="Georgia, serif" fontWeight="700" fontSize="4.6" fill="#3a1f0a">
+							PILS
+						</text>
+						<path d="M136 97 V101" stroke="#b9824a" strokeWidth="1.2" strokeLinecap="round" />
+					</g>
+					<rect x="131" y="116" width="20" height="36" rx="7" fill="#4d653b" />
+					<path d="M131 124 H151" stroke="#3a4d2c" strokeWidth="2" />
 					{/* her staff */}
 					<path d="M222 62 L214 176" stroke="#d6a52c" strokeWidth="4" strokeLinecap="round" />
 					<circle cx="222" cy="58" r="7" fill="#fff6b0" stroke="#d6a52c" strokeWidth="2" />
@@ -591,6 +603,7 @@ export function App() {
 			builds={specsOfClass(baseSpec.className)}
 			activeIndex={roster.active}
 			shareLink={shareUrl(character, window.location.href)}
+			onNewSet={name => changeRoster(addSet(roster, name))}
 			onOpenTalents={() => setTab('sim')}
 			next={
 				<>
@@ -684,7 +697,8 @@ export function App() {
 				{tab === 'faq' && !character && <FaqTab />}
 				{(!character || importing) && tab !== 'faq' && <ImportPanel hasCharacter={Boolean(character)} onImported={onImported} onCancel={() => setImporting(false)} />}
 
-				{character && !importing && (
+				{/* Reading pages are not about one character: no character bar, no gear panes. */}
+				{character && !importing && tab !== 'faq' && tab !== 'news' && (
 					<CharacterBar
 						roster={roster}
 						onSelect={index => {
@@ -701,7 +715,7 @@ export function App() {
 				{character && !importing && (
 					<SimProvider character={character}>
 						{/* The Character page shows both sets itself, so the side panes stay away there. */}
-						{data && tab !== 'character' && tab !== 'group' && <GearRails spec={spec} character={character} data={data} showEquipped={options.equippedPanel} showPlanned={options.plannedPanel} onShow={(kind, on) => changeOptions({ ...options, [kind === 'equipped' ? 'equippedPanel' : 'plannedPanel']: on })} filter={filter} onChange={update} />}
+						{data && tab !== 'character' && tab !== 'group' && tab !== 'faq' && tab !== 'news' && <GearRails spec={spec} character={character} data={data} showEquipped={options.equippedPanel} showPlanned={options.plannedPanel} onShow={(kind, on) => changeOptions({ ...options, [kind === 'equipped' ? 'equippedPanel' : 'plannedPanel']: on })} filter={filter} onChange={update} />}
 						{tab === 'simulate' && (
 							<div className="view-switch" role="group" aria-label="How to pick upgrades">
 								<button className="view-choice" aria-pressed={upgradeView === 'slots'} onClick={() => setUpgradeView('slots')}>

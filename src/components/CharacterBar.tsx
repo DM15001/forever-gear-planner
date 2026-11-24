@@ -35,7 +35,10 @@ export function CharacterBar({ roster, onSelect, onAdd, onRemove, aside }: { ros
 						<button className="character-tile-pick" aria-current={active ? 'true' : undefined} onClick={() => { setAsking(false); onSelect(index); }}>
 						<ClassIcon className={spec.className} />
 						<span className="character-tile-text">
-							<strong>{character.name ?? `${race?.name ?? 'Unnamed'} ${spec.className}`}</strong>
+							<strong>
+								{character.name ?? `${race?.name ?? 'Unnamed'} ${spec.className}`}
+								{character.set && <span className="set-chip">{character.set}</span>}
+							</strong>
 							<span>{spec.name}</span>
 							<span className="character-tile-meta">
 								{race && <RaceIcon name={race.name} />}

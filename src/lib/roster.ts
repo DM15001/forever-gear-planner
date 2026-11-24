@@ -13,10 +13,20 @@ export const activeCharacter = (roster: Roster): Character | null => roster.char
 
 /** The name to show for a character: its own, or "Dwarf 2" from race and position. */
 export function characterLabel(character: Character, index: number, spec: SpecConfig): string {
+	const set = character.set ? ` (${character.set})` : '';
 	const name = character.name?.trim();
-	if (name) return name;
+	if (name) return name + set;
 	const race = spec.races.find(r => r.id === character.race)?.name;
-	return `${race ?? 'Character'} ${index + 1}`;
+	return `${race ?? 'Character'} ${index + 1}${set}`;
+}
+
+/** A second copy of the open character under a set name, to change into another build or for another enemy. It becomes the open one. */
+export function addSet(roster: Roster, setName: string): Roster {
+	const base = activeCharacter(roster);
+	const name = setName.trim().slice(0, 30);
+	if (!base || !name) return roster;
+	// At the end, so the places of the others stay as the group plan remembers them.
+	return addCharacter(roster, { ...structuredClone(base), set: name });
 }
 
 export function addCharacter(roster: Roster, character: Character): Roster {
@@ -68,6 +78,7 @@ function cleanCharacter(value: unknown): Character | null {
 	const c = value;
 	return {
 		name: typeof c.name === 'string' ? c.name.slice(0, 60) : undefined,
+		...(typeof c.set === 'string' && c.set.trim() ? { set: c.set.trim().slice(0, 30) } : {}),
 		specId: typeof c.specId === 'string' && /^[a-z-]{1,40}$/.test(c.specId) ? c.specId : undefined,
 		race: c.race,
 		level: typeof c.level === 'number' ? c.level : null,
