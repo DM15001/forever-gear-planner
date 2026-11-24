@@ -4809,6 +4809,8 @@ summary.breakdown-toggle:focus-visible {
 .gear-rail-changed {
 	box-shadow: inset 2px 0 0 var(--ember);
 	background: #1c1510;
+}
+
 /* The dwarf that shows for a moment when the Live/Dev switch is unlocked; it stands under the switch and points up at it. */
 .cheer-dwarf {
 	position: fixed;
@@ -4893,4 +4895,49 @@ summary.breakdown-toggle:focus-visible {
 	.cheer-smoke {
 		opacity: 0.6;
 	}
+}
+
+/* Options: the gear button at the top right, left of the Live/Dev switch. */
+.options-button {
+	position: fixed;
+	top: 0.3rem;
+	right: 0.5rem;
+	z-index: 50;
+	display: grid;
+	place-items: center;
+	width: 2rem;
+	height: 2rem;
+	color: var(--haze);
+	background: var(--slate);
+	border: 1px solid var(--ridge);
+	border-radius: 999px;
+	cursor: pointer;
+}
+.options-button:hover {
+	color: var(--brass);
+	border-color: var(--brass);
+}
+.channel-switch {
+	right: 3rem;
+}
+.cheer-dwarf {
+	right: 3rem;
+}
+.option-row {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.6rem;
+	padding: 0.6rem 0;
+	border-top: 1px solid var(--ridge);
+	cursor: pointer;
+}
+.option-row input {
+	width: 1.15rem;
+	height: 1.15rem;
+	margin-top: 0.15rem;
+	accent-color: var(--brass);
+}
+.option-row span {
+	display: flex;
+	flex-direction: column;
 }

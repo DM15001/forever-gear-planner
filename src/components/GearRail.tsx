@@ -77,14 +77,14 @@ function Rail({ kind, gear, other, spec, character, data, onBreakdown }: Props &
 }
 
 /** The equipped gear at the left edge of the page and the planned gear at the right one. They stay in view while the page scrolls; screens too narrow for them leave them out. */
-export function GearRails({ spec, character, data }: Props) {
+export function GearRails({ spec, character, data, showEquipped, showPlanned }: Props & { showEquipped: boolean; showPlanned: boolean }) {
 	const planned = useMemo(() => plannedGear(character, data), [character, data]);
 	const hasPlan = Object.keys(character.plan ?? {}).length > 0 || Object.keys(character.planEnchants ?? {}).length > 0;
 	const [open, setOpen] = useState<'equipped' | 'planned' | null>(null);
 	return (
 		<>
-			<Rail kind="equipped" gear={character.gear} other={planned} spec={spec} character={character} data={data} onBreakdown={() => setOpen('equipped')} />
-			<Rail kind="planned" gear={planned} other={character.gear} spec={spec} character={character} data={data} onBreakdown={() => setOpen('planned')} />
+			{showEquipped && <Rail kind="equipped" gear={character.gear} other={planned} spec={spec} character={character} data={data} onBreakdown={() => setOpen('equipped')} />}
+			{showPlanned && <Rail kind="planned" gear={planned} other={character.gear} spec={spec} character={character} data={data} onBreakdown={() => setOpen('planned')} />}
 			{open && <BreakdownDialog equipped={character.gear} planned={planned} hasPlan={hasPlan} initial={open} onClose={() => setOpen(null)} />}
 		</>
 	);
