@@ -523,23 +523,50 @@ export function App() {
 	);
 }
 
-/** A button that brings the page back to its top; it appears once the page is scrolled a screen down. */
+/**
+ * Two buttons at the bottom right: back to the top once the page is scrolled a screen down, and down to the end
+ * while there is more than a screen left below.
+ */
 function BackToTop() {
-	const [shown, setShown] = useState(false);
+	const [shown, setShown] = useState({ top: false, bottom: false });
 	useEffect(() => {
-		const check = () => setShown(window.scrollY > window.innerHeight * 0.8);
+		const check = () => {
+			const left = document.documentElement.scrollHeight - window.innerHeight - window.scrollY;
+			const next = { top: window.scrollY > window.innerHeight * 0.8, bottom: left > window.innerHeight };
+			setShown(was => (was.top === next.top && was.bottom === next.bottom ? was : next));
+		};
 		check();
 		window.addEventListener('scroll', check, { passive: true });
-		return () => window.removeEventListener('scroll', check);
+		window.addEventListener('resize', check);
+		// The page grows and shrinks with its lists: look again when it does.
+		const watcher = new ResizeObserver(check);
+		watcher.observe(document.body);
+		return () => {
+			window.removeEventListener('scroll', check);
+			window.removeEventListener('resize', check);
+			watcher.disconnect();
+		};
 	}, []);
-	if (!shown) return null;
-	const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	if (!shown.top && !shown.bottom) return null;
+	const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
 	return (
-		<button className="back-to-top" onClick={() => window.scrollTo({ top: 0, behavior: still ? 'auto' : 'smooth' })} title="Back to the top of the page" aria-label="Back to the top of the page">
-			<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
-				<path d="M8 13V3M3.5 7.5 8 3l4.5 4.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-			</svg>
-			Top
-		</button>
+		<div className="page-jumps">
+			{shown.top && (
+				<button className="back-to-top" onClick={() => window.scrollTo({ top: 0, behavior })} title="Back to the top of the page" aria-label="Back to the top of the page">
+					<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+						<path d="M8 13V3M3.5 7.5 8 3l4.5 4.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+					</svg>
+					Top
+				</button>
+			)}
+			{shown.bottom && (
+				<button className="back-to-top" onClick={() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior })} title="Down to the end of the page" aria-label="Down to the end of the page">
+					<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+						<path d="M8 3v10M3.5 8.5 8 13l4.5-4.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+					</svg>
+					Bottom
+				</button>
+			)}
+		</div>
 	);
 }
