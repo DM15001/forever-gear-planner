@@ -4812,51 +4812,85 @@ summary.breakdown-toggle:focus-visible {
 /* The dwarf that shows for a moment when the Live/Dev switch is unlocked; it stands under the switch and points up at it. */
 .cheer-dwarf {
 	position: fixed;
-	top: 1.9rem;
-	right: 1.4rem;
+	top: 1.7rem;
+	right: 0.6rem;
 	z-index: 60;
 	pointer-events: none;
-	filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.7));
-	animation: cheer-dwarf 2.8s ease-in-out both;
+	filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.75));
+	transform-origin: 50% 100%;
+	animation: cheer-dwarf 4s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+.cheer-point {
+	transform-origin: 118px 104px;
+	animation: cheer-point 0.7s ease-in-out 0.5s 4 alternate;
+}
+.cheer-finger {
+	transform-origin: 62px 104px;
+	animation: cheer-finger 0.45s ease-in-out 0.6s 6 alternate;
+}
+.cheer-smoke {
+	opacity: 0;
+	animation: cheer-smoke 1.6s ease-out infinite;
+}
+.cheer-smoke-2 {
+	animation-delay: 0.5s;
+}
+.cheer-smoke-3 {
+	animation-delay: 1s;
 }
 @keyframes cheer-dwarf {
 	0% {
 		opacity: 0;
-		transform: translateY(-1.5rem) scale(0.6);
+		transform: translateY(-9rem) rotate(-25deg) scale(0.5);
 	}
-	12% {
+	14% {
 		opacity: 1;
-		transform: translateY(0) scale(1.06);
+		transform: translateY(0) rotate(4deg) scale(1.08, 0.92);
 	}
-	20%,
-	40%,
-	60% {
-		transform: translateY(0) scale(1) rotate(0deg);
+	20% {
+		transform: translateY(0) rotate(-2deg) scale(0.97, 1.04);
 	}
-	30%,
-	50% {
-		transform: translateY(-0.35rem) scale(1) rotate(3deg);
-	}
-	85% {
+	26%,
+	88% {
 		opacity: 1;
-		transform: translateY(0) scale(1);
+		transform: translateY(0) rotate(0) scale(1);
 	}
 	100% {
 		opacity: 0;
-		transform: translateY(-1rem) scale(0.8);
+		transform: translateY(1rem) rotate(0) scale(0.2);
+	}
+}
+@keyframes cheer-point {
+	to {
+		transform: rotate(-9deg);
+	}
+}
+@keyframes cheer-finger {
+	to {
+		transform: rotate(10deg) translateY(-3px);
+	}
+}
+@keyframes cheer-smoke {
+	0% {
+		opacity: 0;
+		transform: translate(0, 0) scale(0.4);
+	}
+	25% {
+		opacity: 0.75;
+	}
+	100% {
+		opacity: 0;
+		transform: translate(14px, -46px) scale(2.2);
 	}
 }
 @media (prefers-reduced-motion: reduce) {
-	.cheer-dwarf {
-		animation: cheer-dwarf-still 2.8s linear both;
+	.cheer-dwarf,
+	.cheer-point,
+	.cheer-finger,
+	.cheer-smoke {
+		animation: none;
 	}
-	@keyframes cheer-dwarf-still {
-		0%,
-		90% {
-			opacity: 1;
-		}
-		100% {
-			opacity: 0;
-		}
+	.cheer-smoke {
+		opacity: 0.6;
 	}
 }
