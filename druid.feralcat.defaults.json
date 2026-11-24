@@ -78,6 +78,8 @@
     },
     "feralCatDruid": {
       "options": {
+        "classOptions": {
+        },
         "assumeBleedActive": true
       }
     },

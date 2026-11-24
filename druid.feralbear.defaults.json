@@ -87,6 +87,8 @@
     },
     "feralBearDruid": {
       "options": {
+        "classOptions": {
+        },
         "assumeBleedActive": true
       }
     },
