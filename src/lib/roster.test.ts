@@ -4,7 +4,8 @@ import specJson from '../specs/enhancement-shaman.json';
 import simExport from './__fixtures__/sim-export.json';
 import { importCharacter } from './importCharacter';
 import { addCharacter, characterLabel, decodeShare, EMPTY_ROSTER, encodeShare, removeActive, replaceActive, selectCharacter, sharedCharacter, shareUrl } from './roster';
-import type { SpecConfig } from './types';
+import { GEAR_SLOTS } from './constants';
+import type { Character, SpecConfig } from './types';
 
 const spec = specJson as unknown as SpecConfig;
 const base = importCharacter(JSON.stringify(simExport), spec).character;
@@ -66,5 +67,22 @@ describe('characterFromShareText', () => {
 		expect(characterFromShareText(` ${encodeShare(character)} `)?.gear[0]?.id).toBe(12640);
 		expect(characterFromShareText('{ "class": "shaman" }')).toBeNull();
 		expect(characterFromShareText('hello')).toBeNull();
+	});
+});
+
+describe('a group link', () => {
+	it('carries every character and survives the round trip', async () => {
+		const { groupUrl, groupFromShareText, addGroup } = await import('./roster');
+		const one = { name: 'Bogdan', specId: 'warrior-fury', race: 'dwarf', level: 60, talents: '', professions: [], gear: GEAR_SLOTS.map((_, i) => (i === 0 ? { id: 12345 } : null)), plan: { 1: 222 }, planEnchants: {} } as unknown as Character;
+		const two = { ...one, name: 'Friend' };
+		const url = await groupUrl([one, two], 'https://example.test/planner/#old');
+		expect(url.startsWith('https://example.test/planner/#group=')).toBe(true);
+		const back = await groupFromShareText(url);
+		expect(back?.map(c => c.name)).toEqual(['Bogdan', 'Friend']);
+		expect(back?.[0].gear[0]).toEqual({ id: 12345 });
+		const first = addGroup(EMPTY_ROSTER, back!);
+		expect(first.added).toBe(2);
+		expect(addGroup(first.roster, back!).added).toBe(0);
+		expect(await groupFromShareText('https://example.test/#group=nonsense')).toBeNull();
 	});
 });

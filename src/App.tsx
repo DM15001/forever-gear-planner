@@ -23,7 +23,7 @@ import { UpgradesTab } from './components/UpgradesTab';
 import { type GameData, loadGameData, dataFor } from './lib/gameData';
 import type { ImportResult } from './lib/importCharacter';
 import { DEFAULT_FILTER, type SourceFilter } from './lib/scoring';
-import { activeCharacter, addCharacter, characterLabel, removeActive, replaceActive, type Roster, selectCharacter, sharedCharacter, shareUrl } from './lib/roster';
+import { activeCharacter, addCharacter, addGroup, characterLabel, groupFromShareText, removeActive, replaceActive, type Roster, selectCharacter, sharedCharacter, shareUrl } from './lib/roster';
 import { specOf, specsOfClass } from './lib/specs';
 import { loadFilter, loadRoster, loadWeights, normalFilter, saveRoster, saveWeights } from './lib/storage';
 import type { Character, SpecConfig } from './lib/types';
@@ -325,6 +325,21 @@ export function App() {
 	const [warnings, setWarnings] = useState<string[]>([]);
 	const [importing, setImporting] = useState(false);
 	const [tab, setTab] = useState('character');
+	// A whole group that arrives in a link: everyone is added, and the Group plan opens.
+	useEffect(() => {
+		if (!window.location.hash.includes('group=')) return;
+		groupFromShareText(window.location.hash).then(group => {
+			history.replaceState(null, '', window.location.pathname + window.location.search);
+			if (!group) return;
+			setRoster(current => {
+				const next = addGroup(current, group).roster;
+				saveRoster(next);
+				return next;
+			});
+			setImporting(false);
+			setTab('group');
+		});
+	}, []);
 	// A dot on the News tab until today's entry has been opened.
 	const [newsDot, setNewsDot] = useState(false);
 	useEffect(() => {

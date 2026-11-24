@@ -62,29 +62,33 @@ const fromBase64Url = (code: string) => {
 	return new TextDecoder().decode(Uint8Array.from(binary, ch => ch.charCodeAt(0)));
 };
 
-/** A character with its plan, packed into text that fits in a link. */
+/** Keeps only the fields the app knows, so a hand-made link cannot plant anything else in storage. Null when it is not a character. */
+function cleanCharacter(value: unknown): Character | null {
+	if (!isCharacter(value)) return null;
+	const c = value;
+	return {
+		name: typeof c.name === 'string' ? c.name.slice(0, 60) : undefined,
+		specId: typeof c.specId === 'string' && /^[a-z-]{1,40}$/.test(c.specId) ? c.specId : undefined,
+		race: c.race,
+		level: typeof c.level === 'number' ? c.level : null,
+		talents: typeof c.talents === 'string' ? c.talents.slice(0, 200) : '',
+		professions: c.professions.slice(0, 2),
+		gear: c.gear.map(p => (p ? { id: p.id, ...(Number.isInteger(p.enchant) ? { enchant: p.enchant } : {}), ...(Number.isInteger(p.randomSuffix) ? { randomSuffix: p.randomSuffix } : {}) } : null)),
+		plan: c.plan,
+		planEnchants: c.planEnchants,
+	};
+}
+
+/** A character with its plan, packed into text that fits in a link. Only what the reader keeps is sent: sim settings stay behind. */
 export function encodeShare(character: Character): string {
-	return toBase64Url(JSON.stringify({ v: SHARE_VERSION, c: character }));
+	return toBase64Url(JSON.stringify({ v: SHARE_VERSION, c: cleanCharacter(character) ?? character }));
 }
 
 /** The character from a share code, or null when the code is broken or from an unknown version. */
 export function decodeShare(code: string): Character | null {
 	try {
 		const parsed = JSON.parse(fromBase64Url(code)) as { v?: number; c?: unknown };
-		if (parsed.v !== SHARE_VERSION || !isCharacter(parsed.c)) return null;
-		const c = parsed.c;
-		// Keep only the fields the app knows, so a hand-made link cannot plant anything else in storage.
-		return {
-			name: typeof c.name === 'string' ? c.name.slice(0, 60) : undefined,
-			specId: typeof c.specId === 'string' && /^[a-z-]{1,40}$/.test(c.specId) ? c.specId : undefined,
-			race: c.race,
-			level: typeof c.level === 'number' ? c.level : null,
-			talents: typeof c.talents === 'string' ? c.talents.slice(0, 200) : '',
-			professions: c.professions.slice(0, 2),
-			gear: c.gear.map(p => (p ? { id: p.id, ...(Number.isInteger(p.enchant) ? { enchant: p.enchant } : {}), ...(Number.isInteger(p.randomSuffix) ? { randomSuffix: p.randomSuffix } : {}) } : null)),
-			plan: c.plan,
-			planEnchants: c.planEnchants,
-		};
+		return parsed.v === SHARE_VERSION ? cleanCharacter(parsed.c) : null;
 	} catch {
 		return null;
 	}
@@ -108,4 +112,48 @@ export function characterFromShareText(text: string): Character | null {
 export function sharedCharacter(hash: string): Character | null {
 	const at = hash.indexOf(SHARE_PARAM);
 	return at < 0 ? null : decodeShare(hash.slice(at + SHARE_PARAM.length));
+}
+
+const GROUP_PARAM = 'group=';
+/** More people than a raid has make no group; a link that claims so is not one of ours. */
+const GROUP_LIMIT = 40;
+
+const bytesToBase64Url = (bytes: Uint8Array) => {
+	let binary = '';
+	for (const byte of bytes) binary += String.fromCharCode(byte);
+	return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+};
+const squeeze = async (data: BlobPart, how: 'pack' | 'unpack') => {
+	const stream = new Blob([data]).stream().pipeThrough(how === 'pack' ? new CompressionStream('deflate-raw') : new DecompressionStream('deflate-raw'));
+	return new Uint8Array(await new Response(stream).arrayBuffer());
+};
+
+/** A whole group in one link: every character with its equipped and planned gear, packed small enough for a chat message. */
+export async function groupUrl(characters: Character[], pageUrl: string): Promise<string> {
+	const packed = await squeeze(JSON.stringify({ v: SHARE_VERSION, g: characters.map(c => cleanCharacter(c) ?? c) }), 'pack');
+	return `${pageUrl.split('#')[0]}#${GROUP_PARAM}${bytesToBase64Url(packed)}`;
+}
+
+/** The characters in a group link or in the text after "group=". Null for anything else. */
+export async function groupFromShareText(text: string): Promise<Character[] | null> {
+	const trimmed = text.trim();
+	const at = trimmed.indexOf(GROUP_PARAM);
+	if (at < 0 || /\s/.test(trimmed)) return null;
+	try {
+		const binary = atob(trimmed.slice(at + GROUP_PARAM.length).replace(/-/g, '+').replace(/_/g, '/'));
+		const json = new TextDecoder().decode(await squeeze(Uint8Array.from(binary, ch => ch.charCodeAt(0)), 'unpack'));
+		const parsed = JSON.parse(json) as { v?: number; g?: unknown };
+		if (parsed.v !== SHARE_VERSION || !Array.isArray(parsed.g) || parsed.g.length === 0 || parsed.g.length > GROUP_LIMIT) return null;
+		const characters = parsed.g.map(cleanCharacter);
+		return characters.every((c): c is Character => c !== null) ? characters : null;
+	} catch {
+		return null;
+	}
+}
+
+/** Adds a shared group to the saved characters. A character that is already saved exactly like that is not added twice. The open character stays open. */
+export function addGroup(roster: Roster, characters: Character[]): { roster: Roster; added: number } {
+	const known = new Set(roster.characters.map(c => JSON.stringify(c)));
+	const fresh = characters.filter(c => !known.has(JSON.stringify(c)));
+	return { roster: { characters: [...roster.characters, ...fresh], active: roster.active }, added: fresh.length };
 }

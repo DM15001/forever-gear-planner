@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { type GameData, dataFor, loadGameData } from '../lib/gameData';
 import { type GroupMember, type GroupScope, groupFarm, sortGroup, withDrop } from '../lib/group';
-import { addCharacter, characterFromShareText, characterLabel, type Roster, shareUrl } from '../lib/roster';
+import { addCharacter, addGroup, characterFromShareText, characterLabel, groupFromShareText, groupUrl, type Roster, shareUrl } from '../lib/roster';
 import { DEFAULT_FILTER } from '../lib/scoring';
 import { specOf } from '../lib/specs';
 import { wowheadData, wowheadItemUrl } from '../lib/stats';
@@ -61,6 +61,18 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 	const chosen = picked.slice(0, MOST);
 	// The item data is narrowed to a build, so each build in the group loads its own once.
 	const specIds = [...new Set(chosen.map(({ character }) => specOf(character).id))].sort().join(' ');
+	const [copiedGroup, setCopiedGroup] = useState(false);
+	const copyGroup = () => {
+		groupUrl(picked.map(({ character }) => character), window.location.href)
+			.then(link => navigator.clipboard.writeText(link))
+			.then(
+				() => {
+					setCopiedGroup(true);
+					setAddNote('The link is a snapshot: after changes, share it again.');
+				},
+				() => setAddNote('The browser did not allow copying.'),
+			);
+	};
 	const [loaded, setLoaded] = useState<Record<string, GameData>>({});
 	useEffect(() => {
 		let current = true;
@@ -118,22 +130,34 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 				onSubmit={event => {
 					event.preventDefault();
 					const friend = characterFromShareText(pasted);
-					if (!friend) {
-						setAddNote('That is not a character copied from this site.');
+					if (friend) {
+						onRosterChange({ ...addCharacter(roster, { ...friend, name: friend.name ?? 'Shared character' }), active: roster.active });
+						setPasted('');
+						setAddNote(`${friend.name ?? 'The character'} was added to the group.`);
 						return;
 					}
-					onRosterChange({ ...addCharacter(roster, { ...friend, name: friend.name ?? 'Shared character' }), active: roster.active });
-					setPasted('');
-					setAddNote(`${friend.name ?? 'The character'} was added to the group.`);
+					// Not one character: perhaps a whole group.
+					groupFromShareText(pasted).then(group => {
+						if (!group) return setAddNote('That is not a character or a group copied from this site.');
+						const { roster: next, added } = addGroup(roster, group);
+						onRosterChange(next);
+						setPasted('');
+						setAddNote(added ? `${added} character${added === 1 ? '' : 's'} added to the group.` : 'Everyone in that group is already here.');
+					});
 				}}
 			>
-				<input type="text" value={pasted} onChange={event => setPasted(event.target.value)} placeholder="Paste a friend's copied character" aria-label="A friend's copied character" />
+				<input type="text" value={pasted} onChange={event => setPasted(event.target.value)} placeholder="Paste a friend's character or a group link" aria-label="A friend's copied character or a group link" />
 				<button className="button" type="submit" disabled={!pasted.trim()}>
 					Add to the group
 				</button>
 				{mine && (
 					<button className="button" type="button" onClick={copyMine} title="Copies your open character with its equipped and planned gear, to send to your group.">
 						{copiedMine ? 'Copied: send it to your group' : `Copy my character (${mineLabel})`}
+					</button>
+				)}
+				{picked.length > 1 && (
+					<button className="button" type="button" onClick={copyGroup} title="One link with everyone ticked below, each with equipped and planned gear. Whoever opens it gets the whole group.">
+						{copiedGroup ? 'Copied: one link for the whole group' : `Share the whole group (${picked.length})`}
 					</button>
 				)}
 				{addNote && <span className="hint" role="status">{addNote}</span>}
