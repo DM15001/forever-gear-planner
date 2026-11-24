@@ -3134,6 +3134,12 @@
 				"kind": "rep",
 				"repFaction": "Thorium Brotherhood",
 				"repLevel": "Friendly"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 12944,
+				"npcName": "Lokhtos Darkbargainer",
+				"zoneId": 1584
 			}
 		]
 	},
@@ -3298,6 +3304,12 @@
 				"kind": "rep",
 				"repFaction": "Thorium Brotherhood",
 				"repLevel": "Honored"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 12944,
+				"npcName": "Lokhtos Darkbargainer",
+				"zoneId": 1584
 			}
 		]
 	},
@@ -3319,6 +3331,12 @@
 				"kind": "rep",
 				"repFaction": "Thorium Brotherhood",
 				"repLevel": "Revered"
+			},
+			{
+				"kind": "vendor",
+				"npcId": 12944,
+				"npcName": "Lokhtos Darkbargainer",
+				"zoneId": 1584
 			}
 		]
 	},

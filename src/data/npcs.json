@@ -1430,6 +1430,11 @@
 		"zoneId": 1584
 	},
 	{
+		"id": 9499,
+		"name": "Plugger Spazzring",
+		"zoneId": 1584
+	},
+	{
 		"id": 9502,
 		"name": "Phalanx",
 		"zoneId": 1584
@@ -2300,39 +2305,94 @@
 		"zoneId": 16
 	},
 	{
+		"id": 245999,
+		"name": "Arcane Anomaly",
+		"zoneId": 16544
+	},
+	{
 		"id": 246003,
 		"name": "Fel Ancient",
-		"zoneId": 36
+		"zoneId": 16544
 	},
 	{
 		"id": 246008,
 		"name": "Mana Devourer",
-		"zoneId": 36
+		"zoneId": 16544
 	},
 	{
 		"id": 246016,
 		"name": "Arcanic Enigma",
-		"zoneId": 36
+		"zoneId": 16544
+	},
+	{
+		"id": 246017,
+		"name": "Unstable Sentinel",
+		"zoneId": 16544
 	},
 	{
 		"id": 246020,
 		"name": "Shade of the Archmage",
-		"zoneId": 36
+		"zoneId": 16544
 	},
 	{
 		"id": 246600,
 		"name": "Mana Echo",
-		"zoneId": 36
+		"zoneId": 16544
 	},
 	{
 		"id": 247001,
 		"name": "Saturated Remnant",
-		"zoneId": 36
+		"zoneId": 16544
+	},
+	{
+		"id": 247003,
+		"name": "Seeking Remnant",
+		"zoneId": 16544
 	},
 	{
 		"id": 247032,
 		"name": "Lyn the Ignored",
-		"zoneId": 36
+		"zoneId": 16544
+	},
+	{
+		"id": 247126,
+		"name": "Atrexis the Grave Knight",
+		"zoneId": 16544
+	},
+	{
+		"id": 247195,
+		"name": "Withermaw",
+		"zoneId": 16554
+	},
+	{
+		"id": 247198,
+		"name": "Bonesnout the Unbroken",
+		"zoneId": 16554
+	},
+	{
+		"id": 247206,
+		"name": "Impaan the Imprisoner",
+		"zoneId": 16554
+	},
+	{
+		"id": 247207,
+		"name": "Blackmaw Behemoth",
+		"zoneId": 16554
+	},
+	{
+		"id": 247209,
+		"name": "Elder Shaman Bloodmane",
+		"zoneId": 16554
+	},
+	{
+		"id": 247231,
+		"name": "Unbound Spirit",
+		"zoneId": 16554
+	},
+	{
+		"id": 247234,
+		"name": "Varrox Bleakhoof",
+		"zoneId": 16554
 	},
 	{
 		"id": 249247,
@@ -2400,6 +2460,11 @@
 		"zoneId": 16611
 	},
 	{
+		"id": 253201,
+		"name": "Titanosaur",
+		"zoneId": 16667
+	},
+	{
 		"id": 255247,
 		"name": "Swarming Imp",
 		"zoneId": 16
@@ -2410,14 +2475,39 @@
 		"zoneId": 16
 	},
 	{
+		"id": 255391,
+		"name": "Overseer Wrex",
+		"zoneId": 16620
+	},
+	{
+		"id": 255702,
+		"name": "Blazeroar",
+		"zoneId": 16620
+	},
+	{
 		"id": 255964,
 		"name": "Fallen Necromancer",
 		"zoneId": 16611
 	},
 	{
+		"id": 255997,
+		"name": "Tidemistress Ca'zass",
+		"zoneId": 16620
+	},
+	{
 		"id": 256035,
 		"name": "Viktor the Vile",
 		"zoneId": 16611
+	},
+	{
+		"id": 256097,
+		"name": "Bjork",
+		"zoneId": 16611
+	},
+	{
+		"id": 256236,
+		"name": "The Questioner",
+		"zoneId": 16620
 	},
 	{
 		"id": 256807,
@@ -2430,6 +2520,11 @@
 		"zoneId": 16591
 	},
 	{
+		"id": 257016,
+		"name": "Katerina the Cleaner",
+		"zoneId": 16620
+	},
+	{
 		"id": 257034,
 		"name": "Mad Marrius",
 		"zoneId": 16591
@@ -2438,6 +2533,31 @@
 		"id": 258032,
 		"name": "Twilight Forgemaster",
 		"zoneId": 16591
+	},
+	{
+		"id": 258905,
+		"name": "Zul'Alai",
+		"zoneId": 16550
+	},
+	{
+		"id": 258924,
+		"name": "Var'Taka",
+		"zoneId": 16550
+	},
+	{
+		"id": 258964,
+		"name": "Nar'gurk",
+		"zoneId": 16842
+	},
+	{
+		"id": 258966,
+		"name": "Slavecrusher Grox",
+		"zoneId": 16842
+	},
+	{
+		"id": 258972,
+		"name": "Twilight Commander Zarmok",
+		"zoneId": 16842
 	},
 	{
 		"id": 259758,
@@ -2450,8 +2570,28 @@
 		"zoneId": 16591
 	},
 	{
+		"id": 260042,
+		"name": "Captain Dreadrise",
+		"zoneId": 16550
+	},
+	{
+		"id": 260243,
+		"name": "Min'loth the Serpent",
+		"zoneId": 16550
+	},
+	{
+		"id": 260322,
+		"name": "Saltspine",
+		"zoneId": 16732
+	},
+	{
 		"id": 260325,
 		"name": "Shadetooth",
+		"zoneId": 16732
+	},
+	{
+		"id": 260326,
+		"name": "Relic Guardian",
 		"zoneId": 16732
 	},
 	{
@@ -2505,6 +2645,41 @@
 		"zoneId": 16919
 	},
 	{
+		"id": 261809,
+		"name": "Nanaya",
+		"zoneId": 16667
+	},
+	{
+		"id": 261812,
+		"name": "Thunderhoof",
+		"zoneId": 16667
+	},
+	{
+		"id": 261813,
+		"name": "Venomridge",
+		"zoneId": 16667
+	},
+	{
+		"id": 261974,
+		"name": "Cinder",
+		"zoneId": 16667
+	},
+	{
+		"id": 262081,
+		"name": "Bolt",
+		"zoneId": 16667
+	},
+	{
+		"id": 262127,
+		"name": "Direhorn Matriarch",
+		"zoneId": 16667
+	},
+	{
+		"id": 262297,
+		"name": "Snowtalon",
+		"zoneId": 16667
+	},
+	{
 		"id": 262477,
 		"name": "Cinderscale Warrior",
 		"zoneId": 16591
@@ -2515,8 +2690,18 @@
 		"zoneId": 16591
 	},
 	{
+		"id": 263886,
+		"name": "Primeval Elemental",
+		"zoneId": 16550
+	},
+	{
 		"id": 271351,
 		"name": "Dragonmaw Reclaimer",
 		"zoneId": 11
+	},
+	{
+		"id": 272561,
+		"name": "Vitrix",
+		"zoneId": 16667
 	}
 ]

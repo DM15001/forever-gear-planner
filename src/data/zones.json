@@ -340,6 +340,21 @@
 		"kind": "raid"
 	},
 	{
+		"id": 16544,
+		"name": "City of Dalaran",
+		"kind": "dungeon"
+	},
+	{
+		"id": 16550,
+		"name": "The Drowned City",
+		"kind": "dungeon"
+	},
+	{
+		"id": 16554,
+		"name": "Blackmaw Hold",
+		"kind": "dungeon"
+	},
+	{
 		"id": 16591,
 		"name": "Riverglades",
 		"kind": "world"
@@ -355,8 +370,23 @@
 		"kind": "dungeon"
 	},
 	{
+		"id": 16620,
+		"name": "Alcaz Prison",
+		"kind": "dungeon"
+	},
+	{
+		"id": 16667,
+		"name": "The Shaper's Terrace",
+		"kind": "dungeon"
+	},
+	{
 		"id": 16732,
 		"name": "Excavation Site: Wetlands",
+		"kind": "dungeon"
+	},
+	{
+		"id": 16842,
+		"name": "Krol'dok Stronghold",
 		"kind": "dungeon"
 	},
 	{

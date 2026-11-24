@@ -14517,7 +14517,15 @@
 			12760,
 			12761
 		],
-		"randPropPoints": 9
+		"randPropPoints": 9,
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 1337,
+				"npcId": 7228,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 7557,
@@ -29460,7 +29468,15 @@
 			12755,
 			12759
 		],
-		"randPropPoints": 13
+		"randPropPoints": 13,
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 1337,
+				"npcId": 7228,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 9974,
@@ -36613,7 +36629,15 @@
 			12755,
 			12760
 		],
-		"randPropPoints": 24
+		"randPropPoints": 24,
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 1584,
+				"npcId": 9319,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 10194,
@@ -58259,6 +58283,14 @@
 				"kind": "proc",
 				"durationMs": 6000,
 				"ppm": 1.9
+			}
+		],
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 718,
+				"npcId": 3671,
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -175195,7 +175227,15 @@
 			"strength": 4,
 			"agility": 9,
 			"armor": 164
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16611,
+				"npcId": 256097,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 271210,
@@ -175211,7 +175251,15 @@
 			"spellDamage": 6,
 			"spirit": 5,
 			"armor": 22
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16611,
+				"npcId": 256097,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 271211,
@@ -175386,7 +175434,15 @@
 			"dps": 18.37,
 			"damageMin": 52,
 			"damageMax": 79
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16611,
+				"npcId": 256097,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 271218,
@@ -175450,6 +175506,38 @@
 				"name": "(DNT) Linken' Boots of Iron (1289404)",
 				"kind": "passive",
 				"durationMs": -1
+			}
+		],
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16550,
+				"npcId": 258905,
+				"zoneKind": "dungeon"
+			},
+			{
+				"kind": "drop",
+				"zoneId": 16550,
+				"npcId": 260042,
+				"zoneKind": "dungeon"
+			},
+			{
+				"kind": "drop",
+				"zoneId": 16550,
+				"npcId": 260243,
+				"zoneKind": "dungeon"
+			},
+			{
+				"kind": "drop",
+				"zoneId": 16550,
+				"npcId": 263886,
+				"zoneKind": "dungeon"
+			},
+			{
+				"kind": "drop",
+				"zoneId": 16550,
+				"npcId": 258924,
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -188927,7 +189015,15 @@
 			"strength": 6,
 			"stamina": 14,
 			"armor": 92
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16732,
+				"npcId": 260322,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 273023,
@@ -188942,7 +189038,15 @@
 			"strength": 9,
 			"intellect": 9,
 			"armor": 124
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16732,
+				"npcId": 260322,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 273024,
@@ -188959,7 +189063,15 @@
 			"spellDamage": 7,
 			"spirit": 6,
 			"armor": 33
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16732,
+				"npcId": 260322,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 273025,
@@ -189048,7 +189160,15 @@
 			"stamina": 12,
 			"hitRating": 4,
 			"armor": 171
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16732,
+				"npcId": 260326,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 273029,
@@ -189067,7 +189187,15 @@
 			"dps": 16.72,
 			"damageMin": 29,
 			"damageMax": 54
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16732,
+				"npcId": 260326,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 273030,
@@ -189082,7 +189210,15 @@
 			"spellDamage": 6,
 			"mp5": 3
 		},
-		"unique": true
+		"unique": true,
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16732,
+				"npcId": 260326,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 273031,
@@ -189098,7 +189234,15 @@
 			"spellDamage": 3,
 			"spirit": 6
 		},
-		"unique": true
+		"unique": true,
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16544,
+				"npcId": 245999,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 273032,
@@ -189113,7 +189257,15 @@
 			"spirit": 6,
 			"bonusArmor": 40
 		},
-		"unique": true
+		"unique": true,
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16544,
+				"npcId": 247126,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 273033,
@@ -189149,7 +189301,15 @@
 			"dps": 15.42,
 			"damageMin": 28,
 			"damageMax": 43
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16544,
+				"npcId": 247126,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 273034,
@@ -189166,7 +189326,15 @@
 			"arcaneDamage": 9,
 			"shadowDamage": 9,
 			"armor": 31
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16544,
+				"npcId": 245999,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 273035,
@@ -189182,7 +189350,15 @@
 			"stamina": 8,
 			"armor": 225,
 			"mp5": 3
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16544,
+				"npcId": 245999,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 273036,
@@ -189199,7 +189375,15 @@
 			"spellDamage": 5,
 			"armor": 21,
 			"mp5": 2
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16544,
+				"npcId": 247126,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 273037,
@@ -189224,9 +189408,9 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 246003,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -189248,9 +189432,9 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 246003,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -189272,9 +189456,9 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 246003,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -189303,9 +189487,9 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 246008,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -189332,9 +189516,9 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 246008,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -189356,9 +189540,9 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 246008,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -189384,9 +189568,9 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 246016,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -189418,9 +189602,9 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 246016,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -189442,9 +189626,9 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 246016,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -189475,6 +189659,14 @@
 				"procChance": 0.33,
 				"icdMs": 60000
 			}
+		],
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16544,
+				"npcId": 246017,
+				"zoneKind": "dungeon"
+			}
 		]
 	},
 	{
@@ -189491,7 +189683,15 @@
 			"stamina": 6,
 			"armor": 81,
 			"mp5": 2
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16544,
+				"npcId": 246017,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 273048,
@@ -189507,7 +189707,15 @@
 			"armor": 199,
 			"bonusArmor": 100,
 			"arcaneResistance": 5
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16544,
+				"npcId": 246017,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 273049,
@@ -189525,9 +189733,9 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 246020,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -189550,9 +189758,9 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 246020,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -189577,9 +189785,9 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 246020,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -189607,9 +189815,9 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 247032,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -189630,9 +189838,9 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 247032,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -189657,9 +189865,9 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 247032,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -189713,7 +189921,15 @@
 			"frostResistance": 1,
 			"natureResistance": 1,
 			"shadowResistance": 1
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 718,
+				"npcId": 3671,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 273089,
@@ -199516,6 +199732,14 @@
 				"kind": "proc",
 				"ppm": 2.05
 			}
+		],
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 1337,
+				"npcId": 7228,
+				"zoneKind": "dungeon"
+			}
 		]
 	},
 	{
@@ -199618,7 +199842,15 @@
 			"dps": 26.73,
 			"damageMin": 46,
 			"damageMax": 87
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16550,
+				"npcId": 258905,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 274599,
@@ -199633,7 +199865,15 @@
 			"agility": 6,
 			"hitRating": 9,
 			"armor": 52
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16550,
+				"npcId": 258905,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 274600,
@@ -199648,7 +199888,15 @@
 			"strength": 7,
 			"defenseRating": 6,
 			"armor": 109
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16550,
+				"npcId": 258905,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 274601,
@@ -199669,7 +199917,15 @@
 			"dps": 35.71,
 			"damageMin": 97,
 			"damageMax": 146
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16550,
+				"npcId": 258924,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 274602,
@@ -199685,7 +199941,15 @@
 			"stamina": 11,
 			"spirit": 9,
 			"armor": 106
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16550,
+				"npcId": 258924,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 274603,
@@ -199710,6 +199974,14 @@
 				"name": "Dreadfrost Saber (1294939)",
 				"kind": "proc"
 			}
+		],
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16550,
+				"npcId": 260042,
+				"zoneKind": "dungeon"
+			}
 		]
 	},
 	{
@@ -199730,7 +200002,15 @@
 			"dps": 21.42,
 			"damageMin": 41,
 			"damageMax": 78
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16550,
+				"npcId": 260042,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 274605,
@@ -199747,7 +200027,15 @@
 			"spellDamage": 9,
 			"armor": 33,
 			"bonusArmor": 30
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16550,
+				"npcId": 260042,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 274606,
@@ -199813,6 +200101,14 @@
 				"procChance": 0.1,
 				"icdMs": 3000
 			}
+		],
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16550,
+				"npcId": 260243,
+				"zoneKind": "dungeon"
+			}
 		]
 	},
 	{
@@ -199843,6 +200139,14 @@
 				"kind": "onUse",
 				"durationMs": 10000
 			}
+		],
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16550,
+				"npcId": 260243,
+				"zoneKind": "dungeon"
+			}
 		]
 	},
 	{
@@ -199860,7 +200164,15 @@
 			"spellDamage": 8,
 			"spirit": 6,
 			"armor": 79
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16550,
+				"npcId": 260243,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 274611,
@@ -199876,7 +200188,15 @@
 			"intellect": 11,
 			"armor": 58,
 			"mp5": 4
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16550,
+				"npcId": 263886,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 274612,
@@ -199893,7 +200213,15 @@
 			"rangedAttackPower": 12,
 			"critRating": 7,
 			"armor": 29
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16550,
+				"npcId": 263886,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 274613,
@@ -199910,7 +200238,15 @@
 			"spellDamage": 4,
 			"armor": 29,
 			"mp5": 4
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16550,
+				"npcId": 258924,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 274614,
@@ -199937,7 +200273,15 @@
 		"stats": {
 			"frostResistance": 18
 		},
-		"unique": true
+		"unique": true,
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16550,
+				"npcId": 263886,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 274638,
@@ -201348,7 +201692,15 @@
 			"dps": 29.9,
 			"damageMin": 54,
 			"damageMax": 101
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16842,
+				"npcId": 258966,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 274996,
@@ -201363,7 +201715,15 @@
 			"agility": 10,
 			"stamina": 15,
 			"armor": 202
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16842,
+				"npcId": 258966,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 274997,
@@ -201379,7 +201739,15 @@
 			"healingPower": 12,
 			"spellDamage": 12,
 			"armor": 152
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16842,
+				"npcId": 258966,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 274998,
@@ -201402,7 +201770,15 @@
 			"dps": 20.34,
 			"damageMin": 25,
 			"damageMax": 48
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16842,
+				"npcId": 258972,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 274999,
@@ -201418,7 +201794,15 @@
 			"intellect": 10,
 			"shadowDamage": 13,
 			"armor": 57
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16842,
+				"npcId": 258972,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 275000,
@@ -201433,7 +201817,15 @@
 			"hitRating": 5,
 			"blockValue": 11
 		},
-		"unique": true
+		"unique": true,
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16842,
+				"npcId": 258972,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 275001,
@@ -201501,7 +201893,15 @@
 			"stamina": 12,
 			"healingPower": 5,
 			"spellDamage": 5
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16842,
+				"npcId": 258964,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 275005,
@@ -201519,7 +201919,15 @@
 			"armor": 490
 		},
 		"setId": 2135,
-		"setName": "Krol'dok Battlegear"
+		"setName": "Krol'dok Battlegear",
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16842,
+				"npcId": 258964,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 275006,
@@ -201536,7 +201944,15 @@
 			"armor": 398
 		},
 		"setId": 2135,
-		"setName": "Krol'dok Battlegear"
+		"setName": "Krol'dok Battlegear",
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16842,
+				"npcId": 258964,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 275007,
@@ -204859,7 +205275,15 @@
 			"dps": 45.08,
 			"damageMin": 115,
 			"damageMax": 173
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16620,
+				"npcId": 255391,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 276733,
@@ -204874,7 +205298,15 @@
 			"intellect": 12,
 			"armor": 342,
 			"mp5": 5
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16620,
+				"npcId": 255391,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 276734,
@@ -204888,7 +205320,15 @@
 			"agility": 11,
 			"stamina": 9
 		},
-		"unique": true
+		"unique": true,
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16620,
+				"npcId": 255391,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 276735,
@@ -204908,7 +205348,15 @@
 			"dps": 51.25,
 			"damageMin": 71,
 			"damageMax": 133
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16620,
+				"npcId": 255997,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 276736,
@@ -204924,7 +205372,15 @@
 			"spellDamage": 10,
 			"spellPiercing": 3,
 			"armor": 136
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16620,
+				"npcId": 255997,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 276737,
@@ -204940,7 +205396,15 @@
 			"hitRating": 5,
 			"armor": 37,
 			"bonusArmor": 60
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16620,
+				"npcId": 255997,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 276738,
@@ -204977,7 +205441,15 @@
 			"dps": 35.89,
 			"damageMin": 42,
 			"damageMax": 79
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16620,
+				"npcId": 257016,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 276739,
@@ -204994,7 +205466,15 @@
 			"rangedAttackPower": 32,
 			"hitRating": 10,
 			"armor": 322
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16620,
+				"npcId": 257016,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 276740,
@@ -205008,7 +205488,15 @@
 			"strength": 7,
 			"hitRating": 10,
 			"shadowResistance": 9
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16620,
+				"npcId": 257016,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 276741,
@@ -205027,7 +205515,15 @@
 			"armor": 115
 		},
 		"setId": 2136,
-		"setName": "Defias Enforcer's Garb"
+		"setName": "Defias Enforcer's Garb",
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16620,
+				"npcId": 256236,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 276742,
@@ -205047,6 +205543,14 @@
 				"name": "Shield Spike (1308777)",
 				"kind": "proc"
 			}
+		],
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16620,
+				"npcId": 256236,
+				"zoneKind": "dungeon"
+			}
 		]
 	},
 	{
@@ -205065,6 +205569,14 @@
 			{
 				"name": "Fingerbreaker Stamp (1314784)",
 				"kind": "passive"
+			}
+		],
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16620,
+				"npcId": 256236,
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -205092,6 +205604,14 @@
 				"name": "Zarla's Snack Pouch (1318104)",
 				"kind": "passive"
 			}
+		],
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16620,
+				"npcId": 255702,
+				"zoneKind": "dungeon"
+			}
 		]
 	},
 	{
@@ -205108,7 +205628,15 @@
 			"spellPiercing": 5,
 			"spirit": 16,
 			"armor": 78
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16620,
+				"npcId": 255702,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 276746,
@@ -205126,7 +205654,15 @@
 			"fireResistance": 16
 		},
 		"setId": 2136,
-		"setName": "Defias Enforcer's Garb"
+		"setName": "Defias Enforcer's Garb",
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16620,
+				"npcId": 255702,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 276754,
@@ -205168,6 +205704,14 @@
 				"name": "Stealth Detection 10 (23217)",
 				"kind": "passive"
 			}
+		],
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 1584,
+				"npcId": 9499,
+				"zoneKind": "dungeon"
+			}
 		]
 	},
 	{
@@ -205189,7 +205733,15 @@
 		"weapon": {
 			"type": "shield",
 			"hand": "offHand"
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 1584,
+				"npcId": 9502,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 276884,
@@ -205205,7 +205757,15 @@
 			"spellDamage": 7,
 			"spirit": 14,
 			"armor": 35
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 1584,
+				"npcId": 9042,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 276897,
@@ -208637,7 +209197,15 @@
 			"frostResistance": 4,
 			"natureResistance": 4,
 			"shadowResistance": 4
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16667,
+				"npcId": 253201,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280010,
@@ -208654,7 +209222,15 @@
 			"rangedAttackPower": 20,
 			"hitRating": 8,
 			"armor": 287
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16667,
+				"npcId": 253201,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280011,
@@ -208759,7 +209335,15 @@
 			"strength": 18,
 			"stamina": 24,
 			"armor": 176
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16667,
+				"npcId": 261813,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280017,
@@ -208775,7 +209359,15 @@
 			"stamina": 16,
 			"intellect": 14,
 			"armor": 255
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16667,
+				"npcId": 261813,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280018,
@@ -208797,7 +209389,15 @@
 			"dps": 53.95,
 			"damageMin": 142,
 			"damageMax": 214
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16667,
+				"npcId": 261812,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280019,
@@ -208834,7 +209434,15 @@
 			"dps": 32.37,
 			"damageMin": 70,
 			"damageMax": 130
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16667,
+				"npcId": 261812,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280021,
@@ -208856,7 +209464,15 @@
 			"dps": 41.5,
 			"damageMin": 49,
 			"damageMax": 92
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16667,
+				"npcId": 262127,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280022,
@@ -208878,7 +209494,15 @@
 			"dps": 41.5,
 			"damageMin": 63,
 			"damageMax": 119
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16667,
+				"npcId": 262127,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280023,
@@ -208917,7 +209541,15 @@
 			"stamina": 22,
 			"critRating": 14,
 			"armor": 575
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16667,
+				"npcId": 261809,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280025,
@@ -208934,7 +209566,15 @@
 			"spellDamage": 22,
 			"armor": 78,
 			"mp5": 7
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16667,
+				"npcId": 261809,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280026,
@@ -208949,7 +209589,15 @@
 			"agility": 12,
 			"stamina": 18,
 			"armor": 231
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16667,
+				"npcId": 262297,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280027,
@@ -208965,7 +209613,21 @@
 			"spirit": 21,
 			"critRating": 14,
 			"armor": 657
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16667,
+				"npcId": 262297,
+				"zoneKind": "dungeon"
+			},
+			{
+				"kind": "drop",
+				"zoneId": 16667,
+				"npcId": 272561,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280028,
@@ -208980,7 +209642,15 @@
 			"holyDamage": 18,
 			"critRating": 14,
 			"armor": 410
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16667,
+				"npcId": 261974,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280029,
@@ -209003,7 +209673,15 @@
 			"dps": 41.5,
 			"damageMin": 69,
 			"damageMax": 129
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16667,
+				"npcId": 272561,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280031,
@@ -209023,7 +209701,15 @@
 			"dps": 64.05,
 			"damageMin": 76,
 			"damageMax": 142
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16667,
+				"npcId": 262081,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280032,
@@ -209044,6 +209730,14 @@
 				"name": "Grounded Electroshocks (1311505)",
 				"kind": "passive"
 			}
+		],
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16667,
+				"npcId": 262081,
+				"zoneKind": "dungeon"
+			}
 		]
 	},
 	{
@@ -209062,7 +209756,15 @@
 			"attackPower": 18,
 			"rangedAttackPower": 18,
 			"armor": 45
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16667,
+				"npcId": 262127,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280056,
@@ -209085,7 +209787,15 @@
 			"dps": 50.61,
 			"damageMin": 145,
 			"damageMax": 219
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247206,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280057,
@@ -209102,7 +209812,15 @@
 			"spellDamage": 21,
 			"hitRating": 18,
 			"armor": 84
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247206,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280058,
@@ -209119,7 +209837,15 @@
 			"attackPower": 34,
 			"rangedAttackPower": 34,
 			"armor": 284
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247206,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280059,
@@ -209140,7 +209866,15 @@
 			"dps": 51.42,
 			"damageMin": 148,
 			"damageMax": 222
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247198,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280060,
@@ -209161,6 +209895,14 @@
 				"kind": "onUse",
 				"durationMs": 15000
 			}
+		],
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247198,
+				"zoneKind": "dungeon"
+			}
 		]
 	},
 	{
@@ -209177,7 +209919,15 @@
 			"rangedAttackPower": 20,
 			"hitRating": 9,
 			"armor": 274
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247198,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280062,
@@ -209195,7 +209945,15 @@
 			"intellect": 6,
 			"spirit": 6,
 			"armor": 43
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247195,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280063,
@@ -209214,7 +209972,15 @@
 		"weapon": {
 			"type": "shield",
 			"hand": "offHand"
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247195,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280064,
@@ -209231,7 +209997,15 @@
 			"healingPower": 16,
 			"spellDamage": 16,
 			"armor": 106
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247195,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280065,
@@ -209251,6 +210025,14 @@
 				"name": "Behemoth Bone (1315849)",
 				"kind": "onUse"
 			}
+		],
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247207,
+				"zoneKind": "dungeon"
+			}
 		]
 	},
 	{
@@ -209268,7 +210050,15 @@
 			"spellDamage": 21,
 			"spirit": 16,
 			"armor": 76
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247207,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280067,
@@ -209284,7 +210074,15 @@
 			"stamina": 12,
 			"dodgeRating": 12,
 			"armor": 202
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247207,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280068,
@@ -209306,7 +210104,15 @@
 			"dps": 40.19,
 			"damageMin": 73,
 			"damageMax": 136
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247209,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280069,
@@ -209322,7 +210128,15 @@
 			"intellect": 10,
 			"armor": 157,
 			"mp5": 3
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247209,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280070,
@@ -209339,7 +210153,15 @@
 			"spirit": 8,
 			"defenseRating": 9,
 			"armor": 97
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247209,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280071,
@@ -209367,6 +210189,14 @@
 					"agility": 66
 				}
 			}
+		],
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247231,
+				"zoneKind": "dungeon"
+			}
 		]
 	},
 	{
@@ -209383,7 +210213,15 @@
 			"intellect": 16,
 			"spellDamage": 21,
 			"armor": 70
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247231,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280073,
@@ -209400,7 +210238,15 @@
 			"spirit": 19,
 			"hitRating": 10,
 			"armor": 637
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247231,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280074,
@@ -209424,6 +210270,14 @@
 				"kind": "onUse",
 				"durationMs": 20000
 			}
+		],
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247234,
+				"zoneKind": "dungeon"
+			}
 		]
 	},
 	{
@@ -209439,7 +210293,15 @@
 			"stamina": 14,
 			"intellect": 12,
 			"armor": 485
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247234,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280076,
@@ -209456,7 +210318,15 @@
 			"rangedAttackPower": 48,
 			"armor": 141,
 			"shadowResistance": 12
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16554,
+				"npcId": 247234,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 280077,
@@ -215398,15 +216268,21 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 246600,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			},
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 247001,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
+			},
+			{
+				"kind": "drop",
+				"zoneId": 16544,
+				"npcId": 247003,
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -215431,15 +216307,21 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 247001,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			},
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 246600,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
+			},
+			{
+				"kind": "drop",
+				"zoneId": 16544,
+				"npcId": 247003,
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -215462,15 +216344,21 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
-				"npcId": 246600,
-				"zoneKind": "world"
+				"zoneId": 16544,
+				"npcId": 247003,
+				"zoneKind": "dungeon"
 			},
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
+				"npcId": 246600,
+				"zoneKind": "dungeon"
+			},
+			{
+				"kind": "drop",
+				"zoneId": 16544,
 				"npcId": 247001,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -215491,15 +216379,15 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 246600,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			},
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 247001,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -215522,15 +216410,21 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
-				"npcId": 246600,
-				"zoneKind": "world"
+				"zoneId": 16544,
+				"npcId": 247003,
+				"zoneKind": "dungeon"
 			},
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
+				"npcId": 246600,
+				"zoneKind": "dungeon"
+			},
+			{
+				"kind": "drop",
+				"zoneId": 16544,
 				"npcId": 247001,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -215568,9 +216462,9 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 247001,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -215591,15 +216485,21 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 246600,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			},
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
 				"npcId": 247001,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
+			},
+			{
+				"kind": "drop",
+				"zoneId": 16544,
+				"npcId": 247003,
+				"zoneKind": "dungeon"
 			}
 		]
 	},
@@ -215615,7 +216515,15 @@
 			"stamina": 8,
 			"healingPower": 6,
 			"spellDamage": 6
-		}
+		},
+		"sources": [
+			{
+				"kind": "drop",
+				"zoneId": 16544,
+				"npcId": 247003,
+				"zoneKind": "dungeon"
+			}
+		]
 	},
 	{
 		"id": 286996,
@@ -215641,15 +216549,21 @@
 		"sources": [
 			{
 				"kind": "drop",
-				"zoneId": 36,
-				"npcId": 246600,
-				"zoneKind": "world"
+				"zoneId": 16544,
+				"npcId": 247003,
+				"zoneKind": "dungeon"
 			},
 			{
 				"kind": "drop",
-				"zoneId": 36,
+				"zoneId": 16544,
+				"npcId": 246600,
+				"zoneKind": "dungeon"
+			},
+			{
+				"kind": "drop",
+				"zoneId": 16544,
 				"npcId": 247001,
-				"zoneKind": "world"
+				"zoneKind": "dungeon"
 			}
 		]
 	},

@@ -1,5 +1,5 @@
 {
-	"generatedAt": "2026-11-24T16:33:09.008Z",
+	"generatedAt": "2026-11-24T18:45:39.650Z",
 	"specs": [
 		"druid-balance",
 		"druid-cat",
@@ -60,15 +60,15 @@
 			"shoulder": 544,
 			"waist": 585
 		},
-		"itemsWithoutSource": 2265,
+		"itemsWithoutSource": 2159,
 		"itemsWithEffects": 892,
 		"enchants": 223,
 		"zones": {
 			"world": 45,
-			"dungeon": 22,
+			"dungeon": 28,
 			"raid": 6
 		},
-		"npcs": 504,
+		"npcs": 541,
 		"randomSuffixes": 269,
 		"simSets": 34,
 		"simItems": 7404
