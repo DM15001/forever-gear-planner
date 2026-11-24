@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { contentCatalog, presets, sameFilter, toggled } from '../lib/content';
 import type { GameData } from '../lib/gameData';
-import { type SourceFilter, TIER_SLOTS, tierSets } from '../lib/scoring';
+import { type SourceFilter, TIER_SLOTS, tierSets, PVP_RANKS } from '../lib/scoring';
 import type { Character, SpecConfig } from '../lib/types';
 
 interface Props {
@@ -120,6 +120,21 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				{check('Other vendors', filter.vendor, on => set({ vendor: on }))}
 				{check('World drops', filter.drop, on => set({ drop: on }))}
 				{check('PvP: rank rewards and battlegrounds (their reputations and quests)', filter.pvp, on => set({ pvp: on }))}
+				{filter.pvp && (
+					<label className="tier-minimum">
+						Highest honor rank you will reach
+						<select value={filter.pvpMaxRank ?? 14} onChange={e => set({ pvpMaxRank: Number(e.target.value) })}>
+							{PVP_RANKS.filter(([rank]) => rank >= 3).map(([rank, alliance, horde]) => (
+								<option key={rank} value={rank}>
+									Rank {rank}: {alliance === horde ? alliance : `${alliance} / ${horde}`}
+									{rank === 14 ? ' (all rank rewards)' : ''}
+								</option>
+							))}
+							<option value={0}>No rank rewards, battlegrounds only</option>
+						</select>
+						<span className="slot-source">Rewards of a higher rank are left out. Battleground reputations and quests stay in.</span>
+					</label>
+				)}
 				{check('Items with no known source', filter.unknown, on => set({ unknown: on }))}
 			</fieldset>
 			{!faction && <p className="field-error">Pick a race on the Character tab to hide the other faction's items.</p>}

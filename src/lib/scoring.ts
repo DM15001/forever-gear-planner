@@ -300,6 +300,8 @@ export interface SourceFilter {
 	currency: boolean; // vendors that take a special currency
 	rep: boolean; // reputation rewards and quartermasters
 	pvp: boolean; // rank rewards and everything from battlegrounds: their reputations and quests
+	/** With PvP on: the highest honor rank the character will reach (1 to 14). Rewards of a higher rank are left out; 0 = no rank rewards at all, battlegrounds only. */
+	pvpMaxRank: number;
 	unknown: boolean; // items the data has no source for
 	/** The slots that may hold a piece of the class's Tier 0 or Tier 0.5 set (TIER_SLOTS). All = the planner takes what is best; none = no set piece at all. */
 	tierSlots: string[];
@@ -330,6 +332,7 @@ export const DEFAULT_FILTER: SourceFilter = {
 	currency: true,
 	rep: true,
 	pvp: false,
+	pvpMaxRank: 14,
 	unknown: true,
 	tierSlots: ['head', 'shoulder', 'chest', 'wrist', 'hands', 'waist', 'legs', 'feet'],
 	tier05: true,
@@ -366,6 +369,37 @@ export const filterKey = (source: ItemSource): SourceKindKey => {
 	return source.kind;
 };
 
+/** The honor ranks, by the title a reward carries in its name: Alliance and Horde. */
+export const PVP_RANKS: [rank: number, alliance: string, horde: string][] = [
+	[14, 'Grand Marshal', 'High Warlord'],
+	[13, 'Field Marshal', 'Warlord'],
+	[12, 'Marshal', 'General'],
+	[11, 'Commander', 'Lieutenant General'],
+	[10, 'Lieutenant Commander', 'Champion'],
+	[9, 'Knight-Champion', 'Centurion'],
+	[8, 'Knight-Captain', 'Legionnaire'],
+	[7, 'Knight-Lieutenant', 'Blood Guard'],
+	[6, 'Knight', 'Stone Guard'],
+	[5, 'Sergeant Major', 'First Sergeant'],
+	[4, 'Master Sergeant', 'Senior Sergeant'],
+	[3, 'Sergeant', 'Sergeant'],
+	[2, 'Corporal', 'Grunt'],
+	[1, 'Private', 'Scout'],
+];
+const RANK_BY_TITLE = new Map(PVP_RANKS.flatMap(([rank, alliance, horde]) => [[alliance, rank] as const, [horde, rank] as const]));
+
+/**
+ * The honor rank a PvP reward needs, read from its name ("Warlord's Silk Cowl", "Premier Centurion's Mail Boots");
+ * 0 for a reward that needs none (battleground reputations, insignias) or whose name carries no title.
+ */
+export function pvpRankOf(item: Item): number {
+	if (!(item.sources ?? []).some(s => s.kind === 'pvp')) return 0;
+	const title = /^(?:Premier )?([A-Z][A-Za-z-]+(?: [A-Z][a-z]+)?)'s /.exec(item.name)?.[1];
+	// "Scout's" and "Private's" also name plain battleground rewards; ranks 1 and 2 have no gear of their own.
+	const rank = title ? (RANK_BY_TITLE.get(title) ?? 0) : 0;
+	return rank >= 3 ? rank : 0;
+}
+
 /** A quest reward that needs a raid kill; treated like a raid drop. */
 const isRaidQuest = (source: ItemSource) => source.kind === 'quest' && source.questId !== undefined && String(source.questId) in RAID_QUESTS;
 
@@ -376,6 +410,8 @@ const isRaidQuest = (source: ItemSource) => source.kind === 'quest' && source.qu
 export function usableSources(item: Item, faction: Faction | undefined, filter: SourceFilter, professions?: string[]): ItemSource[] {
 	// What a PvP rank or a battleground pays for is PvP, and so is the vendor who hands it over.
 	const pvpItem = (item.sources ?? []).some(s => s.kind === 'pvp' || battlegroundOf(s));
+	// A reward of a rank above the one the character will reach is out of reach, whoever sells it.
+	if (filter.pvp && pvpRankOf(item) > (filter.pvpMaxRank ?? 14)) return [];
 	return (item.sources ?? []).filter(s => {
 		if (s.zoneKind === 'raid' || isRaidQuest(s)) return false;
 		if (pvpItem && s.kind === 'vendor' && !filter.pvp) return false;
