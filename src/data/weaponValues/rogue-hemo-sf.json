@@ -1,10 +1,10 @@
 {
-	"generatedAt": "2026-11-23T16:22:53.951Z",
-	"inputs": "f24d2fd72318344c",
+	"generatedAt": "2026-11-24T09:26:05.664Z",
+	"inputs": "237dcfce6b3b0e10",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 4000,
 	"reference": {
-		"dps": 816.26,
+		"dps": 793.15,
 		"mainHand": 12590,
 		"offHand": 18392,
 		"ranged": 18323
@@ -12,1145 +12,1145 @@
 	"weapons": {
 		"809": {
 			"name": "Bloodrazor",
-			"mainHand": -35.5
+			"mainHand": -35.82
 		},
 		"810": {
 			"name": "Hammer of the Northern Wind",
-			"mainHand": -36.69
+			"mainHand": -36.97
 		},
 		"811": {
 			"name": "Axe of the Deep Woods",
-			"mainHand": -25.53
+			"mainHand": -25.23
 		},
 		"1721": {
 			"name": "Viking Warhammer",
-			"mainHand": -48.21
+			"mainHand": -48.64
 		},
 		"1728": {
 			"name": "Teebu's Blazing Longsword",
-			"mainHand": -13.71
+			"mainHand": -15.69
 		},
 		"2163": {
 			"name": "Shadowblade",
-			"mainHand": -26.51,
-			"offHand": -4.33
+			"mainHand": -27.18,
+			"offHand": -4.53
 		},
 		"2243": {
 			"name": "Hand of Edward the Odd",
-			"mainHand": -73.64,
-			"offHand": -21.11
+			"offHand": -21.07,
+			"mainHand": -72.88
 		},
 		"2244": {
 			"name": "Krol Blade",
-			"mainHand": -26.29
+			"mainHand": -27.74
 		},
 		"5267": {
 			"name": "Scarlet Kris",
-			"mainHand": -34.58,
-			"offHand": -5.26
+			"mainHand": -34.29,
+			"offHand": -5.65
 		},
 		"6622": {
 			"name": "Sword of Zeal",
-			"mainHand": -20.74
+			"mainHand": -21.4
 		},
 		"6660": {
 			"name": "Julie's Dagger",
-			"mainHand": -51.19,
-			"offHand": -11.65
+			"mainHand": -50.9,
+			"offHand": -11.64
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"offHand": -15.05,
-			"mainHand": -59.03
+			"offHand": -13.85,
+			"mainHand": -58.65
 		},
 		"8190": {
 			"name": "Hanzo Sword",
-			"mainHand": -66.36,
-			"offHand": -12.43
+			"mainHand": -66.16,
+			"offHand": -12.55
 		},
 		"8708": {
 			"name": "Hammer of Expertise",
-			"mainHand": -42.2
+			"mainHand": -42.66
 		},
 		"9379": {
 			"name": "Sang'thraze the Deflector",
-			"mainHand": -75.58,
-			"offHand": -17.67
+			"mainHand": -75.34,
+			"offHand": -17.81
 		},
 		"9478": {
 			"name": "Ripsaw",
-			"mainHand": -46.61
+			"mainHand": -47.29
 		},
 		"9639": {
 			"name": "The Hand of Antu'sul",
-			"mainHand": -46.31
+			"mainHand": -47.28
 		},
 		"9651": {
 			"name": "Gryphon Rider's Stormhammer",
-			"mainHand": -46.12
+			"mainHand": -46.9
 		},
 		"9684": {
 			"name": "Force of the Hippogryph",
-			"mainHand": -67.03
+			"mainHand": -67.54
 		},
 		"9686": {
 			"name": "Spirit of the Faerie Dragon",
-			"mainHand": -60.91
+			"mainHand": -61.08
 		},
 		"10696": {
 			"name": "Enchanted Azsharite Felbane Sword",
-			"mainHand": -60.87
+			"mainHand": -61.2
 		},
 		"10697": {
 			"name": "Enchanted Azsharite Felbane Dagger",
-			"mainHand": -48.29,
-			"offHand": -9
+			"mainHand": -47.31,
+			"offHand": -8.71
 		},
 		"10744": {
 			"name": "Axe of the Ebon Drake",
-			"mainHand": -78.03
+			"mainHand": -77.45
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
-			"mainHand": -50.17,
-			"offHand": -14.63
+			"mainHand": -50.05,
+			"offHand": -14.46
 		},
 		"10797": {
 			"name": "Firebreather",
-			"mainHand": -55.79,
-			"offHand": -15.41
+			"mainHand": -56,
+			"offHand": -14.96
 		},
 		"10803": {
 			"name": "Blade of the Wretched",
-			"mainHand": -57.97
+			"mainHand": -57.29
 		},
 		"10804": {
 			"name": "Fist of the Damned",
-			"mainHand": -50.72,
-			"offHand": -15.44
+			"mainHand": -51.18,
+			"offHand": -15.59
 		},
 		"10805": {
 			"name": "Eater of the Dead",
-			"mainHand": -56.52
+			"mainHand": -56.31
 		},
 		"10828": {
 			"name": "Dire Nail",
-			"mainHand": -51.04
+			"mainHand": -50
 		},
 		"10837": {
 			"name": "Tooth of Eranikus",
-			"mainHand": -48.84
+			"mainHand": -49.46
 		},
 		"10838": {
 			"name": "Might of Hakkar",
-			"mainHand": -47.85
+			"mainHand": -48.58
 		},
 		"10847": {
 			"name": "Dragon's Call",
-			"mainHand": -24.82,
-			"offHand": -1.33
+			"mainHand": -25.11,
+			"offHand": -1.73
 		},
 		"11086": {
 			"name": "Jang'thraze the Protector",
-			"mainHand": -73.64
+			"mainHand": -72.66
 		},
 		"11120": {
 			"name": "Belgrom's Hammer",
-			"mainHand": -46.47
+			"mainHand": -47.11
 		},
 		"11635": {
 			"name": "Hookfang Shanker",
-			"mainHand": -46.54,
-			"offHand": -9.72
+			"mainHand": -46.66,
+			"offHand": -10.56
 		},
 		"11684": {
 			"name": "Ironfoe",
-			"mainHand": -8.98
+			"mainHand": -10.93
 		},
 		"11702": {
 			"name": "Grizzle's Skinner",
-			"mainHand": -50.8
+			"mainHand": -51.67
 		},
 		"11744": {
 			"name": "Bloodfist",
-			"mainHand": -47.74,
-			"offHand": -10.28
+			"offHand": -9.81,
+			"mainHand": -47.62
 		},
 		"11784": {
 			"name": "Arbiter's Blade",
-			"mainHand": -86.98
+			"mainHand": -86.35
 		},
 		"11805": {
 			"name": "Rubidium Hammer",
-			"mainHand": -52.78
+			"mainHand": -53.31
 		},
 		"11817": {
 			"name": "Lord General's Sword",
-			"mainHand": -37.77
+			"mainHand": -38.01
 		},
 		"11863": {
 			"name": "White Bone Shredder",
-			"offHand": -14.12
+			"offHand": -13.98
 		},
 		"11902": {
 			"name": "Linken's Sword of Mastery",
-			"mainHand": -58.21
+			"mainHand": -57.61
 		},
 		"11906": {
 			"name": "Beastsmasher",
-			"mainHand": -58.85
+			"mainHand": -58.58
 		},
 		"11920": {
 			"name": "Wraith Scythe",
-			"mainHand": -51.58
+			"mainHand": -51.94
 		},
 		"11922": {
 			"name": "Blood-Etched Blade",
-			"mainHand": -78.27
+			"mainHand": -76.59
 		},
 		"11923": {
 			"name": "The Hammer of Grace",
-			"mainHand": -72.53
+			"mainHand": -72.05
 		},
 		"11964": {
 			"name": "Swiftstrike Cudgel",
-			"mainHand": -59.92
+			"mainHand": -60.37
 		},
 		"12061": {
 			"name": "Blade of Reckoning",
-			"mainHand": -54.01,
-			"offHand": -16.32
+			"mainHand": -54.28,
+			"offHand": -16.53
 		},
 		"12062": {
 			"name": "Skilled Fighting Blade",
-			"mainHand": -48.08,
-			"offHand": -8.46
+			"mainHand": -47.2,
+			"offHand": -8.52
 		},
 		"12527": {
 			"name": "Ribsplitter",
-			"mainHand": -50.36
+			"mainHand": -50.44
 		},
 		"12531": {
 			"name": "Searing Needle",
-			"mainHand": -53.1,
-			"offHand": -17.93
+			"mainHand": -45.87,
+			"offHand": -14.2
 		},
 		"12535": {
 			"name": "Doomforged Straightedge",
-			"mainHand": -61.46,
-			"offHand": -9.64
+			"mainHand": -61.3,
+			"offHand": -10.03
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
-			"mainHand": -33.51,
-			"offHand": -10.45
+			"mainHand": -34.22,
+			"offHand": -11.6
 		},
 		"12590": {
 			"name": "Felstriker",
-			"offHand": 3.17
+			"offHand": 4.26
 		},
 		"12621": {
 			"name": "Demonfork",
-			"mainHand": -40.89
+			"mainHand": -41.68
 		},
 		"12709": {
 			"name": "Pip's Skinner",
-			"mainHand": -35.95
+			"mainHand": -35.8
 		},
 		"12773": {
 			"name": "Ornate Thorium Handaxe",
-			"offHand": -15.5,
-			"mainHand": -72.45
+			"mainHand": -72.02,
+			"offHand": -15.75
 		},
 		"12774": {
 			"name": "Dawn's Edge",
-			"mainHand": -56.75,
-			"offHand": -12.13
+			"mainHand": -56.8,
+			"offHand": -11.81
 		},
 		"12777": {
 			"name": "Blazing Rapier",
-			"offHand": -16.93,
-			"mainHand": -51.04
+			"offHand": -16.36,
+			"mainHand": -50.81
 		},
 		"12781": {
 			"name": "Serenity",
-			"mainHand": -43.3,
-			"offHand": -21.6
+			"mainHand": -44.16,
+			"offHand": -21.27
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"mainHand": -22.88,
-			"offHand": -5.18
+			"offHand": -5.36,
+			"mainHand": -23.79
 		},
 		"12791": {
 			"name": "Barman Shanker",
-			"mainHand": -21.72
+			"mainHand": -22.81
 		},
 		"12792": {
 			"name": "Volcanic Hammer",
-			"mainHand": -39.44,
-			"offHand": -16.63
+			"mainHand": -39.21,
+			"offHand": -17.06
 		},
 		"12794": {
 			"name": "Masterwork Stormhammer",
-			"mainHand": -46.56,
-			"offHand": -13.07
+			"mainHand": -44.34,
+			"offHand": -12.47
 		},
 		"12795": {
 			"name": "Blood Talon",
-			"mainHand": -46.73
+			"mainHand": -46.78
 		},
 		"12797": {
 			"name": "Frostguard",
-			"mainHand": -34.55,
-			"offHand": -18.79
+			"mainHand": -34.81,
+			"offHand": -18.37
 		},
 		"12798": {
 			"name": "Annihilator",
-			"mainHand": -40.95,
-			"offHand": -12.52
+			"mainHand": -41.35,
+			"offHand": -12.49
 		},
 		"12939": {
 			"name": "Dal'Rend's Tribal Guardian",
-			"offHand": -13.64
+			"offHand": -13.26
 		},
 		"12940": {
 			"name": "Dal'Rend's Sacred Charge",
-			"mainHand": -25.69
+			"mainHand": -27.16
 		},
 		"13006": {
 			"name": "Mass of McGowan",
-			"mainHand": -24.6
+			"mainHand": -25.81
 		},
 		"13014": {
 			"name": "Axe of Rin'ji",
-			"mainHand": -67.4,
-			"offHand": -14.36
+			"mainHand": -67.5,
+			"offHand": -14.66
 		},
 		"13015": {
 			"name": "Serathil",
-			"mainHand": -56.25,
-			"offHand": -11.56
+			"mainHand": -56.24,
+			"offHand": -11.92
 		},
 		"13027": {
 			"name": "Bonesnapper",
-			"mainHand": -41.88
+			"mainHand": -42.16
 		},
 		"13028": {
 			"name": "Bludstone Hammer",
-			"mainHand": -46.07
+			"mainHand": -46.11
 		},
 		"13036": {
 			"name": "Assassination Blade",
-			"mainHand": -39.7,
-			"offHand": -14.69
+			"mainHand": -39.5,
+			"offHand": -14.66
 		},
 		"13182": {
 			"name": "Phase Blade",
-			"mainHand": -58.88,
-			"offHand": -15.53
+			"offHand": -15.54,
+			"mainHand": -58.6
 		},
 		"13183": {
 			"name": "Venomspitter",
-			"mainHand": -45.02,
-			"offHand": -13.81
+			"mainHand": -45.43,
+			"offHand": -13.44
 		},
 		"13198": {
 			"name": "Hurd Smasher",
-			"mainHand": -51.13,
-			"offHand": -17.29
+			"offHand": -16.82,
+			"mainHand": -50.92
 		},
 		"13204": {
 			"name": "Bashguuder",
-			"mainHand": -46.47,
-			"offHand": -14.8
+			"mainHand": -46.39,
+			"offHand": -13.71
 		},
 		"13218": {
 			"name": "Fang of the Crystal Spider",
-			"offHand": -12.28,
-			"mainHand": -39.69
+			"offHand": -12.47,
+			"mainHand": -40.62
 		},
 		"13246": {
 			"name": "Argent Avenger",
-			"mainHand": -36.96,
-			"offHand": -7.12
+			"mainHand": -37.55,
+			"offHand": -7.07
 		},
 		"13286": {
 			"name": "Rivenspike",
-			"offHand": -21.25,
-			"mainHand": -39.21
+			"mainHand": -39.63,
+			"offHand": -21.55
 		},
 		"13349": {
 			"name": "Scepter of the Unholy",
-			"mainHand": -70.83
+			"mainHand": -70.68
 		},
 		"13360": {
 			"name": "Gift of the Elven Magi",
-			"mainHand": -72.04
+			"mainHand": -70.51
 		},
 		"13361": {
 			"name": "Skullforge Reaver",
-			"offHand": -9.67,
-			"mainHand": -29.32
+			"offHand": -9.77,
+			"mainHand": -30.98
 		},
 		"13368": {
 			"name": "Bonescraper",
-			"mainHand": -32.36,
-			"offHand": -2.11
+			"mainHand": -32.86,
+			"offHand": -2.19
 		},
 		"13399": {
 			"name": "Gargoyle Shredder Talons",
-			"offHand": -16.5
+			"offHand": -8.73
 		},
 		"13401": {
 			"name": "The Cruel Hand of Timmy",
-			"mainHand": -44.11,
-			"offHand": -12.36
+			"mainHand": -43.97,
+			"offHand": -13.14
 		},
 		"13408": {
 			"name": "Soul Breaker",
-			"mainHand": -66.59
+			"mainHand": -66.21
 		},
 		"13952": {
 			"name": "Iceblade Hacker",
-			"mainHand": -28.94
+			"mainHand": -29.59
 		},
 		"13953": {
 			"name": "Silent Fang",
-			"mainHand": -60.07
+			"mainHand": -59.86
 		},
 		"13964": {
 			"name": "Witchblade",
-			"mainHand": -70.88
+			"mainHand": -71.58
 		},
 		"13984": {
 			"name": "Darrowspike",
-			"mainHand": -30.16,
-			"offHand": -6.25
+			"mainHand": -31.12,
+			"offHand": -6.58
 		},
 		"14024": {
 			"name": "Frightalon",
-			"mainHand": -36.8,
-			"offHand": -5.4
+			"offHand": -5.4,
+			"mainHand": -37.19
 		},
 		"14487": {
 			"name": "Bonechill Hammer",
-			"mainHand": -29.43,
-			"offHand": -15.63
+			"mainHand": -28.75,
+			"offHand": -14.49
 		},
 		"14555": {
 			"name": "Alcor's Sunrazor",
-			"mainHand": -32.32,
-			"offHand": -6.52
+			"offHand": -6.86,
+			"mainHand": -32.26
 		},
 		"14576": {
 			"name": "Ebon Hilt of Marduk",
-			"mainHand": -43.35
+			"mainHand": -43.59
 		},
 		"15216": {
 			"name": "Rune Sword",
-			"mainHand": -81.58,
-			"offHand": -18.53
+			"mainHand": -80.8,
+			"offHand": -17.68
 		},
 		"15217": {
 			"name": "Widow Blade",
 			"mainHand": -73.99,
-			"offHand": -20.6
+			"offHand": -20.27
 		},
 		"15218": {
 			"name": "Crystal Sword",
-			"mainHand": -65.84,
-			"offHand": -22.02
+			"mainHand": -65.33,
+			"offHand": -21.18
 		},
 		"15219": {
 			"name": "Dimensional Blade",
-			"mainHand": -71.8,
-			"offHand": -15.88
+			"mainHand": -71.28,
+			"offHand": -15.1
 		},
 		"15220": {
 			"name": "Battlefell Sabre",
-			"mainHand": -59.67
+			"mainHand": -59.39
 		},
 		"15221": {
 			"name": "Holy War Sword",
-			"mainHand": -55.84,
-			"offHand": -18.64
+			"mainHand": -55.66,
+			"offHand": -18.46
 		},
 		"15228": {
 			"name": "Smashing Star",
-			"mainHand": -53.04,
-			"offHand": -26.59
+			"mainHand": -53.52,
+			"offHand": -26.51
 		},
 		"15229": {
 			"name": "Blesswind Hammer",
-			"mainHand": -63.37,
-			"offHand": -22.8
+			"mainHand": -62.99,
+			"offHand": -22.64
 		},
 		"15236": {
 			"name": "Moon Cleaver",
-			"mainHand": -74.42,
-			"offHand": -23.12
+			"mainHand": -73.75,
+			"offHand": -22.83
 		},
 		"15237": {
 			"name": "Corpse Harvester",
-			"mainHand": -62.92,
-			"offHand": -24.52
+			"offHand": -24.79,
+			"mainHand": -63.04
 		},
 		"15238": {
 			"name": "Warlord's Axe",
-			"mainHand": -64.24,
-			"offHand": -21.64
+			"mainHand": -63.77,
+			"offHand": -20.8
 		},
 		"15239": {
 			"name": "Felstone Reaver",
-			"mainHand": -64.23,
-			"offHand": -18.15
+			"offHand": -17.88,
+			"mainHand": -64.48
 		},
 		"15240": {
 			"name": "Demon's Claw",
-			"mainHand": -55.17,
-			"offHand": -19.48
+			"mainHand": -54.93,
+			"offHand": -18.7
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"mainHand": -66.15,
-			"offHand": -18.88
+			"offHand": -18.02,
+			"mainHand": -65.72
 		},
 		"15246": {
 			"name": "Demon Blade",
-			"mainHand": -45.29,
-			"offHand": -16.18
+			"mainHand": -44.97,
+			"offHand": -15.74
 		},
 		"15247": {
 			"name": "Bloodstrike Dagger",
-			"mainHand": -44.15,
-			"offHand": -15.33
+			"mainHand": -43.68,
+			"offHand": -14.49
 		},
 		"15705": {
 			"name": "Tidecrest Blade",
-			"mainHand": -56.83,
-			"offHand": -21.11
+			"mainHand": -57.1,
+			"offHand": -21.46
 		},
 		"15706": {
 			"name": "Hunt Tracker Blade",
-			"offHand": -10.55,
-			"mainHand": -53.57
+			"mainHand": -53.05,
+			"offHand": -10.66
 		},
 		"15782": {
 			"name": "Beaststalker Blade",
-			"mainHand": -57.3,
-			"offHand": -15.01
+			"mainHand": -57.07,
+			"offHand": -14.91
 		},
 		"15783": {
 			"name": "Beasthunter Dagger",
-			"mainHand": -45.61,
-			"offHand": -11.62
+			"mainHand": -45.1,
+			"offHand": -10.87
 		},
 		"15800": {
 			"name": "Intrepid Shortsword",
-			"mainHand": -68.39,
-			"offHand": -19.63
+			"mainHand": -67.88,
+			"offHand": -19.55
 		},
 		"15801": {
 			"name": "Valiant Shortsword",
-			"mainHand": -95.74
+			"mainHand": -94.56
 		},
 		"15806": {
 			"name": "Mirah's Song",
-			"mainHand": -52.26,
-			"offHand": -6.71
+			"mainHand": -52.21,
+			"offHand": -6.35
 		},
 		"15814": {
 			"name": "Hameya's Slayer",
-			"mainHand": -60.44,
-			"offHand": -16.56
+			"mainHand": -60.39,
+			"offHand": -15.65
 		},
 		"15853": {
 			"name": "Windreaper",
-			"mainHand": -52.5,
-			"offHand": -18.84
+			"mainHand": -52.32,
+			"offHand": -18.08
 		},
 		"15862": {
 			"name": "Blitzcleaver",
-			"mainHand": -66.01,
-			"offHand": -16.67
+			"mainHand": -65.56,
+			"offHand": -16.53
 		},
 		"15863": {
 			"name": "Grave Scepter",
-			"mainHand": -89.4
+			"mainHand": -88.42
 		},
 		"16769": {
 			"name": "Furbolg Medicine Totem",
-			"mainHand": -60.22
+			"mainHand": -60.64
 		},
 		"17002": {
 			"name": "Ichor Spitter",
-			"mainHand": -56.72,
-			"offHand": -20.3
+			"mainHand": -56.92,
+			"offHand": -20.42
 		},
 		"17003": {
 			"name": "Skullstone Hammer",
-			"mainHand": -42.36
+			"mainHand": -42.63
 		},
 		"17055": {
 			"name": "Changuk Smasher",
-			"mainHand": -61.42,
-			"offHand": -19.9
+			"mainHand": -61.27,
+			"offHand": -20.04
 		},
 		"17705": {
 			"name": "Thrash Blade",
-			"mainHand": -35.4,
-			"offHand": -15.28
+			"mainHand": -35.57,
+			"offHand": -15.51
 		},
 		"17710": {
 			"name": "Charstone Dirk",
-			"mainHand": -80.45
+			"mainHand": -79.65
 		},
 		"17719": {
 			"name": "Inventor's Focal Sword",
-			"mainHand": -86.17
+			"mainHand": -85.17
 		},
 		"17738": {
 			"name": "Claw of Celebras",
-			"offHand": -15.27
+			"offHand": -16.43
 		},
 		"17752": {
 			"name": "Satyr's Lash",
-			"mainHand": -47.02,
-			"offHand": -11.94
+			"mainHand": -48.13,
+			"offHand": -11.31
 		},
 		"17780": {
 			"name": "Blade of Eternal Darkness",
-			"mainHand": -75.93
+			"mainHand": -74.31
 		},
 		"17943": {
 			"name": "Fist of Stone",
-			"mainHand": -60.25
+			"mainHand": -59.81
 		},
 		"18044": {
 			"name": "Hurley's Tankard",
-			"mainHand": -35.9
+			"mainHand": -36.82
 		},
 		"18048": {
 			"name": "Mastersmith's Hammer",
-			"mainHand": -69.78
+			"mainHand": -69.85
 		},
 		"18310": {
 			"name": "Fiendish Machete",
-			"mainHand": -42.96,
-			"offHand": -10.71
+			"mainHand": -43.97,
+			"offHand": -11.01
 		},
 		"18321": {
 			"name": "Energetic Rod",
-			"mainHand": -77.03
+			"mainHand": -76.25
 		},
 		"18347": {
 			"name": "Well Balanced Axe",
-			"mainHand": -53.03,
-			"offHand": -8.61
+			"mainHand": -53.32,
+			"offHand": -8.88
 		},
 		"18372": {
 			"name": "Blade of the New Moon",
-			"mainHand": -71.61
+			"mainHand": -71.1
 		},
 		"18376": {
 			"name": "Timeworn Mace",
-			"mainHand": -39.92,
-			"offHand": -17.24
+			"mainHand": -40.15,
+			"offHand": -17.1
 		},
 		"18396": {
 			"name": "Mind Carver",
-			"mainHand": -85.47
+			"mainHand": -85.18
 		},
 		"18462": {
 			"name": "Jagged Bone Fist",
-			"mainHand": -56.51,
-			"offHand": -16.75
+			"mainHand": -56.16,
+			"offHand": -16.28
 		},
 		"18463": {
 			"name": "Ogre Pocket Knife",
-			"mainHand": -53.73,
-			"offHand": -16.03
+			"mainHand": -54.01,
+			"offHand": -16.25
 		},
 		"18484": {
 			"name": "Cho'Rush's Blade",
-			"offHand": -12.42,
-			"mainHand": -42.14
+			"mainHand": -42.71,
+			"offHand": -12.73
 		},
 		"18491": {
 			"name": "Lorespinner",
-			"mainHand": -78.27
+			"mainHand": -76.59
 		},
 		"18498": {
 			"name": "Hedgecutter",
-			"mainHand": -58.55,
-			"offHand": -13.02
+			"mainHand": -54.31,
+			"offHand": -12
 		},
 		"18671": {
 			"name": "Baron Charr's Sceptre",
-			"mainHand": -35.6
+			"mainHand": -36.39
 		},
 		"18683": {
 			"name": "Hammer of the Vesper",
-			"mainHand": -34.07,
-			"offHand": -17.45
+			"offHand": -17.22,
+			"mainHand": -35.15
 		},
 		"18737": {
 			"name": "Bone Slicing Hatchet",
-			"mainHand": -52.05,
-			"offHand": -7.07
+			"offHand": -5.64,
+			"mainHand": -52.5
 		},
 		"18758": {
 			"name": "Specter's Blade",
-			"mainHand": -28.53,
-			"offHand": -7.02
+			"offHand": -6.79,
+			"mainHand": -28.62
 		},
 		"19099": {
 			"name": "Glacial Blade",
-			"offHand": -5.64,
-			"mainHand": -23.06
+			"offHand": -6.37,
+			"mainHand": -23.43
 		},
 		"19100": {
 			"name": "Electrified Dagger",
-			"mainHand": -23.06,
-			"offHand": -5.64
+			"offHand": -6.46,
+			"mainHand": -23.16
 		},
 		"19103": {
 			"name": "Frostbite",
-			"offHand": -14.22,
-			"mainHand": -28.57
+			"mainHand": -29.18,
+			"offHand": -14.38
 		},
 		"19104": {
 			"name": "Stormstrike Hammer",
-			"mainHand": -20.66,
-			"offHand": -15.98
+			"mainHand": -21.47,
+			"offHand": -16.1
 		},
 		"19324": {
 			"name": "The Lobotomizer",
-			"offHand": -9.67,
-			"mainHand": -23.31
+			"offHand": -9.31,
+			"mainHand": -23.63
 		},
 		"19542": {
 			"name": "Scout's Blade",
-			"mainHand": -28.57,
-			"offHand": -6.56
+			"mainHand": -29.18,
+			"offHand": -5.15
 		},
 		"19543": {
 			"name": "Scout's Blade",
-			"offHand": -11.28,
-			"mainHand": -46.18
+			"offHand": -10.28,
+			"mainHand": -45.81
 		},
 		"19546": {
 			"name": "Sentinel's Blade",
-			"offHand": -6.56,
-			"mainHand": -28.57
+			"offHand": -5.15,
+			"mainHand": -29.18
 		},
 		"19547": {
 			"name": "Sentinel's Blade",
-			"offHand": -11.28,
-			"mainHand": -46.18
+			"mainHand": -45.81,
+			"offHand": -10.28
 		},
 		"19550": {
 			"name": "Legionnaire's Sword",
-			"offHand": -15.75,
-			"mainHand": -32.4
+			"mainHand": -32.92,
+			"offHand": -15.87
 		},
 		"19551": {
 			"name": "Legionnaire's Sword",
-			"offHand": -20.08,
-			"mainHand": -49.79
+			"mainHand": -49.88,
+			"offHand": -20.09
 		},
 		"19554": {
 			"name": "Protector's Sword",
-			"offHand": -15.75,
-			"mainHand": -32.4
+			"offHand": -15.87,
+			"mainHand": -32.92
 		},
 		"19555": {
 			"name": "Protector's Sword",
-			"mainHand": -49.79,
-			"offHand": -20.08
+			"offHand": -20.09,
+			"mainHand": -49.88
 		},
 		"20070": {
 			"name": "Sageclaw",
-			"mainHand": -60.85
+			"mainHand": -60.38
 		},
 		"20214": {
 			"name": "Mindfang",
-			"mainHand": -60.85
+			"mainHand": -60.38
 		},
 		"20648": {
 			"name": "Cold Forged Hammer",
-			"mainHand": -33.56
+			"mainHand": -34.66
 		},
 		"22266": {
 			"name": "Flarethorn",
-			"mainHand": -75.8
+			"mainHand": -74.74
 		},
 		"22315": {
 			"name": "Hammer of Revitalization",
-			"mainHand": -68.08
+			"mainHand": -67.71
 		},
 		"22317": {
 			"name": "Lefty's Brass Knuckle",
-			"mainHand": -42.47,
-			"offHand": -5.48
+			"mainHand": -42.89,
+			"offHand": -5.74
 		},
 		"22322": {
 			"name": "The Jaw Breaker",
-			"mainHand": -41.69,
-			"offHand": -7.75
+			"mainHand": -42.16,
+			"offHand": -6.79
 		},
 		"22332": {
 			"name": "Blade of Necromancy",
-			"mainHand": -88.78
+			"mainHand": -87.73
 		},
 		"22383": {
 			"name": "Sageblade",
-			"mainHand": -74.95
+			"mainHand": -74.5
 		},
 		"22384": {
 			"name": "Persuader",
-			"mainHand": -3.03,
-			"offHand": -7.61
+			"mainHand": -5.27,
+			"offHand": -7.29
 		},
 		"22404": {
 			"name": "Willey's Back Scratcher",
-			"mainHand": -30.73
+			"mainHand": -31.64
 		},
 		"24222": {
 			"name": "The Shadowfoot Stabber",
-			"offHand": -10.66,
-			"mainHand": -38.75
+			"offHand": -10.34,
+			"mainHand": -38.59
 		},
 		"227935": {
 			"name": "Hammer of the Fallen Thane",
-			"mainHand": -78.24
+			"mainHand": -77.48
 		},
 		"250614": {
 			"name": "Thorium Cestus",
-			"mainHand": -43.8,
-			"offHand": -17.63
+			"mainHand": -44.33,
+			"offHand": -17.8
 		},
 		"250616": {
 			"name": "Bold Dirk",
-			"mainHand": -45.3,
-			"offHand": -9.95
+			"mainHand": -45.23,
+			"offHand": -9.37
 		},
 		"250618": {
 			"name": "Bagh Nakh",
-			"mainHand": -21.08,
-			"offHand": -14.94
+			"mainHand": -21.99,
+			"offHand": -14.38
 		},
 		"260172": {
 			"name": "Assassin's Dagger",
-			"mainHand": -54.97,
-			"offHand": -14.15
+			"mainHand": -54.67,
+			"offHand": -13.47
 		},
 		"260180": {
 			"name": "Scout's Dagger",
-			"mainHand": -54.97,
-			"offHand": -14.15
+			"mainHand": -54.67,
+			"offHand": -13.47
 		},
 		"260209": {
 			"name": "Truesong's Hammer",
-			"mainHand": -46.47
+			"mainHand": -47.11
 		},
 		"260213": {
 			"name": "Great Bear Claw",
-			"mainHand": -44.98,
-			"offHand": -17.86
+			"mainHand": -45.98,
+			"offHand": -17.72
 		},
 		"271928": {
 			"name": "Clever Expeditionary's Spellblade",
-			"mainHand": -70.8
+			"mainHand": -70.31
 		},
 		"271929": {
 			"name": "Clever Expeditionary's Spellblade",
-			"mainHand": -79.7
+			"mainHand": -78.99
 		},
 		"271936": {
 			"name": "Guerrilla's Jagged Mace",
-			"mainHand": -23.43
+			"mainHand": -24.67
 		},
 		"271937": {
 			"name": "Guerrilla's Jagged Mace",
-			"mainHand": -40.73
+			"mainHand": -41.52
 		},
 		"272083": {
 			"name": "Darkspear Insurgent's Spellblade",
-			"mainHand": -70.8
+			"mainHand": -70.31
 		},
 		"272084": {
 			"name": "Darkspear Insurgent's Spellblade",
-			"mainHand": -79.7
+			"mainHand": -78.99
 		},
 		"272091": {
 			"name": "Darkspear Skirmisher's Bludgeon",
-			"mainHand": -23.14
+			"mainHand": -24.39
 		},
 		"272092": {
 			"name": "Darkspear Skirmisher's Bludgeon",
-			"mainHand": -40.73
+			"mainHand": -41.52
 		},
 		"272452": {
 			"name": "Premier High Warlord's Blade",
-			"mainHand": -0.03,
-			"offHand": -2.56
+			"mainHand": -1.39,
+			"offHand": -3.17
 		},
 		"272592": {
 			"name": "Premier High Warlord's Cleaver",
-			"mainHand": -0.03,
-			"offHand": -2.56
+			"mainHand": -1.39,
+			"offHand": -3.17
 		},
 		"272596": {
 			"name": "Premier High Warlord's Razor",
-			"offHand": 1.39,
-			"mainHand": 1
+			"mainHand": -0.22,
+			"offHand": 1.15
 		},
 		"272597": {
 			"name": "Premier High Warlord's Right Claw",
-			"mainHand": 7.72
+			"mainHand": 6.16
 		},
 		"272598": {
 			"name": "Premier High Warlord's Left Claw",
-			"offHand": -4.23
+			"offHand": -4.8
 		},
 		"272600": {
 			"name": "Premier High Warlord's Bludgeon",
-			"offHand": -4.23,
-			"mainHand": 7.72
+			"mainHand": 6.16,
+			"offHand": -4.8
 		},
 		"272681": {
 			"name": "Premier High Warlord's Battle Mace",
-			"mainHand": -49.72
+			"mainHand": -50.75
 		},
 		"272683": {
 			"name": "Premier High Warlord's Spellblade",
-			"mainHand": -48.85
+			"mainHand": -48.88
 		},
 		"272684": {
 			"name": "Premier High Warlord's Quickblade",
-			"offHand": 3.03,
-			"mainHand": -30.29
+			"offHand": 3.54,
+			"mainHand": -30.43
 		},
 		"272693": {
 			"name": "Premier Grand Marshal's Longsword",
-			"mainHand": -0.03,
-			"offHand": -2.56
+			"mainHand": -1.39,
+			"offHand": -3.17
 		},
 		"272839": {
 			"name": "Premier Grand Marshal's Handaxe",
-			"mainHand": -0.03,
-			"offHand": -2.56
+			"mainHand": -1.39,
+			"offHand": -3.17
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"mainHand": 1,
-			"offHand": 1.39
+			"mainHand": -0.22,
+			"offHand": 1.15
 		},
 		"272844": {
 			"name": "Premier Grand Marshal's Right Hand Blade",
-			"mainHand": 7.72
+			"mainHand": 6.16
 		},
 		"272845": {
 			"name": "Premier Grand Marshal's Left Hand Blade",
-			"offHand": -4.23
+			"offHand": -4.8
 		},
 		"272847": {
 			"name": "Premier Grand Marshal's Punisher",
-			"mainHand": 7.72,
-			"offHand": -4.23
+			"mainHand": 6.16,
+			"offHand": -4.8
 		},
 		"272856": {
 			"name": "Premier Grand Marshal's Mageblade",
-			"mainHand": -48.85
+			"mainHand": -48.88
 		},
 		"272857": {
 			"name": "Premier Grand Marshal's Warhammer",
-			"mainHand": -49.72
+			"mainHand": -50.75
 		},
 		"272859": {
 			"name": "Premier Grand Marshal's Swiftblade",
-			"mainHand": -30.29,
-			"offHand": 3.03
+			"mainHand": -30.43,
+			"offHand": 3.54
 		},
 		"274265": {
 			"name": "Brush Cutter",
-			"offHand": -20.4,
-			"mainHand": -47.38
+			"mainHand": -47.73,
+			"offHand": -21.55
 		},
 		"274271": {
 			"name": "Deadhead Blade",
-			"offHand": -12.05,
-			"mainHand": -44.88
+			"mainHand": -45.06,
+			"offHand": -11.95
 		},
 		"274383": {
 			"name": "Kanai's Knife",
-			"offHand": -9.64,
-			"mainHand": -45.2
+			"mainHand": -45.16,
+			"offHand": -8.57
 		},
 		"274517": {
 			"name": "Unerring Purpose",
-			"offHand": -17.42,
-			"mainHand": -49.62
+			"offHand": -17.56,
+			"mainHand": -50.18
 		},
 		"275293": {
 			"name": "Barkskin Scepter",
-			"mainHand": -86.04
+			"mainHand": -85.75
 		},
 		"275647": {
 			"name": "Cleansed Ritual Kris",
-			"mainHand": -81.21
+			"mainHand": -80.39
 		},
 		"275698": {
 			"name": "Yaely's Mending Tool",
-			"mainHand": -80.73
+			"mainHand": -80.62
 		},
 		"275700": {
 			"name": "Glaive Thrower Muffler",
-			"mainHand": -60.11,
-			"offHand": -18.13
+			"mainHand": -59.67,
+			"offHand": -17.62
 		},
 		"275836": {
 			"name": "Acolyte Blade",
-			"mainHand": -82.18
+			"mainHand": -80.97
 		},
 		"276338": {
 			"name": "Claw of Shalla'kal",
-			"mainHand": -49.68,
-			"offHand": -20.83
+			"mainHand": -50.36,
+			"offHand": -20.51
 		},
 		"276398": {
 			"name": "Scarlet Malice",
-			"mainHand": -39.42,
-			"offHand": -16.25
+			"mainHand": -39.57,
+			"offHand": -15.53
 		},
 		"276404": {
 			"name": "Masterwork Crimson Hammer",
-			"mainHand": -73.96
+			"mainHand": -73.73
 		},
 		"276419": {
 			"name": "Lightcrest Hammer",
-			"mainHand": -23.12,
-			"offHand": -11.83
+			"mainHand": -23.62,
+			"offHand": -12.01
 		},
 		"276738": {
 			"name": "Katerina's Shanker",
-			"mainHand": -46.96,
-			"offHand": -12.92
+			"mainHand": -46.65,
+			"offHand": -11.87
 		},
 		"276903": {
 			"name": "Shimmerwine Shanker",
-			"mainHand": -57.93
+			"mainHand": -57.36
 		},
 		"279259": {
 			"name": "Ironwood Blade",
-			"mainHand": -22.49,
-			"offHand": -5.89
+			"mainHand": -23.8,
+			"offHand": -6.92
 		},
 		"279261": {
 			"name": "Greenhammer",
-			"mainHand": -14.42,
-			"offHand": -5.97
+			"mainHand": -16.47,
+			"offHand": -5.69
 		},
 		"279474": {
 			"name": "Dustwallow Dirk",
-			"mainHand": -45.22,
-			"offHand": -12.9
+			"mainHand": -45.03,
+			"offHand": -11.92
 		},
 		"279908": {
 			"name": "Crystal-Infused Cleaver",
-			"mainHand": -37.77,
-			"offHand": -12.76
+			"mainHand": -38.75,
+			"offHand": -12.3
 		},
 		"280012": {
 			"name": "Talon of Tor'Rel",
-			"offHand": -4.66,
-			"mainHand": -47.85
+			"mainHand": -47.73,
+			"offHand": -4.49
 		},
 		"280021": {
 			"name": "Tooth of the Matriarch",
-			"offHand": -4.78,
-			"mainHand": -27.13
+			"mainHand": -27.38,
+			"offHand": -4.11
 		},
 		"280022": {
 			"name": "Scaleguard Scimitar",
-			"offHand": -13,
-			"mainHand": -45.32
+			"offHand": -12.96,
+			"mainHand": -45.41
 		},
 		"280029": {
 			"name": "Cinderedge Crescent",
-			"offHand": -10.24,
-			"mainHand": -37.4
+			"offHand": -10.61,
+			"mainHand": -37.85
 		},
 		"280068": {
 			"name": "Bloody Claws of Attack",
-			"offHand": -15.25,
-			"mainHand": -25.69
+			"mainHand": -25.91,
+			"offHand": -14.82
 		},
 		"280077": {
 			"name": "Fist of Revelation",
-			"offHand": -25.28,
-			"mainHand": -78.02
+			"mainHand": -76.81,
+			"offHand": -24.67
 		},
 		"280085": {
 			"name": "Tunnelweb Pincer",
-			"offHand": -7.97,
-			"mainHand": -40.45
+			"offHand": -7.07,
+			"mainHand": -40.93
 		},
 		"281586": {
 			"name": "Elderwild Construction Hammer",
-			"mainHand": -73.96
+			"mainHand": -73.73
 		},
 		"281587": {
 			"name": "Greatflank Flayer",
-			"mainHand": -50.8,
-			"offHand": -17.11
+			"mainHand": -50.66,
+			"offHand": -16.38
 		},
 		"282010": {
 			"name": "Tusk of Grunter",
-			"mainHand": -57.13,
-			"offHand": -15.17
+			"mainHand": -56.6,
+			"offHand": -13.57
 		},
 		"282023": {
 			"name": "Clack's Claw",
-			"mainHand": -53.04,
-			"offHand": -21.83
+			"mainHand": -53.64,
+			"offHand": -21.49
 		},
 		"284101": {
 			"name": "Blade of Senseless Slaughter",
-			"mainHand": -32.43
+			"mainHand": -33.49
 		},
 		"284157": {
 			"name": "Ranger Lord's Longsword",
-			"offHand": -15.38,
-			"mainHand": -48.04
+			"mainHand": -49.18,
+			"offHand": -14.65
 		},
 		"284230": {
 			"name": "Rage Paw",
-			"mainHand": -55.04
+			"mainHand": -55.35
 		},
 		"284283": {
 			"name": "Horn of Antilos",
-			"mainHand": -76.09,
-			"offHand": -31.71
+			"mainHand": -75.61,
+			"offHand": -31.79
 		},
 		"286613": {
 			"name": "King Mosh's Tooth",
-			"mainHand": -30.17,
-			"offHand": -3.14
+			"mainHand": -30.41,
+			"offHand": -2.51
 		},
 		"287034": {
 			"name": "Grove Subjugator's Blade",
-			"offHand": -15.99,
-			"mainHand": -65.95
+			"mainHand": -65.19,
+			"offHand": -15.02
 		},
 		"287045": {
 			"name": "Ancient Mattock",
-			"mainHand": -43.34,
-			"offHand": -20.06
+			"mainHand": -43.94,
+			"offHand": -20.45
 		}
 	},
 	"failed": [],
-	"emptyOffHand": -199.83
+	"emptyOffHand": -194.51
 }
