@@ -10,13 +10,7 @@ name: Measure stat weights
 # start the workflow by hand with those builds and "accept".
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - public/sim/lib.wasm.gz
-      - public/sim/template.*.json
-      - scripts/build-weights.mjs
-      - .github/workflows/weights.yml
+  # Started once a night by .github/workflows/engine.yml (after the presets are read), or by hand.
   workflow_dispatch:
     inputs:
       specs:
@@ -65,7 +59,7 @@ jobs:
     timeout-minutes: 120
     strategy:
       fail-fast: false
-      max-parallel: 5
+      max-parallel: 3
       matrix:
         spec: ${{ fromJson(needs.list.outputs.specs) }}
     steps:
@@ -99,9 +93,9 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      # New weights must not break the site: they are only committed if tests and build pass with them.
+      # The new numbers are kept as long as the site still builds with them. The tests run afterwards and only
+      # report: a failing test must not throw away hours of measuring.
       - run: npm ci
-      - run: npm test
       - run: npm run build
       - name: Commit the new weights
         id: commit
@@ -140,6 +134,20 @@ jobs:
           [ -n "$held" ] || exit 0
           text="The stat weight measurement moved these weights far from the ones the planner uses, so they were **not applied**. The planner keeps its current weights for these builds."$'\n'"$body"$'\n'"If the new numbers make sense (for example after a class change), run the workflow \"Measure stat weights\" by hand with \`specs\` =\`$held\` and \`accept\` ticked. If not, close this issue; the builds are measured again when the simulator changes."
           gh api "repos/${{ github.repository }}/issues" -f title="Stat weights held back:$held" -f body="$text" -f "labels[]=planner-followup" || gh api "repos/${{ github.repository }}/issues" -f title="Stat weights held back:$held" -f body="$text"
+      - name: Tests on the new numbers
+        id: tests
+        if: steps.commit.outputs.pushed == 'true'
+        continue-on-error: true
+        run: npm test
+      - name: Report failing tests
+        if: steps.tests.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Tests fail with the newly measured numbers"
+          if [ "$(gh issue list --state open --search "$title in:title" --json number --jq length)" = "0" ]; then
+            gh issue create --title "$title" --label planner-followup --body "The measurement was saved, but the planner's tests fail with it. The site keeps working with the new numbers; a test needs a look. Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          fi
       # A push made by a workflow does not start other workflows, so the site is deployed by hand here.
       - name: Deploy the site
         if: steps.commit.outputs.pushed == 'true'

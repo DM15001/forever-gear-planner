@@ -29,8 +29,14 @@ import { gunzipSync } from 'node:zlib';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SIM_DIR = join(ROOT, 'public', 'sim');
-const SCREEN_ITERATIONS = 1200; // first look; an exact zero ends it here
-const FINAL_ITERATIONS = 3000;
+// The first look only has to tell "does something" from "does nothing": both runs share a seed, so an effect that
+// never triggers gives exactly the same number however short the run is.
+const SCREEN_ITERATIONS = 300;
+const FINAL_ITERATIONS = 2400;
+/** Items below this item level are left out unless they are trinkets: no level 60 plan holds them. */
+const LOWEST_ITEM_LEVEL = 40;
+/** Sets whose best piece is below this item level are left out. */
+const LOWEST_SET_LEVEL = 45;
 const AP_INDEX = 14; // Stat enum: attack power
 const AP_PROBE = 300;
 const MAIN_HAND = 14;
@@ -162,11 +168,20 @@ if (!isMainThread) {
 				const without = n => none.get(n) ?? none.set(n, dps(gear, n, stripped(0))).get(n);
 				const byCount = {};
 				let previous = 0;
+				// A bonus starts at some piece counts only. A short run per count shows where the number moves (same
+				// seed: no new bonus, same number); only those counts get the long run, the others repeat the one before.
+				let screened = without(SCREEN_ITERATIONS).avg;
+				let last = { dps: 0, margin: 0 };
 				for (let k = 2; k <= ids.length; k++) {
-					const d = difference(n => ({ with: dps(gear, n, stripped(k)), without: without(n) }));
+					const look = dps(gear, SCREEN_ITERATIONS, stripped(k)).avg;
+					if (look !== screened) {
+						screened = look;
+						const full = { with: dps(gear, FINAL_ITERATIONS, stripped(k)), without: without(FINAL_ITERATIONS) };
+						last = { dps: full.with.avg - full.without.avg, margin: Math.hypot(full.with.se, full.without.se) };
+					}
 					// Bonuses only ever add up; a dip is noise.
-					previous = Math.max(previous, d.dps);
-					byCount[k] = { dps: previous, margin: d.margin };
+					previous = Math.max(previous, last.dps);
+					byCount[k] = { dps: previous, margin: last.margin };
 				}
 				result = { byCount };
 			}
@@ -226,15 +241,29 @@ if (isMainThread) {
 		if (item.slot === 'ranged') return spec.rangedTypes.includes(item.rangedType ?? '');
 		return true;
 	};
+	// What cannot be had in the game yet, or has no trustworthy value, is not measured: it is not offered either
+	// (src/lib/scoring.ts, notYetAvailable). When it opens up, the next run picks it up.
+	const closedConfig = readJson(join(ROOT, 'src', 'config', 'not-available.json'));
+	const unknownProcs = existsSync(join(ROOT, 'src', 'data', 'unknownProcs.json')) ? readJson(join(ROOT, 'src', 'data', 'unknownProcs.json')) : {};
+	const closedIconWords = Object.keys(closedConfig.iconWords ?? {});
+	const closed = item => {
+		if (closedConfig.items?.[item.id] || unknownProcs[item.id] || item.unreleased) return true;
+		if (item.tag && closedConfig.tags?.[item.tag]) return true;
+		if (item.icon && closedIconWords.some(word => item.icon.includes(word))) return true;
+		const sources = item.sources ?? [];
+		return sources.length > 0 && sources.every(source => closedConfig.npcs?.[source.npcId] || (source.kind === 'drop' && closedConfig.zones?.[source.zoneId]));
+	};
+	const tooLow = item => (item.ilvl ?? 0) < LOWEST_ITEM_LEVEL && item.slot !== 'trinket';
 	const tasks = [{ kind: 'ap' }];
 
 	// Items whose record has effects or special stats.
 	for (const item of items) {
 		const raw = rawById.get(item.id);
 		const hasEffect = raw?.itemEffects?.length || raw?.pseudoStats?.some(Boolean);
-		// Every item with an effect that the build can wear: any level, any quality.
+		// Every item with an effect that the build can wear and get, from item level 40 on (trinkets at any level).
 		if (!hasEffect || !usable(item)) continue;
 		if (only && !only.includes(item.id)) continue;
+		if (!only && (closed(item) || tooLow(item))) continue;
 		const hand = item.slot === 'weapon' ? item.weapon?.hand : undefined;
 		if (hand === 'offHand') {
 			// Shields, held items and off-hand weapons go next to the preset's main hand, unless that is a two-hander.
@@ -262,7 +291,7 @@ if (isMainThread) {
 		// Sets: every set the build can wear two pieces of, PvP sets and low-level ones included. One piece per slot, the highest item level variant.
 		const sets = new Map();
 		for (const item of items) {
-			if (!item.setId || !usable(item)) continue;
+			if (!item.setId || !usable(item) || closed(item)) continue;
 			if (item.slot === 'weapon' && !fitsMainHand(item)) continue;
 			const set = sets.get(item.setId) ?? sets.set(item.setId, { name: item.setName, bySlot: new Map() }).get(item.setId);
 			const slotIndex = item.slot === 'finger' && set.bySlot.has(10) && set.bySlot.get(10).name !== item.name ? 11 : SLOT_OF_KIND[item.slot];
@@ -270,11 +299,16 @@ if (isMainThread) {
 			if (!known || (item.ilvl ?? 0) > (known.ilvl ?? 0)) set.bySlot.set(slotIndex, item);
 		}
 		for (const [setId, set] of sets) {
-			if (set.bySlot.size < 2) continue;
+			if (set.bySlot.size < 2 || Math.max(...[...set.bySlot.values()].map(item => item.ilvl ?? 0)) < LOWEST_SET_LEVEL) continue;
 			tasks.push({ kind: 'set', setId, name: set.name, pieces: [...set.bySlot].map(([slotIndex, item]) => ({ slotIndex, id: item.id })) });
 		}
 	}
 
+	if (args.includes('--plan')) {
+		const count = kind => tasks.filter(task => task.kind === kind).length;
+		console.log(`${specId}: ${count('item')} items, ${count('enchant')} enchants, ${count('set')} sets to measure.`);
+		process.exit(0);
+	}
 	console.log(`${tasks.length} measurements on ${threads} thread(s). Reference: the ${spec.simBuilds?.[0]?.title ?? 'default set'}.`);
 	const started = Date.now();
 	const results = [];

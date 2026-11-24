@@ -7,15 +7,7 @@ name: Measure weapons as a whole
 # the item list changes; each build skips itself when its own inputs are unchanged.
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - public/sim/lib.wasm.gz
-      - public/sim/db.json
-      - public/sim/template.*.json
-      - src/data/items.json
-      - scripts/build-weapon-values.mjs
-      - .github/workflows/weapons.yml
+  # Started once a night by .github/workflows/engine.yml (after the presets are read), or by hand.
   workflow_dispatch:
     inputs:
       specs:
@@ -32,6 +24,7 @@ on:
         default: ''
 
 permissions:
+  issues: write
   contents: write
   actions: write
 
@@ -64,7 +57,7 @@ jobs:
     timeout-minutes: 300
     strategy:
       fail-fast: false
-      max-parallel: 4
+      max-parallel: 5
       matrix:
         spec: ${{ fromJson(needs.list.outputs.specs) }}
     steps:
@@ -101,9 +94,9 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      # New values must not break the site: they are only committed if tests and build pass with them.
+      # The new numbers are kept as long as the site still builds with them. The tests run afterwards and only
+      # report: a failing test must not throw away hours of measuring.
       - run: npm ci
-      - run: npm test
       - run: npm run build
       - name: Commit the new values
         id: commit
@@ -123,6 +116,20 @@ jobs:
             sleep 10
           done
           exit 1
+      - name: Tests on the new numbers
+        id: tests
+        if: steps.commit.outputs.pushed == 'true'
+        continue-on-error: true
+        run: npm test
+      - name: Report failing tests
+        if: steps.tests.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Tests fail with the newly measured numbers"
+          if [ "$(gh issue list --state open --search "$title in:title" --json number --jq length)" = "0" ]; then
+            gh issue create --title "$title" --label planner-followup --body "The measurement was saved, but the planner's tests fail with it. The site keeps working with the new numbers; a test needs a look. Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          fi
       # A push made by a workflow does not start other workflows, so the site is deployed by hand here.
       - name: Deploy the site
         if: steps.commit.outputs.pushed == 'true'

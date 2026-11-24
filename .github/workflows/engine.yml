@@ -8,8 +8,8 @@ name: Keep the simulator current
 # Each update also writes what it changed in the item list to docs/item-changes.md and refreshes
 # docs/items-to-check.md, the list of items whose source is still a guess.
 #
-# The long measurements (item effects, stat weights, weapons) are started afterwards only if none of them
-# is running, so a measurement in flight can finish; a nightly pass catches up on anything left over.
+# The long measurements (item effects, stat weights, weapons) run once a night only, after the nightly check:
+# on one WoWSims version and the presets that belong to it.
 # If the tests fail on the new data, nothing is committed and an issue says so.
 
 on:
@@ -109,9 +109,12 @@ jobs:
         if: steps.commit.outputs.pushed == 'true'
         run: |
           gh workflow run pages.yml --ref main
-          gh workflow run presets.yml --ref main
-      - name: Start the measurements, unless one is running
-        if: steps.commit.outputs.pushed == 'true' || github.event.schedule == '41 1 * * *'
+          # The nightly run hands the measurements to the preset step, so they start on the new presets.
+          gh workflow run presets.yml --ref main -f measure=${{ github.event.schedule == '41 1 * * *' && 'true' || 'false' }}
+      # Measurements run once a night only: during the day the simulator may move on several times, and a run
+      # started for each of those would never finish on one version.
+      - name: Start the nightly measurements (no simulator update tonight)
+        if: github.event.schedule == '41 1 * * *' && steps.commit.outputs.pushed != 'true'
         run: |
           busy=0
           for workflow in measure.yml weights.yml weapons.yml; do
@@ -120,5 +123,5 @@ jobs:
               busy=$((busy + count))
             done
           done
-          if [ "$busy" != "0" ]; then echo "A measurement is running; the nightly pass picks this update up."; exit 0; fi
+          if [ "$busy" != "0" ]; then echo "A measurement is still running; tomorrow night picks this up."; exit 0; fi
           for workflow in measure.yml weights.yml weapons.yml; do gh workflow run "$workflow" --ref main; done

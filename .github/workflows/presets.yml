@@ -17,6 +17,10 @@ on:
         description: Spec folders under ui/specs, separated by spaces (empty = all)
         required: false
         default: ''
+      measure:
+        description: Start the nightly measurements afterwards (set by engine.yml)
+        required: false
+        default: 'false'
 
 permissions:
   contents: write
@@ -136,10 +140,13 @@ jobs:
             git pull -q --rebase origin main && git push -q origin HEAD:main && echo "pushed=true" >> "$GITHUB_OUTPUT" && break
             sleep 10
           done
-      - name: Republish, and measure unless a measurement is running
+      - name: Republish the site
         if: steps.commit.outputs.pushed == 'true'
+        run: gh workflow run pages.yml --ref main
+      # The measurements run once a night, on the builds as they are after this step: one WoWSims version, one set of presets.
+      - name: Start the nightly measurements
+        if: inputs.measure == 'true' && inputs.specs == '' && (steps.apply.outputs.changed != 'true' || steps.test.outcome == 'success')
         run: |
-          gh workflow run pages.yml --ref main
           busy=0
           for workflow in measure.yml weights.yml weapons.yml; do
             for status in in_progress queued; do
@@ -147,7 +154,7 @@ jobs:
               busy=$((busy + count))
             done
           done
-          if [ "$busy" != "0" ]; then echo "A measurement is running; the nightly pass picks these builds up."; exit 0; fi
+          if [ "$busy" != "0" ]; then echo "A measurement is still running; tomorrow night picks this up."; exit 0; fi
           for workflow in measure.yml weights.yml weapons.yml; do gh workflow run "$workflow" --ref main; done
       - name: Put the WoWSims checkout back for the clean-up steps
         if: always()

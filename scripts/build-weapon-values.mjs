@@ -33,7 +33,8 @@ import { fitImbues } from './fit-imbues.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SIM_DIR = join(ROOT, 'public', 'sim');
-const ITERATIONS = Number(process.env.ITERATIONS ?? 4000);
+// Every weapon is run on the same random seed, so two weapons differ by far less than one run's own noise.
+const ITERATIONS = Number(process.env.ITERATIONS ?? 2500);
 const MAIN_HAND = 14;
 const OFF_HAND = 15;
 const RANGED = 16;
@@ -128,9 +129,21 @@ if (isMainThread) {
 	const itemsFile = join(ROOT, 'src', 'data', 'items.json');
 	const loaded = readJson(itemsFile);
 	const items = Array.isArray(loaded) ? loaded : loaded.items;
+	// What cannot be had yet or has no trustworthy value is not offered (src/lib/scoring.ts), so it is not measured.
+	const closedConfig = readJson(join(ROOT, 'src', 'config', 'not-available.json'));
+	const unknownProcsFile = join(ROOT, 'src', 'data', 'unknownProcs.json');
+	const unknownProcs = existsSync(unknownProcsFile) ? readJson(unknownProcsFile) : {};
+	const closedIconWords = Object.keys(closedConfig.iconWords ?? {});
+	const closed = item => {
+		if (closedConfig.items?.[item.id] || unknownProcs[item.id]) return true;
+		if (item.tag && closedConfig.tags?.[item.tag]) return true;
+		if (item.icon && closedIconWords.some(word => item.icon.includes(word))) return true;
+		const sources = item.sources ?? [];
+		return sources.length > 0 && sources.every(source => closedConfig.npcs?.[source.npcId] || (source.kind === 'drop' && closedConfig.zones?.[source.zoneId]));
+	};
 	const usableWeapons = items.filter(item => {
 		if (item.classes && !item.classes.includes(spec.classId)) return false;
-		if (item.unreleased) return false;
+		if (item.unreleased || closed(item)) return false;
 		if ((item.reqLvl ?? 0) < MIN_REQUIRED_LEVEL && (item.ilvl ?? 0) < MIN_ITEM_LEVEL) return false;
 		if (item.slot === 'ranged') return ranged && spec.rangedTypes.includes(item.rangedType ?? '');
 		if (item.slot !== 'weapon' || !hands) return false;
