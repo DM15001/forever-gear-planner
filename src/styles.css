@@ -4809,4 +4809,54 @@ summary.breakdown-toggle:focus-visible {
 .gear-rail-changed {
 	box-shadow: inset 2px 0 0 var(--ember);
 	background: #1c1510;
+/* The dwarf that shows for a moment when the Live/Dev switch is unlocked; it stands under the switch and points up at it. */
+.cheer-dwarf {
+	position: fixed;
+	top: 1.9rem;
+	right: 1.4rem;
+	z-index: 60;
+	pointer-events: none;
+	filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.7));
+	animation: cheer-dwarf 2.8s ease-in-out both;
+}
+@keyframes cheer-dwarf {
+	0% {
+		opacity: 0;
+		transform: translateY(-1.5rem) scale(0.6);
+	}
+	12% {
+		opacity: 1;
+		transform: translateY(0) scale(1.06);
+	}
+	20%,
+	40%,
+	60% {
+		transform: translateY(0) scale(1) rotate(0deg);
+	}
+	30%,
+	50% {
+		transform: translateY(-0.35rem) scale(1) rotate(3deg);
+	}
+	85% {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(-1rem) scale(0.8);
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.cheer-dwarf {
+		animation: cheer-dwarf-still 2.8s linear both;
+	}
+	@keyframes cheer-dwarf-still {
+		0%,
+		90% {
+			opacity: 1;
+		}
+		100% {
+			opacity: 0;
+		}
+	}
 }
