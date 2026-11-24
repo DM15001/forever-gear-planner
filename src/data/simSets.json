@@ -142,7 +142,7 @@
 		"id": "wowsims",
 		"label": "WoWSims",
 		"title": "WoWSims default set",
-		"url": "https://github.com/wowsims/forever/blob/master/ui/specs/shaman/elemental/builds/default.build.json",
+		"url": "https://github.com/wowsims/forever/tree/master/ui/specs",
 		"gear": [
 			{
 				"id": 227002,
@@ -211,7 +211,7 @@
 		"id": "wowsims",
 		"label": "WoWSims",
 		"title": "WoWSims default set",
-		"url": "https://github.com/wowsims/forever/blob/master/ui/specs/shaman/enhancement/builds/default.build.json",
+		"url": "https://github.com/wowsims/forever/tree/master/ui/specs",
 		"gear": [
 			{
 				"id": 227021,
@@ -2174,7 +2174,8 @@
 				"enchant": 2543
 			},
 			{
-				"id": 15411
+				"id": 15411,
+				"enchant": 856
 			},
 			{
 				"id": 22241
@@ -2240,7 +2241,8 @@
 				"enchant": 2543
 			},
 			{
-				"id": 15411
+				"id": 15411,
+				"enchant": 856
 			},
 			{
 				"id": 22241

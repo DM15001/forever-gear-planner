@@ -1,5 +1,5 @@
 {
-	"generatedAt": "2026-11-24T19:26:31.958Z",
+	"generatedAt": "2026-11-24T22:56:55.774Z",
 	"specs": [
 		"druid-balance",
 		"druid-cat",
@@ -43,9 +43,9 @@
 		"commit": null
 	},
 	"counts": {
-		"items": 7404,
+		"items": 7405,
 		"itemsBySlot": {
-			"weapon": 1311,
+			"weapon": 1312,
 			"hands": 613,
 			"trinket": 261,
 			"finger": 352,
@@ -60,8 +60,8 @@
 			"shoulder": 544,
 			"waist": 585
 		},
-		"itemsWithoutSource": 2159,
-		"itemsWithEffects": 892,
+		"itemsWithoutSource": 2160,
+		"itemsWithEffects": 893,
 		"enchants": 223,
 		"zones": {
 			"world": 45,
@@ -71,6 +71,6 @@
 		"npcs": 541,
 		"randomSuffixes": 269,
 		"simSets": 34,
-		"simItems": 7404
+		"simItems": 7405
 	}
 }

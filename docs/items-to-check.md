@@ -5,7 +5,7 @@ Items whose source the planner does not know: it either guesses "World drop (ass
 `scripts/items-to-check.ts`; do not edit by hand. To fix one, add its source to `src/config/sources.manual.json`
 (or to `src/config/not-available.json` when it cannot be had), or open an issue saying where it comes from.
 
-## In a build's top 10 for a slot (75)
+## In a build's top 10 for a slot (74)
 
 Most builds first. "best #2" = second-best item of its slot for at least one build, starting from empty gear.
 
@@ -18,10 +18,10 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Furbolg Rib Protector](https://www.wowhead.com/forever/item=280084) (280084, rare 57, chest): no source; 10 builds, best #2 (Enhancement Shaman, Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Hunter: Marksmanship, …)
 - [Truesight Rifle](https://www.wowhead.com/forever/item=280083) (280083, rare 57, ranged): no source; 9 builds, best #5 (Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Rogue: Combat SS, Rogue: Combat BS, …)
 - [Everstaring Abomination Eye](https://www.wowhead.com/forever/item=284097) (284097, rare 60, neck): no source; 9 builds, best #6 (Enhancement Shaman, Mage: Fire, Mage: Frost Med, Mage: Frost Incin, …)
+- [Shadowblade](https://www.wowhead.com/forever/item=2163) (2163, epic 53, weapon): no source; 8 builds, best #1 (Rogue: Combat BS, Rogue: Combat Venom, Rogue: Asn Muti, Rogue: Subtlety Hemo, …)
 - [Conqueror's Pendant](https://www.wowhead.com/forever/item=270126) (270126, rare 58, neck): no source; 8 builds, best #5 (Warlock: SM/Ruin, Warlock: Destro, Warlock: Aff (Wrack), Warlock: Demo (Fire Brand), …)
 - [Belt of Shadows](https://www.wowhead.com/forever/item=260196) (260196, uncommon 55, waist): no source; 7 builds, best #4 (Rogue: Combat SS, Rogue: Combat BS, Rogue: Combat Venom, Rogue: Asn Muti, …)
 - [Escape Plan](https://www.wowhead.com/forever/item=287026) (287026, rare 54, ranged): no source; 7 builds, best #6 (Rogue: Combat SS, Rogue: Combat BS, Rogue: Combat Venom, Rogue: Asn Muti, …)
-- [Shadowblade](https://www.wowhead.com/forever/item=2163) (2163, epic 53, weapon): no source; 6 builds, best #1 (Rogue: Combat BS, Rogue: Combat Venom, Rogue: Asn Muti, Hunter: Marksmanship, …)
 - [Flurry Axe](https://www.wowhead.com/forever/item=871) (871, epic 47, weapon): no source; 6 builds, best #1 (Warrior: Fury (Pre-BiS), Rogue: Combat SS, Rogue: Combat Venom, Rogue: Subtlety Hemo, …)
 - [Sword of Zeal](https://www.wowhead.com/forever/item=6622) (6622, rare 63, weapon): no source; 6 builds, best #2 (Warrior: Fury (Pre-BiS), Rogue: Combat SS, Rogue: Combat Venom, Rogue: Subtlety Hemo, …)
 - [King Mosh's Tooth](https://www.wowhead.com/forever/item=286613) (286613, rare 62, weapon): no source; 6 builds, best #2 (Rogue: Combat BS, Rogue: Asn Muti, Rogue: Hemo Seal Fate, Hunter: Marksmanship, …)
@@ -30,13 +30,13 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Gut Ripper](https://www.wowhead.com/forever/item=2164) (2164, epic 45, weapon): no source; 5 builds, best #2 (Rogue: Combat BS, Rogue: Asn Muti, Rogue: Subtlety Hemo, Rogue: Hemo Seal Fate, …)
 - [Eagle's Head Signet](https://www.wowhead.com/forever/item=260217) (260217, rare 62, finger): no source; 5 builds, best #4 (Hunter: Marksmanship, Hunter: Beast Mastery, Hunter: Survival, Hunter: Survival (melee weave), …)
 - [Time-Forgotten Bindings](https://www.wowhead.com/forever/item=287041) (287041, rare 60, wrist): no source; 5 builds, best #4 (Enhancement Shaman, Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Hunter: Survival (melee), …)
-- [Wit's Edge](https://www.wowhead.com/forever/item=276632) (276632, rare 65, weapon): no source; 5 builds, best #9 (Mage: Fire, Mage: Frost Med, Mage: Frost Incin, Mage: Arcane, …)
 - [Hand of Edward the Odd](https://www.wowhead.com/forever/item=2243) (2243, epic 62, weapon): no source; 4 builds, best #1 (Elemental Shaman, Priest: Shadow Testing, Priest: Smite Testing, Druid: Balance)
 - [Eye of Flame](https://www.wowhead.com/forever/item=3075) (3075, epic 55, head): no source; 4 builds, best #2 (Warlock: Destro, Warlock: Demo (Fire Brand), Mage: Fire, Mage: FFB)
-- [Talon of Tor'Rel](https://www.wowhead.com/forever/item=280012) (280012, rare 63, weapon): no source; 4 builds, best #4 (Warrior: Fury (Pre-BiS), Rogue: Combat SS, Rogue: Combat BS, Rogue: Combat Venom)
+- [Axe of the Deep Woods](https://www.wowhead.com/forever/item=811) (811, epic 57, weapon): no source; 4 builds, best #3 (Warrior: Fury (Pre-BiS), Rogue: Combat SS, Rogue: Combat Venom, Hunter: Survival (melee))
+- [Talon of Tor'Rel](https://www.wowhead.com/forever/item=280012) (280012, rare 63, weapon): no source; 4 builds, best #5 (Warrior: Fury (Pre-BiS), Rogue: Combat SS, Rogue: Combat BS, Rogue: Combat Venom)
 - [Engraved Band](https://www.wowhead.com/forever/item=260219) (260219, rare 62, finger): no source; 4 builds, best #5 (Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Druid: Feral Cat, Paladin: Retribution (Unsealed Wrath))
+- [Krol Blade](https://www.wowhead.com/forever/item=2244) (2244, epic 56, weapon): no source; 4 builds, best #5 (Warrior: Fury (Pre-BiS), Rogue: Combat SS, Rogue: Combat Venom, Hunter: Survival (melee))
 - [Dwarven Hand Cannon](https://www.wowhead.com/forever/item=2099) (2099, epic 58, ranged): no source; 3 builds, best #1 (Hunter: Marksmanship, Hunter: Beast Mastery, Hunter: Survival)
-- [Axe of the Deep Woods](https://www.wowhead.com/forever/item=811) (811, epic 57, weapon): no source; 3 builds, best #3 (Rogue: Combat SS, Rogue: Combat Venom, Hunter: Survival (melee))
 - [Warmonger](https://www.wowhead.com/forever/item=13052) (13052, rare 52, weapon): no source; 3 builds, best #3 (Hunter: Marksmanship, Hunter: Beast Mastery, Hunter: Survival)
 - [Cloudkeeper Legplates](https://www.wowhead.com/forever/item=14554) (14554, epic 62, legs): no source; 3 builds, best #4 (Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Paladin: Retribution (Unsealed Wrath))
 - [Mageflame Cloak](https://www.wowhead.com/forever/item=13007) (13007, rare 58, back): no source; 3 builds, best #4 (Warlock: Demo (Fire Brand), Mage: Fire, Mage: FFB)
@@ -55,37 +55,36 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Mardenholde Armbands](https://www.wowhead.com/forever/item=278570) (278570, rare 63, wrist): no source; 2 builds, best #3 (Priest: Smite Testing, Paladin: Retribution (Holy Shock))
 - [Ring of Nature's Cycles](https://www.wowhead.com/forever/item=275740) (275740, rare 61, finger): no source; 2 builds, best #3 (Priest: Holy (healing), Priest: Discipline (healing))
 - [Lapidis Tankard of Tidesippe](https://www.wowhead.com/forever/item=4696) (4696, rare 59, weapon): no source; 2 builds, best #3 (Warlock: Destro, Warlock: Demo (Shadow Brand))
-- [Kang the Decapitator](https://www.wowhead.com/forever/item=2291) (2291, epic 49, weapon): no source; 2 builds, best #3 (Enhancement Shaman, Hunter: Survival (melee weave))
 - [Barkskin Baubles](https://www.wowhead.com/forever/item=274417) (274417, rare 58, weapon): no source; 2 builds, best #4 (Priest: Holy (healing), Priest: Discipline (healing))
-- [Mass of McGowan](https://www.wowhead.com/forever/item=13006) (13006, rare 62, weapon): no source; 2 builds, best #5 (Warrior: Fury (Pre-BiS), Rogue: Combat Venom)
 - [Taran Icebreaker](https://www.wowhead.com/forever/item=2915) (2915, epic 52, weapon): no source; 2 builds, best #6 (Enhancement Shaman, Paladin: Retribution (Unsealed Wrath))
 - [Ketharas' Linked Belt](https://www.wowhead.com/forever/item=275741) (275741, rare 61, waist): no source; 2 builds, best #7 (Elemental Shaman, Paladin: Retribution (Holy Shock))
 - [Yashiro's Spirit Bead](https://www.wowhead.com/forever/item=276336) (276336, uncommon 60, weapon): no source; 2 builds, best #7 (Priest: Holy (healing), Priest: Discipline (healing))
-- [Krol Blade](https://www.wowhead.com/forever/item=2244) (2244, epic 56, weapon): no source; 2 builds, best #7 (Warrior: Fury (Pre-BiS), Hunter: Survival (melee))
 - [Widowmaker](https://www.wowhead.com/forever/item=4091) (4091, rare 47, weapon): no source; 2 builds, best #7 (Rogue: Subtlety Hemo, Hunter: Survival (melee))
 - [High Clerist's Seal](https://www.wowhead.com/forever/item=284079) (284079, rare 65, finger): no source; 2 builds, best #8 (Priest: Holy (healing), Priest: Discipline (healing))
 - [Hurricane](https://www.wowhead.com/forever/item=2824) (2824, epic 53, ranged): no source; 2 builds, best #8 (Hunter: Beast Mastery, Hunter: Survival)
 - [Naturopathy Footpads](https://www.wowhead.com/forever/item=287038) (287038, rare 59, feet): no source; 2 builds, best #10 (Priest: Holy (healing), Priest: Discipline (healing))
 - [Blade of Hanna](https://www.wowhead.com/forever/item=2801) (2801, epic 64, weapon): no source; 1 build, best #1 (Paladin: Retribution (Holy Shock))
 - [Heartseeking Crossbow](https://www.wowhead.com/forever/item=13040) (13040, rare 56, ranged): no source; 1 build, best #1 (Hunter: Survival (melee weave))
-- [Pylon Poker](https://www.wowhead.com/forever/item=287046) (287046, rare 61, weapon): no source; 1 build, best #4 (Druid: Feral Cat)
+- [Kang the Decapitator](https://www.wowhead.com/forever/item=2291) (2291, epic 49, weapon): no source; 1 build, best #3 (Hunter: Survival (melee weave))
 - [Wolfrunner Shoes](https://www.wowhead.com/forever/item=13101) (13101, rare 59, feet): no source; 1 build, best #6 (Priest: Smite Testing)
 - [Queen Guard's Royal Seal](https://www.wowhead.com/forever/item=284282) (284282, rare 50, finger): no source; 1 build, best #6 (Druid: Feral Cat)
 - [Bow of Searing Arrows](https://www.wowhead.com/forever/item=2825) (2825, epic 42, ranged): no source; 1 build, best #6 (Hunter: Survival (melee weave))
+- [Pylon Poker](https://www.wowhead.com/forever/item=287046) (287046, rare 61, weapon): no source; 1 build, best #7 (Druid: Feral Cat)
+- [Scarlet Kris](https://www.wowhead.com/forever/item=5267) (5267, rare 63, weapon): no source; 1 build, best #8 (Rogue: Asn Muti)
 - [Panic Hands](https://www.wowhead.com/forever/item=260211) (260211, rare 56, hands): no source; 1 build, best #8 (Druid: Feral Cat)
+- [Mass of McGowan](https://www.wowhead.com/forever/item=13006) (13006, rare 62, weapon): no source; 1 build, best #9 (Warrior: Fury (Pre-BiS))
 - [Traveler's Leggings](https://www.wowhead.com/forever/item=8300) (8300, uncommon 60, legs): guessed world drop; 1 build, best #9 (Druid: Feral Cat)
 - [Cultist's Cuffs](https://www.wowhead.com/forever/item=284104) (284104, uncommon 58, wrist): no source; 1 build, best #9 (Priest: Smite Testing)
 - [Hippogryph Hide Boots](https://www.wowhead.com/forever/item=260185) (260185, rare 55, feet): no source; 1 build, best #9 (Paladin: Retribution (Unsealed Wrath))
 - [Ogre Magi's Mantle](https://www.wowhead.com/forever/item=287008) (287008, rare 45, shoulder): no source; 1 build, best #9 (Hunter: Survival (melee))
 - [Nightblade](https://www.wowhead.com/forever/item=1982) (1982, epic 44, weapon): no source; 1 build, best #9 (Hunter: Survival (melee weave))
-- [Scarlet Kris](https://www.wowhead.com/forever/item=5267) (5267, rare 63, weapon): no source; 1 build, best #10 (Rogue: Asn Muti)
 - [Blade of Senseless Slaughter](https://www.wowhead.com/forever/item=284101) (284101, rare 62, weapon): no source; 1 build, best #10 (Hunter: Survival (melee))
 - [Museum Keeper's Chain](https://www.wowhead.com/forever/item=281636) (281636, rare 58, neck): no source; 1 build, best #10 (Priest: Smite Testing)
 - [Elder Wizard's Mantle](https://www.wowhead.com/forever/item=13013) (13013, rare 56, shoulder): no source; 1 build, best #10 (Mage: Arcane)
 - [Frenzied Striker](https://www.wowhead.com/forever/item=13056) (13056, rare 56, weapon): no source; 1 build, best #10 (Hunter: Beast Mastery)
 - [Gryphon Rider's Crop](https://www.wowhead.com/forever/item=270112) (270112, uncommon 53, weapon): no source; 1 build, best #10 (Priest: Smite Testing)
 
-## Other rare and epic items (375)
+## Other rare and epic items (376)
 
 - [Ecks'av's Tribal Guardian](https://www.wowhead.com/forever/item=211940) (211940, rare 64, weapon): no source
 - [Scarlet Forgemaster's Bindings](https://www.wowhead.com/forever/item=284091) (284091, rare 64, wrist): no source
@@ -209,6 +208,7 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Cow King's Hide](https://www.wowhead.com/forever/item=13009) (13009, rare 51, chest): no source
 - [Lei of Lilies](https://www.wowhead.com/forever/item=1315) (1315, epic 51, neck): no source
 - [Six Demon Bag](https://www.wowhead.com/forever/item=7734) (7734, rare 51, trinket): no source
+- [Vilerend Slicer](https://www.wowhead.com/forever/item=11603) (11603, rare 51, weapon): no source
 - [Wyrmslayer Spaulders](https://www.wowhead.com/forever/item=13066) (13066, rare 51, shoulder): no source
 - [Blanchard's Stout](https://www.wowhead.com/forever/item=13046) (13046, rare 50, weapon): no source
 - [Bloodrazor](https://www.wowhead.com/forever/item=809) (809, epic 50, weapon): no source
@@ -386,4 +386,3 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Harpyclaw Short Bow](https://www.wowhead.com/forever/item=13019) (13019, rare 32, ranged): no source
 - [Holy Shroud](https://www.wowhead.com/forever/item=2721) (2721, rare 32, head): no source
 - [Malignant Root](https://www.wowhead.com/forever/item=282283) (282283, rare 32, finger): no source
-- [Rune-Etched Ring](https://www.wowhead.com/forever/item=281320) (281320, rare 32, finger): no source

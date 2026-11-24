@@ -47161,6 +47161,29 @@
 		]
 	},
 	{
+		"id": 11603,
+		"name": "Vilerend Slicer",
+		"icon": "ability_whirlwind",
+		"slot": "weapon",
+		"quality": "rare",
+		"ilvl": 51,
+		"reqLvl": 46,
+		"weapon": {
+			"type": "fist",
+			"hand": "mainHand",
+			"speed": 1.4,
+			"dps": 34.07,
+			"damageMin": 33,
+			"damageMax": 62
+		},
+		"effects": [
+			{
+				"name": "Wound (1320808)",
+				"kind": "proc"
+			}
+		]
+	},
+	{
 		"id": 11604,
 		"name": "Dark Iron Plate",
 		"icon": "inv_chest_plate08",
@@ -156251,7 +156274,6 @@
 		"armorType": "cloth",
 		"quality": "rare",
 		"ilvl": 50,
-		"reqLvl": 50,
 		"stats": {
 			"agility": 11,
 			"spirit": 7,
@@ -194298,14 +194320,12 @@
 		"ilvl": 60,
 		"reqLvl": 60,
 		"stats": {
-			"agility": 16,
-			"stamina": 19,
-			"intellect": 12,
-			"attackPower": 30,
-			"rangedAttackPower": 30,
-			"hitRating": 14,
+			"strength": 18,
+			"agility": 14,
+			"stamina": 21,
+			"intellect": 16,
 			"armor": 162,
-			"natureResistance": 9
+			"natureResistance": 10
 		},
 		"limitCategory": 708,
 		"classes": [
@@ -194362,11 +194382,10 @@
 		"ilvl": 60,
 		"reqLvl": 60,
 		"stats": {
-			"strength": 11,
-			"agility": 12,
-			"stamina": 14,
-			"intellect": 11,
-			"expertiseRating": 9,
+			"strength": 15,
+			"agility": 8,
+			"stamina": 18,
+			"intellect": 12,
 			"armor": 138,
 			"natureResistance": 7
 		},
@@ -194555,8 +194574,8 @@
 		"reqLvl": 60,
 		"stats": {
 			"strength": 19,
+			"agility": 15,
 			"stamina": 22,
-			"expertiseRating": 15,
 			"defenseRating": 7,
 			"armor": 162,
 			"natureResistance": 9
@@ -194585,8 +194604,9 @@
 		"ilvl": 60,
 		"reqLvl": 60,
 		"stats": {
-			"strength": 21,
-			"stamina": 14,
+			"strength": 15,
+			"stamina": 18,
+			"expertiseRating": 9,
 			"defenseRating": 7,
 			"armor": 115,
 			"natureResistance": 7
@@ -194615,9 +194635,9 @@
 		"ilvl": 60,
 		"reqLvl": 60,
 		"stats": {
-			"strength": 11,
-			"stamina": 17,
-			"hitRating": 11,
+			"strength": 13,
+			"agility": 8,
+			"stamina": 22,
 			"defenseRating": 7,
 			"armor": 138,
 			"natureResistance": 7
@@ -194646,10 +194666,10 @@
 		"ilvl": 60,
 		"reqLvl": 60,
 		"stats": {
-			"strength": 13,
-			"stamina": 16,
+			"strength": 15,
+			"stamina": 18,
+			"hitRating": 7,
 			"defenseRating": 7,
-			"dodgeRating": 12,
 			"armor": 127,
 			"natureResistance": 7
 		},
@@ -195707,13 +195727,14 @@
 		"ilvl": 60,
 		"reqLvl": 60,
 		"stats": {
-			"strength": 16,
-			"agility": 14,
+			"strength": 18,
+			"agility": 12,
 			"stamina": 19,
-			"intellect": 15,
-			"expertiseRating": 12,
+			"intellect": 14,
+			"healingPower": 11,
+			"spellDamage": 11,
 			"armor": 338,
-			"natureResistance": 9
+			"natureResistance": 10
 		},
 		"limitCategory": 708,
 		"classes": [
@@ -195740,10 +195761,11 @@
 		"ilvl": 60,
 		"reqLvl": 60,
 		"stats": {
-			"strength": 13,
+			"strength": 14,
 			"stamina": 15,
-			"intellect": 10,
-			"critRating": 14,
+			"intellect": 13,
+			"healingPower": 12,
+			"spellDamage": 12,
 			"armor": 242,
 			"natureResistance": 7
 		},
@@ -195772,9 +195794,11 @@
 		"ilvl": 60,
 		"reqLvl": 60,
 		"stats": {
-			"strength": 21,
-			"stamina": 14,
-			"intellect": 11,
+			"strength": 14,
+			"stamina": 19,
+			"intellect": 10,
+			"healingPower": 11,
+			"spellDamage": 11,
 			"armor": 290,
 			"natureResistance": 7
 		},
@@ -195803,11 +195827,11 @@
 		"ilvl": 60,
 		"reqLvl": 60,
 		"stats": {
-			"strength": 12,
-			"agility": 11,
-			"stamina": 14,
-			"intellect": 11,
-			"hitRating": 9,
+			"strength": 14,
+			"stamina": 15,
+			"intellect": 12,
+			"healingPower": 13,
+			"spellDamage": 13,
 			"armor": 266,
 			"natureResistance": 7
 		},

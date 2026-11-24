@@ -2,6 +2,28 @@
 
 What each data update from WoWSims changed in the item list, newest first. Written by `scripts/item-report.mjs` from `.github/workflows/engine.yml`.
 
+## 2026-11-24: WoWSims 90d12bb0d1
+
+1 new items, 10 stats changed, 1 other changes
+
+**New items (1)**
+- Vilerend Slicer (11603, rare 51, weapon): no source
+
+**Stats changed (10)**
+- Grovekeeper Kilt (273888, epic 60, legs): agility 16 → 14, stamina 19 → 21, intellect 12 → 16, attackPower 30 → 0, rangedAttackPower 30 → 0, hitRating 14 → 0, natureResistance 9 → 10, strength 0 → 18
+- Grovekeeper Mantle (273890, epic 60, shoulder): strength 11 → 15, agility 12 → 8, stamina 14 → 18, intellect 11 → 12, expertiseRating 9 → 0
+- Grovekeeper Leggings (273896, epic 60, legs): expertiseRating 15 → 0, agility 0 → 15
+- Grovekeeper Gauntlets (273897, epic 60, hands): strength 21 → 15, stamina 14 → 18, expertiseRating 0 → 9
+- Grovekeeper Spaulders (273898, epic 60, shoulder): strength 11 → 13, stamina 17 → 22, hitRating 11 → 0, agility 0 → 8
+- Grovekeeper Treads (273899, epic 60, feet): strength 13 → 15, stamina 16 → 18, dodgeRating 12 → 0, hitRating 0 → 7
+- Spiritcaller Leggings (273932, epic 60, legs): strength 16 → 18, agility 14 → 12, intellect 15 → 14, expertiseRating 12 → 0, natureResistance 9 → 10, healingPower 0 → 11, spellDamage 0 → 11
+- Spiritcaller Grips (273933, epic 60, hands): strength 13 → 14, intellect 10 → 13, critRating 14 → 0, healingPower 0 → 12, spellDamage 0 → 12
+- Spiritcaller Spaulders (273934, epic 60, shoulder): strength 21 → 14, stamina 14 → 19, intellect 11 → 10, healingPower 0 → 11, spellDamage 0 → 11
+- Spiritcaller Treads (273935, epic 60, feet): strength 12 → 14, agility 11 → 0, stamina 14 → 15, intellect 11 → 12, hitRating 9 → 0, healingPower 0 → 13, spellDamage 0 → 13
+
+**Other changes (1)**
+- Filcher's Cowl (219343, rare 50, back): reqLvl 50 → -
+
 ## 2026-11-24: WoWSims 7cf865cb29
 
 106 source gained, 23 source changed
