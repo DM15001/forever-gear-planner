@@ -6,6 +6,8 @@ import { castingShare, countsMending, readMending, withMending } from './mending
 import type { SimSetupData } from './setup';
 
 const SIM_URL = `${import.meta.env.BASE_URL}sim/`;
+/** Added to the engine's address: a new simulator is a new address, so no browser cache can serve the old one. */
+const VERSION = __SIM_COMMIT__ ? `?v=${__SIM_COMMIT__.slice(0, 12)}` : '';
 
 /**
  * Talks to the simulator worker. The worker, the sim itself (about 6 MB) and its item data are
@@ -27,7 +29,7 @@ export class SimClient {
 			return response.json();
 		};
 		if (!this.worker) {
-			this.worker = new Worker(`${SIM_URL}worker.js`);
+			this.worker = new Worker(`${SIM_URL}worker.js${VERSION}`);
 			this.worker.onmessage = ({ data }) => {
 				const entry = this.waiting.get(data.id);
 				if (!entry) return;
@@ -51,6 +53,21 @@ export class SimClient {
 			index.catch(() => this.indexes.delete(specId));
 		}
 		return index;
+	}
+
+	/**
+	 * True when the published site carries a newer simulator than this open page was loaded with: a tab left open
+	 * over an update keeps running the engine it started with, and its numbers then differ from wowsims.com.
+	 */
+	async outdated(): Promise<boolean> {
+		if (!__SIM_COMMIT__) return false;
+		try {
+			const published = await this.small<SimSetupData>('setup.json');
+			const commit = published.simVersion?.commit;
+			return Boolean(commit) && commit !== __SIM_COMMIT__;
+		} catch {
+			return false; // offline: nothing to compare with
+		}
 	}
 
 	private setupData: Promise<SimSetupData> | null = null;

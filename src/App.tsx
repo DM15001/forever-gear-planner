@@ -15,6 +15,7 @@ import { BarCap, Emblem } from './components/Ornaments';
 import { PlanTab } from './components/PlanTab';
 import { SimSetupTab } from './components/SimSetupTab';
 import { SimProvider } from './components/Sim';
+import { simClient } from './lib/sim/client';
 import { UpgradesTab } from './components/UpgradesTab';
 import { type GameData, loadGameData, dataFor } from './lib/gameData';
 import type { ImportResult } from './lib/importCharacter';
@@ -212,6 +213,35 @@ function ChannelSwitch() {
 	);
 }
 
+/** Shown when the site published a newer simulator while this page stayed open: reload, or the numbers lag behind wowsims.com. */
+function EngineNotice() {
+	const [outdated, setOutdated] = useState(false);
+	useEffect(() => {
+		let stopped = false;
+		const check = () => {
+			if (document.visibilityState !== 'visible') return;
+			simClient.outdated().then(old => !stopped && old && setOutdated(true), () => undefined);
+		};
+		check();
+		const timer = setInterval(check, 5 * 60_000);
+		document.addEventListener('visibilitychange', check);
+		return () => {
+			stopped = true;
+			clearInterval(timer);
+			document.removeEventListener('visibilitychange', check);
+		};
+	}, []);
+	if (!outdated) return null;
+	return (
+		<div className="engine-notice" role="status">
+			<span>The simulator was updated while this page was open. Reload to simulate with the same version as wowsims.com.</span>
+			<button className="button button-primary" onClick={() => window.location.reload()}>
+				Reload
+			</button>
+		</div>
+	);
+}
+
 export function App() {
 	// A character that arrives in a share link is added next to the saved ones, never over them.
 	const [roster, setRoster] = useState<Roster>(() => {
@@ -305,6 +335,7 @@ export function App() {
 	return (
 		<div className="page">
 			<ChannelSwitch />
+			<EngineNotice />
 			<header className="masthead">
 				<div className="masthead-title">
 					<button className="masthead-home" onClick={() => setImporting(true)} title="Start page: your characters and import" aria-label="Start page">

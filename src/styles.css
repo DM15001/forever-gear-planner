@@ -4735,3 +4735,19 @@ summary.breakdown-toggle:focus-visible {
 		opacity: 0.6;
 	}
 }
+
+/* A newer simulator is published than the one this open page runs. */
+.engine-notice {
+	position: sticky;
+	top: 0;
+	z-index: 70;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem 1rem;
+	padding: 0.6rem 1rem;
+	color: var(--mist);
+	background: #3a2a08;
+	border-bottom: 1px solid var(--brass);
+}

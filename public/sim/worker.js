@@ -2,14 +2,16 @@
 // Messages in:  { id, request }  where request is the sim's RaidSimRequest as a JSON string;
 //               with stats: true the sim only works out the character (stats, rotation checks), no fight.
 // Messages out: { id, result }   the sim's RaidSimResult as a JSON string, or { id, error }.
-importScripts('wasm_exec.js');
+// The page starts this worker with ?v=<simulator version>; the same tag goes on the engine file, so a new
+// simulator has a new address and a browser cache cannot hand back the old one.
+importScripts('wasm_exec.js' + self.location.search);
 
 let ready;
 const whenReady = new Promise(resolve => (ready = resolve));
 self.wasmready = ready; // the sim calls this once its functions are registered
 
 const started = (async () => {
-	const response = await fetch('lib.wasm.gz');
+	const response = await fetch('lib.wasm.gz' + self.location.search);
 	if (!response.ok) throw new Error(`Simulator download failed (HTTP ${response.status}).`);
 	// Some hosts already unpack the file while serving it; the first two bytes tell which case this is.
 	const bytes = new Uint8Array(await response.arrayBuffer());
