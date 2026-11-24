@@ -15,7 +15,7 @@ import { ImportPanel } from './components/ImportPanel';
 import { BarCap, Emblem } from './components/Ornaments';
 import { PlanTab } from './components/PlanTab';
 import { SimSetupTab } from './components/SimSetupTab';
-import { Modal, SimProvider } from './components/Sim';
+import { SimProvider } from './components/Sim';
 import { UpgradesTab } from './components/UpgradesTab';
 import { type GameData, loadGameData, dataFor } from './lib/gameData';
 import type { ImportResult } from './lib/importCharacter';
@@ -179,43 +179,6 @@ function loadOptions(): ViewOptions {
 	}
 }
 
-/** The gear button at the top right and the small window it opens. */
-function OptionsButton({ options, onChange }: { options: ViewOptions; onChange: (next: ViewOptions) => void }) {
-	const [open, setOpen] = useState(false);
-	const tick = (key: keyof ViewOptions, label: string, hint: string) => (
-		<label className="option-row">
-			<input type="checkbox" checked={options[key]} onChange={event => onChange({ ...options, [key]: event.target.checked })} />
-			<span>
-				<strong>{label}</strong>
-				<span className="slot-source">{hint}</span>
-			</span>
-		</label>
-	);
-	return (
-		<>
-			<button className="options-button" onClick={() => setOpen(true)} aria-label="Options" title="Options">
-				<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-					<path
-						d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm8.4 5.1-1.7-.3a7 7 0 0 1-.6 1.5l1 1.4-1.6 1.6-1.4-1a7 7 0 0 1-1.5.6l-.3 1.7h-2.3l-.3-1.7a7 7 0 0 1-1.5-.6l-1.4 1-1.6-1.6 1-1.4a7 7 0 0 1-.6-1.5l-1.7-.3v-2.3l1.7-.3a7 7 0 0 1 .6-1.5l-1-1.4 1.6-1.6 1.4 1a7 7 0 0 1 1.5-.6l.3-1.7h2.3l.3 1.7a7 7 0 0 1 1.5.6l1.4-1 1.6 1.6-1 1.4a7 7 0 0 1 .6 1.5l1.7.3z"
-						fill="none"
-						stroke="currentColor"
-						strokeWidth="1.6"
-						strokeLinejoin="round"
-					/>
-				</svg>
-			</button>
-			{open && (
-				<Modal title="Options" onClose={() => setOpen(false)}>
-					<p className="hint">Saved in this browser, for all your characters.</p>
-					{tick('equippedPanel', 'Equipped gear at the left', 'The small list of what you wear, beside the page.')}
-					{tick('plannedPanel', 'Planned gear at the right', 'The small list of your plan, beside the page.')}
-					<p className="hint">Both lists only fit on wide screens (about 1600 pixels and up); narrower screens never show them.</p>
-				</Modal>
-			)}
-		</>
-	);
-}
-
 export function App() {
 	const [options, setOptions] = useState<ViewOptions>(loadOptions);
 	const changeOptions = useCallback((next: ViewOptions) => {
@@ -318,7 +281,6 @@ export function App() {
 	return (
 		<div className="page">
 			<ChannelSwitch />
-			<OptionsButton options={options} onChange={changeOptions} />
 			<header className="masthead">
 				<div className="masthead-title">
 					<button className="masthead-home" onClick={() => setImporting(true)} title="Start page: your characters and import" aria-label="Start page">
@@ -396,7 +358,7 @@ export function App() {
 				)}
 				{character && !importing && (
 					<SimProvider character={character}>
-						{data && <GearRails spec={spec} character={character} data={data} showEquipped={options.equippedPanel} showPlanned={options.plannedPanel} />}
+						{data && <GearRails spec={spec} character={character} data={data} showEquipped={options.equippedPanel} showPlanned={options.plannedPanel} onShow={(kind, on) => changeOptions({ ...options, [kind === 'equipped' ? 'equippedPanel' : 'plannedPanel']: on })} />}
 						{tab === 'simulate' && (
 							<div className="view-switch" role="group" aria-label="How to pick upgrades">
 								<button className="view-choice" aria-pressed={upgradeView === 'slots'} onClick={() => setUpgradeView('slots')}>

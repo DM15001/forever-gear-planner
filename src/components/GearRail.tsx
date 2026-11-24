@@ -15,7 +15,7 @@ interface Props {
 }
 
 /** One small column of gear at the side of the page: icon and name per slot, the Wowhead tooltip on hover, the Wowhead page on click. */
-function Rail({ kind, gear, other, spec, character, data, onBreakdown }: Props & { kind: 'equipped' | 'planned'; gear: Gear; /** The other set, to mark what differs. */ other: Gear; onBreakdown: () => void }) {
+function Rail({ kind, gear, other, spec, character, data, onBreakdown, onHide }: Props & { kind: 'equipped' | 'planned'; gear: Gear; /** The other set, to mark what differs. */ other: Gear; onBreakdown: () => void; onHide: () => void }) {
 	const sim = useSim();
 	const totals = useMemo(() => scoreSet(gear, character, data, spec), [gear, character, data, spec]);
 	const base = useMemo(() => scoreSet(character.gear, character, data, spec), [character, data, spec]);
@@ -38,6 +38,11 @@ function Rail({ kind, gear, other, spec, character, data, onBreakdown }: Props &
 				<button className="gear-rail-open" onClick={onBreakdown} title={`Breakdown of the ${kind} gear`} aria-label={`Open the breakdown of the ${kind} gear`}>
 					<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
 						<path d="M4 16V9M10 16V4M16 16v-5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+					</svg>
+				</button>
+				<button className="gear-rail-open gear-rail-hide" onClick={onHide} title={`Hide the ${kind} gear`} aria-label={`Hide the ${kind} gear`}>
+					<svg viewBox="0 0 18 18" width="14" height="14" aria-hidden="true">
+						<path d="M3 3l12 12M15 3L3 15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
 					</svg>
 				</button>
 			</header>
@@ -77,14 +82,35 @@ function Rail({ kind, gear, other, spec, character, data, onBreakdown }: Props &
 }
 
 /** The equipped gear at the left edge of the page and the planned gear at the right one. They stay in view while the page scrolls; screens too narrow for them leave them out. */
-export function GearRails({ spec, character, data, showEquipped, showPlanned }: Props & { showEquipped: boolean; showPlanned: boolean }) {
+export function GearRails({ spec, character, data, showEquipped, showPlanned, onShow }: Props & { showEquipped: boolean; showPlanned: boolean; onShow: (kind: 'equipped' | 'planned', on: boolean) => void }) {
 	const planned = useMemo(() => plannedGear(character, data), [character, data]);
 	const hasPlan = Object.keys(character.plan ?? {}).length > 0 || Object.keys(character.planEnchants ?? {}).length > 0;
 	const [open, setOpen] = useState<'equipped' | 'planned' | null>(null);
 	return (
 		<>
-			{showEquipped && <Rail kind="equipped" gear={character.gear} other={planned} spec={spec} character={character} data={data} onBreakdown={() => setOpen('equipped')} />}
-			{showPlanned && <Rail kind="planned" gear={planned} other={character.gear} spec={spec} character={character} data={data} onBreakdown={() => setOpen('planned')} />}
+			{(['equipped', 'planned'] as const).map(kind => {
+				const shown = kind === 'equipped' ? showEquipped : showPlanned;
+				if (!shown) {
+					return (
+						<button key={kind} className={`gear-rail-show gear-rail-show-${kind}`} onClick={() => onShow(kind, true)}>
+							Show {kind} gear
+						</button>
+					);
+				}
+				return (
+					<Rail
+						key={kind}
+						kind={kind}
+						gear={kind === 'equipped' ? character.gear : planned}
+						other={kind === 'equipped' ? planned : character.gear}
+						spec={spec}
+						character={character}
+						data={data}
+						onBreakdown={() => setOpen(kind)}
+						onHide={() => onShow(kind, false)}
+					/>
+				);
+			})}
 			{open && <BreakdownDialog equipped={character.gear} planned={planned} hasPlan={hasPlan} initial={open} onClose={() => setOpen(null)} />}
 		</>
 	);

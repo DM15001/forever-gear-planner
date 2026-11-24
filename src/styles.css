@@ -4897,47 +4897,47 @@ summary.breakdown-toggle:focus-visible {
 	}
 }
 
-/* Options: the gear button at the top right, left of the Live/Dev switch. */
-.options-button {
-	position: fixed;
-	top: 0.3rem;
-	right: 0.5rem;
-	z-index: 50;
-	display: grid;
-	place-items: center;
-	width: 2rem;
-	height: 2rem;
+/* Each gear panel has its own hide button; a hidden one leaves a small button at its edge to bring it back. */
+.gear-rail-head > div {
+	flex: 1;
+	min-width: 0;
+}
+.gear-rail-hide {
+	width: 1.6rem;
+	height: 1.6rem;
 	color: var(--haze);
-	background: var(--slate);
-	border: 1px solid var(--ridge);
-	border-radius: 999px;
-	cursor: pointer;
+	border-color: var(--ridge);
 }
-.options-button:hover {
-	color: var(--brass);
-	border-color: var(--brass);
+.gear-rail-show {
+	display: none;
 }
-.channel-switch {
-	right: 3rem;
-}
-.cheer-dwarf {
-	right: 3rem;
-}
-.option-row {
-	display: flex;
-	align-items: flex-start;
-	gap: 0.6rem;
-	padding: 0.6rem 0;
-	border-top: 1px solid var(--ridge);
-	cursor: pointer;
-}
-.option-row input {
-	width: 1.15rem;
-	height: 1.15rem;
-	margin-top: 0.15rem;
-	accent-color: var(--brass);
-}
-.option-row span {
-	display: flex;
-	flex-direction: column;
+@media (min-width: 100rem) {
+	.gear-rail-show {
+		position: fixed;
+		top: 9.5rem;
+		z-index: 20;
+		display: block;
+		padding: 0.6rem 0.35rem;
+		writing-mode: vertical-rl;
+		font: inherit;
+		font-size: 0.8rem;
+		color: var(--haze);
+		background: var(--slate);
+		border: 1px solid var(--ridge);
+		cursor: pointer;
+	}
+	.gear-rail-show:hover {
+		color: var(--brass);
+		border-color: var(--brass);
+	}
+	.gear-rail-show-equipped {
+		left: 0;
+		border-left: 0;
+		border-radius: 0 6px 6px 0;
+	}
+	.gear-rail-show-planned {
+		right: 0;
+		border-right: 0;
+		border-radius: 6px 0 0 6px;
+	}
 }
