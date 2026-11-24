@@ -122,6 +122,12 @@ export interface Character {
 	buffs?: import('./sim/setup').BuffPicks;
 	/** A healer's spell mix and how much mana matters in the fight (src/lib/sim/healing.ts). Unset = the default scenario. */
 	healing?: { style?: string; pressure?: string; /** False = leave the Prayer of Mending estimate out (src/lib/sim/mending.ts). */ mending?: boolean };
+	/**
+	 * The settings of a WoWSims export this character came from: consumables, buffs, debuffs, rotation and the fight,
+	 * used as they are instead of the build's own, so "Simulate" gives what wowsims.com gives for the same export.
+	 * Only for the build it was imported as. Changes on the Sim setup tab go on top.
+	 */
+	simSettings?: SimSettings;
 	/** What the character fights: an enemy kind and a terrain, for items that are only strong there. Unset = a plain raid target. */
 	fight?: Fight;
 	/** Up to two profession names. */
@@ -232,4 +238,18 @@ export interface WeaponValues {
 	reference: { mainHand?: number; offHand?: number; ranged?: number };
 	/** What an empty off hand is worth next to a one-handed main hand (negative). */
 	emptyOffHand?: number;
+}
+
+/** See Character.simSettings. */
+export interface SimSettings {
+	/** The build these belong to; another build has another rotation. */
+	specId: string;
+	/** A short mark of the content, so a run is told apart from one with other settings. */
+	id: string;
+	/** The export's player without gear, race, talents and professions: consumables, buffs, rotation, class options ... */
+	player: Record<string, unknown>;
+	raidBuffs?: Record<string, unknown>;
+	partyBuffs?: Record<string, unknown>;
+	debuffs?: Record<string, unknown>;
+	encounter?: Record<string, unknown>;
 }

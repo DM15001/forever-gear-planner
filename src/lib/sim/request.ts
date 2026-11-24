@@ -1,6 +1,7 @@
 import { applyHealingFight, healingChoice } from './healing';
 import type { MendingEstimate } from './mending';
 import type { Gear } from '../scoring';
+import { specOf } from '../specs';
 import type { Character } from '../types';
 
 /** Raw records in the shape the sim's protobuf takes. Only the fields used here are typed. */
@@ -36,6 +37,24 @@ export interface BuiltRequest {
 
 /** True for a request whose player is a healer spec of the simulator. */
 export const isHealer = (request: SimTemplate): boolean => Object.keys(request.raid.parties[0].players[0]).some(key => /^(healer|holy|restoration)/i.test(key));
+
+/**
+ * The build's settings with those of the character's WoWSims import in their place, where it has one for this
+ * build: what the import does not name is off, as on wowsims.com, not left at the build's own pick.
+ */
+export function withSimSettings<T extends SimTemplate>(template: T, character: Character): T {
+	const own = character.simSettings;
+	if (!own || own.specId !== specOf(character).id) return template;
+	const request = structuredClone(template);
+	const party = request.raid.parties[0];
+	const player = party.players[0];
+	party.players[0] = { ...player, ...structuredClone(own.player), equipment: player.equipment } as typeof player;
+	if (own.raidBuffs) request.raid.buffs = structuredClone(own.raidBuffs);
+	if (own.debuffs) request.raid.debuffs = structuredClone(own.debuffs);
+	if (own.partyBuffs) party.buffs = structuredClone(own.partyBuffs);
+	if (own.encounter) request.encounter = structuredClone(own.encounter);
+	return request;
+}
 
 /** Puts the character's race, professions, talents, consumables and buffs over the build's own. */
 function personalize(request: SimTemplate, character: Character): void {
@@ -87,7 +106,7 @@ export interface BonusStats {
 
 export function buildSimRequest(character: Character, gear: Gear, index: SimIndex, iterations: number, bonus?: BonusStats): BuiltRequest {
 	const { db, template, itemById } = index;
-	const request = structuredClone(template) as SimTemplate & { simOptions?: unknown };
+	const request = structuredClone(withSimSettings(template, character)) as SimTemplate & { simOptions?: unknown };
 	const player = request.raid.parties[0].players[0];
 
 	personalize(request, character);
@@ -357,4 +376,4 @@ export function readRotationChecks(json: string | null | undefined): RotationChe
 
 /** Identifies a run, so the same gear is never simulated twice. */
 export const simKey = (character: Character, gear: Gear, iterations: number, bonus?: BonusStats) =>
-	JSON.stringify([bonus ?? 0, character.specId ?? '', character.race, character.talents, character.consumables ?? 0, character.buffs ?? 0, character.fight ?? 0, character.healing ?? 0, character.professions, gear.map(p => (p ? [p.id, p.enchant ?? 0, p.randomSuffix ?? 0] : 0)), iterations]);
+	JSON.stringify([bonus ?? 0, character.specId ?? '', character.simSettings?.id ?? 0, character.race, character.talents, character.consumables ?? 0, character.buffs ?? 0, character.fight ?? 0, character.healing ?? 0, character.professions, gear.map(p => (p ? [p.id, p.enchant ?? 0, p.randomSuffix ?? 0] : 0)), iterations]);

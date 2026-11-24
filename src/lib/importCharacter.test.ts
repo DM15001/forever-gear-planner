@@ -27,6 +27,26 @@ describe('importCharacter', () => {
 		expect(warnings.some(w => w.includes('sim export'))).toBe(true);
 	});
 
+	it('keeps the settings of a sim export, so the sim runs what wowsims.com runs', () => {
+		const text = JSON.stringify({
+			raidBuffs: { battleShout: 1 },
+			debuffs: { sunderArmor: true },
+			encounter: { duration: 90 },
+			player: { ...(simSettingsExport as { player: object }).player, consumables: { foodId: 250072, mhImbueId: 12404 }, rotation: { type: 'TypeAPL' } },
+		});
+		const { character } = importCharacter(text);
+		expect(character.simSettings?.specId).toBe(character.specId);
+		expect(character.simSettings?.player.consumables).toEqual({ foodId: 250072, mhImbueId: 12404 });
+		expect(character.simSettings?.raidBuffs).toEqual({ battleShout: 1 });
+		expect(character.simSettings?.encounter).toEqual({ duration: 90 });
+		// Gear, race, talents and professions stay the character's own fields.
+		expect(character.simSettings?.player).not.toHaveProperty('equipment');
+		expect(character.simSettings?.player).not.toHaveProperty('talentsString');
+		// A different export is a different run.
+		const other = importCharacter(text.replace('12404', '12643')).character;
+		expect(other.simSettings?.id).not.toBe(character.simSettings?.id);
+	});
+
 	it('reads the sim settings export (top-level player)', () => {
 		const { character, format, warnings } = importCharacter(JSON.stringify(simSettingsExport), spec);
 		expect(format).toBe('sim');
