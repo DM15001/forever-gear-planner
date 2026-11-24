@@ -65,7 +65,7 @@ jobs:
     timeout-minutes: 120
     strategy:
       fail-fast: false
-      max-parallel: 8
+      max-parallel: 5
       matrix:
         spec: ${{ fromJson(needs.list.outputs.specs) }}
     steps:
