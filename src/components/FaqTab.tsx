@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { type ReactNode, useState } from 'react';
 
 const REPO = 'https://github.com/DM15001/forever-gear-planner';
 
@@ -23,7 +23,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 			},
 			{
 				q: 'Who is it for?',
-				a: <p>Level 60 characters gearing up before raids: dungeons, quests, crafting, reputation and world drops. Every class has at least one build; damage dealers and healers are covered, tanks are not.</p>,
+				a: <p>Level 60 characters gearing up before raids: dungeons, quests, crafting, reputation and world drops. Every class has at least one damage build, and priests have healing builds too. Tanks and the other healers are not covered yet.</p>,
 			},
 			{
 				q: 'Does it cost anything, and do I need an account?',
@@ -178,26 +178,54 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 	},
 ];
 
-/** Everything a new visitor asks: what the planner does, how to use it, where its numbers and data come from, and where it stops. */
+const slug = (title: string) => `faq-${title.toLowerCase().replace(/[^a-z]+/g, '-')}`;
+/** The plain words of an answer, to search in. */
+const textOf = (node: ReactNode): string => {
+	if (typeof node === 'string' || typeof node === 'number') return String(node);
+	if (Array.isArray(node)) return node.map(textOf).join(' ');
+	if (node && typeof node === 'object' && 'props' in node) return textOf((node as { props: { children?: ReactNode } }).props.children);
+	return '';
+};
+
+/** Everything a new visitor asks: what the planner does, how to use it, where its numbers and data come from, and where it stops. All answers are open; the topics at the side jump, the box filters. */
 export function FaqTab() {
+	const [search, setSearch] = useState('');
+	const words = search.toLowerCase().split(/\s+/).filter(Boolean);
+	const groups = GROUPS.map(group => ({ ...group, questions: group.questions.filter(({ q, a }) => words.every(word => `${q} ${textOf(a)}`.toLowerCase().includes(word))) })).filter(group => group.questions.length > 0);
 	return (
 		<section className="panel faq" aria-labelledby="faq">
 			<h2 id="faq">Questions and answers</h2>
 			<p className="hint">What the planner does, how to use it, where the numbers come from and where it stops.</p>
-			{GROUPS.map(group => (
-				<div key={group.title} className="faq-group">
-					<h3>{group.title}</h3>
-					{group.questions.map(({ q, a }) => (
-						<details key={q} className="faq-item">
-							<summary>{q}</summary>
-							<div className="faq-answer">{a}</div>
-						</details>
+			<div className="faq-layout">
+				<nav className="faq-topics" aria-label="Topics">
+					<input type="search" value={search} onChange={event => setSearch(event.target.value)} placeholder="Search the answers" aria-label="Search the answers" />
+					{groups.map(group => (
+						<a key={group.title} href={`#${slug(group.title)}`} onClick={event => {
+								event.preventDefault();
+								document.getElementById(slug(group.title))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+							}}>
+							{group.title}
+						</a>
 					))}
+				</nav>
+				<div>
+					{groups.length === 0 && <p className="farm-empty">No answer mentions that. Try another word.</p>}
+					{groups.map(group => (
+						<div key={group.title} id={slug(group.title)} className="faq-group">
+							<h3>{group.title}</h3>
+							{group.questions.map(({ q, a }) => (
+								<article key={q} className="faq-item">
+									<h4>{q}</h4>
+									<div className="faq-answer">{a}</div>
+								</article>
+							))}
+						</div>
+					))}
+					<p className="hint">
+						Something missing here? <a href={`${REPO}/issues`}>Ask on GitHub</a>.
+					</p>
 				</div>
-			))}
-			<p className="hint">
-				Something missing here? <a href={`${REPO}/issues`}>Ask on GitHub</a>.
-			</p>
+			</div>
 		</section>
 	);
 }
