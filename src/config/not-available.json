@@ -21,7 +21,10 @@
 		"15209": "Crimson Templar, Abyssal Council (Silithus wind stones)",
 		"15211": "Azure Templar, Abyssal Council (Silithus wind stones)",
 		"15212": "Hoary Templar, Abyssal Council (Silithus wind stones)",
-		"15307": "Earthen Templar, Abyssal Council (Silithus wind stones)"
+		"15307": "Earthen Templar, Abyssal Council (Silithus wind stones)",
+		"14684": "Balzaphon (Stratholme): only appears during the Scourge Invasion before Naxxramas, which has not happened (reported by a player)",
+		"14695": "Lord Blackwood (Scholomance): only appears during the Scourge Invasion before Naxxramas",
+		"14690": "Revanchion (Dire Maul): only appears during the Scourge Invasion before Naxxramas"
 	},
 	"items": {
 		"15138": "Onyxia Scale Cloak: needs scales from Onyxia, a raid boss",
