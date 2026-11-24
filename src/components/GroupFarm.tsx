@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { type GameData, dataFor, loadGameData } from '../lib/gameData';
 import { type GroupMember, type GroupScope, groupFarm, sortGroup, withDrop } from '../lib/group';
-import { addCharacter, characterFromShareText, characterLabel, type Roster } from '../lib/roster';
+import { addCharacter, characterFromShareText, characterLabel, type Roster, shareUrl } from '../lib/roster';
 import { DEFAULT_FILTER } from '../lib/scoring';
 import { specOf } from '../lib/specs';
 import { wowheadData, wowheadItemUrl } from '../lib/stats';
@@ -45,6 +45,17 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 	const [open, setOpen] = useState<Set<string>>(new Set());
 	const [pasted, setPasted] = useState('');
 	const [addNote, setAddNote] = useState('');
+	// The open character as a string for the others, right where theirs are pasted.
+	const mine = roster.characters[roster.active];
+	const mineLabel = mine ? characterLabel(mine, roster.active, specOf(mine)) : '';
+	const [copiedMine, setCopiedMine] = useState(false);
+	const copyMine = () => {
+		if (!mine) return;
+		navigator.clipboard.writeText(shareUrl(mine, window.location.href)).then(
+			() => setCopiedMine(true),
+			() => setAddNote('The browser did not allow copying. Use the button on the Character page.'),
+		);
+	};
 
 	const picked = roster.characters.map((character, index) => ({ character, index })).filter(({ index }) => !saved.out.includes(index));
 	const chosen = picked.slice(0, MOST);
@@ -120,6 +131,11 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 				<button className="button" type="submit" disabled={!pasted.trim()}>
 					Add to the group
 				</button>
+				{mine && (
+					<button className="button" type="button" onClick={copyMine} title="Copies your open character with its equipped and planned gear, to send to your group.">
+						{copiedMine ? 'Copied: send it to your group' : `Copy my character (${mineLabel})`}
+					</button>
+				)}
 				{addNote && <span className="hint" role="status">{addNote}</span>}
 			</form>
 			<fieldset className="group-members">

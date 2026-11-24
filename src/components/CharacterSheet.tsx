@@ -1,3 +1,4 @@
+import talentPresets from '../config/talentPresets.json';
 import { type ReactNode, useState } from 'react';
 
 import { GEAR_SLOTS, PROFESSIONS, SHEET_LAYOUT } from '../lib/constants';
@@ -26,11 +27,13 @@ interface Props {
 	activeIndex: number;
 	/** A link that opens this character and its plan on another device. */
 	shareLink: string;
+	/** Opens the page where the talents are picked. */
+	onOpenTalents?: () => void;
 	/** The step that follows, shown in the header of the page. */
 	next?: ReactNode;
 }
 
-export function CharacterSheet({ spec, character, data, onChange, names, builds, activeIndex, shareLink, next }: Props) {
+export function CharacterSheet({ spec, character, data, onChange, names, builds, activeIndex, shareLink, onOpenTalents, next }: Props) {
 	// 'copied' after the link went to the clipboard, 'shown' when the browser refused and the link is shown to copy by hand.
 	const [shared, setShared] = useState<'idle' | 'copied' | 'shown'>('idle');
 	// The slot whose item is being swapped by hand, if any.
@@ -43,6 +46,12 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 		);
 	};
 	const race = spec.races.find(r => r.id === character.race);
+	// The talents the sim uses, readable: points per tree and where the set is from.
+	const talents = character.talents || spec.talents || '';
+	const points = talents ? [0, 1, 2].map(tree => [...(talents.split('-')[tree] ?? '')].reduce((sum, digit) => sum + (Number(digit) || 0), 0)).join('/') : '';
+	const ownBuild = character.talents ? builds.find(build => build.talents === character.talents) : spec;
+	const extraPreset = character.talents && !ownBuild ? (talentPresets.byClass as Record<string, { name: string; talents: string; source: string }[] | undefined>)[spec.className]?.find(preset => preset.talents === character.talents) : undefined;
+	const talentSource = ownBuild ? `WoWSims ${ownBuild.preset ?? ownBuild.name}` : extraPreset ? `${extraPreset.source}: ${extraPreset.name}` : 'your own';
 	const enchantCount = character.gear.filter(piece => piece?.enchant).length;
 	// A two-hander in the main hand leaves the off hand unusable; the off-hand card says so.
 	const mainHandItem = data?.itemById.get(character.gear[MAIN_HAND_SLOT]?.id ?? -1);
@@ -95,6 +104,22 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 						{character.level ? `, level ${character.level}` : ''}
 						{race && <FactionMark faction={race.faction} />}
 					</p>
+					{points && (
+						<p className="identity-line identity-talent-line" title={talents}>
+							Talents {points}, {talentSource}
+							{onOpenTalents && (
+								<button className="link" onClick={onOpenTalents}>
+									change talents
+								</button>
+							)}
+						</p>
+					)}
+				</div>
+				<div className="sheet-share">
+					<button className="button" onClick={share} title="Copies a link with this character's equipped gear, plan, talents and professions. A friend opens it, or pastes it into Import or the Group plan, to get a copy of the character.">
+						{shared === 'copied' ? 'Copied: send it to your friend' : 'Copy character (equipped + planned gear)'}
+					</button>
+					{shared === 'shown' && <input type="text" readOnly aria-label="Share link" value={shareLink} onFocus={e => e.target.select()} />}
 				</div>
 				{next && <div className="sheet-next">{next}</div>}
 			</header>
@@ -178,20 +203,10 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 					</div>
 				</fieldset>
 
-				{character.talents && (
-					<p className="identity-talents">
-						<span className="field-label">Talents</span>
-						<span className="talents">{character.talents}</span>
-					</p>
-				)}
 				<div className="identity-actions">
 					<button className="button" onClick={removeAllEnchants} disabled={enchantCount === 0}>
 						Remove all enchants{enchantCount > 0 ? ` (${enchantCount})` : ''}
 					</button>
-					<button className="button" onClick={share} title="Copies a link with this character's equipped gear, plan, talents and professions. A friend opens it, or pastes it into Import or the Group plan, to get a copy of the character.">
-						{shared === 'copied' ? 'Copied: send it to your friend' : 'Copy character (equipped + planned gear)'}
-					</button>
-					{shared === 'shown' && <input type="text" readOnly aria-label="Share link" value={shareLink} onFocus={e => e.target.select()} />}
 				</div>
 
 			</div>

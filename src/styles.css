@@ -5154,34 +5154,54 @@ summary.breakdown-toggle:focus-visible {
 	grid-area: tools;
 	display: flex;
 	align-items: center;
-	gap: 0.35rem;
+	gap: 0.6rem;
 	align-self: start;
 }
 .tool-link {
 	display: inline-flex;
 	align-items: center;
-	padding: 0.35rem 0.7rem;
-	font: inherit;
+	padding: 0.4rem 0.9rem;
+	font-family: var(--display);
+	font-weight: 600;
 	font-size: 0.875rem;
-	color: var(--haze);
-	background: none;
-	border: 1px solid transparent;
-	border-radius: 999px;
+	letter-spacing: 0.03em;
+	color: var(--brass);
+	background: linear-gradient(180deg, var(--slate-raised), var(--well));
+	border: 1px solid var(--brass-deep);
+	border-radius: 3px;
+	box-shadow:
+		0 0 0 1px #000,
+		0 3px 8px rgb(0 0 0 / 0.45);
 	cursor: pointer;
 	white-space: nowrap;
 }
 .tool-link:hover,
 .tool-link:focus-visible {
-	color: var(--mist);
-	border-color: var(--brass-deep);
+	color: var(--metal-light);
+	border-color: var(--brass);
 }
 .tool-link[aria-current='page'] {
-	color: var(--brass);
-	border-color: var(--brass);
+	color: var(--on-brass);
+	background: linear-gradient(180deg, var(--metal-light), var(--brass) 40%, var(--brass-deep));
 }
 @media (max-width: 640px) {
 	.masthead {
 		grid-template-columns: 1fr;
 		grid-template-areas: 'title' 'tools' 'tabs';
 	}
+}
+
+/* Character page: the talents in words, and the copy button beside the name */
+.identity-talent-line {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.5rem;
+}
+.sheet-share {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 0.4rem;
+	margin-left: auto;
 }

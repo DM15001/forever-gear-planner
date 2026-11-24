@@ -377,6 +377,7 @@ export function App() {
 			builds={specsOfClass(baseSpec.className)}
 			activeIndex={roster.active}
 			shareLink={shareUrl(character, window.location.href)}
+			onOpenTalents={() => setTab('sim')}
 			next={
 				<>
 					<span className="slot-source">Check race, professions and enchants, then</span>
