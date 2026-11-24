@@ -76,6 +76,10 @@ const hash = createHash('sha256');
 for (const file of [join(SIM_DIR, 'lib.wasm.gz'), join(SIM_DIR, 'db.json'), templateFile, fileURLToPath(import.meta.url)]) hash.update(readFileSync(file));
 const inputs = hash.digest('hex').slice(0, 16);
 const previous = existsSync(outFile) ? readJson(outFile) : null;
+if (args.includes('--status')) {
+	console.log(JSON.stringify({ at: previous?.measuredOn ?? null, current: previous?.inputs === inputs, held: Boolean(previous?.held) }));
+	process.exit(0);
+}
 if (args.includes('--if-changed') && previous?.inputs === inputs && !(previous.held && args.includes('--accept'))) {
 	console.log(`${specId}: simulator, item database, preset and script are unchanged since the last measurement. Nothing to do.`);
 	process.exit(0);

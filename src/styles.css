@@ -5211,3 +5211,27 @@ summary.breakdown-toggle:focus-visible {
 	margin: 0.6rem 0 0;
 	color: var(--mist);
 }
+
+/* What the list numbers rest on, and the per-slot check with the simulator */
+.measured-note {
+	margin: 0 0 1rem;
+	padding: 0.6rem 0.85rem;
+	font-size: 0.875rem;
+	color: var(--haze);
+	border-left: 3px solid var(--brass-deep);
+	background: rgb(0 0 0 / 0.25);
+}
+.measured-note strong {
+	color: var(--mist);
+}
+.measured-stale {
+	border-left-color: #e0a030;
+	color: var(--mist);
+}
+.verify-line {
+	margin: 0.5rem 0 0.25rem;
+	font-size: 0.875rem;
+}
+.verify-done {
+	color: var(--haze);
+}

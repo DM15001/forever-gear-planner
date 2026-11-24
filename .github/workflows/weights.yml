@@ -107,6 +107,8 @@ jobs:
             echo "Nothing changed."
             exit 0
           fi
+          # The app shows how fresh each build's numbers are.
+          node scripts/measurement-status.mjs && git add src/data/measurementStatus.json
           git diff --cached --name-only > /tmp/changed.txt
           count=$(wc -l < /tmp/changed.txt | tr -d ' ')
           git commit -m "Measured stat weights ($count builds updated)" -m "Written by .github/workflows/weights.yml with scripts/build-weights.mjs."

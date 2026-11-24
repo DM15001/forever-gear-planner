@@ -86,6 +86,7 @@ jobs:
           # What the update changed in the items (docs/item-changes.md) and which sources are still guessed (docs/items-to-check.md).
           items=$(node scripts/item-report.mjs --log "WoWSims $short" | head -1) || items="item report failed"
           npx vite-node scripts/items-to-check.ts || echo "::warning::items-to-check failed"
+          node scripts/measurement-status.mjs || echo "::warning::measurement status not written"
           git add public/sim src/data docs
           if git diff --cached --quiet; then echo "Nothing changed."; exit 0; fi
           git commit -q -m "Simulator updated to WoWSims $short" -m "Items: $items" -m "Written by .github/workflows/engine.yml with scripts/build-data.mjs."

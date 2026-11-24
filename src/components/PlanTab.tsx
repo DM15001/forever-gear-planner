@@ -1,3 +1,4 @@
+import { MeasuredNote } from './MeasuredNote';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
@@ -212,6 +213,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 
 				{part === 'list' && (
 					<>
+				<MeasuredNote specId={spec.id} />
 				<ul className="plain-list plan-slots">
 					{slots.map(({ slot, index, equippedItem, goalItem, goalEnchant, isChange, enchantOpen, others }) => (
 						<li key={slot.key} className={`plan-slot${isChange ? '' : ' plan-slot-done'}`}>

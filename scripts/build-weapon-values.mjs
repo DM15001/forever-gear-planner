@@ -158,6 +158,11 @@ if (isMainThread) {
 	for (const file of [join(SIM_DIR, 'lib.wasm.gz'), join(SIM_DIR, 'db.json'), templateFile, fileURLToPath(import.meta.url)]) hash.update(readFileSync(file));
 	hash.update(JSON.stringify([spec.weaponSetup, spec.canDualWield, spec.weaponNeeds ?? null, usableWeapons.map(item => item.id)]));
 	const inputs = hash.digest('hex').slice(0, 16);
+	if (args.includes('--status')) {
+		const stored = existsSync(outFile) ? readJson(outFile) : null;
+		console.log(JSON.stringify({ at: stored?.generatedAt?.slice(0, 10) ?? null, current: stored?.inputs === inputs }));
+		process.exit(0);
+	}
 	if (args.includes('--if-changed') && existsSync(outFile) && readJson(outFile).inputs === inputs) {
 		console.log(`${specId}: simulator, item database, preset, weapon list and script are unchanged since the last measurement. Nothing to do.`);
 		process.exit(0);

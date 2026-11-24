@@ -15,7 +15,8 @@ import { ContentPicker } from './ContentPicker';
 import { ItemIcon } from './ItemIcon';
 import { SuffixNote, suffixText } from './SuffixNote';
 import { SourceLabel, SourceList } from './SourceLabel';
-import { SET_ITERATIONS, SimDelta, SimSummary, useSim } from './Sim';
+import { MeasuredNote } from './MeasuredNote';
+import { SET_ITERATIONS, SimDelta, SimSummary, SWAP_ITERATIONS, useSim } from './Sim';
 import type { Character, Item, SpecConfig, Stats } from '../lib/types';
 
 interface Props {
@@ -37,6 +38,8 @@ interface Props {
 /** How many items the list for a picked enemy or terrain shows. */
 const FIGHT_PICKS = 12;
 const SHORT_LIST = 6;
+/** How many of a slot's best upgrades "Check the top with the simulator" runs. */
+const VERIFY_TOP = 5;
 /** How many next-best items a slot lists below its upgrades. */
 const ALTERNATIVES = 5;
 const LONG_LIST = 25;
@@ -311,6 +314,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 
 			{part === 'list' && (
 				<>
+			<MeasuredNote specId={spec.id} />
 			{fightPicks && (
 				<section className="panel fight-picks" aria-label="Items for this fight">
 					<h3>Items with a bonus for this fight</h3>
@@ -434,6 +438,13 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				const better = candidates.filter(c => c.delta > 0);
 				const upgradeRows = expanded.has(index) ? { list: better, others: new Map<number, Candidate[]>() } : oneRandomRoll(better);
 				const upgrades = better.length;
+				// The first few can be checked with the real simulator in one go; once all are in, they are sorted by it.
+				const top = upgradeRows.list.slice(0, VERIFY_TOP);
+				const baseSim = sim.result(gear, SWAP_ITERATIONS);
+				const simOf = (candidate: Candidate) => sim.result(withItem(gear, index, candidate.item.id, data), SWAP_ITERATIONS);
+				const verified = Boolean(baseSim) && top.length > 1 && top.every(candidate => simOf(candidate));
+				const checking = !verified && top.some(candidate => sim.isRunning(withItem(gear, index, candidate.item.id, data), SWAP_ITERATIONS));
+				const shownUpgrades = verified ? [...[...top].sort((a, b) => simOf(b)!.dps - simOf(a)!.dps), ...upgradeRows.list.slice(VERIFY_TOP)] : upgradeRows.list;
 				const currentPiece = gear[index];
 				const currentItemNow = currentPiece ? data.itemById.get(currentPiece.id) : undefined;
 				const currentStats = currentItemNow && currentPiece ? pieceStats(currentItemNow, currentPiece, data) : {};
@@ -523,9 +534,27 @@ const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, open: char
 							blocked={itemId => blocked(index, itemId)}
 							otherId={pairedSlot(index) !== undefined ? gear[pairedSlot(index)!]?.id : undefined}
 						/>
+						{upgrades > 1 && (
+							<p className="verify-line">
+								{verified ? (
+									<span className="verify-done">The top {top.length} are checked with the simulator and sorted by it.</span>
+								) : (
+									<button
+										className="button button-small"
+										disabled={checking}
+										title="Runs the real simulator for each of them against your current gear, then sorts them by the result."
+										onClick={() => {
+											if (!baseSim) sim.run(gear, SWAP_ITERATIONS);
+											for (const candidate of top) if (!simOf(candidate)) sim.run(withItem(gear, index, candidate.item.id, data), SWAP_ITERATIONS);
+										}}>
+										{checking ? 'Checking…' : `Check the top ${top.length} with the simulator`}
+									</button>
+								)}
+							</p>
+						)}
 						{upgrades > 0 && (
 							<ul className="candidates">
-								{upgradeRows.list.slice(0, limit).map(candidate => (
+								{shownUpgrades.slice(0, limit).map(candidate => (
 										<Fragment key={candidate.item.id}>
 											{rowFor(candidate)}
 											{randomFold(upgradeRows.others.get(candidate.item.id))}
