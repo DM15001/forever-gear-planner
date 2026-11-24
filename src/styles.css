@@ -5050,21 +5050,30 @@ summary.breakdown-toggle:focus-visible {
 }
 .group-dungeons {
 	display: grid;
-	gap: 0.6rem;
+	grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+	gap: 0.9rem;
+	align-items: start;
 }
 .group-dungeon {
-	padding: 0.6rem 0.9rem 0.7rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.7rem;
+	padding: 0.8rem 0.9rem;
 	background: var(--slate-raised);
-	border: 1px solid var(--ridge);
-	border-radius: 8px;
+	border: 2px solid var(--ridge);
+	border-radius: 4px;
 }
 .group-dungeon-top {
 	border-color: var(--brass);
 }
+/* An open card takes the whole row, so the boss lists have room. */
+.group-dungeon-open {
+	grid-column: 1 / -1;
+}
 .group-dungeon-head {
 	display: flex;
 	align-items: center;
-	gap: 0.9rem;
+	gap: 0.7rem;
 	width: 100%;
 	padding: 0;
 	font: inherit;
@@ -5074,62 +5083,93 @@ summary.breakdown-toggle:focus-visible {
 	border: 0;
 	cursor: pointer;
 }
-.group-prio {
-	flex: none;
-	min-width: 4.2rem;
-	padding: 0.2rem 0.5rem;
-	font-size: 0.8125rem;
-	font-weight: 600;
-	text-align: center;
-	color: var(--haze);
-	border: 1px solid var(--ridge);
-	border-radius: 999px;
-}
-.group-dungeon-top .group-prio {
-	color: var(--on-brass);
-	background: var(--brass);
-	border-color: var(--brass);
-}
 .dungeon-icon {
 	flex: none;
 }
-.group-dungeon-title,
-.group-dungeon-gain {
+.group-dungeon-title {
 	display: flex;
+	flex: 1;
 	flex-direction: column;
 	min-width: 0;
-}
-.group-dungeon-title {
-	flex: 1;
 }
 .group-dungeon-title .dungeon-name {
 	font-size: 1.05rem;
 }
-.group-dungeon-gain {
-	align-items: flex-end;
-	text-align: right;
-}
-.group-dungeon-gain .dungeon-value {
-	font-size: 1.15rem;
-	color: var(--brass);
-}
-.group-chevron {
+.group-prio {
+	display: flex;
 	flex: none;
+	flex-direction: column;
+	align-items: center;
+	font-size: 0.75rem;
 	color: var(--haze);
-	transition: transform 0.15s;
 }
-.group-dungeon-open .group-chevron {
-	transform: rotate(180deg);
+.group-prio strong {
+	font-size: 1.6rem;
+	line-height: 1;
+	color: var(--brass);
 }
 .group-people {
 	font-size: 0.8125rem;
 	color: var(--haze);
 }
+.group-strip {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.45rem 0.4rem;
+}
+.group-strip li {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.1rem;
+	min-width: 2.4rem;
+	font-size: 0.75rem;
+}
+.group-strip a {
+	position: relative;
+	display: block;
+}
+.group-strip .slot-icon {
+	display: block;
+}
+.group-strip-count {
+	position: absolute;
+	right: -0.3rem;
+	bottom: -0.2rem;
+	min-width: 1rem;
+	padding: 0 0.2rem;
+	font-size: 0.6875rem;
+	font-weight: 700;
+	text-align: center;
+	color: var(--on-brass);
+	background: var(--ember);
+	border-radius: 999px;
+}
+.group-strip-more {
+	justify-content: center;
+	color: var(--haze);
+}
+.group-dungeon-numbers {
+	display: flex;
+	align-items: flex-end;
+	gap: 1.2rem;
+	padding-top: 0.6rem;
+	border-top: 1px solid var(--hairline);
+}
+.group-dungeon-numbers > span {
+	display: flex;
+	flex-direction: column;
+}
+.group-dungeon-numbers strong {
+	font-size: 1.2rem;
+}
+.group-dungeon-numbers .link {
+	margin-left: auto;
+}
 .group-split {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.3rem 0.5rem;
-	margin: 0.55rem 0 0;
 	font-size: 0.8125rem;
 }
 .group-split li {
@@ -5140,20 +5180,6 @@ summary.breakdown-toggle:focus-visible {
 .group-want-extra {
 	border-style: dashed;
 	opacity: 0.8;
-}
-@media (max-width: 40rem) {
-	.group-dungeon-head {
-		flex-wrap: wrap;
-	}
-	.group-dungeon-gain {
-		align-items: flex-start;
-		text-align: left;
-	}
-}
-@media (prefers-reduced-motion: reduce) {
-	.group-chevron {
-		transition: none;
-	}
 }
 .group-boss h3 {
 	margin: 0.9rem 0 0.3rem;

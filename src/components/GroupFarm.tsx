@@ -218,38 +218,68 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 			<ol className="plain-list group-dungeons">
 				{dungeons.map((dungeon, rank) => {
 					const isOpen = open.has(dungeon.key);
-					const drops = dungeon.bosses.reduce((sum, boss) => sum + boss.items.length, 0);
+					// Every drop once, biggest gain first: the row of icons on the card.
+					const byItem = new Map<number, { item: Item; best: number; people: number }>();
+					for (const boss of dungeon.bosses)
+						for (const { item, wants } of boss.items) {
+							const known = byItem.get(item.id);
+							const best = Math.max(...wants.map(want => want.delta));
+							if (!known || best > known.best) byItem.set(item.id, { item, best, people: wants.length });
+						}
+					const strip = [...byItem.values()].sort((x, y) => y.best - x.best);
+					const shown = strip.slice(0, 10);
 					return (
 						<li key={dungeon.key} className={`group-dungeon${rank === 0 ? ' group-dungeon-top' : ''}${isOpen ? ' group-dungeon-open' : ''}`}>
-							<button className="group-dungeon-head" aria-expanded={isOpen} onClick={() => toggle(dungeon.key)} title={isOpen ? 'Hide the drops' : 'Show the drops and who wants them'}>
-								<span className="group-prio" title={saved.sort === 'total' ? 'Ranked by what the group gains in total' : 'Ranked by how many of the group gain something'}>
-									Prio <span className="num">{rank + 1}</span>
-								</span>
-								<DungeonIcon icons={(DUNGEON_ICONS as Record<string, string[] | string>)[dungeon.key.split(':')[0]] as string[] | undefined ?? []} />
+							<button className="group-dungeon-head" aria-expanded={isOpen} onClick={() => toggle(dungeon.key)} title={isOpen ? 'Hide the bosses and who wants what' : 'Show the bosses and who wants what'}>
+								<DungeonIcon icons={(DUNGEON_ICONS as unknown as Record<string, string[] | undefined>)[dungeon.key.split(':')[0]] ?? []} />
 								<span className="group-dungeon-title">
 									<strong className="dungeon-name">{dungeon.name}</strong>
 									<span className="group-people">
-										{dungeon.people} of {members.length} need something, {drops} drop{drops === 1 ? '' : 's'}
+										{dungeon.people} of {members.length} need something
 									</span>
 								</span>
-								<span className="group-dungeon-gain">
-									<strong className="dungeon-value num">{gain(dungeon.total)}</strong>
+								<span className="group-prio" title={saved.sort === 'total' ? 'Ranked by what the group gains in total' : 'Ranked by how many of the group gain something'}>
+									<strong className="num">{rank + 1}</strong>
+									Priority
+								</span>
+							</button>
+							<ul className="plain-list group-strip">
+								{shown.map(({ item, best, people }) => (
+									<li key={item.id}>
+										<a href={wowheadItemUrl(item.id)} data-wowhead={wowheadData('item', item.id)} target="_blank" rel="noreferrer" aria-label={`${item.name}, ${gain(best)}${people > 1 ? `, ${people} want it` : ''}`}>
+											<ItemIcon icon={item.icon} quality={item.quality} small />
+											{people > 1 && <span className="group-strip-count num" title={`${people} want it`}>{people}</span>}
+										</a>
+										<span className="num delta-up">{gain(best)}</span>
+									</li>
+								))}
+								{strip.length > shown.length && <li className="group-strip-more">+{strip.length - shown.length}</li>}
+							</ul>
+							<div className="group-dungeon-numbers">
+								<span>
+									<strong className="num delta-up">{gain(dungeon.total)}</strong>
 									<span className="group-people">for the group</span>
 								</span>
-								<svg className="group-chevron" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
-									<path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-								</svg>
-							</button>
-							<ul className="plain-list group-split">
-								{members
-									.filter(member => dungeon.perMember.has(member.index))
-									.sort((a, b) => dungeon.perMember.get(b.index)! - dungeon.perMember.get(a.index)!)
-									.map(member => (
-										<li key={member.index}>
-											{member.label} <span className="num">{gain(dungeon.perMember.get(member.index)!)}</span>
-										</li>
-									))}
-							</ul>
+								<span>
+									<strong className="num delta-up">{gain(strip[0]?.best ?? 0)}</strong>
+									<span className="group-people">best drop</span>
+								</span>
+								<button className="link" onClick={() => toggle(dungeon.key)}>
+									{isOpen ? 'Close' : 'Who wants what'}
+								</button>
+							</div>
+							{isOpen && (
+								<ul className="plain-list group-split">
+									{members
+										.filter(member => dungeon.perMember.has(member.index))
+										.sort((x, y) => dungeon.perMember.get(y.index)! - dungeon.perMember.get(x.index)!)
+										.map(member => (
+											<li key={member.index}>
+												{member.label} <span className="num">{gain(dungeon.perMember.get(member.index)!)}</span>
+											</li>
+										))}
+								</ul>
+							)}
 							{isOpen &&
 								dungeon.bosses.map(boss => (
 									<div key={boss.name} className="group-boss">
