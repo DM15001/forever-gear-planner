@@ -29,6 +29,8 @@ import { fileURLToPath } from 'node:url';
 import { isMainThread, parentPort, Worker, workerData } from 'node:worker_threads';
 import { gunzipSync } from 'node:zlib';
 
+import { fitImbues } from './fit-imbues.mjs';
+
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SIM_DIR = join(ROOT, 'public', 'sim');
 const ITERATIONS = Number(process.env.ITERATIONS ?? 4000);
@@ -61,6 +63,8 @@ if (!isMainThread) {
 		const request = structuredClone(template);
 		const player = request.raid.parties[0].players[0];
 		player.equipment = { items: gear.map(piece => (piece?.id ? { id: piece.id } : {})) };
+		// The preset's stone was picked for the preset's weapon: every candidate gets the stone that goes on it.
+		player.consumables = fitImbues(template.raid.parties[0].players[0].consumables, itemById.get(gear[MAIN_HAND]?.id), itemById.get(gear[MAIN_HAND + 1]?.id), db.consumables);
 		// The preset's swap set stays as it is; its items need their records too.
 		const worn = [...gear, ...(player.itemSwap?.items ?? [])].filter(piece => piece?.id);
 		const records = [...new Set(worn.map(piece => piece.id))].map(id => {

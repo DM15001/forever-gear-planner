@@ -1,8 +1,12 @@
 import { applyHealingFight, healingChoice } from './healing';
+import { fittingImbue, type ImbueRecord, type WeaponRecord } from './imbue';
 import type { MendingEstimate } from './mending';
 import type { Gear } from '../scoring';
 import { specOf } from '../specs';
 import type { Character } from '../types';
+
+/** Gear index of the main hand; the off hand follows it. */
+const MAIN_HAND = 14;
 
 /** Raw records in the shape the sim's protobuf takes. Only the fields used here are typed. */
 export interface SimDb {
@@ -130,6 +134,15 @@ export function buildSimRequest(character: Character, gear: Gear, index: SimInde
 			return piece;
 		}),
 	};
+
+	// A stone the build picked for its own weapon may not go on the planned one: use the one that does. A stone
+	// from a WoWSims import or picked by hand on the Sim setup tab is left as it is.
+	const imported = Boolean(character.simSettings && character.simSettings.specId === specOf(character).id);
+	for (const [field, slot] of [['mhImbueId', MAIN_HAND], ['ohImbueId', MAIN_HAND + 1]] as const) {
+		if (imported || character.consumables?.[field] !== undefined || !player.consumables?.[field]) continue;
+		const weapon = gear[slot] ? (itemById.get(gear[slot]!.id) as WeaponRecord | undefined) : undefined;
+		player.consumables[field] = fittingImbue(player.consumables[field], weapon, db.consumables as ImbueRecord[]);
+	}
 
 	// The sim carries no item data of its own: attach every record this request refers to.
 	const swapPieces: { id?: number; enchant?: number; randomSuffix?: number }[] = player.itemSwap?.items ?? [];
