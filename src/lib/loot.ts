@@ -108,12 +108,15 @@ export function applyLoot(itemById: Map<number, Item>, npcById: Map<number, Npc>
 			source.spawnNote = encounter.note;
 		}
 	}
-	// What is left without a source and is an item of the original game (ids below 200,000) is, almost always, a
-	// bind-on-equip random drop: the WoWSims data only lists bosses, quests, vendors and crafts. They are taken as
-	// world drops, marked as assumed. Items new in Forever stay "source unknown": nothing says where they are from.
+	// What is left without a source and is an item of the original game (ids below 200,000): the WoWSims data only
+	// lists bosses, quests, vendors and crafts. A green item with a random suffix ("of the Eagle") is a random drop
+	// for certain. Other common and green items are taken as world drops, marked as assumed. Rare and epic items
+	// are not guessed: too many of them turned out to be from one creature, a chest, or not in the game at all.
+	// They stay "source unknown", like items new in Forever, until src/config/sources.manual.json names a source.
 	for (const item of itemById.values()) {
 		if (item.sources?.length || item.id >= FIRST_FOREVER_ITEM) continue;
-		item.sources = [{ kind: 'drop', otherName: 'World drop', assumed: true }];
+		if (item.randomSuffixOptions?.length) item.sources = [{ kind: 'drop', otherName: 'World drop' }];
+		else if (item.quality !== 'rare' && item.quality !== 'epic') item.sources = [{ kind: 'drop', otherName: 'World drop', assumed: true }];
 	}
 }
 

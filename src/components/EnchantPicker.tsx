@@ -21,17 +21,10 @@ interface Props {
 	onClose: () => void;
 }
 
-/** Every enchant that fits the item in a slot, best first, with what it gives and where it comes from. */
-export function EnchantPicker({ slotIndex, gear, character, data, spec, onPick, onClose }: Props) {
-	const dialog = useRef<HTMLDialogElement>(null);
+/** The enchants that fit the item in a slot, best first, each with what it adds over no enchant; "No enchant" on top. */
+export function EnchantList({ slotIndex, gear, character, data, spec, onPick }: Omit<Props, 'onClose'>) {
 	const piece = gear[slotIndex];
 	const item = piece ? data.itemById.get(piece.id) : undefined;
-
-	useEffect(() => {
-		const element = dialog.current;
-		if (element && !element.open) element.showModal();
-	}, []);
-
 	const rows = useMemo(() => {
 		const bare = scoreSet(withEnchant(gear, slotIndex, undefined), character, data, spec).score;
 		const hasStats = (e: Enchant) => Object.keys(e.stats ?? {}).length > 0;
@@ -45,30 +38,15 @@ export function EnchantPicker({ slotIndex, gear, character, data, spec, onPick, 
 	}, [gear, slotIndex, item, character, data, spec]);
 
 	return (
-		<dialog
-			ref={dialog}
-			className="picker"
-			aria-labelledby="enchant-picker-title"
-			onClose={onClose}
-			onClick={event => {
-				if (event.target === dialog.current) dialog.current?.close();
-			}}>
-			<div className="picker-head">
-				<h3 id="enchant-picker-title">Enchant: {GEAR_SLOTS[slotIndex].label}</h3>
-				<button className="button button-small" onClick={() => dialog.current?.close()}>
-					Close
-				</button>
-			</div>
-			<p className="picker-current">
-				{item?.name}. Only enchants that fit this item are listed; the number is what each adds over no enchant.
-			</p>
+		<>
 			<ul className="plain-list picker-list">
-				{piece?.enchant && (
+				{piece && (
 					<li>
-						<button className="picker-row" onClick={() => onPick(null)}>
+						<button className={`picker-row${piece.enchant ? '' : ' picker-row-on'}`} onClick={() => onPick(null)}>
 							<ItemIcon icon={undefined} quality={undefined} small />
 							<span className="picker-main">
-								<span className="picker-name">Remove the enchant</span>
+								<span className="picker-name">No enchant</span>
+								{!piece.enchant && <span className="slot-source">as it is now</span>}
 							</span>
 						</button>
 					</li>
@@ -100,6 +78,40 @@ export function EnchantPicker({ slotIndex, gear, character, data, spec, onPick, 
 				})}
 			</ul>
 			{rows.length === 0 && <p className="hint">Nothing can be put on this item.</p>}
+		</>
+	);
+}
+
+/** Every enchant that fits the item in a slot, in a window of its own. */
+export function EnchantPicker({ slotIndex, gear, character, data, spec, onPick, onClose }: Props) {
+	const dialog = useRef<HTMLDialogElement>(null);
+	const piece = gear[slotIndex];
+	const item = piece ? data.itemById.get(piece.id) : undefined;
+
+	useEffect(() => {
+		const element = dialog.current;
+		if (element && !element.open) element.showModal();
+	}, []);
+
+	return (
+		<dialog
+			ref={dialog}
+			className="picker"
+			aria-labelledby="enchant-picker-title"
+			onClose={onClose}
+			onClick={event => {
+				if (event.target === dialog.current) dialog.current?.close();
+			}}>
+			<div className="picker-head">
+				<h3 id="enchant-picker-title">Enchant: {GEAR_SLOTS[slotIndex].label}</h3>
+				<button className="button button-small" onClick={() => dialog.current?.close()}>
+					Close
+				</button>
+			</div>
+			<p className="picker-current">
+				{item?.name}. Only enchants that fit this item are listed; the number is what each adds over no enchant.
+			</p>
+			<EnchantList slotIndex={slotIndex} gear={gear} character={character} data={data} spec={spec} onPick={onPick} />
 		</dialog>
 	);
 }

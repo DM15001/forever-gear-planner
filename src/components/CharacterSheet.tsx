@@ -224,7 +224,26 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 				/>
 			)}
 			{picking !== null && data && (
-				<ItemPicker slotIndex={picking} gear={character.gear} character={character} data={data} spec={spec} filter={EVERYTHING} startWithAll allowEmpty onPick={id => pickItem(picking, id)} onClose={() => setPicking(null)} />
+				<ItemPicker
+					slotIndex={picking}
+					gear={character.gear}
+					character={character}
+					data={data}
+					spec={spec}
+					filter={EVERYTHING}
+					startWithAll
+					allowEmpty
+					onPick={id => pickItem(picking, id)}
+					onEnchant={effectId => {
+						const piece = character.gear[picking];
+						if (piece) {
+							const { enchant: _old, ...rest } = piece;
+							setPiece(picking, effectId ? { ...rest, enchant: effectId } : rest);
+						}
+						setPicking(null);
+					}}
+					onClose={() => setPicking(null)}
+				/>
 			)}
 		</section>
 	);

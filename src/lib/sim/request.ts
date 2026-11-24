@@ -190,6 +190,33 @@ export interface SimAuraRow {
 	id: SimActionId;
 	/** Part of the fight the effect was up, 0 to 1. */
 	uptime: number;
+	/** How often it was gained per fight. */
+	procs: number;
+	/** Gains per minute. */
+	ppm: number;
+}
+
+/** One line of the Casts table: how often something was cast or swung per fight. */
+export interface SimCastRow {
+	id: SimActionId;
+	pet?: string;
+	casts: number;
+	/** Casts per minute. */
+	cpm: number;
+}
+
+/** One source of a resource (mana, rage, energy, combo points, health): what it gave or cost per fight. */
+export interface SimResourceRow {
+	id: SimActionId;
+	/** How often it gave or took the resource, per fight. */
+	events: number;
+	/** What it gave per fight; negative for a cost. */
+	gain: number;
+	perSecond: number;
+	/** Per event. */
+	average: number;
+	/** The part that went over the cap. */
+	wasted: number;
 }
 
 /** What a run is made of, beyond its average. */
@@ -210,6 +237,10 @@ export interface SimBreakdown {
 	auras: SimAuraRow[];
 	/** Debuffs on the target. */
 	targetAuras: SimAuraRow[];
+	/** Everything cast or swung, damaging or not, most often first. */
+	casts: SimCastRow[];
+	/** Per resource, where it came from and went. */
+	resources: { type: string; rows: SimResourceRow[] }[];
 }
 
 export interface SimOutcome {
@@ -226,8 +257,9 @@ export interface SimOutcome {
 }
 
 type RawAction = { id: SimActionId; targets?: (Record<string, number> & { ranges?: Record<string, { max?: number }> })[] };
-type RawAura = { id: SimActionId; uptimeSecondsAvg?: number };
-type RawUnit = { name?: string; actions?: RawAction[]; auras?: RawAura[]; pets?: RawUnit[]; secondsOomAvg?: number };
+type RawAura = { id: SimActionId; uptimeSecondsAvg?: number; procsAvg?: number };
+type RawResource = { id: SimActionId; type?: string; events?: number; gain?: number; actualGain?: number };
+type RawUnit = { name?: string; actions?: RawAction[]; auras?: RawAura[]; resources?: RawResource[]; pets?: RawUnit[]; secondsOomAvg?: number };
 
 function readBreakdown(result: any, iterations: number, healing = false): SimBreakdown | undefined {
 	const dps = healing ? result.raidMetrics?.hps : result.raidMetrics?.dps;
@@ -235,6 +267,7 @@ function readBreakdown(result: any, iterations: number, healing = false): SimBre
 	const seconds: number = result.avgIterationDuration;
 	if (!player || !seconds) return undefined;
 	const rows: SimActionRow[] = [];
+	const castRows: SimCastRow[] = [];
 	let allCasts = 0;
 	const collect = (unit: RawUnit, pet?: string) => {
 		for (const action of unit.actions ?? []) {
@@ -243,6 +276,7 @@ function readBreakdown(result: any, iterations: number, healing = false): SimBre
 			// For a healer the rows are healing done, shields included.
 			const damage = healing ? sum('healing') + sum('shielding') : sum('damage');
 			if (!pet) allCasts += sum('casts');
+			if (sum('casts') > 0) castRows.push({ id: action.id, ...(pet ? { pet } : {}), casts: sum('casts') / iterations, cpm: sum('casts') / iterations / (seconds / 60) });
 			if (damage <= 0) continue;
 			const landed = sum('hits') + sum('crits') + sum('ticks') + sum('critTicks');
 			const casts = sum('casts');
@@ -266,9 +300,20 @@ function readBreakdown(result: any, iterations: number, healing = false): SimBre
 	const total = rows.reduce((sum, row) => sum + row.damage, 0) || 1;
 	const auras = (list: RawAura[] | undefined): SimAuraRow[] =>
 		(list ?? [])
-			.map(aura => ({ id: aura.id, uptime: Math.min(1, (aura.uptimeSecondsAvg ?? 0) / seconds) }))
+			.map(aura => ({ id: aura.id, uptime: Math.min(1, (aura.uptimeSecondsAvg ?? 0) / seconds), procs: aura.procsAvg ?? 0, ppm: (aura.procsAvg ?? 0) / (seconds / 60) }))
 			.filter(aura => aura.uptime > 0.001)
 			.sort((x, y) => y.uptime - x.uptime);
+	// Resources come as totals over all fights: per type, gains first, then costs.
+	const byType = new Map<string, SimResourceRow[]>();
+	for (const raw of player.resources ?? []) {
+		const type = String(raw.type ?? '').replace(/^ResourceType/, '').replace(/([a-z])([A-Z])/g, '$1 $2');
+		const events = (raw.events ?? 0) / iterations;
+		const gain = (raw.gain ?? 0) / iterations;
+		if (!type || (!events && !gain)) continue;
+		const list = byType.get(type) ?? byType.set(type, []).get(type)!;
+		list.push({ id: raw.id, events, gain, perSecond: gain / seconds, average: events ? gain / events : 0, wasted: gain > 0 ? Math.max(0, gain - (raw.actualGain ?? raw.gain ?? 0) / iterations) : 0 });
+	}
+	const resources = [...byType.entries()].map(([type, list]) => ({ type, rows: list.sort((x, y) => y.gain - x.gain) }));
 	return {
 		min: dps.min,
 		max: dps.max,
@@ -282,6 +327,8 @@ function readBreakdown(result: any, iterations: number, healing = false): SimBre
 		actions: rows.sort((x, y) => y.damage - x.damage).map(row => ({ ...row, share: row.damage / total })),
 		auras: auras(player.auras),
 		targetAuras: auras(result.encounterMetrics?.targets?.[0]?.auras),
+		casts: castRows.sort((x, y) => y.casts - x.casts),
+		resources,
 	};
 }
 
@@ -290,6 +337,8 @@ export const actionKey = (id: SimActionId): string => (id.spellId ? `s${id.spell
 
 /** The simulator's numbers for the actions that are neither spell nor item, as its fight log prints them. */
 const OTHER_BY_NUMBER: Record<string, string> = { 3: 'OtherActionAttack', 4: 'OtherActionShoot', 7: 'OtherActionPet' };
+/** The other numbered actions of the log, named for the reader only. */
+const OTHER_NAMES: Record<string, string> = { 1: 'OtherActionWait', 2: 'OtherActionManaRegen', 5: 'OtherActionEnergyRegen', 6: 'OtherActionFocusRegen', 8: 'OtherActionRefund', 9: 'OtherActionDamageTaken', 10: 'OtherActionHealingModel', 11: 'OtherActionBloodRuneGain', 12: 'OtherActionFrostRuneGain', 13: 'OtherActionUnholyRuneGain', 14: 'OtherActionDeathRuneGain', 15: 'OtherActionPotion', 16: 'OtherActionExplosives', 17: 'OtherActionOffensiveEquip', 18: 'OtherActionDefensiveEquip' };
 
 /** One fight, second by second: what each damage source did in each slice of time. */
 export interface SimTimeline {
@@ -301,7 +350,21 @@ export interface SimTimeline {
 	series: Record<string, number[]>;
 	/** Every cast of the fight, by what was cast: the moments it started, in seconds. */
 	casts: { id: SimActionId; times: number[]; /** True for something the player presses: it costs a resource or the global cooldown, or it is used only a few times (a cooldown, a potion). */ pressed: boolean }[];
+	/** Every line of the fight log, in order. `text` keeps the engine's {SpellID: 1} marks; LOG_TOKEN finds them. */
+	log: { time: number; who: string; text: string }[];
+	/** When each effect was up: on the player, or on the target. */
+	auras: { id: SimActionId; target: boolean; spans: [start: number, end: number][] }[];
+	/** How full each resource was over the fight: [time, value] at every change. */
+	resources: { name: string; max: number; points: [time: number, value: number][] }[];
 }
+
+/** An action as the fight log prints it. */
+export const LOG_TOKEN = /\{(SpellID|ItemID|OtherID): (\d+)(?:, Tag: (-?\d+))?[^}]*\}/g;
+/** The action a mark of the fight log names. */
+export const logAction = (kind: string, id: string, tag?: string): SimActionId => ({ ...(kind === 'SpellID' ? { spellId: Number(id) } : kind === 'ItemID' ? { itemId: Number(id) } : { otherId: OTHER_BY_NUMBER[id] ?? OTHER_NAMES[id] ?? id }), ...(tag && tag !== '0' ? { tag: Number(tag) } : {}) });
+const SPLIT_LINE = /^\[(-?[\d.]+)\] \[([^\]]+)\] (.*)$/;
+const AURA_LINE = /^Aura (gained|faded): \{(SpellID|ItemID|OtherID): (\d+)(?:, Tag: (-?\d+))?[^}]*\}/;
+const RESOURCE_LINE = /^(?:Gained|Spent) [\d.]+ ([a-z ]+?) from .*\((-?[\d.]+) --> (-?[\d.]+)\)(?: of ([\d.]+) total)?/;
 
 const CAST_LINE = /^\[(-?[\d.]+)\] \[([^\]]+)\] Casting \{(SpellID|ItemID|OtherID): (\d+)(?:, Tag: (-?\d+))?[^}]*\}(?: \(Cost = ([\d.]+), Cast Time = [^,]*, GCD = ([\d.]+))?/;
 const LOG_LINE = /^\[(-?[\d.]+)\] \[([^\]]+)\] \[[^\]]+\] \{(SpellID|ItemID|OtherID): (\d+)(?:, Tag: (-?\d+))?[^}]*\} (?:tick )?\w+ for ([\d.]+) (damage|healing)/;
@@ -315,7 +378,39 @@ export function readTimeline(json: string | null | undefined, healing = false, s
 	const slices = Math.max(1, Math.ceil(seconds / slice));
 	const series: Record<string, number[]> = {};
 	const casts = new Map<string, { id: SimActionId; times: number[]; free: boolean }>();
+	const log: SimTimeline['log'] = [];
+	const auraRows = new Map<string, { id: SimActionId; target: boolean; spans: [number, number][]; open?: number }>();
+	const resourceRows = new Map<string, { name: string; max: number; points: [number, number][] }>();
 	for (const line of result.logs.split('\n')) {
+		const parts = SPLIT_LINE.exec(line);
+		if (parts) {
+			const at = Number(parts[1]);
+			const who = parts[2];
+			const text = parts[3];
+			log.push({ time: at, who, text });
+			const aura = AURA_LINE.exec(text);
+			if (aura) {
+				const id = logAction(aura[2], aura[3], aura[4]);
+				const target = who.startsWith('Target');
+				const key = `${target ? 't' : 'p'}${actionKey(id)}`;
+				const row = auraRows.get(key) ?? auraRows.set(key, { id, target, spans: [] }).get(key)!;
+				const now = Math.max(0, at);
+				if (aura[1] === 'gained') row.open ??= now;
+				else if (row.open !== undefined) {
+					if (now > row.open) row.spans.push([row.open, now]);
+					row.open = undefined;
+				}
+			} else if (!who.startsWith('Target')) {
+				const change = RESOURCE_LINE.exec(text);
+				if (change) {
+					const name = change[1].trim();
+					const row = resourceRows.get(name) ?? resourceRows.set(name, { name, max: 0, points: [] }).get(name)!;
+					row.max = Math.max(row.max, Number(change[4] ?? 0), Number(change[2]), Number(change[3]));
+					if (row.points.length === 0) row.points.push([Math.max(0, at), Number(change[2])]);
+					row.points.push([Math.max(0, at), Number(change[3])]);
+				}
+			}
+		}
 		const cast = CAST_LINE.exec(line);
 		if (cast) {
 			const [, time, source, kind, id, tag, cost, gcd] = cast;
@@ -341,7 +436,9 @@ export function readTimeline(json: string | null | undefined, healing = false, s
 	}
 	// Attacks and procs are "cast" by the engine too. What costs nothing, skips the global cooldown and still happens all the time is a proc.
 	const rows = [...casts.values()].map(({ id, times, free }) => ({ id, times, pressed: !id.otherId && (!free || times.length <= 8) }));
-	return { slice, seconds, series, casts: rows.sort((x, y) => Number(y.pressed) - Number(x.pressed) || y.times.length - x.times.length) };
+	// What is still up when the fight ends was up until the end.
+	const auras = [...auraRows.values()].map(({ id, target, spans, open }) => ({ id, target, spans: open !== undefined && open < seconds ? [...spans, [open, seconds] as [number, number]] : spans })).filter(row => row.spans.length > 0);
+	return { slice, seconds, series, casts: rows.sort((x, y) => Number(y.pressed) - Number(x.pressed) || y.times.length - x.times.length), log, auras, resources: [...resourceRows.values()].filter(row => row.points.length > 1) };
 }
 
 /** Reads the sim's JSON answer. Throws with the sim's message when it reports an error. */

@@ -4,6 +4,7 @@ import { CharacterSheet } from './components/CharacterSheet';
 import { EnchantsTab } from './components/EnchantsTab';
 import { castingShare, countsMending, mendingWeights } from './lib/sim/mending';
 import { NewsTab, newsUnseen } from './components/NewsTab';
+import { GearRails } from './components/GearRail';
 import { CharacterBar } from './components/CharacterBar';
 import { ClassIcon } from './components/ClassIcon';
 import { FarmTab } from './components/FarmTab';
@@ -28,8 +29,9 @@ import type { Character, SpecConfig } from './lib/types';
 
 const TABS = [
 	{ id: 'character', label: 'Character', step: 1 },
-	{ id: 'upgrades', label: 'Upgrades', step: 2 },
-	{ id: 'farm', label: 'Farm plan', step: 3 },
+	{ id: 'simulate', label: 'Simulation', step: 2 },
+	{ id: 'upgrades', label: 'Upgrades', step: 3 },
+	{ id: 'farm', label: 'Farm plan', step: 4 },
 	{ id: 'enchants', label: 'Enchants & professions' },
 	{ id: 'sim', label: 'Sim setup' },
 	{ id: 'news', label: 'News' },
@@ -213,6 +215,23 @@ function ChannelSwitch() {
 	);
 }
 
+/** What the visitor chose to see; kept in this browser, the same for every character. */
+interface ViewOptions {
+	equippedPanel: boolean;
+	plannedPanel: boolean;
+}
+const OPTIONS_KEY = 'fgp.options';
+const DEFAULT_OPTIONS: ViewOptions = { equippedPanel: true, plannedPanel: true };
+
+function loadOptions(): ViewOptions {
+	try {
+		const saved = JSON.parse(localStorage.getItem(OPTIONS_KEY) ?? '{}') as Partial<ViewOptions>;
+		return { equippedPanel: saved.equippedPanel !== false, plannedPanel: saved.plannedPanel !== false };
+	} catch {
+		return DEFAULT_OPTIONS;
+	}
+}
+
 /** Shown when the site published a newer simulator while this page stayed open: reload, or the numbers lag behind wowsims.com. */
 function EngineNotice() {
 	const [outdated, setOutdated] = useState(false);
@@ -243,6 +262,15 @@ function EngineNotice() {
 }
 
 export function App() {
+	const [options, setOptions] = useState<ViewOptions>(loadOptions);
+	const changeOptions = useCallback((next: ViewOptions) => {
+		setOptions(next);
+		try {
+			localStorage.setItem(OPTIONS_KEY, JSON.stringify(next));
+		} catch {
+			// Without storage the choice lasts until the page is closed.
+		}
+	}, []);
 	// A character that arrives in a share link is added next to the saved ones, never over them.
 	const [roster, setRoster] = useState<Roster>(() => {
 		const saved = loadRoster();
@@ -332,6 +360,33 @@ export function App() {
 		setImporting(false);
 	};
 
+	// The character panel: the first tab, and the window the side panes open.
+	const characterSheet = character ? (
+		<CharacterSheet
+			spec={spec}
+			character={character}
+			data={data}
+			onChange={update}
+			names={roster.characters.map((c, i) => characterLabel(c, i, specOf(c)))}
+			builds={specsOfClass(baseSpec.className)}
+			activeIndex={roster.active}
+			shareLink={shareUrl(character, window.location.href)}
+			next={
+				<>
+					<span className="slot-source">Check race, professions and enchants, then</span>
+					<button
+						className="button button-primary"
+						onClick={() => {
+							setUpgradeView('plan');
+							setTab('simulate');
+						}}>
+						Build my gear plan
+					</button>
+				</>
+			}
+		/>
+	) : null;
+
 	return (
 		<div className="page">
 			<ChannelSwitch />
@@ -413,7 +468,8 @@ export function App() {
 				)}
 				{character && !importing && (
 					<SimProvider character={character}>
-						{tab === 'upgrades' && (
+						{data && <GearRails spec={spec} character={character} data={data} showEquipped={options.equippedPanel} showPlanned={options.plannedPanel} onShow={(kind, on) => changeOptions({ ...options, [kind === 'equipped' ? 'equippedPanel' : 'plannedPanel']: on })} filter={filter} onChange={update} />}
+						{tab === 'simulate' && (
 							<div className="view-switch" role="group" aria-label="How to pick upgrades">
 								<button className="view-choice" aria-pressed={upgradeView === 'slots'} onClick={() => setUpgradeView('slots')}>
 									<strong>Slot by slot</strong>
@@ -425,12 +481,12 @@ export function App() {
 								</button>
 							</div>
 						)}
-						{tab === 'upgrades' && baseSpec.role === 'healer' && <HealingPicker character={character} spec={spec} onChange={update} />}
-						{tab === 'upgrades' && upgradeView === 'plan' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} /> : <p>Loading item data…</p>)}
+						{tab === 'simulate' && baseSpec.role === 'healer' && <HealingPicker character={character} spec={spec} onChange={update} />}
+						{(tab === 'simulate' || tab === 'upgrades') && upgradeView === 'plan' && (data ? <PlanTab part={tab === 'simulate' ? 'sim' : 'list'} spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} /> : <p>Loading item data…</p>)}
 
-						{tab === 'upgrades' && upgradeView === 'slots' && (data ? <UpgradesTab spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
+						{(tab === 'simulate' || tab === 'upgrades') && upgradeView === 'slots' && (data ? <UpgradesTab part={tab === 'simulate' ? 'sim' : 'list'} spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
 
-						{tab === 'farm' && (data ? <FarmTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
+						{tab === 'farm' && (data ? <FarmTab spec={spec} character={character} data={data} filter={filter} onChange={update} roster={roster} onRosterChange={changeRoster} /> : <p>Loading item data…</p>)}
 
 						{tab === 'enchants' && (data ? <EnchantsTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
 
@@ -451,29 +507,7 @@ export function App() {
 										</button>
 									</div>
 								)}
-								<CharacterSheet
-									spec={spec}
-									character={character}
-									data={data}
-									onChange={update}
-									names={roster.characters.map((c, i) => characterLabel(c, i, specOf(c)))}
-									builds={specsOfClass(baseSpec.className)}
-									activeIndex={roster.active}
-									shareLink={shareUrl(character, window.location.href)}
-									next={
-										<>
-											<span className="slot-source">Check race, professions and enchants, then</span>
-											<button
-												className="button button-primary"
-												onClick={() => {
-													setUpgradeView('plan');
-													setTab('upgrades');
-												}}>
-												Build my gear plan
-											</button>
-										</>
-									}
-								/>
+								{characterSheet}
 							</>
 						)}
 					</SimProvider>

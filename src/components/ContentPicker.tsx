@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { contentCatalog, presets, sameFilter, toggled } from '../lib/content';
 import type { GameData } from '../lib/gameData';
-import { type SourceFilter, TIER_SLOTS, tierSets } from '../lib/scoring';
+import { type SourceFilter, TIER_SLOTS, tierSets, PVP_RANKS } from '../lib/scoring';
 import type { Character, SpecConfig } from '../lib/types';
 
 interface Props {
@@ -81,13 +81,14 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 						How many set pieces
 						<select value={filter.tierMinimum} onChange={e => set({ tierMinimum: Number(e.target.value) })}>
 							<option value={0}>Whatever is best</option>
-							{[2, 4, 6, 8].map(n => (
+							{[2, 3, 4, 6, 8].map(n => (
 								<option key={n} value={n} disabled={filter.tierSlots.length < n}>
 									At least {n} of one set
 								</option>
 							))}
 						</select>
 					</label>
+					{check('I do the Tier 0.5 questline (the upgraded dungeon set)', filter.tier05, on => set({ tier05: on }))}
 					{TIER_SLOTS.map(([kind, label]) => check(`${label} (set piece)`, filter.tierSlots.includes(kind), on => set({ tierSlots: on ? [...filter.tierSlots, kind] : filter.tierSlots.filter(slot => slot !== kind) })))}
 				</fieldset>
 			)}
@@ -110,7 +111,6 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 
 			<fieldset className="content-group">
 				<legend>Everything else</legend>
-				{tiers && check('Tier 0.5 questline (the upgraded dungeon set)', filter.tier05, on => set({ tier05: on }))}
 				{check('Random-suffix items ("of Shadow Wrath"), best roll', filter.randomSuffix, on => set({ randomSuffix: on }))}
 				{check('Items not in the game yet', filter.notYetAvailable, on => set({ notYetAvailable: on }))}
 				{check('Quest rewards', filter.quest, on => set({ quest: on }))}
@@ -120,6 +120,21 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				{check('Other vendors', filter.vendor, on => set({ vendor: on }))}
 				{check('World drops', filter.drop, on => set({ drop: on }))}
 				{check('PvP: rank rewards and battlegrounds (their reputations and quests)', filter.pvp, on => set({ pvp: on }))}
+				{filter.pvp && (
+					<label className="tier-minimum">
+						Highest honor rank you will reach
+						<select value={filter.pvpMaxRank ?? 14} onChange={e => set({ pvpMaxRank: Number(e.target.value) })}>
+							{PVP_RANKS.filter(([rank]) => rank >= 3).map(([rank, alliance, horde]) => (
+								<option key={rank} value={rank}>
+									Rank {rank}: {alliance === horde ? alliance : `${alliance} / ${horde}`}
+									{rank === 14 ? ' (all rank rewards)' : ''}
+								</option>
+							))}
+							<option value={0}>No rank rewards, battlegrounds only</option>
+						</select>
+						<span className="slot-source">Rewards of a higher rank are left out. Battleground reputations and quests stay in.</span>
+					</label>
+				)}
 				{check('Items with no known source', filter.unknown, on => set({ unknown: on }))}
 			</fieldset>
 			{!faction && <p className="field-error">Pick a race on the Character tab to hide the other faction's items.</p>}

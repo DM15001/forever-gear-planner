@@ -57,7 +57,8 @@ const FILTER_KEY = 'forever-gear-planner.content.v1';
 export function normalFilter(saved: Partial<SourceFilter>): SourceFilter | null {
 	const merged: SourceFilter = { ...DEFAULT_FILTER, ...saved };
 	if (![merged.excludedDungeons, merged.excludedReputations, merged.hiddenItems, merged.tierSlots, merged.ignoredSets].every(Array.isArray)) return null;
-	if (![0, 2, 4, 6, 8].includes(merged.tierMinimum)) merged.tierMinimum = 0;
+	if (![0, 2, 3, 4, 6, 8].includes(merged.tierMinimum)) merged.tierMinimum = 0;
+	if (!Number.isInteger(merged.pvpMaxRank) || merged.pvpMaxRank < 0 || merged.pvpMaxRank > 14) merged.pvpMaxRank = 14;
 	return merged;
 }
 

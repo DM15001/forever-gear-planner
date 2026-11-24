@@ -7,6 +7,7 @@ import { type SimActionId, type SimActionRow, simKey, type SimOutcome, actionKey
 import type { SimSetupData } from '../lib/sim/setup';
 import { wowheadItemUrl, wowheadSpellUrl, wowheadData } from '../lib/stats';
 import type { Character } from '../lib/types';
+import { type ActionLook, ActionName, AuraTable, CastTable, LogView, ResourceLane, ResourceTables } from './BreakdownTabs';
 import { ICON_SOURCES } from './ItemIcon';
 
 /** Set VITE_NO_SIM=1 at build time for a copy of the site without the simulator files. */
@@ -226,9 +227,11 @@ function TimelineGraph({ timeline, rows, lit, onLit, nameOf }: { timeline: SimTi
 const CAST_SCALE = 26;
 
 /** Every cast of one simulated fight: a row per spell, its icon at each moment it was cast. Scrolls sideways. */
-function CastTimeline({ timeline, nameOf, iconOf, neverCast }: { timeline: SimTimeline; nameOf: (id: SimActionId) => string; iconOf: (id: SimActionId) => string | undefined; /** Spells and items that do damage without ever being cast, by the simulator's own count (Ignite): procs and burns. */ neverCast: Set<number> }) {
-	// Attacks and procs fill the picture; they are shown on request.
-	const [everything, setEverything] = useState(false);
+function CastTimeline({ timeline, nameOf, iconOf, neverCast, look }: { timeline: SimTimeline; nameOf: (id: SimActionId) => string; iconOf: (id: SimActionId) => string | undefined; look: ActionLook; /** Spells and items that do damage without ever being cast, by the simulator's own count (Ignite): procs and burns. */ neverCast: Set<number> }) {
+	// Attacks and procs (extra swings, Windfury, weapon procs) are part of the picture; they can be switched off.
+	const [everything, setEverything] = useState(true);
+	// Effects that are simply up for the whole fight say little on a time line.
+	const [constant, setConstant] = useState(false);
 	// One row per spell: the engine tells combo point counts and the like apart, the reader does not need to.
 	const merged = new Map<string, { id: SimActionId; times: number[] }>();
 	for (const row of timeline.casts) {
@@ -240,6 +243,13 @@ function CastTimeline({ timeline, nameOf, iconOf, neverCast }: { timeline: SimTi
 	}
 	const shown = [...merged.values()].sort((x, y) => y.times.length - x.times.length);
 	const width = Math.ceil(timeline.seconds) * CAST_SCALE + 40;
+	// Health only moves when something heals the player; as a lane it is a flat bar.
+	const lanes = timeline.resources.filter(resource => resource.name !== 'health');
+	// Effects that come and go, on the player and on the target; the ones that are simply always up only on request.
+	const effects = timeline.auras
+		.map(row => ({ ...row, up: row.spans.reduce((sum, [start, end]) => sum + end - start, 0) }))
+		.filter(row => constant || row.up < timeline.seconds * 0.98 || row.spans.length > 1)
+		.sort((x, y) => Number(x.target) - Number(y.target) || y.spans.length - x.spans.length);
 	const ticks = Array.from({ length: Math.floor(timeline.seconds) + 1 }, (_, second) => second);
 	if (timeline.casts.length === 0) return <p className="hint">The log of this fight lists no casts.</p>;
 	return (
@@ -247,6 +257,11 @@ function CastTimeline({ timeline, nameOf, iconOf, neverCast }: { timeline: SimTi
 			<div className="cast-timeline-frame">
 				<div className="cast-names">
 					<div className="cast-ruler-gap" />
+					{lanes.map(resource => (
+						<div key={resource.name} className="cast-name cast-name-resource" title={`${resource.name}, 0 to ${Math.round(resource.max)}`}>
+							{resource.name.replace(/^./, letter => letter.toUpperCase())}
+						</div>
+					))}
 					{shown.map(row => (
 						<div key={actionKey(row.id)} className="cast-name" title={`${nameOf(row.id)}: ${row.times.length} cast${row.times.length === 1 ? '' : 's'}`}>
 							<ActionIcon icon={iconOf(row.id)} />
@@ -259,6 +274,12 @@ function CastTimeline({ timeline, nameOf, iconOf, neverCast }: { timeline: SimTi
 							)}
 						</div>
 					))}
+					{effects.map(row => (
+						<div key={`${row.target ? 't' : 'p'}${actionKey(row.id)}`} className="cast-name cast-name-effect" title={`${nameOf(row.id)}${row.target ? ' on the target' : ''}: up ${Math.round((row.up / timeline.seconds) * 100)}% of the fight`}>
+							<ActionName id={row.id} look={look} />
+							{row.target && <span className="slot-source">target</span>}
+						</div>
+					))}
 				</div>
 				<div className="cast-scroll" tabIndex={0} aria-label="Casts over the time of the fight; scroll sideways">
 					<div style={{ width }}>
@@ -269,6 +290,11 @@ function CastTimeline({ timeline, nameOf, iconOf, neverCast }: { timeline: SimTi
 								</span>
 							))}
 						</div>
+						{lanes.map(resource => (
+							<div key={resource.name} className="cast-row" title={`${resource.name} over the fight, 0 to ${Math.round(resource.max)}`}>
+								<ResourceLane points={resource.points} max={resource.max} seconds={timeline.seconds} scale={CAST_SCALE} width={width} />
+							</div>
+						))}
 						{shown.map(row => (
 							<div key={actionKey(row.id)} className="cast-row">
 								{row.times.map((time, i) => (
@@ -278,14 +304,25 @@ function CastTimeline({ timeline, nameOf, iconOf, neverCast }: { timeline: SimTi
 								))}
 							</div>
 						))}
+						{effects.map(row => (
+							<div key={`${row.target ? 't' : 'p'}${actionKey(row.id)}`} className="cast-row">
+								{row.spans.map(([start, end], i) => (
+									<span key={i} className={row.target ? 'cast-span cast-span-target' : 'cast-span'} style={{ left: start * CAST_SCALE, width: Math.max(2, (end - start) * CAST_SCALE) }} title={`${nameOf(row.id)}: ${clock(start)} to ${clock(end)} (${(end - start).toFixed(1)} s)`} />
+								))}
+							</div>
+						))}
 					</div>
 				</div>
 			</div>
 			<figcaption>
-				What was pressed in one simulated fight, most used first. Scroll sideways to follow the fight.{' '}
+				One simulated fight: resources on top, then what was pressed (most used first), then the effects that came and went on you and on the target. Scroll sideways to follow the fight.{' '}
 				<label className="check cast-all">
 					<input type="checkbox" checked={everything} onChange={e => setEverything(e.target.checked)} />
-					Also show attacks and procs
+					Attacks and procs
+				</label>{' '}
+				<label className="check cast-all">
+					<input type="checkbox" checked={constant} onChange={e => setConstant(e.target.checked)} />
+					Effects that are up all fight
 				</label>
 			</figcaption>
 		</figure>
@@ -293,11 +330,11 @@ function CastTimeline({ timeline, nameOf, iconOf, neverCast }: { timeline: SimTi
 }
 
 /** What a run is made of: damage per spell with bars, effects with their uptime, and how the fights spread. */
-function Breakdown({ title, outcome, names, timeline }: { title: string; outcome: SimOutcome; names: SimSetupData | null; /** One logged fight, for the graph over time; undefined while it loads or if it failed. */ timeline?: SimTimeline }) {
+function Breakdown({ outcome, names, timeline }: { outcome: SimOutcome; names: SimSetupData | null; /** One logged fight, for the graph over time; undefined while it loads or if it failed. */ timeline?: SimTimeline }) {
 	// The damage source under the pointer: its row, its bar and its part of the strip light up together.
 	const [lit, setLit] = useState<number | null>(null);
 	// Above the table: the damage over time, or every cast on a time line.
-	const [view, setView] = useState<'graph' | 'timeline'>('graph');
+	const [view, setView] = useState<'graph' | 'timeline' | 'buffs' | 'debuffs' | 'casts' | 'resources' | 'log'>('graph');
 	const iconOf = (id: SimActionId) => (id.spellId ? names?.spellIcons?.[id.spellId] : id.itemId ? names?.itemIcons?.[id.itemId] : OTHER_ICONS[String(id.otherId ?? '')]);
 	const breakdown = outcome.breakdown;
 	if (!breakdown) return null;
@@ -311,16 +348,20 @@ function Breakdown({ title, outcome, names, timeline }: { title: string; outcome
 		}
 		return id.rank ? `${base} (Rank ${id.rank})` : base;
 	};
-	// Effects that are simply always on say nothing about the run; the ones that come and go do.
-	const timed = (list: typeof breakdown.auras) => list.filter(aura => aura.uptime < 0.995);
-	const buffs = timed(breakdown.auras);
-	const debuffs = timed(breakdown.targetAuras);
 	const top = breakdown.actions[0]?.share || 1;
-	const fights = Math.max(1, ...breakdown.histogram.map(([, count]) => count));
-	const step = breakdown.histogram.length > 1 ? breakdown.histogram[1][0] - breakdown.histogram[0][0] : 1;
+	const look: ActionLook = { nameOf, icon: id => <ActionIcon icon={iconOf(id)} /> };
+	const tabs: [typeof view, string, boolean][] = [
+		['graph', 'Graph', true],
+		['timeline', 'Timeline', Boolean(timeline)],
+		['buffs', 'Buffs', true],
+		['debuffs', 'Debuffs', true],
+		['casts', 'Casts', true],
+		['resources', 'Resources', true],
+		['log', 'Log', Boolean(timeline)],
+	];
+	const table = view === 'graph' || view === 'timeline';
 	return (
 		<div className="breakdown">
-			<h4>{title}</h4>
 			<dl className="result-tiles">
 				<div>
 					<dt>{unit()}</dt>
@@ -341,18 +382,22 @@ function Breakdown({ title, outcome, names, timeline }: { title: string; outcome
 					<dd className="result-sub">about {breakdown.seconds.toFixed(0)} s each</dd>
 				</div>
 			</dl>
-			{timeline && (
-				<div className="result-tabs" role="tablist" aria-label="How to show the fight">
-					<button role="tab" aria-selected={view === 'graph'} className="result-tab" onClick={() => setView('graph')}>
-						Graph
+			<div className="result-tabs" role="tablist" aria-label="What to show of the run">
+				{tabs.map(([id, label, ready]) => (
+					<button key={id} role="tab" aria-selected={view === id} className="result-tab" disabled={!ready} title={ready ? undefined : 'Needs the log of one fight, which is still loading'} onClick={() => setView(id)}>
+						{label}
 					</button>
-					<button role="tab" aria-selected={view === 'timeline'} className="result-tab" onClick={() => setView('timeline')}>
-						Timeline
-					</button>
-				</div>
-			)}
+				))}
+			</div>
+			{view === 'buffs' && <AuraTable rows={breakdown.auras} look={look} empty="No effect on the character was recorded." />}
+			{view === 'debuffs' && <AuraTable rows={breakdown.targetAuras} look={look} empty="No effect on the target was recorded." />}
+			{view === 'casts' && <CastTable rows={breakdown.casts} look={look} />}
+			{view === 'resources' && <ResourceTables groups={breakdown.resources} look={look} />}
+			{view === 'log' && timeline && <LogView timeline={timeline} look={look} named={Boolean(names)} />}
+			{table && (
+				<>
 			{timeline && view === 'timeline' ? (
-				<CastTimeline timeline={timeline} nameOf={nameOf} iconOf={iconOf} neverCast={new Set(breakdown.actions.filter(row => row.casts < 0.005).map(row => row.id.spellId ?? row.id.itemId ?? 0))} />
+				<CastTimeline timeline={timeline} nameOf={nameOf} iconOf={iconOf} look={look} neverCast={new Set(breakdown.actions.filter(row => row.casts < 0.005).map(row => row.id.spellId ?? row.id.itemId ?? 0))} />
 			) : timeline ? (
 				<TimelineGraph timeline={timeline} rows={breakdown.actions} lit={lit} onLit={setLit} nameOf={nameOf} />
 			) : (
@@ -449,33 +494,109 @@ function Breakdown({ title, outcome, names, timeline }: { title: string; outcome
 					</tfoot>
 				</table>
 			</div>
-			{breakdown.histogram.length > 1 && (
-				<figure className="result-histogram">
-					<figcaption>How the single fights spread, in {unit()}</figcaption>
-					<div className="result-bars">
-						{breakdown.histogram.map(([bucket, count]) => {
-							const typical = Math.abs(bucket + step / 2 - outcome.dps) <= breakdown.stdev;
-							return <span key={bucket} className={typical ? 'result-column result-column-typical' : 'result-column'} style={{ height: `${(count / fights) * 100}%` }} title={`${bucket} to ${bucket + step} ${unit()}: ${count} fight${count === 1 ? '' : 's'}`} />;
-						})}
-					</div>
-					<div className="result-axis num">
-						<span>{breakdown.histogram[0][0]}</span>
-						<span>{Math.round(outcome.dps)}</span>
-						<span>{breakdown.histogram[breakdown.histogram.length - 1][0] + step}</span>
-					</div>
-				</figure>
-			)}
-			{buffs.length > 0 && (
-				<p className="slot-source">
-					<strong>Procs and timed effects on you:</strong> {buffs.map(aura => `${nameOf(aura.id)} ${percent(aura.uptime)}`).join(', ')}.
-				</p>
-			)}
-			{debuffs.length > 0 && (
-				<p className="slot-source">
-					<strong>Effects on the target that were not up all the time:</strong> {debuffs.map(aura => `${nameOf(aura.id)} ${percent(aura.uptime)}`).join(', ')}.
-				</p>
+				</>
 			)}
 		</div>
+	);
+}
+
+/** A window over the page, closed with the X, the Escape key or a click beside it. */
+export function Modal({ title, onClose, children, wide = false }: { title: string; onClose: () => void; children: ReactNode; wide?: boolean }) {
+	useEffect(() => {
+		const onKey = (event: KeyboardEvent) => {
+			if (event.key === 'Escape') onClose();
+		};
+		window.addEventListener('keydown', onKey);
+		return () => window.removeEventListener('keydown', onKey);
+	}, [onClose]);
+	return (
+		<div className="modal-veil" onMouseDown={event => event.target === event.currentTarget && onClose()}>
+			<div className={wide ? 'modal modal-wide' : 'modal'} role="dialog" aria-modal="true" aria-label={title}>
+				<header className="modal-head">
+					<h2>{title}</h2>
+					<button className="modal-close" onClick={onClose} aria-label="Close" title="Close">
+						<svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true">
+							<path d="M3 3l12 12M15 3L3 15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+						</svg>
+					</button>
+				</header>
+				<div className="modal-body">{children}</div>
+			</div>
+		</div>
+	);
+}
+
+/** The breakdown of one set in a window: a tab for the equipped and one for the planned gear, each with graph and timeline. */
+export function BreakdownDialog({ equipped, planned, hasPlan, initial = 'equipped', onClose }: { equipped: Gear; planned: Gear; hasPlan: boolean; initial?: 'equipped' | 'planned'; onClose: () => void }) {
+	const sim = useSim();
+	const a = sim.result(equipped, SET_ITERATIONS);
+	const b = hasPlan ? sim.result(planned, SET_ITERATIONS) : undefined;
+	const [which, setWhich] = useState<'equipped' | 'planned'>(hasPlan ? initial : 'equipped');
+	const [names, setNames] = useState<SimSetupData | null>(null);
+	const [timelines, setTimelines] = useState<Record<string, SimTimeline | undefined>>({});
+	useEffect(() => {
+		simClient.setup().then(setNames, () => undefined);
+	}, []);
+	const character = sim.character;
+	const keyA = simKey(character, equipped, -1);
+	const keyB = simKey(character, planned, -1);
+	// The graph over time needs one logged fight per set.
+	useEffect(() => {
+		if (!SIM_AVAILABLE) return;
+		for (const [key, gear, wanted] of [[keyA, equipped, Boolean(a)], [keyB, planned, Boolean(b)]] as const) {
+			if (!wanted || key in timelines) continue;
+			setTimelines(old => ({ ...old, [key]: undefined }));
+			simClient.timeline(character, gear).then(
+				timeline => setTimelines(old => ({ ...old, [key]: timeline })),
+				() => undefined,
+			);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [keyA, keyB, Boolean(a), Boolean(b)]);
+	const outcome = which === 'planned' ? b : a;
+	const gear = which === 'planned' ? planned : equipped;
+	const running = sim.isRunning(gear, SET_ITERATIONS);
+	const healing = Boolean(a?.healing ?? b?.healing);
+	const label = (text: string, result: typeof a) => `${text}${result ? `, ${result.dps.toFixed(0)} ${unit()}` : ''}`;
+	return (
+		<Modal title={healing ? 'Healing breakdown' : 'Damage breakdown'} onClose={onClose} wide>
+			<div className="gear-tabs" role="tablist" aria-label="Which gear">
+				<button role="tab" aria-selected={which === 'equipped'} className="gear-tab gear-tab-equipped" onClick={() => setWhich('equipped')}>
+					{label('Equipped gear', a)}
+				</button>
+				{hasPlan && (
+					<button role="tab" aria-selected={which === 'planned'} className="gear-tab gear-tab-planned" onClick={() => setWhich('planned')}>
+						{label('Planned gear', b)}
+					</button>
+				)}
+			</div>
+			{!SIM_AVAILABLE ? (
+				<p className="hint">The simulator is not part of this preview copy.</p>
+			) : outcome ? (
+				<Breakdown key={which} outcome={outcome} names={names} timeline={timelines[which === 'planned' ? keyB : keyA]} />
+			) : (
+				<div className="breakdown-missing">
+					<p>This set has not been simulated yet.</p>
+					<button className="button button-primary" disabled={running} onClick={() => sim.run(gear, SET_ITERATIONS)}>
+						{running ? 'Simulating…' : `Simulate the ${which} gear`}
+					</button>
+					<SimProgress />
+				</div>
+			)}
+			{outcome?.mending && (
+				<p className="hint">
+					<span className="tag-estimate">estimate</span> The simulator cannot cast Prayer of Mending yet, so its row is worked out by hand and the other rows are lowered by the casts it replaces: {Math.round(outcome.mending.perCast).toLocaleString('en')} per cast at{' '}
+					{Math.round(outcome.mending.healingPower)} healing power, {Math.round(outcome.mending.gross)} HPS, less {Math.round(outcome.mending.displaced)} HPS for the casts it replaces = +{Math.round(outcome.mending.hps)} HPS.
+				</p>
+			)}
+			{outcome && (
+				<p className="hint">
+					{healing
+						? 'Per spell: healing done over the fight and its part of all healing, casts per fight, how often it crit, and healing per second. "Out of mana" is the time the healer stood without mana to cast.'
+						: 'Per spell: average DPS, its part of all damage, casts per fight, how often it crit and how often a cast missed. Effects that were up for the whole fight are left out; the Sim setup tab lists them.'}
+				</p>
+			)}
+		</Modal>
 	);
 }
 
@@ -486,30 +607,7 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 	const b = hasPlan ? sim.result(planned, SET_ITERATIONS) : undefined;
 	const runningNow = sim.isRunning(equipped, SET_ITERATIONS) || sim.isRunning(planned, SET_ITERATIONS);
 	const complete = Boolean(a && (!hasPlan || b));
-	// Spell and item names for the breakdown, fetched when it is first opened.
-	const [names, setNames] = useState<SimSetupData | null>(null);
-	// The graph over time needs one logged fight per set; it is run when the breakdown is first opened.
-	const [opened, setOpened] = useState(false);
-	const [timelines, setTimelines] = useState<Record<string, SimTimeline | undefined>>({});
-	const loadNames = () => {
-		if (!names) simClient.setup().then(setNames, () => undefined);
-		setOpened(true);
-	};
-	const character = sim.character;
-	const keyA = simKey(character, equipped, -1);
-	const keyB = simKey(character, planned, -1);
-	useEffect(() => {
-		if (!opened || !SIM_AVAILABLE) return;
-		for (const [key, gear, wanted] of [[keyA, equipped, Boolean(a)], [keyB, planned, Boolean(b)]] as const) {
-			if (!wanted || key in timelines) continue;
-			setTimelines(old => ({ ...old, [key]: undefined }));
-			simClient.timeline(character, gear).then(
-				timeline => setTimelines(old => ({ ...old, [key]: timeline })),
-				() => undefined,
-			);
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [opened, keyA, keyB, Boolean(a), Boolean(b)]);
+	const [breakdownOpen, setBreakdownOpen] = useState(false);
 	const show = (outcome: typeof a) => (outcome ? `${outcome.dps.toFixed(0)} ${unit()}` : '—');
 
 	// With `auto`, a short pause after the last change starts the missing runs by itself.
@@ -576,27 +674,14 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 				</p>
 			)}
 			{(a?.breakdown || b?.breakdown) && (
-				<details className="sim-details" onToggle={loadNames}>
-					<summary className="breakdown-toggle">{(a?.healing ?? b?.healing) ? 'Healing breakdown' : 'Damage breakdown'}</summary>
-					{a && <Breakdown title="Equipped gear" outcome={a} names={names} timeline={timelines[keyA]} />}
-					{b && <Breakdown title="Planned gear" outcome={b} names={names} timeline={timelines[keyB]} />}
-					{(a?.mending ?? b?.mending) && (
-						<p className="hint">
-							<span className="tag-estimate">estimate</span> The simulator cannot cast Prayer of Mending yet, so its row is worked out by hand and the other rows are lowered by the casts it replaces.{' '}
-							{[a && a.mending && ['Equipped', a.mending] as const, b && b.mending && ['Planned', b.mending] as const]
-								.filter(row => !!row)
-								.map(([label, m]) => `${label}: ${Math.round(m.perCast).toLocaleString('en')} per cast at ${Math.round(m.healingPower)} healing power, ${Math.round(m.gross)} HPS, less ${Math.round(m.displaced)} HPS for the casts it replaces = +${Math.round(m.hps)} HPS.`)
-								.join(' ')}{' '}
-							Untick "Count Prayer of Mending" under "What kind of healing?" to take it out of every number, the table and the rotation.
-						</p>
-					)}
-					<p className="hint">
-						{a?.healing ?? b?.healing
-							? 'Per spell: healing done over the fight and its part of all healing, casts per fight, how often it crit, and healing per second. "Out of mana" is the time the healer stood without mana to cast.'
-							: 'Per spell: average DPS, its part of all damage, casts per fight, how often it crit and how often a cast missed. Effects that were up for the whole fight are left out; the Sim setup tab lists them.'}
-					</p>
-				</details>
+				<p className="breakdown-open">
+					<button className="button button-primary" onClick={() => setBreakdownOpen(true)}>
+						{(a?.healing ?? b?.healing) ? 'Healing breakdown' : 'Damage breakdown'}
+					</button>
+					<span className="slot-source">Every spell, a graph and a timeline, for the equipped or the planned gear.</span>
+				</p>
 			)}
+			{breakdownOpen && <BreakdownDialog equipped={equipped} planned={planned} hasPlan={hasPlan} onClose={() => setBreakdownOpen(false)} />}
 			<p className="hint">
 				{unit() === 'HPS'
 					? 'Healing per second over the whole fight, from the WoWSims simulator: its spell data, talents, mana regeneration and consumables, with the healing scenario picked above. Time spent out of mana counts as time without healing. The first run downloads the simulator (6 MB) and takes a few seconds longer.'

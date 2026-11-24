@@ -25,12 +25,14 @@ interface Props {
 	filter: SourceFilter;
 	onFilterChange: (next: SourceFilter) => void;
 	onChange: (next: Character) => void;
+	/** 'sim': the plan's numbers, the simulation and the content choice. 'list': the planned items and the to-do list. */
+	part: 'sim' | 'list';
 }
 
 const formatGain = formatDps;
 
 /** The guided view: pick your content, get one plan, tick it off. */
-export function PlanTab({ spec, character, data, filter, onFilterChange, onChange }: Props) {
+export function PlanTab({ spec, character, data, filter, onFilterChange, onChange, part }: Props) {
 	const options = useMemo(() => ({ character, data, spec, filter }), [character, data, spec, filter]);
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
 	const marks = useMemo(() => guideMarks(data.guides), [data]);
@@ -119,7 +121,9 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 	return (
 		<div className="plan">
 			<section className="panel" aria-labelledby="plan-result">
-				<h2 id="plan-result">Your plan</h2>
+				<h2 id="plan-result">{part === 'sim' ? 'Simulate your character' : 'Your plan'}</h2>
+				{part === 'sim' && (
+					<>
 				<div className="summary">
 					<div className="summary-scores">
 						<div>
@@ -191,7 +195,12 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						}}
 					/>
 				</details>
+						<p className="hint part-pointer">The planned items and the to-do list are on the Upgrades tab.</p>
+					</>
+				)}
 
+				{part === 'list' && (
+					<>
 				<ul className="plain-list plan-slots">
 					{slots.map(({ slot, index, equippedItem, goalItem, goalEnchant, isChange, enchantOpen, others }) => (
 						<li key={slot.key} className={`plan-slot${isChange ? '' : ' plan-slot-done'}`}>
@@ -251,9 +260,12 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						</li>
 					))}
 				</ul>
-				{picking !== null && <ItemPicker slotIndex={picking} gear={gear} character={character} data={data} spec={spec} filter={filter} onPick={id => pickItem(picking, id)} onClose={() => setPicking(null)} />}
+				{picking !== null && <ItemPicker slotIndex={picking} gear={gear} character={character} data={data} spec={spec} filter={filter} onPick={id => pickItem(picking, id)} onEnchant={effectId => { onChange({ ...character, planEnchants: { ...(character.planEnchants ?? {}), [picking]: effectId ?? 0 } }); setPicking(null); }} onClose={() => setPicking(null)} />}
+					</>
+				)}
 			</section>
 
+			{part === 'list' && (
 			<section className="panel" aria-labelledby="plan-todo">
 				<h2 id="plan-todo">3. To do, biggest gain first</h2>
 				{steps.length === 0 ? (
@@ -266,6 +278,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 					</ol>
 				)}
 			</section>
+			)}
 		</div>
 	);
 }

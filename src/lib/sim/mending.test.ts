@@ -46,7 +46,7 @@ describe('Prayer of Mending, estimated', () => {
 
 	it('gets its own row in the table and the rows add up to the total', () => {
 		const row = { id: { spellId: 25314 }, casts: 50, damage: 180000, hits: 50, dps: 600, share: 1, crit: 0.1 };
-		const outcome = { dps: 600, error: 1, iterations: 100, healing: true, breakdown: { min: 500, max: 700, stdev: 30, seconds: 300, oomSeconds: 0, apm: 20, histogram: [[600, 100]] as [number, number][], actions: [row], auras: [], targetAuras: [] } };
+		const outcome = { dps: 600, error: 1, iterations: 100, healing: true, breakdown: { min: 500, max: 700, stdev: 30, seconds: 300, oomSeconds: 0, apm: 20, histogram: [[600, 100]] as [number, number][], actions: [row], auras: [], targetAuras: [], casts: [], resources: [] } };
 		const e = mendingEstimate(413, 700, 0, 600, 0.5);
 		const out = withMending(outcome, e, 0.5);
 		expect(out.dps).toBeCloseTo(600 + e.hps);

@@ -4615,124 +4615,253 @@ summary.breakdown-toggle:focus-visible {
 	background: var(--ember);
 }
 
-/* The dwarf that shows for a moment when the Live/Dev switch is unlocked; it stands under the switch and points up at it. */
-.cheer-dwarf {
+/* Windows over the page: encounter, damage breakdown. */
+.modal-veil {
 	position: fixed;
-	top: 2.6rem;
-	right: 1.6rem;
-	z-index: 60;
-	pointer-events: none;
-	overflow: visible;
-	filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.75));
-	transform-origin: 50% 100%;
-	animation: cheer-dwarf 4s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+	inset: 0;
+	z-index: 80;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	padding: 4vh 1rem 1rem;
+	overflow-y: auto;
+	background: rgba(0, 0, 0, 0.75);
 }
-.cheer-point {
-	transform-origin: 118px 104px;
-	animation: cheer-point 0.7s ease-in-out 0.5s 4 alternate;
+.modal {
+	width: min(40rem, 100%);
+	background: var(--slate);
+	border: 1px solid var(--brass-deep);
+	border-radius: 10px;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
 }
-.cheer-finger {
-	transform-origin: 62px 104px;
-	animation: cheer-finger 0.45s ease-in-out 0.6s 6 alternate;
+.modal-wide {
+	width: min(68rem, 100%);
 }
-.cheer-smoke {
-	opacity: 0;
-	animation: cheer-smoke 1.6s ease-out infinite;
+.modal-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+	padding: 0.75rem 0.75rem 0.5rem 1.25rem;
 }
-.cheer-smoke-2 {
-	animation-delay: 0.5s;
+.modal-head h2 {
+	margin: 0;
+	font-family: var(--display);
+	font-size: 1.3rem;
+	color: var(--brass);
 }
-.cheer-smoke-3 {
-	animation-delay: 1s;
+.modal-close {
+	display: grid;
+	place-items: center;
+	width: 2.75rem;
+	height: 2.75rem;
+	color: var(--mist);
+	background: var(--slate-raised);
+	border: 1px solid var(--ridge);
+	border-radius: 6px;
+	cursor: pointer;
 }
-.cheer-shine {
-	animation: cheer-shine 1.3s ease-in-out 0.6s 2 both;
+.modal-close:hover {
+	border-color: var(--brass);
+	color: var(--brass);
 }
-.cheer-bling {
-	transform-box: fill-box;
-	transform-origin: center;
-	animation: cheer-bling 0.9s ease-in-out infinite alternate;
+.modal-body {
+	padding: 0 1.25rem 1.25rem;
+	min-width: 0;
 }
-.cheer-bling-2 {
-	animation-delay: 0.3s;
+.modal-body .breakdown {
+	margin-top: 0.75rem;
 }
-.cheer-bling-3 {
-	animation-delay: 0.6s;
+.gear-tabs {
+	display: flex;
+	gap: 0.25rem;
+	border-bottom: 1px solid var(--ridge);
 }
-@keyframes cheer-shine {
-	from {
-		transform: translateX(0);
+.gear-tab {
+	padding: 0.65rem 1.1rem;
+	font: inherit;
+	font-weight: 600;
+	color: var(--haze);
+	background: none;
+	border: 1px solid var(--ridge);
+	border-bottom: 0;
+	border-radius: 8px 8px 0 0;
+	cursor: pointer;
+}
+.gear-tab[aria-selected='true'] {
+	background: var(--storm-glow);
+	color: var(--mist);
+	border-color: var(--brass);
+}
+.breakdown-missing {
+	padding: 1.5rem 0;
+}
+.breakdown-open,
+.fight-open {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem 0.75rem;
+	margin: 0.75rem 0;
+}
+.breakdown-open .button {
+	font-size: 1.05rem;
+	padding: 0.6rem 1.3rem;
+}
+.part-pointer {
+	margin-top: 0.75rem;
+}
+
+/* Equipped gear in the free space left of the page, planned gear in the space right of it: a copy of the in-game
+   character pane, icons only, centred in its gutter and grown to fill it, so both sides look the same. */
+.gear-rail {
+	display: none;
+}
+@media (min-width: 90rem) {
+	.gear-rail {
+		/* The free space beside the 72rem page, and how much of it the pane takes. */
+		--gutter: calc((100vw - 72rem) / 2);
+		--pane: clamp(7.5rem, calc(var(--gutter) - 2.5rem), 13rem);
+		--icon: min(calc((var(--pane) - 1.5rem) * 0.32), calc((100vh - 12rem) / 8.6));
+		position: fixed;
+		top: 50%;
+		z-index: 20;
+		display: block;
+		box-sizing: border-box;
+		width: var(--pane);
+		padding: 0.5rem;
+		background: var(--slate);
+		border: 1px solid var(--ridge);
+		border-radius: 8px;
+		font-size: 0.8rem;
 	}
-	to {
-		transform: translateX(200px);
+	.gear-rail-equipped {
+		left: calc(var(--gutter) / 2);
+		transform: translate(-50%, -50%);
+	}
+	.gear-rail-planned {
+		right: calc(var(--gutter) / 2);
+		transform: translate(50%, -50%);
 	}
 }
-@keyframes cheer-bling {
-	from {
-		opacity: 0.15;
-		transform: scale(0.4) rotate(0deg);
-	}
-	to {
-		opacity: 1;
-		transform: scale(1.15) rotate(45deg);
-	}
+.gear-rail-head {
+	display: flex;
+	align-items: center;
+	gap: 0.2rem;
 }
-@keyframes cheer-dwarf {
-	0% {
-		opacity: 0;
-		transform: translateY(-9rem) rotate(-25deg) scale(0.5);
-	}
-	14% {
-		opacity: 1;
-		transform: translateY(0) rotate(4deg) scale(1.08, 0.92);
-	}
-	20% {
-		transform: translateY(0) rotate(-2deg) scale(0.97, 1.04);
-	}
-	26%,
-	88% {
-		opacity: 1;
-		transform: translateY(0) rotate(0) scale(1);
-	}
-	100% {
-		opacity: 0;
-		transform: translateY(1rem) rotate(0) scale(0.2);
-	}
+.gear-rail-head h2 {
+	flex: 1;
+	min-width: 0;
+	margin: 0;
+	font-family: var(--display);
+	font-size: 0.85rem;
+	color: var(--brass);
 }
-@keyframes cheer-point {
-	to {
-		transform: rotate(-9deg);
-	}
+.gear-rail-planned .gear-rail-head h2 {
+	color: var(--ember);
 }
-@keyframes cheer-finger {
-	to {
-		transform: rotate(10deg) translateY(-3px);
-	}
+.gear-rail-open {
+	display: grid;
+	place-items: center;
+	width: 1.35rem;
+	height: 1.35rem;
+	padding: 0;
+	flex-shrink: 0;
+	color: var(--brass);
+	background: var(--slate-raised);
+	border: 1px solid var(--brass-deep);
+	border-radius: 4px;
+	cursor: pointer;
 }
-@keyframes cheer-smoke {
-	0% {
-		opacity: 0;
-		transform: translate(0, 0) scale(0.4);
-	}
-	25% {
-		opacity: 0.75;
-	}
-	100% {
-		opacity: 0;
-		transform: translate(14px, -46px) scale(2.2);
-	}
+.gear-rail-open:hover {
+	border-color: var(--brass);
 }
-@media (prefers-reduced-motion: reduce) {
-	.cheer-dwarf,
-	.cheer-point,
-	.cheer-finger,
-	.cheer-smoke,
-	.cheer-shine,
-	.cheer-bling {
-		animation: none;
+.gear-rail-facts {
+	display: flex;
+	flex-direction: column;
+	margin: 0.15rem 0 0.4rem;
+	line-height: 1.25;
+	color: var(--haze);
+}
+.gear-rail-doll {
+	display: flex;
+	justify-content: space-between;
+}
+.gear-rail-doll ul,
+.gear-rail-weapons {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+}
+.gear-rail-weapons {
+	flex-direction: row;
+	justify-content: center;
+	margin-top: 0.4rem;
+}
+.gear-rail-item a,
+.gear-rail-slot {
+	display: block;
+	padding: 0;
+	line-height: 0;
+	background: none;
+	border: 0;
+	border-radius: 4px;
+	cursor: pointer;
+}
+.gear-rail-item a:hover .slot-icon,
+.gear-rail-slot:hover .slot-icon {
+	filter: brightness(1.25);
+}
+.gear-rail .slot-icon-small {
+	display: block;
+	width: var(--icon, 2.15rem);
+	height: var(--icon, 2.15rem);
+	border-radius: 4px;
+}
+.gear-rail-changed .slot-icon {
+	box-shadow: 0 0 0 2px var(--ember);
+}
+.picker-tabs {
+	margin: 0.5rem 0 0.25rem;
+}
+
+/* Each gear panel has its own hide button; a hidden one leaves a small button at its edge to bring it back. */
+.gear-rail-hide {
+	color: var(--haze);
+	border-color: var(--ridge);
+}
+.gear-rail-show {
+	display: none;
+}
+@media (min-width: 90rem) {
+	.gear-rail-show {
+		position: fixed;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 20;
+		display: block;
+		padding: 0.6rem 0.35rem;
+		writing-mode: vertical-rl;
+		font: inherit;
+		font-size: 0.8rem;
+		color: var(--haze);
+		background: var(--slate);
+		border: 1px solid var(--ridge);
+		cursor: pointer;
 	}
-	.cheer-smoke {
-		opacity: 0.6;
+	.gear-rail-show:hover {
+		color: var(--brass);
+		border-color: var(--brass);
+	}
+	.gear-rail-show-equipped {
+		left: 0;
+		border-left: 0;
+		border-radius: 0 6px 6px 0;
+	}
+	.gear-rail-show-planned {
+		right: 0;
+		border-right: 0;
+		border-radius: 6px 0 0 6px;
 	}
 }
 
@@ -4750,4 +4879,227 @@ summary.breakdown-toggle:focus-visible {
 	color: var(--mist);
 	background: #3a2a08;
 	border-bottom: 1px solid var(--brass);
+}
+
+/* Breakdown tabs: buffs, debuffs, casts, resources, log. */
+.result-tabs {
+	flex-wrap: wrap;
+}
+.result-tab:disabled {
+	opacity: 0.45;
+	cursor: default;
+}
+.result-table-plain {
+	min-width: 30rem;
+}
+.result-table-plain .result-bar-cell {
+	min-width: 12rem;
+}
+.result-table-plain .result-bar > span {
+	display: block;
+	height: 100%;
+	background: var(--brass);
+}
+.result-cost {
+	color: var(--ember);
+}
+.result-group h4 {
+	margin: 0.9rem 0 0.2rem;
+	font-family: var(--display);
+	font-size: 1rem;
+	color: var(--brass);
+}
+.log-tools {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem 1rem;
+	margin: 0.6rem 0;
+}
+.log-tools input[type='search'] {
+	flex: 1 1 16rem;
+	max-width: 28rem;
+	padding: 0.4rem 0.6rem;
+	font: inherit;
+	color: var(--mist);
+	background: #0a0806;
+	border: 1px solid var(--ridge);
+	border-radius: 4px;
+}
+.log-scroll {
+	max-height: 60vh;
+	overflow: auto;
+	border: 1px solid var(--hairline);
+	border-radius: 4px;
+	background: #070605;
+}
+.log-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.8125rem;
+}
+.log-table th,
+.log-table td {
+	padding: 0.2rem 0.6rem;
+	border-bottom: 1px solid #ffffff10;
+	text-align: left;
+	vertical-align: top;
+}
+.log-table thead th {
+	position: sticky;
+	top: 0;
+	background: #14100a;
+	color: var(--haze);
+}
+.log-table td.num {
+	width: 6.5rem;
+	white-space: nowrap;
+	color: var(--haze);
+}
+.log-who {
+	color: var(--brass);
+}
+.log-who-target {
+	color: var(--ember);
+}
+.log-action {
+	white-space: nowrap;
+}
+.log-action .result-icon {
+	width: 1rem;
+	height: 1rem;
+	margin-right: 0.2rem;
+	vertical-align: -0.15rem;
+}
+.log-action a {
+	color: #f1c98a;
+	text-decoration: none;
+}
+.log-more {
+	margin: 0.6rem;
+	text-align: center;
+}
+/* Timeline: resource lanes on top, effect bars below the casts. */
+.cast-name-resource {
+	color: var(--haze);
+	font-weight: 600;
+}
+.cast-resource {
+	display: block;
+	margin-top: 0.1rem;
+}
+.cast-resource path {
+	fill: #f2d54199;
+	stroke: #f2d541;
+	stroke-width: 1;
+}
+.cast-name-effect .slot-source {
+	margin-left: auto;
+	font-size: 0.7rem;
+}
+.cast-span {
+	position: absolute;
+	top: 0.35rem;
+	height: 1rem;
+	border-radius: 3px;
+	background: #3d4bd0;
+	box-shadow: inset 2px 0 0 #9aa5ff;
+}
+.cast-span-target {
+	background: #8a2f2f;
+	box-shadow: inset 2px 0 0 #ff9a8a;
+}
+
+/* Farm plan for a group of saved characters. */
+.farm-scope {
+	margin-bottom: 1rem;
+}
+.group-members {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem 1.25rem;
+	margin: 0.75rem 0;
+	padding: 0.6rem 0.9rem;
+	border: 1px solid var(--ridge);
+	border-radius: 6px;
+}
+.group-switches {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6rem 2rem;
+	margin: 0.75rem 0;
+}
+.group-dungeon {
+	border-top: 1px solid var(--hairline);
+	padding: 0.5rem 0;
+}
+.group-dungeon-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.25rem 1rem;
+	width: 100%;
+	padding: 0.35rem 0;
+	font: inherit;
+	color: inherit;
+	text-align: left;
+	background: none;
+	border: 0;
+	cursor: pointer;
+}
+.group-dungeon-head .dungeon-value {
+	margin-left: auto;
+}
+.group-people {
+	color: var(--haze);
+}
+.group-split {
+	margin: 0;
+}
+.group-boss h3 {
+	margin: 0.9rem 0 0.3rem;
+	font-size: 0.95rem;
+	color: var(--brass);
+}
+.group-item {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.4rem 0.9rem;
+	padding: 0.35rem 0;
+	border-top: 1px solid #ffffff0d;
+}
+.group-item-name {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	min-width: 16rem;
+	text-decoration: none;
+	font-weight: 600;
+}
+.group-contested {
+	padding: 0.05rem 0.5rem;
+	font-size: 0.75rem;
+	font-weight: 600;
+	color: var(--on-brass);
+	background: var(--ember);
+	border-radius: 999px;
+}
+.group-wants {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem 0.6rem;
+	margin-left: auto;
+}
+.group-want {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.15rem 0.2rem 0.15rem 0.6rem;
+	background: var(--slate-raised);
+	border: 1px solid var(--ridge);
+	border-radius: 6px;
+}
+.group-want-first {
+	border-color: var(--brass);
 }

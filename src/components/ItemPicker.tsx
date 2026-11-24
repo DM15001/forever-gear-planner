@@ -7,6 +7,7 @@ import { effortLine } from '../lib/loot';
 import { EVERYTHING, type Gear, slotCandidates, type SourceFilter, usableSources } from '../lib/scoring';
 import { pieceStats, statLine } from '../lib/stats';
 import type { Character, SpecConfig } from '../lib/types';
+import { EnchantList } from './EnchantPicker';
 import { ItemIcon } from './ItemIcon';
 import { suffixText } from './SuffixNote';
 import { SourceLabel } from './SourceLabel';
@@ -24,6 +25,8 @@ interface Props {
 	/** Offer "leave the slot empty". */
 	allowEmpty?: boolean;
 	onPick: (itemId: number | null) => void;
+	/** Given: the window gets a second tab with the enchants for the item in the slot. null = no enchant. */
+	onEnchant?: (effectId: number | null) => void;
 	onClose: () => void;
 }
 
@@ -31,7 +34,8 @@ const ROWS_SHOWN = 60;
 const formatDelta = formatDps;
 
 /** A list of everything that fits a slot, best first, to swap one item by hand. */
-export function ItemPicker({ slotIndex, gear, character, data, spec, filter, startWithAll = false, allowEmpty = false, onPick, onClose }: Props) {
+export function ItemPicker({ slotIndex, gear, character, data, spec, filter, startWithAll = false, allowEmpty = false, onPick, onEnchant, onClose }: Props) {
+	const [tab, setTab] = useState<'items' | 'enchants'>('items');
 	const dialog = useRef<HTMLDialogElement>(null);
 	const [all, setAll] = useState(startWithAll);
 	const [search, setSearch] = useState('');
@@ -64,6 +68,23 @@ export function ItemPicker({ slotIndex, gear, character, data, spec, filter, sta
 					Close
 				</button>
 			</div>
+			{onEnchant && (
+				<div className="result-tabs picker-tabs" role="tablist" aria-label="What to change">
+					<button role="tab" aria-selected={tab === 'items'} className="result-tab" onClick={() => setTab('items')}>
+						Items
+					</button>
+					<button role="tab" aria-selected={tab === 'enchants'} className="result-tab" disabled={!current} title={current ? undefined : 'An empty slot cannot be enchanted'} onClick={() => setTab('enchants')}>
+						Enchants
+					</button>
+				</div>
+			)}
+			{tab === 'enchants' && onEnchant ? (
+				<>
+					<p className="picker-current">{current?.name}. Only enchants that fit this item are listed; the number is what each adds over no enchant.</p>
+					<EnchantList slotIndex={slotIndex} gear={gear} character={character} data={data} spec={spec} onPick={onEnchant} />
+				</>
+			) : (
+				<>
 			<p className="picker-current">{current ? `Now: ${current.name}. Gains are compared with it.` : 'The slot is empty.'}</p>
 			<div className="picker-tools">
 				<input type="text" placeholder="Search by name" aria-label="Search by name" value={search} onChange={e => setSearch(e.target.value)} autoFocus />
@@ -124,6 +145,8 @@ export function ItemPicker({ slotIndex, gear, character, data, spec, filter, sta
 				<p className="hint">
 					Showing the best {shown.length} of {matching.length}. Search by name to find the rest.
 				</p>
+			)}
+				</>
 			)}
 		</dialog>
 	);

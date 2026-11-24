@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Modal } from './Sim';
 
 import { AREAS, FAMILIES, MOB_TYPES, spaced } from '../lib/stats';
 import type { Character } from '../lib/types';
@@ -57,6 +58,7 @@ function Tile({ id, label, active, onClick }: { id: string; label: string; activ
 
 /** The enemy kind and terrain the character fights in. Some items are only strong against one of them. */
 export function FightPicker({ character, onChange }: { character: Character; onChange: (next: Character) => void }) {
+	const [open, setOpen] = useState(false);
 	const fight = character.fight ?? {};
 	const set = (patch: Partial<NonNullable<Character['fight']>>) => {
 		const next = { ...fight, ...patch };
@@ -72,12 +74,15 @@ export function FightPicker({ character, onChange }: { character: Character; onC
 			</div>
 		</fieldset>
 	);
+	const chosen = [fight.mobType, fight.family && spaced(fight.family), fight.area && AREAS.find(([key]) => key === fight.area)?.[1]].filter(Boolean).join(', ');
 	return (
-		<details className="fold fight-fold" open={Boolean(fight.mobType || fight.area || fight.family)}>
-			<summary>
-				Enemy type and terrain
-				<span className="slot-source">{[fight.mobType, fight.family && spaced(fight.family), fight.area && AREAS.find(([key]) => key === fight.area)?.[1]].filter(Boolean).join(', ') || 'Optional: for items that are only strong against one kind of enemy.'}</span>
-			</summary>
+		<div className="fight-open">
+			<button className="button" onClick={() => setOpen(true)}>
+				Encounter: {chosen || 'any enemy, any terrain'}
+			</button>
+			<span className="slot-source">For items that are only strong against one kind of enemy or in one terrain.</span>
+			{open && (
+				<Modal title="Encounter: enemy type and terrain" onClose={() => setOpen(false)} wide>
 			<div className="fight-picker">
 				{group(
 					'Enemy type',
@@ -97,6 +102,8 @@ export function FightPicker({ character, onChange }: { character: Character; onC
 					Stratholme; click it again to clear it. Stat bonuses then count in the lists, the plan and the simulator; procs and on-use effects of that kind count in the simulator only.
 				</p>
 			</div>
-		</details>
+				</Modal>
+			)}
+		</div>
 	);
 }

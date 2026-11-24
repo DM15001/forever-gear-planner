@@ -389,3 +389,20 @@ describe('items that exclude each other', () => {
 		expect(clash(ring(1, undefined, true), ring(1, undefined, true))).toBe(true);
 	});
 });
+
+describe('PvP ranks', () => {
+	it('reads the rank a reward needs from its name and leaves out what is above the chosen rank', async () => {
+		const { pvpRankOf, usableSources, DEFAULT_FILTER } = await import('./scoring');
+		const reward = (name: string) => ({ id: 1, name, slot: 'head', quality: 'epic', ilvl: 60, stats: {}, sources: [{ kind: 'pvp' }, { kind: 'vendor', npcId: 1 }] }) as never;
+		expect(pvpRankOf(reward("Warlord's Silk Cowl"))).toBe(13);
+		expect(pvpRankOf(reward("Grand Marshal's Longsword"))).toBe(14);
+		expect(pvpRankOf(reward("Premier Centurion's Mail Boots"))).toBe(9);
+		expect(pvpRankOf(reward("Knight-Lieutenant's Chain Boots"))).toBe(7);
+		expect(pvpRankOf(reward('Stormpike Insignia Rank 6'))).toBe(0);
+		const filter = { ...DEFAULT_FILTER, pvp: true };
+		expect(usableSources(reward("Warlord's Silk Cowl"), undefined, { ...filter, pvpMaxRank: 12 })).toEqual([]);
+		expect(usableSources(reward("Warlord's Silk Cowl"), undefined, { ...filter, pvpMaxRank: 13 }).length).toBeGreaterThan(0);
+		expect(usableSources(reward("General's Silk Cowl"), undefined, { ...filter, pvpMaxRank: 12 }).length).toBeGreaterThan(0);
+		expect(usableSources(reward('Stormpike Insignia Rank 6'), undefined, { ...filter, pvpMaxRank: 0 }).length).toBeGreaterThan(0);
+	});
+});
