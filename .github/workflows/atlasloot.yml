@@ -1,0 +1,92 @@
+name: Refresh the AtlasLoot sources
+
+# The "AtlasLoot Classic Forever" addon (CurseForge project 1422985, by Sliccer, GPL v2) adds Forever loot as
+# players find it. Once a week this gets its newest release through CurseForge's official API, reruns
+# scripts/import-atlasloot.mjs, and commits src/config/atlasloot/sources.json if it changed and the tests pass.
+#
+# It needs a CurseForge API key (free, from console.curseforge.com) saved as the repository secret
+# CURSEFORGE_API_KEY. Without the secret the run does nothing and says so.
+
+on:
+  schedule:
+    - cron: '17 4 * * 3'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+  issues: write
+
+concurrency:
+  group: atlasloot
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
+      PROJECT: 1422985
+    steps:
+      - name: Is there a key?
+        id: key
+        run: |
+          if [ -z "$CURSEFORGE_API_KEY" ]; then
+            echo "::notice::No CURSEFORGE_API_KEY secret: nothing to do."
+          else
+            echo "set=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.key.outputs.set == 'true'
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        if: steps.key.outputs.set == 'true'
+        with:
+          node-version: 22
+          cache: npm
+      - name: Get the newest release
+        id: get
+        if: steps.key.outputs.set == 'true'
+        run: |
+          curl -fsS -H "x-api-key: $CURSEFORGE_API_KEY" -H "Accept: application/json" "https://api.curseforge.com/v1/mods/$PROJECT/files?pageSize=1" -o "$RUNNER_TEMP/files.json"
+          node -e '
+            const file = JSON.parse(require("fs").readFileSync(process.argv[1], "utf8")).data?.[0];
+            if (!file?.downloadUrl) { console.log("::warning::CurseForge gave no download link (the author may not allow other apps to download)."); process.exit(0); }
+            console.log(`Newest file: ${file.displayName} (${file.fileDate})`);
+            require("fs").appendFileSync(process.env.GITHUB_OUTPUT, `url=${file.downloadUrl}\nname=${file.displayName}\n`);
+          ' "$RUNNER_TEMP/files.json"
+      - name: Import
+        if: steps.get.outputs.url != ''
+        run: |
+          curl -fsSL "${{ steps.get.outputs.url }}" -o "$RUNNER_TEMP/addon.zip"
+          mkdir "$RUNNER_TEMP/AddOns"
+          unzip -q "$RUNNER_TEMP/addon.zip" -d "$RUNNER_TEMP/AddOns"
+          cp src/config/atlasloot/sources.json "$RUNNER_TEMP/before.json"
+          node scripts/import-atlasloot.mjs "$RUNNER_TEMP/AddOns"
+          # Only the import date changed: not worth a commit.
+          if node -e 'const f=p=>{const j=JSON.parse(require("fs").readFileSync(p,"utf8"));delete j.importedAt;return JSON.stringify(j)};process.exit(f(process.argv[1])===f(process.argv[2])?0:1)' "$RUNNER_TEMP/before.json" src/config/atlasloot/sources.json; then
+            cp "$RUNNER_TEMP/before.json" src/config/atlasloot/sources.json
+            echo "No new loot in ${{ steps.get.outputs.name }}."
+          fi
+      - name: Test, commit and publish
+        if: steps.get.outputs.url != ''
+        run: |
+          if git diff --quiet; then exit 0; fi
+          npm ci
+          if ! npm test; then
+            title="AtlasLoot update needs a look"
+            if [ "$(gh issue list --state open --search "$title in:title" --json number --jq length)" = "0" ]; then
+              gh issue create --title "$title" --label planner-followup --body "The newest AtlasLoot Classic Forever release (${{ steps.get.outputs.name }}) changes the item sources, but the planner's tests fail with it, so it was **not** taken over. Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            fi
+            exit 1
+          fi
+          npx vite-node scripts/items-to-check.ts || echo "::warning::items-to-check failed"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/config/atlasloot docs
+          git commit -q -m "Item sources updated from AtlasLoot Classic Forever (${{ steps.get.outputs.name }})" -m "Written by .github/workflows/atlasloot.yml with scripts/import-atlasloot.mjs."
+          git pull -q --rebase origin main && git push -q origin HEAD:main
+          gh workflow run pages.yml --ref main

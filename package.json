@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "test": "vitest run",
     "build-data": "node scripts/build-data.mjs",
-    "build-sim-values": "node scripts/build-sim-values.mjs"
+    "build-sim-values": "node scripts/build-sim-values.mjs",
+    "item-report": "node scripts/item-report.mjs",
+    "items-to-check": "vite-node scripts/items-to-check.ts"
   },
   "engines": {
     "node": ">=20"
