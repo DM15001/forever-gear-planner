@@ -360,6 +360,33 @@ export function App() {
 		setImporting(false);
 	};
 
+	// The character panel: the first tab, and the window the side panes open.
+	const characterSheet = character ? (
+		<CharacterSheet
+			spec={spec}
+			character={character}
+			data={data}
+			onChange={update}
+			names={roster.characters.map((c, i) => characterLabel(c, i, specOf(c)))}
+			builds={specsOfClass(baseSpec.className)}
+			activeIndex={roster.active}
+			shareLink={shareUrl(character, window.location.href)}
+			next={
+				<>
+					<span className="slot-source">Check race, professions and enchants, then</span>
+					<button
+						className="button button-primary"
+						onClick={() => {
+							setUpgradeView('plan');
+							setTab('simulate');
+						}}>
+						Build my gear plan
+					</button>
+				</>
+			}
+		/>
+	) : null;
+
 	return (
 		<div className="page">
 			<ChannelSwitch />
@@ -441,7 +468,7 @@ export function App() {
 				)}
 				{character && !importing && (
 					<SimProvider character={character}>
-						{data && <GearRails spec={spec} character={character} data={data} showEquipped={options.equippedPanel} showPlanned={options.plannedPanel} onShow={(kind, on) => changeOptions({ ...options, [kind === 'equipped' ? 'equippedPanel' : 'plannedPanel']: on })} />}
+						{data && <GearRails spec={spec} character={character} data={data} showEquipped={options.equippedPanel} showPlanned={options.plannedPanel} onShow={(kind, on) => changeOptions({ ...options, [kind === 'equipped' ? 'equippedPanel' : 'plannedPanel']: on })} sheet={tab === 'character' ? null : characterSheet} />}
 						{tab === 'simulate' && (
 							<div className="view-switch" role="group" aria-label="How to pick upgrades">
 								<button className="view-choice" aria-pressed={upgradeView === 'slots'} onClick={() => setUpgradeView('slots')}>
@@ -480,29 +507,7 @@ export function App() {
 										</button>
 									</div>
 								)}
-								<CharacterSheet
-									spec={spec}
-									character={character}
-									data={data}
-									onChange={update}
-									names={roster.characters.map((c, i) => characterLabel(c, i, specOf(c)))}
-									builds={specsOfClass(baseSpec.className)}
-									activeIndex={roster.active}
-									shareLink={shareUrl(character, window.location.href)}
-									next={
-										<>
-											<span className="slot-source">Check race, professions and enchants, then</span>
-											<button
-												className="button button-primary"
-												onClick={() => {
-													setUpgradeView('plan');
-													setTab('simulate');
-												}}>
-												Build my gear plan
-											</button>
-										</>
-									}
-								/>
+								{characterSheet}
 							</>
 						)}
 					</SimProvider>

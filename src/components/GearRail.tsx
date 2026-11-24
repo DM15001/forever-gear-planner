@@ -1,12 +1,13 @@
 import { useMemo, useState } from 'react';
-import { GEAR_SLOTS } from '../lib/constants';
+import type { ReactNode } from 'react';
+import { GEAR_SLOTS, SHEET_LAYOUT } from '../lib/constants';
 import type { GameData } from '../lib/gameData';
 import { formatDps, unit } from '../lib/format';
 import { type Gear, plannedGear, scoreSet, slotInUse } from '../lib/scoring';
 import { wowheadData, wowheadItemUrl } from '../lib/stats';
 import type { Character, SpecConfig } from '../lib/types';
 import { ItemIcon } from './ItemIcon';
-import { BreakdownDialog, SET_ITERATIONS, useSim } from './Sim';
+import { Modal, SET_ITERATIONS, useSim } from './Sim';
 
 interface Props {
 	spec: SpecConfig;
@@ -14,78 +15,70 @@ interface Props {
 	data: GameData;
 }
 
-/** One small column of gear at the side of the page: icon and name per slot, the Wowhead tooltip on hover, the Wowhead page on click. */
-function Rail({ kind, gear, other, spec, character, data, onBreakdown, onHide }: Props & { kind: 'equipped' | 'planned'; gear: Gear; /** The other set, to mark what differs. */ other: Gear; onBreakdown: () => void; onHide: () => void }) {
+/** One small pane of gear at the side of the page, laid out like the in-game character pane: icons only, armor left, the rest right, weapons along the bottom. Wowhead tooltip on hover, the Wowhead page on click. */
+function Rail({ kind, gear, other, spec, character, data, onOpen, onHide }: Props & { kind: 'equipped' | 'planned'; gear: Gear; /** The other set, to mark what differs. */ other: Gear; onOpen: () => void; onHide: () => void }) {
 	const sim = useSim();
 	const totals = useMemo(() => scoreSet(gear, character, data, spec), [gear, character, data, spec]);
 	const base = useMemo(() => scoreSet(character.gear, character, data, spec), [character, data, spec]);
 	const result = sim.result(gear, SET_ITERATIONS);
+	const slot = (index: number) => {
+		if (!slotInUse(index, spec)) return null;
+		const piece = gear[index];
+		const item = piece ? data.itemById.get(piece.id) : undefined;
+		const changed = kind === 'planned' && piece?.id !== other[index]?.id;
+		const label = GEAR_SLOTS[index].label;
+		return (
+			<li key={GEAR_SLOTS[index].key} className={changed ? 'gear-rail-item gear-rail-changed' : 'gear-rail-item'}>
+				{item ? (
+					<a href={wowheadItemUrl(item.id)} data-wowhead={wowheadData('item', item.id)} target="_blank" rel="noreferrer" aria-label={`${label}: ${item.name}`}>
+						<ItemIcon icon={item.icon} quality={item.quality} small />
+					</a>
+				) : (
+					<span title={`${label}: empty`}>
+						<ItemIcon icon={undefined} quality={undefined} small />
+					</span>
+				)}
+			</li>
+		);
+	};
 	return (
 		<aside className={`gear-rail gear-rail-${kind}`} aria-label={kind === 'equipped' ? 'Equipped gear' : 'Planned gear'}>
 			<header className="gear-rail-head">
-				<div>
-					<h2>{kind === 'equipped' ? 'Equipped' : 'Planned'}</h2>
-					<p className="gear-rail-number">
-						{result ? (
-							<>
-								<strong className="num">{result.dps.toFixed(0)}</strong> {unit()}
-							</>
-						) : (
-							<span className="slot-source">not simulated yet</span>
-						)}
-					</p>
-				</div>
-				<button className="gear-rail-open" onClick={onBreakdown} title={`Breakdown of the ${kind} gear`} aria-label={`Open the breakdown of the ${kind} gear`}>
-					<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
-						<path d="M4 16V9M10 16V4M16 16v-5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+				<h2>{kind === 'equipped' ? 'Equipped' : 'Planned'}</h2>
+				<button className="gear-rail-open" onClick={onOpen} title="Open the character panel" aria-label="Open the character panel">
+					<svg viewBox="0 0 20 20" width="13" height="13" aria-hidden="true">
+						<path d="M3 17l1-4L14 3l3 3L7 16z M12 5l3 3" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
 					</svg>
 				</button>
 				<button className="gear-rail-open gear-rail-hide" onClick={onHide} title={`Hide the ${kind} gear`} aria-label={`Hide the ${kind} gear`}>
-					<svg viewBox="0 0 18 18" width="14" height="14" aria-hidden="true">
+					<svg viewBox="0 0 18 18" width="11" height="11" aria-hidden="true">
 						<path d="M3 3l12 12M15 3L3 15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
 					</svg>
 				</button>
 			</header>
 			<p className="gear-rail-facts">
-				{kind === 'planned' && <span>{formatDps(totals.score - base.score)} estimated</span>}
-				{spec.hitCapPercent > 0 && (
+				{result ? (
 					<span>
-						{totals.hit.total.toFixed(1)}% hit of {totals.hit.cap}%
+						<strong className="num">{result.dps.toFixed(0)}</strong> {unit()}
 					</span>
-				)}
+				) : kind === 'planned' ? (
+					<span>{formatDps(totals.score - base.score)}</span>
+				) : null}
+				{spec.hitCapPercent > 0 && <span>{totals.hit.total.toFixed(1)}% hit</span>}
 			</p>
-			<ul className="plain-list gear-rail-list">
-				{GEAR_SLOTS.map((slot, index) => {
-					if (!slotInUse(index, spec)) return null;
-					const piece = gear[index];
-					const item = piece ? data.itemById.get(piece.id) : undefined;
-					const changed = kind === 'planned' && piece?.id !== other[index]?.id;
-					return (
-						<li key={slot.key} className={changed ? 'gear-rail-item gear-rail-changed' : 'gear-rail-item'}>
-							{item ? (
-								<a href={wowheadItemUrl(item.id)} data-wowhead={wowheadData('item', item.id)} target="_blank" rel="noreferrer" title={slot.label}>
-									<ItemIcon icon={item.icon} quality={item.quality} small />
-									<span className={`gear-rail-name quality-${item.quality}`}>{item.name}</span>
-								</a>
-							) : (
-								<span className="gear-rail-empty">
-									<ItemIcon icon={undefined} quality={undefined} small />
-									<span className="gear-rail-name">{slot.label}: empty</span>
-								</span>
-							)}
-						</li>
-					);
-				})}
-			</ul>
+			<div className="gear-rail-doll">
+				<ul className="plain-list">{SHEET_LAYOUT.left.map(slot)}</ul>
+				<ul className="plain-list">{SHEET_LAYOUT.right.map(slot)}</ul>
+			</div>
+			<ul className="plain-list gear-rail-weapons">{SHEET_LAYOUT.bottom.map(slot)}</ul>
 		</aside>
 	);
 }
 
 /** The equipped gear at the left edge of the page and the planned gear at the right one. They stay in view while the page scrolls; screens too narrow for them leave them out. */
-export function GearRails({ spec, character, data, showEquipped, showPlanned, onShow }: Props & { showEquipped: boolean; showPlanned: boolean; onShow: (kind: 'equipped' | 'planned', on: boolean) => void }) {
+export function GearRails({ spec, character, data, showEquipped, showPlanned, onShow, sheet }: Props & { showEquipped: boolean; showPlanned: boolean; onShow: (kind: 'equipped' | 'planned', on: boolean) => void; /** The character panel, opened in a window from either pane; null while the page itself shows it. */ sheet: ReactNode | null }) {
 	const planned = useMemo(() => plannedGear(character, data), [character, data]);
-	const hasPlan = Object.keys(character.plan ?? {}).length > 0 || Object.keys(character.planEnchants ?? {}).length > 0;
-	const [open, setOpen] = useState<'equipped' | 'planned' | null>(null);
+	const [open, setOpen] = useState(false);
 	return (
 		<>
 			{(['equipped', 'planned'] as const).map(kind => {
@@ -106,12 +99,16 @@ export function GearRails({ spec, character, data, showEquipped, showPlanned, on
 						spec={spec}
 						character={character}
 						data={data}
-						onBreakdown={() => setOpen(kind)}
+						onOpen={() => (sheet ? setOpen(true) : window.scrollTo({ top: 0, behavior: 'smooth' }))}
 						onHide={() => onShow(kind, false)}
 					/>
 				);
 			})}
-			{open && <BreakdownDialog equipped={character.gear} planned={planned} hasPlan={hasPlan} initial={open} onClose={() => setOpen(null)} />}
+			{open && sheet && (
+				<Modal title="Character" onClose={() => setOpen(false)} wide>
+					<div className="sheet-in-window">{sheet}</div>
+				</Modal>
+			)}
 		</>
 	);
 }

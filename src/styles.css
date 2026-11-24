@@ -4712,63 +4712,58 @@ summary.breakdown-toggle:focus-visible {
 	margin-top: 0.75rem;
 }
 
-/* Equipped gear at the left edge, planned gear at the right one; only where the screen has room beside the page. */
+/* Equipped gear at the left edge, planned gear at the right one: a small copy of the in-game character pane, icons only. Shown where the screen has room beside the page. */
 .gear-rail {
 	display: none;
 }
-@media (min-width: 100rem) {
+@media (min-width: 88rem) {
 	.gear-rail {
 		position: fixed;
 		top: 9.5rem;
 		z-index: 20;
 		display: block;
-		width: 12.5rem;
-		max-height: calc(100vh - 10.5rem);
-		overflow-y: auto;
-		padding: 0.6rem;
+		box-sizing: border-box;
+		width: 6.6rem;
+		padding: 0.4rem;
 		background: var(--slate);
 		border: 1px solid var(--ridge);
 		border-radius: 8px;
-		font-size: 0.8rem;
+		font-size: 0.72rem;
 	}
 	.gear-rail-equipped {
-		left: max(0.5rem, calc(50% - 36rem - 13.25rem));
+		left: max(0.25rem, calc(50% - 36rem - 7.1rem));
 	}
 	.gear-rail-planned {
-		right: max(0.5rem, calc(50% - 36rem - 13.25rem));
+		right: max(0.25rem, calc(50% - 36rem - 7.1rem));
 	}
 }
 .gear-rail-head {
 	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-	gap: 0.5rem;
+	align-items: center;
+	gap: 0.2rem;
 }
 .gear-rail-head h2 {
+	flex: 1;
+	min-width: 0;
 	margin: 0;
 	font-family: var(--display);
-	font-size: 0.95rem;
+	font-size: 0.66rem;
 	color: var(--brass);
 }
 .gear-rail-planned .gear-rail-head h2 {
 	color: var(--ember);
 }
-.gear-rail-number {
-	margin: 0;
-}
-.gear-rail-number strong {
-	font-size: 1.15rem;
-}
 .gear-rail-open {
 	display: grid;
 	place-items: center;
-	width: 2.25rem;
-	height: 2.25rem;
+	width: 1.1rem;
+	height: 1.1rem;
+	padding: 0;
 	flex-shrink: 0;
 	color: var(--brass);
 	background: var(--slate-raised);
 	border: 1px solid var(--brass-deep);
-	border-radius: 6px;
+	border-radius: 4px;
 	cursor: pointer;
 }
 .gear-rail-open:hover {
@@ -4777,176 +4772,52 @@ summary.breakdown-toggle:focus-visible {
 .gear-rail-facts {
 	display: flex;
 	flex-direction: column;
-	margin: 0.25rem 0 0.4rem;
+	margin: 0.15rem 0 0.3rem;
+	line-height: 1.25;
 	color: var(--haze);
 }
-.gear-rail-list {
+.gear-rail-doll {
+	display: flex;
+	justify-content: space-between;
+	gap: 0.9rem;
+}
+.gear-rail-doll ul,
+.gear-rail-weapons {
 	display: flex;
 	flex-direction: column;
-	gap: 1px;
+	gap: 2px;
+}
+.gear-rail-weapons {
+	flex-direction: row;
+	justify-content: center;
+	margin-top: 0.35rem;
 }
 .gear-rail-item a,
-.gear-rail-empty {
-	display: flex;
-	align-items: center;
-	gap: 0.4rem;
-	padding: 2px 3px;
-	border-radius: 4px;
-	text-decoration: none;
+.gear-rail-item span {
+	display: block;
+	line-height: 0;
 }
-.gear-rail-item a:hover {
-	background: var(--slate-raised);
+.gear-rail .slot-icon-small {
+	width: 1.75rem;
+	height: 1.75rem;
+	border-radius: 3px;
 }
-.gear-rail-name {
-	min-width: 0;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+.gear-rail-changed .slot-icon {
+	box-shadow: 0 0 0 2px var(--ember);
 }
-.gear-rail-empty {
-	color: var(--haze);
-}
-.gear-rail-changed {
-	box-shadow: inset 2px 0 0 var(--ember);
-	background: #1c1510;
-}
-
-/* The dwarf that shows for a moment when the Live/Dev switch is unlocked; it stands under the switch and points up at it. */
-.cheer-dwarf {
-	position: fixed;
-	top: 2.6rem;
-	right: 1.6rem;
-	z-index: 60;
-	pointer-events: none;
-	overflow: visible;
-	filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.75));
-	transform-origin: 50% 100%;
-	animation: cheer-dwarf 4s cubic-bezier(0.3, 1.4, 0.5, 1) both;
-}
-.cheer-point {
-	transform-origin: 118px 104px;
-	animation: cheer-point 0.7s ease-in-out 0.5s 4 alternate;
-}
-.cheer-finger {
-	transform-origin: 62px 104px;
-	animation: cheer-finger 0.45s ease-in-out 0.6s 6 alternate;
-}
-.cheer-smoke {
-	opacity: 0;
-	animation: cheer-smoke 1.6s ease-out infinite;
-}
-.cheer-smoke-2 {
-	animation-delay: 0.5s;
-}
-.cheer-smoke-3 {
-	animation-delay: 1s;
-}
-.cheer-shine {
-	animation: cheer-shine 1.3s ease-in-out 0.6s 2 both;
-}
-.cheer-bling {
-	transform-box: fill-box;
-	transform-origin: center;
-	animation: cheer-bling 0.9s ease-in-out infinite alternate;
-}
-.cheer-bling-2 {
-	animation-delay: 0.3s;
-}
-.cheer-bling-3 {
-	animation-delay: 0.6s;
-}
-@keyframes cheer-shine {
-	from {
-		transform: translateX(0);
-	}
-	to {
-		transform: translateX(200px);
-	}
-}
-@keyframes cheer-bling {
-	from {
-		opacity: 0.15;
-		transform: scale(0.4) rotate(0deg);
-	}
-	to {
-		opacity: 1;
-		transform: scale(1.15) rotate(45deg);
-	}
-}
-@keyframes cheer-dwarf {
-	0% {
-		opacity: 0;
-		transform: translateY(-9rem) rotate(-25deg) scale(0.5);
-	}
-	14% {
-		opacity: 1;
-		transform: translateY(0) rotate(4deg) scale(1.08, 0.92);
-	}
-	20% {
-		transform: translateY(0) rotate(-2deg) scale(0.97, 1.04);
-	}
-	26%,
-	88% {
-		opacity: 1;
-		transform: translateY(0) rotate(0) scale(1);
-	}
-	100% {
-		opacity: 0;
-		transform: translateY(1rem) rotate(0) scale(0.2);
-	}
-}
-@keyframes cheer-point {
-	to {
-		transform: rotate(-9deg);
-	}
-}
-@keyframes cheer-finger {
-	to {
-		transform: rotate(10deg) translateY(-3px);
-	}
-}
-@keyframes cheer-smoke {
-	0% {
-		opacity: 0;
-		transform: translate(0, 0) scale(0.4);
-	}
-	25% {
-		opacity: 0.75;
-	}
-	100% {
-		opacity: 0;
-		transform: translate(14px, -46px) scale(2.2);
-	}
-}
-@media (prefers-reduced-motion: reduce) {
-	.cheer-dwarf,
-	.cheer-point,
-	.cheer-finger,
-	.cheer-smoke,
-	.cheer-shine,
-	.cheer-bling {
-		animation: none;
-	}
-	.cheer-smoke {
-		opacity: 0.6;
-	}
+.sheet-in-window {
+	margin-top: 0.5rem;
 }
 
 /* Each gear panel has its own hide button; a hidden one leaves a small button at its edge to bring it back. */
-.gear-rail-head > div {
-	flex: 1;
-	min-width: 0;
-}
 .gear-rail-hide {
-	width: 1.6rem;
-	height: 1.6rem;
 	color: var(--haze);
 	border-color: var(--ridge);
 }
 .gear-rail-show {
 	display: none;
 }
-@media (min-width: 100rem) {
+@media (min-width: 88rem) {
 	.gear-rail-show {
 		position: fixed;
 		top: 9.5rem;
