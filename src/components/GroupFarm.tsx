@@ -8,7 +8,8 @@ import { specOf } from '../lib/specs';
 import { wowheadData, wowheadItemUrl } from '../lib/stats';
 import { normalFilter } from '../lib/storage';
 import type { Character, Item } from '../lib/types';
-import { ItemIcon } from './ItemIcon';
+import DUNGEON_ICONS from '../config/dungeonIcons.json';
+import { DungeonIcon, ItemIcon } from './ItemIcon';
 
 const GROUP_KEY = 'fgp.group';
 const MOST = 10;
@@ -215,24 +216,40 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 				<p className="farm-empty">{saved.scope === 'plan' ? 'Nobody in the group has a dungeon drop in their plan. Switch to "Every upgrade", or build the plans first.' : 'No dungeon has an upgrade for anybody in the group.'}</p>
 			)}
 			<ol className="plain-list group-dungeons">
-				{dungeons.map(dungeon => {
+				{dungeons.map((dungeon, rank) => {
 					const isOpen = open.has(dungeon.key);
+					const drops = dungeon.bosses.reduce((sum, boss) => sum + boss.items.length, 0);
 					return (
-						<li key={dungeon.key} className="group-dungeon">
-							<button className="group-dungeon-head" aria-expanded={isOpen} onClick={() => toggle(dungeon.key)}>
-								<strong className="dungeon-name">{dungeon.name}</strong>
-								<span className="group-people">
-									{dungeon.people} of {members.length} need something
+						<li key={dungeon.key} className={`group-dungeon${rank === 0 ? ' group-dungeon-top' : ''}${isOpen ? ' group-dungeon-open' : ''}`}>
+							<button className="group-dungeon-head" aria-expanded={isOpen} onClick={() => toggle(dungeon.key)} title={isOpen ? 'Hide the drops' : 'Show the drops and who wants them'}>
+								<span className="group-prio" title={saved.sort === 'total' ? 'Ranked by what the group gains in total' : 'Ranked by how many of the group gain something'}>
+									Prio <span className="num">{rank + 1}</span>
 								</span>
-								<span className="dungeon-value num">{gain(dungeon.total)} in total</span>
+								<DungeonIcon icons={(DUNGEON_ICONS as Record<string, string[] | string>)[dungeon.key.split(':')[0]] as string[] | undefined ?? []} />
+								<span className="group-dungeon-title">
+									<strong className="dungeon-name">{dungeon.name}</strong>
+									<span className="group-people">
+										{dungeon.people} of {members.length} need something, {drops} drop{drops === 1 ? '' : 's'}
+									</span>
+								</span>
+								<span className="group-dungeon-gain">
+									<strong className="dungeon-value num">{gain(dungeon.total)}</strong>
+									<span className="group-people">for the group</span>
+								</span>
+								<svg className="group-chevron" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+									<path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+								</svg>
 							</button>
-							<p className="group-split slot-source">
+							<ul className="plain-list group-split">
 								{members
 									.filter(member => dungeon.perMember.has(member.index))
 									.sort((a, b) => dungeon.perMember.get(b.index)! - dungeon.perMember.get(a.index)!)
-									.map(member => `${member.label} ${gain(dungeon.perMember.get(member.index)!)}`)
-									.join(' · ')}
-							</p>
+									.map(member => (
+										<li key={member.index}>
+											{member.label} <span className="num">{gain(dungeon.perMember.get(member.index)!)}</span>
+										</li>
+									))}
+							</ul>
 							{isOpen &&
 								dungeon.bosses.map(boss => (
 									<div key={boss.name} className="group-boss">
@@ -247,9 +264,10 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 													{wants.length > 1 && <span className="group-contested">{wants.length} want it</span>}
 													<span className="group-wants">
 														{wants.map((want, order) => (
-															<span key={want.member.index} className={order === 0 && wants.length > 1 ? 'group-want group-want-first' : 'group-want'}>
+															<span key={want.member.index} className={`group-want${order === 0 && wants.length > 1 ? ' group-want-first' : ''}${!want.planned && saved.scope === 'plan' ? ' group-want-extra' : ''}`}>
 																{want.member.label} <span className="num">{gain(want.delta)}</span>
 																{want.planned && saved.scope === 'any' && <span className="slot-source"> planned</span>}
+																{!want.planned && saved.scope === 'plan' && <span className="slot-source" title="An upgrade for this character too, but not in their plan. Not counted in the totals."> not planned</span>}
 																<button className="button button-small" onClick={() => got(want.member, want.slotIndex, item)} title={`${item.name} dropped for ${want.member.label}: equip it and take it out of the plan`}>
 																	Got it
 																</button>

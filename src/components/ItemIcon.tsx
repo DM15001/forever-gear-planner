@@ -26,3 +26,14 @@ export function ItemIcon({ icon, quality, small = false, inline = false }: Props
 		</span>
 	);
 }
+
+/** A dungeon's small picture: the icon names are tried in order, each at every source. An empty frame when none loads. */
+export function DungeonIcon({ icons }: { icons: string[] }) {
+	const [failed, setFailed] = useState(0);
+	const name = icons[Math.floor(failed / ICON_SOURCES.length)];
+	return (
+		<span className="slot-icon dungeon-icon" aria-hidden="true">
+			{name && <img src={ICON_SOURCES[failed % ICON_SOURCES.length](name)} alt="" loading="lazy" onError={() => setFailed(failed + 1)} />}
+		</span>
+	);
+}

@@ -5048,17 +5048,25 @@ summary.breakdown-toggle:focus-visible {
 	gap: 0.6rem 2rem;
 	margin: 0.75rem 0;
 }
+.group-dungeons {
+	display: grid;
+	gap: 0.6rem;
+}
 .group-dungeon {
-	border-top: 1px solid var(--hairline);
-	padding: 0.5rem 0;
+	padding: 0.6rem 0.9rem 0.7rem;
+	background: var(--slate-raised);
+	border: 1px solid var(--ridge);
+	border-radius: 8px;
+}
+.group-dungeon-top {
+	border-color: var(--brass);
 }
 .group-dungeon-head {
 	display: flex;
-	flex-wrap: wrap;
-	align-items: baseline;
-	gap: 0.25rem 1rem;
+	align-items: center;
+	gap: 0.9rem;
 	width: 100%;
-	padding: 0.35rem 0;
+	padding: 0;
 	font: inherit;
 	color: inherit;
 	text-align: left;
@@ -5066,14 +5074,86 @@ summary.breakdown-toggle:focus-visible {
 	border: 0;
 	cursor: pointer;
 }
-.group-dungeon-head .dungeon-value {
-	margin-left: auto;
+.group-prio {
+	flex: none;
+	min-width: 4.2rem;
+	padding: 0.2rem 0.5rem;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	text-align: center;
+	color: var(--haze);
+	border: 1px solid var(--ridge);
+	border-radius: 999px;
+}
+.group-dungeon-top .group-prio {
+	color: var(--on-brass);
+	background: var(--brass);
+	border-color: var(--brass);
+}
+.dungeon-icon {
+	flex: none;
+}
+.group-dungeon-title,
+.group-dungeon-gain {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+}
+.group-dungeon-title {
+	flex: 1;
+}
+.group-dungeon-title .dungeon-name {
+	font-size: 1.05rem;
+}
+.group-dungeon-gain {
+	align-items: flex-end;
+	text-align: right;
+}
+.group-dungeon-gain .dungeon-value {
+	font-size: 1.15rem;
+	color: var(--brass);
+}
+.group-chevron {
+	flex: none;
+	color: var(--haze);
+	transition: transform 0.15s;
+}
+.group-dungeon-open .group-chevron {
+	transform: rotate(180deg);
 }
 .group-people {
+	font-size: 0.8125rem;
 	color: var(--haze);
 }
 .group-split {
-	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.3rem 0.5rem;
+	margin: 0.55rem 0 0;
+	font-size: 0.8125rem;
+}
+.group-split li {
+	padding: 0.1rem 0.55rem;
+	border: 1px solid var(--ridge);
+	border-radius: 999px;
+}
+.group-want-extra {
+	border-style: dashed;
+	opacity: 0.8;
+}
+@media (max-width: 40rem) {
+	.group-dungeon-head {
+		flex-wrap: wrap;
+	}
+	.group-dungeon-gain {
+		align-items: flex-start;
+		text-align: left;
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.group-chevron {
+		transition: none;
+	}
 }
 .group-boss h3 {
 	margin: 0.9rem 0 0.3rem;

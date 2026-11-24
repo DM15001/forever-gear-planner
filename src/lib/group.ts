@@ -16,6 +16,7 @@ export interface GroupWant {
 	slotIndex: number;
 	/** Gain over what that character wears now, in its own unit (DPS, or HPS for a healer). */
 	delta: number;
+	/** False in the plan view for somebody who would gain from the item but did not plan it. */
 	planned: boolean;
 }
 
@@ -64,6 +65,24 @@ export function groupFarm(members: GroupMember[], scope: GroupScope): GroupDunge
 				if (!entry.wants.some(want => want.member.index === member.index)) entry.wants.push({ member, slotIndex: drop.slotIndex, delta: drop.delta, planned: drop.planned });
 				const slots = dungeon.bestPerSlot.get(member.index) ?? dungeon.bestPerSlot.set(member.index, new Map()).get(member.index)!;
 				slots.set(drop.slotIndex, Math.max(slots.get(drop.slotIndex) ?? 0, drop.delta));
+			}
+		}
+	}
+	// In the plan view an item is listed because somebody planned it. Whoever else it would be an upgrade for is named too,
+	// so the group sees who else might roll on it; their gain stays out of the totals.
+	if (scope === 'plan') {
+		for (const member of members) {
+			const { character, spec } = member.options;
+			const faction = spec.races.find(r => r.id === character.race)?.faction;
+			const open = { ...EVERYTHING, excludedDungeons: [] };
+			for (const drop of allUpgrades({ ...member.options, filter: open })) {
+				if (drop.planned || drop.delta <= 0) continue;
+				for (const source of usableSources(drop.item, faction, open, character.professions)) {
+					if (!source.dungeonKey) continue;
+					const bossName = ((source.npcId ? member.options.data.npcById.get(source.npcId)?.name : undefined) ?? source.otherName ?? 'Unknown').trim();
+					const entry = dungeons.get(source.dungeonKey)?.bosses.get(bossName)?.get(drop.item.id);
+					if (entry && !entry.wants.some(want => want.member.index === member.index)) entry.wants.push({ member, slotIndex: drop.slotIndex, delta: drop.delta, planned: false });
+				}
 			}
 		}
 	}

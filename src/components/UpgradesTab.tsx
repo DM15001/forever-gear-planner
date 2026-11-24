@@ -504,6 +504,7 @@ const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, open: char
 								{plannedItem ? (
 									<>
 										<ItemName item={plannedItem} icon /> planned ({plannedSource(plannedItem)}), replacing {equippedItem ? <ItemName item={equippedItem} icon worn /> : 'an empty slot'}{' '}
+										<span className={`num ${planned.score - wornScore >= 0 ? 'delta-up' : 'delta-down'}`} title="What this one swap is worth: your plan against the same plan with the worn item in this slot.">({formatDelta(planned.score - wornScore)} over it)</span>{' '}
 										<button className="link" onClick={() => unplan(index)}>
 											Undo
 										</button>

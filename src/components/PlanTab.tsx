@@ -117,9 +117,12 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				const goalPiece = gear[index];
 				const goalItem = goalPiece ? data.itemById.get(goalPiece.id) : undefined;
 				const goalEnchant = goalPiece?.enchant && goalItem ? applicableEnchants(index, goalItem, data).find(e => e.effectId === goalPiece.enchant) : undefined;
-				return { slot, index, equippedItem, goalItem, goalEnchant, isChange: goalItem?.id !== equippedItem?.id, enchantOpen: Boolean(goalPiece?.enchant && character.gear[index]?.enchant !== goalPiece.enchant), others: fallbacks(index, options) };
+				const isChange = goalItem?.id !== equippedItem?.id;
+				// What this one swap is worth: the plan against the plan with this slot as it is worn now.
+				const overWorn = isChange ? planned.score - scoreSet(gear.map((piece, i) => (i === index ? character.gear[index] : piece)), character, data, spec).score : 0;
+				return { slot, index, equippedItem, goalItem, goalEnchant, overWorn, isChange, enchantOpen: Boolean(goalPiece?.enchant && character.gear[index]?.enchant !== goalPiece.enchant), others: fallbacks(index, options) };
 			}).filter(row => row !== null),
-		[character, gear, data, spec, options],
+		[character, gear, data, spec, options, planned],
 	);
 
 	const sourceOf = (item: Item) => {
@@ -215,7 +218,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 					<>
 				<MeasuredNote specId={spec.id} />
 				<ul className="plain-list plan-slots">
-					{slots.map(({ slot, index, equippedItem, goalItem, goalEnchant, isChange, enchantOpen, others }) => (
+					{slots.map(({ slot, index, equippedItem, goalItem, goalEnchant, isChange, overWorn, enchantOpen, others }) => (
 						<li key={slot.key} className={`plan-slot${isChange ? '' : ' plan-slot-done'}`}>
 							<button className="slot-button" onClick={() => setPicking(index)} title={`Change the planned ${slot.label.toLowerCase()} item`} aria-label={`Change the planned ${slot.label.toLowerCase()} item`}>
 								<ItemIcon icon={goalItem?.icon} quality={goalItem?.quality} small />
@@ -249,6 +252,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 									<span className="slot-source">
 										{isChange ? sourceOf(goalItem) : 'You have it'}
 										{isChange && equippedItem && `, replaces ${equippedItem.name}`}
+										{isChange && equippedItem && <span className={`num ${overWorn >= 0 ? 'delta-up' : 'delta-down'}`}> ({formatDps(overWorn)} over it)</span>}
 									</span>
 								)}
 								{goalEnchant && (
