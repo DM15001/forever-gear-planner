@@ -39,7 +39,7 @@ export function CharacterBar({ roster, onSelect, onAdd, onRemove, aside }: { ros
 								{character.name ?? `${race?.name ?? 'Unnamed'} ${spec.className}`}
 								{character.set && <span className="set-chip">{character.set}</span>}
 							</strong>
-							<span>{spec.name}</span>
+							<span className="character-tile-spec">{spec.name}</span>
 							<span className="character-tile-meta">
 								{race && <RaceIcon name={race.name} />}
 								{race ? race.name : 'Race not set'}

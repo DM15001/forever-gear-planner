@@ -5873,3 +5873,13 @@ summary.breakdown-toggle:focus-visible {
 		transform: translate(var(--dx), var(--dy)) scale(var(--size)) rotate(var(--turn));
 	}
 }
+
+/* Character bar: the build is what tells two tiles of one class apart */
+.character-tile-text .character-tile-spec {
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: var(--brass);
+}
+.character-tile-on .character-tile-text .character-tile-spec {
+	color: #fff;
+}

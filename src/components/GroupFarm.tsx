@@ -34,24 +34,24 @@ function loadSaved(): Saved {
 const MINI_BOGDAN =
 	'<svg viewBox="0 0 40 40" width="40" height="40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="12" fill="#dba77e"/><path d="M9 22 Q8 38 20 39 Q32 38 31 22 Q26 28 20 28 Q14 28 9 22 Z" fill="#b5531f"/><path d="M14 30 Q20 36 26 30 Q20 33 14 30 Z" fill="#fff"/><ellipse cx="20" cy="12" rx="17" ry="4" fill="#4a1f70"/><path d="M11 12 Q10 1 20 1 Q30 1 29 12 Z" fill="#6a329c"/><path d="M11 9 Q20 12 29 9 V12 Q20 15 11 12 Z" fill="#e2a93a"/><path d="M10 17 H19 V20 Q19 24 14.5 24 Q10 24 10 20 Z M21 17 H30 V20 Q30 24 25.5 24 Q21 24 21 20 Z" fill="#0a0908" stroke="#ffd100" stroke-width="0.8"/><path d="M9 17 H31" stroke="#0a0908" stroke-width="1.5"/></svg>';
 
-/** A handful of small Bogdans fly off the button that was pressed: the drop is yours. Nothing for people who asked for less motion. */
+/** A swarm of small Bogdans flies off the button that was pressed: the drop is yours. Nothing for people who asked for less motion. */
 function cheerBurst(from: HTMLElement) {
 	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 	const box = from.getBoundingClientRect();
-	for (let i = 0; i < 9; i++) {
+	for (let i = 0; i < 22; i++) {
 		const emote = document.createElement('span');
 		emote.className = 'got-emote';
 		emote.setAttribute('aria-hidden', 'true');
 		emote.innerHTML = MINI_BOGDAN;
 		const angle = -Math.PI / 2 + (Math.random() - 0.5) * 2.4;
-		const reach = 110 + Math.random() * 150;
+		const reach = 90 + Math.random() * 230;
 		emote.style.left = `${box.left + box.width / 2}px`;
 		emote.style.top = `${box.top + box.height / 2}px`;
 		emote.style.setProperty('--dx', `${Math.cos(angle) * reach}px`);
 		emote.style.setProperty('--dy', `${Math.sin(angle) * reach}px`);
 		emote.style.setProperty('--turn', `${(Math.random() - 0.5) * 90}deg`);
-		emote.style.setProperty('--size', `${0.8 + Math.random() * 0.9}`);
-		emote.style.animationDelay = `${i * 45}ms`;
+		emote.style.setProperty('--size', `${0.45 + Math.random() * 0.6}`);
+		emote.style.animationDelay = `${i * 28}ms`;
 		emote.addEventListener('animationend', () => emote.remove());
 		document.body.append(emote);
 	}

@@ -35,7 +35,7 @@ const SEEN_KEY = 'forever-gear-planner.news-seen';
 const OPEN_DAYS = 7;
 /** The tags an item can carry, in the order the filter shows them. */
 const CLASS_TAGS = ['Druid', 'Hunter', 'Mage', 'Paladin', 'Priest', 'Rogue', 'Shaman', 'Warlock', 'Warrior'];
-const TOPIC_TAGS = ['Items', 'Dungeons', 'Quests', 'Professions', 'PvP', 'World', 'Races', 'Upcoming', 'WoWSims'];
+const TOPIC_TAGS = ['Items', 'Dungeons', 'Quests', 'Professions', 'PvP', 'World', 'Races', 'Upcoming', 'WoWSims', 'Planner'];
 
 /** True when the newest day in the news has not been opened in this browser yet. */
 export async function newsUnseen(): Promise<boolean> {

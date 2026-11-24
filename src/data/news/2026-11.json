@@ -1,6 +1,57 @@
 {
-	"_comment": "News of one month, newest day first. Written once a day by the scheduled task 'WoW Forever daily news (gear planner)'; nothing is ever deleted, this is also the changelog. Sections in this order when they have items: 'Game' (hotfixes, patch notes, fixed quests, announcements), 'WoWSims' (changes to the simulator). Nothing about this site's own changes. Every item: title, text (own words, one or two sentences), url, source, and tags. Tags, one to three per item, only from this list: Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior, Items, Dungeons, Quests, Professions, PvP, World, Races, Upcoming, WoWSims.",
+	"_comment": "News of one month, newest day first. Written once a day by the scheduled task 'WoW Forever daily news (gear planner)'; nothing is ever deleted, this is also the changelog. Sections in this order when they have items: 'Game' (hotfixes, patch notes, fixed quests, announcements), 'WoWSims' (changes to the simulator). Every item: title, text (own words, one or two sentences), url, source, and tags. Tags, one to three per item, only from this list: Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior, Items, Dungeons, Quests, Professions, PvP, World, Races, Upcoming, WoWSims. A last section 'Gear Planner' holds the planner's own patch notes (tag 'Planner', source 'Gear Planner', no url); it is written when the site changes and must be kept when the day's news is added.",
 	"entries": [
+		{
+			"date": "2026-11-25",
+			"summary": "Planner update: gear sets per character, the group plan as cards or list, and an FAQ.",
+			"sections": [
+				{
+					"title": "Gear Planner",
+					"items": [
+						{
+							"title": "Gear sets per character",
+							"text": "\"New gear set from this character\" on the Character page makes a named copy to change: another build, other gear, another enemy. Both stay in the bar at the top.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Group plan: cards and list",
+							"text": "Dungeons show as cards or as a list, each with the drops as icons, the gain under them, who needs what, the total for the group and a priority. Names carry a tag: planned, BiS or upgrade.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "FAQ",
+							"text": "A new page next to Sim setup and News: what the planner does, how to use it, where the numbers and the data come from, and where it stops.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Planned swaps show their worth",
+							"text": "A planned item now says what it gains over the item it replaces.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Smaller things",
+							"text": "The \"simulator was updated\" note is a small box at the bottom, dungeons have their own icons, and Wit's Edge is back with a source.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						}
+					]
+				}
+			]
+		},
 		{
 			"date": "2026-11-24",
 			"summary": "The 23 November hotfixes fix the Feralheart 4-piece bonus, halve Fengus' Ferocity and Darkmoon Faire buffs that were giving double, keep world buffs when you change areas, and repair several Priest, Warlock and Warrior bugs. In WoWSims, nine items with an unknown proc rate are simulated far too high.",
@@ -131,6 +182,75 @@
 							"tags": [
 								"Items",
 								"WoWSims"
+							]
+						}
+					]
+				},
+				{
+					"title": "Gear Planner",
+					"items": [
+						{
+							"title": "Group plan as its own page",
+							"text": "The Group plan is a tab of its own now. Paste your friends' characters, or share everyone at once with one link.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Copy and paste characters",
+							"text": "\"Copy character (equipped + planned gear)\" on the Character page gives a link with worn and planned gear. The links are about ten times shorter than before.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Presets straight from WoWSims",
+							"text": "Talents, rotation, consumables and gear of every build now come from WoWSims' own presets and update with it. The site looks for a new WoWSims version every half hour.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Lists say how old their numbers are",
+							"text": "Upgrades and Plan show when the values were measured. Each slot has \"Check the top 5 with the simulator\" for an exact answer.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Set pieces explain themselves",
+							"text": "A set item now says how many pieces you would wear, what the set bonuses are worth for your build, and whether the number in front includes a bonus.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Items the simulator cannot value are hidden",
+							"text": "Nine items whose effect has no known trigger rate in WoWSims are left out of the lists. They are listed here under \"On the radar\".",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "New tab bar",
+							"text": "Full names instead of numbers, Sim setup and News as buttons at the top right, and buttons to jump to the top and bottom of the page.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Fixes",
+							"text": "Pre-pull casts show on the cast time line, Mana Agate has its name in the damage breakdown, and \"Set bonuses: none\" in Plan for me works.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
 							]
 						}
 					]
