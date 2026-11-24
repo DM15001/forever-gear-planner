@@ -95,6 +95,15 @@ const SHARE_PARAM = 'share=';
 /** The link that opens this character on another device. */
 export const shareUrl = (character: Character, pageUrl: string) => `${pageUrl.split('#')[0]}#${SHARE_PARAM}${encodeShare(character)}`;
 
+/** The character in a pasted share link, or in the bare code after "share=". Null for anything else. */
+export function characterFromShareText(text: string): Character | null {
+	const trimmed = text.trim();
+	if (!trimmed || /\s/.test(trimmed)) return null;
+	const at = trimmed.indexOf(SHARE_PARAM);
+	if (at >= 0) return decodeShare(trimmed.slice(at + SHARE_PARAM.length));
+	return /^[A-Za-z0-9_-]{40,}$/.test(trimmed) ? decodeShare(trimmed) : null;
+}
+
 /** The character a page address carries in its "#share=" part, if any. */
 export function sharedCharacter(hash: string): Character | null {
 	const at = hash.indexOf(SHARE_PARAM);

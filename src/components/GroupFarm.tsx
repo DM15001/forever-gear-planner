@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { type GameData, dataFor, loadGameData } from '../lib/gameData';
 import { type GroupMember, type GroupScope, groupFarm, sortGroup, withDrop } from '../lib/group';
-import { characterLabel, type Roster } from '../lib/roster';
+import { addCharacter, characterFromShareText, characterLabel, type Roster } from '../lib/roster';
 import { DEFAULT_FILTER } from '../lib/scoring';
 import { specOf } from '../lib/specs';
 import { wowheadData, wowheadItemUrl } from '../lib/stats';
@@ -43,6 +43,8 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 	};
 	const [undo, setUndo] = useState<{ text: string; index: number; before: Character } | null>(null);
 	const [open, setOpen] = useState<Set<string>>(new Set());
+	const [pasted, setPasted] = useState('');
+	const [addNote, setAddNote] = useState('');
 
 	const picked = roster.characters.map((character, index) => ({ character, index })).filter(({ index }) => !saved.out.includes(index));
 	const chosen = picked.slice(0, MOST);
@@ -97,8 +99,29 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 		<section className="panel group-farm" aria-labelledby="group-farm">
 			<h2 id="group-farm">Farm plan for the group</h2>
 			<p className="hint">
-				Every character saved in this browser can be part of the group. To add a friend, have them send the share link from their Character tab and open it here. Their later changes need a new link: nothing is synced.
+				Every character saved in this browser can be part of the group. To add a friend, have them press "Copy character (equipped + planned gear)" on their Character page and send you what it copies; paste it here. Their later changes need a
+				new copy: nothing is synced.
 			</p>
+			<form
+				className="group-add"
+				onSubmit={event => {
+					event.preventDefault();
+					const friend = characterFromShareText(pasted);
+					if (!friend) {
+						setAddNote('That is not a character copied from this site.');
+						return;
+					}
+					onRosterChange({ ...addCharacter(roster, { ...friend, name: friend.name ?? 'Shared character' }), active: roster.active });
+					setPasted('');
+					setAddNote(`${friend.name ?? 'The character'} was added to the group.`);
+				}}
+			>
+				<input type="text" value={pasted} onChange={event => setPasted(event.target.value)} placeholder="Paste a friend's copied character" aria-label="A friend's copied character" />
+				<button className="button" type="submit" disabled={!pasted.trim()}>
+					Add to the group
+				</button>
+				{addNote && <span className="hint" role="status">{addNote}</span>}
+			</form>
 			<fieldset className="group-members">
 				<legend>Who is in the group</legend>
 				{roster.characters.map((character, index) => {

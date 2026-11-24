@@ -1,3 +1,4 @@
+import { characterFromShareText } from '../lib/roster';
 import { useState } from 'react';
 
 import { importCharacter, ImportError, type ImportResult } from '../lib/importCharacter';
@@ -35,6 +36,12 @@ export function ImportPanel({ hasCharacter, onImported, onCancel }: Props) {
 
 	const submit = () => {
 		try {
+			// A share link from a friend's Character page: their gear and plan as they are.
+			const shared = characterFromShareText(text);
+			if (shared) {
+				onImported({ character: { ...shared, name: shared.name ?? 'Shared character' }, format: 'sim', warnings: [] });
+				return;
+			}
 			onImported(importCharacter(text));
 		} catch (err) {
 			setError(err instanceof ImportError ? err.message : 'The export could not be read.');

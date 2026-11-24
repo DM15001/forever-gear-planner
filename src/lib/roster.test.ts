@@ -57,3 +57,14 @@ describe('share links', () => {
 		expect(decodeShare(code)).not.toHaveProperty('extra');
 	});
 });
+
+describe('characterFromShareText', () => {
+	it('reads a pasted share link and the bare code, and nothing else', async () => {
+		const { characterFromShareText, encodeShare, shareUrl } = await import('./roster');
+		const character = { name: 'Bogdan', race: 'RaceDwarf', level: 60, talents: '', professions: [], gear: Array.from({ length: 17 }, (_, i) => (i === 0 ? { id: 12640 } : null)), plan: { 1: 19491 } } as never;
+		expect(characterFromShareText(shareUrl(character, 'https://example.org/planner/'))?.name).toBe('Bogdan');
+		expect(characterFromShareText(` ${encodeShare(character)} `)?.gear[0]?.id).toBe(12640);
+		expect(characterFromShareText('{ "class": "shaman" }')).toBeNull();
+		expect(characterFromShareText('hello')).toBeNull();
+	});
+});
