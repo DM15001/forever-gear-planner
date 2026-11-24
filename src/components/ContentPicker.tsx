@@ -25,7 +25,10 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 		const names = new Map<number, string>();
 		for (const item of data.itemById.values()) if (item.setId !== undefined && item.setName && !names.has(item.setId)) names.set(item.setId, item.setName);
 		const ids = new Set([...data.simValues.sets.keys(), ...filter.ignoredSets]);
-		return [...ids].filter(id => names.has(id)).map(setId => ({ setId, name: names.get(setId)! })).sort((x, y) => x.name.localeCompare(y.name));
+		// Several sets can share a name (the two factions' versions of one PvP set): one tick stands for all of them.
+		const byName = new Map<string, number[]>();
+		for (const id of ids) if (names.has(id)) byName.set(names.get(id)!, [...(byName.get(names.get(id)!) ?? []), id]);
+		return [...byName].map(([name, setIds]) => ({ name, setIds })).sort((x, y) => x.name.localeCompare(y.name));
 	}, [data, filter.ignoredSets]);
 	const lowOn = !catalog.lowDungeonKeys.some(key => filter.excludedDungeons.includes(key));
 
@@ -101,11 +104,15 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 						<button className="link" onClick={() => set({ ignoredSets: [] })}>
 							All
 						</button>{' '}
-						<button className="link" onClick={() => set({ ignoredSets: setChoices.map(choice => choice.setId) })}>
+						<button className="link" onClick={() => set({ ignoredSets: [...new Set([...filter.ignoredSets, ...setChoices.flatMap(choice => choice.setIds)])] })}>
 							None
 						</button>
 					</p>
-					{setChoices.map(choice => check(choice.name, !filter.ignoredSets.includes(choice.setId), on => set({ ignoredSets: on ? filter.ignoredSets.filter(id => id !== choice.setId) : [...filter.ignoredSets, choice.setId] })))}
+					{setChoices.map(choice =>
+						check(choice.name, choice.setIds.some(id => !filter.ignoredSets.includes(id)), on =>
+							set({ ignoredSets: on ? filter.ignoredSets.filter(id => !choice.setIds.includes(id)) : [...new Set([...filter.ignoredSets, ...choice.setIds])] }),
+						),
+					)}
 				</fieldset>
 			)}
 

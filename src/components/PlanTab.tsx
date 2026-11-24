@@ -39,6 +39,15 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 
 	const rebuild = (nextFilter = filter) => onChange({ ...character, ...buildPlan({ character, data, spec, filter: nextFilter }) });
 
+	// A change of the content choice comes back as a new filter (and item data, when sets were switched): then the plan is rebuilt.
+	const rebuildAfterChange = useRef(false);
+	useEffect(() => {
+		if (!rebuildAfterChange.current) return;
+		rebuildAfterChange.current = false;
+		rebuild(filter);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [filter, data]);
+
 	// A character that has never had a plan gets one right away.
 	const built = useRef(false);
 	useEffect(() => {
@@ -190,8 +199,10 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						data={data}
 						filter={filter}
 						onChange={next => {
+							// The plan is rebuilt once the new choice has arrived (see the effect above): rebuilding here would
+							// save the character as it was before the change and undo it.
+							rebuildAfterChange.current = true;
 							onFilterChange(next);
-							rebuild(next);
 						}}
 					/>
 				</details>
