@@ -9,8 +9,6 @@ import { effortLine, effortParts, LOOT_DATE } from '../lib/loot';
 import type { SourceFilter } from '../lib/scoring';
 import { sourceLine, wowheadItemUrl, wowheadData, wowheadSourceLink } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
-import type { Roster } from '../lib/roster';
-import { GroupFarm } from './GroupFarm';
 import { ItemIcon } from './ItemIcon';
 import { SuffixNote, suffixText } from './SuffixNote';
 import { SourceSymbol } from './Ornaments';
@@ -22,8 +20,6 @@ interface Props {
 	filter: SourceFilter;
 	onChange: (next: Character) => void;
 	/** All saved characters, for the group view. */
-	roster: Roster;
-	onRosterChange: (next: Roster) => void;
 }
 
 const GROUP_TITLES: Record<PlanGroupKind, string> = {
@@ -41,9 +37,8 @@ const BOSS_DROPS_SHOWN = 4;
 const formatPerRun = (value: number) => `+${value >= 10 ? Math.round(value) : value.toFixed(value >= 1 ? 1 : 2)} ${unit()}`;
 const formatDelta = formatDps;
 
-export function FarmTab({ spec, character, data, filter, onChange, roster, onRosterChange }: Props) {
+export function FarmTab({ spec, character, data, filter, onChange }: Props) {
 	// One character's plan, or what the whole group has to gain per dungeon.
-	const [scope, setScope] = useState<'one' | 'group'>('one');
 	// The last item ticked off, so a slip can be taken back.
 	const [gotBack, setGotBack] = useState<{ name: string; before: Character } | null>(null);
 	/** The item is in the bags now: it becomes the equipped piece and leaves the plan. */
@@ -88,30 +83,8 @@ export function FarmTab({ spec, character, data, filter, onChange, roster, onRos
 			return next;
 		});
 
-	const scopeSwitch = (
-		<div className="view-switch farm-scope" role="group" aria-label="Whose farm plan">
-			<button className="view-choice" aria-pressed={scope === 'one'} onClick={() => setScope('one')}>
-				<strong>This character</strong>
-				<span>Where to get the plan, and the best dungeons</span>
-			</button>
-			<button className="view-choice" aria-pressed={scope === 'group'} onClick={() => setScope('group')}>
-				<strong>Group</strong>
-				<span>All your saved characters at once: who wants which drop</span>
-			</button>
-		</div>
-	);
-	if (scope === 'group') {
-		return (
-			<div className="farm">
-				{scopeSwitch}
-				<GroupFarm roster={roster} onRosterChange={onRosterChange} />
-			</div>
-		);
-	}
-
 	return (
 		<div className="farm">
-			{scopeSwitch}
 			<section className="panel" aria-labelledby="farm-plan">
 				<h2 id="farm-plan">How to get your plan</h2>
 				{planSize === 0 ? (
