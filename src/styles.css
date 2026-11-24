@@ -4618,7 +4618,7 @@ summary.breakdown-toggle:focus-visible {
 /* The dwarf that shows for a moment when the Live/Dev switch is unlocked; it stands under the switch and points up at it. */
 .cheer-dwarf {
 	position: fixed;
-	top: 1.7rem;
+	top: 2.6rem;
 	right: 1.6rem;
 	z-index: 60;
 	pointer-events: none;
@@ -4644,6 +4644,38 @@ summary.breakdown-toggle:focus-visible {
 }
 .cheer-smoke-3 {
 	animation-delay: 1s;
+}
+.cheer-shine {
+	animation: cheer-shine 1.3s ease-in-out 0.6s 2 both;
+}
+.cheer-bling {
+	transform-box: fill-box;
+	transform-origin: center;
+	animation: cheer-bling 0.9s ease-in-out infinite alternate;
+}
+.cheer-bling-2 {
+	animation-delay: 0.3s;
+}
+.cheer-bling-3 {
+	animation-delay: 0.6s;
+}
+@keyframes cheer-shine {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(200px);
+	}
+}
+@keyframes cheer-bling {
+	from {
+		opacity: 0.15;
+		transform: scale(0.4) rotate(0deg);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1.15) rotate(45deg);
+	}
 }
 @keyframes cheer-dwarf {
 	0% {
@@ -4694,7 +4726,9 @@ summary.breakdown-toggle:focus-visible {
 	.cheer-dwarf,
 	.cheer-point,
 	.cheer-finger,
-	.cheer-smoke {
+	.cheer-smoke,
+	.cheer-shine,
+	.cheer-bling {
 		animation: none;
 	}
 	.cheer-smoke {
