@@ -186,12 +186,13 @@ function CheerFriends() {
 		<svg className="cheer-friends" viewBox="0 0 300 240" width="300" height="240" aria-hidden="true">
 			{/* dust where Afly is dragged along */}
 			<path d="M14 200 h14 M8 192 h10 M30 206 h18" stroke="#cfd4d8" strokeWidth="3" strokeLinecap="round" opacity="0.6" />
-			{/* Afly: sitting, leaning back, arms crossed */}
+			{/* Afly: in a wheelchair, arms crossed, towed along */}
 			<g className="cheer-dragged">
-				<path d="M52 176 Q84 170 128 190 L126 202 Q86 200 50 198 Z" fill="#6a329c" />
-				<path d="M56 190 Q88 188 124 198" fill="none" stroke="#4a1f70" strokeWidth="2" strokeLinecap="round" />
-				<ellipse cx="132" cy="194" rx="9" ry="6" fill="#2a1840" />
-				<path d="M46 150 Q44 196 70 198 Q96 196 92 150 Q70 138 46 150 Z" fill="#6a329c" />
+				{/* the wheelchair: back, handle, seat */}
+				<path d="M40 112 L44 178 H108 M40 112 H30" fill="none" stroke="#8d949c" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+				<path d="M44 150 H56" stroke="#8d949c" strokeWidth="4" strokeLinecap="round" />
+				<g transform="translate(4 -14)">
+				<path d="M48 150 Q46 186 70 188 Q94 186 92 150 Q70 138 48 150 Z" fill="#6a329c" />
 				<path d="M60 146 L70 162 L80 146" fill="none" stroke="#d6a52c" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
 				{/* medium-length black hair, behind the head */}
 				<path d="M42 132 Q36 92 68 92 Q100 92 94 132 L96 152 Q88 158 86 148 L50 148 Q48 158 40 152 Z" fill="#17131c" />
@@ -211,34 +212,49 @@ function CheerFriends() {
 				<path d="M50 172 Q70 160 90 170" fill="none" stroke="#5b2a86" strokeWidth="11" strokeLinecap="round" />
 				<circle cx="91" cy="165" r="5.5" fill="#f0d2bd" />
 				<circle cx="49" cy="172" r="5.5" fill="#f0d2bd" />
-				{/* the rope around her */}
-				<path d="M46 180 Q70 190 94 180" fill="none" stroke="#c9a36a" strokeWidth="5" strokeLinecap="round" />
-				<circle cx="94" cy="180" r="4" fill="#a8824a" />
+				</g>
+				{/* legs bent, feet on the footrest */}
+				<path d="M62 166 L106 168" stroke="#6a329c" strokeWidth="17" strokeLinecap="round" />
+				<path d="M108 168 L110 188" stroke="#5b2a86" strokeWidth="14" strokeLinecap="round" />
+				<ellipse cx="116" cy="192" rx="9" ry="5" fill="#2a1840" />
+				<path d="M104 196 H126 M108 178 L112 194" fill="none" stroke="#8d949c" strokeWidth="4" strokeLinecap="round" />
+				{/* wheels */}
+				<circle cx="58" cy="178" r="21" fill="none" stroke="#23232b" strokeWidth="6" />
+				<circle cx="58" cy="178" r="16.5" fill="none" stroke="#8d949c" strokeWidth="2" />
+				<path d="M58 161 V195 M41 178 H75 M46 166 L70 190 M70 166 L46 190" stroke="#8d949c" strokeWidth="1.6" />
+				<circle cx="58" cy="178" r="4" fill="#d6a52c" />
+				<circle cx="110" cy="195" r="5" fill="#23232b" stroke="#8d949c" strokeWidth="2" />
 				{/* a small green flame, because warlock */}
-				<path className="cheer-bling cheer-bling-2" d="M30 150 q-6 -10 2 -18 q0 8 6 10 q4 6 -2 10 q-4 2 -6 -2 Z" fill="#7dff6a" opacity="0.85" />
+				<path className="cheer-bling cheer-bling-2" d="M22 140 q-6 -10 2 -18 q0 8 6 10 q4 6 -2 10 q-4 2 -6 -2 Z" fill="#7dff6a" opacity="0.85" />
 			</g>
 			{/* the rope, taut */}
-			<path d="M94 180 Q160 150 216 136 L246 146" fill="none" stroke="#c9a36a" strokeWidth="4" strokeLinecap="round" />
-			<path d="M110 173 l3 3 M140 160 l3 3 M170 149 l3 3 M198 141 l3 3" stroke="#a8824a" strokeWidth="2" strokeLinecap="round" />
+			<path d="M124 188 Q170 160 214 140 L240 142" fill="none" stroke="#c9a36a" strokeWidth="4" strokeLinecap="round" />
+			<path d="M140 177 l3 3 M162 164 l3 3 M186 152 l3 3" stroke="#a8824a" strokeWidth="2" strokeLinecap="round" />
 			{/* Larry: the backpack first, it is most of her */}
 			<g className="cheer-haul">
-				<ellipse cx="184" cy="52" rx="30" ry="11" fill="#7fa37a" />
-				<path d="M158 52 q-4 -8 4 -10 M210 52 q4 -8 -4 -10" fill="none" stroke="#5c7d58" strokeWidth="3" strokeLinecap="round" />
-				<rect x="150" y="58" width="68" height="112" rx="20" fill="#8a5a2b" />
-				<path d="M150 96 Q184 112 218 96 V78 Q218 58 198 58 H170 Q150 58 150 78 Z" fill="#a06a34" />
+				<g transform="translate(-34 -30) scale(1.15)">
+				<ellipse cx="184" cy="52" rx="30" ry="11" fill="#e9e4d2" />
+				<path d="M158 52 q-4 -8 4 -10 M210 52 q4 -8 -4 -10" fill="none" stroke="#b8402e" strokeWidth="3" strokeLinecap="round" />
+				<rect x="150" y="58" width="68" height="112" rx="20" fill="#3f6b73" />
+				<path d="M150 96 Q184 112 218 96 V78 Q218 58 198 58 H170 Q150 58 150 78 Z" fill="#4f828b" />
 				<rect x="178" y="98" width="12" height="14" rx="3" fill="#d6a52c" />
-				<rect x="158" y="124" width="52" height="34" rx="8" fill="#75491f" />
-				<path d="M158 134 H210" stroke="#5c3814" strokeWidth="2" />
+				<rect x="158" y="124" width="52" height="34" rx="8" fill="#33575e" />
+				<path d="M158 134 H210" stroke="#264248" strokeWidth="2" />
 				<circle cx="146" cy="120" r="12" fill="none" stroke="#3a3a44" strokeWidth="5" />
 				<path d="M146 132 V152" stroke="#3a3a44" strokeWidth="5" strokeLinecap="round" />
 				<path d="M222 62 L214 176" stroke="#d6a52c" strokeWidth="4" strokeLinecap="round" />
 				<circle cx="222" cy="58" r="7" fill="#fff6b0" stroke="#d6a52c" strokeWidth="2" />
+				{/* holy light behind her, and a halo */}
+				<circle cx="238" cy="108" r="40" fill="#fff6b0" opacity="0.13" />
+				<path d="M238 60 V44 M206 72 L196 60 M270 72 L280 60 M194 104 H180 M282 104 H296" stroke="#fff6b0" strokeWidth="3" strokeLinecap="round" opacity="0.55" />
 				{/* legs, mid-stride */}
 				<path d="M222 182 L210 198 M236 182 L250 196" stroke="#f2c9a8" strokeWidth="9" strokeLinecap="round" />
 				<ellipse cx="206" cy="201" rx="11" ry="6" fill="#e9e4d2" />
 				<ellipse cx="256" cy="199" rx="11" ry="6" fill="#e9e4d2" />
 				{/* robe: white tabard with an emblem, belt, red skirt with a gold hem */}
-				<path d="M212 150 Q206 188 212 192 H248 Q254 188 248 150 Z" fill="#b8402e" />
+				<path d="M212 150 Q204 188 210 192 H250 Q256 188 248 150 Z" fill="#f4f1e8" stroke="#d6a52c" strokeWidth="1.5" />
+				<path d="M225 160 H235 L237 190 H223 Z" fill="#b8402e" />
+				<path d="M230 170 v10 M226 174 h8" stroke="#ffd100" strokeWidth="2" strokeLinecap="round" />
 				<path d="M210 184 Q230 190 250 184 L249 191 Q230 196 211 191 Z" fill="#e2a93a" />
 				<path d="M212 136 Q210 158 214 160 H246 Q250 158 246 136 Q230 128 212 136 Z" fill="#f4f1e8" stroke="#d6a52c" strokeWidth="2" />
 				<path d="M220 140 Q224 150 230 147 Q236 150 240 140 Q240 152 230 156 Q220 152 220 140 Z" fill="#3a3a44" />
@@ -264,8 +280,10 @@ function CheerFriends() {
 				<circle cx="269" cy="117" r="3" fill="none" stroke="#9fd8ff" strokeWidth="2" />
 				<circle cx="238" cy="110" r="24" fill="#f2c9a8" />
 				<path d="M212 114 Q206 78 238 78 Q270 78 264 114 Q264 98 240 87 L238 84 L236 87 Q212 98 212 114 Z" fill="#8a4b22" />
-				<path d="M213 106 Q208 124 216 134 L219 112 Z M263 106 Q268 124 260 134 L257 112 Z" fill="#8a4b22" />
+				<path d="M213 106 Q206 128 214 144 Q220 136 219 112 Z M263 106 Q270 128 262 144 Q256 136 257 112 Z" fill="#8a4b22" />
 				<path d="M238 84 Q230 80 222 84 M238 84 Q246 80 254 84" fill="none" stroke="#a9632f" strokeWidth="1.5" strokeLinecap="round" />
+				<ellipse cx="238" cy="72" rx="19" ry="5.5" fill="none" stroke="#ffd100" strokeWidth="3.5" />
+				<ellipse cx="238" cy="72" rx="19" ry="5.5" fill="none" stroke="#fff6b0" strokeWidth="1.2" />
 				{/* big light blue eyes with lashes, annoyed brows, gritted teeth */}
 				<ellipse cx="228" cy="112" rx="7" ry="7.5" fill="#ffffff" />
 				<ellipse cx="248" cy="112" rx="7" ry="7.5" fill="#ffffff" />
@@ -276,14 +294,17 @@ function CheerFriends() {
 				<circle cx="231.5" cy="111" r="1.1" fill="#ffffff" />
 				<circle cx="251.5" cy="111" r="1.1" fill="#ffffff" />
 				<path d="M221 108 Q228 102 235 107 M241 107 Q248 102 255 108" fill="none" stroke="#3a2414" strokeWidth="1.8" strokeLinecap="round" />
-				<path d="M221 108 l-3 -2 M255 108 l3 -2" stroke="#3a2414" strokeWidth="1.6" strokeLinecap="round" />
+				<path d="M221 108 l-4 -3 M223 106 l-2 -4 M255 108 l4 -3 M253 106 l2 -4" stroke="#3a2414" strokeWidth="1.6" strokeLinecap="round" />
+				<ellipse cx="222" cy="121" rx="4.5" ry="2.5" fill="#f08a8a" opacity="0.55" />
+				<ellipse cx="254" cy="121" rx="4.5" ry="2.5" fill="#f08a8a" opacity="0.55" />
 				<path d="M220 101 L234 104 M256 101 L242 104" stroke="#6b3a18" strokeWidth="2.2" strokeLinecap="round" />
 				<path d="M237 118 q1 2 3 1" fill="none" stroke="#d9a587" strokeWidth="1.5" strokeLinecap="round" />
-				<rect x="230" y="123" width="16" height="6" rx="3" fill="#ffffff" stroke="#c0566a" strokeWidth="2" />
-				<path d="M234 123 V129 M238 123 V129 M242 123 V129" stroke="#c9a0a8" strokeWidth="1" />
+				<rect x="232" y="123" width="12" height="5.5" rx="2.75" fill="#ffffff" stroke="#d2476a" strokeWidth="2.2" />
+				<path d="M236 123 V128 M240 123 V128" stroke="#c9a0a8" strokeWidth="1" />
 				{/* sweat */}
 				<path className="cheer-bling cheer-bling-1" d="M268 92 q4 7 0 9 q-4 -2 0 -9 Z" fill="#7fd0ff" />
 				<path className="cheer-bling cheer-bling-3" d="M276 108 q3 6 0 8 q-3 -2 0 -8 Z" fill="#7fd0ff" />
+				</g>
 			</g>
 			{/* name plates */}
 			<rect x="34" y="210" width="72" height="22" rx="6" fill="#3b1560" stroke="#d6a52c" strokeWidth="2.5" />

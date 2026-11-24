@@ -4603,21 +4603,29 @@ summary.breakdown-toggle:focus-visible {
 }
 
 /* Live / Dev switch: two published copies of the site, see pages.yml. */
+/* Flush in the top right corner, like a tab hanging from the edge of the page. */
 .channel-switch {
 	position: fixed;
-	top: 0.4rem;
-	right: 0.5rem;
+	top: 0;
+	right: 0;
 	z-index: 50;
 	display: flex;
-	border: 1px solid var(--ridge);
-	border-radius: 999px;
+	border: solid var(--ridge);
+	border-width: 0 0 1px 1px;
+	border-radius: 0 0 0 8px;
 	background: var(--slate);
-	font-size: 0.75rem;
+	font-size: 0.6875rem;
+	line-height: 1.2;
 	overflow: hidden;
+	opacity: 0.85;
+}
+.channel-switch:hover,
+.channel-switch:focus-within {
+	opacity: 1;
 }
 .channel-switch a,
 .channel-switch span {
-	padding: 0.2rem 0.65rem;
+	padding: 0.25rem 0.7rem;
 	color: var(--haze);
 	text-decoration: none;
 }
