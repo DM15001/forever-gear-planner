@@ -1,0 +1,5 @@
+{
+	"_comment": "Hand-kept notes on items the simulator gets wrong or that only look wrong. `wrong`: the simulated value cannot be trusted; the item is kept out of the lists and shown on the News page under 'On the radar', with this text as the reason. `fine`: looked at and correct, so scripts/check-rankings.ts stops flagging it. Keyed by item id; the text says what was checked and when. Items whose proc rate WoWSims itself lists as unknown are found automatically (src/data/unknownProcs.json) and need no entry here.",
+	"wrong": {},
+	"fine": {}
+}

@@ -1,6 +1,7 @@
 import { GEAR_SLOTS } from './constants';
 import type { GameData } from './gameData';
 import notAvailable from '../config/not-available.json';
+import simIssues from '../config/sim-issues.json';
 import unknownProcs from '../data/unknownProcs.json';
 import quests from '../config/quests.json';
 import tierSetsJson from '../config/tierSets.json';
@@ -15,10 +16,13 @@ const CLOSED_ICON_WORDS = Object.entries(notAvailable.iconWords as Record<string
 const CLOSED_ITEMS: Record<string, string> = notAvailable.items;
 /** Items whose effect has no known trigger rate in WoWSims (src/data/unknownProcs.json, from scripts/build-data.mjs). */
 const UNKNOWN_PROCS: Record<string, string> = unknownProcs;
+/** Items whose simulated value is known to be wrong (src/config/sim-issues.json, kept by hand). */
+const WRONG_IN_SIM: Record<string, string> = simIssues.wrong;
 
 /** Why an item cannot be had in the game yet, or undefined when nothing is known against it. */
 export function notYetAvailable(item: Item): string | undefined {
 	if (CLOSED_ITEMS[item.id]) return CLOSED_ITEMS[item.id];
+	if (WRONG_IN_SIM[item.id]) return `The simulator values this item wrongly: ${WRONG_IN_SIM[item.id]}`;
 	if (UNKNOWN_PROCS[item.id]) return 'WoWSims does not know yet how often its effect triggers and counts it on every hit or cast, so the simulated value is far too high. It is kept out of the lists until WoWSims has the real rate';
 	if (item.unreleased) return 'WoWSims does not list this item as released yet (later raids and events, old PvP ranks). If you can get it in the game, tell us';
 	if (item.tag && CLOSED_TAGS[item.tag]) return CLOSED_TAGS[item.tag];

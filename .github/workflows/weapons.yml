@@ -110,6 +110,9 @@ jobs:
           fi
           # The app shows how fresh each build's numbers are.
           node scripts/measurement-status.mjs && git add src/data/measurementStatus.json
+          # Low-level items among a slot's best: usually a sign that the simulator values an effect wrongly.
+          npx vite-node scripts/check-rankings.ts > /tmp/flags.txt || true
+          git add docs/ranking-flags.md || true
           git diff --cached --name-only > /tmp/changed.txt
           count=$(wc -l < /tmp/changed.txt | tr -d ' ')
           git commit -m "Measured weapons as a whole ($count builds updated)" -m "Written by .github/workflows/weapons.yml with scripts/build-weapon-values.mjs."
@@ -118,6 +121,18 @@ jobs:
             sleep 10
           done
           exit 1
+      - name: Report items that rank suspiciously high
+        if: steps.commit.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [ -s /tmp/flags.txt ] || exit 0
+          title="Low-level items among a slot's best: check how the simulator values them"
+          body="After the last measurement these items below item level 50 are among a slot's three best for a build. Each is either truly special or valued wrongly by WoWSims. Look at the effect, then note the item in src/config/sim-issues.json as fine or wrong.
+
+          $(sed 's/^/- /' /tmp/flags.txt)"
+          number=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$number" ]; then gh issue edit "$number" --body "$body"; else gh issue create --title "$title" --label planner-followup --body "$body"; fi
       - name: Tests on the new numbers
         id: tests
         if: steps.commit.outputs.pushed == 'true'

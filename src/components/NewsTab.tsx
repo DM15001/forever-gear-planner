@@ -1,9 +1,12 @@
+import simIssues from '../config/sim-issues.json';
 import unknownProcs from '../data/unknownProcs.json';
 import { wowheadData, wowheadItemUrl } from '../lib/stats';
 import { useEffect, useMemo, useState } from 'react';
 
 /** Items whose effect has no known trigger rate in WoWSims (scripts/build-data.mjs keeps the list). */
 const RADAR = Object.entries(unknownProcs as Record<string, string>).sort((a, b) => a[1].localeCompare(b[1]));
+/** Items the simulator is known to value wrongly, with the reason (src/config/sim-issues.json, kept by hand). */
+const WRONG = Object.entries((simIssues as { wrong: Record<string, string> }).wrong);
 
 interface NewsItem {
 	title: string;
@@ -138,9 +141,9 @@ export function NewsTab({ myClass, onSeen }: { myClass?: string; onSeen: () => v
 			<h2>News and changelog</h2>
 			<p className="hint">Once a day: what changed in WoW Forever (hotfixes, patch notes, fixed quests, announcements) and in the WoWSims simulator. Nothing is removed, so this is also the record of when something changed. Each item links to where it comes from.</p>
 
-			{RADAR.length > 0 && (
+			{(RADAR.length > 0 || WRONG.length > 0) && (
 				<div className="card news-radar">
-					<h3>On the radar: items the simulator cannot value yet ({RADAR.length})</h3>
+					<h3>On the radar: items the simulator cannot value yet ({RADAR.length + WRONG.length})</h3>
 					<p className="hint">
 						WoWSims has no trigger rate for their effects and counts the effect on every hit or cast, so their simulated value is far too high. They stay out of the lists and plans until WoWSims has the real rate; this list updates itself with
 						every simulator update.
@@ -155,6 +158,18 @@ export function NewsTab({ myClass, onSeen }: { myClass?: string; onSeen: () => v
 							</span>
 						))}
 					</p>
+					{WRONG.length > 0 && (
+						<ul className="plain-list news-radar-wrong">
+							{WRONG.map(([id, reason]) => (
+								<li key={id}>
+									<a href={wowheadItemUrl(Number(id))} data-wowhead={wowheadData('item', Number(id))} target="_blank" rel="noreferrer">
+										Item {id}
+									</a>
+									: {reason}
+								</li>
+							))}
+						</ul>
+					)}
 				</div>
 			)}
 
