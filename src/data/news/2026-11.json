@@ -2,6 +2,127 @@
 	"_comment": "News of one month, newest day first. Written once a day by the scheduled task 'WoW Forever daily news (gear planner)'; nothing is ever deleted, this is also the changelog. Sections in this order when they have items: 'Game' (hotfixes, patch notes, fixed quests, announcements), 'WoWSims' (changes to the simulator). Nothing about this site's own changes. Every item: title, text (own words, one or two sentences), url, source, and tags. Tags, one to three per item, only from this list: Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior, Items, Dungeons, Quests, Professions, PvP, World, Races, Upcoming, WoWSims.",
 	"entries": [
 		{
+			"date": "2026-11-24",
+			"summary": "The 23 November hotfixes fix the Feralheart 4-piece bonus, halve Fengus' Ferocity and Darkmoon Faire buffs that were giving double, keep world buffs when you change areas, and repair several Priest, Warlock and Warrior bugs.",
+			"sections": [
+				{
+					"title": "Game",
+					"items": [
+						{
+							"title": "Feralheart 4-piece bonus fixed",
+							"text": "The Druid Feralheart 4-piece bonus now really gives 4 energy every second for 5 seconds. Cat Druids wearing four pieces should see the energy the tooltip promises.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-23-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Druid",
+								"Items"
+							]
+						},
+						{
+							"title": "Shadow Priest fixes",
+							"text": "Dark Inspiration now gives the right Spirit bonus when Mind Flay triggers it, and Chastise can be cast in Shadowform. Mind Vision no longer sets off proc effects.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-23-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Priest"
+							]
+						},
+						{
+							"title": "Intensity now works with Incinerate",
+							"text": "The Destruction talent Intensity had no effect on Incinerate; that is fixed.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-23-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Warlock"
+							]
+						},
+						{
+							"title": "Mortal Strike needs its talent again",
+							"text": "Warriors could use Mortal Strike from the spellbook without having the talent. The spell still shows there but only works with the talent point spent.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-23-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Warrior"
+							]
+						},
+						{
+							"title": "World buffs: two were doubled, and they no longer drop between areas",
+							"text": "Fengus' Ferocity gave twice the intended spell power and Darkmoon Faire buffs twice their intended strength; both are back to the intended values, so buffed numbers go down a little. World buffs no longer fall off when you change areas, but still do when you enter a raid.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-23-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"World"
+							]
+						},
+						{
+							"title": "Fewer extra weapon procs",
+							"text": "A few spells and abilities triggered weapon procs more often than they should. That is corrected, which slightly lowers the value of proc weapons for builds that used those abilities; Blizzard did not name them.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-23-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Items"
+							]
+						},
+						{
+							"title": "Obsidian Sentinel in Uldaman drops loot",
+							"text": "The Obsidian Sentinel now drops its loot as intended.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-23-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Dungeons",
+								"Items"
+							]
+						},
+						{
+							"title": "Filcher's Cowl has no level requirement",
+							"text": "The cloak Filcher's Cowl can now be worn at any level.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-23-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Items"
+							]
+						},
+						{
+							"title": "Cooking: clam dishes and Murloc Fin Soup",
+							"text": "Six clam recipes (from Boiled Clams to Clam Linguine) now give the correct Well Fed bonus and are listed as Stamina food. Murloc Fin Soup was raised a food tier, so it restores more and gives a bigger Well Fed bonus.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-23-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Professions"
+							]
+						},
+						{
+							"title": "Engineering and Leatherworking recipe fixes",
+							"text": "The Goblin and Gnome Engineer's Renewal Gifts no longer show up as unusable question marks, learning Goblin Mortar now also teaches The Mortar: Reloaded, and the Centaur Hoofwarmers pattern can be learned.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-23-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Professions"
+							]
+						},
+						{
+							"title": "Quest fixes",
+							"text": "In the Wetlands, For Further Study now has rewards, and Uncovering the Past and Gleaning Our Future give Ironforge reputation. In Riverglades, Dunston Willis runs again near the end of his escort quest.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-23-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Quests"
+							]
+						},
+						{
+							"title": "Wisp Form only for the dead",
+							"text": "Living players can no longer end up in the Night Elf Wisp Form.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-23-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Races"
+							]
+						}
+					]
+				}
+			]
+		},
+		{
 			"date": "2026-11-23",
 			"summary": "No new numbered hotfixes since 20 November, but Blizzard temporarily switched off looking inside lockboxes. WoWSims made the Druid dungeon set bonuses work in the simulator.",
 			"sections": [
