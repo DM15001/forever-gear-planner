@@ -30,6 +30,8 @@ interface Props {
 	onWeightsChange: (weights: SpecConfig['weights'] | null) => void;
 	/** 'sim': content, stat weights and the simulation. 'list': the possible upgrades per slot. */
 	part: 'sim' | 'list';
+	/** Opens the page with the planned items and the lists. */
+	onShowList?: () => void;
 }
 
 /** How many items the list for a picked enemy or terrain shows. */
@@ -39,7 +41,7 @@ const SHORT_LIST = 6;
 const ALTERNATIVES = 5;
 const LONG_LIST = 25;
 
-export function UpgradesTab({ spec, character, data, onChange, filter, onFilterChange: setFilter, defaultWeights, onWeightsChange, part }: Props) {
+export function UpgradesTab({ spec, character, data, onChange, filter, onFilterChange: setFilter, defaultWeights, onWeightsChange, part, onShowList }: Props) {
 	const [expanded, setExpanded] = useState<Set<number>>(new Set());
 	const [guideNotice, setGuideNotice] = useState<{
 		title: string;
@@ -249,6 +251,16 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						Clear plan{planCount > 0 ? ` (${planCount})` : ''}
 					</button>
 				</div>
+				{planCount > 0 && (
+					<p className="plan-done" role="status">
+						{planCount === 1 ? 'One slot is' : `${planCount} slots are`} planned, {formatDelta(gain)} over your equipped gear.{' '}
+						{onShowList && (
+							<button className="link" onClick={onShowList}>
+								Show the planned items
+							</button>
+						)}
+					</p>
+				)}
 				<p className="hidden-note">
 					Too expensive, or you just do not want it? "Hide" next to an item leaves it out of every list and out of "Plan the best set".
 					{filter.hiddenItems.length > 0 && (

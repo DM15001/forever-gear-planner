@@ -31,9 +31,9 @@ import type { Character, SpecConfig } from './lib/types';
 /** The planner's sections, in the bar. */
 const TABS = [
 	{ id: 'character', label: 'Character' },
-	{ id: 'enchants', label: 'Enchants & professions' },
 	{ id: 'simulate', label: 'Plan' },
 	{ id: 'upgrades', label: 'Upgrades' },
+	{ id: 'enchants', label: 'Enchants & professions' },
 	{ id: 'farm', label: 'Farm plan' },
 	{ id: 'group', label: 'Group plan' },
 ];
@@ -501,7 +501,7 @@ export function App() {
 						{tab === 'simulate' && baseSpec.role === 'healer' && <HealingPicker character={character} spec={spec} onChange={update} />}
 						{(tab === 'simulate' || tab === 'upgrades') && upgradeView === 'plan' && (data ? <PlanTab part={tab === 'simulate' ? 'sim' : 'list'} spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} /> : <p>Loading item data…</p>)}
 
-						{(tab === 'simulate' || tab === 'upgrades') && upgradeView === 'slots' && (data ? <UpgradesTab part={tab === 'simulate' ? 'sim' : 'list'} spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
+						{(tab === 'simulate' || tab === 'upgrades') && upgradeView === 'slots' && (data ? <UpgradesTab onShowList={() => setTab('upgrades')} part={tab === 'simulate' ? 'sim' : 'list'} spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
 
 						{tab === 'farm' && (data ? <FarmTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
 						{/* The group plan is about all saved characters, not the one that is open. */}

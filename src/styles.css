@@ -5205,3 +5205,9 @@ summary.breakdown-toggle:focus-visible {
 	gap: 0.4rem;
 	margin-left: auto;
 }
+
+/* Plan page: what "Plan the best set" did, since the planned items are on the Upgrades page */
+.plan-done {
+	margin: 0.6rem 0 0;
+	color: var(--mist);
+}
