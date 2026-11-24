@@ -92,6 +92,8 @@ jobs:
         id: apply
         if: inputs.specs == ''
         run: |
+          # Out of the way: this project's own tests would otherwise pick up the WoWSims test files.
+          mv wowsims "$RUNNER_TEMP/wowsims"
           node scripts/apply-presets.mjs "$RUNNER_TEMP/presets" | tee "$RUNNER_TEMP/changed.txt"
           if git diff --quiet; then echo "The builds are what wowsims.com shows."; exit 0; fi
           echo "changed=true" >> "$GITHUB_OUTPUT"
@@ -103,7 +105,7 @@ jobs:
           git clone --quiet --depth 1 --filter=blob:none --sparse https://github.com/wowsims/pages-deploy.git "$RUNNER_TEMP/pages"
           git -C "$RUNNER_TEMP/pages" sparse-checkout set forever
           if [ "$(node -e 'console.log(require(process.argv[1]).commit)' "$RUNNER_TEMP/pages/forever/version.json")" = "${{ steps.version.outputs.commit }}" ]; then
-            node scripts/build-data.mjs --pages "$RUNNER_TEMP/pages" --repo wowsims
+            node scripts/build-data.mjs --pages "$RUNNER_TEMP/pages" --repo "$RUNNER_TEMP/wowsims"
           else
             echo "wowsims.com has moved on; the simulator update will rebuild the data."
           fi
