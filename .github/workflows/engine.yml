@@ -93,6 +93,18 @@ jobs:
             git pull -q --rebase origin main && git push -q origin HEAD:main && echo "pushed=true" >> "$GITHUB_OUTPUT" && break
             sleep 10
           done
+      - name: Do the builds still fit the new data?
+        if: steps.check.outputs.changed == 'true' && steps.test.outcome == 'success'
+        run: |
+          found=$(node scripts/check-builds.mjs)
+          if [ -z "$found" ]; then exit 0; fi
+          echo "$found"
+          title="Build presets no longer fit the WoWSims data"
+          if [ "$(gh issue list --state open --search "$title in:title" --json number --jq length)" = "0" ]; then
+            gh issue create --title "$title" --label planner-followup --body "After the update to WoWSims ${{ steps.check.outputs.theirs }}, some builds carry settings the data no longer allows. wowsims.com drops these on import, so \"Simulate\" here can differ by a few DPS until the builds in scripts/builds are brought in line with the WoWSims presets.
+
+          $found"
+          fi
       - name: Republish the site
         if: steps.commit.outputs.pushed == 'true'
         run: gh workflow run pages.yml --ref main
