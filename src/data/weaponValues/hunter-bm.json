@@ -1,265 +1,265 @@
 {
-	"generatedAt": "2026-11-23T14:50:18.685Z",
-	"inputs": "180f67b0c78e55af",
+	"generatedAt": "2026-11-24T07:46:12.721Z",
+	"inputs": "0e0ae73cdf82c72f",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 4000,
 	"reference": {
-		"dps": 922.75,
+		"dps": 902.45,
 		"mainHand": 250619,
 		"ranged": 19107
 	},
 	"weapons": {
 		"2099": {
 			"name": "Dwarven Hand Cannon",
-			"ranged": 9.43
+			"ranged": 7.95
 		},
 		"2824": {
 			"name": "Hurricane",
-			"ranged": -1.03
+			"ranged": -1.21
 		},
 		"11628": {
 			"name": "Houndmaster's Bow",
-			"ranged": 3.64
+			"ranged": 3.35
 		},
 		"11629": {
 			"name": "Houndmaster's Rifle",
-			"ranged": -4.57
+			"ranged": -4.74
 		},
 		"12651": {
 			"name": "Blackcrow",
-			"ranged": -6.92
+			"ranged": -6.71
 		},
 		"12653": {
 			"name": "Riphook",
-			"ranged": 3.93
+			"ranged": 3.4
 		},
 		"13022": {
 			"name": "Gryphonwing Long Bow",
-			"ranged": -4.85
+			"ranged": -5.23
 		},
 		"13023": {
 			"name": "Eaglehorn Long Bow",
-			"ranged": 16.46
+			"ranged": 16.25
 		},
 		"13040": {
 			"name": "Heartseeking Crossbow",
-			"ranged": -4.16
+			"ranged": -3.95
 		},
 		"13139": {
 			"name": "Guttbuster",
-			"ranged": -9.03
+			"ranged": -9.33
 		},
 		"13146": {
 			"name": "Shell Launcher Shotgun",
-			"ranged": -4.68
+			"ranged": -4.84
 		},
 		"13380": {
 			"name": "Willey's Portable Howitzer",
-			"ranged": -3.67
+			"ranged": -3.48
 		},
 		"13474": {
 			"name": "Farmer Dalson's Shotgun",
-			"ranged": -3.13
+			"ranged": -3.21
 		},
 		"15288": {
 			"name": "Blasthorn Bow",
-			"ranged": -10.96
+			"ranged": -11.17
 		},
 		"15289": {
 			"name": "Archstrike Bow",
-			"ranged": -3.88
+			"ranged": -4.06
 		},
 		"15291": {
 			"name": "Harpy Needler",
-			"ranged": -18.84
+			"ranged": -19
 		},
 		"15294": {
 			"name": "Siege Bow",
-			"ranged": -16.11
+			"ranged": -16.44
 		},
 		"15295": {
 			"name": "Quillfire Bow",
-			"ranged": -12.29
+			"ranged": -12.3
 		},
 		"15296": {
 			"name": "Hawkeye Bow",
-			"ranged": 7.35
+			"ranged": 7.03
 		},
 		"15323": {
 			"name": "Percussion Shotgun",
-			"ranged": -16.69
+			"ranged": -16.62
 		},
 		"15324": {
 			"name": "Burnside Rifle",
-			"ranged": -13.96
+			"ranged": -13.92
 		},
 		"15325": {
 			"name": "Sharpshooter Harquebus",
-			"ranged": -5.35
+			"ranged": -5.71
 		},
 		"15995": {
 			"name": "Thorium Rifle",
-			"ranged": -13.41
+			"ranged": -13.37
 		},
 		"16004": {
 			"name": "Dark Iron Rifle",
-			"ranged": -10.14
+			"ranged": -10.47
 		},
 		"16007": {
 			"name": "Flawless Arcanite Rifle",
-			"ranged": -4.98
+			"ranged": -5.28
 		},
 		"16622": {
 			"name": "Thornflinger",
-			"ranged": -7.12
+			"ranged": -7.51
 		},
 		"16992": {
 			"name": "Smokey's Explosive Launcher",
-			"ranged": -11.19
+			"ranged": -11.49
 		},
 		"16996": {
 			"name": "Gorewood Bow",
-			"ranged": -1.4
+			"ranged": -1.62
 		},
 		"17717": {
 			"name": "Megashot Rifle",
-			"ranged": -7.01
+			"ranged": -7.09
 		},
 		"17753": {
 			"name": "Verdant Keeper's Aim",
-			"ranged": -5.88
+			"ranged": -5.99
 		},
 		"18323": {
 			"name": "Satyr's Bow",
-			"ranged": -3.25
+			"ranged": -4.1
 		},
 		"18388": {
 			"name": "Stoneshatter",
-			"ranged": 0
+			"ranged": 0.04
 		},
 		"18460": {
 			"name": "Unsophisticated Hand Cannon",
-			"ranged": -10.62
+			"ranged": -10.64
 		},
 		"18482": {
 			"name": "Ogre Toothpick Shooter",
-			"ranged": -1.12
+			"ranged": -1.72
 		},
 		"18680": {
 			"name": "Ancient Bone Bow",
-			"ranged": 3.41
+			"ranged": 2.82
 		},
 		"18729": {
 			"name": "Screeching Bow",
-			"ranged": -3.07
+			"ranged": -3.26
 		},
 		"18738": {
 			"name": "Carapace Spine Crossbow",
-			"ranged": -3.24
+			"ranged": -3.18
 		},
 		"18755": {
 			"name": "Xorothian Firestick",
-			"ranged": -2.12
+			"ranged": -2.44
 		},
 		"19114": {
 			"name": "Highland Bow",
-			"ranged": -14.96
+			"ranged": -14.85
 		},
 		"19558": {
 			"name": "Outrider's Bow",
-			"ranged": 2.77
+			"ranged": 1.9
 		},
 		"19559": {
 			"name": "Outrider's Bow",
-			"ranged": -6.66
+			"ranged": -7.42
 		},
 		"19562": {
 			"name": "Outrunner's Bow",
-			"ranged": 2.77
+			"ranged": 1.9
 		},
 		"19563": {
 			"name": "Outrunner's Bow",
-			"ranged": -6.66
+			"ranged": -7.42
 		},
 		"22318": {
 			"name": "Malgen's Long Bow",
-			"ranged": -1.85
+			"ranged": -1.69
 		},
 		"259891": {
 			"name": "Berdun's Trusty Rifle",
-			"ranged": -24.07
+			"ranged": -24.01
 		},
 		"270107": {
 			"name": "Bloodstained Longbow",
-			"ranged": -15.33
+			"ranged": -15.56
 		},
 		"272594": {
 			"name": "Premier High Warlord's Recurve",
-			"ranged": 25.94
+			"ranged": 25.23
 		},
 		"272595": {
 			"name": "Premier High Warlord's Crossbow",
-			"ranged": 12.13
+			"ranged": 12.05
 		},
 		"272599": {
 			"name": "Premier High Warlord's Street Sweeper",
-			"ranged": 12.13
+			"ranged": 12.05
 		},
 		"272841": {
 			"name": "Premier Grand Marshal's Bullseye",
-			"ranged": 25.94
+			"ranged": 25.23
 		},
 		"272842": {
 			"name": "Premier Grand Marshal's Repeater",
-			"ranged": 12.13
+			"ranged": 12.05
 		},
 		"272846": {
 			"name": "Premier Grand Marshal's Hand Cannon",
-			"ranged": 12.13
+			"ranged": 12.05
 		},
 		"275296": {
 			"name": "Deadwood Boomstick",
-			"ranged": -13.69
+			"ranged": -13.82
 		},
 		"275439": {
 			"name": "Blunderflame Bone Bow",
-			"ranged": -6.29
+			"ranged": -7.29
 		},
 		"275441": {
 			"name": "Cremation Longbow",
-			"ranged": -6.19
+			"ranged": -6.1
 		},
 		"276332": {
 			"name": "Abigail's Hope",
-			"ranged": -13.62
+			"ranged": -13.88
 		},
 		"276902": {
 			"name": "Youngster's First Bow",
-			"ranged": -13.49
+			"ranged": -13.87
 		},
 		"279273": {
 			"name": "Hyper Deluxe Sniper Rifle Mk XVII",
-			"ranged": 11.07
+			"ranged": 10.51
 		},
 		"280020": {
 			"name": "Deep Jungle Rifle",
-			"ranged": -1.66
+			"ranged": -2.54
 		},
 		"280083": {
 			"name": "Truesight Rifle",
-			"ranged": -2.08
+			"ranged": -2.67
 		},
 		"282029": {
 			"name": "Reaver's Repeater",
-			"ranged": -9.61
+			"ranged": -9.94
 		},
 		"284050": {
 			"name": "High Elf's Recurve",
-			"ranged": -16.63
+			"ranged": -16.57
 		},
 		"287026": {
 			"name": "Escape Plan",
-			"ranged": -3.04
+			"ranged": -3.5
 		}
 	},
 	"failed": []

@@ -53,7 +53,7 @@ function switchUnlocked(): boolean {
 /** The site owner's dwarf as a cartoon: chain coif, long red beard, white tabard, big gauntlets. Sunglasses on, a smoke in the mouth, one finger for the world and the other hand pointing up at the Live/Dev switch. Drawn here. */
 function CheerDwarf() {
 	return (
-		<svg className="cheer-dwarf" viewBox="0 0 180 200" width="180" height="200" aria-hidden="true">
+		<svg className="cheer-dwarf" viewBox="0 0 180 220" width="180" height="220" aria-hidden="true">
 			{/* arm pointing up at the switch */}
 			<g className="cheer-point">
 				<path d="M118 104 L146 62" stroke="#c9895f" strokeWidth="15" strokeLinecap="round" />
@@ -104,12 +104,21 @@ function CheerDwarf() {
 			<path d="M66 52 H87 V60 Q87 68 77 68 Q66 68 66 60 Z" fill="#0a0908" />
 			<path d="M93 52 H114 V60 Q114 68 103 68 Q93 68 93 60 Z" fill="#0a0908" />
 			<path d="M70 56 L78 56 M97 56 L105 56" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" opacity="0.65" />
-			{/* the smoke */}
-			<path d="M96 86 L122 94" stroke="#f4f1e8" strokeWidth="6" strokeLinecap="round" />
-			<path d="M119 93 L123 94.3" stroke="#ff7a1a" strokeWidth="6" strokeLinecap="round" />
-			<circle className="cheer-smoke cheer-smoke-1" cx="128" cy="90" r="5" fill="#cfd4d8" />
-			<circle className="cheer-smoke cheer-smoke-2" cx="130" cy="88" r="6" fill="#cfd4d8" />
-			<circle className="cheer-smoke cheer-smoke-3" cx="127" cy="89" r="4" fill="#cfd4d8" />
+			{/* a big one: fat cone, twisted tip, glowing end, smoke */}
+			<path d="M94 83 L100 91 L150 106 L152 90 Z" fill="#f4f1e8" stroke="#cfc8b4" strokeWidth="1" strokeLinejoin="round" />
+			<path d="M112 90 L113 95 M124 91 L125 99 M136 92 L137 102" stroke="#cfc8b4" strokeWidth="1.2" strokeLinecap="round" />
+			<path d="M146 89 L152 90 L150 106 L144 104 Z" fill="#ff7a1a" />
+			<path d="M150 91 L151 104" stroke="#ffd100" strokeWidth="2" strokeLinecap="round" />
+			<circle className="cheer-smoke cheer-smoke-1" cx="158" cy="94" r="7" fill="#cfd4d8" />
+			<circle className="cheer-smoke cheer-smoke-2" cx="161" cy="92" r="9" fill="#cfd4d8" />
+			<circle className="cheer-smoke cheer-smoke-3" cx="157" cy="93" r="6" fill="#cfd4d8" />
+			<circle className="cheer-smoke cheer-smoke-2" cx="164" cy="96" r="5" fill="#e3e6e8" />
+			{/* name plate */}
+			<path d="M40 196 L48 206 L40 216 H140 L132 206 L140 196 Z" fill="#8f6d1c" />
+			<rect x="46" y="192" width="88" height="22" rx="4" fill="#ffd100" stroke="#8f6d1c" strokeWidth="2" />
+			<text x="90" y="208.5" textAnchor="middle" fontFamily="Cinzel, Georgia, serif" fontWeight="700" fontSize="15" fill="#1a1203">
+				Bogdan
+			</text>
 		</svg>
 	);
 }

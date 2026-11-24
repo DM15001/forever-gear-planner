@@ -4815,9 +4815,10 @@ summary.breakdown-toggle:focus-visible {
 .cheer-dwarf {
 	position: fixed;
 	top: 1.7rem;
-	right: 0.6rem;
+	right: 1.6rem;
 	z-index: 60;
 	pointer-events: none;
+	overflow: visible;
 	filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.75));
 	transform-origin: 50% 100%;
 	animation: cheer-dwarf 4s cubic-bezier(0.3, 1.4, 0.5, 1) both;
