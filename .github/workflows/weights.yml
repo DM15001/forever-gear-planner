@@ -86,7 +86,10 @@ jobs:
     if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     steps:
+      # The newest main, not the commit that started the run: a measurement takes hours and main moves on.
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/download-artifact@v4
         with:
           pattern: weights-*

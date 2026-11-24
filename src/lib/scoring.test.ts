@@ -14,8 +14,21 @@ const spec = specJson as unknown as SpecConfig;
 // checked by hand. Whole-weapon values are in DPS and would mix units here, so they are left out; the test
 // "scores a weapon the simulator measured as a whole" puts its own in.
 const loaded = await loadGameData();
-const data = { ...loaded, simValues: { ...loaded.simValues, weapons: undefined } };
 const imported = importCharacter(JSON.stringify(simExport), spec).character;
+// The measured values change with every measurement (GitHub Actions rewrites src/data/simValues), so nothing the
+// test character wears may carry one: its hand-checked numbers would move with them. Tests that are about a
+// measured value put the item or set on themselves.
+const wornIds = new Set(imported.gear.flatMap(p => (p ? [p.id] : [])));
+const wornSets = new Set([...wornIds].map(id => loaded.itemById.get(id)?.setId).filter((id): id is number => id !== undefined));
+const data = {
+	...loaded,
+	simValues: {
+		...loaded.simValues,
+		weapons: undefined,
+		items: new Map([...loaded.simValues.items].filter(([id]) => !wornIds.has(id))),
+		sets: new Map([...loaded.simValues.sets].filter(([id]) => !wornSets.has(id))),
+	},
+};
 const dwarf: Character = { ...imported, race: 'RaceDwarf', professions: ['Skinning', 'Leatherworking'], gear: imported.gear.map(p => (p ? { id: p.id } : null)) };
 const options = { character: dwarf, data, spec, filter: DEFAULT_FILTER };
 const HEAD = 0;
