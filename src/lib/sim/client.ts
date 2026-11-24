@@ -73,7 +73,7 @@ export class SimClient {
 	private setupData: Promise<SimSetupData> | null = null;
 	private templates = new Map<string, Promise<SimTemplate>>();
 
-	/** Small files only, without starting the simulator: what the Sim setup tab shows. */
+	/** Small files only, without starting the simulator: what Sim setup (top right) shows. */
 	private async small<T>(name: string): Promise<T> {
 		const response = await fetch(`${SIM_URL}${name}`, { cache: 'no-cache' });
 		if (!response.ok) throw new Error(`Could not load ${name} (HTTP ${response.status}).`);

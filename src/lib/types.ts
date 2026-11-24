@@ -116,16 +116,16 @@ export interface Character {
 	race: string | null;
 	level: number | null;
 	talents: string;
-	/** Consumables changed on the Sim setup tab. Missing fields keep the build's own picks. */
+	/** Consumables changed on Sim setup (top right). Missing fields keep the build's own picks. */
 	consumables?: import('./sim/setup').ConsumablePicks;
-	/** Buffs and debuffs changed on the Sim setup tab. Missing fields keep the build's own. */
+	/** Buffs and debuffs changed on Sim setup (top right). Missing fields keep the build's own. */
 	buffs?: import('./sim/setup').BuffPicks;
 	/** A healer's spell mix and how much mana matters in the fight (src/lib/sim/healing.ts). Unset = the default scenario. */
 	healing?: { style?: string; pressure?: string; /** False = leave the Prayer of Mending estimate out (src/lib/sim/mending.ts). */ mending?: boolean };
 	/**
 	 * The settings of a WoWSims export this character came from: consumables, buffs, debuffs, rotation and the fight,
 	 * used as they are instead of the build's own, so "Simulate" gives what wowsims.com gives for the same export.
-	 * Only for the build it was imported as. Changes on the Sim setup tab go on top.
+	 * Only for the build it was imported as. Changes on Sim setup (top right) go on top.
 	 */
 	simSettings?: SimSettings;
 	/** What the character fights: an enemy kind and a terrain, for items that are only strong there. Unset = a plain raid target. */

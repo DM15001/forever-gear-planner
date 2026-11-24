@@ -593,7 +593,7 @@ export function BreakdownDialog({ equipped, planned, hasPlan, initial = 'equippe
 				<p className="hint">
 					{healing
 						? 'Per spell: healing done over the fight and its part of all healing, casts per fight, how often it crit, and healing per second. "Out of mana" is the time the healer stood without mana to cast.'
-						: 'Per spell: average DPS, its part of all damage, casts per fight, how often it crit and how often a cast missed. Effects that were up for the whole fight are left out; the Sim setup tab lists them.'}
+						: 'Per spell: average DPS, its part of all damage, casts per fight, how often it crit and how often a cast missed. Effects that were up for the whole fight are left out; Sim setup (top right) lists them.'}
 				</p>
 			)}
 		</Modal>

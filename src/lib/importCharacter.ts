@@ -139,7 +139,7 @@ export function importCharacter(text: string, specOrSpecs: SpecConfig | SpecConf
 			let mark = 5381;
 			for (let i = 0; i < text.length; i++) mark = ((mark << 5) + mark + text.charCodeAt(i)) >>> 0;
 			simSettings = { specId: spec.id, id: `${mark.toString(36)}${text.length.toString(36)}`, ...settings };
-			warnings.push('This is a sim export. Its consumables, buffs, debuffs, rotation and fight are used as they are, so "Simulate" matches wowsims.com for it. The Sim setup tab can switch back to the build\'s own settings. Check race, professions and enchants below.');
+			warnings.push('This is a sim export. Its consumables, buffs, debuffs, rotation and fight are used as they are, so "Simulate" matches wowsims.com for it. Sim setup (top right) can switch back to the build\'s own settings. Check race, professions and enchants below.');
 		} else {
 			warnings.push('This is a sim export. The sim fills in its own race, professions and enchants, so check all three below.');
 		}

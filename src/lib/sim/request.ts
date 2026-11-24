@@ -136,7 +136,7 @@ export function buildSimRequest(character: Character, gear: Gear, index: SimInde
 	};
 
 	// A stone the build picked for its own weapon may not go on the planned one: use the one that does. A stone
-	// from a WoWSims import or picked by hand on the Sim setup tab is left as it is.
+	// from a WoWSims import or picked by hand on Sim setup (top right) is left as it is.
 	const imported = Boolean(character.simSettings && character.simSettings.specId === specOf(character).id);
 	for (const [field, slot] of [['mhImbueId', MAIN_HAND], ['ohImbueId', MAIN_HAND + 1]] as const) {
 		if (imported || character.consumables?.[field] !== undefined || !player.consumables?.[field]) continue;

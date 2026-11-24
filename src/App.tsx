@@ -31,11 +31,11 @@ import type { Character, SpecConfig } from './lib/types';
 /** The planner's sections, in the bar. */
 const TABS = [
 	{ id: 'character', label: 'Character' },
-	{ id: 'simulate', label: 'Simulation' },
+	{ id: 'enchants', label: 'Enchants & professions' },
+	{ id: 'simulate', label: 'Plan' },
 	{ id: 'upgrades', label: 'Upgrades' },
 	{ id: 'farm', label: 'Farm plan' },
 	{ id: 'group', label: 'Group plan' },
-	{ id: 'enchants', label: 'Enchants & professions' },
 ];
 /** Settings and reading: small links beside the title, out of the way of the planner's own sections. */
 const SIDE_TABS = [
