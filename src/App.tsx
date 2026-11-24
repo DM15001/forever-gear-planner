@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { CharacterSheet } from './components/CharacterSheet';
 import { EnchantsTab } from './components/EnchantsTab';
@@ -48,11 +48,53 @@ function switchUnlocked(): boolean {
 	}
 }
 
+/** A dwarf in sunglasses: one thumb up, the other hand pointing up at the Live/Dev switch. Drawn here, not a character from any game. */
+function CheerDwarf() {
+	return (
+		<svg className="cheer-dwarf" viewBox="0 0 140 150" width="140" height="150" aria-hidden="true">
+			{/* arm pointing up and to the right, at the switch */}
+			<path d="M92 92 L118 44" stroke="#7a4a2a" strokeWidth="13" strokeLinecap="round" />
+			<path d="M118 44 L127 22" stroke="#e8b48a" strokeWidth="7" strokeLinecap="round" />
+			<circle cx="117" cy="45" r="9" fill="#e8b48a" />
+			{/* thumbs-up arm */}
+			<path d="M48 94 L24 78" stroke="#7a4a2a" strokeWidth="13" strokeLinecap="round" />
+			<rect x="4" y="62" width="26" height="20" rx="7" fill="#e8b48a" />
+			<path d="M25 66 Q27 54 21 49" fill="none" stroke="#e8b48a" strokeWidth="9" strokeLinecap="round" />
+			<path d="M6 68 H19 M6 73 H19 M6 78 H18" stroke="#c98f66" strokeWidth="1.6" strokeLinecap="round" />
+			{/* body, belt, boots */}
+			<rect x="42" y="84" width="56" height="44" rx="14" fill="#7a4a2a" />
+			<rect x="42" y="108" width="56" height="9" fill="#3a2414" />
+			<rect x="63" y="106" width="14" height="13" rx="2" fill="#ffd100" />
+			<rect x="44" y="126" width="22" height="16" rx="6" fill="#3a2414" />
+			<rect x="74" y="126" width="22" height="16" rx="6" fill="#3a2414" />
+			{/* head and helmet */}
+			<circle cx="70" cy="56" r="26" fill="#e8b48a" />
+			<path d="M43 50 Q70 8 97 50 Z" fill="#9aa3ad" />
+			<rect x="41" y="46" width="58" height="8" rx="3" fill="#6d7680" />
+			<path d="M43 48 Q30 34 34 20 Q46 30 50 44 Z" fill="#f2ead8" />
+			<path d="M97 48 Q110 34 106 20 Q94 30 90 44 Z" fill="#f2ead8" />
+			{/* beard */}
+			<path d="M44 62 Q40 104 70 118 Q100 104 96 62 Q84 76 70 76 Q56 76 44 62 Z" fill="#d9772b" />
+			<path d="M58 96 L58 112 M70 100 L70 118 M82 96 L82 112" stroke="#b55c1c" strokeWidth="3" strokeLinecap="round" />
+			<path d="M54 78 Q70 90 86 78" fill="none" stroke="#1a1203" strokeWidth="3" strokeLinecap="round" />
+			<ellipse cx="70" cy="70" rx="7" ry="6" fill="#d99a72" />
+			{/* sunglasses */}
+			<rect x="46" y="55" width="21" height="13" rx="4" fill="#0a0908" />
+			<rect x="73" y="55" width="21" height="13" rx="4" fill="#0a0908" />
+			<rect x="65" y="58" width="10" height="4" fill="#0a0908" />
+			<path d="M50 58 L57 58 M77 58 L84 58" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+		</svg>
+	);
+}
+
 /** Hidden on the live site until the unlock word is typed anywhere outside a text field; typing it again hides it. The dev copy always shows it, as the way back. */
 function ChannelSwitch() {
 	const [unlocked, setUnlocked] = useState(switchUnlocked);
+	const [cheer, setCheer] = useState(false);
+	const shown = useRef(unlocked);
 	useEffect(() => {
 		let typed = '';
+		let cheerTimer: ReturnType<typeof setTimeout> | undefined;
 		const onKey = (event: KeyboardEvent) => {
 			const target = event.target as HTMLElement | null;
 			if (target && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))) return;
@@ -60,26 +102,36 @@ function ChannelSwitch() {
 			typed = (typed + event.key.toLowerCase()).slice(-SWITCH_WORD.length);
 			if (typed !== SWITCH_WORD) return;
 			typed = '';
-			setUnlocked(was => {
-				try {
-					if (was) localStorage.removeItem(SWITCH_KEY);
-					else localStorage.setItem(SWITCH_KEY, '1');
-				} catch {
-					// Private windows may refuse storage; the switch then lasts until the page is closed.
-				}
-				return !was;
-			});
+			const next = !shown.current;
+			shown.current = next;
+			try {
+				if (next) localStorage.setItem(SWITCH_KEY, '1');
+				else localStorage.removeItem(SWITCH_KEY);
+			} catch {
+				// Private windows may refuse storage; the switch then lasts until the page is closed.
+			}
+			setUnlocked(next);
+			// A short hello from the dwarf when the switch comes out; gone again by itself.
+			clearTimeout(cheerTimer);
+			setCheer(next);
+			if (next) cheerTimer = setTimeout(() => setCheer(false), 2800);
 		};
 		window.addEventListener('keydown', onKey);
-		return () => window.removeEventListener('keydown', onKey);
+		return () => {
+			window.removeEventListener('keydown', onKey);
+			clearTimeout(cheerTimer);
+		};
 	}, []);
 	if (!IS_DEV && !unlocked) return null;
 	const other = IS_DEV ? '../' : './dev/';
 	return (
-		<nav className={`channel-switch${IS_DEV ? ' channel-dev' : ''}`} aria-label="Site version">
-			{IS_DEV ? <a href={other}>Live</a> : <span aria-current="page">Live</span>}
-			{IS_DEV ? <span aria-current="page">Dev</span> : <a href={other}>Dev</a>}
-		</nav>
+		<>
+			<nav className={`channel-switch${IS_DEV ? ' channel-dev' : ''}`} aria-label="Site version">
+				{IS_DEV ? <a href={other}>Live</a> : <span aria-current="page">Live</span>}
+				{IS_DEV ? <span aria-current="page">Dev</span> : <a href={other}>Dev</a>}
+			</nav>
+			{cheer && <CheerDwarf />}
+		</>
 	);
 }
 
