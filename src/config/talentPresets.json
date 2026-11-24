@@ -1,0 +1,4 @@
+{
+	"_comment": "Extra talent builds offered on the Sim setup tab, next to the WoWSims builds. By class name as in src/specs. Each: name (what it is for), talents (the talent string: digits per talent, trees joined by '-', as in a Wowhead Forever talent calculator link), source (who recommends it) and url (the guide). Add a build only with its source.",
+	"byClass": {}
+}

@@ -1,0 +1,101 @@
+{
+	"id": "elemental-shaman",
+	"name": "Elemental Shaman",
+	"preset": "Default",
+	"talents": "5500331023001351-05500001-053",
+	"classId": 7,
+	"className": "shaman",
+	"simKey": "elementalShaman",
+	"races": [
+		{
+			"id": "RaceDwarf",
+			"name": "Dwarf",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceOrc",
+			"name": "Orc",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceTauren",
+			"name": "Tauren",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceTroll",
+			"name": "Troll",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceWindshaperSkyborne",
+			"name": "Windshaper Skyborne",
+			"faction": "horde"
+		}
+	],
+	"armorTypes": [
+		"cloth",
+		"leather",
+		"mail"
+	],
+	"weaponTypes": {
+		"oneHand": [
+			"dagger",
+			"mace"
+		],
+		"twoHand": [
+			"staff"
+		],
+		"offHand": [
+			"shield",
+			"offHand"
+		]
+	},
+	"rangedTypes": [
+		"totem"
+	],
+	"canDualWield": false,
+	"weaponSetup": "either",
+	"tier05Set": {
+		"setId": 1679,
+		"name": "The Five Thunders"
+	},
+	"simBuilds": [
+		{
+			"id": "wowsims",
+			"label": "WoWSims",
+			"title": "WoWSims default set",
+			"path": "ui/specs/shaman/elemental/builds/default.build.json"
+		}
+	],
+	"hitCapPercent": 17,
+	"ratingPerPercent": {
+		"hitRating": 10,
+		"critRating": 14,
+		"hasteRating": 10,
+		"expertiseRating": 10
+	},
+	"raceBonuses": {
+		"RaceDwarf": {
+			"hitPercent": 1
+		}
+	},
+	"weights": {
+		"source": "WoWSims Forever, Elemental default EP preset (ui/specs/shaman/elemental/presets.ts). 1 point = 1 spell damage.",
+		"mainHandDps": 0,
+		"stats": {
+			"intellect": 0.19,
+			"spellDamage": 1,
+			"fireDamage": 0.31,
+			"natureDamage": 0.69,
+			"spellPiercing": 1.81,
+			"hitRating": 1.18,
+			"critRating": 0.61,
+			"hasteRating": 1.23,
+			"mp5": 0.04
+		},
+		"hitRatingOverCap": 0,
+		"dpsPerPoint": 0.6343
+	},
+	"hitBonusPercent": 5.0
+}

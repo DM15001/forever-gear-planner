@@ -1,0 +1,194 @@
+{
+  "apiVersion": 2,
+  "raidBuffs": {
+    "markOfTheWild": true,
+    "powerWordFortitude": true,
+    "shadowProtection": true,
+    "strengthOfEarthTotem": 1,
+    "graceOfAirTotem": 1,
+    "windfuryTotem": true,
+    "leaderOfThePack": true
+  },
+  "debuffs": {
+    "curseOfRecklessness": true,
+    "faerieFire": true,
+    "exposeArmor": true,
+    "insectSwarm": true,
+    "curseOfWeakness": true,
+    "vindication": true
+  },
+  "tanks": [
+    {
+      "type": "Player"
+    }
+  ],
+  "partyBuffs": {
+  },
+  "player": {
+    "apiVersion": 2,
+    "race": "RaceOrc",
+    "class": "ClassWarrior",
+    "equipment": {
+      "items": [
+        {"id":12640,"enchant":1503},
+        {"id":275736,"enchant":904},
+        {"id":226867},
+        {"id":272415,"enchant":7667},
+        {"id":226862,"enchant":1892},
+        {"id":226865,"enchant":1886},
+        {"id":226870,"enchant":8207},
+        {"id":272403},
+        {"id":13498,"enchant":1503},
+        {"id":287033,"enchant":929},
+        {"id":272408},
+        {"id":19325},
+        {"id":272437},
+        {"id":18466},
+        {"id":11684,"enchant":1900},
+        {"id":19321,"enchant":7663},
+        {"id":18323}
+      ]
+    },
+    "consumables": {
+      "foodId": 20452,
+      "conjuredId": 9421,
+      "explosiveId": 260814,
+      "mhImbueId": 3241,
+      "extraIds": [
+        10646,
+        17048,
+        12451,
+        12460,
+        5206,
+        8410
+      ],
+      "elixirIds": [
+        13452,
+        9088,
+        250335,
+        13445
+      ],
+      "offensivePotId": 250943
+    },
+    "bonusStats": {
+      "apiVersion": 2,
+      "stats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "pseudoStats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    },
+    "itemSwap": {"items":[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],"prepullBonusStats":{"apiVersion":2,"stats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"pseudoStats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}},
+    "buffs": {
+      "greaterBlessingOfKings": true,
+      "greaterBlessingOfMight": 1
+    },
+    "protectionWarrior": {
+      "options": {
+        "classOptions": {
+          "defaultStance": "WarriorStanceDefensive",
+          "stanceSnapshot": true,
+          "useBattleShout": true,
+          "queueDelay": 250
+        }
+      }
+    },
+    "talentsString": "05-05050005-150531120300001351",
+    "profession1": "Engineering",
+    "profession2": "Blacksmithing",
+    "cooldowns": {
+    },
+    "rotation": {
+      "type": "TypeAPL",
+      "prepullActions": [
+        {"action":{"castSpell":{"spellId":{"spellId":2687}}},"doAtValue":{"const":{"val":"-6"}}},
+        {"action":{"castSpell":{"spellId":{"spellId":11551}}},"doAtValue":{"const":{"val":"-5"}}},
+        {"action":{"castSpell":{"spellId":{"spellId":2457}}},"doAtValue":{"const":{"val":"-4"}}},
+        {"action":{"castSpell":{"spellId":{"spellId":20230}}},"doAtValue":{"const":{"val":"-1.5"}}},
+        {"action":{"castSpell":{"spellId":{"spellId":71}}},"doAtValue":{"const":{"val":"-1"}}},
+        {"action":{"castSpell":{"spellId":{"otherId":"OtherActionOffensivePotion"}}},"doAtValue":{"const":{"val":"-1.5s"}}}
+      ],
+      "priorityList": [
+        {"hide":true,"action":{"groupReference":{"groupName":"Execute Swap ON/OFF"}}},
+        {"hide":true,"action":{"groupReference":{"groupName":"Recklessness ON/OFF"}}},
+        {"action":{"groupReference":{"groupName":"Engineering"}}},
+        {"action":{"groupReference":{"groupName":"CD: Offensive Trinkets"}}},
+        {"action":{"condition":{"and":{"vals":[{"not":{"val":{"variableRef":{"name":"Defensive Cooldown Active"}}}},{"cmp":{"op":"OpLe","lhs":{"currentHealthPercent":{}},"rhs":{"const":{"val":"40%"}}}}]}},"castSpell":{"spellId":{"spellId":12975}}}},
+        {"hide":true,"action":{"schedule":{"schedule":"0s, 0s","innerAction":{"castSpell":{"spellId":{"spellId":12975}}}}}},
+        {"action":{"groupReference":{"groupName":"CD: Shield Wall Dual Wield"}}},
+        {"action":{"condition":{"and":{"vals":[{"cmp":{"op":"OpLe","lhs":{"currentHealthPercent":{}},"rhs":{"const":{"val":"35%"}}}},{"not":{"val":{"variableRef":{"name":"Defensive Cooldown Active"}}}}]}},"castSpell":{"spellId":{"spellId":871}}}},
+        {"hide":true,"action":{"schedule":{"schedule":"0s, 0s","innerAction":{"castSpell":{"spellId":{"spellId":871}}}}}},
+        {"action":{"condition":{"and":{"vals":[{"not":{"val":{"variableRef":{"name":"Defensive Cooldown Active"}}}},{"cmp":{"op":"OpLe","lhs":{"currentHealthPercent":{}},"rhs":{"const":{"val":"50%"}}}}]}},"castSpell":{"spellId":{"spellId":20594}}}},
+        {"action":{"condition":{"and":{"vals":[{"not":{"val":{"variableRef":{"name":"Defensive Cooldown Active"}}}},{"cmp":{"op":"OpLe","lhs":{"currentHealthPercent":{}},"rhs":{"const":{"val":"50%"}}}}]}},"castSpell":{"spellId":{"spellId":1299026}}}},
+        {"action":{"condition":{"cmp":{"op":"OpLe","lhs":{"currentHealthPercent":{}},"rhs":{"const":{"val":"30%"}}}},"castSpell":{"spellId":{"itemId":9421}}}},
+        {"action":{"condition":{"cmp":{"op":"OpLe","lhs":{"currentHealthPercent":{}},"rhs":{"const":{"val":"35%"}}}},"castSpell":{"spellId":{"otherId":"OtherActionDefensivePotion"}}}},
+        {"action":{"castSpell":{"spellId":{"otherId":"OtherActionOffensivePotion"}}}},
+        {"action":{"castSpell":{"spellId":{"spellId":1329555}}}},
+        {"action":{"castSpell":{"spellId":{"otherId":"OtherActionResourcePotion"}}}},
+        {"action":{"castSpell":{"spellId":{"spellId":12328}}}},
+        {"action":{"groupReference":{"groupName":"CD: Racials"}}},
+        {"action":{"condition":{"or":{"vals":[{"cmp":{"op":"OpGe","lhs":{"currentRage":{}},"rhs":{"const":{"val":"40"}}}},{"and":{"vals":[{"auraIsInactive":{"auraId":{"spellId":11601},"includeReactionTime":true}},{"cmp":{"op":"OpLe","lhs":{"spellTimeToReady":{"spellId":{"spellId":11601}}},"rhs":{"const":{"val":"1.5s"}}}}]}}]}},"castSpell":{"spellId":{"spellId":2565}}}},
+        {"action":{"condition":{"and":{"vals":[{"cmp":{"op":"OpGt","lhs":{"numberTargets":{}},"rhs":{"const":{"val":"1"}}}}]}},"castSpell":{"spellId":{"spellId":12723}}}},
+        {"action":{"condition":{"and":{"vals":[{"cmp":{"op":"OpGt","lhs":{"numberTargets":{}},"rhs":{"const":{"val":"2"}}}}]}},"castSpell":{"spellId":{"spellId":11581,"rank":6}}}},
+        {"action":{"groupReference":{"groupName":"Execute"}}},
+        {"action":{"castSpell":{"spellId":{"spellId":11601}}}},
+        {"action":{"castSpell":{"spellId":{"spellId":23925,"rank":4}}}},
+        {"action":{"castSpell":{"spellId":{"spellId":23894,"rank":4}}}},
+        {"action":{"castSpell":{"spellId":{"spellId":21553,"rank":4}}}},
+        {"action":{"condition":{"and":{"vals":[{"cmp":{"op":"OpGt","lhs":{"numberTargets":{}},"rhs":{"const":{"val":"1"}}}}]}},"castSpell":{"spellId":{"spellId":11581,"rank":6}}}},
+        {"action":{"condition":{"and":{"vals":[{"auraShouldRefresh":{"sourceUnit":{"type":"CurrentTarget"},"auraId":{"spellId":11556},"maxOverlap":{"const":{"val":"6s"}}}}]}},"castSpell":{"spellId":{"spellId":11556,"rank":5}}}},
+        {"action":{"condition":{"and":{"vals":[{"auraIsInactive":{"sourceUnit":{"type":"CurrentTarget"},"auraId":{"spellId":27648}}},{"cmp":{"op":"OpLe","lhs":{"auraRemainingTime":{"sourceUnit":{"type":"CurrentTarget"},"auraId":{"spellId":11581}}},"rhs":{"const":{"val":"6s"}}}}]}},"castSpell":{"spellId":{"spellId":11581,"rank":6}}}},
+        {"action":{"condition":{"and":{"vals":[{"not":{"val":{"auraIsKnown":{"auraId":{"spellId":11551,"tag":-1}}}}},{"not":{"val":{"auraIsKnown":{"auraId":{"spellId":25289,"tag":-1}}}}},{"cmp":{"op":"OpLe","lhs":{"auraRemainingTime":{"auraId":{"spellId":11551}}},"rhs":{"const":{"val":"10s"}}}}]}},"castSpell":{"spellId":{"spellId":11551}}}},
+        {"action":{"condition":{"and":{"vals":[{"auraIsInactive":{"sourceUnit":{"type":"CurrentTarget"},"auraId":{"spellId":11574},"includeReactionTime":true}},{"or":{"vals":[{"and":{"vals":[{"not":{"val":{"variableRef":{"name":"Shield Equipped"}}}}]}},{"and":{"vals":[{"variableRef":{"name":"Shield Equipped"}},{"variableRef":{"name":"Delay Check"}}]}}]}}]}},"castSpell":{"spellId":{"spellId":11574,"rank":7}}}},
+        {"action":{"condition":{"or":{"vals":[{"cmp":{"op":"OpLt","lhs":{"auraNumStacks":{"sourceUnit":{"type":"CurrentTarget"},"auraId":{"spellId":11597},"includeReactionTime":true}},"rhs":{"const":{"val":"5"}}}},{"and":{"vals":[{"variableRef":{"name":"Delay Check"}},{"cmp":{"op":"OpLe","lhs":{"auraRemainingTime":{"sourceUnit":{"type":"CurrentTarget"},"auraId":{"spellId":11597}}},"rhs":{"const":{"val":"10s"}}}}]}}]}},"castSpell":{"spellId":{"spellId":11597,"rank":5}}}},
+        {"action":{"condition":{"and":{"vals":[{"cmp":{"op":"OpEq","lhs":{"numberTargets":{}},"rhs":{"const":{"val":"1"}}}},{"cmp":{"op":"OpGe","lhs":{"currentRage":{}},"rhs":{"const":{"val":"20"}}}}]}},"castSpell":{"spellId":{"spellId":11567,"tag":1}}}},
+        {"action":{"condition":{"and":{"vals":[{"cmp":{"op":"OpGt","lhs":{"numberTargets":{}},"rhs":{"const":{"val":"1"}}}},{"cmp":{"op":"OpGe","lhs":{"currentRage":{}},"rhs":{"const":{"val":"40"}}}}]}},"castSpell":{"spellId":{"spellId":20569,"tag":1}}}},
+        {"action":{"condition":{"cmp":{"op":"OpLt","lhs":{"currentRage":{}},"rhs":{"const":{"val":"90"}}}},"castSpell":{"spellId":{"spellId":2687}}}},
+        {"action":{"condition":{"const":{"val":"false"}},"castSpell":{"spellId":{"spellId":1719}}}},
+        {"action":{"condition":{"const":{"val":"false"}},"castSpell":{"spellId":{"spellId":20230}}}},
+        {"hide":true,"action":{"autocastOtherCooldowns":{}}}
+      ],
+      "groups": [
+        {"name":"Execute Swap ON/OFF","actions":[{"action":{}}]},
+        {"name":"Recklessness ON/OFF","actions":[{"action":{}}]},
+        {"name":"Engineering","actions":[{"action":{"castSpell":{"spellId":{"itemId":10646}}}},{"action":{"castSpell":{"spellId":{"itemId":260817}}}},{"action":{"castSpell":{"spellId":{"itemId":276145}}}},{"action":{"castSpell":{"spellId":{"itemId":16005}}}},{"action":{"castSpell":{"spellId":{"itemId":260816}}}},{"action":{"castSpell":{"spellId":{"itemId":11566}}}},{"action":{"castSpell":{"spellId":{"itemId":10830}}}},{"action":{"castSpell":{"spellId":{"itemId":15993}}}},{"action":{"castSpell":{"spellId":{"itemId":284868}}}},{"action":{"castSpell":{"spellId":{"itemId":260814}}}},{"action":{"castSpell":{"spellId":{"itemId":18588}}}}]},
+        {"name":"CD: Offensive Trinkets","actions":[{"action":{"castSpell":{"spellId":{"itemId":21670}}}},{"action":{"castSpell":{"spellId":{"itemId":22954}}}},{"action":{"castSpell":{"spellId":{"itemId":23041}}}},{"action":{"castSpell":{"spellId":{"itemId":272440}}}},{"action":{"castSpell":{"spellId":{"itemId":272437}}}},{"action":{"castSpell":{"spellId":{"itemId":13965}}}}]},
+        {"name":"CD: Racials","actions":[{"action":{"castSpell":{"spellId":{"spellId":20572}}}},{"action":{"castSpell":{"spellId":{"spellId":20554}}}},{"action":{"castSpell":{"spellId":{"spellId":1259813}}}},{"action":{"castSpell":{"spellId":{"spellId":1259799}}}}]},
+        {"name":"Execute","actions":[{"action":{"condition":{"and":{"vals":[{"actionGroupUsed":{"name":"Execute Swap ON/OFF"}},{"isExecutePhase":{"threshold":"E20"}}]}},"castSpell":{"spellId":{"spellId":2458}}}},{"action":{"condition":{"and":{"vals":[{"actionGroupUsed":{"name":"Recklessness ON/OFF"}},{"isExecutePhase":{"threshold":"E20"}}]}},"castSpell":{"spellId":{"spellId":1719}}}},{"action":{"condition":{"isExecutePhase":{"threshold":"E20"}},"castSpell":{"spellId":{"spellId":20662,"rank":5}}}}]},
+        {"name":"CD: Shield Wall Dual Wield","actions":[{"action":{"condition":{"and":{"vals":[{"not":{"val":{"variableRef":{"name":"Shield Equipped"}}}},{"not":{"val":{"variableRef":{"name":"Defensive Cooldown Active"}}}},{"cmp":{"op":"OpLe","lhs":{"currentHealthPercent":{}},"rhs":{"const":{"val":"35%"}}}},{"spellIsReady":{"spellId":{"spellId":871}}}]}},"strictSequence":{"actions":[{"itemSwap":{"swapSet":"Swap1"}},{"castSpell":{"spellId":{"spellId":871}}}]}}},{"action":{"condition":{"and":{"vals":[{"auraIsInactive":{"auraId":{"spellId":871},"includeReactionTime":true}},{"not":{"val":{"spellIsReady":{"spellId":{"spellId":871}}}}}]}},"itemSwap":{"swapSet":"Main"}}}]}
+      ],
+      "valueVariables": [
+        {"name":"Delay Check","value":{"and":{"vals":[{"cmp":{"op":"OpGe","lhs":{"spellTimeToReady":{"spellId":{"spellId":23925,"rank":4}}},"rhs":{"const":{"val":"1.5s"}}}}]}}},
+        {"name":"Shield Equipped","value":{"cmp":{"op":"OpEq","lhs":{"autoSwingTime":{"autoType":"OffHand"}},"rhs":{"const":{"val":"0s"}}}}},
+        {"name":"Defensive Cooldown Active","value":{"or":{"vals":[{"auraIsActive":{"auraId":{"spellId":12975}}},{"auraIsActive":{"auraId":{"spellId":871}}},{}]}}}
+      ]
+    },
+    "reactionTimeMs": 100,
+    "inFrontOfTarget": true,
+    "healingModel": {
+      "hps": 760,
+      "cadenceSeconds": 0.3,
+      "cadenceVariation": 0.64,
+      "absorbFrac": 0.015,
+      "burstWindow": 6,
+      "inspirationUptime": 0.25
+    }
+  },
+  "encounter": {
+    "apiVersion": 2,
+    "duration": 180,
+    "durationVariation": 5,
+    "executeProportion20": 0.2,
+    "executeProportion35": 0.35,
+    "targets": [
+      {
+        "id": 31146,
+        "name": "Raid Target",
+        "level": 63,
+        "stats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,320,0,0,0,0,0,0,0,0,0,54,0,0,3731,0,1428900,0,0,0,0,0,0,0,0,0],
+        "minBaseDamage": 2601,
+        "damageSpread": 0.5,
+        "swingSpeed": 2,
+        "parryHaste": true,
+        "canCrush": true
+      }
+    ]
+  }
+}

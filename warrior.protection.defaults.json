@@ -1,0 +1,132 @@
+{
+  "apiVersion": 2,
+  "raidBuffs": {
+    "markOfTheWild": true,
+    "powerWordFortitude": true,
+    "shadowProtection": true,
+    "strengthOfEarthTotem": 1,
+    "graceOfAirTotem": 1,
+    "windfuryTotem": true,
+    "leaderOfThePack": true
+  },
+  "debuffs": {
+    "curseOfRecklessness": true,
+    "faerieFire": true,
+    "exposeArmor": true,
+    "insectSwarm": true,
+    "curseOfWeakness": true,
+    "vindication": true
+  },
+  "tanks": [
+    {
+      "type": "Player"
+    }
+  ],
+  "partyBuffs": {
+  },
+  "player": {
+    "apiVersion": 2,
+    "race": "RaceOrc",
+    "class": "ClassWarrior",
+    "equipment": {
+      "items": [
+        {"id":12640,"enchant":1503},
+        {"id":275736,"enchant":904},
+        {"id":226867},
+        {"id":272415,"enchant":7667},
+        {"id":226862,"enchant":1892},
+        {"id":226865,"enchant":1886},
+        {"id":226870,"enchant":8207},
+        {"id":272403},
+        {"id":13498,"enchant":1503},
+        {"id":287033,"enchant":929},
+        {"id":272408},
+        {"id":19325},
+        {"id":272437},
+        {"id":18466},
+        {"id":11684,"enchant":1900},
+        {"id":19321,"enchant":7663},
+        {"id":18323}
+      ]
+    },
+    "consumables": {
+      "foodId": 20452,
+      "conjuredId": 9421,
+      "explosiveId": 260814,
+      "mhImbueId": 3241,
+      "extraIds": [
+        10646,
+        17048,
+        12451,
+        12460,
+        5206,
+        8410
+      ],
+      "elixirIds": [
+        13452,
+        9088,
+        250335,
+        13445
+      ],
+      "offensivePotId": 250943
+    },
+    "bonusStats": {
+      "apiVersion": 2,
+      "stats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "pseudoStats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    },
+    "itemSwap": {"items":[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],"prepullBonusStats":{"apiVersion":2,"stats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"pseudoStats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}},
+    "buffs": {
+      "greaterBlessingOfKings": true,
+      "greaterBlessingOfMight": 1
+    },
+    "protectionWarrior": {
+      "options": {
+        "classOptions": {
+          "defaultStance": "WarriorStanceDefensive",
+          "stanceSnapshot": true,
+          "useBattleShout": true,
+          "queueDelay": 250
+        }
+      }
+    },
+    "talentsString": "05-05050005-150531120300001351",
+    "profession1": "Engineering",
+    "profession2": "Blacksmithing",
+    "cooldowns": {
+    },
+    "rotation": {
+      "type": "TypeAuto"
+    },
+    "reactionTimeMs": 100,
+    "inFrontOfTarget": true,
+    "healingModel": {
+      "hps": 760,
+      "cadenceSeconds": 0.3,
+      "cadenceVariation": 0.64,
+      "absorbFrac": 0.015,
+      "burstWindow": 6,
+      "inspirationUptime": 0.25
+    }
+  },
+  "encounter": {
+    "apiVersion": 2,
+    "duration": 180,
+    "durationVariation": 5,
+    "executeProportion20": 0.2,
+    "executeProportion35": 0.35,
+    "targets": [
+      {
+        "id": 31146,
+        "name": "Raid Target",
+        "level": 63,
+        "stats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,320,0,0,0,0,0,0,0,0,0,54,0,0,3731,0,1428900,0,0,0,0,0,0,0,0,0],
+        "minBaseDamage": 2601,
+        "damageSpread": 0.5,
+        "swingSpeed": 2,
+        "parryHaste": true,
+        "canCrush": true
+      }
+    ]
+  }
+}

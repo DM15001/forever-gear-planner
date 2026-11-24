@@ -1,0 +1,106 @@
+{
+	"id": "wowhead",
+	"label": "Wowhead",
+	"title": "Wowhead BiS guide",
+	"url": "https://www.wowhead.com/forever/guide/classes/shaman/enhancement/bis-gear",
+	"author": "Yebb",
+	"updated": "2026-11-20",
+	"checked": "2026-11-21",
+	"note": "Only the guide's top (BiS) picks per slot are kept here, as a pointer. The full ranked tables with the author's reasoning are on Wowhead, see url.",
+	"ranks": [
+		"BiS"
+	],
+	"items": [
+		{
+			"slot": "head",
+			"rank": "BiS",
+			"id": 227002,
+			"name": "Coif of The Five Thunders",
+			"source": "Tier 0.5 questline"
+		},
+		{
+			"slot": "shoulder",
+			"rank": "BiS",
+			"id": 227003,
+			"name": "Pauldrons of The Five Thunders",
+			"source": "Tier 0.5 questline"
+		},
+		{
+			"slot": "back",
+			"rank": "BiS",
+			"id": 272411,
+			"name": "Arcanoweave Cloak"
+		},
+		{
+			"slot": "chest",
+			"rank": "BiS",
+			"id": 227024,
+			"name": "Chain of The Five Thunders",
+			"source": "Tier 0.5 questline"
+		},
+		{
+			"slot": "wrist",
+			"rank": "BiS",
+			"id": 227017,
+			"name": "Bands of The Five Thunders",
+			"source": "Tier 0.5 questline"
+		},
+		{
+			"slot": "hands",
+			"rank": "BiS",
+			"id": 227022,
+			"name": "Fists of The Five Thunders",
+			"source": "Tier 0.5 questline"
+		},
+		{
+			"slot": "waist",
+			"rank": "BiS",
+			"id": 227018,
+			"name": "Girdle of The Five Thunders",
+			"source": "Tier 0.5 questline"
+		},
+		{
+			"slot": "legs",
+			"rank": "BiS",
+			"id": 252606,
+			"name": "Pristine Scorpid Leggings"
+		},
+		{
+			"slot": "feet",
+			"rank": "BiS",
+			"id": 14616,
+			"name": "Bloodmail Boots"
+		},
+		{
+			"slot": "neck",
+			"rank": "BiS",
+			"id": 15411,
+			"name": "Mark of Fordring"
+		},
+		{
+			"slot": "finger",
+			"rank": "BiS",
+			"id": 19325,
+			"name": "Don Julio's Band"
+		},
+		{
+			"slot": "trinket",
+			"rank": "BiS",
+			"id": 13965,
+			"name": "Blackhand's Breadth"
+		},
+		{
+			"slot": "weapon",
+			"rank": "BiS",
+			"id": 19323,
+			"name": "The Unstoppable Force"
+		},
+		{
+			"slot": "ranged",
+			"rank": "BiS",
+			"id": 23199,
+			"name": "Totem of the Storm",
+			"source": "World drop"
+		}
+	]
+}

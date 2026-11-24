@@ -1,0 +1,90 @@
+{
+	"id": "warlock-sm-ruin",
+	"name": "Warlock: SM/Ruin",
+	"preset": "SM/Ruin",
+	"talents": "2550002013520105--0550205003",
+	"classId": 9,
+	"className": "warlock",
+	"simKey": "warlock",
+	"races": [
+		{
+			"id": "RaceHuman",
+			"name": "Human",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceGnome",
+			"name": "Gnome",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceOrc",
+			"name": "Orc",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceUndead",
+			"name": "Undead",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceTroll",
+			"name": "Troll",
+			"faction": "horde"
+		}
+	],
+	"armorTypes": [
+		"cloth"
+	],
+	"weaponTypes": {
+		"oneHand": [
+			"dagger",
+			"sword"
+		],
+		"twoHand": [
+			"staff"
+		],
+		"offHand": [
+			"offHand"
+		]
+	},
+	"rangedTypes": [
+		"wand"
+	],
+	"canDualWield": false,
+	"weaponSetup": "either",
+	"simBuilds": [
+		{
+			"id": "wowsims",
+			"label": "WoWSims",
+			"title": "WoWSims preset set",
+			"local": "scripts/builds/warlock-sm-ruin.build.json"
+		}
+	],
+	"hitCapPercent": 17,
+	"hitBonusPercent": 5.0,
+	"ratingPerPercent": {
+		"hitRating": 10,
+		"critRating": 14,
+		"hasteRating": 10,
+		"expertiseRating": 10
+	},
+	"raceBonuses": {"RaceHuman": {"statPercent": {"spirit": 10}}},
+	"weights": {
+		"source": "Measured for this planner on 2026-11-22 with the WoWSims Forever simulator (4000 iterations per stat, raid-buffed single target, the WoWSims preset gear and rotation). WoWSims itself ships no weights for this build. 1 point = 1 spell damage.",
+		"mainHandDps": 0,
+		"stats": {
+			"intellect": 0.35,
+			"spirit": 0.16,
+			"spellDamage": 1,
+			"fireDamage": 0.09,
+			"shadowDamage": 0.89,
+			"hitRating": 0.9,
+			"critRating": 0.78,
+			"hasteRating": 0.8,
+			"spellPiercing": 1.05
+		},
+		"hitRatingOverCap": 0,
+		"dpsPerPoint": 0.7202
+	}
+}

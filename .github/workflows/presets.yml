@@ -1,0 +1,83 @@
+name: Read the WoWSims presets
+
+# The builds in scripts/builds are what wowsims.com shows when a preset is loaded. This reads them from WoWSims
+# itself: it checks out wowsims/forever at the commit the site's simulator is built from, builds the pieces
+# WoWSims' own tests need, and runs scripts/presets/wowsims-dump.ts there, which loads every spec's
+# defaults and every preset build the way the page does and writes the page's JSON export of each.
+#
+# The exports are kept on the branch wowsims-presets (one commit per WoWSims version that changed them), so every
+# change WoWSims makes to a preset shows up there as a diff. Turning them into scripts/builds is the next step.
+
+on:
+  workflow_dispatch:
+    inputs:
+      specs:
+        description: Spec folders under ui/specs, separated by spaces (empty = all)
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: presets
+  cancel-in-progress: true
+
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Which WoWSims is the site on?
+        id: version
+        run: echo "commit=$(node -e 'console.log(require("./public/sim/setup.json").simVersion.commit)')" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        with:
+          repository: wowsims/forever
+          ref: ${{ steps.version.outputs.commit }}
+          path: wowsims
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 1.27.x
+          cache-dependency-path: wowsims/go.sum
+      - uses: ./wowsims/.github/actions/setup-protoc
+      - run: go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.12
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26
+          cache: npm
+          cache-dependency-path: wowsims/package-lock.json
+      - name: Build what the WoWSims tests need
+        working-directory: wowsims
+        run: |
+          npm ci
+          make ui/generated/proto/api.ts bin/wowsimcli
+          make $(sed -n 's/^AUTO_GEN_FILES_TS := //p' makefile)
+      - name: Load every preset the way the page does
+        working-directory: wowsims
+        env:
+          DUMP_OUT: ${{ runner.temp }}/presets
+        run: |
+          mkdir -p ui/_dump && cp ../scripts/presets/wowsims-dump.ts ui/_dump/dump.test.ts
+          specs="${{ inputs.specs }}"
+          if [ -z "$specs" ]; then specs=$(ls -d ui/specs/*/*/spec.ts | sed 's#ui/specs/##; s#/spec.ts##' | tr '\n' ' '); fi
+          echo "Specs: $specs"
+          DUMP_SPECS="$specs" npx vitest run ui/_dump
+          ls -la "$DUMP_OUT"
+      - name: Keep the exports on the branch wowsims-presets
+        if: inputs.specs == ''
+        run: |
+          git fetch -q origin wowsims-presets || true
+          git worktree add -q "$RUNNER_TEMP/branch" --detach
+          cd "$RUNNER_TEMP/branch"
+          if git rev-parse -q --verify origin/wowsims-presets >/dev/null; then git checkout -q -B wowsims-presets origin/wowsims-presets; else git checkout -q --orphan wowsims-presets; fi
+          git rm -rq --ignore-unmatch . && find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -r {} +
+          cp "$RUNNER_TEMP"/presets/*.json .
+          echo "${{ steps.version.outputs.commit }}" > WOWSIMS_COMMIT
+          git add -A
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --cached --quiet; then echo "No preset changed."; exit 0; fi
+          git commit -q -m "Presets of WoWSims $(echo "${{ steps.version.outputs.commit }}" | cut -c1-10)"
+          git push -q origin wowsims-presets

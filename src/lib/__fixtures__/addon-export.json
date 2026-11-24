@@ -1,0 +1,37 @@
+{
+	"flavor": "forever",
+	"version": "4.0.0",
+	"unit": "player",
+	"name": "Testchar",
+	"realm": "Test",
+	"race": "Dwarf",
+	"class": "shaman",
+	"level": 60,
+	"talents": "053303102-053030310051012251-02",
+	"professions": [
+		{
+			"name": "Skinning",
+			"level": 300
+		},
+		{
+			"name": "Leatherworking",
+			"level": 300
+		}
+	],
+	"gear": {
+		"version": "4.0.0",
+		"items": [
+			{
+				"id": 17740
+			},
+			{
+				"id": 11933
+			},
+			null,
+			{
+				"id": 11626,
+				"enchant": 7667
+			}
+		]
+	}
+}

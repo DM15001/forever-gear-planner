@@ -1,0 +1,145 @@
+name: Measure stat weights
+
+# What a point of crit or haste is worth changes when the game changes a class. This measures the
+# stat weights of every damage build with the simulator (scripts/build-weights.mjs) and commits
+# src/data/weights/<build>.json. It starts when the simulator or a build's preset changes; each build
+# skips itself when its own inputs are unchanged.
+#
+# A measurement that moves a weight far from the one in use is not applied: it is written with
+# "held": true, and this workflow opens an issue that lists what moved. To apply it after a look,
+# start the workflow by hand with those builds and "accept".
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - public/sim/lib.wasm.gz
+      - public/sim/template.*.json
+      - scripts/build-weights.mjs
+      - .github/workflows/weights.yml
+  workflow_dispatch:
+    inputs:
+      specs:
+        description: Build ids, separated by spaces (empty = all)
+        required: false
+        default: ''
+      accept:
+        description: Apply the measurement even if a weight moved far
+        type: boolean
+        default: false
+      force:
+        description: Measure even if nothing changed
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  actions: write
+  issues: write
+
+concurrency:
+  group: weights
+  cancel-in-progress: true
+
+jobs:
+  list:
+    runs-on: ubuntu-latest
+    outputs:
+      specs: ${{ steps.specs.outputs.specs }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: specs
+        env:
+          ONLY: ${{ inputs.specs }}
+        run: |
+          if [ -n "$ONLY" ]; then
+            specs=$(printf '%s\n' $ONLY | jq -R . | jq -sc .)
+          else
+            specs=$(for f in src/specs/*.json; do jq -r 'select(.role != "healer") | .id' "$f"; done | jq -R . | jq -sc .)
+          fi
+          echo "specs=$specs" >> "$GITHUB_OUTPUT"
+
+  measure:
+    needs: list
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        spec: ${{ fromJson(needs.list.outputs.specs) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Measure
+        run: node scripts/build-weights.mjs --spec "${{ matrix.spec }}" ${{ inputs.force && ' ' || '--if-changed' }} ${{ inputs.accept && '--accept' || ' ' }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: weights-${{ matrix.spec }}
+          path: src/data/weights/${{ matrix.spec }}.json
+          if-no-files-found: ignore
+
+  commit:
+    needs: measure
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: weights-*
+          path: src/data/weights
+          merge-multiple: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      # New weights must not break the site: they are only committed if tests and build pass with them.
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - name: Commit the new weights
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/weights
+          if git diff --cached --quiet; then
+            echo "Nothing changed."
+            exit 0
+          fi
+          git diff --cached --name-only > /tmp/changed.txt
+          count=$(wc -l < /tmp/changed.txt | tr -d ' ')
+          git commit -m "Measured stat weights ($count builds updated)" -m "Written by .github/workflows/weights.yml with scripts/build-weights.mjs."
+          for attempt in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && echo "pushed=true" >> "$GITHUB_OUTPUT" && exit 0
+            sleep 10
+          done
+          exit 1
+      # One issue for everything that was held back in this run, so a person can look and accept.
+      - name: Report held measurements
+        if: steps.commit.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          body=""
+          held=""
+          for f in $(cat /tmp/changed.txt); do
+            [ -f "$f" ] || continue
+            if [ "$(jq -r '.held // false' "$f")" = "true" ]; then
+              id=$(basename "$f" .json)
+              held="$held $id"
+              body="$body"$'\n'"**$id**"$'\n'"$(jq -r '.reasons[] | "- " + .' "$f")"$'\n'
+            fi
+          done
+          [ -n "$held" ] || exit 0
+          text="The stat weight measurement moved these weights far from the ones the planner uses, so they were **not applied**. The planner keeps its current weights for these builds."$'\n'"$body"$'\n'"If the new numbers make sense (for example after a class change), run the workflow \"Measure stat weights\" by hand with \`specs\` =\`$held\` and \`accept\` ticked. If not, close this issue; the builds are measured again when the simulator changes."
+          gh api "repos/${{ github.repository }}/issues" -f title="Stat weights held back:$held" -f body="$text" -f "labels[]=planner-followup" || gh api "repos/${{ github.repository }}/issues" -f title="Stat weights held back:$held" -f body="$text"
+      # A push made by a workflow does not start other workflows, so the site is deployed by hand here.
+      - name: Deploy the site
+        if: steps.commit.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --ref main

@@ -1,0 +1,90 @@
+{
+	"id": "warlock-demo-fire",
+	"name": "Warlock: Demo (Fire Brand)",
+	"preset": "Demo (Fire Brand)",
+	"talents": "011-0305003201220301351-0050055003",
+	"classId": 9,
+	"className": "warlock",
+	"simKey": "warlock",
+	"races": [
+		{
+			"id": "RaceHuman",
+			"name": "Human",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceGnome",
+			"name": "Gnome",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceOrc",
+			"name": "Orc",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceUndead",
+			"name": "Undead",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceTroll",
+			"name": "Troll",
+			"faction": "horde"
+		}
+	],
+	"armorTypes": [
+		"cloth"
+	],
+	"weaponTypes": {
+		"oneHand": [
+			"dagger",
+			"sword"
+		],
+		"twoHand": [
+			"staff"
+		],
+		"offHand": [
+			"offHand"
+		]
+	},
+	"rangedTypes": [
+		"wand"
+	],
+	"canDualWield": false,
+	"weaponSetup": "either",
+	"simBuilds": [
+		{
+			"id": "wowsims",
+			"label": "WoWSims",
+			"title": "WoWSims preset set",
+			"local": "scripts/builds/warlock-demo-fire.build.json"
+		}
+	],
+	"hitCapPercent": 17,
+	"hitBonusPercent": 1.0,
+	"ratingPerPercent": {
+		"hitRating": 10,
+		"critRating": 14,
+		"hasteRating": 10,
+		"expertiseRating": 10
+	},
+	"raceBonuses": {"RaceHuman": {"statPercent": {"spirit": 10}}},
+	"weights": {
+		"source": "Measured for this planner on 2026-11-22 with the WoWSims Forever simulator (2500 iterations per stat, raid-buffed single target, the WoWSims preset gear and rotation). WoWSims itself ships no weights for this build. 1 point = 1 spell damage.",
+		"mainHandDps": 0,
+		"stats": {
+			"intellect": 0.27,
+			"spirit": 0.06,
+			"spellDamage": 1,
+			"fireDamage": 0.8,
+			"shadowDamage": 0.24,
+			"hitRating": 1.25,
+			"critRating": 0.54,
+			"hasteRating": 0.47,
+			"spellPiercing": 1.12
+		},
+		"hitRatingOverCap": 0,
+		"dpsPerPoint": 0.7684
+	}
+}

@@ -1,0 +1,94 @@
+{
+	"id": "mage-arcane-fire",
+	"name": "Mage: Arcane Fire",
+	"preset": "Arcane Fire",
+	"talents": "050205203100311531-525000012001-003",
+	"classId": 8,
+	"className": "mage",
+	"simKey": "mage",
+	"races": [
+		{
+			"id": "RaceHuman",
+			"name": "Human",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceGnome",
+			"name": "Gnome",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceHighOrderSkyborne",
+			"name": "High Order Skyborne",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceOrc",
+			"name": "Orc",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceUndead",
+			"name": "Undead",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceTroll",
+			"name": "Troll",
+			"faction": "horde"
+		}
+	],
+	"armorTypes": [
+		"cloth"
+	],
+	"weaponTypes": {
+		"oneHand": [
+			"dagger",
+			"sword"
+		],
+		"twoHand": [
+			"staff"
+		],
+		"offHand": [
+			"offHand"
+		]
+	},
+	"rangedTypes": [
+		"wand"
+	],
+	"canDualWield": false,
+	"weaponSetup": "either",
+	"simBuilds": [
+		{
+			"id": "wowsims",
+			"label": "WoWSims",
+			"title": "WoWSims preset set",
+			"local": "scripts/builds/mage-arcane-fire.build.json"
+		}
+	],
+	"hitCapPercent": 17,
+	"hitBonusPercent": 6.0,
+	"ratingPerPercent": {
+		"hitRating": 10,
+		"critRating": 14,
+		"hasteRating": 10,
+		"expertiseRating": 10
+	},
+	"raceBonuses": {},
+	"weights": {
+		"source": "Measured for this planner on 2026-11-22 with the WoWSims Forever simulator (6000 iterations per stat, raid-buffed single target, the WoWSims preset gear and rotation). WoWSims itself ships no weights for this build. 1 point = 1 spell damage.",
+		"mainHandDps": 0,
+		"stats": {
+			"intellect": 0.69,
+			"spellDamage": 1,
+			"arcaneDamage": 0.59,
+			"fireDamage": 0.41,
+			"hitRating": 1.54,
+			"critRating": 0.77,
+			"hasteRating": 1.4,
+			"spellPiercing": 2.48
+		},
+		"hitRatingOverCap": 0,
+		"dpsPerPoint": 0.6411
+	}
+}

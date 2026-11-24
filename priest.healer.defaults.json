@@ -1,0 +1,105 @@
+{
+  "apiVersion": 2,
+  "raidBuffs": {
+    "arcaneIntellect": true,
+    "prayerOfSpirit": true,
+    "markOfTheWild": true,
+    "powerWordFortitude": true
+  },
+  "debuffs": {
+  },
+  "partyBuffs": {
+    "manaSpringTotem": "TristateEffectRegular"
+  },
+  "player": {
+    "apiVersion": 2,
+    "race": "RaceHuman",
+    "class": "ClassPriest",
+    "equipment": {
+      "items": [
+        {"id":14140},
+        {"id":22149},
+        {"id":14139},
+        {"id":19527},
+        {"id":10020},
+        {"id":254061},
+        {"id":254095},
+        {"id":19047},
+        {"id":14137},
+        {"id":275609},
+        {"id":275740},
+        {"id":275738},
+        {"id":10659},
+        {"id":272439},
+        {"id":249454},
+        {},
+        {"id":249385}
+      ]
+    },
+    "consumables": {
+      "foodId": 249869,
+      "conjuredId": 12662,
+      "mhImbueId": 20748,
+      "elixirIds": [
+        250351,
+        250328,
+        250341,
+        250333
+      ],
+      "resourcePotId": 13444
+    },
+    "bonusStats": {
+      "apiVersion": 2,
+      "stats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "pseudoStats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    },
+    "itemSwap": {"items":[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],"prepullBonusStats":{"apiVersion":2,"stats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"pseudoStats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}},
+    "buffs": {
+      "greaterBlessingOfKings": true,
+      "greaterBlessingOfWisdom": 1
+    },
+    "healerPriest": {
+      "options": {
+        "classOptions": {
+          "armor": "InnerFire"
+        },
+        "prayerOfMendingJumps": 5,
+        "prayerOfMendingDelay": 2.5,
+        "holyNovaHealTargets": 5
+      }
+    },
+    "talentsString": "00520101133-33505003030121531",
+    "profession1": "Tailoring",
+    "profession2": "Enchanting",
+    "cooldowns": {
+    },
+    "rotation": {
+      "type": "TypeAuto"
+    },
+    "reactionTimeMs": 100,
+    "distanceFromTarget": 20,
+    "healingModel": {
+    }
+  },
+  "encounter": {
+    "apiVersion": 2,
+    "duration": 180,
+    "durationVariation": 5,
+    "executeProportion20": 0.2,
+    "executeProportion35": 0.35,
+    "targets": [
+      {
+        "id": 31146,
+        "name": "Raid Target",
+        "level": 63,
+        "stats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,320,0,0,0,0,0,0,0,0,0,54,0,0,3731,0,1428900,0,0,0,0,0,0,0,0,0],
+        "minBaseDamage": 2601,
+        "damageSpread": 0.5,
+        "swingSpeed": 2,
+        "parryHaste": true,
+        "canCrush": true
+      }
+    ]
+  },
+  "targetDummies": 9
+}

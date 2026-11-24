@@ -1,0 +1,115 @@
+{
+  "apiVersion": 2,
+  "raidBuffs": {
+    "markOfTheWild": true,
+    "powerWordFortitude": true,
+    "strengthOfEarthTotem": 1,
+    "graceOfAirTotem": 1,
+    "windfuryTotem": true,
+    "battleShout": 1,
+    "leaderOfThePack": true
+  },
+  "debuffs": {
+    "curseOfElements": true,
+    "curseOfRecklessness": true,
+    "sunderArmor": true,
+    "giftOfArthas": true
+  },
+  "partyBuffs": {
+  },
+  "player": {
+    "apiVersion": 2,
+    "race": "RaceHuman",
+    "class": "ClassRogue",
+    "equipment": {
+      "items": [
+        {"id":226829,"enchant":1508},
+        {"id":15411,"enchant":904},
+        {"id":15058},
+        {"id":272414,"enchant":7667},
+        {"id":226825,"enchant":1891},
+        {"id":226830,"enchant":7656},
+        {"id":21278,"enchant":8206},
+        {"id":272395},
+        {"id":15057,"enchant":1508},
+        {"id":226831,"enchant":8737},
+        {"id":19325},
+        {"id":272408},
+        {"id":11815},
+        {"id":22321},
+        {"id":12590,"enchant":1900},
+        {"id":18392,"enchant":1900},
+        {"id":18323}
+      ]
+    },
+    "consumables": {
+      "foodId": 250072,
+      "conjuredId": 7676,
+      "mhImbueId": 12404,
+      "ohImbueId": 12404,
+      "extraIds": [
+        12460
+      ],
+      "elixirIds": [
+        13452,
+        250335,
+        250350
+      ],
+      "mhWeaponImbueId": 8928,
+      "ohWeaponImbueId": 8985,
+      "offensivePotId": 250943
+    },
+    "bonusStats": {
+      "apiVersion": 2,
+      "stats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "pseudoStats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    },
+    "itemSwap": {"items":[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],"prepullBonusStats":{"apiVersion":2,"stats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"pseudoStats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}},
+    "buffs": {
+      "greaterBlessingOfKings": true,
+      "greaterBlessingOfMight": 1
+    },
+    "rogue": {
+      "options": {
+        "classOptions": {
+        }
+      }
+    },
+    "talentsString": "00530311231251031-32030302020103-001",
+    "profession1": "Engineering",
+    "cooldowns": {
+    },
+    "rotation": {
+      "type": "TypeSimple",
+      "simple": {
+        "specRotationJson": "{}",
+        "cooldowns": {
+        }
+      }
+    },
+    "reactionTimeMs": 100,
+    "distanceFromTarget": 5,
+    "healingModel": {
+    }
+  },
+  "encounter": {
+    "apiVersion": 2,
+    "duration": 180,
+    "durationVariation": 5,
+    "executeProportion20": 0.2,
+    "executeProportion35": 0.35,
+    "targets": [
+      {
+        "id": 31146,
+        "name": "Raid Target",
+        "level": 63,
+        "stats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,320,0,0,0,0,0,0,0,0,0,54,0,0,3731,0,1428900,0,0,0,0,0,0,0,0,0],
+        "minBaseDamage": 2601,
+        "damageSpread": 0.5,
+        "swingSpeed": 2,
+        "parryHaste": true,
+        "canCrush": true
+      }
+    ]
+  }
+}

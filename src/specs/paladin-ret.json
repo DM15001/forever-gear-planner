@@ -1,0 +1,91 @@
+{
+	"id": "paladin-ret",
+	"name": "Paladin: Retribution (Unsealed Wrath)",
+	"preset": "Unsealed Wrath",
+	"talents": "050250002-501-05233011201301351",
+	"classId": 2,
+	"className": "paladin",
+	"simKey": "retributionPaladin",
+	"races": [
+		{
+			"id": "RaceHuman",
+			"name": "Human",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceDwarf",
+			"name": "Dwarf",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceUndead",
+			"name": "Undead",
+			"faction": "horde"
+		}
+	],
+	"armorTypes": [
+		"cloth",
+		"leather",
+		"mail",
+		"plate"
+	],
+	"weaponTypes": {
+		"oneHand": [
+			"axe",
+			"mace",
+			"sword"
+		],
+		"twoHand": [
+			"axe",
+			"mace",
+			"polearm",
+			"sword"
+		],
+		"offHand": [
+			"offHand",
+			"shield"
+		]
+	},
+	"rangedTypes": [
+		"libram"
+	],
+	"canDualWield": false,
+	"weaponSetup": "twoHand",
+	"simBuilds": [
+		{
+			"id": "wowsims",
+			"label": "WoWSims",
+			"title": "WoWSims preset set",
+			"local": "scripts/builds/paladin-ret.build.json"
+		}
+	],
+	"hitCapPercent": 8,
+	"ratingPerPercent": {
+		"hitRating": 10,
+		"critRating": 14,
+		"hasteRating": 10,
+		"expertiseRating": 10
+	},
+	"raceBonuses": {"RaceDwarf": {"hitPercent": 1}},
+	"weights": {
+		"source": "WoWSims Forever, Retribution 'Unsealed Wrath' EP preset (ui/specs/paladin/retribution/presets.ts). 1 point = 1 attack power. WoWSims calls its Retribution gear a placeholder until the Phase 1 gear is known. Haste rating is this planner's own measurement (2.44): the preset lists 22.87, which the simulator does not bear out (2026-11-23).",
+		"mainHandDps": 13.85,
+		"hitRatingOverCap": 0,
+		"dpsPerPoint": 0.2121,
+		"stats": {
+			"strength": 2.4,
+			"agility": 2.23,
+			"intellect": 2.06,
+			"spellDamage": 2.36,
+			"holyDamage": 1.95,
+			"spellPiercing": 0.01,
+			"attackPower": 1,
+			"hitRating": 6.83,
+			"critRating": 3.08,
+			"hasteRating": 2.44,
+			"armorPenetration": 0.24,
+			"expertiseRating": 5.1,
+			"mp5": 0.23
+		}
+	}
+}

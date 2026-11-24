@@ -1,0 +1,87 @@
+{
+	"id": "druid-balance",
+	"name": "Druid: Balance",
+	"preset": "Moonkin",
+	"talents": "5232220115501351--5053",
+	"classId": 11,
+	"className": "druid",
+	"simKey": "balanceDruid",
+	"races": [
+		{
+			"id": "RaceNightElf",
+			"name": "Night Elf",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceHighOrderSkyborne",
+			"name": "High Order Skyborne",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceTauren",
+			"name": "Tauren",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceWindshaperSkyborne",
+			"name": "Windshaper Skyborne",
+			"faction": "horde"
+		}
+	],
+	"armorTypes": [
+		"cloth",
+		"leather"
+	],
+	"weaponTypes": {
+		"oneHand": [
+			"dagger",
+			"fist",
+			"mace"
+		],
+		"twoHand": [
+			"mace",
+			"polearm",
+			"staff"
+		],
+		"offHand": [
+			"offHand"
+		]
+	},
+	"rangedTypes": [
+		"idol"
+	],
+	"canDualWield": false,
+	"weaponSetup": "either",
+	"simBuilds": [
+		{
+			"id": "wowsims",
+			"label": "WoWSims",
+			"title": "WoWSims preset set",
+			"local": "scripts/builds/druid-balance.build.json"
+		}
+	],
+	"hitCapPercent": 17,
+	"hitBonusPercent": 4.0,
+	"ratingPerPercent": {
+		"hitRating": 10,
+		"critRating": 14,
+		"hasteRating": 10,
+		"expertiseRating": 10
+	},
+	"raceBonuses": {},
+	"weights": {
+		"source": "WoWSims Forever, Balance 'Pre-BiS' EP preset (ui/specs/druid/balance/presets.ts). 1 point = 1 spell damage.",
+		"mainHandDps": 0,
+		"stats": {
+			"intellect": 0.2,
+			"spellDamage": 1,
+			"arcaneDamage": 0.68,
+			"natureDamage": 0.32,
+			"hitRating": 1.45,
+			"critRating": 0.76,
+			"hasteRating": 0.95
+		},
+		"hitRatingOverCap": 0,
+		"dpsPerPoint": 0.663
+	}
+}

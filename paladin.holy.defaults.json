@@ -1,0 +1,91 @@
+{
+  "apiVersion": 2,
+  "raidBuffs": {
+    "arcaneIntellect": true,
+    "prayerOfSpirit": true,
+    "markOfTheWild": true,
+    "powerWordFortitude": true
+  },
+  "debuffs": {
+  },
+  "partyBuffs": {
+    "manaSpringTotem": "TristateEffectRegular"
+  },
+  "player": {
+    "apiVersion": 2,
+    "race": "RaceHuman",
+    "class": "ClassPaladin",
+    "equipment": {
+      "items": [
+        {"id":12633},
+        {"id":15856},
+        {"id":12625},
+        {"id":272413},
+        {"id":16726},
+        {"id":16722},
+        {"id":250554},
+        {"id":250574},
+        {"id":16728},
+        {"id":16725},
+        {"id":22681},
+        {"id":272406},
+        {"id":272439},
+        {"id":11811},
+        {"id":20648},
+        {"id":276754},
+        {"id":272436}
+      ]
+    },
+    "consumables": {
+      "foodId": 250066,
+      "resourcePotId": 13444
+    },
+    "bonusStats": {
+      "apiVersion": 2,
+      "stats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "pseudoStats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    },
+    "itemSwap": {"items":[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],"prepullBonusStats":{"apiVersion":2,"stats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"pseudoStats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}},
+    "buffs": {
+      "greaterBlessingOfKings": true,
+      "greaterBlessingOfWisdom": 1
+    },
+    "holyPaladin": {
+      "options": {
+        "classOptions": {
+        }
+      }
+    },
+    "profession1": "Enchanting",
+    "cooldowns": {
+    },
+    "rotation": {
+      "type": "TypeAuto"
+    },
+    "reactionTimeMs": 100,
+    "distanceFromTarget": 20,
+    "healingModel": {
+    }
+  },
+  "encounter": {
+    "apiVersion": 2,
+    "duration": 180,
+    "durationVariation": 5,
+    "executeProportion20": 0.2,
+    "executeProportion35": 0.35,
+    "targets": [
+      {
+        "id": 31146,
+        "name": "Raid Target",
+        "level": 63,
+        "stats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,320,0,0,0,0,0,0,0,0,0,54,0,0,3731,0,1428900,0,0,0,0,0,0,0,0,0],
+        "minBaseDamage": 2601,
+        "damageSpread": 0.5,
+        "swingSpeed": 2,
+        "parryHaste": true,
+        "canCrush": true
+      }
+    ]
+  },
+  "targetDummies": 9
+}

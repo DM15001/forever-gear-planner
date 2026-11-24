@@ -1,0 +1,397 @@
+[
+	{
+		"id": 3,
+		"name": "Badlands",
+		"kind": "world"
+	},
+	{
+		"id": 4,
+		"name": "Blasted Lands",
+		"kind": "world"
+	},
+	{
+		"id": 8,
+		"name": "Swamp of Sorrows",
+		"kind": "world"
+	},
+	{
+		"id": 10,
+		"name": "Duskwood",
+		"kind": "world"
+	},
+	{
+		"id": 11,
+		"name": "Wetlands",
+		"kind": "world"
+	},
+	{
+		"id": 15,
+		"name": "Dustwallow Marsh",
+		"kind": "world"
+	},
+	{
+		"id": 16,
+		"name": "Azshara",
+		"kind": "world"
+	},
+	{
+		"id": 17,
+		"name": "The Barrens",
+		"kind": "world"
+	},
+	{
+		"id": 28,
+		"name": "Western Plaguelands",
+		"kind": "world"
+	},
+	{
+		"id": 33,
+		"name": "Stranglethorn Vale",
+		"kind": "world"
+	},
+	{
+		"id": 36,
+		"name": "Alterac Mountains",
+		"kind": "world"
+	},
+	{
+		"id": 38,
+		"name": "Loch Modan",
+		"kind": "world"
+	},
+	{
+		"id": 41,
+		"name": "Deadwind Pass",
+		"kind": "world"
+	},
+	{
+		"id": 44,
+		"name": "Redridge Mountains",
+		"kind": "world"
+	},
+	{
+		"id": 45,
+		"name": "Arathi Highlands",
+		"kind": "world"
+	},
+	{
+		"id": 46,
+		"name": "Burning Steppes",
+		"kind": "world"
+	},
+	{
+		"id": 47,
+		"name": "The Hinterlands",
+		"kind": "world"
+	},
+	{
+		"id": 51,
+		"name": "Searing Gorge",
+		"kind": "world"
+	},
+	{
+		"id": 85,
+		"name": "Tirisfal Glades",
+		"kind": "world"
+	},
+	{
+		"id": 130,
+		"name": "Silverpine Forest",
+		"kind": "world"
+	},
+	{
+		"id": 139,
+		"name": "Eastern Plaguelands",
+		"kind": "world"
+	},
+	{
+		"id": 148,
+		"name": "Darkshore",
+		"kind": "world"
+	},
+	{
+		"id": 209,
+		"name": "Shadowfang Keep",
+		"kind": "dungeon"
+	},
+	{
+		"id": 215,
+		"name": "Mulgore",
+		"kind": "world"
+	},
+	{
+		"id": 267,
+		"name": "Hillsbrad Foothills",
+		"kind": "world"
+	},
+	{
+		"id": 331,
+		"name": "Ashenvale",
+		"kind": "world"
+	},
+	{
+		"id": 357,
+		"name": "Feralas",
+		"kind": "world"
+	},
+	{
+		"id": 361,
+		"name": "Felwood",
+		"kind": "world"
+	},
+	{
+		"id": 400,
+		"name": "Thousand Needles",
+		"kind": "world"
+	},
+	{
+		"id": 405,
+		"name": "Desolace",
+		"kind": "world"
+	},
+	{
+		"id": 406,
+		"name": "Stonetalon Mountains",
+		"kind": "world"
+	},
+	{
+		"id": 440,
+		"name": "Tanaris",
+		"kind": "world"
+	},
+	{
+		"id": 490,
+		"name": "Un'Goro Crater",
+		"kind": "world"
+	},
+	{
+		"id": 491,
+		"name": "Razorfen Kraul",
+		"kind": "dungeon"
+	},
+	{
+		"id": 493,
+		"name": "Moonglade",
+		"kind": "world"
+	},
+	{
+		"id": 616,
+		"name": "Mount Hyjal",
+		"kind": "world"
+	},
+	{
+		"id": 618,
+		"name": "Winterspring",
+		"kind": "world"
+	},
+	{
+		"id": 717,
+		"name": "The Stockade",
+		"kind": "dungeon"
+	},
+	{
+		"id": 718,
+		"name": "Wailing Caverns",
+		"kind": "dungeon"
+	},
+	{
+		"id": 719,
+		"name": "Blackfathom Deeps",
+		"kind": "dungeon"
+	},
+	{
+		"id": 721,
+		"name": "Gnomeregan",
+		"kind": "dungeon"
+	},
+	{
+		"id": 722,
+		"name": "Razorfen Downs",
+		"kind": "dungeon"
+	},
+	{
+		"id": 796,
+		"name": "Scarlet Monastery",
+		"kind": "dungeon"
+	},
+	{
+		"id": 1176,
+		"name": "Zul'Farrak",
+		"kind": "dungeon"
+	},
+	{
+		"id": 1337,
+		"name": "Uldaman",
+		"kind": "dungeon"
+	},
+	{
+		"id": 1377,
+		"name": "Silithus",
+		"kind": "world"
+	},
+	{
+		"id": 1477,
+		"name": "The Temple of Atal'Hakkar",
+		"kind": "dungeon"
+	},
+	{
+		"id": 1497,
+		"name": "Undercity",
+		"kind": "world"
+	},
+	{
+		"id": 1519,
+		"name": "Stormwind City",
+		"kind": "world"
+	},
+	{
+		"id": 1537,
+		"name": "Ironforge",
+		"kind": "world"
+	},
+	{
+		"id": 1581,
+		"name": "The Deadmines",
+		"kind": "dungeon"
+	},
+	{
+		"id": 1583,
+		"name": "Blackrock Spire",
+		"kind": "dungeon"
+	},
+	{
+		"id": 1584,
+		"name": "Blackrock Depths",
+		"kind": "dungeon"
+	},
+	{
+		"id": 1637,
+		"name": "Orgrimmar",
+		"kind": "world"
+	},
+	{
+		"id": 1638,
+		"name": "Thunder Bluff",
+		"kind": "world"
+	},
+	{
+		"id": 1657,
+		"name": "Darnassus",
+		"kind": "world"
+	},
+	{
+		"id": 1977,
+		"name": "Zul'Gurub",
+		"kind": "raid"
+	},
+	{
+		"id": 2017,
+		"name": "Stratholme",
+		"kind": "dungeon"
+	},
+	{
+		"id": 2057,
+		"name": "Scholomance",
+		"kind": "dungeon"
+	},
+	{
+		"id": 2100,
+		"name": "Maraudon",
+		"kind": "dungeon"
+	},
+	{
+		"id": 2437,
+		"name": "Ragefire Chasm",
+		"kind": "dungeon"
+	},
+	{
+		"id": 2557,
+		"name": "Dire Maul",
+		"kind": "dungeon"
+	},
+	{
+		"id": 2597,
+		"name": "Alterac Valley",
+		"kind": "world"
+	},
+	{
+		"id": 2677,
+		"name": "Blackwing Lair",
+		"kind": "raid"
+	},
+	{
+		"id": 2717,
+		"name": "Molten Core",
+		"kind": "raid"
+	},
+	{
+		"id": 3428,
+		"name": "Ahn'Qiraj",
+		"kind": "raid"
+	},
+	{
+		"id": 3429,
+		"name": "Ruins of Ahn'Qiraj",
+		"kind": "raid"
+	},
+	{
+		"id": 3456,
+		"name": "Naxxramas",
+		"kind": "raid"
+	},
+	{
+		"id": 16544,
+		"name": "City of Dalaran",
+		"kind": "dungeon"
+	},
+	{
+		"id": 16550,
+		"name": "The Drowned City",
+		"kind": "dungeon"
+	},
+	{
+		"id": 16554,
+		"name": "Blackmaw Hold",
+		"kind": "dungeon"
+	},
+	{
+		"id": 16591,
+		"name": "Riverglades",
+		"kind": "world"
+	},
+	{
+		"id": 16593,
+		"name": "Zephras Isle",
+		"kind": "world"
+	},
+	{
+		"id": 16611,
+		"name": "Ruins of Lordaeron",
+		"kind": "dungeon"
+	},
+	{
+		"id": 16620,
+		"name": "Alcaz Prison",
+		"kind": "dungeon"
+	},
+	{
+		"id": 16667,
+		"name": "The Shaper's Terrace",
+		"kind": "dungeon"
+	},
+	{
+		"id": 16732,
+		"name": "Excavation Site: Wetlands",
+		"kind": "dungeon"
+	},
+	{
+		"id": 16842,
+		"name": "Krol'dok Stronghold",
+		"kind": "dungeon"
+	},
+	{
+		"id": 16919,
+		"name": "The Hall of Thanes",
+		"kind": "dungeon"
+	}
+]

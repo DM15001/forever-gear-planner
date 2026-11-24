@@ -1,0 +1,135 @@
+{
+	"id": "wowhead",
+	"label": "Wowhead",
+	"title": "Wowhead BiS guide",
+	"url": "https://www.wowhead.com/forever/guide/classes/mage/fire/bis-gear",
+	"author": "Foolipe",
+	"updated": "2026-11-20",
+	"checked": "2026-11-22",
+	"note": "Only the guide's top (BiS) picks per slot are kept here, as a pointer. The full ranked tables with the author's reasoning are on Wowhead, see url.",
+	"ranks": [
+		"BiS"
+	],
+	"items": [
+		{
+			"slot": "head",
+			"rank": "BiS",
+			"id": 226935,
+			"name": "Sorcerer's Crown"
+		},
+		{
+			"slot": "head",
+			"rank": "BiS",
+			"id": 22267,
+			"name": "Spellweaver's Turban"
+		},
+		{
+			"slot": "shoulder",
+			"rank": "BiS",
+			"id": 226936,
+			"name": "Sorcerer's Mantle"
+		},
+		{
+			"slot": "shoulder",
+			"rank": "BiS",
+			"id": 19050,
+			"name": "Mantle of the Timbermaw"
+		},
+		{
+			"slot": "back",
+			"rank": "BiS",
+			"id": 272411,
+			"name": "Arcanoweave Cloak"
+		},
+		{
+			"slot": "chest",
+			"rank": "BiS",
+			"id": 14152,
+			"name": "Robe of the Archmage"
+		},
+		{
+			"slot": "wrist",
+			"rank": "BiS",
+			"id": 226929,
+			"name": "Sorcerer's Bindings"
+		},
+		{
+			"slot": "hands",
+			"rank": "BiS",
+			"id": 226930,
+			"name": "Sorcerer's Gauntlets"
+		},
+		{
+			"slot": "waist",
+			"rank": "BiS",
+			"id": 11662,
+			"name": "Ban'thok Sash"
+		},
+		{
+			"slot": "legs",
+			"rank": "BiS",
+			"id": 226933,
+			"name": "Sorcerer's Leggings"
+		},
+		{
+			"slot": "feet",
+			"rank": "BiS",
+			"id": 226931,
+			"name": "Sorcerer's Sandals"
+		},
+		{
+			"slot": "neck",
+			"rank": "BiS",
+			"id": 22403,
+			"name": "Nacreous Shell Necklace"
+		},
+		{
+			"slot": "finger",
+			"rank": "BiS",
+			"id": 272406,
+			"name": "Channeler's Ring"
+		},
+		{
+			"slot": "finger",
+			"rank": "BiS",
+			"id": 22339,
+			"name": "Rune Band of Wizardry"
+		},
+		{
+			"slot": "trinket",
+			"rank": "BiS",
+			"id": 13968,
+			"name": "Eye of the Beast"
+		},
+		{
+			"slot": "trinket",
+			"rank": "BiS",
+			"id": 272438,
+			"name": "Weakness Analyzer"
+		},
+		{
+			"slot": "weapon",
+			"rank": "BiS",
+			"id": 22383,
+			"name": "Sageblade"
+		},
+		{
+			"slot": "weapon",
+			"rank": "BiS",
+			"id": 944,
+			"name": "Elemental Mage Staff"
+		},
+		{
+			"slot": "weapon",
+			"rank": "BiS",
+			"id": 19311,
+			"name": "Tome of Fiery Arcana"
+		},
+		{
+			"slot": "ranged",
+			"rank": "BiS",
+			"id": 13938,
+			"name": "Bonecreeper Stylus"
+		}
+	]
+}

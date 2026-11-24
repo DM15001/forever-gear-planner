@@ -1,0 +1,71 @@
+name: Deploy to GitHub Pages
+
+# Publishes two copies of the site in one go: the main branch at the root (live),
+# and the dev branch, when there is one, under dev/. A broken dev branch never blocks the live site.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - name: Is there a dev branch?
+        id: dev
+        run: |
+          if git ls-remote --exit-code --heads origin dev >/dev/null; then echo "exists=true" >> "$GITHUB_OUTPUT"; fi
+      - uses: actions/checkout@v4
+        if: steps.dev.outputs.exists == 'true'
+        with:
+          ref: dev
+          path: dev-src
+      - name: Build the dev copy
+        if: steps.dev.outputs.exists == 'true'
+        continue-on-error: true
+        working-directory: dev-src
+        env:
+          VITE_CHANNEL: dev
+        run: |
+          npm ci
+          npm test
+          npm run build
+          cp -r dist ../dist/dev
+      - name: Dev copy missing? Say so instead of a 404
+        if: steps.dev.outputs.exists == 'true'
+        run: |
+          if [ ! -f dist/dev/index.html ]; then
+            mkdir -p dist/dev
+            echo '<!doctype html><meta charset="utf-8"><title>Dev version</title><body style="font-family:sans-serif;background:#0a0908;color:#ebe4d6;padding:2rem"><p>The dev version did not build this time (tests or build failed on the dev branch).</p><p><a style="color:#ffd100" href="../">Back to the live version</a></p>' > dist/dev/index.html
+          fi
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

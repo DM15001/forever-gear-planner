@@ -1,0 +1,108 @@
+{
+	"id": "hunter-sv-melee",
+	"name": "Hunter: Survival (melee)",
+	"preset": "SV Melee",
+	"talents": "53200005001-005005-5302002300500221",
+	"classId": 3,
+	"className": "hunter",
+	"simKey": "hunter",
+	"races": [
+		{
+			"id": "RaceHuman",
+			"name": "Human",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceDwarf",
+			"name": "Dwarf",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceNightElf",
+			"name": "Night Elf",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceHighOrderSkyborne",
+			"name": "High Order Skyborne",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceOrc",
+			"name": "Orc",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceTauren",
+			"name": "Tauren",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceTroll",
+			"name": "Troll",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceWindshaperSkyborne",
+			"name": "Windshaper Skyborne",
+			"faction": "horde"
+		}
+	],
+	"armorTypes": [
+		"cloth",
+		"leather",
+		"mail"
+	],
+	"weaponTypes": {
+		"oneHand": [
+			"axe",
+			"dagger",
+			"fist",
+			"sword"
+		],
+		"twoHand": [],
+		"offHand": []
+	},
+	"rangedTypes": [
+		"bow",
+		"crossbow",
+		"gun"
+	],
+	"canDualWield": true,
+	"weaponSetup": "oneHand",
+	"simBuilds": [
+		{
+			"id": "wowsims",
+			"label": "WoWSims",
+			"title": "WoWSims preset set",
+			"local": "scripts/builds/hunter-sv-melee.build.json"
+		}
+	],
+	"hitCapPercent": 27,
+	"ratingPerPercent": {
+		"hitRating": 10,
+		"critRating": 14,
+		"hasteRating": 10,
+		"expertiseRating": 10
+	},
+	"raceBonuses": {"RaceDwarf": {"hitPercent": 1}},
+	"weights": {
+		"source": "WoWSims Forever, Hunter 'Melee' EP preset (ui/specs/hunter/dps/presets.ts). 1 point = 1 agility. Hit is counted up to the dual-wield cap for white hits.",
+		"mainHandDps": 4.86,
+		"offHandDps": 1.18,
+		"rangedDps": 0.27,
+		"hitRatingOverCap": 0,
+		"dpsPerPoint": 0.5614,
+		"stats": {
+			"agility": 1,
+			"strength": 0.41,
+			"intellect": 0.7,
+			"attackPower": 0.37,
+			"rangedAttackPower": 0.15,
+			"hitRating": 2.48,
+			"critRating": 1,
+			"hasteRating": 0.91,
+			"mp5": 0.23
+		}
+	}
+}

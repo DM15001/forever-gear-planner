@@ -1,0 +1,204 @@
+{
+	"id": "priest-holy",
+	"name": "Priest: Holy (healing)",
+	"role": "healer",
+	"preset": "Holy",
+	"talents": "00520101133-33505003030121531",
+	"classId": 5,
+	"className": "priest",
+	"simKey": "healerPriest",
+	"races": [
+		{
+			"id": "RaceHuman",
+			"name": "Human",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceDwarf",
+			"name": "Dwarf",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceNightElf",
+			"name": "Night Elf",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceGnome",
+			"name": "Gnome",
+			"faction": "alliance"
+		},
+		{
+			"id": "RaceUndead",
+			"name": "Undead",
+			"faction": "horde"
+		},
+		{
+			"id": "RaceTroll",
+			"name": "Troll",
+			"faction": "horde"
+		}
+	],
+	"armorTypes": [
+		"cloth"
+	],
+	"weaponTypes": {
+		"oneHand": [
+			"dagger",
+			"mace"
+		],
+		"twoHand": [
+			"staff"
+		],
+		"offHand": [
+			"offHand"
+		]
+	},
+	"rangedTypes": [
+		"wand"
+	],
+	"canDualWield": false,
+	"weaponSetup": "either",
+	"ratingPerPercent": {
+		"hitRating": 10,
+		"critRating": 14,
+		"hasteRating": 10,
+		"expertiseRating": 10
+	},
+	"raceBonuses": {"RaceDwarf": {"hitPercent": 1}, "RaceHuman": {"statPercent": {"spirit": 10}}},
+	"simBuilds": [
+		{
+			"id": "wowsims",
+			"label": "WoWSims",
+			"title": "WoWSims pre-raid set",
+			"local": "scripts/builds/priest-holy.build.json"
+		}
+	],
+	"hitCapPercent": 0,
+	"hitBonusPercent": 0,
+	"weights": {
+		"source": "Measured for this planner on 2026-11-22 with the WoWSims Forever simulator (2000 fights per stat, the WoWSims healer buffs, consumables and pre-raid gear). The numbers are healing per second per point of the stat, one set for each healing scenario. WoWSims has the Priest's heals in its engine but ships no healing rotation; the rotations are this planner's own (src/lib/sim/healing.ts).",
+		"mainHandDps": 0,
+		"stats": {
+			"intellect": 0.291,
+			"healingPower": 0.212,
+			"spirit": 0.365,
+			"critRating": 0.179,
+			"hasteRating": 0.115,
+			"mp5": 0.718
+		},
+		"hitRatingOverCap": 0
+	},
+	"healing": {
+		"scenarios": {
+			"tank.burst": {
+				"hps": 1182,
+				"oomSeconds": 0,
+				"weights": {
+					"intellect": 0.182,
+					"healingPower": 0.436,
+					"spirit": 0.156,
+					"critRating": 0.374,
+					"hasteRating": 1.041,
+					"mp5": 0.103
+				}
+			},
+			"tank.balanced": {
+				"hps": 530,
+				"oomSeconds": 26,
+				"weights": {
+					"intellect": 0.291,
+					"healingPower": 0.212,
+					"spirit": 0.365,
+					"critRating": 0.179,
+					"hasteRating": 0.115,
+					"mp5": 0.718
+				}
+			},
+			"tank.endurance": {
+				"hps": 507,
+				"oomSeconds": 179,
+				"weights": {
+					"intellect": 0.159,
+					"healingPower": 0.211,
+					"spirit": 0.375,
+					"critRating": 0.17,
+					"hasteRating": 0,
+					"mp5": 0.725
+				}
+			},
+			"fast.burst": {
+				"hps": 1295,
+				"oomSeconds": 1,
+				"weights": {
+					"intellect": 0.43,
+					"healingPower": 0.524,
+					"spirit": 0.25,
+					"critRating": 0.439,
+					"hasteRating": 0.615,
+					"mp5": 0.298
+				}
+			},
+			"fast.balanced": {
+				"hps": 550,
+				"oomSeconds": 34,
+				"weights": {
+					"intellect": 0.291,
+					"healingPower": 0.236,
+					"spirit": 0.342,
+					"critRating": 0.183,
+					"hasteRating": 0.114,
+					"mp5": 0.681
+				}
+			},
+			"fast.endurance": {
+				"hps": 492,
+				"oomSeconds": 220,
+				"weights": {
+					"intellect": 0.185,
+					"healingPower": 0.214,
+					"spirit": 0.391,
+					"critRating": 0.162,
+					"hasteRating": 0.039,
+					"mp5": 0.814
+				}
+			},
+			"group.burst": {
+				"hps": 1228,
+				"oomSeconds": 11,
+				"weights": {
+					"intellect": 1.807,
+					"healingPower": 0.453,
+					"spirit": 0.392,
+					"critRating": 0.408,
+					"hasteRating": 0.129,
+					"mp5": 0.673
+				}
+			},
+			"group.balanced": {
+				"hps": 556,
+				"oomSeconds": 49,
+				"weights": {
+					"intellect": 0.293,
+					"healingPower": 0.222,
+					"spirit": 0.451,
+					"critRating": 0.187,
+					"hasteRating": 0.034,
+					"mp5": 0.823
+				}
+			},
+			"group.endurance": {
+				"hps": 512,
+				"oomSeconds": 229,
+				"weights": {
+					"intellect": 0.165,
+					"healingPower": 0.214,
+					"spirit": 0.611,
+					"critRating": 0.17,
+					"hasteRating": 0.102,
+					"mp5": 1.09
+				}
+			}
+		}
+	}
+}
