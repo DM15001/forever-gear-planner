@@ -468,7 +468,7 @@ export function App() {
 				)}
 				{character && !importing && (
 					<SimProvider character={character}>
-						{data && <GearRails spec={spec} character={character} data={data} showEquipped={options.equippedPanel} showPlanned={options.plannedPanel} onShow={(kind, on) => changeOptions({ ...options, [kind === 'equipped' ? 'equippedPanel' : 'plannedPanel']: on })} sheet={tab === 'character' ? null : characterSheet} />}
+						{data && <GearRails spec={spec} character={character} data={data} showEquipped={options.equippedPanel} showPlanned={options.plannedPanel} onShow={(kind, on) => changeOptions({ ...options, [kind === 'equipped' ? 'equippedPanel' : 'plannedPanel']: on })} filter={filter} onChange={update} />}
 						{tab === 'simulate' && (
 							<div className="view-switch" role="group" aria-label="How to pick upgrades">
 								<button className="view-choice" aria-pressed={upgradeView === 'slots'} onClick={() => setUpgradeView('slots')}>

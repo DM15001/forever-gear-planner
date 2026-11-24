@@ -4712,19 +4712,23 @@ summary.breakdown-toggle:focus-visible {
 	margin-top: 0.75rem;
 }
 
-/* Equipped gear at the left edge, planned gear at the right one: a small copy of the in-game character pane, icons only. Shown where the screen has room beside the page. */
+/* Equipped gear in the free space left of the page, planned gear in the space right of it: a copy of the in-game
+   character pane, icons only, centred in its gutter and grown to fill it, so both sides look the same. */
 .gear-rail {
 	display: none;
 }
 @media (min-width: 90rem) {
 	.gear-rail {
+		/* The free space beside the 72rem page, and how much of it the pane takes. */
+		--gutter: calc((100vw - 72rem) / 2);
+		--pane: clamp(7.5rem, calc(var(--gutter) - 2.5rem), 13rem);
+		--icon: min(calc((var(--pane) - 1.5rem) * 0.32), calc((100vh - 12rem) / 8.6));
 		position: fixed;
 		top: 50%;
-		transform: translateY(-50%);
 		z-index: 20;
 		display: block;
 		box-sizing: border-box;
-		width: 8rem;
+		width: var(--pane);
 		padding: 0.5rem;
 		background: var(--slate);
 		border: 1px solid var(--ridge);
@@ -4732,10 +4736,12 @@ summary.breakdown-toggle:focus-visible {
 		font-size: 0.8rem;
 	}
 	.gear-rail-equipped {
-		left: max(0.25rem, calc(50% - 36rem - 8.5rem));
+		left: calc(var(--gutter) / 2);
+		transform: translate(-50%, -50%);
 	}
 	.gear-rail-planned {
-		right: max(0.25rem, calc(50% - 36rem - 8.5rem));
+		right: calc(var(--gutter) / 2);
+		transform: translate(50%, -50%);
 	}
 }
 .gear-rail-head {
@@ -4748,7 +4754,7 @@ summary.breakdown-toggle:focus-visible {
 	min-width: 0;
 	margin: 0;
 	font-family: var(--display);
-	font-size: 0.8rem;
+	font-size: 0.85rem;
 	color: var(--brass);
 }
 .gear-rail-planned .gear-rail-head h2 {
@@ -4773,41 +4779,50 @@ summary.breakdown-toggle:focus-visible {
 .gear-rail-facts {
 	display: flex;
 	flex-direction: column;
-	margin: 0.15rem 0 0.3rem;
+	margin: 0.15rem 0 0.4rem;
 	line-height: 1.25;
 	color: var(--haze);
 }
 .gear-rail-doll {
 	display: flex;
 	justify-content: space-between;
-	gap: 0.9rem;
 }
 .gear-rail-doll ul,
 .gear-rail-weapons {
 	display: flex;
 	flex-direction: column;
-	gap: 2px;
+	gap: 3px;
 }
 .gear-rail-weapons {
 	flex-direction: row;
 	justify-content: center;
-	margin-top: 0.35rem;
+	margin-top: 0.4rem;
 }
 .gear-rail-item a,
-.gear-rail-item span {
+.gear-rail-slot {
 	display: block;
+	padding: 0;
 	line-height: 0;
+	background: none;
+	border: 0;
+	border-radius: 4px;
+	cursor: pointer;
+}
+.gear-rail-item a:hover .slot-icon,
+.gear-rail-slot:hover .slot-icon {
+	filter: brightness(1.25);
 }
 .gear-rail .slot-icon-small {
-	width: 2.15rem;
-	height: 2.15rem;
-	border-radius: 3px;
+	display: block;
+	width: var(--icon, 2.15rem);
+	height: var(--icon, 2.15rem);
+	border-radius: 4px;
 }
 .gear-rail-changed .slot-icon {
 	box-shadow: 0 0 0 2px var(--ember);
 }
-.sheet-in-window {
-	margin-top: 0.5rem;
+.picker-tabs {
+	margin: 0.5rem 0 0.25rem;
 }
 
 /* Each gear panel has its own hide button; a hidden one leaves a small button at its edge to bring it back. */

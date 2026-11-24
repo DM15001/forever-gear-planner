@@ -260,7 +260,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						</li>
 					))}
 				</ul>
-				{picking !== null && <ItemPicker slotIndex={picking} gear={gear} character={character} data={data} spec={spec} filter={filter} onPick={id => pickItem(picking, id)} onClose={() => setPicking(null)} />}
+				{picking !== null && <ItemPicker slotIndex={picking} gear={gear} character={character} data={data} spec={spec} filter={filter} onPick={id => pickItem(picking, id)} onEnchant={effectId => { onChange({ ...character, planEnchants: { ...(character.planEnchants ?? {}), [picking]: effectId ?? 0 } }); setPicking(null); }} onClose={() => setPicking(null)} />}
 					</>
 				)}
 			</section>
