@@ -149,3 +149,6 @@ jobs:
           done
           if [ "$busy" != "0" ]; then echo "A measurement is running; the nightly pass picks these builds up."; exit 0; fi
           for workflow in measure.yml weights.yml weapons.yml; do gh workflow run "$workflow" --ref main; done
+      - name: Put the WoWSims checkout back for the clean-up steps
+        if: always()
+        run: if [ -d "$RUNNER_TEMP/wowsims" ] && [ ! -d wowsims ]; then mv "$RUNNER_TEMP/wowsims" wowsims; fi
