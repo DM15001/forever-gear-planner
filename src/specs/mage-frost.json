@@ -1,5 +1,6 @@
 {
 	"id": "mage-frost",
+	"wowsims": "mage.dps.frost-frost-med",
 	"name": "Mage: Frost Med",
 	"preset": "Frost Med",
 	"talents": "2032250100003--053500001121331251",

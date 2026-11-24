@@ -1,5 +1,6 @@
 {
 	"id": "elemental-shaman",
+	"wowsims": "shaman.elemental.default",
 	"name": "Elemental Shaman",
 	"preset": "Default",
 	"talents": "5500331023001351-05500001-053",
@@ -65,7 +66,7 @@
 			"id": "wowsims",
 			"label": "WoWSims",
 			"title": "WoWSims default set",
-			"path": "ui/specs/shaman/elemental/builds/default.build.json"
+			"local": "scripts/builds/elemental-shaman.build.json"
 		}
 	],
 	"hitCapPercent": 17,

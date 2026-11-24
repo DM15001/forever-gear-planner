@@ -1,5 +1,6 @@
 {
 	"id": "priest-smite",
+	"wowsims": "priest.dps.smite-testing",
 	"name": "Priest: Smite Testing",
 	"preset": "Smite Testing",
 	"talents": "525235031030001001-30515100002-3",

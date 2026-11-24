@@ -1,5 +1,6 @@
 {
 	"id": "paladin-ret-holy-shock",
+	"wowsims": "paladin.retribution.holy-shock",
 	"name": "Paladin: Retribution (Holy Shock)",
 	"preset": "Holy Shock",
 	"talents": "05025210221001--0523330110130035",

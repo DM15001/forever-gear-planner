@@ -1,5 +1,6 @@
 {
 	"id": "rogue-combat-ss",
+	"wowsims": "rogue.dps.combat-ss",
 	"name": "Rogue: Combat SS",
 	"preset": "Combat SS",
 	"talents": "00530320201-3200132202012321551",

@@ -1,5 +1,6 @@
 {
 	"id": "hunter-mm",
+	"wowsims": "hunter.dps.turret-mm",
 	"name": "Hunter: Marksmanship",
 	"preset": "MM",
 	"talents": "5-0053452511522051-5",

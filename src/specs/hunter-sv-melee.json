@@ -1,5 +1,6 @@
 {
 	"id": "hunter-sv-melee",
+	"wowsims": "hunter.dps.melee-sv-melee",
 	"name": "Hunter: Survival (melee)",
 	"preset": "SV Melee",
 	"talents": "53200005001-005005-5302002300500221",

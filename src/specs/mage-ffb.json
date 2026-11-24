@@ -1,5 +1,6 @@
 {
 	"id": "mage-ffb",
+	"wowsims": "mage.dps.ffb-ffb",
 	"name": "Mage: FFB",
 	"preset": "FFB",
 	"talents": "-5550000123011303-2035010311013002",

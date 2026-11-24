@@ -1,5 +1,6 @@
 {
 	"id": "hunter-bm",
+	"wowsims": "hunter.dps.turret-bm",
 	"name": "Hunter: Beast Mastery",
 	"preset": "BM",
 	"talents": "5320001505101251-00530502014",

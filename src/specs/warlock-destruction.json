@@ -1,5 +1,6 @@
 {
 	"id": "warlock-destruction",
+	"wowsims": "warlock.dps.destro",
 	"name": "Warlock: Destro",
 	"preset": "Destro",
 	"talents": "2550002013--0050355103101351",

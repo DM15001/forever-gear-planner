@@ -1,5 +1,6 @@
 {
 	"id": "warlock-demo-shadow",
+	"wowsims": "warlock.dps.demo-shadow-brand",
 	"name": "Warlock: Demo (Shadow Brand)",
 	"preset": "Demo (Shadow Brand)",
 	"talents": "011-0005003231220301351-0550005003",

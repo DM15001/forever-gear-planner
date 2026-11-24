@@ -1,5 +1,6 @@
 {
 	"id": "priest-shadow",
+	"wowsims": "priest.dps.shadow-testing",
 	"name": "Priest: Shadow Testing",
 	"preset": "Shadow Testing",
 	"talents": "00530300103-3-50042201251302051",

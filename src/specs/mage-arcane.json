@@ -1,5 +1,6 @@
 {
 	"id": "mage-arcane",
+	"wowsims": "mage.dps.arcane-arcane",
 	"name": "Mage: Arcane",
 	"preset": "Arcane",
 	"talents": "050205223101311531-5500003-003",

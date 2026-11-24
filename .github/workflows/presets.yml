@@ -6,7 +6,9 @@ name: Read the WoWSims presets
 # defaults and every preset build the way the page does and writes the page's JSON export of each.
 #
 # The exports are kept on the branch wowsims-presets (one commit per WoWSims version that changed them), so every
-# change WoWSims makes to a preset shows up there as a diff. Turning them into scripts/builds is the next step.
+# change WoWSims makes to a preset shows up there as a diff. scripts/apply-presets.mjs then brings scripts/builds
+# and the simulator templates in line with them; if the tests pass, that is committed and the site republished.
+# .github/workflows/engine.yml starts this after every simulator update.
 
 on:
   workflow_dispatch:
@@ -18,6 +20,8 @@ on:
 
 permissions:
   contents: write
+  actions: write
+  issues: write
 
 concurrency:
   group: presets
@@ -27,6 +31,8 @@ jobs:
   dump:
     runs-on: ubuntu-latest
     timeout-minutes: 40
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
       - name: Which WoWSims is the site on?
@@ -82,3 +88,62 @@ jobs:
           if git diff --cached --quiet; then echo "No preset changed."; exit 0; fi
           git commit -q -m "Presets of WoWSims $(echo "${{ steps.version.outputs.commit }}" | cut -c1-10)"
           git push -q origin wowsims-presets
+      - name: Bring the builds in line
+        id: apply
+        if: inputs.specs == ''
+        run: |
+          node scripts/apply-presets.mjs "$RUNNER_TEMP/presets" | tee "$RUNNER_TEMP/changed.txt"
+          if git diff --quiet; then echo "The builds are what wowsims.com shows."; exit 0; fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Rebuild the data, test and build
+        id: test
+        if: steps.apply.outputs.changed == 'true'
+        continue-on-error: true
+        run: |
+          git clone --quiet --depth 1 --filter=blob:none --sparse https://github.com/wowsims/pages-deploy.git "$RUNNER_TEMP/pages"
+          git -C "$RUNNER_TEMP/pages" sparse-checkout set forever
+          if [ "$(node -e 'console.log(require(process.argv[1]).commit)' "$RUNNER_TEMP/pages/forever/version.json")" = "${{ steps.version.outputs.commit }}" ]; then
+            node scripts/build-data.mjs --pages "$RUNNER_TEMP/pages" --repo wowsims
+          else
+            echo "wowsims.com has moved on; the simulator update will rebuild the data."
+          fi
+          node scripts/check-builds.mjs
+          npm ci
+          npm test
+          npm run build
+      - name: Tests failed on the new builds
+        if: steps.apply.outputs.changed == 'true' && steps.test.outcome != 'success'
+        run: |
+          title="Preset update from WoWSims needs a look"
+          if [ "$(gh issue list --state open --search "$title in:title" --json number --jq length)" = "0" ]; then
+            gh issue create --title "$title" --label planner-followup --body "WoWSims changed presets, but the planner's tests or build fail with them, so the builds were **not** updated. Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+          $(cat "$RUNNER_TEMP/changed.txt")"
+          fi
+          exit 1
+      - name: Commit and publish
+        id: commit
+        if: steps.apply.outputs.changed == 'true' && steps.test.outcome == 'success'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/builds public/sim src/data src/specs
+          if git diff --cached --quiet; then echo "Nothing changed."; exit 0; fi
+          git commit -q -m "Builds updated to the WoWSims presets of $(echo "${{ steps.version.outputs.commit }}" | cut -c1-10)" -m "$(cat "$RUNNER_TEMP/changed.txt")" -m "Written by .github/workflows/presets.yml with scripts/apply-presets.mjs."
+          for attempt in 1 2 3; do
+            git pull -q --rebase origin main && git push -q origin HEAD:main && echo "pushed=true" >> "$GITHUB_OUTPUT" && break
+            sleep 10
+          done
+      - name: Republish, and measure unless a measurement is running
+        if: steps.commit.outputs.pushed == 'true'
+        run: |
+          gh workflow run pages.yml --ref main
+          busy=0
+          for workflow in measure.yml weights.yml weapons.yml; do
+            for status in in_progress queued; do
+              count=$(gh api "repos/${{ github.repository }}/actions/workflows/$workflow/runs?status=$status&per_page=1" --jq .total_count)
+              busy=$((busy + count))
+            done
+          done
+          if [ "$busy" != "0" ]; then echo "A measurement is running; the nightly pass picks these builds up."; exit 0; fi
+          for workflow in measure.yml weights.yml weapons.yml; do gh workflow run "$workflow" --ref main; done

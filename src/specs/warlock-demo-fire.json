@@ -1,5 +1,6 @@
 {
 	"id": "warlock-demo-fire",
+	"wowsims": "warlock.dps.demo-fire-brand",
 	"name": "Warlock: Demo (Fire Brand)",
 	"preset": "Demo (Fire Brand)",
 	"talents": "011-0305003201220301351-0050055003",

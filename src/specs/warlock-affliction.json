@@ -1,5 +1,6 @@
 {
 	"id": "warlock-affliction",
+	"wowsims": "warlock.dps.aff-wrack",
 	"name": "Warlock: Aff (Wrack)",
 	"preset": "Aff (Wrack)",
 	"talents": "25500020135201351-0050203001-05",

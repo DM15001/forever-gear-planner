@@ -1,5 +1,6 @@
 {
 	"id": "druid-balance",
+	"wowsims": "druid.balance.defaults",
 	"name": "Druid: Balance",
 	"preset": "Moonkin",
 	"talents": "5232220115501351--5053",

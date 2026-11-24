@@ -1,5 +1,6 @@
 {
 	"id": "rogue-hemo-sf",
+	"wowsims": "rogue.dps.hemo-seal-fate",
 	"name": "Rogue: Hemo Seal Fate",
 	"preset": "Hemo Seal Fate",
 	"talents": "0053031121135102-02-0052030313210001",

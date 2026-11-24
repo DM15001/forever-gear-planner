@@ -1,5 +1,6 @@
 {
 	"id": "rogue-asn-muti",
+	"wowsims": "rogue.dps.asn-muti",
 	"name": "Rogue: Asn Muti",
 	"preset": "Asn Muti",
 	"talents": "00530311231251031-32030302020103-001",

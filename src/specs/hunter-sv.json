@@ -1,5 +1,6 @@
 {
 	"id": "hunter-sv",
+	"wowsims": "hunter.dps.turret-sv",
 	"name": "Hunter: Survival",
 	"preset": "SV",
 	"talents": "3-00510503113-52225303000021004",

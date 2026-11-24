@@ -1,5 +1,6 @@
 {
 	"id": "rogue-sub-hemo",
+	"wowsims": "rogue.dps.subtlety-hemo",
 	"name": "Rogue: Subtlety Hemo",
 	"preset": "Subtlety Hemo",
 	"talents": "00530301-320003-005233031321001151",

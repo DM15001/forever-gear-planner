@@ -1,5 +1,6 @@
 {
 	"id": "warrior-fury",
+	"wowsims": "warrior.dps.fury-pre-bis",
 	"name": "Warrior: Fury (Pre-BiS)",
 	"preset": "Pre-BiS - Fury",
 	"talents": "30303213002-050530045122100231",

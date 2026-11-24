@@ -1,5 +1,6 @@
 {
 	"id": "hunter-sv-weave",
+	"wowsims": "hunter.dps.weave-sv-weave",
 	"name": "Hunter: Survival (melee weave)",
 	"preset": "SV Weave",
 	"talents": "-00530501114-500230230050220151",

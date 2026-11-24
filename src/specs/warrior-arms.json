@@ -1,5 +1,6 @@
 {
 	"id": "warrior-arms",
+	"wowsims": "warrior.dps.arms-pre-bis",
 	"name": "Warrior: Arms (Pre-BiS)",
 	"preset": "Pre-BiS - Arms",
 	"talents": "30303213132215201-55050000002-2",

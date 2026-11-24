@@ -1,5 +1,6 @@
 {
 	"id": "paladin-ret",
+	"wowsims": "paladin.retribution.unsealed-wrath",
 	"name": "Paladin: Retribution (Unsealed Wrath)",
 	"preset": "Unsealed Wrath",
 	"talents": "050250002-501-05233011201301351",

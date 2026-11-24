@@ -105,9 +105,11 @@ jobs:
 
           $found"
           fi
-      - name: Republish the site
+      - name: Republish the site, and read the presets of the new WoWSims
         if: steps.commit.outputs.pushed == 'true'
-        run: gh workflow run pages.yml --ref main
+        run: |
+          gh workflow run pages.yml --ref main
+          gh workflow run presets.yml --ref main
       - name: Start the measurements, unless one is running
         if: steps.commit.outputs.pushed == 'true' || github.event.schedule == '41 1 * * *'
         run: |

@@ -1,5 +1,6 @@
 {
 	"id": "enhancement-shaman",
+	"wowsims": "shaman.enhancement.default",
 	"name": "Enhancement Shaman",
 	"preset": "Default",
 	"talents": "053303102-053030310051012251-02",
@@ -69,7 +70,7 @@
 			"id": "wowsims",
 			"label": "WoWSims",
 			"title": "WoWSims default set",
-			"path": "ui/specs/shaman/enhancement/builds/default.build.json"
+			"local": "scripts/builds/enhancement-shaman.build.json"
 		}
 	],
 	"hitCapPercent": 8,

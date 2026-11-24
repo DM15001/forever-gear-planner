@@ -1,5 +1,6 @@
 {
 	"id": "druid-cat",
+	"wowsims": "druid.feralcat.defaults",
 	"name": "Druid: Feral Cat",
 	"preset": "Cat",
 	"talents": "050021-53200032123012125001-055",

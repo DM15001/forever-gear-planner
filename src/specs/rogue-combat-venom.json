@@ -1,5 +1,6 @@
 {
 	"id": "rogue-combat-venom",
+	"wowsims": "rogue.dps.combat-venom",
 	"name": "Rogue: Combat Venom",
 	"preset": "Combat Venom",
 	"talents": "00530320241001-320013220201232115",
