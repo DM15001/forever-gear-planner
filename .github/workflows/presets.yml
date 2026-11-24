@@ -72,7 +72,8 @@ jobs:
           git worktree add -q "$RUNNER_TEMP/branch" --detach
           cd "$RUNNER_TEMP/branch"
           if git rev-parse -q --verify origin/wowsims-presets >/dev/null; then git checkout -q -B wowsims-presets origin/wowsims-presets; else git checkout -q --orphan wowsims-presets; fi
-          git rm -rq --ignore-unmatch . && find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -r {} +
+          git rm -rqf --cached --ignore-unmatch . || true
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -r {} +
           cp "$RUNNER_TEMP"/presets/*.json .
           echo "${{ steps.version.outputs.commit }}" > WOWSIMS_COMMIT
           git add -A
