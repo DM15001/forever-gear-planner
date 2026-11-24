@@ -132,7 +132,7 @@ function CheerDwarf() {
 			<path d="M66 92 Q90 150 114 92" fill="none" stroke="url(#cheer-gold)" strokeWidth="5" strokeDasharray="5 2.5" strokeLinecap="round" />
 			<circle cx="90" cy="124" r="12" fill="url(#cheer-gold)" stroke="#8f6d1c" strokeWidth="2" />
 			<text x="90" y="129.5" textAnchor="middle" fontFamily="Georgia, serif" fontWeight="700" fontSize="16" fill="#3b1560">
-				B
+				1
 			</text>
 			{/* wide hat with a leopard band and a feather */}
 			<path d="M112 20 Q128 -2 118 -8 Q104 2 106 20 Z" fill="#e8455a" />
@@ -217,15 +217,20 @@ function CheerFriends() {
 				<path d="M42 132 Q36 92 68 92 Q100 92 94 132 L96 152 Q88 158 86 148 L50 148 Q48 158 40 152 Z" fill="#17131c" />
 				<circle cx="68" cy="124" r="20" fill="#f0d2bd" />
 				<path d="M48 122 Q50 100 68 102 Q88 100 88 122 Q80 108 68 112 Q58 106 48 122 Z" fill="#17131c" />
-				{/* half-closed eyes with eyeliner */}
-				<ellipse cx="60" cy="126" rx="4.5" ry="3" fill="#ffffff" />
-				<ellipse cx="78" cy="126" rx="4.5" ry="3" fill="#ffffff" />
-				<circle cx="61" cy="126.5" r="2" fill="#5b2a86" />
-				<circle cx="79" cy="126.5" r="2" fill="#5b2a86" />
-				<path d="M54 125 Q60 121 66 125 M72 125 Q78 121 84 125 L87 122" fill="none" stroke="#0a0908" strokeWidth="2.4" strokeLinecap="round" />
-				<path d="M54 125 L51 122" stroke="#0a0908" strokeWidth="2.4" strokeLinecap="round" />
+				{/* very, very high: red eyes, heavy lids, bags under them, eyeliner on top */}
+				<ellipse cx="60" cy="126" rx="5.5" ry="4.5" fill="#ff8f8f" />
+				<ellipse cx="78" cy="126" rx="5.5" ry="4.5" fill="#ff8f8f" />
+				<path d="M55.5 127 l3 -1 M56.5 129 l2.5 -0.5 M64.5 127 l-2.5 -0.5 M73.5 127 l3 -1 M74.5 129 l2.5 -0.5 M82.5 127 l-2.5 -0.5" stroke="#e0364a" strokeWidth="0.8" strokeLinecap="round" />
+				<circle cx="60.5" cy="128" r="2.4" fill="#5b2a86" />
+				<circle cx="78.5" cy="128" r="2.4" fill="#5b2a86" />
+				<circle cx="60.5" cy="128" r="1.5" fill="#0a0908" />
+				<circle cx="78.5" cy="128" r="1.5" fill="#0a0908" />
+				<path d="M54 126 Q54 120 60 120 Q66 120 66 126 Q60 124 54 126 Z M72 126 Q72 120 78 120 Q84 120 84 126 Q78 124 72 126 Z" fill="#e3bfa8" />
+				<path d="M54 126 Q60 124 66 126 M72 126 Q78 124 84 126 L87 123.5" fill="none" stroke="#0a0908" strokeWidth="2.2" strokeLinecap="round" />
+				<path d="M54 126 L51 123.5" stroke="#0a0908" strokeWidth="2.2" strokeLinecap="round" />
+				<path d="M55 132.5 Q60 135 65 132.5 M73 132.5 Q78 135 83 132.5" fill="none" stroke="#c99a8c" strokeWidth="1.4" strokeLinecap="round" />
 				<path d="M54 119 L65 120 M73 120 L84 119" stroke="#17131c" strokeWidth="1.8" strokeLinecap="round" />
-				<path d="M63 137 H74" stroke="#8a3d4f" strokeWidth="2" strokeLinecap="round" />
+				<path d="M62 138 Q69 142 76 137" fill="none" stroke="#8a3d4f" strokeWidth="2" strokeLinecap="round" />
 				{/* crossed arms */}
 				<path d="M48 162 Q70 176 90 164" fill="none" stroke="#4a1f70" strokeWidth="11" strokeLinecap="round" />
 				<path d="M50 172 Q70 160 90 170" fill="none" stroke="#5b2a86" strokeWidth="11" strokeLinecap="round" />
