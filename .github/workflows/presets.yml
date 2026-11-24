@@ -5,7 +5,8 @@ name: Read the WoWSims presets
 # WoWSims' own tests need, and runs scripts/presets/wowsims-dump.ts there, which loads every spec's
 # defaults and every preset build the way the page does and writes the page's JSON export of each.
 #
-# For now it only uploads those exports as an artifact; turning them into scripts/builds is the next step.
+# The exports are kept on the branch wowsims-presets (one commit per WoWSims version that changed them), so every
+# change WoWSims makes to a preset shows up there as a diff. Turning them into scripts/builds is the next step.
 
 on:
   workflow_dispatch:
@@ -16,7 +17,7 @@ on:
         default: ''
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: presets
@@ -64,9 +65,19 @@ jobs:
           echo "Specs: $specs"
           DUMP_SPECS="$specs" npx vitest run ui/_dump
           ls -la "$DUMP_OUT"
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: wowsims-presets
-          path: ${{ runner.temp }}/presets
-          if-no-files-found: warn
+      - name: Keep the exports on the branch wowsims-presets
+        if: inputs.specs == ''
+        run: |
+          git fetch -q origin wowsims-presets || true
+          git worktree add -q "$RUNNER_TEMP/branch" --detach
+          cd "$RUNNER_TEMP/branch"
+          if git rev-parse -q --verify origin/wowsims-presets >/dev/null; then git checkout -q -B wowsims-presets origin/wowsims-presets; else git checkout -q --orphan wowsims-presets; fi
+          git rm -rq --ignore-unmatch . && find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -r {} +
+          cp "$RUNNER_TEMP"/presets/*.json .
+          echo "${{ steps.version.outputs.commit }}" > WOWSIMS_COMMIT
+          git add -A
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --cached --quiet; then echo "No preset changed."; exit 0; fi
+          git commit -q -m "Presets of WoWSims $(echo "${{ steps.version.outputs.commit }}" | cut -c1-10)"
+          git push -q origin wowsims-presets
