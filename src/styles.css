@@ -5129,3 +5129,15 @@ summary.breakdown-toggle:focus-visible {
 	border: 1px solid var(--brass-deep);
 	border-radius: 4px;
 }
+
+/* News: the standing list of items whose simulated value cannot be trusted */
+.news-radar {
+	margin-bottom: 1rem;
+}
+.news-radar h3 {
+	margin-top: 0;
+}
+.news-radar-items {
+	margin: 0.5rem 0 0;
+	line-height: 1.7;
+}

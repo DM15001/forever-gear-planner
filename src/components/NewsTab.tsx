@@ -1,4 +1,9 @@
+import unknownProcs from '../data/unknownProcs.json';
+import { wowheadData, wowheadItemUrl } from '../lib/stats';
 import { useEffect, useMemo, useState } from 'react';
+
+/** Items whose effect has no known trigger rate in WoWSims (scripts/build-data.mjs keeps the list). */
+const RADAR = Object.entries(unknownProcs as Record<string, string>).sort((a, b) => a[1].localeCompare(b[1]));
 
 interface NewsItem {
 	title: string;
@@ -132,6 +137,26 @@ export function NewsTab({ myClass, onSeen }: { myClass?: string; onSeen: () => v
 		<section className="panel news">
 			<h2>News and changelog</h2>
 			<p className="hint">Once a day: what changed in WoW Forever (hotfixes, patch notes, fixed quests, announcements) and in the WoWSims simulator. Nothing is removed, so this is also the record of when something changed. Each item links to where it comes from.</p>
+
+			{RADAR.length > 0 && (
+				<div className="card news-radar">
+					<h3>On the radar: items the simulator cannot value yet ({RADAR.length})</h3>
+					<p className="hint">
+						WoWSims has no trigger rate for their effects and counts the effect on every hit or cast, so their simulated value is far too high. They stay out of the lists and plans until WoWSims has the real rate; this list updates itself with
+						every simulator update.
+					</p>
+					<p className="news-radar-items">
+						{RADAR.map(([id, name], index) => (
+							<span key={id}>
+								{index > 0 && ', '}
+								<a href={wowheadItemUrl(Number(id))} data-wowhead={wowheadData('item', Number(id))} target="_blank" rel="noreferrer">
+									{name}
+								</a>
+							</span>
+						))}
+					</p>
+				</div>
+			)}
 
 			<div className="news-filter">
 				<input type="search" placeholder="Search: a spell, an item, a quest ..." aria-label="Search the news" value={query} onChange={event => setQuery(event.target.value)} />

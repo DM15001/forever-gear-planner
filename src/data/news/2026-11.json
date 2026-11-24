@@ -3,7 +3,7 @@
 	"entries": [
 		{
 			"date": "2026-11-24",
-			"summary": "The 23 November hotfixes fix the Feralheart 4-piece bonus, halve Fengus' Ferocity and Darkmoon Faire buffs that were giving double, keep world buffs when you change areas, and repair several Priest, Warlock and Warrior bugs.",
+			"summary": "The 23 November hotfixes fix the Feralheart 4-piece bonus, halve Fengus' Ferocity and Darkmoon Faire buffs that were giving double, keep world buffs when you change areas, and repair several Priest, Warlock and Warrior bugs. In WoWSims, nine items with an unknown proc rate are simulated far too high.",
 			"sections": [
 				{
 					"title": "Game",
@@ -116,6 +116,21 @@
 							"source": "Blizzard forums",
 							"tags": [
 								"Races"
+							]
+						}
+					]
+				},
+				{
+					"title": "WoWSims",
+					"items": [
+						{
+							"title": "Nine items are simulated far too high: their proc rate is unknown",
+							"text": "The game files give no trigger rate for the effects of Lord Sakrasis' Scepter, Gutrender, Frost Tiger Blade, Truesilver Champion, Dark Iron Sunderer, Bleakwood Hew, Ashbringer, Ichor Spitter and Darkblade, and WoWSims lists them as waiting for that data. Until it has it, the simulator triggers the effect on every hit or cast, so these items look much better than they are; the Scepter showed up as best caster off hand for that reason.",
+							"url": "https://github.com/wowsims/forever/blob/master/tools/database/overrides/weapon_procs.go",
+							"source": "WoWSims source",
+							"tags": [
+								"Items",
+								"WoWSims"
 							]
 						}
 					]
