@@ -1,0 +1,22 @@
+{
+	"weave-sv-weave": {
+		"name": "SV Weave",
+		"group": "Weave"
+	},
+	"turret-mm": {
+		"name": "MM",
+		"group": "Turret"
+	},
+	"turret-bm": {
+		"name": "BM",
+		"group": "Turret"
+	},
+	"turret-sv": {
+		"name": "SV",
+		"group": "Turret"
+	},
+	"melee-sv-melee": {
+		"name": "SV Melee",
+		"group": "Melee"
+	}
+}

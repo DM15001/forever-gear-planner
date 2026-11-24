@@ -1,0 +1,26 @@
+{
+	"arcane-arcane": {
+		"name": "Arcane",
+		"group": "Arcane"
+	},
+	"arcane-arcane-fire": {
+		"name": "Arcane Fire",
+		"group": "Arcane"
+	},
+	"ffb-ffb": {
+		"name": "FFB",
+		"group": "FFB"
+	},
+	"fire-fire": {
+		"name": "Fire",
+		"group": "Fire"
+	},
+	"frost-frost-incin": {
+		"name": "Frost Incin",
+		"group": "Frost"
+	},
+	"frost-frost-med": {
+		"name": "Frost Med",
+		"group": "Frost"
+	}
+}

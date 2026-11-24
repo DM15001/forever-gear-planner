@@ -1,7 +1,0 @@
-{
-	"_comment": "Quests whose reward needs a raid kill. The item data lists them as plain quests; their rewards are treated like raid drops and left out of pre-raid lists. Keyed by quest id.",
-	"raidQuests": {
-		"7491": "Onyxia's Lair (For All To See)",
-		"7496": "Onyxia's Lair (Celebrating Good Times)"
-	}
-}
