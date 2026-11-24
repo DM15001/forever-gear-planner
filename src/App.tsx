@@ -180,13 +180,32 @@ function CheerDwarf() {
 	);
 }
 
-/** Bogdan's friends, drawn in his style: Larry, a gnome holy priest (she) under a far too big backpack, hauls Afly, a warlock in a purple robe who would rather be carried, along on a rope. Both are the owner's own characters. */
+/** Bogdan's friends, drawn in his style: Larry, a gnome holy priest (she) under a far too big backpack, hauls Afly, a warlock in a purple robe who would rather be carried, along on a rope. Afly's succubus pushes from behind. All are the owner's own characters. */
 function CheerFriends() {
 	return (
-		<svg className="cheer-friends" viewBox="0 0 300 240" width="300" height="240" aria-hidden="true">
-			{/* dust where Afly is dragged along */}
-			<path d="M14 200 h14 M8 192 h10 M30 206 h18" stroke="#cfd4d8" strokeWidth="3" strokeLinecap="round" opacity="0.6" />
+		<svg className="cheer-friends" viewBox="-26 0 326 240" width="326" height="240" aria-hidden="true">
 			{/* Afly: in a wheelchair, arms crossed, towed along */}
+			{/* Afly's demon pushes from behind: horns, small wings, a tail, and no enthusiasm */}
+			<g className="cheer-pusher">
+				<path d="M2 150 Q-10 132 4 120 Q4 134 14 138 Z" fill="#7a2340" />
+				<path d="M20 146 Q10 122 26 112 Q24 128 32 138 Z" fill="#8f2a4b" />
+				<path d="M10 176 Q-6 186 2 198 l4 -6 l3 6 l2 -7" fill="none" stroke="#b03a5f" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+				<path d="M10 178 L6 198 M22 178 L26 198" stroke="#d98aa0" strokeWidth="7" strokeLinecap="round" />
+				<ellipse cx="4" cy="200" rx="7" ry="4" fill="#23232b" />
+				<ellipse cx="28" cy="200" rx="7" ry="4" fill="#23232b" />
+				<path d="M6 146 Q4 182 16 184 Q28 182 28 146 Q17 140 6 146 Z" fill="#23232b" />
+				<path d="M8 160 H27" stroke="#b03a5f" strokeWidth="3" />
+				<path d="M22 152 L34 122" stroke="#d98aa0" strokeWidth="7" strokeLinecap="round" />
+				<circle cx="34" cy="120" r="4.5" fill="#d98aa0" />
+				<path d="M4 122 Q0 104 16 104 Q32 104 30 122 L30 140 Q26 142 26 132 L8 132 Q8 142 2 140 Z" fill="#3a1220" />
+				<circle cx="16" cy="124" r="13" fill="#d98aa0" />
+				<path d="M5 122 Q6 108 16 110 Q27 108 28 122 Q22 114 16 116 Q10 114 5 122 Z" fill="#3a1220" />
+				<path d="M7 112 Q2 102 8 96 Q8 104 12 108 Z M25 112 Q30 102 24 96 Q24 104 20 108 Z" fill="#e9e4d2" />
+				<path d="M9 124 l6 2 M24 124 l-6 2" stroke="#23232b" strokeWidth="2" strokeLinecap="round" />
+				<circle cx="12" cy="127.5" r="1.6" fill="#ffd100" />
+				<circle cx="21" cy="127.5" r="1.6" fill="#ffd100" />
+				<path d="M13 133 q3 -2 6 0" fill="none" stroke="#7a2340" strokeWidth="1.8" strokeLinecap="round" />
+			</g>
 			<g className="cheer-dragged">
 				{/* the wheelchair: back, handle, seat */}
 				<path d="M40 112 L44 178 H108 M40 112 H30" fill="none" stroke="#8d949c" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
@@ -225,7 +244,7 @@ function CheerFriends() {
 				<circle cx="58" cy="178" r="4" fill="#d6a52c" />
 				<circle cx="110" cy="195" r="5" fill="#23232b" stroke="#8d949c" strokeWidth="2" />
 				{/* a small green flame, because warlock */}
-				<path className="cheer-bling cheer-bling-2" d="M22 140 q-6 -10 2 -18 q0 8 6 10 q4 6 -2 10 q-4 2 -6 -2 Z" fill="#7dff6a" opacity="0.85" />
+				<path className="cheer-bling cheer-bling-2" d="M100 118 q-6 -10 2 -18 q0 8 6 10 q4 6 -2 10 q-4 2 -6 -2 Z" fill="#7dff6a" opacity="0.85" />
 			</g>
 			{/* the rope, taut */}
 			<path d="M124 188 Q170 160 214 140 L240 142" fill="none" stroke="#c9a36a" strokeWidth="4" strokeLinecap="round" />
@@ -233,17 +252,43 @@ function CheerFriends() {
 			{/* Larry: the backpack first, it is most of her */}
 			<g className="cheer-haul">
 				<g transform="translate(-34 -30) scale(1.15)">
-				<ellipse cx="184" cy="52" rx="30" ry="11" fill="#e9e4d2" />
-				<path d="M158 52 q-4 -8 4 -10 M210 52 q4 -8 -4 -10" fill="none" stroke="#b8402e" strokeWidth="3" strokeLinecap="round" />
-				<rect x="150" y="58" width="68" height="112" rx="20" fill="#3f6b73" />
-				<path d="M150 96 Q184 112 218 96 V78 Q218 58 198 58 H170 Q150 58 150 78 Z" fill="#4f828b" />
-				<rect x="178" y="98" width="12" height="14" rx="3" fill="#d6a52c" />
-				<rect x="158" y="124" width="52" height="34" rx="8" fill="#33575e" />
-				<path d="M158 134 H210" stroke="#264248" strokeWidth="2" />
-				<circle cx="146" cy="120" r="12" fill="none" stroke="#3a3a44" strokeWidth="5" />
-				<path d="M146 132 V152" stroke="#3a3a44" strokeWidth="5" strokeLinecap="round" />
-				<path d="M222 62 L214 176" stroke="#d6a52c" strokeWidth="4" strokeLinecap="round" />
-				<circle cx="222" cy="58" r="7" fill="#fff6b0" stroke="#d6a52c" strokeWidth="2" />
+					{/* an overstuffed adventurer's pack: things stick out of every side */}
+					<path d="M170 74 L160 30" stroke="#8d949c" strokeWidth="3" strokeLinecap="round" />
+					<path d="M160 30 q6 6 2 16" fill="none" stroke="#cfd4d8" strokeWidth="1.2" />
+					<path d="M200 70 L206 26" stroke="#75491f" strokeWidth="4" strokeLinecap="round" />
+					<path d="M196 30 Q206 18 218 30 L214 34 Q206 26 200 34 Z" fill="#8d949c" />
+					<rect x="176" y="40" width="12" height="34" rx="3" fill="#f4f1e8" stroke="#cfc8b4" strokeWidth="1" transform="rotate(-8 182 57)" />
+					<path d="M178 46 h8 M178 52 h8" stroke="#b8402e" strokeWidth="1.5" transform="rotate(-8 182 57)" />
+					{/* bedroll strapped on top */}
+					<rect x="146" y="56" width="74" height="22" rx="11" fill="#b8402e" />
+					<circle cx="157" cy="67" r="7" fill="none" stroke="#8f2f22" strokeWidth="2" />
+					<circle cx="157" cy="67" r="3" fill="none" stroke="#8f2f22" strokeWidth="1.5" />
+					<path d="M172 56 V78 M200 56 V78" stroke="#23232b" strokeWidth="3" />
+					{/* the pack itself, bulging */}
+					<path d="M146 84 Q138 124 146 164 Q150 174 162 174 H208 Q220 174 222 162 Q228 122 220 84 Q214 76 204 76 H162 Q150 76 146 84 Z" fill="#5f7a4a" />
+					<path d="M146 100 Q184 118 222 100 V88 Q216 76 204 76 H162 Q150 76 146 88 Z" fill="#6f8f56" />
+					<path d="M170 76 V118 M198 76 V118" stroke="#23232b" strokeWidth="4" />
+					<rect x="166" y="112" width="8" height="9" rx="2" fill="#d6a52c" />
+					<rect x="194" y="112" width="8" height="9" rx="2" fill="#d6a52c" />
+					{/* front and side pockets */}
+					<rect x="160" y="128" width="48" height="36" rx="8" fill="#4d653b" />
+					<path d="M160 138 H208" stroke="#3a4d2c" strokeWidth="2" />
+					<rect x="180" y="134" width="8" height="8" rx="2" fill="#d6a52c" />
+					<rect x="132" y="118" width="18" height="34" rx="7" fill="#4d653b" />
+					<rect x="137" y="108" width="8" height="14" rx="3" fill="#7fd0ff" stroke="#cfd4d8" strokeWidth="1" />
+					<rect x="138" y="105" width="6" height="4" rx="1" fill="#75491f" />
+					{/* frying pan, rope coil and a lantern hanging off it */}
+					<circle cx="140" cy="88" r="11" fill="#3a3a44" />
+					<circle cx="140" cy="88" r="7.5" fill="#23232b" />
+					<path d="M148 96 L160 110" stroke="#3a3a44" strokeWidth="5" strokeLinecap="round" />
+					<circle cx="216" cy="150" r="10" fill="none" stroke="#c9a36a" strokeWidth="4" />
+					<circle cx="216" cy="150" r="5" fill="none" stroke="#a8824a" strokeWidth="3" />
+					<path d="M150 164 V176" stroke="#23232b" strokeWidth="2" />
+					<rect x="144" y="176" width="12" height="15" rx="3" fill="#ffd100" stroke="#3a3a44" strokeWidth="2.5" />
+					<path className="cheer-bling cheer-bling-1" d="M150 180 q3 4 0 8 q-3 -4 0 -8 Z" fill="#ff7a1a" />
+					{/* her staff */}
+					<path d="M222 62 L214 176" stroke="#d6a52c" strokeWidth="4" strokeLinecap="round" />
+					<circle cx="222" cy="58" r="7" fill="#fff6b0" stroke="#d6a52c" strokeWidth="2" />
 				{/* holy light behind her, and a halo */}
 				<circle cx="238" cy="108" r="40" fill="#fff6b0" opacity="0.13" />
 				<path d="M238 60 V44 M206 72 L196 60 M270 72 L280 60 M194 104 H180 M282 104 H296" stroke="#fff6b0" strokeWidth="3" strokeLinecap="round" opacity="0.55" />

@@ -4893,19 +4893,29 @@ summary.breakdown-toggle:focus-visible {
 }
 
 /* A newer simulator is published than the one this open page runs. */
+/* A small note at the bottom of the window, clear of the header and its buttons. */
 .engine-notice {
-	position: sticky;
-	top: 0;
+	position: fixed;
+	left: 50%;
+	bottom: 1rem;
 	z-index: 70;
 	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
 	align-items: center;
-	gap: 0.5rem 1rem;
-	padding: 0.6rem 1rem;
+	gap: 0.75rem;
+	max-width: min(44rem, calc(100vw - 2rem));
+	padding: 0.45rem 0.5rem 0.45rem 0.9rem;
+	font-size: 0.8125rem;
 	color: var(--mist);
 	background: #3a2a08;
-	border-bottom: 1px solid var(--brass);
+	border: 1px solid var(--brass);
+	border-radius: 8px;
+	box-shadow: 0 6px 18px rgb(0 0 0 / 0.6);
+	transform: translateX(-50%);
+}
+.engine-notice .button {
+	flex: none;
+	padding: 0.3rem 0.8rem;
+	font-size: 0.8125rem;
 }
 
 /* Breakdown tabs: buffs, debuffs, casts, resources, log. */
@@ -5078,12 +5088,35 @@ summary.breakdown-toggle:focus-visible {
 	border-radius: 8px;
 	box-shadow: 0 2px 6px rgb(0 0 0 / 0.45);
 }
-/* Cards: every one the same size, whatever is in it. */
+/* Cards: every one the same size, whatever is in it. An open card takes a whole row; the others close the gap. */
+.group-dungeons-cards {
+	grid-auto-flow: dense;
+	grid-template-columns: repeat(auto-fill, minmax(18.5rem, 1fr));
+	gap: 0.8rem;
+}
+.group-dungeons-cards .group-dungeon {
+	gap: 0.5rem;
+	padding: 0.7rem 0.85rem;
+}
+.group-dungeons-cards .dungeon-icon {
+	width: 2.75rem;
+	height: 2.75rem;
+}
+.group-dungeons-cards .group-dungeon-numbers {
+	padding-top: 0.45rem;
+}
 .group-dungeons-cards .group-dungeon:not(.group-dungeon-open) {
-	grid-template-rows: 3.4rem 3.6rem 3.4rem auto;
+	grid-template-rows: 3rem 3.3rem 1.75rem auto;
 	transition:
 		transform 0.15s,
 		border-color 0.15s;
+}
+.group-dungeons-cards .group-dungeon:not(.group-dungeon-open) .group-split {
+	flex-wrap: nowrap;
+}
+.group-dungeons-cards .group-dungeon:not(.group-dungeon-open) .group-split li {
+	flex: none;
+	white-space: nowrap;
 }
 .group-dungeons-cards .group-dungeon:not(.group-dungeon-open):hover {
 	border-color: var(--brass-deep);
@@ -5546,7 +5579,7 @@ summary.breakdown-toggle:focus-visible {
 	left: 50%;
 	top: 50%;
 	z-index: 59;
-	margin: -120px 0 0 -380px;
+	margin: -120px 0 0 -406px;
 	pointer-events: none;
 	filter: drop-shadow(0 6px 14px rgb(0 0 0 / 0.6));
 	animation: cheer-arrive 4s ease-out both;
