@@ -43291,7 +43291,8 @@
 			{
 				"name": "Frostbolt (13439)",
 				"kind": "proc",
-				"durationMs": 5000
+				"durationMs": 5000,
+				"ppm": 2.95
 			}
 		],
 		"sources": [
@@ -43391,7 +43392,8 @@
 				"durationMs": 15000,
 				"stats": {
 					"attackPower": 102
-				}
+				},
+				"ppm": 2
 			}
 		],
 		"sources": [
@@ -114880,7 +114882,7 @@
 			{
 				"name": "Hedgecutter (1302344)",
 				"kind": "proc",
-				"ppm": 1.75
+				"ppm": 1.95
 			}
 		],
 		"sources": [
@@ -213018,7 +213020,8 @@
 		"effects": [
 			{
 				"name": "Fire Blast (1316039)",
-				"kind": "proc"
+				"kind": "proc",
+				"ppm": 0.75
 			}
 		],
 		"sources": [

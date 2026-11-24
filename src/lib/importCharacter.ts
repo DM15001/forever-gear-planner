@@ -1,6 +1,6 @@
 import { GEAR_SLOTS, PROFESSIONS } from './constants';
 import { SPECS } from './specs';
-import type { Character, GearPiece, SpecConfig } from './types';
+import type { Character, GearPiece, SpecConfig, SimSettings } from './types';
 
 export type ExportFormat = 'addon' | 'sim';
 
@@ -120,8 +120,29 @@ export function importCharacter(text: string, specOrSpecs: SpecConfig | SpecConf
 	const gear = parseGear(format === 'sim' ? source.equipment?.items : source.gear?.items);
 	if (gear.every(piece => piece === null)) warnings.push('The export has no gear in it.');
 
+	// A WoWSims export carries the whole setup of the run. Keep it, so the planner simulates what wowsims.com does.
+	let simSettings: SimSettings | undefined;
 	if (format === 'sim') {
-		warnings.push('This is a sim export. The sim fills in its own race, professions and enchants, so check all three below.');
+		const record = (value: unknown) => (value && typeof value === 'object' && !Array.isArray(value) ? (value as Record<string, unknown>) : undefined);
+		const { equipment: _gear, race: _race, talentsString: _talents, profession1: _first, profession2: _second, name: _name, database: _database, bonusStats: _bonus, ...rest } = source as Record<string, unknown>;
+		const full = record(json.raid);
+		const settings = {
+			player: rest,
+			raidBuffs: record(json.raidBuffs) ?? record(full?.buffs),
+			partyBuffs: record(json.partyBuffs) ?? record((full?.parties as { buffs?: unknown }[] | undefined)?.[0]?.buffs),
+			debuffs: record(json.debuffs) ?? record(full?.debuffs),
+			encounter: record(json.encounter),
+		};
+		// A bare player has gear only; anything with consumables or a rotation is a setup worth keeping.
+		if (rest.consumables || rest.rotation || settings.raidBuffs) {
+			const text = JSON.stringify(settings);
+			let mark = 5381;
+			for (let i = 0; i < text.length; i++) mark = ((mark << 5) + mark + text.charCodeAt(i)) >>> 0;
+			simSettings = { specId: spec.id, id: `${mark.toString(36)}${text.length.toString(36)}`, ...settings };
+			warnings.push('This is a sim export. Its consumables, buffs, debuffs, rotation and fight are used as they are, so "Simulate" matches wowsims.com for it. The Sim setup tab can switch back to the build\'s own settings. Check race, professions and enchants below.');
+		} else {
+			warnings.push('This is a sim export. The sim fills in its own race, professions and enchants, so check all three below.');
+		}
 	}
 	const level = typeof source.level === 'number' ? source.level : null;
 	if (level !== null && level < 60) warnings.push(`This character is level ${level}. Scores and upgrades assume level 60.`);
@@ -138,6 +159,7 @@ export function importCharacter(text: string, specOrSpecs: SpecConfig | SpecConf
 			talents: String(source.talents ?? source.talentsString ?? ''),
 			professions: parseProfessions(professionNames, warnings),
 			gear,
+			...(simSettings ? { simSettings } : {}),
 		},
 	};
 }

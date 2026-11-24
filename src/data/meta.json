@@ -1,5 +1,5 @@
 {
-	"generatedAt": "2026-11-24T13:45:09.595Z",
+	"generatedAt": "2026-11-24T16:33:09.008Z",
 	"specs": [
 		"druid-balance",
 		"druid-cat",
@@ -39,7 +39,7 @@
 	"source": {
 		"repo": "https://github.com/wowsims/forever",
 		"license": "MIT",
-		"origin": "local file /home/claude/simbin/pages-deploy/forever/assets/database/db.json",
+		"origin": "local file /home/runner/work/_temp/pages/forever/assets/database/db.json",
 		"commit": null
 	},
 	"counts": {

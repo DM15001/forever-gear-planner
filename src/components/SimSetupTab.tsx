@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { simClient } from '../lib/sim/client';
 import type { GameData } from '../lib/gameData';
 import { plannedGear } from '../lib/scoring';
-import { type RotationChecks, type SimTemplate, wowsimsSettings } from '../lib/sim/request';
+import { type RotationChecks, type SimTemplate, withSimSettings, wowsimsSettings } from '../lib/sim/request';
 import { countsMending, MENDING_STEP } from '../lib/sim/mending';
 import {
 	BUFF_SCOPES,
@@ -121,7 +121,9 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 		};
 	}, [spec.id]);
 
-	const ready = loaded?.specId === spec.id ? loaded : null;
+	// Where the character came from a WoWSims export, its settings stand in for the build's own.
+	const imported = character.simSettings?.specId === spec.id;
+	const ready = useMemo(() => (loaded?.specId === spec.id ? { ...loaded, template: withSimSettings(loaded.template, character) } : null), [loaded, spec.id, character.simSettings, character.specId]);
 	const player = ready?.template.raid.parties[0].players[0];
 	// A healer's rotation is the planner's own scenario, not a file of the WoWSims project.
 	const healer = spec.role === 'healer';
@@ -248,6 +250,15 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 					The "Simulated with WoWSims" numbers come from the WoWSims engine itself, running inside this page. It starts from the WoWSims settings for <strong>{spec.name}</strong> and swaps in your race,
 					professions and gear, plus what you change below: talents, consumables, buffs and debuffs. The fight and the rotation are taken as WoWSims ships them.
 				</p>
+				{imported && (
+					<p className="notice">
+						<strong>Settings from your WoWSims export.</strong> This character was imported from a WoWSims export, so its consumables, buffs, debuffs, rotation and fight are the export's, not the build's own. The
+						same export gives the same number on wowsims.com.{' '}
+						<button className="link" onClick={() => onChange({ ...character, simSettings: undefined, consumables: undefined, buffs: undefined })}>
+							Use the build's own settings instead
+						</button>
+					</p>
+				)}
 				<p className="hint">
 					The quick scores on the Plan and Upgrades tabs use fixed stat weights that were measured with the build's own talents, consumables and buffs. They do not follow changes made here; the simulated numbers
 					do.
