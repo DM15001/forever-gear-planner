@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-24T14:45:45.545Z",
-	"inputs": "77fba63a5524da3b",
+	"generatedAt": "2026-11-24T19:28:36.367Z",
+	"inputs": "ee8011854f177fd8",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 4000,
 	"reference": {
@@ -39,7 +39,7 @@
 		},
 		"10626": {
 			"name": "Ragehammer",
-			"mainHand": -46.21
+			"mainHand": -12.61
 		},
 		"10652": {
 			"name": "Will of the Mountain Giant",

@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-24T15:39:14.828Z",
-	"inputs": "014048d3b965fc6f",
+	"generatedAt": "2026-11-24T20:30:45.261Z",
+	"inputs": "4cf6e32a7e71e72e",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 4000,
 	"reference": {
@@ -51,13 +51,13 @@
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"offHand": -30.91,
-			"mainHand": -85.52
+			"mainHand": -85.52,
+			"offHand": -30.91
 		},
 		"8190": {
 			"name": "Hanzo Sword",
-			"offHand": -20.74,
-			"mainHand": -59.92
+			"mainHand": -59.92,
+			"offHand": -20.74
 		},
 		"9379": {
 			"name": "Sang'thraze the Deflector",
@@ -140,7 +140,7 @@
 		"11744": {
 			"name": "Bloodfist",
 			"mainHand": -54.37,
-			"offHand": -19.84
+			"offHand": -16.58
 		},
 		"11784": {
 			"name": "Arbiter's Blade",
@@ -152,7 +152,7 @@
 		},
 		"11863": {
 			"name": "White Bone Shredder",
-			"offHand": -18.81
+			"offHand": -15.31
 		},
 		"11902": {
 			"name": "Linken's Sword of Mastery",
@@ -173,8 +173,8 @@
 		},
 		"12062": {
 			"name": "Skilled Fighting Blade",
-			"mainHand": -78.06,
-			"offHand": -14.33
+			"offHand": -14.33,
+			"mainHand": -78.06
 		},
 		"12527": {
 			"name": "Ribsplitter",
@@ -187,8 +187,8 @@
 		},
 		"12535": {
 			"name": "Doomforged Straightedge",
-			"offHand": -34.81,
-			"mainHand": -51.45
+			"mainHand": -51.45,
+			"offHand": -34.81
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
@@ -233,8 +233,8 @@
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"offHand": -28.05,
-			"mainHand": -53.23
+			"mainHand": -53.23,
+			"offHand": -28.05
 		},
 		"12791": {
 			"name": "Barman Shanker",
@@ -269,8 +269,8 @@
 		},
 		"13015": {
 			"name": "Serathil",
-			"offHand": -36.2,
-			"mainHand": -46.19
+			"mainHand": -46.19,
+			"offHand": -36.2
 		},
 		"13022": {
 			"name": "Gryphonwing Long Bow",
@@ -305,7 +305,7 @@
 		"13198": {
 			"name": "Hurd Smasher",
 			"mainHand": -51.94,
-			"offHand": -35.07
+			"offHand": -32.36
 		},
 		"13218": {
 			"name": "Fang of the Crystal Spider",
@@ -342,7 +342,7 @@
 		},
 		"13399": {
 			"name": "Gargoyle Shredder Talons",
-			"offHand": -30.16
+			"offHand": -27.46
 		},
 		"13408": {
 			"name": "Soul Breaker",
@@ -376,8 +376,8 @@
 		},
 		"14555": {
 			"name": "Alcor's Sunrazor",
-			"mainHand": -65.62,
-			"offHand": -7.46
+			"offHand": -7.46,
+			"mainHand": -65.62
 		},
 		"14576": {
 			"name": "Ebon Hilt of Marduk",
@@ -390,8 +390,8 @@
 		},
 		"15217": {
 			"name": "Widow Blade",
-			"offHand": -45.74,
-			"mainHand": -64.17
+			"mainHand": -64.17,
+			"offHand": -45.74
 		},
 		"15218": {
 			"name": "Crystal Sword",
@@ -444,8 +444,8 @@
 		},
 		"15246": {
 			"name": "Demon Blade",
-			"offHand": -33.88,
-			"mainHand": -74.64
+			"mainHand": -74.64,
+			"offHand": -33.88
 		},
 		"15247": {
 			"name": "Bloodstrike Dagger",
@@ -529,8 +529,8 @@
 		},
 		"15853": {
 			"name": "Windreaper",
-			"offHand": -50.88,
-			"mainHand": -39.07
+			"mainHand": -39.07,
+			"offHand": -50.88
 		},
 		"15862": {
 			"name": "Blitzcleaver",
@@ -585,7 +585,7 @@
 		},
 		"17738": {
 			"name": "Claw of Celebras",
-			"offHand": -35.66
+			"offHand": -32.95
 		},
 		"17752": {
 			"name": "Satyr's Lash",
@@ -607,8 +607,8 @@
 		},
 		"18347": {
 			"name": "Well Balanced Axe",
-			"offHand": -32.52,
-			"mainHand": -42.46
+			"mainHand": -42.46,
+			"offHand": -32.52
 		},
 		"18372": {
 			"name": "Blade of the New Moon",
@@ -628,7 +628,7 @@
 		},
 		"18462": {
 			"name": "Jagged Bone Fist",
-			"offHand": -35.51,
+			"offHand": -32.8,
 			"mainHand": -58
 		},
 		"18463": {
@@ -651,8 +651,8 @@
 		},
 		"18498": {
 			"name": "Hedgecutter",
-			"offHand": -34.56,
-			"mainHand": -45.01
+			"mainHand": -44.76,
+			"offHand": -33.86
 		},
 		"18680": {
 			"name": "Ancient Bone Bow",
@@ -779,7 +779,7 @@
 		"22317": {
 			"name": "Lefty's Brass Knuckle",
 			"mainHand": -48.11,
-			"offHand": -14.75
+			"offHand": -11.49
 		},
 		"22318": {
 			"name": "Malgen's Long Bow",
@@ -805,7 +805,7 @@
 		"250614": {
 			"name": "Thorium Cestus",
 			"mainHand": -38.35,
-			"offHand": -53.4
+			"offHand": -51.38
 		},
 		"250616": {
 			"name": "Bold Dirk",
@@ -815,7 +815,7 @@
 		"250618": {
 			"name": "Bagh Nakh",
 			"mainHand": -13.12,
-			"offHand": -52.28
+			"offHand": -50.49
 		},
 		"259891": {
 			"name": "Berdun's Trusty Rifle",
@@ -833,8 +833,8 @@
 		},
 		"260213": {
 			"name": "Great Bear Claw",
-			"mainHand": -40.6,
-			"offHand": -53.97
+			"offHand": -51.95,
+			"mainHand": -40.6
 		},
 		"270107": {
 			"name": "Bloodstained Longbow",
@@ -885,7 +885,7 @@
 		},
 		"272598": {
 			"name": "Premier High Warlord's Left Claw",
-			"offHand": -45.16
+			"offHand": -43.49
 		},
 		"272599": {
 			"name": "Premier High Warlord's Street Sweeper",
@@ -929,7 +929,7 @@
 		},
 		"272845": {
 			"name": "Premier Grand Marshal's Left Hand Blade",
-			"offHand": -45.16
+			"offHand": -43.49
 		},
 		"272846": {
 			"name": "Premier Grand Marshal's Hand Cannon",
@@ -961,8 +961,8 @@
 		},
 		"274517": {
 			"name": "Unerring Purpose",
-			"mainHand": -34.27,
-			"offHand": -58.78
+			"offHand": -58.78,
+			"mainHand": -34.27
 		},
 		"275296": {
 			"name": "Deadwood Boomstick",
@@ -990,7 +990,7 @@
 		},
 		"276338": {
 			"name": "Claw of Shalla'kal",
-			"offHand": -59.4,
+			"offHand": -57.47,
 			"mainHand": -45.16
 		},
 		"276738": {
@@ -1051,12 +1051,12 @@
 		},
 		"280068": {
 			"name": "Bloody Claws of Attack",
-			"offHand": -50.74,
+			"offHand": -48.83,
 			"mainHand": -21.14
 		},
 		"280077": {
 			"name": "Fist of Revelation",
-			"offHand": -53.12,
+			"offHand": -50.9,
 			"mainHand": -69.57
 		},
 		"280083": {
@@ -1081,7 +1081,7 @@
 		"282023": {
 			"name": "Clack's Claw",
 			"mainHand": -49.06,
-			"offHand": -61.11
+			"offHand": -59.18
 		},
 		"282029": {
 			"name": "Reaver's Repeater",
