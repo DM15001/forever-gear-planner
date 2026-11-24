@@ -34,7 +34,7 @@ const TABS = [
 	{ id: 'upgrades', label: 'Upgrades', step: 3 },
 	{ id: 'farm', label: 'Farm plan', step: 4 },
 	{ id: 'group', label: 'Group plan' },
-	{ id: 'enchants', label: 'Enchants & professions' },
+	{ id: 'enchants', label: 'Enchants', title: 'Enchants and professions' },
 	{ id: 'sim', label: 'Sim setup' },
 	{ id: 'news', label: 'News' },
 ];
@@ -415,7 +415,7 @@ export function App() {
 						<BarCap />
 						<nav className="tabs" aria-label="Sections">
 							{TABS.map(t => (
-								<button key={t.id} className="tab" aria-current={t.id === tab ? 'page' : undefined} onClick={() => {
+								<button key={t.id} className="tab" title={'title' in t ? t.title : undefined} aria-current={t.id === tab ? 'page' : undefined} onClick={() => {
 										setTab(t.id);
 										if (character) setImporting(false);
 									}}>
