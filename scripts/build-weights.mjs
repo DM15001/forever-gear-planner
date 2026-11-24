@@ -158,26 +158,43 @@ function hitRatingWorn() {
 
 const started = Date.now();
 const base = dps();
+/**
+ * The straight line that fits best through measured (change in the stat, change in DPS) points; its steepness is the
+ * worth of one point. One step alone is not enough: a rotation reacts in jumps (a cast more or fewer per fight, a
+ * dot refreshed a tick early), so a single step can land on a jump and give a worth that is far off, even negative.
+ */
+function slope(points) {
+	const n = points.length;
+	const meanX = points.reduce((sum, [x]) => sum + x, 0) / n;
+	const meanY = points.reduce((sum, [, y]) => sum + y, 0) / n;
+	const spread = points.reduce((sum, [x]) => sum + (x - meanX) ** 2, 0);
+	return points.reduce((sum, [x, y]) => sum + (x - meanX) * (y - meanY), 0) / spread;
+}
 const perPoint = {};
 for (const name of Object.keys(spec.weights.stats)) {
 	if (!STATS[name] || name === 'hitRating') continue; // hit has its own measurement below
 	const [index, delta] = STATS[name];
-	perPoint[name] = (dps(index, delta) - base) / delta;
+	perPoint[name] = slope([[0, 0], ...[-delta, delta, 2 * delta].map(step => [step, dps(index, step) - base])]);
 }
-// Hit is not one number: below the cap a point is worth a lot, past it little or nothing. Four more
+// Hit is not one number: below the cap a point is worth a lot, past it little or nothing. Six more
 // runs find the worth on either side and where the bend is, so the planner knows the cap the
 // simulator really has (it depends on the target's level and on hit from talents and race).
+// The low runs sit well below the preset and the high ones well above it, because a preset is often
+// a little over or under the cap: runs close to it would straddle the bend and give half a worth.
 let hitCurve;
 if (spec.weights.stats.hitRating !== undefined) {
 	const at = delta => dps(STATS.hitRating[0], delta) - base;
-	const [low2, low1, high1, high2] = [at(-40), at(-20), at(60), at(80)];
+	const [low2, low1, mid, high1, high2] = [at(-80), at(-60), at(-20), at(60), at(80)];
 	const below = (low1 - low2) / 20;
 	const above = (high2 - high1) / 20;
 	perPoint.hitRating = below;
 	if (below > 0 && above < 0.7 * below) {
 		// Where the line through the two low points meets the line through the two high ones, in rating from the preset.
-		const toCap = (high2 - low1 - 80 * above - 20 * below) / (below - above);
-		if (toCap > -20 && toCap < 60) hitCurve = { below, above: Math.max(0, above), toCap };
+		const toCap = (high1 - 60 * above - low1 - 60 * below) / (below - above);
+		if (toCap > -60 && toCap < 60) hitCurve = { below, above: Math.max(0, above), toCap };
+	} else {
+		// No bend in reach: the preset is far from the cap, and hit is worth the same all the way.
+		perPoint.hitRating = slope([[-80, low2], [-60, low1], [-20, mid], [0, 0], [60, high1], [80, high2]]);
 	}
 }
 const unitWorth = perPoint[unit];
