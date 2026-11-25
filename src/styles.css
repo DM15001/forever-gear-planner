@@ -6675,3 +6675,50 @@ details.content-fold[open] > summary {
 	margin-left: auto;
 	white-space: nowrap;
 }
+
+/* A kind of content as a row that folds: shut while everything in it counts, open when there is a choice made. */
+.content-fold-group {
+	display: block;
+}
+.content-fold-group > summary {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.4rem 0.8rem;
+	padding: 0.15rem 0;
+	list-style: none;
+	cursor: pointer;
+}
+.content-fold-group > summary::-webkit-details-marker {
+	display: none;
+}
+.content-group-title {
+	font-family: var(--display);
+	font-weight: 700;
+	font-size: 1.0625rem;
+	letter-spacing: 0.02em;
+	color: var(--brass);
+}
+.content-group-count {
+	padding: 0.05rem 0.5rem;
+	font-size: 0.8rem;
+	color: var(--ember, #ffb347);
+	border: 1px solid currentColor;
+	border-radius: 999px;
+}
+.content-group-all {
+	color: var(--q-uncommon, #1eff00);
+}
+.content-group-toggle {
+	margin-left: auto;
+	font-size: 0.85rem;
+	color: var(--brass);
+	text-decoration: underline;
+}
+.content-fold-group > .content-tiles {
+	display: grid;
+	margin-top: 0.6rem;
+}
+.content-fold-group:not([open]) {
+	padding-bottom: 0.1rem;
+}

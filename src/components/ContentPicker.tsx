@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { type ReactNode, useMemo, useState } from 'react';
 
 import { contentCatalog, presets, sameFilter, toggled } from '../lib/content';
 import type { GameData } from '../lib/gameData';
@@ -124,6 +124,40 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 	);
 	const dungeonIcons = (key: string) => (DUNGEON_ICONS as unknown as Record<string, string[] | undefined>)[key.split(':')[0]] ?? [];
 	const allDungeonKeys = [...catalog.dungeons.map(d => d.key), ...catalog.lowDungeonKeys];
+	const plainReputations = catalog.reputations.filter(r => !r.battleground).map(r => r.name);
+	// Which rows the visitor opened or shut by hand; the others follow what they hold.
+	const [opened, setOpened] = useState<Record<string, boolean>>({});
+
+	/**
+	 * One kind of content as a row that folds: a line with what counts and a switch for all of it. Everything on:
+	 * the row is shut, there is nothing to decide. Anything left out: it opens to show what.
+	 */
+	const group = (key: string, title: ReactNode, counted: number, of: number, allOn: (() => void) | null, children: ReactNode, extra = '') => {
+		const everything = of > 0 && counted === of;
+		const isOpen = opened[key] ?? (of > 0 && !everything);
+		return (
+			<details className={`content-group content-fold-group ${extra}`} open={isOpen} onToggle={event => event.currentTarget.open !== isOpen && setOpened({ ...opened, [key]: event.currentTarget.open })}>
+				<summary>
+					<span className="content-group-title">{title}</span>
+					{of > 0 && <span className={everything ? 'content-group-count content-group-all' : 'content-group-count'}>{everything ? `all ${of} count` : counted === 0 ? 'none count' : `${counted} of ${of} count`}</span>}
+					{allOn && !everything && (
+						<button
+							type="button"
+							className="button button-small"
+							onClick={event => {
+								event.preventDefault();
+								allOn();
+								setOpened({ ...opened, [key]: false });
+							}}>
+							Switch all on
+						</button>
+					)}
+					<span className="content-group-toggle">{isOpen ? 'Hide' : 'Choose'}</span>
+				</summary>
+				<div className="content-tiles">{children}</div>
+			</details>
+		);
+	};
 
 	return (
 		<div className="content-picker">
@@ -138,8 +172,13 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				</button>
 			</div>
 
-			<fieldset className="content-group content-tiles">
-				<legend>Dungeons</legend>
+			{group(
+				'dungeons',
+				'Dungeons',
+				catalog.dungeons.filter(d => !filter.excludedDungeons.includes(d.key)).length + (catalog.lowDungeonKeys.length > 0 && lowOn ? 1 : 0),
+				catalog.dungeons.length + (catalog.lowDungeonKeys.length > 0 ? 1 : 0),
+				() => set({ excludedDungeons: filter.excludedDungeons.filter(key => !allDungeonKeys.includes(key)) }),
+				<>
 				<p className="hint tier-hint">
 					Click a dungeon to count or leave out its loot.{' '}
 					<button className="link" onClick={() => set({ excludedDungeons: filter.excludedDungeons.filter(key => !allDungeonKeys.includes(key)) })}>
@@ -151,23 +190,37 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				</p>
 				{catalog.dungeons.map(d => tile(d.name, dungeonIcons(d.key), !filter.excludedDungeons.includes(d.key), on => set({ excludedDungeons: toggled(filter.excludedDungeons, [d.key], on) })))}
 				{catalog.lowDungeonKeys.length > 0 && tile('Lower-level dungeons', ['achievement_boss_edwinvancleef', 'inv_misc_head_murloc_01'], lowOn, on => set({ excludedDungeons: toggled(filter.excludedDungeons, catalog.lowDungeonKeys, on) }), false, 'Deadmines to Maraudon')}
-			</fieldset>
+				</>,
+			)}
 
-			<fieldset className="content-group content-tiles content-soon">
-				<legend>
+			{group(
+				'raids',
+				<>
 					Raids <span className="badge badge-plan">coming soon</span>
-				</legend>
+				</>,
+				0,
+				0,
+				null,
+				<>
 				<p className="hint tier-hint">Raid loot is not in the planner yet. When it is, you switch the raids on here and they count everywhere: the plan, the single slots, the farm list and the group.</p>
 				{RAIDS.map(([name, icon]) => tile(name, [icon], false, () => undefined, true, 'Coming soon'))}
-			</fieldset>
+				</>,
+				'content-soon',
+			)}
 
-			<fieldset className="content-group content-tiles">
-				<legend>Reputations</legend>
+			{group(
+				'reputations',
+				'Reputations',
+				filter.rep ? plainReputations.filter(name => !filter.excludedReputations.includes(name)).length : 0,
+				plainReputations.length,
+				() => set({ rep: true, excludedReputations: filter.excludedReputations.filter(name => !plainReputations.includes(name)) }),
+				<>
 				{tile('Any reputation', ['inv_misc_note_02', 'inv_scroll_03'], filter.rep, on => set({ rep: on }), false, 'The switch for all of them')}
 				{catalog.reputations
 					.filter(r => !r.battleground)
 					.map(r => tile(r.name, ['inv_misc_tournaments_banner_human', 'inv_scroll_03'], filter.rep && !filter.excludedReputations.includes(r.name), on => set({ excludedReputations: toggled(filter.excludedReputations, [r.name], on) }), !filter.rep))}
-			</fieldset>
+				</>,
+			)}
 
 			{tiers && (
 				<fieldset className="content-group">
@@ -197,9 +250,14 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				</fieldset>
 			)}
 
-			{setChoices.length > 0 && (
-				<fieldset className="content-group content-tiles">
-					<legend>Set bonuses to count</legend>
+			{setChoices.length > 0 &&
+				group(
+					'sets',
+					'Set bonuses to count',
+					setChoices.filter(choice => choice.setIds.some(id => !filter.ignoredSets.includes(id))).length,
+					setChoices.length,
+					() => set({ ignoredSets: [] }),
+					<>
 					<p className="hint tier-hint">
 						The sets you can complete with the content switched on above and whose bonus is worth something for your build, best first. Switch one off and the planner stops aiming for it; its pieces can still come up as single items.{' '}
 						<button className="link" onClick={() => set({ ignoredSets: [] })}>
@@ -241,8 +299,8 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 							</div>
 						</div>
 					))}
-				</fieldset>
-			)}
+					</>,
+				)}
 
 			<fieldset className="content-group content-tiles">
 				<legend>PvP</legend>
