@@ -33,13 +33,64 @@ import type { Character, SpecConfig } from './lib/types';
 
 /** The planner's sections, in the bar. */
 const TABS = [
-	{ id: 'character', label: 'Character' },
-	{ id: 'simulate', label: 'Plan' },
-	{ id: 'upgrades', label: 'Upgrades' },
-	{ id: 'enchants', label: 'Enchants & professions' },
-	{ id: 'farm', label: 'Farm plan' },
-	{ id: 'group', label: 'Group plan' },
+	{ id: 'character', label: '1. My character', intro: 'Check what you wear, your race, professions and enchants. Everything else builds on this.' },
+	{ id: 'simulate', label: '2. My plan', intro: 'Say what content you do and get the best set for it, with a to-do list. This is the page most people need.' },
+	{ id: 'farm', label: '3. Where to farm', intro: 'Your plan sorted by where to get it, and the dungeons worth running, best first.' },
+	{ id: 'upgrades', label: 'Change a slot', intro: 'Every slot with its upgrades, to pick single items yourself. What you pick here overrides the plan.' },
+	{ id: 'enchants', label: 'Enchants & professions', intro: 'The best enchant for every slot, and what your professions add.' },
+	{ id: 'group', label: 'Farm with friends', intro: 'Put several characters together and see which dungeons help the whole group most.' },
 ];
+/** The three steps a new visitor takes, in order. */
+const GUIDE_STEPS = [
+	{ id: 'character', title: 'Your character', text: 'Import it or load a preset, then check it.' },
+	{ id: 'simulate', title: 'Your plan', text: 'Choose your content and get the best set.' },
+	{ id: 'farm', title: 'Where to farm', text: 'See which dungeons to run first.' },
+];
+const GUIDE_KEY = 'fgp.guide';
+
+/** The way through the planner in three steps: shown until hidden, and on the start page before there is a character. */
+function GuideSteps({ current, onOpen }: { current: string | null; onOpen?: (id: string) => void }) {
+	const [hidden, setHidden] = useState(() => {
+		try {
+			return localStorage.getItem(GUIDE_KEY) === 'off';
+		} catch {
+			return false;
+		}
+	});
+	if (hidden && onOpen) return null;
+	const at = GUIDE_STEPS.findIndex(step => step.id === current);
+	return (
+		<nav className="guide-steps" aria-label="How to use the planner">
+			<ol>
+				{GUIDE_STEPS.map((step, index) => (
+					<li key={step.id} className={index === at ? 'guide-step guide-step-here' : at >= 0 && index < at ? 'guide-step guide-step-done' : 'guide-step'}>
+						<button disabled={!onOpen} onClick={() => onOpen?.(step.id)} aria-current={index === at ? 'step' : undefined}>
+							<span className="guide-step-number">{index + 1}</span>
+							<span className="guide-step-text">
+								<strong>{step.title}</strong>
+								<span>{step.text}</span>
+							</span>
+						</button>
+					</li>
+				))}
+			</ol>
+			{onOpen && (
+				<button
+					className="link guide-steps-hide"
+					onClick={() => {
+						try {
+							localStorage.setItem(GUIDE_KEY, 'off');
+						} catch {
+							/* private mode: hidden for this visit only */
+						}
+						setHidden(true);
+					}}>
+					Hide these steps
+				</button>
+			)}
+		</nav>
+	);
+}
 /** Settings and reading: small links beside the title, out of the way of the planner's own sections. */
 const SIDE_TABS = [
 	{ id: 'sim', label: 'Sim setup' },
@@ -740,7 +791,8 @@ export function App() {
 					<ThemeMenu />
 				</nav>
 				<div className="masthead-side">
-					<div className="tab-bar">
+					{/* Nothing to open without a character: the sections appear with the first one. */}
+					<div className="tab-bar" hidden={!character}>
 						<BarCap />
 						<nav className="tabs" aria-label="Sections">
 							{TABS.map(t => (
@@ -782,8 +834,15 @@ export function App() {
 				)}
 				{/* The FAQ needs no character: it is there for the first visit too. */}
 				{tab === 'faq' && !character && <FaqTab />}
+				{!character && tab !== 'faq' && <GuideSteps current="character" />}
 				{(!character || importing) && tab !== 'faq' && <ImportPanel hasCharacter={Boolean(character)} onImported={onImported} onCancel={() => setImporting(false)} />}
 
+				{character && !importing && TABS.some(t => t.id === tab) && (
+					<>
+						<GuideSteps current={GUIDE_STEPS.some(step => step.id === tab) ? tab : null} onOpen={setTab} />
+						<p className="tab-intro">{TABS.find(t => t.id === tab)?.intro}</p>
+					</>
+				)}
 				{/* Reading pages are not about one character: no character bar, no gear panes. */}
 				{character && !importing && tab !== 'faq' && tab !== 'news' && (
 					<CharacterBar

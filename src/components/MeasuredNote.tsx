@@ -36,15 +36,25 @@ export function MeasuredNote({ specId }: { specId: string }) {
 	const engine = simVersion ? `WoWSims ${simVersion}${simDate ? ` of ${shortDate(simDate)}` : ''}` : "today's WoWSims";
 	if (!stale.length) {
 		return (
-			<p className="measured-note" role="note">
-				<strong>List numbers are estimates</strong> from the nightly measurement ({shortDate(parts[0].at)}), made on the simulator this site runs now ({engine}). "Simulate" and "Sim this" run that simulator live.
-			</p>
+			<details className="measured-note more-info" role="note">
+				<summary>
+					<strong>List numbers are estimates</strong>, measured {shortDate(parts[0].at)} on today's simulator.
+				</summary>
+				<p>
+					They come from the nightly measurement, made on the simulator this site runs now ({engine}). "Simulate" and "Sim this" run that simulator live.
+				</p>
+			</details>
 		);
 	}
 	return (
-		<p className="measured-note measured-stale" role="note">
-			<strong>List numbers are estimates and behind the simulator.</strong> {stale.map(part => `${part.label} (${shortDate(part.at)})`).join(', ')} {stale.length === 1 ? 'was' : 'were'} measured before a simulator or preset update that touches this build. The
-			new measurement starts by itself and takes from a few minutes to a few hours. "Simulate" and "Sim this" always run today's simulator ({engine}): use them, or "Check the top with the simulator" on a slot, before you decide.
-		</p>
+		<details className="measured-note measured-stale more-info" role="note">
+			<summary>
+				<strong>List numbers are estimates and a bit behind the simulator.</strong> Use "Simulate" before you decide.
+			</summary>
+			<p>
+				{stale.map(part => `${part.label} (${shortDate(part.at)})`).join(', ')} {stale.length === 1 ? 'was' : 'were'} measured before a simulator or preset update that touches this build. The new measurement starts by itself and
+				takes from a few minutes to a few hours. "Simulate" and "Sim this" always run today's simulator ({engine}): use them, or "Check the top with the simulator" on a slot, before you decide.
+			</p>
+		</details>
 	);
 }
