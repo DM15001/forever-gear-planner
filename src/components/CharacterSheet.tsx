@@ -114,6 +114,8 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 							</>
 						) : null}
 						{race && <FactionMark faction={race.faction} />}
+					</p>
+					<p className="identity-line">
 						{points && (
 							<span className="talent-chip" title={talents}>
 								<span className="talent-chip-label">Talents</span>

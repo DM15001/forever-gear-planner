@@ -7596,9 +7596,6 @@ a.plan-enchant-name:hover {
 :root[data-channel='dev'] .sheet-head-text > h2 {
 	grid-column: 1 / -1;
 }
-:root[data-channel='dev'] .sheet-next .slot-source {
-	display: none;
-}
 
 /* Stats: tight rows. */
 :root[data-channel='dev'] .sheet-center .stats {
