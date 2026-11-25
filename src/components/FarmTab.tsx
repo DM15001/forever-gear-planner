@@ -91,7 +91,7 @@ export function FarmTab({ spec, character, data, filter, onChange }: Props) {
 			<section className="panel" aria-labelledby="farm-plan">
 				<h2 id="farm-plan">How to get your plan</h2>
 				{planSize === 0 ? (
-					<p className="farm-empty">No plan yet. Open the Plan tab to get the best set for your content, or pick items with "Plan this" on the Upgrades tab. They show up here, sorted by where to get them.</p>
+					<p className="farm-empty">No plan yet. Open "Build plan" to get the best set for your content, or pick items with "Plan this" under "Swap a slot". They show up here, sorted by where to get them.</p>
 				) : (
 					<>
 						{gotBack && (
@@ -160,7 +160,7 @@ export function FarmTab({ spec, character, data, filter, onChange }: Props) {
 				<p className="hint farm-hint">
 					"Up to" is the best upgrade per slot over your equipped gear, added up. "Per run" is what one run is worth on average: each upgrade's gain times its chance to drop, best one per slot. Drop chances are Wowhead's Forever numbers
 					from {lootDate} where we have them; the rest are the rates from WoW Classic (AtlasLoot), marked "Classic rate", which Forever may have changed. Items without any number are left out of "per run". Bosses that are not there on every
-					run are marked. Blackrock Spire, Dire Maul and Stratholme are split into their wings. Uses the content you picked on the Plan tab.
+					run are marked. Blackrock Spire, Dire Maul and Stratholme are split into their wings. Uses the content you picked under "Build plan".
 				</p>
 				{anyUpgrade && (
 					<p className="farm-order">

@@ -257,7 +257,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 											</span>
 										)}
 										{isUnmeasured(goalItem, data) && (
-											<span className="badge" title="Part of this item's worth is not in the score. Use Simulate on the Plan page to check it.">
+											<span className="badge" title="Part of this item's worth is not in the score. Use Simulate above to check it.">
 												sim it
 											</span>
 										)}

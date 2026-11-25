@@ -39,10 +39,10 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 				a: (
 					<ol>
 						<li>On the start page, paste your character: an export from wowsims.com or a link somebody copied from this site. No export at hand? Load the WoWSims preset for your build and change the items by clicking the slots.</li>
-						<li>Pick your build on the Character page. Talents, consumables and buffs follow the build; change them under "Sim setup".</li>
-						<li>Open "Upgrades". Each slot lists the better items with the gain in front. "Plan" puts one into your plan. The Plan page fills every slot with the best set for your content; "Rebuild the plan" there does it again.</li>
-						<li>"Plan" shows the result and simulates your gear against the plan.</li>
-						<li>"Farm plan" sorts the planned items by dungeon, "Enchants &amp; professions" does the same for enchants.</li>
+						<li>Pick your build under "Check gear". Talents, consumables and buffs follow the build; change them under "Sim setup".</li>
+						<li>Open "Build plan". Say what content you do and it fills every slot with the best set for it; "Rebuild the plan" does it again. Enchants and professions are a section at the bottom of that page.</li>
+						<li>"Swap a slot" lists the better items for each slot with the gain in front, to pick single ones yourself. What you pick there overrides the plan.</li>
+						<li>"Farm it" sorts the planned items by dungeon.</li>
 					</ol>
 				),
 			},
@@ -54,8 +54,8 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 						<li><strong>Plan</strong>: your plan slot by slot, what to count (dungeons, crafting, set bonuses) and the simulation.</li>
 						<li><strong>Upgrades</strong>: every better item per slot, with source and gain.</li>
 						<li><strong>Enchants &amp; professions</strong>: the best enchant per slot and what your professions add.</li>
-						<li><strong>Farm plan</strong>: where your planned items drop, best dungeon first.</li>
-						<li><strong>Group plan</strong>: the same for several characters at once, with who wants which drop.</li>
+						<li><strong>Farm it</strong>: where your planned items drop, best dungeon first.</li>
+						<li><strong>Group up</strong>: the same for several characters at once, with who wants which drop.</li>
 						<li><strong>Sim setup</strong>: talents, rotation, consumables, buffs, the fight.</li>
 						<li><strong>News</strong>: what changed in WoW Forever and in WoWSims, and items the simulator cannot value yet.</li>
 					</ul>
@@ -65,17 +65,17 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 				q: 'How do I plan with friends?',
 				a: (
 					<>
-						<p>Everyone presses "Copy character (equipped + planned gear)" on their Character page and sends what it copies. Paste each one into the box on "Group plan". Or one person collects everybody and presses "Share the whole group": that link carries all of them.</p>
+						<p>Everyone presses "Copy character (equipped + planned gear)" under "Check gear" and sends what it copies. Paste each one into the box on "Group up". Or one person collects everybody and presses "Share the whole group": that link carries all of them.</p>
 						<p>Nothing is synced. A link is a snapshot of the moment it was copied; after changes, copy it again.</p>
 					</>
 				),
 			},
 			{
 				q: 'Can one character have several gear sets?',
-				a: <p>Yes, as presets. Under Build on the Character page, "Create preset" makes a copy of the open preset under a name of your choice: one for fire, one for frost, one against beasts. Each has its own build, worn gear and plan. Switch there or in the menu at the top of the gear panes at the side. A new item you equip in one preset is not equipped in the others.</p>,
+				a: <p>Yes, as presets. Under Build on "Check gear", "Create preset" makes a copy of the open preset under a name of your choice: one for fire, one for frost, one against beasts. Each has its own build, worn gear and plan. Switch there or in the menu at the top of the gear panes at the side. A new item you equip in one preset is not equipped in the others.</p>,
 			},
 			{
-				q: 'What do "planned", "BiS" and "upgrade" mean in the Group plan?',
+				q: 'What do "planned", "BiS" and "upgrade" mean under "Group up"?',
 				a: <p>"planned": the item is in that character's plan. "BiS": nothing in the game is better for that character in that slot. "upgrade": better than what they wear, but not their best option.</p>,
 			},
 		],
@@ -90,7 +90,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 						<p>From two places, and it matters which one you are looking at.</p>
 						<ul>
 							<li><strong>Simulate</strong> runs the real WoWSims simulator on your exact character. This is the number to trust.</li>
-							<li><strong>The lists</strong> (Upgrades, Farm plan, Group plan) use values measured in advance: stat weights per build, plus a measured value for every item effect, set bonus and weapon. They are estimates, good for ranking, not exact for your character.</li>
+							<li><strong>The lists</strong> (Swap a slot, Farm it, Group up) use values measured in advance: stat weights per build, plus a measured value for every item effect, set bonus and weapon. They are estimates, good for ranking, not exact for your character.</li>
 						</ul>
 						<p>When it counts, press "Check the top 5 with the simulator" in a slot, or simulate your plan.</p>
 					</>
@@ -128,7 +128,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 				q: 'An item is missing or its source is wrong. What now?',
 				a: (
 					<>
-						<p>First check "What content do you do?" on the Plan and Upgrades pages: items with no known source and items not in the game yet are switched off by default, and a hidden item stays hidden until you bring it back there. Class-only items show only for that class.</p>
+						<p>First check "What content do you do?" on "Build plan": items with no known source and items not in the game yet are switched off by default, and a hidden item stays hidden until you bring it back there. Class-only items show only for that class.</p>
 						<p>If the source really is unknown or wrong: next to such items there is a link "know where it drops?", which opens a filled-in report. Or write an <a href={`${REPO}/issues`}>issue</a>.</p>
 					</>
 				),

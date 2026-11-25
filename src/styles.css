@@ -6643,7 +6643,23 @@ details.content-fold[open] > summary {
 .enchant-fold > summary + * {
 	margin-top: 0.75rem;
 }
+/* Where the bar wraps, the line lies between its two rows. */
+@media (max-width: 40rem) {
+	.tabs {
+		justify-content: center;
+	}
+	.tab-divide {
+		flex-basis: 100%;
+		align-self: auto;
+		width: auto;
+		height: 1px;
+		margin: 0.25rem 0.5rem;
+	}
+}
 @media (min-width: 64rem) {
+	:root[data-theme='classic'] .tabs {
+		align-items: stretch;
+	}
 	:root[data-theme='classic'] .tab-arrow {
 		display: none;
 	}

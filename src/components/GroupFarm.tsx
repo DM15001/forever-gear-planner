@@ -84,7 +84,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 		if (!mine) return;
 		navigator.clipboard.writeText(shareUrl(mine, window.location.href)).then(
 			() => setCopiedMine(true),
-			() => setAddNote('The browser did not allow copying. Use the button on the Character page.'),
+			() => setAddNote('The browser did not allow copying. Use the button under "Check gear".'),
 		);
 	};
 
@@ -208,7 +208,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 		<section className="panel group-farm" aria-labelledby="group-farm">
 			<h2 id="group-farm">Farm plan for the group</h2>
 			<p className="hint">
-				Every character saved in this browser can be part of the group. To add a friend, have them press "Copy character (equipped + planned gear)" on their Character page and send you what it copies; paste it here. Their later changes need a
+				Every character saved in this browser can be part of the group. To add a friend, have them press "Copy character (equipped + planned gear)" under "Check gear" and send you what it copies; paste it here. Their later changes need a
 				new copy: nothing is synced.
 			</p>
 			<form

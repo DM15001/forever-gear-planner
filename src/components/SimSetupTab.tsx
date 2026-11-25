@@ -70,7 +70,7 @@ function Steps({ lines, showRaw, checks, names }: { lines: RotationLine[]; showR
 						{line.estimate && (
 							<span className="rotation-remark">
 								<span className="tag-estimate">estimate</span> The simulator cannot cast this spell yet. Its healing is worked out by hand and added to the result, and the other steps give up the casts it takes. Switch it off
-								with "Count Prayer of Mending" on the Plan tab.
+								with "Count Prayer of Mending" under "Build plan".
 							</span>
 						)}
 						{remarks.map(remark => (
@@ -260,7 +260,7 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 					</p>
 				)}
 				<p className="hint">
-					The quick scores on the Plan and Upgrades tabs use fixed stat weights that were measured with the build's own talents, consumables and buffs. They do not follow changes made here; the simulated numbers
+					The quick scores under "Build plan" and "Swap a slot" use fixed stat weights that were measured with the build's own talents, consumables and buffs. They do not follow changes made here; the simulated numbers
 					do.
 				</p>
 			</section>
@@ -310,7 +310,7 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 					</div>
 					<div>
 						<dt>Gear</dt>
-						<dd>Your items with the enchants and random suffixes set on the Character tab. No item or enchant is added behind your back.</dd>
+						<dd>Your items with the enchants and random suffixes set under "Check gear". No item or enchant is added behind your back.</dd>
 					</div>
 					<div>
 						<dt>Everything else</dt>
@@ -576,7 +576,7 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 				<p>
 					{healer ? (
 						<>
-							Where it comes from: WoWSims has the Priest's heals in its engine but ships no healing rotation, so this one is written by this site for the healing scenario picked on the Plan tab. It is short on purpose. Prayer
+							Where it comes from: WoWSims has the Priest's heals in its engine but ships no healing rotation, so this one is written by this site for the healing scenario picked under "Build plan". It is short on purpose. Prayer
 							of Mending cannot be cast in the engine yet (it stops with an error), so with the talent it is listed as an estimate: its healing is worked out by hand and added (see "What kind of healing?" on the Upgrades tab). Hover over a step to see the rule the simulator gets, or show them all:
 						</>
 					) : (

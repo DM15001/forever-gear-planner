@@ -157,7 +157,7 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				<legend>
 					Raids <span className="badge badge-plan">coming soon</span>
 				</legend>
-				<p className="hint tier-hint">Raid loot is not in the planner yet. When it is, you switch the raids on here and they count everywhere: Upgrades, Farm plan and Group plan.</p>
+				<p className="hint tier-hint">Raid loot is not in the planner yet. When it is, you switch the raids on here and they count everywhere: the plan, the single slots, the farm list and the group.</p>
 				{RAIDS.map(([name, icon]) => tile(name, [icon], false, () => undefined, true, 'Coming soon'))}
 			</fieldset>
 
@@ -280,7 +280,7 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				{tile('Procs unknown', ['spell_nature_lightning'], filter.unknownProcs, on => set({ unknownProcs: on }), false, 'The simulator overvalues them')}
 				{tile('No known source', ['inv_misc_questionmark'], filter.unknown, on => set({ unknown: on }), false, 'Nobody knows where they drop')}
 			</fieldset>
-			{!faction && <p className="field-error">Pick a race on the Character tab to hide the other faction's items.</p>}
+			{!faction && <p className="field-error">Pick a race under "Check gear" to hide the other faction's items.</p>}
 			{filter.hiddenItems.length > 0 && (
 				<fieldset className="content-group hidden-items">
 					<legend>Items you have hidden</legend>

@@ -39,7 +39,7 @@ export function CharacterBar({ roster, onSelect, onAdd, onRemove, aside }: { ros
 						<span className="character-tile-text">
 							<strong>
 								{character.name ?? `${race?.name ?? 'Unnamed'} ${spec.className}`}
-								{sets > 1 && <span className="set-chip" title={`${sets} gear sets; switch on the Character page`}>{character.set ?? 'Main'}</span>}
+								{sets > 1 && <span className="set-chip" title={`${sets} gear sets; switch under "Check gear"`}>{character.set ?? 'Main'}</span>}
 							</strong>
 							<span className="character-tile-spec">{spec.name}</span>
 							<span className="character-tile-meta">
