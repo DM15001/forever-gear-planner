@@ -44,14 +44,14 @@
 	margin: 1px;
 	color: #ffd75a;
 	text-shadow: 0 1px 0 #000;
-	background: linear-gradient(180deg, #3d63b0, #1a2f66 48%, #0d1a40 52%, #16295c);
+	background: linear-gradient(180deg, #3a3024, #1c160e 48%, #0c0906 52%, #18120b);
 	border: 1px solid #000;
 	border-radius: 0;
-	box-shadow: inset 0 0 0 1px rgb(150 180 255 / 0.25);
+	box-shadow: inset 0 0 0 1px rgb(255 220 150 / 0.16);
 }
 :root[data-theme='classic'] .tab:hover {
 	color: #fff;
-	background: linear-gradient(180deg, #5380d6, #25408a 48%, #132456 52%, #1f3878);
+	background: linear-gradient(180deg, #5a4a34, #2c2216 48%, #15100a 52%, #241b10);
 }
 :root[data-theme='classic'] .tab[aria-current='page'] {
 	color: #1a1203;
@@ -70,9 +70,9 @@
 		0 0 0 1px #8a6d2a;
 }
 :root[data-theme='classic'] .tool-link:nth-child(odd) {
-	background: linear-gradient(180deg, #3d63b0, #1a2f66 50%, #0d1a40);
+	background: linear-gradient(180deg, #2c4a86, #14244f 50%, #0a1430);
 	box-shadow:
-		inset 0 0 0 1px rgb(150 180 255 / 0.3),
+		inset 0 0 0 1px rgb(255 220 150 / 0.2),
 		0 0 0 1px #8a6d2a;
 }
 :root[data-theme='classic'] .tool-link[aria-current='page'] {
@@ -85,15 +85,15 @@
 :root[data-theme='classic'] main {
 	--mist: #2a1c0a;
 	--haze: #5e4b2a;
-	--slate: #f1e3b6;
-	--slate-raised: #e7d6a3;
+	--slate: #efe0b0;
+	--slate-raised: #e6d4a0;
 	--well: #dccb93;
 	--hairline: #c7b27a;
 	--ridge: #8c7440;
-	--brass: #173a7a;
-	--brass-deep: #5c74ad;
+	--brass: #5a2d0c;
+	--brass-deep: #9b7a45;
 	--on-brass: #ffd75a;
-	--metal-light: #2a55a8;
+	--metal-light: #8a5a24;
 	--ember: #a8451a;
 	--q-uncommon: #17780f;
 	--q-rare: #0b4fb0;
@@ -104,7 +104,7 @@
 	color: var(--mist);
 	background:
 		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .1 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E"),
-		linear-gradient(180deg, #ecdcaa, #e3d09a);
+		linear-gradient(180deg, #e6d2a0, #d9c28a);
 	border: 9px solid #3a2412;
 	border-image: linear-gradient(90deg, #2a180a, #6a4320 18%, #3a2412 40%, #7a5028 62%, #3a2412 82%, #2a180a) 1;
 	border-radius: 0;
@@ -119,7 +119,7 @@
 		0 12px 40px #000;
 }
 :root[data-theme='classic'] main a {
-	color: #173a7a;
+	color: #14306a;
 }
 :root[data-theme='classic'] main .panel {
 	border: 1px solid #6b5326;
@@ -136,10 +136,10 @@
 	font-size: 1.15rem;
 	color: #ffd75a;
 	text-shadow: 0 1px 0 #000;
-	background: linear-gradient(180deg, #4a72c4, #1d3470 50%, #0f1d47 54%, #1a2f66);
+	background: linear-gradient(180deg, #34425f, #172036 50%, #0b101e 54%, #141c30);
 	border: 1px solid #000;
 	border-image: none;
-	box-shadow: inset 0 0 0 1px rgb(150 180 255 / 0.3);
+	box-shadow: inset 0 0 0 1px rgb(255 220 150 / 0.2);
 }
 :root[data-theme='classic'] main .panel > h2:first-child::after {
 	display: none;
@@ -156,7 +156,7 @@
 :root[data-theme='classic'] main .button-primary,
 :root[data-theme='classic'] main .button-plan {
 	color: #ffd75a;
-	background: linear-gradient(180deg, #4a72c4, #1d3470 50%, #0f1d47);
+	background: linear-gradient(180deg, #8a5a24, #5a3210 50%, #33190a);
 	border-color: #000;
 }
 :root[data-theme='classic'] main :is(input, select, textarea) {
@@ -241,7 +241,7 @@
 	.candidates .candidate, .preset-confirm, .modal, .faq-item, .chip, .news-day, .enchant-option, .shopping-row, .picker-row, .character-tile-ask
 ) {
 	color: var(--mist);
-	background: #f8efcd;
+	background: #f5e9c4;
 	border-color: #9b8248;
 	border-radius: 0;
 }
@@ -252,11 +252,11 @@
 }
 :root[data-theme='classic'] main .candidates .candidate:nth-child(even),
 :root[data-theme='classic'] main .group-dungeons-list .group-dungeon:nth-child(even) {
-	background: #efe2b3;
+	background: #ead9a8;
 }
 :root[data-theme='classic'] main :is(.candidates .candidate, .shopping-row, .enchant-option, .character-tile, .content-tile, .fight-pick, .view-choice, .picker-row):hover {
 	background: #fffadf;
-	border-color: #173a7a;
+	border-color: #5a2d0c;
 }
 /* What is chosen: a wash of the blue. */
 :root[data-theme='classic'] main :is(
@@ -265,8 +265,8 @@
 	.shopping-got, .view-switch .button[aria-pressed='true']
 ) {
 	color: var(--mist);
-	background: linear-gradient(180deg, #dfe8fa, #c9d7f3);
-	border-color: #173a7a;
+	background: linear-gradient(180deg, #f9e7a6, #edd281);
+	border-color: #5a2d0c;
 }
 :root[data-theme='classic'] main .enchant-winner {
 	background: #e2efcf;
@@ -280,14 +280,14 @@
 }
 :root[data-theme='classic'] main .slot-nav .slot-chip {
 	color: var(--mist);
-	background: #f8efcd;
+	background: #f5e9c4;
 	border-color: #9b8248;
 	border-radius: 0;
 }
 :root[data-theme='classic'] main .slot-nav .slot-chip-planned {
-	color: #173a7a;
-	background: linear-gradient(180deg, #dfe8fa, #c9d7f3);
-	border-color: #173a7a;
+	color: #5a2d0c;
+	background: linear-gradient(180deg, #f9e7a6, #edd281);
+	border-color: #5a2d0c;
 }
 :root[data-theme='classic'] main .slot-nav .slot-chip-open {
 	border-color: #17780f;
@@ -295,21 +295,21 @@
 :root[data-theme='classic'] main .slot-nav .slot-chip:hover,
 :root[data-theme='classic'] main .slot-nav .slot-chip-here {
 	color: #000;
-	box-shadow: 0 0 0 1px #173a7a;
+	box-shadow: 0 0 0 1px #5a2d0c;
 }
 :root[data-theme='classic'] main details.content-fold > summary,
 :root[data-theme='classic'] main .fold > summary {
 	color: #ffd75a;
 	text-shadow: 0 1px 0 #000;
-	background: linear-gradient(180deg, #4a72c4, #1d3470 50%, #0f1d47 54%, #1a2f66);
+	background: linear-gradient(180deg, #34425f, #172036 50%, #0b101e 54%, #141c30);
 	border: 1px solid #000;
 	border-radius: 0;
-	box-shadow: inset 0 0 0 1px rgb(150 180 255 / 0.3);
+	box-shadow: inset 0 0 0 1px rgb(255 220 150 / 0.2);
 	padding: 0.45rem 0.8rem;
 }
 :root[data-theme='classic'] main .fold > summary .slot-source,
 :root[data-theme='classic'] main .content-fold-toggle {
-	color: #c9d7f3;
+	color: #e6d6a8;
 	text-shadow: none;
 }
 /* The little box at the end of a bar: minus when open, plus when shut. */
@@ -324,7 +324,7 @@
 	text-align: center;
 	text-shadow: none;
 	color: #ffd75a;
-	background: #0a1230;
+	background: #120c05;
 	border: 1px solid #ffd75a;
 	box-shadow: 0 0 0 1px #000;
 }
@@ -364,8 +364,8 @@
 	color: #a8231a;
 }
 :root[data-theme='classic'] main .candidate-actions .sim-button {
-	color: #173a7a;
-	border-color: #173a7a;
+	color: #5a2d0c;
+	border-color: #5a2d0c;
 }
 :root[data-theme='classic'] main .group-tag-bis {
 	color: #a84f00;
@@ -382,7 +382,7 @@
 }
 :root[data-theme='classic'] main .group-prio strong {
 	color: #ffd75a;
-	background: linear-gradient(180deg, #4a72c4, #0f1d47);
+	background: linear-gradient(180deg, #8a5a24, #33190a);
 	border-color: #000;
 	box-shadow: 0 0 0 1px #b89a52;
 }
@@ -392,24 +392,24 @@
 }
 :root[data-theme='classic'] main :is(.set-chip, .group-tag-planned, .group-contested, .group-strip-count) {
 	color: #ffd75a;
-	background: #173a7a;
+	background: #5a2d0c;
 	border-color: #000;
 }
 :root[data-theme='classic'] main .badge {
-	color: #173a7a;
-	border-color: #173a7a;
+	color: #5a2d0c;
+	border-color: #5a2d0c;
 }
 :root[data-theme='classic'] main .group-dungeons-list {
 	border: 1px solid #6b5326;
 }
 :root[data-theme='classic'] main .group-dungeons-list .group-dungeon-top {
-	background: linear-gradient(90deg, #d5e0f6, #f8efcd 60%);
-	border-left-color: #173a7a;
+	background: linear-gradient(90deg, #f3dc94, #f5e9c4 60%);
+	border-left-color: #5a2d0c;
 }
 :root[data-theme='classic'] main .preset-menu-button {
-	color: #173a7a;
+	color: #5a2d0c;
 	background: #fbf3d6;
-	border-color: #173a7a;
+	border-color: #5a2d0c;
 	border-radius: 0;
 }
 :root[data-theme='classic'] main .gear-rail .preset-menu-button {
@@ -419,10 +419,10 @@
 }
 :root[data-theme='classic'] main .presets .content-preset[aria-pressed='true'] {
 	color: #ffd75a;
-	background: linear-gradient(180deg, #4a72c4, #1d3470 50%, #0f1d47);
+	background: linear-gradient(180deg, #8a5a24, #5a3210 50%, #33190a);
 }
 :root[data-theme='classic'] main .content-tile-on {
-	background: linear-gradient(90deg, #d5e0f6, #f8efcd 75%);
+	background: linear-gradient(90deg, #f3dc94, #f5e9c4 75%);
 }
 :root[data-theme='classic'] main .candidates .candidate-rare {
 	border-left-color: #0b4fb0;
@@ -512,7 +512,7 @@
 		transform: translateY(-50%) rotate(45deg);
 	}
 	:root[data-theme='classic'] .tab[aria-current='page']::after {
-		background: #173a7a;
+		background: #5a2d0c;
 	}
 }
 /* The gear panes sit beside the page; the page is wider here, so they get their room from what is left. */
@@ -528,7 +528,7 @@
 }
 :root[data-theme='classic'] .gear-rail-show {
 	color: #ffd75a;
-	background: linear-gradient(90deg, #1a2f66, #3d63b0);
+	background: linear-gradient(90deg, #33190a, #8a5a24);
 	border-color: #000;
 	border-radius: 0;
 }
@@ -557,11 +557,11 @@
 /* Jump buttons and small floating things, in the blue of the bars. */
 :root[data-theme='classic'] .back-to-top {
 	color: #ffd75a;
-	background: linear-gradient(180deg, #4a72c4, #1d3470 50%, #0f1d47);
+	background: linear-gradient(180deg, #8a5a24, #5a3210 50%, #33190a);
 	border: 1px solid #000;
 	border-radius: 0;
 	box-shadow:
-		inset 0 0 0 1px rgb(150 180 255 / 0.3),
+		inset 0 0 0 1px rgb(255 220 150 / 0.2),
 		0 0 0 1px #8a6d2a,
 		0 4px 14px #000a;
 }
@@ -587,8 +587,8 @@
 	color: #5e4b2a;
 }
 :root[data-theme='classic'] .theme-menu-list button[aria-pressed='true'] {
-	border-color: #173a7a;
-	background: linear-gradient(180deg, #dfe8fa, #c9d7f3);
+	border-color: #5a2d0c;
+	background: linear-gradient(180deg, #f9e7a6, #edd281);
 }
 /* Notes and warnings: a slip of yellowed paper with a red edge. */
 :root[data-theme='classic'] main :is(.notice, .measured-note) {
@@ -676,4 +676,91 @@
 			0 1px 0 #8a6d2a,
 			0 2px 0 #000;
 	}
+}
+
+/* Flourishes. Drawn here, in gold line: scrollwork for the corners of the page, a curl at the start of every bar,
+   curls beside the menu's head, a scroll under the page. Our own ornaments, in the manner of the time. */
+:root[data-theme='classic'] main {
+	position: relative;
+}
+:root[data-theme='classic'] main::before,
+:root[data-theme='classic'] main::after {
+	content: '';
+	position: absolute;
+	top: -15px;
+	width: 74px;
+	height: 74px;
+	pointer-events: none;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 74 74'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M4 70V26C4 12 12 4 26 4h44' stroke='%23000' stroke-width='7'/%3E%3Cpath d='M4 70V26C4 12 12 4 26 4h44' stroke='%23d9b550' stroke-width='3.5'/%3E%3Cpath d='M4 70V26C4 12 12 4 26 4h44' stroke='%23fff3b8' stroke-width='1'/%3E%3Cpath d='M14 60c0-12 3-22 12-26 7-3 13 2 11 8-2 5-9 5-10 0M60 14c-12 0-22 3-26 12-3 7 2 13 8 11 5-2 5-9 0-10' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M14 60c0-12 3-22 12-26 7-3 13 2 11 8-2 5-9 5-10 0M60 14c-12 0-22 3-26 12-3 7 2 13 8 11 5-2 5-9 0-10' stroke='%23e6c25a' stroke-width='2.4'/%3E%3Cpath d='M14 46c-5-2-7-8-3-11M46 14c-2-5-8-7-11-3' stroke='%23e6c25a' stroke-width='2'/%3E%3C/g%3E%3Ccircle cx='15' cy='15' r='6' fill='%23000'/%3E%3Ccircle cx='15' cy='15' r='4.2' fill='%23d9b550'/%3E%3Ccircle cx='13.6' cy='13.6' r='1.4' fill='%23fff3b8'/%3E%3C/svg%3E") no-repeat;
+	z-index: 2;
+}
+:root[data-theme='classic'] main::before {
+	left: -15px;
+}
+:root[data-theme='classic'] main::after {
+	right: -15px;
+	transform: scaleX(-1);
+}
+/* A curl before the words on every bar. */
+:root[data-theme='classic'] main .panel > h2:first-child,
+:root[data-theme='classic'] main .news-day > h3 {
+	padding-left: 2.6rem;
+	background:
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 24'%3E%3Cg fill='none' stroke='%23e6c25a' stroke-width='1.8' stroke-linecap='round'%3E%3Cpath d='M2 12c5-9 14-9 16-3 1 4-4 6-6 3M2 12c5 9 14 9 16 3M18 12h14'/%3E%3C/g%3E%3Cpath d='M28 12l3-3 3 3-3 3z' fill='%23ffd75a'/%3E%3C/svg%3E") 0.5rem 50% / 1.8rem auto no-repeat,
+		linear-gradient(180deg, #34425f, #172036 50%, #0b101e 54%, #141c30);
+	border: 1px solid #000;
+	box-shadow:
+		inset 0 0 0 1px rgb(255 220 150 / 0.2),
+		0 0 0 1px #a5873e;
+}
+:root[data-theme='classic'] main details.content-fold > summary,
+:root[data-theme='classic'] main .fold > summary {
+	box-shadow:
+		inset 0 0 0 1px rgb(255 220 150 / 0.2),
+		0 0 0 1px #a5873e;
+}
+/* Headings inside the page in the dark red of old chapter titles, with a small scroll after them. */
+:root[data-theme='classic'] main :is(h3, legend, .faq-group h3) {
+	color: #6a1c0a;
+}
+:root[data-theme='classic'] main :is(.gear-rail, .set-pop, .preset-menu-list) :is(h2, h3) {
+	color: #ffd100;
+}
+:root[data-theme='classic'] main .news-day > h3 {
+	color: #ffd75a;
+}
+:root[data-theme='classic'] main .faq-group h3::after,
+:root[data-theme='classic'] main .panel > h2:not(:first-child)::after {
+	content: '';
+	display: block;
+	width: 9rem;
+	height: 10px;
+	margin-top: 0.25rem;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 144 10'%3E%3Cg fill='none' stroke='%238a5a24' stroke-width='1.4' stroke-linecap='round'%3E%3Cpath d='M2 5h52M90 5h52M54 5c4-5 10-5 12 0 2 5 8 5 12 0M78 5c4-5 10-5 12 0'/%3E%3C/g%3E%3Cpath d='M72 1l3 4-3 4-3-4z' fill='%238a5a24'/%3E%3C/svg%3E") no-repeat;
+}
+/* The menu's head between two curls. */
+@media (min-width: 64rem) {
+	:root[data-theme='classic'] .tab-bar::before {
+		padding-left: 2rem;
+		background:
+			url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 12c4-8 12-8 14-3 1 4-3 6-5 3M3 12c4 8 12 8 14 3' fill='none' stroke='%235a2d0c' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") 0.35rem 50% / 1.3rem auto no-repeat,
+			url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21 12c-4-8-12-8-14-3-1 4 3 6 5 3M21 12c-4 8-12 8-14 3' fill='none' stroke='%235a2d0c' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") calc(100% - 0.35rem) 50% / 1.3rem auto no-repeat,
+			linear-gradient(180deg, #fff4b3, #ffd100 45%, #b8860b);
+	}
+	:root[data-theme='classic'] .tab {
+		color: #f8c12a;
+		font-weight: 700;
+	}
+}
+/* A long scroll closes the page. */
+:root[data-theme='classic'] .page > footer::before {
+	content: '';
+	display: block;
+	height: 18px;
+	margin: 0.6rem auto 0.8rem;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 18'%3E%3Cg fill='none' stroke='%23b89a52' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M4 9h112M204 9h112M116 9c8-10 20-9 22-1 1 5-5 7-7 3M204 9c-8-10-20-9-22-1-1 5 5 7 7 3M116 9c8 10 20 9 22 1M204 9c-8 10-20 9-22 1'/%3E%3C/g%3E%3Cpath d='M160 2l6 7-6 7-6-7z' fill='%23d9b550'/%3E%3Ccircle cx='4' cy='9' r='2' fill='%23b89a52'/%3E%3Ccircle cx='316' cy='9' r='2' fill='%23b89a52'/%3E%3C/svg%3E") 50% 50% / 320px 18px no-repeat;
+}
+/* Paper with a little more age: darker at the edges. */
+:root[data-theme='classic'] main .panel {
+	background-image: radial-gradient(ellipse at 50% 40%, transparent 55%, rgb(120 84 30 / 0.12));
 }

@@ -162,7 +162,15 @@
 						},
 						{
 							"title": "Themes, and the first one: 2006",
-							"text": "A Themes button sits next to Sim setup, News and FAQ. The first theme, \"2006\", turns the site into a fan page of the early days: night-blue background, the page as parchment in a wooden frame, a menu column at the left, blue bars with gold letters and a plus or minus box, cream cards with brown ink, small Verdana.",
+							"text": "A Themes button sits next to Sim setup, News and FAQ. The first theme, \"2006\", turns the site into a fan page of the early days: black and night-blue background, the page as warm parchment in a wooden frame with gold scrollwork in the corners, a menu of dark plates with gold letters at the left, dark bars with a gold curl and a plus or minus box, cream cards with brown ink, chapter titles in dark red, small Verdana.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Measurements after every simulator update",
+							"text": "The long measurements behind the lists no longer wait for the night: they start as soon as a new WoWSims version arrives. If another version comes while they run, it is measured that night.",
 							"source": "Gear Planner",
 							"tags": [
 								"Planner"
