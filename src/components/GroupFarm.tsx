@@ -1,3 +1,4 @@
+import { ordinal } from '../lib/format';
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 
 import { type GameData, dataFor, loadGameData } from '../lib/gameData';
@@ -184,7 +185,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 																{want.best ? (
 																	<span className="badge badge-plan group-tag-bis" title="Nothing in the game is better for this character in that slot">BiS</span>
 																) : (
-																	!want.planned && <span className="badge badge-plan group-tag-upgrade" title="Better than what this character wears, but not their best option">upgrade</span>
+																	<span className="badge badge-plan group-tag-upgrade" title={`Better than what this character wears, but not their best option: the ${ordinal(want.rank)} best upgrade for that slot`}>alternative, {ordinal(want.rank)} best</span>
 																)}
 																<button className="button button-small" onClick={event => {
 																		cheerBurst(event.currentTarget);

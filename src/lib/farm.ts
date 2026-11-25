@@ -11,6 +11,10 @@ export interface FarmDrop {
 	delta: number;
 	/** The item is part of the saved plan. */
 	planned: boolean;
+	/** Its place among the upgrades for that slot with the content that counts: 1 is the best of them. */
+	rank: number;
+	/** True if nothing in the game is better for this character in that slot, whatever content is switched on. */
+	best?: boolean;
 }
 
 export interface FarmBoss {
@@ -51,22 +55,36 @@ export function allUpgrades(options: CandidateOptions): FarmDrop[] {
 	const best = new Map<number, FarmDrop>();
 	GEAR_SLOTS.forEach((_slot, slotIndex) => {
 		if (!slotInUse(slotIndex, spec)) return;
+		let rank = 0;
 		for (const { item, delta } of slotCandidates(slotIndex, character.gear, options)) {
 			if (delta <= 0) break; // sorted best first
+			rank++;
 			const known = best.get(item.id);
-			if (!known || delta > known.delta) best.set(item.id, { item, slotIndex, delta, planned: planned.has(item.id) });
+			if (!known || delta > known.delta) best.set(item.id, { item, slotIndex, delta, planned: planned.has(item.id), rank });
 		}
 	});
 	return [...best.values()];
 }
 
 /** Dungeons ranked by how much their drops could improve the equipped gear. */
-export function dungeonRanking(options: CandidateOptions): FarmDungeon[] {
+/** Which drops a farm list shows: every upgrade, only each slot's best in the game, or only what is in the plan. */
+export type FarmShow = 'all' | 'bis' | 'plan';
+
+/** True for the drop that nothing in the game beats in its slot: the measure is every source there is, not the content picked. */
+export function markBest(drops: FarmDrop[], options: CandidateOptions): FarmDrop[] {
+	const top = new Map<number, number>();
+	for (const drop of allUpgrades({ ...options, filter: { ...EVERYTHING, excludedDungeons: [] } })) top.set(drop.slotIndex, Math.max(top.get(drop.slotIndex) ?? 0, drop.delta));
+	for (const drop of drops) drop.best = drop.delta >= (top.get(drop.slotIndex) ?? Infinity) - 0.05;
+	return drops;
+}
+
+export function dungeonRanking(options: CandidateOptions, show: FarmShow = 'all'): FarmDungeon[] {
 	const { character, data, spec, filter } = options;
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
 	const dungeons = new Map<string, { key: string; name: string; zone: Zone; bosses: Map<string, FarmDrop[]>; sources: Map<string, Map<number, ItemSource>> }>();
 
-	for (const drop of allUpgrades(options)) {
+	for (const drop of markBest(allUpgrades(options), options)) {
+		if ((show === 'bis' && !drop.best) || (show === 'plan' && !drop.planned)) continue;
 		for (const source of usableSources(drop.item, faction, filter, character.professions)) {
 			if (!source.dungeonKey || !source.zoneId) continue;
 			const zone = data.zoneById.get(source.zoneId);

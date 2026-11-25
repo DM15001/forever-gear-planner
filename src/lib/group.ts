@@ -20,6 +20,8 @@ export interface GroupWant {
 	planned: boolean;
 	/** True if nothing the game has is better for this character in that slot. */
 	best: boolean;
+	/** Its place among this character's upgrades for the slot: 1 is the best of them. */
+	rank: number;
 }
 
 export interface GroupItem {
@@ -76,7 +78,7 @@ export function groupFarm(members: GroupMember[], scope: GroupScope): GroupDunge
 				const dungeon = dungeons.get(source.dungeonKey) ?? dungeons.set(source.dungeonKey, { key: source.dungeonKey, name: source.dungeonName ?? zone.name, bosses: new Map(), bestPerSlot: new Map() }).get(source.dungeonKey)!;
 				const boss = dungeon.bosses.get(bossName) ?? dungeon.bosses.set(bossName, new Map()).get(bossName)!;
 				const entry = boss.get(drop.item.id) ?? boss.set(drop.item.id, { item: drop.item, wants: [] }).get(drop.item.id)!;
-				if (!entry.wants.some(want => want.member.index === member.index)) entry.wants.push({ member, slotIndex: drop.slotIndex, delta: drop.delta, planned: drop.planned, best: isBest(member, drop.slotIndex, drop.delta) });
+				if (!entry.wants.some(want => want.member.index === member.index)) entry.wants.push({ member, slotIndex: drop.slotIndex, delta: drop.delta, planned: drop.planned, best: isBest(member, drop.slotIndex, drop.delta), rank: drop.rank });
 				const slots = dungeon.bestPerSlot.get(member.index) ?? dungeon.bestPerSlot.set(member.index, new Map()).get(member.index)!;
 				slots.set(drop.slotIndex, Math.max(slots.get(drop.slotIndex) ?? 0, drop.delta));
 			}
@@ -94,7 +96,7 @@ export function groupFarm(members: GroupMember[], scope: GroupScope): GroupDunge
 					if (!source.dungeonKey) continue;
 					const bossName = ((source.npcId ? member.options.data.npcById.get(source.npcId)?.name : undefined) ?? source.otherName ?? 'Unknown').trim();
 					const entry = dungeons.get(source.dungeonKey)?.bosses.get(bossName)?.get(drop.item.id);
-					if (entry && !entry.wants.some(want => want.member.index === member.index)) entry.wants.push({ member, slotIndex: drop.slotIndex, delta: drop.delta, planned: false, best: isBest(member, drop.slotIndex, drop.delta) });
+					if (entry && !entry.wants.some(want => want.member.index === member.index)) entry.wants.push({ member, slotIndex: drop.slotIndex, delta: drop.delta, planned: false, best: isBest(member, drop.slotIndex, drop.delta), rank: drop.rank });
 				}
 			}
 		}

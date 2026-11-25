@@ -5233,6 +5233,23 @@ summary.breakdown-toggle:focus-visible {
 			'bosses bosses';
 	}
 }
+.farm-tag-planned {
+	color: var(--on-brass);
+	background: var(--brass);
+	border-color: var(--brass);
+}
+.farm-tag-bis {
+	color: #ff8000;
+	border-color: #ff8000;
+}
+.farm-tag-alt {
+	color: var(--haze);
+	border-color: var(--ridge);
+}
+.farm-empty {
+	color: var(--haze);
+	font-style: italic;
+}
 .group-tag-planned {
 	color: var(--on-brass);
 	background: var(--brass);

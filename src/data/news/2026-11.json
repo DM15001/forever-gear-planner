@@ -9,6 +9,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Farm plan: filter and tags",
+							"text": "The dungeon list can show every upgrade, only BiS or only what is in your plan; the totals follow. Every drop now carries a tag: in your plan, BiS, or alternative with its place in the slot (2nd best, 3rd best). The group plan names the place too.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Presets per character",
 							"text": "One character can have several presets, each with its own build, worn gear and plan: one for fire, one for frost, one against beasts. Pick, create and delete them under Build on the Character page, or in the menu at the top of the gear panes at the side. They stay one tile in the character bar.",
 							"source": "Gear Planner",

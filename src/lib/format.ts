@@ -16,3 +16,10 @@ export function formatDps(value: number): string {
 	const text = size >= 20 ? Math.round(size).toLocaleString('en') : size.toFixed(1);
 	return `${value >= 0 ? '+' : '−'}${text} ${current}`;
 }
+
+/** "2nd", "3rd", "11th": a place in a ranking. */
+export function ordinal(n: number): string {
+	const tens = n % 100;
+	const suffix = tens >= 11 && tens <= 13 ? 'th' : (['th', 'st', 'nd', 'rd'][n % 10] ?? 'th');
+	return `${n}${suffix}`;
+}

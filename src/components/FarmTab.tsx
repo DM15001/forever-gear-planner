@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
-import { formatDps, unit } from '../lib/format';
-import { byDungeon, dungeonRanking, type FarmDungeon, PLAN_GROUP_ORDER, type PlanEntry, type PlanGroupKind, planShoppingList } from '../lib/farm';
+import { formatDps, ordinal, unit } from '../lib/format';
+import { byDungeon, dungeonRanking, type FarmDungeon, type FarmShow, PLAN_GROUP_ORDER, type PlanEntry, type PlanGroupKind, planShoppingList } from '../lib/farm';
 import type { GameData } from '../lib/gameData';
 import { guideMarks } from '../lib/guides';
 import { effortLine, effortParts, LOOT_DATE } from '../lib/loot';
@@ -51,7 +51,10 @@ export function FarmTab({ spec, character, data, filter, onChange }: Props) {
 	};
 	const options = useMemo(() => ({ character, data, spec, filter }), [character, data, spec, filter]);
 	const shopping = useMemo(() => planShoppingList(options), [options]);
-	const ranking = useMemo(() => dungeonRanking(options), [options]);
+	// Which drops the dungeon list shows: every upgrade, only each slot's best, or only what is planned.
+	const [show, setShow] = useState<FarmShow>('all');
+	const ranking = useMemo(() => dungeonRanking(options, show), [options, show]);
+	const anyUpgrade = useMemo(() => show === 'all' ? ranking.length > 0 : dungeonRanking(options).length > 0, [options, show, ranking]);
 	const [open, setOpen] = useState<Set<string>>(new Set());
 	// "total": everything there is to gain. "perRun": what one run is worth on average, from drop chances.
 	const [order, setOrder] = useState<'total' | 'perRun'>('total');
@@ -159,6 +162,21 @@ export function FarmTab({ spec, character, data, filter, onChange }: Props) {
 					from {lootDate} where we have them; the rest are the rates from WoW Classic (AtlasLoot), marked "Classic rate", which Forever may have changed. Items without any number are left out of "per run". Bosses that are not there on every
 					run are marked. Blackrock Spire, Dire Maul and Stratholme are split into their wings. Uses the content you picked on the Plan tab.
 				</p>
+				{anyUpgrade && (
+					<p className="farm-order">
+						Show{' '}
+						<button className="button button-small" aria-pressed={show === 'all'} onClick={() => setShow('all')}>
+							Every upgrade
+						</button>{' '}
+						<button className="button button-small" aria-pressed={show === 'bis'} onClick={() => setShow('bis')} title="Only the item that nothing in the game beats in its slot">
+							Only BiS
+						</button>{' '}
+						<button className="button button-small" aria-pressed={show === 'plan'} onClick={() => setShow('plan')}>
+							Only my plan
+						</button>
+					</p>
+				)}
+				{anyUpgrade && ranking.length === 0 && <p className="farm-empty">{show === 'plan' ? 'Nothing in your plan drops in a dungeon.' : 'No best-in-slot item is left to get in a dungeon.'}</p>}
 				{ranking.length > 0 && (
 					<p className="farm-order">
 						Sort by{' '}
@@ -170,7 +188,7 @@ export function FarmTab({ spec, character, data, filter, onChange }: Props) {
 						</button>
 					</p>
 				)}
-				{ranking.length === 0 && <p className="farm-empty">No dungeon drops would improve your equipped gear with the current filters.</p>}
+				{!anyUpgrade && <p className="farm-empty">No dungeon drops would improve your equipped gear with the current filters.</p>}
 				<ol className="dungeons">
 					{ordered.map((dungeon, index) => (
 						<DungeonCard key={dungeon.key} dungeon={dungeon} open={open.has(dungeon.key) || (index === 0 && open.size === 0)} onToggle={() => toggle(dungeon.key)} />
@@ -286,7 +304,14 @@ function DungeonCard({ dungeon, open, onToggle }: { dungeon: FarmDungeon; open: 
 											<ItemLink item={drop.item} />
 											<span className="slot-source"> {GEAR_SLOTS[drop.slotIndex].label}</span>
 											{boss.sources.get(drop.item.id)?.dropChance !== undefined && <span className="effort"> {effortLine(boss.sources.get(drop.item.id))}</span>}
-											{drop.planned && <span className="badge badge-plan">in your plan</span>}
+											{drop.planned && <span className="badge badge-plan farm-tag-planned">in your plan</span>}
+											{drop.best ? (
+												<span className="badge badge-plan farm-tag-bis" title="Nothing in the game is better for you in that slot">BiS</span>
+											) : (
+												<span className="badge badge-plan farm-tag-alt" title={`Better than what you wear, but not the best there is: the ${ordinal(drop.rank)} best upgrade for that slot with your content`}>
+													alternative, {ordinal(drop.rank)} best
+												</span>
+											)}
 										</span>
 									</li>
 								))}
