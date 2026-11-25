@@ -6826,3 +6826,123 @@ details.content-fold[open] > summary {
 .content-fold-group > .content-plain > .hint {
 	grid-column: 1 / -1;
 }
+
+/* The content rows as a small table: name, how much counts, the switch for all of it, open or shut. */
+.content-fold-group > summary {
+	display: grid;
+	grid-template-columns: minmax(0, 25rem) 7.5rem auto 1fr;
+	gap: 0.4rem 1.25rem;
+	padding: 0.3rem 0;
+}
+.content-meter {
+	display: grid;
+	gap: 0.2rem;
+	font-size: 0.8125rem;
+	color: var(--haze);
+}
+.content-meter-text strong {
+	font-size: 0.9375rem;
+	color: var(--brass);
+}
+.content-meter-none .content-meter-text strong {
+	color: var(--haze);
+}
+.content-meter-bar {
+	height: 3px;
+	border-radius: 2px;
+	background: var(--ridge);
+	overflow: hidden;
+}
+.content-meter-bar > span {
+	display: block;
+	height: 100%;
+	background: var(--brass);
+	transition: width 0.2s ease;
+}
+.content-switch {
+	display: inline-flex;
+	justify-self: start;
+	border: 1px solid var(--ridge);
+	border-radius: 999px;
+	overflow: hidden;
+}
+.content-switch button {
+	padding: 0.25rem 0.8rem;
+	border: 0;
+	background: transparent;
+	font: inherit;
+	font-size: 0.8125rem;
+	color: var(--haze);
+	cursor: pointer;
+}
+.content-switch button + button {
+	border-left: 1px solid var(--ridge);
+}
+.content-switch button:hover {
+	color: var(--brass);
+}
+.content-switch button[aria-pressed='true'] {
+	background: var(--brass);
+	color: #1a1408;
+	font-weight: 700;
+	cursor: default;
+}
+.content-switch button:focus-visible {
+	outline: 2px solid var(--brass);
+	outline-offset: -2px;
+}
+.content-group-toggle {
+	justify-self: end;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+	text-decoration: none;
+}
+.content-group-chevron {
+	width: 0.45rem;
+	height: 0.45rem;
+	border-right: 2px solid currentColor;
+	border-bottom: 2px solid currentColor;
+	transform: rotate(45deg) translateY(-2px);
+	transition: transform 0.15s ease;
+}
+.content-fold-group[open] .content-group-chevron {
+	transform: rotate(-135deg) translateY(-2px);
+}
+@media (max-width: 46rem) {
+	.content-fold-group > summary {
+		grid-template-columns: 1fr auto;
+	}
+	.content-group-title {
+		grid-column: 1 / -1;
+	}
+	.content-group-toggle {
+		grid-column: 1 / -1;
+		justify-self: start;
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.content-meter-bar > span,
+	.content-group-chevron {
+		transition: none;
+	}
+}
+
+.content-meter-text {
+	display: inline-flex;
+	align-items: baseline;
+}
+.content-group-toggle {
+	padding-right: 0.4rem;
+}
+
+/* To do: every row starts with the picture of the item or enchant. */
+.todo-item {
+	grid-template-columns: auto minmax(0, 1fr) 3.5rem auto;
+}
+.todo-item {
+	grid-template-columns: auto minmax(0, 1fr) auto auto;
+}
+.todo-item .num {
+	white-space: nowrap;
+}

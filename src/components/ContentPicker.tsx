@@ -145,34 +145,47 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 			}}>
 				<summary>
 					<span className="content-group-title">{title}</span>
-					{of > 0 && <span className={everything ? 'content-group-count content-group-all' : 'content-group-count'}>{everything ? `all ${of} count` : counted === 0 ? 'none count' : `${counted} of ${of} count`}</span>}
-					{allOn && (
-						<span className="content-group-switches">
+					{of > 0 ? (
+						<span className={`content-meter${everything ? ' content-meter-full' : counted === 0 ? ' content-meter-none' : ''}`} title={everything ? 'All of it counts' : counted === 0 ? 'None of it counts' : `${counted} of ${of} count`}>
+							<span className="content-meter-text">
+								<strong className="num">{counted}</strong>
+								<span className="num">/{of}</span>
+							</span>
+							<span className="content-meter-bar" aria-hidden="true">
+								<span style={{ width: `${(100 * counted) / of}%` }} />
+							</span>
+						</span>
+					) : (
+						<span />
+					)}
+					{allOn && allOff ? (
+						<span className="content-switch" role="group" aria-label={`All of ${key}`}>
 							<button
 								type="button"
-								className="button button-small"
-								disabled={everything}
+								aria-pressed={everything}
 								onClick={event => {
 									event.preventDefault();
-									allOn();
+									if (!everything) allOn();
 								}}>
 								All on
 							</button>
-							{allOff && (
-								<button
-									type="button"
-									className="button button-small"
-									disabled={counted === 0}
-									onClick={event => {
-										event.preventDefault();
-										allOff();
-									}}>
-									All off
-								</button>
-							)}
+							<button
+								type="button"
+								aria-pressed={counted === 0}
+								onClick={event => {
+									event.preventDefault();
+									if (counted > 0) allOff();
+								}}>
+								All off
+							</button>
 						</span>
+					) : (
+						<span />
 					)}
-					<span className="content-group-toggle">{isOpen ? 'Hide' : 'Choose'}</span>
+					<span className="content-group-toggle">
+						{isOpen ? 'Hide' : 'Choose'}
+						<span className="content-group-chevron" aria-hidden="true" />
+					</span>
 				</summary>
 				<div className={body}>{children}</div>
 			</details>

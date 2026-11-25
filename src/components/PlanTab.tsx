@@ -410,6 +410,7 @@ function TodoStep({ step, onGotItem, onGotEnchant }: { step: PlanStep; onGotItem
 			<ul className="plain-list">
 				{step.items.map(entry => (
 					<li key={`${entry.slotIndex}-${entry.enchant?.effectId ?? entry.item?.id}`} className="todo-item">
+						{entry.enchant ? <ItemIcon icon={entry.enchant.icon ?? entry.item?.icon} quality={entry.enchant.quality} small /> : <ItemIcon icon={entry.item?.icon} quality={entry.item?.quality} small />}
 						<span className="todo-main">
 							{entry.enchant ? <span className="todo-enchant">{entry.enchant.name}</span> : entry.item && <ItemLink item={entry.item} />}
 							<span className="slot-source">

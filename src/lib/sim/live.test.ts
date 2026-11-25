@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { GEAR_SLOTS } from '../constants';
 import { loadGameData } from '../gameData';
-import { DEFAULT_FILTER, type Gear, plannedGear, scoreSet, suggestPlan } from '../scoring';
+import { DEFAULT_FILTER, type Gear, plannedGear, scoreSet, slotCandidates, suggestPlan } from '../scoring';
 import { SPECS } from '../specs';
 import type { Character } from '../types';
 import { buildPlan } from '../plan';
@@ -49,6 +49,24 @@ describe('checking the plan with the simulator', () => {
 		expect(result.changes).toBeGreaterThan(0);
 		const after = scoreSet(plannedGear({ ...character, plan: result.plan, planEnchants: result.planEnchants }, data), character, data, strengthOnly).score;
 		expect(after).toBeCloseTo(result.after, 5);
+	});
+
+	it('also tries the best items of a score without hit rating', async () => {
+		const options = { character, data, spec, filter: DEFAULT_FILTER };
+		const planned = { ...character, plan: suggestPlan(options) };
+		const noHit = { ...spec, weights: { ...spec.weights, stats: { ...spec.weights.stats, hitRating: 0 } } };
+		const tried = new Set<number>();
+		const runner: SimRunner = {
+			run: async (_c, gear) => {
+				for (const piece of gear) if (piece) tried.add(piece.id);
+				return outcome(100);
+			},
+		};
+		await refinePlan({ ...options, character: planned }, runner, () => {}, () => false, 1);
+		const gear = plannedGear(planned, data);
+		const neck = 1;
+		const best = slotCandidates(neck, gear, { ...options, character: planned, spec: noHit })[0].item.id;
+		expect(tried.has(best)).toBe(true);
 	});
 
 	it('stops when asked', async () => {

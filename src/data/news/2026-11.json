@@ -96,6 +96,22 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "The simulator check gets a second opinion on hit rating",
+							"text": "Near the hit cap the quick estimate pays more for hit rating than the simulator does, so the really better items could sit too far down the list to be tried. \"Check the plan with the simulator\" now also runs each slot's two best items by a score in which hit counts for nothing.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Pictures in the to-do list",
+							"text": "Every row under \"To do, biggest gain first\" starts with the icon of the item or the enchant.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "One click back to the build's standard talents",
 							"text": "When your talents differ from the ones the build was measured with, Build plan shows a button \"Use the build's standard talents\" next to the hint. Estimate and simulator then fit together again; Sim setup changes them back any time.",
 							"source": "Gear Planner",
@@ -105,7 +121,7 @@
 						},
 						{
 							"title": "Content rows start folded, each with All on and All off",
-							"text": "Every row under \"What content do you do?\" (dungeons, reputations, dungeon set pieces, set bonuses, PvP, everything else) starts folded and shows how much of it counts, with two buttons: All on and All off. Open a row only for the finer choice.",
+							"text": "Every row under \"What content do you do?\" (dungeons, reputations, dungeon set pieces, set bonuses, PvP, everything else) starts folded. It shows how much of it counts as a number with a small bar, like 19/19, and has one switch with two sides: All on and All off. Open a row only for the finer choice.",
 							"source": "Gear Planner",
 							"tags": [
 								"Planner"

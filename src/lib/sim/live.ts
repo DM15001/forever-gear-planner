@@ -100,6 +100,8 @@ export const REFINE_DEPTHS = [
 ];
 /** A change that is not at least level with the set in the rough run is dropped there. */
 const ROUGH_MARGIN = 0;
+/** How many of a slot's best items by a score without hit rating get a run on top of the best by the usual score. */
+export const REFINE_NO_HIT = 2;
 /**
  * A change has to beat the set by this many DPS in the deciding run. Every run uses the same random seed, so two
  * sets differ by far less than one run's own noise, and a gain this small is real.
@@ -249,6 +251,7 @@ export async function refinePlan(
 	};
 	/** The slot as the character wears it, item and enchant. */
 	const wornIn = (set: Gear, slot: number): Gear => withItem(set, slot, character.gear[slot]?.id ?? null, data).map((piece, index) => (index === slot ? (character.gear[slot] ?? null) : piece));
+	const noHit = (spec.weights.stats.hitRating ?? 0) > 0 ? { ...spec, weights: { ...spec.weights, stats: { ...spec.weights.stats, hitRating: 0 } } } : undefined;
 	const nextBest = (set: Gear, slot: number) => slotCandidates(slot, set, options)[0]?.item.id;
 
 	// 1. Items. Twice when the first time changed something: a slot decided early is looked at again against the set
@@ -258,9 +261,13 @@ export async function refinePlan(
 		for (const slot of slots) {
 			if (cancelled()) break;
 			step(sweep === 0 ? GEAR_SLOTS[slot].label : `${GEAR_SLOTS[slot].label}, second look`);
-			const ids = slotCandidates(slot, gear, options)
+			const byScore = slotCandidates(slot, gear, options)
 				.slice(0, depth)
 				.map(candidate => candidate.item.id);
+			// A second opinion: the best items when hit rating counts for nothing. Near the cap the quick score pays
+			// more for hit than the simulator does, and the items that are really better then sit further down its list.
+			const withoutHit = noHit ? slotCandidates(slot, gear, { ...options, spec: noHit }).slice(0, REFINE_NO_HIT).map(candidate => candidate.item.id) : [];
+			const ids = [...new Set([...byScore, ...withoutHit])];
 			for (const id of ids) {
 				if (cancelled()) break;
 				await attempt(withItem(gear, slot, id, data, { character, spec }));
