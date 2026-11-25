@@ -7340,3 +7340,88 @@ a.plan-enchant-name:hover {
 		text-align: left;
 	}
 }
+
+/* Dev trial: Check gear with less empty space. Four columns on a wide screen, smaller cards, shorter notes. */
+:root[data-channel='dev']:not([data-theme='classic']) .page:has(.sheet-panel) {
+	max-width: min(94rem, calc(100vw - 9rem));
+}
+:root[data-channel='dev'] .sheet {
+	gap: 0.7rem;
+}
+:root[data-channel='dev'] .sheet-column,
+:root[data-channel='dev'] .sheet-weapons {
+	grid-auto-rows: auto;
+	gap: 0.4rem;
+}
+:root[data-channel='dev'] .sheet-weapons {
+	gap: 0.7rem;
+	padding-top: 0.7rem;
+}
+:root[data-channel='dev'] .sheet .slot {
+	min-height: 0;
+	grid-template-columns: 2.75rem minmax(0, 1fr);
+	gap: 0.3rem 0.65rem;
+	padding: 0.5rem 0.65rem;
+}
+:root[data-channel='dev'] .sheet .slot-mirrored {
+	grid-template-columns: minmax(0, 1fr) 2.75rem;
+}
+:root[data-channel='dev'] .sheet .slot-button .slot-icon {
+	width: 2.75rem;
+	height: 2.75rem;
+}
+:root[data-channel='dev'] .sheet .slot-stats {
+	-webkit-line-clamp: 1;
+}
+:root[data-channel='dev'] .sheet-center {
+	gap: 0.7rem;
+}
+:root[data-channel='dev'] .sheet-center .card {
+	padding: 0.7rem 0.85rem 0.8rem;
+}
+:root[data-channel='dev'] .sheet-center .card h3 {
+	margin-bottom: 0.35rem;
+}
+:root[data-channel='dev'] .sheet-center .field-label {
+	margin-top: 0.5rem;
+}
+/* Notes: two lines, the rest on hover or focus. */
+:root[data-channel='dev'] .sheet-center .build-note {
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	margin: 0.3rem 0 0;
+	font-size: 0.8125rem;
+}
+:root[data-channel='dev'] .sheet-center .build-note:hover,
+:root[data-channel='dev'] .sheet-center .build-note:focus-within {
+	display: block;
+}
+:root[data-channel='dev'] .sheet-choice {
+	margin-top: 0.5rem;
+}
+:root[data-channel='dev'] .sheet-choice .fight-tiles {
+	gap: 0.3rem;
+}
+:root[data-channel='dev'] .sheet-choice .fight-tile {
+	padding: 0.3rem 0.25rem;
+	min-width: 0;
+	flex: 1 1 4.2rem;
+	max-width: 5.5rem;
+}
+:root[data-channel='dev'] .sheet-center .stat-row {
+	padding-top: 0.1rem;
+	padding-bottom: 0.1rem;
+}
+:root[data-channel='dev'] .sheet-center .stat-group {
+	margin-top: 0.5rem;
+}
+@media (min-width: 86rem) {
+	:root[data-channel='dev'] .sheet {
+		grid-template-columns: minmax(0, 1.25fr) minmax(16rem, 1fr) minmax(13rem, 0.8fr) minmax(0, 1.25fr);
+	}
+	:root[data-channel='dev'] .sheet-center {
+		display: contents;
+	}
+}
