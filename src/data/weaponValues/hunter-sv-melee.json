@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T13:49:42.057Z",
-	"inputs": "efd3a906e7c8af99",
+	"generatedAt": "2026-11-25T16:13:10.268Z",
+	"inputs": "58a4f5d39c7c399d",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -46,8 +46,8 @@
 		},
 		"6660": {
 			"name": "Julie's Dagger",
-			"mainHand": -80.25,
-			"offHand": -10.54
+			"offHand": -10.54,
+			"mainHand": -80.25
 		},
 		"7947": {
 			"name": "Ebon Shiv",
@@ -56,8 +56,8 @@
 		},
 		"8190": {
 			"name": "Hanzo Sword",
-			"mainHand": -56.73,
-			"offHand": -19.07
+			"offHand": -19.07,
+			"mainHand": -56.73
 		},
 		"9379": {
 			"name": "Sang'thraze the Deflector",
@@ -92,8 +92,8 @@
 		},
 		"10797": {
 			"name": "Firebreather",
-			"mainHand": -41.58,
-			"offHand": -47.19
+			"offHand": -47.19,
+			"mainHand": -41.58
 		},
 		"10803": {
 			"name": "Blade of the Wretched",
@@ -187,8 +187,8 @@
 		},
 		"12535": {
 			"name": "Doomforged Straightedge",
-			"mainHand": -49.79,
-			"offHand": -32.94
+			"offHand": -32.94,
+			"mainHand": -49.79
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
@@ -197,8 +197,8 @@
 		},
 		"12590": {
 			"name": "Felstriker",
-			"mainHand": -31.05,
-			"offHand": -12.38
+			"offHand": -12.38,
+			"mainHand": -31.05
 		},
 		"12621": {
 			"name": "Demonfork",
@@ -246,8 +246,8 @@
 		},
 		"12797": {
 			"name": "Frostguard",
-			"mainHand": -17.52,
-			"offHand": -58.57
+			"offHand": -58.57,
+			"mainHand": -17.52
 		},
 		"12798": {
 			"name": "Annihilator",
@@ -419,8 +419,8 @@
 		},
 		"15237": {
 			"name": "Corpse Harvester",
-			"mainHand": -44.94,
-			"offHand": -61.22
+			"offHand": -61.22,
+			"mainHand": -44.94
 		},
 		"15238": {
 			"name": "Warlord's Axe",
@@ -439,8 +439,8 @@
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"offHand": -28.97,
-			"mainHand": -88.07
+			"mainHand": -88.07,
+			"offHand": -28.97
 		},
 		"15246": {
 			"name": "Demon Blade",
@@ -597,8 +597,8 @@
 		},
 		"18310": {
 			"name": "Fiendish Machete",
-			"mainHand": -27.77,
-			"offHand": -45.38
+			"offHand": -45.38,
+			"mainHand": -27.77
 		},
 		"18347": {
 			"name": "Well Balanced Axe",
@@ -628,8 +628,8 @@
 		},
 		"18463": {
 			"name": "Ogre Pocket Knife",
-			"mainHand": -37.85,
-			"offHand": -50.61
+			"offHand": -50.61,
+			"mainHand": -37.85
 		},
 		"18482": {
 			"name": "Ogre Toothpick Shooter",
@@ -646,8 +646,8 @@
 		},
 		"18498": {
 			"name": "Hedgecutter",
-			"offHand": -34.57,
-			"mainHand": -42.02
+			"mainHand": -42.02,
+			"offHand": -34.57
 		},
 		"18680": {
 			"name": "Ancient Bone Bow",
@@ -687,8 +687,8 @@
 		},
 		"19103": {
 			"name": "Frostbite",
-			"offHand": -52.76,
-			"mainHand": -12.92
+			"mainHand": -12.92,
+			"offHand": -52.76
 		},
 		"19107": {
 			"name": "Bloodseeker",
@@ -892,8 +892,8 @@
 		},
 		"272684": {
 			"name": "Premier High Warlord's Quickblade",
-			"mainHand": -16.32,
-			"offHand": -11.46
+			"offHand": -11.46,
+			"mainHand": -16.32
 		},
 		"272693": {
 			"name": "Premier Grand Marshal's Longsword",
@@ -902,8 +902,8 @@
 		},
 		"272839": {
 			"name": "Premier Grand Marshal's Handaxe",
-			"mainHand": 15.43,
-			"offHand": -40.34
+			"offHand": -40.34,
+			"mainHand": 15.43
 		},
 		"272841": {
 			"name": "Premier Grand Marshal's Bullseye",
@@ -915,8 +915,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"mainHand": -29.56,
-			"offHand": -20.25
+			"offHand": -20.25,
+			"mainHand": -29.56
 		},
 		"272844": {
 			"name": "Premier Grand Marshal's Right Hand Blade",
@@ -936,8 +936,8 @@
 		},
 		"272859": {
 			"name": "Premier Grand Marshal's Swiftblade",
-			"offHand": -11.46,
-			"mainHand": -16.32
+			"mainHand": -16.32,
+			"offHand": -11.46
 		},
 		"274265": {
 			"name": "Brush Cutter",
@@ -946,8 +946,8 @@
 		},
 		"274271": {
 			"name": "Deadhead Blade",
-			"offHand": -30.41,
-			"mainHand": -71.86
+			"mainHand": -71.86,
+			"offHand": -30.41
 		},
 		"274383": {
 			"name": "Kanai's Knife",
