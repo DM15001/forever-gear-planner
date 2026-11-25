@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T11:31:11.415Z",
-	"inputs": "564a7ef90f9f86c6",
+	"generatedAt": "2026-11-25T14:17:10.696Z",
+	"inputs": "c001330e505c750b",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -108,13 +108,13 @@
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
-			"offHand": -22.55,
-			"mainHand": -80.9
+			"mainHand": -80.9,
+			"offHand": -22.55
 		},
 		"10797": {
 			"name": "Firebreather",
-			"mainHand": -43.49,
-			"offHand": -18.56
+			"offHand": -18.56,
+			"mainHand": -43.49
 		},
 		"10803": {
 			"name": "Blade of the Wretched",
@@ -219,8 +219,8 @@
 		},
 		"12062": {
 			"name": "Skilled Fighting Blade",
-			"mainHand": -76.28,
-			"offHand": -16.81
+			"offHand": -16.81,
+			"mainHand": -76.28
 		},
 		"12527": {
 			"name": "Ribsplitter",
@@ -256,8 +256,8 @@
 		},
 		"12773": {
 			"name": "Ornate Thorium Handaxe",
-			"offHand": -20.3,
-			"mainHand": -59.09
+			"mainHand": -59.09,
+			"offHand": -20.3
 		},
 		"12774": {
 			"name": "Dawn's Edge",
@@ -304,8 +304,8 @@
 		},
 		"12798": {
 			"name": "Annihilator",
-			"offHand": -15.28,
-			"mainHand": -27.75
+			"mainHand": -27.75,
+			"offHand": -15.28
 		},
 		"12939": {
 			"name": "Dal'Rend's Tribal Guardian",
@@ -344,8 +344,8 @@
 		},
 		"13182": {
 			"name": "Phase Blade",
-			"offHand": -17.5,
-			"mainHand": -44.74
+			"mainHand": -44.74,
+			"offHand": -17.5
 		},
 		"13183": {
 			"name": "Venomspitter",
@@ -500,8 +500,8 @@
 		},
 		"15239": {
 			"name": "Felstone Reaver",
-			"offHand": -20.34,
-			"mainHand": -51.56
+			"mainHand": -51.56,
+			"offHand": -20.34
 		},
 		"15240": {
 			"name": "Demon's Claw",
@@ -525,13 +525,13 @@
 		},
 		"15705": {
 			"name": "Tidecrest Blade",
-			"mainHand": -44.3,
-			"offHand": -23.36
+			"offHand": -23.36,
+			"mainHand": -44.3
 		},
 		"15706": {
 			"name": "Hunt Tracker Blade",
-			"offHand": -17.62,
-			"mainHand": -81.02
+			"mainHand": -81.02,
+			"offHand": -17.62
 		},
 		"15782": {
 			"name": "Beaststalker Blade",
@@ -540,8 +540,8 @@
 		},
 		"15783": {
 			"name": "Beasthunter Dagger",
-			"mainHand": -77.34,
-			"offHand": -16.57
+			"offHand": -16.57,
+			"mainHand": -77.34
 		},
 		"15800": {
 			"name": "Intrepid Shortsword",
@@ -564,8 +564,8 @@
 		},
 		"15853": {
 			"name": "Windreaper",
-			"mainHand": -39.03,
-			"offHand": -20.17
+			"offHand": -20.17,
+			"mainHand": -39.03
 		},
 		"15862": {
 			"name": "Blitzcleaver",
@@ -713,8 +713,8 @@
 		},
 		"19103": {
 			"name": "Frostbite",
-			"offHand": -14.43,
-			"mainHand": -15.3
+			"mainHand": -15.3,
+			"offHand": -14.43
 		},
 		"19104": {
 			"name": "Stormstrike Hammer",
@@ -815,8 +815,8 @@
 		},
 		"24222": {
 			"name": "The Shadowfoot Stabber",
-			"offHand": -14.56,
-			"mainHand": -71.31
+			"mainHand": -71.31,
+			"offHand": -14.56
 		},
 		"227935": {
 			"name": "Hammer of the Fallen Thane",
@@ -834,8 +834,8 @@
 		},
 		"250618": {
 			"name": "Bagh Nakh",
-			"offHand": -13.76,
-			"mainHand": -16.31
+			"mainHand": -16.31,
+			"offHand": -13.76
 		},
 		"260172": {
 			"name": "Assassin's Dagger",
@@ -844,8 +844,8 @@
 		},
 		"260180": {
 			"name": "Scout's Dagger",
-			"offHand": -20.12,
-			"mainHand": -86.07
+			"mainHand": -86.07,
+			"offHand": -20.12
 		},
 		"260209": {
 			"name": "Truesong's Hammer",
@@ -941,8 +941,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"mainHand": -37.79,
-			"offHand": 0.54
+			"offHand": 0.54,
+			"mainHand": -37.79
 		},
 		"272844": {
 			"name": "Premier Grand Marshal's Right Hand Blade",
@@ -1066,8 +1066,8 @@
 		},
 		"280022": {
 			"name": "Scaleguard Scimitar",
-			"mainHand": -31.37,
-			"offHand": -12.96
+			"offHand": -12.96,
+			"mainHand": -31.37
 		},
 		"280029": {
 			"name": "Cinderedge Crescent",
@@ -1114,8 +1114,8 @@
 		},
 		"284157": {
 			"name": "Ranger Lord's Longsword",
-			"mainHand": -36.01,
-			"offHand": -17.43
+			"offHand": -17.43,
+			"mainHand": -36.01
 		},
 		"284230": {
 			"name": "Rage Paw",

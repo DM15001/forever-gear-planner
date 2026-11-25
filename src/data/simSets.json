@@ -7,64 +7,64 @@
 		"url": "https://github.com/wowsims/forever/tree/master/ui/specs",
 		"gear": [
 			{
-				"id": 10250,
-				"enchant": 2544,
-				"randomSuffix": 12734
+				"id": 226773,
+				"enchant": 2544
 			},
 			{
-				"id": 22149,
+				"id": 19426,
 				"enchant": 8218
 			},
 			{
-				"id": 10210,
-				"randomSuffix": 12734
+				"id": 226778
 			},
 			{
-				"id": 272413
+				"id": 272411,
+				"enchant": 2621
 			},
 			{
-				"id": 10143,
-				"enchant": 8492,
-				"randomSuffix": 12734
+				"id": 226776,
+				"enchant": 8492
 			},
 			{
-				"id": 10248,
+				"id": 13409,
 				"enchant": 7665,
-				"randomSuffix": 12734
+				"randomSuffix": 13055
 			},
 			{
-				"id": 10140,
-				"enchant": 7647,
-				"randomSuffix": 12734
+				"id": 226777,
+				"enchant": 7647
 			},
 			{
-				"id": 18405
+				"id": 226772
 			},
 			{
 				"id": 252486,
 				"enchant": 2544
 			},
 			{
-				"id": 254129,
+				"id": 226774,
 				"enchant": 8492
-			},
-			{
-				"id": 272407
 			},
 			{
 				"id": 272406
 			},
 			{
+				"id": 22339
+			},
+			{
 				"id": 272438
 			},
 			{
-				"id": 272439
+				"id": 13968
 			},
 			{
-				"id": 274420,
-				"enchant": 7662
+				"id": 2243,
+				"enchant": 8217
 			},
-			null,
+			{
+				"id": 19315,
+				"enchant": 7659
+			},
 			{
 				"id": 272430
 			}
