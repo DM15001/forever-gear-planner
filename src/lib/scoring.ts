@@ -165,7 +165,7 @@ export function scoreSet(gear: Gear, character: Character, data: GameData, spec:
 			// A proc on the off hand is worth less than on the main hand, where it was measured: the off hand's own
 			// measurement where there is one, else scaled by what a point of weapon damage is worth in each hand.
 			const measured = simValues.enchants.get(piece.enchant) ?? 0;
-			const offHandShare = weights.mainHandDps > 0 ? Math.min(1, (weights.offHandDps ?? 0) / weights.mainHandDps) : 1;
+			const offHandShare = spec.weights.mainHandDps > 0 ? Math.min(1, (spec.weights.offHandDps ?? 0) / spec.weights.mainHandDps) : 1;
 			effectScore += index === OFF_HAND && item?.slot === 'weapon' && item.weapon?.type !== 'shield' ? (simValues.enchantsOffHand?.get(piece.enchant) ?? measured * offHandShare) : measured;
 		}
 	});
