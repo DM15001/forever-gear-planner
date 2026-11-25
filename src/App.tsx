@@ -21,6 +21,7 @@ import { healingChoice, scenarioKey } from './lib/sim/healing';
 import { ImportPanel } from './components/ImportPanel';
 import { BarCap, Emblem } from './components/Ornaments';
 import { PlanTab } from './components/PlanTab';
+import { refineJob, useRefineJob } from './lib/sim/refineJob';
 import { SimSetupTab } from './components/SimSetupTab';
 import { Modal, SimProvider } from './components/Sim';
 import { simClient } from './lib/sim/client';
@@ -677,6 +678,7 @@ export function App() {
 	// Every number on the page is damage per second, or healing per second for a healer.
 	setUnit(baseSpec.role === 'healer' ? 'HPS' : 'DPS');
 	const changeWeights = (weights: SpecConfig['weights'] | null) => {
+		if (refineJob.get().running) return;
 		saveWeights(weightsKey, weights);
 		setWeightsVersion(version => version + 1);
 	};
@@ -723,7 +725,7 @@ export function App() {
 	const [legacyFilter] = useState<SourceFilter>(loadFilter);
 	const filter = useMemo(() => (character?.content ? (normalFilter(character.content) ?? DEFAULT_FILTER) : legacyFilter), [character?.content, legacyFilter]);
 	const setFilter = (next: SourceFilter) => {
-		if (character) changeRoster(replaceActive(roster, { ...character, content: next }));
+		if (character && !refineJob.get().running) changeRoster(replaceActive(roster, { ...character, content: next }));
 	};
 
 	// The item data is narrowed to the spec, so it is loaded again when the spec changes.
@@ -746,7 +748,18 @@ export function App() {
 		};
 	}, [baseSpec]);
 
-	const update = (next: Character) => changeRoster(replaceActive(roster, next));
+	// While the simulator check runs, nothing that feeds it may change: the result would be for a set nobody has.
+	const job = useRefineJob();
+	const locked = job.running;
+	const update = (next: Character) => {
+		if (!refineJob.get().running) changeRoster(replaceActive(roster, next));
+	};
+	// The check runs on whatever tab is open; its plan is written here, into the character as it is now.
+	useEffect(() => {
+		if (!job.result) return;
+		if (character) changeRoster(replaceActive(roster, { ...character, plan: job.result.plan, planEnchants: job.result.planEnchants }));
+		refineJob.taken();
+	}, [job.result]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const onImported = (result: ImportResult) => {
 		// A new character starts from the default content choice, not from another character's ticks.
@@ -869,6 +882,7 @@ export function App() {
 
 				{/* Reading pages are not about one character: no character bar, no gear panes. */}
 				{character && !importing && tab !== 'faq' && tab !== 'news' && (
+					<div inert={locked}>
 					<CharacterBar
 						roster={roster}
 						onSelect={index => {
@@ -881,14 +895,26 @@ export function App() {
 							setWarnings([]);
 						}}
 					/>
+					</div>
+				)}
+				{locked && character && !importing && tab !== 'simulate' && (
+					<p className="job-bar" role="status">
+						<span className="job-bar-text">
+							<strong>Checking the plan with the simulator:</strong> {(job.label ?? '').replace(/[.…]+$/, '')}. Gear, plan and settings are locked until it is done.
+						</span>
+						<progress value={job.done} max={job.total} />
+						<button className="button button-small" onClick={() => refineJob.stop()}>
+							Stop
+						</button>
+					</p>
 				)}
 				{character && !importing && (
 					<SimProvider character={character}>
 						{/* The Character page shows both sets itself, so the side panes stay away there. */}
 						{data && tab !== 'character' && tab !== 'group' && tab !== 'faq' && tab !== 'news' && <GearRails spec={spec} character={character} data={data} showEquipped={options.equippedPanel} showPlanned={options.plannedPanel} onShow={(kind, on) => changeOptions({ ...options, [kind === 'equipped' ? 'equippedPanel' : 'plannedPanel']: on })} filter={filter} onChange={update} />}
-						{tab === 'simulate' && baseSpec.role === 'healer' && <HealingPicker character={character} spec={spec} onChange={update} />}
+						{tab === 'simulate' && baseSpec.role === 'healer' && <div inert={locked}><HealingPicker character={character} spec={spec} onChange={update} /></div>}
 						{tab === 'simulate' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} /> : <p>Loading item data…</p>)}
-						{(tab === 'simulate' || tab === 'upgrades') && data && <UpgradesTab part={tab === 'simulate' ? 'tools' : 'list'} spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} />}
+						{(tab === 'simulate' || tab === 'upgrades') && data && <div inert={locked}><UpgradesTab part={tab === 'simulate' ? 'tools' : 'list'} spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /></div>}
 						{tab === 'upgrades' && !data && <p>Loading item data…</p>}
 						{tab === 'simulate' && data && (
 							<details className="fold enchant-fold">
@@ -907,10 +933,11 @@ export function App() {
 
 						{tab === 'faq' && <FaqTab />}
 						{tab === 'news' && <NewsTab myClass={baseSpec.className} onSeen={newsSeen} />}
-						{tab === 'sim' && <SimSetupTab spec={spec} character={character} data={data} onChange={update} />}
+						{tab === 'sim' && <div inert={locked}><SimSetupTab spec={spec} character={character} data={data} onChange={update} /></div>}
 						{simSetupOpen && (
 							<Modal title="Sim setup" onClose={() => setSimSetupOpen(false)} wide>
-								<SimSetupTab spec={spec} character={character} data={data} onChange={update} />
+								{locked && <p className="notice">The simulator check is running: the setup is locked until it is done.</p>}
+								<div inert={locked}><SimSetupTab spec={spec} character={character} data={data} onChange={update} /></div>
 							</Modal>
 						)}
 						{tab === 'character' && (
@@ -928,7 +955,7 @@ export function App() {
 										</button>
 									</div>
 								)}
-								{characterSheet}
+								<div inert={locked}>{characterSheet}</div>
 							</>
 						)}
 						{NEXT_STEP[tab] && (

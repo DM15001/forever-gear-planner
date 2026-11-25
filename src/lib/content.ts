@@ -62,7 +62,7 @@ export interface Preset {
 /** Ready-made content choices. The catalog is needed to name what a preset switches off. */
 export function presets(_catalog: ContentCatalog): Preset[] {
 	return [
-		{ id: 'standard', label: 'Everything but PvP', hint: 'All content except PvP (no rank rewards, no battleground reputations or quests) and The Watchers reputation.', filter: DEFAULT_FILTER },
+		{ id: 'standard', label: 'Everything but PvP', hint: 'All content except PvP: no rank rewards, no battleground reputations or quests.', filter: DEFAULT_FILTER },
 		{ id: 'all', label: 'Everything', hint: 'Nothing left out.', filter: { ...DEFAULT_FILTER, pvp: true, excludedReputations: [] } },
 		{
 			id: 'dungeons',

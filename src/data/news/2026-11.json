@@ -96,6 +96,22 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "\"Everything but PvP\" includes The Watchers",
+							"text": "The preset used to leave out The Watchers reputation. It counts now; switch it off under Reputations if you do not want it.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "The simulator check keeps running when you switch tabs",
+							"text": "\"Check the plan with the simulator\" no longer stops when you open another tab. A bar on every page shows where it is and has a Stop button. While it runs, everything that would change its input is locked: worn gear, the plan, content, talents and Sim setup, and switching characters.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Bug report copies instead of saving a file",
 							"text": "\"Bug report\" and \"Report a problem\" put the report on the clipboard, ready to paste. A file is only saved when the browser does not allow copying.",
 							"source": "Gear Planner",
@@ -129,7 +145,7 @@
 						},
 						{
 							"title": "Less text around the simulation",
-							"text": "Build plan lost several lines of explanation. Damage breakdown and Sim setup sit side by side, the estimate note has a warning sign, and what \"Check the plan with the simulator\" does shows when you hover \"Powered by WoWSims\".",
+							"text": "Build plan lost several lines of explanation. Damage breakdown and Sim setup sit side by side, the estimate note has a warning sign, and what \"Check the plan with the simulator\" does shows when you hover \"Powered by WoWSims\". The spell-book note is a small book sign with a number next to Sim setup; hover it to read it.",
 							"source": "Gear Planner",
 							"tags": [
 								"Planner"

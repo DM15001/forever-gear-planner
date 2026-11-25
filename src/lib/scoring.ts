@@ -363,7 +363,7 @@ export const DEFAULT_FILTER: SourceFilter = {
 	ownCraftsOnly: false,
 	excludedDungeons: [],
 	// Off unless asked for: the grind is long and few play it.
-	excludedReputations: ['The Watchers'],
+	excludedReputations: [],
 };
 
 export type SourceKindKey = Exclude<keyof SourceFilter, 'tierSlots' | 'tier05' | 'ignoredSets' | 'tierMinimum' | 'randomSuffix' | 'notYetAvailable' | 'unknownProcs' | 'hiddenItems' | 'ownCraftsOnly' | 'excludedDungeons' | 'excludedReputations'>;

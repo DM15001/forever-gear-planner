@@ -9,8 +9,8 @@ import type { GameData } from '../lib/gameData';
 import { guideMarks, markLabel } from '../lib/guides';
 import { buildPlan, fallbacks, gotEnchant, gotItem, type PlanStep, planSteps } from '../lib/plan';
 import { EMPTY_SLOT, EVERYTHING, isUnmeasured, plannedGear, scoreSet, slotInUse, type SourceFilter, usableSources, withItem, isObtainable } from '../lib/scoring';
-import { simClient } from '../lib/sim/client';
-import { REFINE_DEPTH, REFINE_DEPTHS, refinePlan } from '../lib/sim/live';
+import { REFINE_DEPTH, REFINE_DEPTHS } from '../lib/sim/live';
+import { planKeyOf, refineJob, useRefineJob } from '../lib/sim/refineJob';
 import { sourceLine, statLine, wowheadItemUrl, wowheadData, wowheadEnchantUrl, wowheadSourceLink } from '../lib/stats';
 import type { Character, Enchant, Item, SpecConfig } from '../lib/types';
 import { ContentPicker, useContentOpen } from './ContentPicker';
@@ -59,13 +59,13 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 
 	const gear = useMemo(() => plannedGear(character, data), [character, data]);
 	// Checking the plan with the simulator, slot by slot.
-	const [refining, setRefining] = useState<string | null>(null);
-	const [refineSteps, setRefineSteps] = useState({ done: 0, total: 1 });
-	const [refineNote, setRefineNote] = useState<string | null>(null);
-	const stopRefine = useRef(false);
-	// Which plan the simulator check last went through: until then the page says the plan is only an estimate.
-	const [checkedPlan, setCheckedPlan] = useState<string | null>(null);
-	const planKey = JSON.stringify([character.gear.map(piece => piece?.id ?? 0), character.plan ?? {}, character.planEnchants ?? {}]);
+	// It runs as a job of its own: it goes on while another tab is open, and the app takes its result.
+	const job = useRefineJob();
+	const refining = job.running ? (job.label ?? '') : null;
+	const refineSteps = { done: job.done, total: job.total };
+	const refineNote = job.note;
+	const checkedPlan = job.checkedKey;
+	const planKey = planKeyOf(character);
 	// How deep the check looks into each slot's list: the visitor's choice, kept in this browser.
 	const [depth, setDepthState] = useState(() => {
 		try {
@@ -83,43 +83,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 			/* private mode: kept for this visit */
 		}
 	};
-	const refine = async () => {
-		stopRefine.current = false;
-		setRefineNote(null);
-		setRefining('Starting the simulator…');
-		try {
-			const result = await refinePlan(
-				{ character, data, spec, filter },
-				simClient,
-				p => {
-					setRefineSteps({ done: p.done, total: p.total });
-					setRefining(`${p.slot}, step ${p.done + 1} of ${p.total} (${p.dps.toFixed(0)} ${unit()} so far)`);
-				},
-				() => stopRefine.current,
-				depth,
-			);
-			onChange({ ...character, plan: result.plan, planEnchants: result.planEnchants });
-			// The plan as the check left it counts as checked; any later change asks for it again.
-			setCheckedPlan(JSON.stringify([character.gear.map(piece => piece?.id ?? 0), result.plan, result.planEnchants]));
-			const kept = Object.keys(result.plan).length + Object.keys(result.planEnchants).length === 0;
-			const second = result.runnerUp
-				? result.runnerUp.equal
-					? ` Next best: ${result.runnerUp.label} at ${result.runnerUp.dps.toFixed(0)} ${unit()}. The two are equal within the margin: take whichever is easier to get.`
-					: ` Next best: ${result.runnerUp.label} at ${result.runnerUp.dps.toFixed(0)} ${unit()}.`
-				: '';
-			setRefineNote(
-				(kept && result.changes > 0
-					? `The simulator found nothing better than what you wear (${result.after.toFixed(0)} ${unit()}; the plan came to ${result.before.toFixed(0)}). The plan is empty now.`
-					: result.changes === 0
-						? `The simulator agrees with the plan (${result.after.toFixed(0)} ${unit()}): no other start, item, enchant or pair it tried does better.`
-						: `The simulator changed the plan in ${result.changes} ${result.changes === 1 ? 'place' : 'places'}: ${result.before.toFixed(0)} to ${result.after.toFixed(0)} ${unit()}${result.startedFrom === 'the plan' ? '' : `, starting from ${result.startedFrom}`}.`) + second,
-			);
-		} catch (err) {
-			setRefineNote(`The check failed: ${err instanceof Error ? err.message : 'the simulator did not answer'}`);
-		} finally {
-			setRefining(null);
-		}
-	};
+	const refine = () => void refineJob.start({ character, data, spec, filter }, depth);
 	// The slot whose planned item is being swapped by hand, if any.
 	const [picking, setPicking] = useState<number | null>(null);
 	const pickItem = (index: number, itemId: number | null) => {
@@ -197,7 +161,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 		<div className="plan">
 			{/* First what counts, then the plan and its simulation. */}
 			{(
-				<details className="content-fold fold" open={contentOpen} onToggle={event => setContentOpen(event.currentTarget.open)}>
+				<details className="content-fold fold" inert={refining !== null} open={contentOpen} onToggle={event => setContentOpen(event.currentTarget.open)}>
 					<summary>
 						What content do you do?<span className="slot-source">Dungeons, reputations, PvP, crafting and more. The plan is rebuilt on every change.</span>
 						<span className="content-fold-toggle">{contentOpen ? 'Hide' : 'Show'}</span>
@@ -286,7 +250,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 							</label>
 						)}
 						{refining && (
-							<button className="button" onClick={() => (stopRefine.current = true)}>
+							<button className="button" onClick={() => refineJob.stop()}>
 								Stop
 							</button>
 						)}
@@ -338,7 +302,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				{(
 					<>
 				<MeasuredNote specId={spec.id} />
-				<ul className="plain-list plan-slots">
+				<ul className="plain-list plan-slots" inert={refining !== null}>
 					{slots.map(({ slot, index, equippedItem, goalItem, goalEnchant, isChange, overWorn, others }) => (
 						<li key={slot.key} className={`plan-slot${isChange ? '' : ' plan-slot-done'}`}>
 							<button className="slot-button" onClick={() => setPicking(index)} title={`Change the planned ${slot.label.toLowerCase()} item`} aria-label={`Change the planned ${slot.label.toLowerCase()} item`}>
@@ -437,7 +401,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				{steps.length === 0 ? (
 					<p className="farm-empty">Nothing left to do with the content you picked. Switch more content on above to see what else there is.</p>
 				) : (
-					<ol className="plain-list todo">
+					<ol className="plain-list todo" inert={refining !== null}>
 						{steps.map(step => (
 							<TodoStep key={step.key} step={step} onGotItem={slotIndex => onChange(gotItem(character, slotIndex))} onGotEnchant={slotIndex => onChange(gotEnchant(character, slotIndex))} />
 						))}

@@ -7164,3 +7164,104 @@ a.plan-enchant-name:hover {
 		0 0 0 1px var(--brass),
 		0 0 18px -4px var(--brass);
 }
+
+/* The measurement note: an info sign, then the box. */
+.measured-note {
+	display: flex;
+	align-items: center;
+	gap: 0.8rem;
+	padding: 0;
+	border-left: 0;
+	background: none;
+}
+.measured-note > span {
+	flex: 1;
+	padding: 0.6rem 0.85rem;
+	border-left: 3px solid var(--brass-deep);
+	background: rgb(0 0 0 / 0.25);
+}
+.measured-stale > span {
+	border-left-color: #e0a030;
+}
+.measured-sign {
+	flex: none;
+	width: 2.2rem;
+	height: 2.2rem;
+	color: var(--brass);
+}
+:root[data-theme='classic'] main .measured-note {
+	background: none;
+	border: 0;
+}
+:root[data-theme='classic'] main .measured-sign {
+	color: #8a5a24;
+}
+
+/* While the simulator check runs: a bar on every page, and what would change its input is locked. */
+.job-bar {
+	position: sticky;
+	top: 0;
+	z-index: 40;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem 1rem;
+	margin: 0 0 0.9rem;
+	padding: 0.55rem 0.9rem;
+	color: var(--mist);
+	background: var(--slate-raised, #1c1712);
+	border: 1px solid var(--brass);
+	border-radius: 6px;
+}
+.job-bar-text {
+	flex: 1;
+	min-width: 14rem;
+}
+.job-bar progress {
+	width: 10rem;
+}
+[inert] {
+	opacity: 0.55;
+}
+:root[data-theme='classic'] main .job-bar {
+	background: #f9e7a6;
+	border-color: #8a5a24;
+}
+
+:root[data-theme='classic'] main p.measured-note {
+	background: none;
+	border: 0;
+	padding: 0;
+}
+:root[data-theme='classic'] main .measured-note > span {
+	background: #f6e7a8;
+	border: 1px solid #9b8248;
+	border-left: 3px solid #8a5a24;
+}
+
+/* Spell books the simulation does not count: a small sign with a number, the words on hover. */
+.book-note {
+	color: var(--brass);
+}
+.book-sign {
+	width: 1.7rem;
+	height: 1.7rem;
+}
+.book-count {
+	position: absolute;
+	top: -0.35rem;
+	right: -0.5rem;
+	min-width: 1.05rem;
+	padding: 0 0.2rem;
+	font-size: 0.7rem;
+	font-weight: 700;
+	line-height: 1.05rem;
+	text-align: center;
+	color: #1a1408;
+	background: var(--ember, #ffb347);
+	border-radius: 999px;
+}
+.book-note .powered-pop {
+	font-size: 0.875rem;
+	font-weight: 400;
+}

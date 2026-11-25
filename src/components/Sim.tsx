@@ -698,13 +698,22 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 				<button className="button" title="Buffs, consumables, talents and rotation the simulation uses." onClick={() => window.dispatchEvent(new Event('fgp-sim-setup'))}>
 					Sim setup
 				</button>
+				{missing.length > 0 && (
+					<span className="powered-by book-note" tabIndex={0} aria-label={`${missing.length} spell ${missing.length === 1 ? 'book' : 'books'} not counted`}>
+						<svg className="book-sign" viewBox="0 0 24 24" aria-hidden="true">
+							<path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.500-.5 6.500 0 8.500 1.500 2-1.500 5-2 8.500-1.500V5C17 4.500 14 5 12 6.500Zm0 0v13" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+						</svg>
+						<span className="book-count num">{missing.length}</span>
+						<span className="powered-pop" role="tooltip">
+							<strong>Spell books</strong>
+							<br />
+							Like wowsims.com, the simulation casts {missing.map(choice => `${choice.book.spell} rank ${choice.book.rank - 1}`).join(', ')}: the highest a trainer teaches. A book teaches one rank more:{' '}
+							{missing.map(choice => choice.book.item).join(', ')}. Learned {missing.length === 1 ? 'it' : 'one'}? Tick it in Sim setup and the simulation casts that rank.
+						</span>
+					</span>
+				)}
 			</p>
-			{missing.length > 0 && (
-				<p className="hint book-hint">
-					<strong>Spell books:</strong> like wowsims.com, the simulation casts {missing.map(choice => `${choice.book.spell} rank ${choice.book.rank - 1}`).join(', ')}, the highest a trainer teaches. A book
-					teaches one rank more: {missing.map(choice => choice.book.item).join(', ')}. Learned {missing.length === 1 ? 'it' : 'one'}? Tick it in Sim setup and the simulation casts that rank.
-				</p>
-			)}
+
 			{breakdownOpen && <BreakdownDialog equipped={equipped} planned={planned} hasPlan={hasPlan} onClose={() => setBreakdownOpen(false)} />}
 			<p className="hint">
 				{unit() === 'HPS'
