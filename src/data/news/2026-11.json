@@ -9,6 +9,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Weapons count with the enchant that fits them",
+							"text": "A weapon in the upgrade lists used to keep the enchant of the weapon it replaces, so a staff was counted with a one-hand enchant. Now every weapon that goes into an enchanted slot counts with the best enchant that can sit on it, in the lists, the plan and \"Sim this\". For casters this moves two-handers up a lot. Planning such a weapon plans the enchant with it.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "News without a character",
 							"text": "The News page opens before you have imported a character, like the FAQ.",
 							"source": "Gear Planner",

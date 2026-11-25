@@ -527,9 +527,9 @@ export function carriedEnchant(enchant: number | undefined, slotIndex: number, i
  * `gear` with one slot changed (null empties it). The slot's enchant stays if it fits the new item. A two-hander pushes
  * the off hand out, and an off-hand item pushes a two-hander out.
  */
-export function withItem(gear: Gear, slotIndex: number, itemId: number | null, data: GameData): Gear {
+export function withItem(gear: Gear, slotIndex: number, itemId: number | null, data: GameData, forWhom?: { character: Character; spec: SpecConfig }): Gear {
 	const isTwoHand = (id: number | undefined) => (id !== undefined ? data.itemById.get(id)?.weapon?.hand === 'twoHand' : false);
-	return gear.map((piece, index) => {
+	const next = gear.map((piece, index) => {
 		if (index === slotIndex) {
 			if (itemId === null) return null;
 			const randomSuffix = data.itemById.get(itemId)?.bestSuffix;
@@ -540,6 +540,31 @@ export function withItem(gear: Gear, slotIndex: number, itemId: number | null, d
 		if (itemId !== null && slotIndex === OFF_HAND && index === MAIN_HAND && isTwoHand(piece?.id)) return null;
 		return piece;
 	});
+	// A weapon that goes into an enchanted slot counts with the best enchant that can sit on it, not with the one the
+	// old weapon had: a two-hander takes far stronger enchants than a one-hander, and a shield takes others altogether.
+	const worn = gear[slotIndex];
+	const placed = next[slotIndex];
+	if (forWhom && placed && (slotIndex === MAIN_HAND || slotIndex === OFF_HAND) && worn?.enchant && worn.id !== itemId) {
+		const best = bestEnchantFor(next, slotIndex, data, forWhom.character, forWhom.spec);
+		if (best) next[slotIndex] = { ...placed, enchant: best };
+	}
+	return next;
+}
+
+/** The enchant that adds most to the set's score on the item in this slot, among those with stats or a measured effect. */
+export function bestEnchantFor(gear: Gear, slotIndex: number, data: GameData, character: Character, spec: SpecConfig): number | undefined {
+	const piece = gear[slotIndex];
+	if (!piece) return undefined;
+	const bare = gear.map((p, index) => (index === slotIndex ? { id: piece.id, ...(piece.randomSuffix ? { randomSuffix: piece.randomSuffix } : {}) } : p));
+	// The enchant already on it stays unless another is really better.
+	let best: number | undefined = piece.enchant;
+	let most = scoreSet(gear, character, data, spec).score + 0.01;
+	for (const enchant of applicableEnchants(slotIndex, data.itemById.get(piece.id), data)) {
+		if (!Object.keys(enchant.stats ?? {}).length && !data.simValues.enchants.has(enchant.effectId)) continue;
+		const score = scoreSet(bare.map((p, index) => (index === slotIndex && p ? { ...p, enchant: enchant.effectId } : p)), character, data, spec).score;
+		if (score > most) [most, best] = [score, enchant.effectId];
+	}
+	return best;
 }
 
 /** True when part of the item's worth is unknown: an unmeasured effect or set, or a random suffix. */
@@ -602,7 +627,7 @@ export function slotCandidates(slotIndex: number, gear: Gear, { character, data,
 		if (!fitsSlot(item, slotIndex, spec) || item.id === current?.id) continue;
 		if (clash(item, paired)) continue;
 		if (!isObtainable(item, character, faction, filter, spec)) continue;
-		const swapped = withItem(gear, slotIndex, item.id, data);
+		const swapped = withItem(gear, slotIndex, item.id, data, { character, spec });
 		result.push({
 			item,
 			delta: scoreSet(swapped, character, data, spec).score - base,
@@ -642,7 +667,7 @@ export function planWithCost(options: CandidateOptions): PlanResult {
 	const { character, data, spec, filter } = options;
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
 	const slots = GEAR_SLOTS.map((_, slot) => slot).filter(slot => slotInUse(slot, spec));
-	const put = (set: Gear, slot: number, id: number): Gear => withItem(set, slot, id, data);
+	const put = (set: Gear, slot: number, id: number): Gear => withItem(set, slot, id, data, { character, spec });
 	const scoreOf = (set: Gear) => scoreSet(set, character, data, spec).score;
 
 	/** Improves a set until no single swap helps, and with `pairs` until no swap of two slots helps either. */

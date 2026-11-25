@@ -149,7 +149,7 @@ export function guidePlan(guide: Guide, character: Character, data: GameData, sp
 
 /** Change in set score when `itemId` replaces what `gear` has in the slot. */
 export function swapDelta(slotIndex: number, itemId: number, gear: Gear, character: Character, data: GameData, spec: SpecConfig): number {
-	// The same swap the lists make: the slot's enchant stays, a random-suffix item counts with its best suffix.
-	const swapped = withItem(gear, slotIndex, itemId, data);
+	// The same swap the lists make: the slot's enchant stays where it fits, a random-suffix item counts with its best suffix.
+	const swapped = withItem(gear, slotIndex, itemId, data, { character, spec });
 	return scoreSet(swapped, character, data, spec).score - scoreSet(gear, character, data, spec).score;
 }
