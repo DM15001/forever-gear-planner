@@ -69,14 +69,14 @@ interface BookRank {
 }
 const BOOKS = bookRankData as unknown as { books: Record<string, BookRank>; bySpec: Record<string, { book: number; casts: 'book' | 'below' }[]> };
 
-/** The books whose spell this build's rotation casts, each with what the build ships and whether the character counts as having it. */
+/** The books whose spell this build's rotation casts, each with what the build ships and what the character says. */
 export function bookChoices(character: Character): { id: number; book: BookRank; shipped: boolean; learned: boolean }[] {
 	return (BOOKS.bySpec[specOf(character).id] ?? []).flatMap(entry => {
 		const book = BOOKS.books[entry.book];
 		if (!book?.below) return [];
 		const shipped = entry.casts === 'book';
-		// Taken as learned unless the character says otherwise: the plan is for the best the character can have.
-		return [{ id: entry.book, book, shipped, learned: character.bookRanks?.[entry.book] ?? true }];
+		// As WoWSims ships the build unless the character says otherwise: the numbers are compared with wowsims.com.
+		return [{ id: entry.book, book, shipped, learned: character.bookRanks?.[entry.book] ?? shipped }];
 	});
 }
 

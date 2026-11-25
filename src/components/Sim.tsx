@@ -608,10 +608,8 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 	const runningNow = sim.isRunning(equipped, SET_ITERATIONS) || sim.isRunning(planned, SET_ITERATIONS);
 	const complete = Boolean(a && (!hasPlan || b));
 	const [breakdownOpen, setBreakdownOpen] = useState(false);
-	// The plan is for the best the character can have: spell ranks from books count as learned, and the page says which.
-	const allBooks = sim.character.simSettings ? [] : bookChoices(sim.character);
-	const bookRanks = allBooks.filter(choice => choice.learned);
-	const missing = allBooks.filter(choice => !choice.learned);
+	// Book ranks the simulation does not cast: WoWSims ships the trained rank, and the numbers here are compared with it.
+	const missing = sim.character.simSettings ? [] : bookChoices(sim.character).filter(choice => !choice.learned);
 	const show = (outcome: typeof a) => (outcome ? `${outcome.dps.toFixed(0)} ${unit()}` : '—');
 
 	// With `auto`, a short pause after the last change starts the missing runs by itself.
@@ -699,11 +697,10 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 					<span className="slot-source">Buffs, consumables, talents and rotation the simulation uses.</span>
 				</p>
 			)}
-			{allBooks.length > 0 && (
+			{missing.length > 0 && (
 				<p className="hint book-hint">
-					<strong>Spell books:</strong> the simulation casts the highest rank of {bookRanks.map(choice => `${choice.book.spell} (rank ${choice.book.rank}, from ${choice.book.item})`).join(', ')}. A trainer does not
-					teach {bookRanks.length === 1 ? 'that rank' : 'those ranks'}: get the {bookRanks.length === 1 ? 'book' : 'books'} to reach these numbers.
-					{missing.length > 0 && ` Left out because you unticked ${missing.length === 1 ? 'it' : 'them'} in Sim setup: ${missing.map(choice => choice.book.item).join(', ')}.`}
+					<strong>Spell books:</strong> like wowsims.com, the simulation casts {missing.map(choice => `${choice.book.spell} rank ${choice.book.rank - 1}`).join(', ')}, the highest a trainer teaches. A book
+					teaches one rank more: {missing.map(choice => choice.book.item).join(', ')}. Learned {missing.length === 1 ? 'it' : 'one'}? Tick it in Sim setup and the simulation casts that rank.
 				</p>
 			)}
 			{breakdownOpen && <BreakdownDialog equipped={equipped} planned={planned} hasPlan={hasPlan} onClose={() => setBreakdownOpen(false)} />}

@@ -572,8 +572,8 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 				<section className="panel">
 					<h2>Spell ranks from books</h2>
 					<p>
-						The highest rank of some spells is not taught by a trainer but by a book that drops. The simulation casts those ranks, because the plan is for the best your character can have. Untick a book
-						you do not have yet to see your numbers without it: the simulation then casts the highest rank a trainer teaches.
+						The highest rank of some spells is not taught by a trainer but by a book that drops. The simulation starts as wowsims.com does, which for most builds means the highest trained rank. Tick the
+						books you have learned and it casts their rank instead.
 					</p>
 					{imported && <p className="hint">This character uses the rotation of its WoWSims import, ranks included, so these ticks change nothing for it.</p>}
 					<div className="book-ranks">
