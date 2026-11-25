@@ -102,7 +102,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 			},
 			{
 				q: 'How current is it?',
-				a: <p>The site looks for a new WoWSims version every half hour and takes it over together with WoWSims' own presets. The long measurements for the lists start after every new version and take a few hours; if another version arrives meanwhile, it is measured that night. The note above each list says from when they are.</p>,
+				a: <p>The site looks for a new WoWSims version every half hour and takes it over together with WoWSims' own presets. The measurements for the lists follow: after an update only the builds it touches are measured again (a change to one class takes minutes, a change to the shared rules a few hours), and once a night everything is. The note above each list says from when its numbers are.</p>,
 			},
 			{
 				q: 'How are healers handled?',

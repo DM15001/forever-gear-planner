@@ -26,13 +26,15 @@ permissions:
 
 concurrency:
   group: measure
-  cancel-in-progress: true
+  # A run that is going is never cut off: the next one waits its turn.
+  cancel-in-progress: false
 
 jobs:
   list:
     runs-on: ubuntu-latest
     outputs:
       specs: ${{ steps.specs.outputs.specs }}
+      seq: ${{ steps.specs.outputs.seq }}
     steps:
       - uses: actions/checkout@v4
       - id: specs
@@ -45,6 +47,8 @@ jobs:
             specs=$(for f in src/specs/*.json; do jq -r '.id' "$f"; done | jq -R . | jq -sc .)
           fi
           echo "specs=$specs" >> "$GITHUB_OUTPUT"
+          # Where the queue stood when this run began: builds queued later stay queued (scripts/measure-queue.mjs).
+          echo "seq=$(node scripts/measure-queue.mjs seq)" >> "$GITHUB_OUTPUT"
 
   measure:
     needs: list
@@ -69,7 +73,7 @@ jobs:
           if-no-files-found: ignore
 
   commit:
-    needs: measure
+    needs: [list, measure]
     if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     steps:
@@ -112,6 +116,25 @@ jobs:
             sleep 10
           done
           exit 1
+      - name: Take the measured builds off the queue and start what came in meanwhile
+        id: queue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ONLY: ${{ inputs.specs }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3; do
+            git fetch -q origin main && git reset -q --hard origin/main
+            node scripts/measure-queue.mjs done effects --seq "${{ needs.list.outputs.seq }}" ${ONLY:+--specs "$ONLY"}
+            node scripts/measurement-status.mjs || true
+            git add src/data/measureQueue.json src/data/measurementStatus.json
+            if git diff --cached --quiet; then break; fi
+            git commit -q -m "Measured builds off the queue (effects)" -m "Written by .github/workflows/measure.yml with scripts/measure-queue.mjs."
+            git push -q origin HEAD:main && echo "pushed=true" >> "$GITHUB_OUTPUT" && break
+            sleep 10
+          done
+          node scripts/measure-queue.mjs start --self effects
       - name: Report items that rank suspiciously high
         if: steps.commit.outputs.pushed == 'true'
         env:
@@ -140,7 +163,7 @@ jobs:
           fi
       # A push made by a workflow does not start other workflows, so the site is deployed by hand here.
       - name: Deploy the site
-        if: steps.commit.outputs.pushed == 'true'
+        if: steps.commit.outputs.pushed == 'true' || steps.queue.outputs.pushed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run pages.yml --ref main

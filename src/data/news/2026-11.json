@@ -169,8 +169,8 @@
 							]
 						},
 						{
-							"title": "Measurements after every simulator update",
-							"text": "The long measurements behind the lists no longer wait for the night: they start as soon as a new WoWSims version arrives. If another version comes while they run, it is measured that night.",
+							"title": "Lists follow the simulator much faster",
+							"text": "The measurements behind the lists no longer wait for the night and no longer redo everything. After a WoWSims update only the builds it touches are measured again: nothing for interface changes, one class for a class change, everything for a change to the shared rules. What arrives during a run is measured right after it. Once a night everything is measured anyway.",
 							"source": "Gear Planner",
 							"tags": [
 								"Planner"

@@ -133,6 +133,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # The builds whose preset changed need new numbers.
+          changed=$(git status --porcelain -- public/sim src/specs | sed -n 's#.*public/sim/template\.\(.*\)\.json$#\1#p; s#.*src/specs/\(.*\)\.json$#\1#p' | sort -u | tr '\n' ' ')
+          if [ -n "$changed" ]; then node scripts/measure-queue.mjs add --specs "$changed"; fi
           node scripts/measurement-status.mjs || echo "::warning::measurement status not written"
           git add scripts/builds public/sim src/data src/specs
           if git diff --cached --quiet; then echo "Nothing changed."; exit 0; fi
@@ -148,15 +151,8 @@ jobs:
       - name: Start the measurements
         if: inputs.measure == 'true' && inputs.specs == '' && (steps.apply.outputs.changed != 'true' || steps.test.outcome == 'success')
         run: |
-          busy=0
-          for workflow in measure.yml weights.yml weapons.yml; do
-            for status in in_progress queued; do
-              count=$(gh api "repos/${{ github.repository }}/actions/workflows/$workflow/runs?status=$status&per_page=1" --jq .total_count)
-              busy=$((busy + count))
-            done
-          done
-          if [ "$busy" != "0" ]; then echo "A measurement is still running; the nightly check picks this version up."; exit 0; fi
-          for workflow in measure.yml weights.yml weapons.yml; do gh workflow run "$workflow" --ref main; done
+          git fetch -q origin main && git checkout -q origin/main -- src/data/measureQueue.json 2>/dev/null || true
+          node scripts/measure-queue.mjs start
       - name: Put the WoWSims checkout back for the clean-up steps
         if: always()
         run: if [ -d "$RUNNER_TEMP/wowsims" ] && [ ! -d wowsims ]; then mv "$RUNNER_TEMP/wowsims" wowsims; fi

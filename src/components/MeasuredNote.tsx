@@ -43,8 +43,8 @@ export function MeasuredNote({ specId }: { specId: string }) {
 	}
 	return (
 		<p className="measured-note measured-stale" role="note">
-			<strong>List numbers are estimates and behind the simulator.</strong> {stale.map(part => `${part.label} (${shortDate(part.at)})`).join(', ')} {stale.length === 1 ? 'was' : 'were'} measured before the last simulator or preset update; the next
-			nightly run renews {stale.length === 1 ? 'it' : 'them'}. "Simulate" and "Sim this" always run today's simulator ({engine}): use them, or "Check the top with the simulator" on a slot, before you decide.
+			<strong>List numbers are estimates and behind the simulator.</strong> {stale.map(part => `${part.label} (${shortDate(part.at)})`).join(', ')} {stale.length === 1 ? 'was' : 'were'} measured before a simulator or preset update that touches this build. The
+			new measurement starts by itself and takes from a few minutes to a few hours. "Simulate" and "Sim this" always run today's simulator ({engine}): use them, or "Check the top with the simulator" on a slot, before you decide.
 		</p>
 	);
 }
