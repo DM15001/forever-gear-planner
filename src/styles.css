@@ -7341,85 +7341,301 @@ a.plan-enchant-name:hover {
 	}
 }
 
-/* Dev trial: Check gear with less empty space. Four columns on a wide screen, smaller cards, shorter notes. */
+/* Dev trial: Check gear on one screen. Slots as single rows left and right, details and stats between them. */
 :root[data-channel='dev']:not([data-theme='classic']) .page:has(.sheet-panel) {
 	max-width: min(94rem, calc(100vw - 9rem));
 }
-:root[data-channel='dev'] .sheet {
-	gap: 0.7rem;
+:root[data-channel='dev'] .page:has(.sheet-panel) .character-bar {
+	margin-bottom: 0.6rem;
 }
-:root[data-channel='dev'] .sheet-column,
-:root[data-channel='dev'] .sheet-weapons {
-	grid-auto-rows: auto;
-	gap: 0.4rem;
+:root[data-channel='dev'] .page:has(.sheet-panel) .next-step {
+	display: none;
 }
-:root[data-channel='dev'] .sheet-weapons {
-	gap: 0.7rem;
+:root[data-channel='dev'] .sheet-panel {
 	padding-top: 0.7rem;
+	padding-bottom: 0.7rem;
+	container: sheet / inline-size;
 }
-:root[data-channel='dev'] .sheet .slot {
-	min-height: 0;
-	grid-template-columns: 2.75rem minmax(0, 1fr);
-	gap: 0.3rem 0.65rem;
-	padding: 0.5rem 0.65rem;
+:root[data-channel='dev'] .sheet-head {
+	padding-bottom: 0.55rem;
 }
-:root[data-channel='dev'] .sheet .slot-mirrored {
-	grid-template-columns: minmax(0, 1fr) 2.75rem;
+:root[data-channel='dev'] .sheet {
+	gap: 0.6rem;
+	margin-top: 0.6rem;
+}
+:root[data-channel='dev'] .sheet-column, :root[data-channel='dev'] .sheet-weapons {
+	grid-auto-rows: auto;
+	gap: 0.3rem;
+	align-content: start;
+}
+:root[data-channel='dev'] .sheet-weapons {
+	gap: 0.6rem;
+	padding-top: 0.5rem;
+}
+
+/* A slot is one row: icon, name over stats, the enchant on the right. The icon is the click to change it. */
+:root[data-channel='dev'] .sheet .slot, :root[data-channel='dev'] .sheet .slot-mirrored {
+	min-height: 2.9rem;
+	grid-template-columns: 2.5rem minmax(0, 1fr) minmax(0, auto);
+	grid-template-rows: auto;
+	align-items: center;
+	gap: 0 0.6rem;
+	padding: 0.2rem 0.5rem;
+}
+:root[data-channel='dev'] .sheet .slot-mirrored .slot-button {
+	grid-column: 1;
+}
+:root[data-channel='dev'] .sheet .slot-mirrored .slot-body {
+	grid-column: 2;
 }
 :root[data-channel='dev'] .sheet .slot-button .slot-icon {
-	width: 2.75rem;
-	height: 2.75rem;
+	width: 2.5rem;
+	height: 2.5rem;
+}
+:root[data-channel='dev'] .sheet .slot-body {
+	min-width: 0;
+	display: grid;
+	grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+	column-gap: 0.5rem;
+	align-items: baseline;
+}
+:root[data-channel='dev'] .sheet .slot-body > .slot-item {
+	grid-column: 1;
+	grid-row: 1;
+}
+:root[data-channel='dev'] .sheet .slot-body > .slot-label {
+	grid-column: 2;
+	grid-row: 1;
+	display: block;
+	white-space: nowrap;
+}
+:root[data-channel='dev'] .sheet .slot-body > .slot-stats, :root[data-channel='dev'] .sheet .slot-body > .slot-source {
+	grid-column: 1 / -1;
+}
+:root[data-channel='dev'] .sheet .slot-label {
+	margin: 0;
+	font-size: 0.6875rem;
+	line-height: 1.2;
+}
+:root[data-channel='dev'] .sheet .slot-change {
+	display: none;
+}
+:root[data-channel='dev'] .sheet .slot-item {
+	font-size: 0.875rem;
+	line-height: 1.25;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	overflow-wrap: normal;
 }
 :root[data-channel='dev'] .sheet .slot-stats {
-	-webkit-line-clamp: 1;
+	display: block;
+	font-size: 0.75rem;
+	line-height: 1.3;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
+:root[data-channel='dev'] .sheet .slot-body > .slot-source {
+	display: none;
+}
+:root[data-channel='dev'] .sheet .slot-blocked .slot-body > .slot-source {
+	display: block;
+	font-size: 0.75rem;
+}
+:root[data-channel='dev'] .sheet .slot-foot {
+	grid-column: 3;
+	grid-row: 1;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	max-width: 9.5rem;
+	justify-items: end;
+}
+:root[data-channel='dev'] .sheet .slot-enchant {
+	flex-wrap: nowrap;
+	justify-content: flex-end;
+	gap: 0.35rem;
+	min-width: 0;
+}
+:root[data-channel='dev'] .sheet .enchant-gives {
+	font-size: 0.75rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+:root[data-channel='dev'] .sheet .enchant-button {
+	flex: none;
+	gap: 0;
+	padding: 0.15rem;
+	font-size: 0;
+}
+:root[data-channel='dev'] .sheet .slot-select {
+	max-width: 9rem;
+	font-size: 0.75rem;
+	padding: 0.1rem 0.2rem;
+}
+
+/* Character details: the fields side by side, race and professions as rows of icons. */
 :root[data-channel='dev'] .sheet-center {
-	gap: 0.7rem;
+	gap: 0.6rem;
 }
 :root[data-channel='dev'] .sheet-center .card {
-	padding: 0.7rem 0.85rem 0.8rem;
+	padding: 0.6rem 0.75rem 0.7rem;
 }
 :root[data-channel='dev'] .sheet-center .card h3 {
-	margin-bottom: 0.35rem;
+	margin: 0 0 0.3rem;
+	font-size: 0.9375rem;
 }
-:root[data-channel='dev'] .sheet-center .field-label {
-	margin-top: 0.5rem;
+:root[data-channel='dev'] .sheet-details {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	gap: 0.15rem 0.6rem;
+	align-content: start;
+	columns: auto;
+	margin-top: 0;
 }
-/* Notes: two lines, the rest on hover or focus. */
-:root[data-channel='dev'] .sheet-center .build-note {
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-	overflow: hidden;
-	margin: 0.3rem 0 0;
+:root[data-channel='dev'] .sheet-details > h3, :root[data-channel='dev'] .sheet-details > .preset-field, :root[data-channel='dev'] .sheet-details > fieldset, :root[data-channel='dev'] .sheet-details > .identity-actions {
+	grid-column: 1 / -1;
+}
+:root[data-channel='dev'] .sheet-details > label[for='character-name'] {
+	grid-column: 1;
+	grid-row: 2;
+}
+:root[data-channel='dev'] .sheet-details > #character-name {
+	grid-column: 1;
+	grid-row: 3;
+}
+:root[data-channel='dev'] .sheet-details > label[for='build'] {
+	grid-column: 2;
+	grid-row: 2;
+}
+:root[data-channel='dev'] .sheet-details > #build {
+	grid-column: 2;
+	grid-row: 3;
+}
+:root[data-channel='dev'] .sheet-details .field-label {
+	margin: 0.2rem 0 0;
+	font-size: 0.75rem;
+}
+:root[data-channel='dev'] .sheet-details input[type='text'], :root[data-channel='dev'] .sheet-details select {
+	padding-top: 0.3rem;
+	padding-bottom: 0.3rem;
+	font-size: 0.875rem;
+	min-width: 0;
+	width: 100%;
+}
+:root[data-channel='dev'] .sheet-details .build-note {
+	display: none;
+}
+:root[data-channel='dev'] .sheet-details .preset-field {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	gap: 0.15rem 0.4rem;
+	align-items: center;
+	margin-top: 0.2rem;
+}
+:root[data-channel='dev'] .sheet-details .preset-field > label {
+	grid-column: 1 / -1;
+}
+:root[data-channel='dev'] .sheet-details .preset-buttons {
+	display: flex;
+	gap: 0.3rem;
+	margin: 0;
+}
+:root[data-channel='dev'] .sheet-details .preset-buttons .button {
+	padding: 0.3rem 0.55rem;
 	font-size: 0.8125rem;
-}
-:root[data-channel='dev'] .sheet-center .build-note:hover,
-:root[data-channel='dev'] .sheet-center .build-note:focus-within {
-	display: block;
+	white-space: nowrap;
 }
 :root[data-channel='dev'] .sheet-choice {
-	margin-top: 0.5rem;
+	margin: 0.35rem 0 0;
+}
+:root[data-channel='dev'] .sheet-choice legend {
+	font-size: 0.75rem;
 }
 :root[data-channel='dev'] .sheet-choice .fight-tiles {
-	gap: 0.3rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem;
 }
 :root[data-channel='dev'] .sheet-choice .fight-tile {
-	padding: 0.3rem 0.25rem;
+	flex: none;
+	width: auto;
 	min-width: 0;
-	flex: 1 1 4.2rem;
-	max-width: 5.5rem;
+	max-width: none;
+	padding: 0.15rem;
+	gap: 0;
 }
-:root[data-channel='dev'] .sheet-center .stat-row {
-	padding-top: 0.1rem;
-	padding-bottom: 0.1rem;
+:root[data-channel='dev'] .sheet-choice .fight-tile img, :root[data-channel='dev'] .sheet-choice .fight-tile .buff-letters {
+	width: 1.7rem;
+	height: 1.7rem;
+}
+:root[data-channel='dev'] .sheet-choice .fight-tile-label {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+}
+:root[data-channel='dev'] .sheet-details .identity-actions {
+	margin-top: 0.45rem;
+}
+:root[data-channel='dev'] .sheet-details .identity-actions .button {
+	padding: 0.3rem 0.6rem;
+	font-size: 0.8125rem;
+}
+
+:root[data-channel='dev'] .sheet .slot-stats .stat-pair {
+	margin-right: 0.45rem;
+}
+:root[data-channel='dev'] .sheet-head-text {
+	grid-template-columns: auto minmax(0, 1fr);
+	column-gap: 1.2rem;
+}
+:root[data-channel='dev'] .sheet-head-text > h2 {
+	grid-column: 1 / -1;
+}
+:root[data-channel='dev'] .sheet-next .slot-source {
+	display: none;
+}
+
+/* Stats: tight rows. */
+:root[data-channel='dev'] .sheet-center .stats {
+	font-size: 0.8125rem;
+}
+:root[data-channel='dev'] .sheet-center .hit-bar {
+	margin: 0.2rem 0;
+}
+:root[data-channel='dev'] .sheet-center .hit-note {
+	font-size: 0.75rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 :root[data-channel='dev'] .sheet-center .stat-group {
-	margin-top: 0.5rem;
+	margin-top: 0.25rem;
 }
-@media (min-width: 86rem) {
+:root[data-channel='dev'] .sheet-center .stat-group-title {
+	font-size: 0.75rem;
+	margin-bottom: 0.1rem;
+	padding-bottom: 0.05rem;
+}
+:root[data-channel='dev'] .sheet-center .stat-row {
+	line-height: 1.22;
+}
+:root[data-channel='dev'] .sheet-head h2 {
+	font-size: 1.3rem;
+}
+:root[data-channel='dev'] .sheet-head {
+	gap: 0.3rem 1.1rem;
+}
+:root[data-channel='dev'] .sheet-center .stats > .hint {
+	display: none;
+}
+@container sheet (min-width: 68rem) {
 	:root[data-channel='dev'] .sheet {
-		grid-template-columns: minmax(0, 1.25fr) minmax(16rem, 1fr) minmax(13rem, 0.8fr) minmax(0, 1.25fr);
+		grid-template-columns: minmax(0, 1fr) 21rem 13rem minmax(0, 1fr);
 	}
 	:root[data-channel='dev'] .sheet-center {
 		display: contents;
