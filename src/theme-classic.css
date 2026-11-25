@@ -185,14 +185,10 @@
 	color: #2a1c0a;
 }
 
-/* Boxes with a dark background of their own: the dark palette again, so nothing in them turns unreadable. */
+/* What stays dark on purpose: little screens and gauges. They keep the dark palette so their text stays readable. */
 :root[data-theme='classic'] main :is(
-	.talent-rank, .talent-minus, .undo-toast, .enchant-winner, .chip[aria-pressed='true'], .buff-level, .result-bar, .result-table tr.result-lit,
-	.progress-track, .sheet .slot, .shopping-row:hover, .shopping-row:focus-within, .shopping-got, .card, .plan-slot, .fold, .candidate, .enchant-option:hover,
-	.enchant-option:focus-within, .farm .shopping-card, .farm .dungeon, .view-switch, .fight-tile-on, .character-tile, .mending-toggle, .picker-row-on,
-	.expert-switch, .expert-tip, button.character-add, .view-choice, .result-timeline-plot, summary.breakdown-toggle, .result-tab, .cast-timeline-frame,
-	.log-scroll, .log-table, .group-dungeons-list, .group-detail, .group-dungeon, .preset-menu, .content-tile, .fight-pick, .fight-card, .slot-bar, .slot-nav,
-	.set-pop, .gear-rail, .modal, .preset-confirm, .engine-notice, details.content-fold > summary, .group-prio, .candidates
+	.talent-rank, .talent-minus, .buff-level, .result-timeline-plot, .cast-timeline-frame, .log-scroll, .log-table, .gear-rail, .undo-toast,
+	.engine-notice, .expert-tip, .tag-estimate, .preset-menu-list, .set-pop, .cast-timeline, .result-timeline
 ) {
 	--mist: #ebe4d6;
 	--haze: #a79b84;
@@ -212,33 +208,316 @@
 	--q-legendary: #ff8000;
 	color: var(--mist);
 }
-:root[data-theme='classic'] main :is(.card, .fold, .candidate, .view-choice, .character-tile, .group-dungeon, .group-detail, .content-tile, .fight-pick, .fight-card, .slot-bar, .set-pop, .gear-rail, .modal, .candidates, .plan-slot, .sheet .slot, .farm .dungeon, .farm .shopping-card, .log-scroll, .result-tab) :is(.delta-up, .diff-up, .set-pop-bonus) {
+:root[data-theme='classic'] main :is(.gear-rail, .preset-menu-list, .set-pop, .log-scroll, .undo-toast) :is(.delta-up, .diff-up, .set-pop-bonus) {
 	color: #1eff00;
 }
-:root[data-theme='classic'] main :is(.card, .fold, .candidate, .view-choice, .character-tile, .group-dungeon, .group-detail, .content-tile, .fight-pick, .fight-card, .slot-bar, .set-pop, .gear-rail, .modal, .candidates, .plan-slot, .sheet .slot, .farm .dungeon, .farm .shopping-card, .log-scroll, .result-tab) :is(.delta-down, .diff-down) {
+:root[data-theme='classic'] main :is(.gear-rail, .preset-menu-list, .set-pop, .log-scroll, .undo-toast) :is(.delta-down, .diff-down) {
 	color: #ff8a65;
 }
-:root[data-theme='classic'] main :is(.card, .fold, .candidate, .view-choice, .character-tile, .group-dungeon, .group-detail, .content-tile, .fight-pick, .fight-card, .slot-bar, .set-pop, .gear-rail, .modal, .candidates, .plan-slot, .sheet .slot, .farm .dungeon, .farm .shopping-card, .log-scroll, .result-tab) a {
+:root[data-theme='classic'] main :is(.gear-rail, .preset-menu-list, .set-pop, .log-scroll, .undo-toast, .cast-timeline, .result-timeline) a {
 	color: var(--brass);
 }
-:root[data-theme='classic'] main :is(.card, .fold, .candidate, .view-choice, .character-tile, .group-dungeon, .group-detail, .content-tile, .fight-pick, .set-pop, .gear-rail, .modal, .preset-menu) :is(input, select, textarea) {
+:root[data-theme='classic'] main :is(.gear-rail, .preset-menu-list, .set-pop) :is(input, select, .preset-menu-button) {
 	color: #ebe4d6;
 	background: #0a0806;
 	border-color: #4b3e2b;
 }
-:root[data-theme='classic'] main :is(.card, .fold, .candidate, .group-dungeon, .group-detail, .set-pop, .gear-rail, .modal) .button:not(.button-primary, .button-plan, [aria-pressed='true']) {
-	color: #ebe4d6;
-}
-/* Dark boxes on parchment get a frame of the time: black line, gold line. */
-:root[data-theme='classic'] main :is(.card, .view-choice, .character-tile, .group-dungeon, .group-detail, .fight-card, .content-tile) {
+:root[data-theme='classic'] main .gear-rail {
+	background: #1a140d;
+	border: 1px solid #000;
 	border-radius: 0;
-	border-color: #000;
-	box-shadow: 0 0 0 1px #8a6d2a;
+	box-shadow:
+		0 0 0 1px #8a6d2a,
+		0 0 0 2px #000,
+		0 8px 24px #000;
 }
-:root[data-theme='classic'] main .gear-rail,
-:root[data-theme='classic'] main .fight-card,
-:root[data-theme='classic'] main .group-dungeon {
-	background: #16120e;
+
+/* Everything else that was a dark box is paper now: cream cards, brown lines, brown ink. */
+:root[data-theme='classic'] main :is(
+	.card, .plan-slot, .fold, .sheet .slot, .farm .shopping-card, .farm .dungeon, .view-switch, .character-tile, .mending-toggle, .expert-switch,
+	button.character-add, .view-choice, .result-tab, .group-dungeons-list, .group-detail, .group-dungeon, .content-tile, .fight-pick, .fight-card,
+	.candidates .candidate, .preset-confirm, .modal, .faq-item, .chip, .news-day, .enchant-option, .shopping-row, .picker-row, .character-tile-ask
+) {
+	color: var(--mist);
+	background: #f8efcd;
+	border-color: #9b8248;
+	border-radius: 0;
+}
+:root[data-theme='classic'] main :is(.card, .view-choice, .character-tile, .group-dungeon, .group-detail, .fight-card, .faq-item, .news-day, .farm .dungeon, .farm .shopping-card) {
+	box-shadow:
+		inset 0 0 0 1px #fffbe6,
+		2px 2px 0 rgb(74 58 23 / 0.3);
+}
+:root[data-theme='classic'] main .candidates .candidate:nth-child(even),
+:root[data-theme='classic'] main .group-dungeons-list .group-dungeon:nth-child(even) {
+	background: #efe2b3;
+}
+:root[data-theme='classic'] main :is(.candidates .candidate, .shopping-row, .enchant-option, .character-tile, .content-tile, .fight-pick, .view-choice, .picker-row):hover {
+	background: #fffadf;
+	border-color: #173a7a;
+}
+/* What is chosen: a wash of the blue. */
+:root[data-theme='classic'] main :is(
+	.chip[aria-pressed='true'], .view-choice[aria-pressed='true'], .character-tile-on, .character-tile-on:hover, .picker-row-on, .fight-tile-on, .fight-pick-on,
+	.result-tab[aria-selected='true'], .result-table tr.result-lit, .content-tile-on, .group-dungeons-cards .group-dungeon-open, summary.breakdown-toggle,
+	.shopping-got, .view-switch .button[aria-pressed='true']
+) {
+	color: var(--mist);
+	background: linear-gradient(180deg, #dfe8fa, #c9d7f3);
+	border-color: #173a7a;
+}
+:root[data-theme='classic'] main .enchant-winner {
+	background: #e2efcf;
+}
+:root[data-theme='classic'] main :is(.progress-track, .result-bar) {
+	background: #d9c88f;
+}
+:root[data-theme='classic'] main :is(.slot-bar, .slot-nav) {
+	background: #e8d7a3;
+	border-color: #9b8248;
+}
+:root[data-theme='classic'] main .slot-nav .slot-chip {
+	color: var(--mist);
+	background: #f8efcd;
+	border-color: #9b8248;
+	border-radius: 0;
+}
+:root[data-theme='classic'] main .slot-nav .slot-chip-planned {
+	color: #173a7a;
+	background: linear-gradient(180deg, #dfe8fa, #c9d7f3);
+	border-color: #173a7a;
+}
+:root[data-theme='classic'] main .slot-nav .slot-chip-open {
+	border-color: #17780f;
+}
+:root[data-theme='classic'] main .slot-nav .slot-chip:hover,
+:root[data-theme='classic'] main .slot-nav .slot-chip-here {
+	color: #000;
+	box-shadow: 0 0 0 1px #173a7a;
+}
+:root[data-theme='classic'] main details.content-fold > summary,
+:root[data-theme='classic'] main .fold > summary {
+	color: #ffd75a;
+	text-shadow: 0 1px 0 #000;
+	background: linear-gradient(180deg, #4a72c4, #1d3470 50%, #0f1d47 54%, #1a2f66);
+	border: 1px solid #000;
+	border-radius: 0;
+	box-shadow: inset 0 0 0 1px rgb(150 180 255 / 0.3);
+	padding: 0.45rem 0.8rem;
+}
+:root[data-theme='classic'] main .fold > summary .slot-source,
+:root[data-theme='classic'] main .content-fold-toggle {
+	color: #c9d7f3;
+	text-shadow: none;
+}
+/* The little box at the end of a bar: minus when open, plus when shut. */
+:root[data-theme='classic'] main .panel > h2:first-child::before,
+:root[data-theme='classic'] main .fold > summary::after {
+	content: '–';
+	float: right;
+	width: 1.05rem;
+	height: 1.05rem;
+	margin-top: 0.15rem;
+	font: 700 0.8rem/0.95rem Verdana, sans-serif;
+	text-align: center;
+	text-shadow: none;
+	color: #ffd75a;
+	background: #0a1230;
+	border: 1px solid #ffd75a;
+	box-shadow: 0 0 0 1px #000;
+}
+:root[data-theme='classic'] main .fold:not([open]) > summary::after {
+	content: '+';
+}
+:root[data-theme='classic'] main .fold > summary .content-fold-toggle {
+	float: none;
+	margin-left: 0.8rem;
+}
+/* Bright colours made for a dark page, turned into ink. */
+:root[data-theme='classic'] main :is(.enchant-gives, .stat-pair.stat-bonus, .set-change-activates, .plan-enchant, .talent-open .talent-rank, .slot-versus-on, .result-dps, .set-pop-bonus) {
+	color: #17780f;
+}
+:root[data-theme='classic'] main :is(.set-change-breaks, .set-row-broken, .preset-menu-minus, .hide-item:hover) {
+	color: #b0300f;
+}
+:root[data-theme='classic'] main :is(.stat-pair.stat-agi, .set-change-loosens) {
+	color: #8a6a00;
+}
+:root[data-theme='classic'] main .stat-pair.stat-str {
+	color: #a83a1c;
+}
+:root[data-theme='classic'] main .stat-pair.stat-sta {
+	color: #a45f10;
+}
+:root[data-theme='classic'] main .stat-pair.stat-int {
+	color: #1557a8;
+}
+:root[data-theme='classic'] main .stat-pair.stat-spi {
+	color: #6a2fb0;
+}
+:root[data-theme='classic'] main .faction-alliance {
+	color: #1b4fa0;
+}
+:root[data-theme='classic'] main .faction-horde {
+	color: #a8231a;
+}
+:root[data-theme='classic'] main .candidate-actions .sim-button {
+	color: #173a7a;
+	border-color: #173a7a;
+}
+:root[data-theme='classic'] main .group-tag-bis {
+	color: #a84f00;
+	border-color: #a84f00;
+}
+:root[data-theme='classic'] main :is(.character-tile-on .character-tile-text .character-tile-spec, .content-tile-on .content-tile-text strong, .fight-pick-on strong, .faq-item h4, .faq-answer strong) {
+	color: #2a1c0a;
+}
+:root[data-theme='classic'] main .content-tile .dungeon-icon {
+	filter: grayscale(0.85) opacity(0.6);
+}
+:root[data-theme='classic'] main .content-tile-on .dungeon-icon {
+	filter: none;
+}
+:root[data-theme='classic'] main .group-prio strong {
+	color: #ffd75a;
+	background: linear-gradient(180deg, #4a72c4, #0f1d47);
+	border-color: #000;
+	box-shadow: 0 0 0 1px #b89a52;
+}
+:root[data-theme='classic'] main .group-dungeon-top .group-prio strong {
+	color: #1a1203;
+	background: linear-gradient(180deg, #fff4b3, #ffd100 45%, #b8860b);
+}
+:root[data-theme='classic'] main :is(.set-chip, .group-tag-planned, .group-contested, .group-strip-count) {
+	color: #ffd75a;
+	background: #173a7a;
+	border-color: #000;
+}
+:root[data-theme='classic'] main .badge {
+	color: #173a7a;
+	border-color: #173a7a;
+}
+:root[data-theme='classic'] main .group-dungeons-list {
+	border: 1px solid #6b5326;
+}
+:root[data-theme='classic'] main .group-dungeons-list .group-dungeon-top {
+	background: linear-gradient(90deg, #d5e0f6, #f8efcd 60%);
+	border-left-color: #173a7a;
+}
+:root[data-theme='classic'] main .preset-menu-button {
+	color: #173a7a;
+	background: #fbf3d6;
+	border-color: #173a7a;
+	border-radius: 0;
+}
+:root[data-theme='classic'] main .gear-rail .preset-menu-button {
+	color: #ffd100;
+	background: #0a0806;
+	border-color: #8f6d1c;
+}
+:root[data-theme='classic'] main .presets .content-preset[aria-pressed='true'] {
+	color: #ffd75a;
+	background: linear-gradient(180deg, #4a72c4, #1d3470 50%, #0f1d47);
+}
+:root[data-theme='classic'] main .content-tile-on {
+	background: linear-gradient(90deg, #d5e0f6, #f8efcd 75%);
+}
+:root[data-theme='classic'] main .candidates .candidate-rare {
+	border-left-color: #0b4fb0;
+}
+:root[data-theme='classic'] main .candidates .candidate-epic {
+	border-left-color: #7a1fb8;
+}
+:root[data-theme='classic'] main .candidates .candidate-uncommon {
+	border-left-color: #17780f;
+}
+
+/* The menu at the left, where menus were: a column of blue bars under the title. */
+@media (min-width: 64rem) {
+	:root[data-theme='classic'] .page {
+		display: grid;
+		grid-template-columns: 12rem minmax(0, 1fr);
+		column-gap: 1rem;
+		max-width: 80rem;
+	}
+	:root[data-theme='classic'] .masthead {
+		display: contents;
+	}
+	:root[data-theme='classic'] .masthead-title {
+		grid-column: 1 / -1;
+		grid-row: 1;
+		margin-bottom: 0.9rem;
+	}
+	:root[data-theme='classic'] .masthead-tools {
+		grid-column: 2;
+		grid-row: 1;
+		justify-self: end;
+	}
+
+	:root[data-theme='classic'] main {
+		grid-column: 2;
+		grid-row: 2;
+		margin-top: 0;
+	}
+	:root[data-theme='classic'] .page > footer {
+		grid-column: 1 / -1;
+	}
+	:root[data-theme='classic'] .tab-bar {
+		display: block;
+		grid-area: auto;
+		grid-column: 1;
+		grid-row: 2;
+		align-self: start;
+		justify-self: stretch;
+		position: sticky;
+		top: 0.75rem;
+	}
+	:root[data-theme='classic'] .tab-bar::before {
+		content: 'Planner';
+		display: block;
+		padding: 0.35rem 0.6rem;
+		font: 700 0.95rem var(--display);
+		letter-spacing: 0.04em;
+		color: #1a1203;
+		background: linear-gradient(180deg, #fff4b3, #ffd100 45%, #b8860b);
+		border: 1px solid #000;
+		box-shadow: inset 0 0 0 1px #fff7cc;
+	}
+	:root[data-theme='classic'] .bar-cap {
+		display: none;
+	}
+	:root[data-theme='classic'] .tabs {
+		flex-direction: column;
+		flex-wrap: nowrap;
+		padding: 3px;
+	}
+	:root[data-theme='classic'] .tab {
+		position: relative;
+		padding: 0.5rem 1.6rem 0.5rem 0.6rem;
+		text-align: left;
+		white-space: normal;
+	}
+	/* The small diamond at the end of every menu line. */
+	:root[data-theme='classic'] .tab::after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		right: 0.55rem;
+		width: 0.42rem;
+		height: 0.42rem;
+		background: #ffd75a;
+		border: 1px solid #000;
+		transform: translateY(-50%) rotate(45deg);
+	}
+	:root[data-theme='classic'] .tab[aria-current='page']::after {
+		background: #173a7a;
+	}
+}
+/* The gear panes sit at the edges of the window; with the menu column they need a wider window to fit. */
+@media (max-width: 106rem) {
+	:root[data-theme='classic'] :is(.gear-rail, .gear-rail-edge, .gear-rail-open:not(.gear-rail-hide)) {
+		display: none;
+	}
 }
 
 /* The foot of the page, outside the column */
