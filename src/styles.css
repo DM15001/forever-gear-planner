@@ -6670,11 +6670,6 @@ details.content-fold[open] > summary {
 	}
 }
 
-/* The step you may skip: a little quieter than the others. */
-.tab-optional:not([aria-current='page']) {
-	color: var(--haze);
-	font-style: italic;
-}
 
 .group-open {
 	margin-left: auto;
