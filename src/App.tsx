@@ -633,7 +633,6 @@ export function App() {
 	}, []);
 	const newsSeen = useCallback(() => setNewsDot(false), []);
 	// Step 2 has two ways in: the automatic plan, or every slot by hand.
-	const [upgradeView, setUpgradeView] = useState<'plan' | 'slots'>('slots');
 	// The content choice, shared by every tab and remembered between visits.
 	// Each character keeps its own choice. One saved before that existed starts from the browser's last choice;
 	// a new one starts from the defaults.
@@ -691,7 +690,6 @@ export function App() {
 					<button
 						className="button button-primary"
 						onClick={() => {
-							setUpgradeView('plan');
 							setTab('simulate');
 						}}>
 						Build my gear plan
@@ -798,22 +796,10 @@ export function App() {
 					<SimProvider character={character}>
 						{/* The Character page shows both sets itself, so the side panes stay away there. */}
 						{data && tab !== 'character' && tab !== 'group' && tab !== 'faq' && tab !== 'news' && <GearRails spec={spec} character={character} data={data} showEquipped={options.equippedPanel} showPlanned={options.plannedPanel} onShow={(kind, on) => changeOptions({ ...options, [kind === 'equipped' ? 'equippedPanel' : 'plannedPanel']: on })} filter={filter} onChange={update} />}
-						{tab === 'simulate' && (
-							<div className="view-switch" role="group" aria-label="How to pick upgrades">
-								<button className="view-choice" aria-pressed={upgradeView === 'slots'} onClick={() => setUpgradeView('slots')}>
-									<strong>Slot by slot</strong>
-									<span>Every slot with its upgrades and alternatives, to pick by hand.</span>
-								</button>
-								<button className="view-choice" aria-pressed={upgradeView === 'plan'} onClick={() => setUpgradeView('plan')}>
-									<strong>Plan for me</strong>
-									<span>Say what content you do and get the best set with a to-do list.</span>
-								</button>
-							</div>
-						)}
 						{tab === 'simulate' && baseSpec.role === 'healer' && <HealingPicker character={character} spec={spec} onChange={update} />}
-						{(tab === 'simulate' || tab === 'upgrades') && upgradeView === 'plan' && (data ? <PlanTab part={tab === 'simulate' ? 'sim' : 'list'} spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} /> : <p>Loading item data…</p>)}
-
-						{(tab === 'simulate' || tab === 'upgrades') && upgradeView === 'slots' && (data ? <UpgradesTab onShowList={() => setTab('upgrades')} part={tab === 'simulate' ? 'sim' : 'list'} spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /> : <p>Loading item data…</p>)}
+						{tab === 'simulate' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} /> : <p>Loading item data…</p>)}
+						{(tab === 'simulate' || tab === 'upgrades') && data && <UpgradesTab part={tab === 'simulate' ? 'tools' : 'list'} spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} />}
+						{tab === 'upgrades' && !data && <p>Loading item data…</p>}
 
 						{tab === 'farm' && (data ? <FarmTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
 						{/* The group plan is about all saved characters, not the one that is open. */}

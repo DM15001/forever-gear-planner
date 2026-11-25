@@ -70,7 +70,7 @@ function Steps({ lines, showRaw, checks, names }: { lines: RotationLine[]; showR
 						{line.estimate && (
 							<span className="rotation-remark">
 								<span className="tag-estimate">estimate</span> The simulator cannot cast this spell yet. Its healing is worked out by hand and added to the result, and the other steps give up the casts it takes. Switch it off
-								with "Count Prayer of Mending" on the Upgrades tab.
+								with "Count Prayer of Mending" on the Plan tab.
 							</span>
 						)}
 						{remarks.map(remark => (
@@ -576,7 +576,7 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 				<p>
 					{healer ? (
 						<>
-							Where it comes from: WoWSims has the Priest's heals in its engine but ships no healing rotation, so this one is written by this site for the healing scenario picked on the Upgrades tab. It is short on purpose. Prayer
+							Where it comes from: WoWSims has the Priest's heals in its engine but ships no healing rotation, so this one is written by this site for the healing scenario picked on the Plan tab. It is short on purpose. Prayer
 							of Mending cannot be cast in the engine yet (it stops with an error), so with the talent it is listed as an estimate: its healing is worked out by hand and added (see "What kind of healing?" on the Upgrades tab). Hover over a step to see the rule the simulator gets, or show them all:
 						</>
 					) : (

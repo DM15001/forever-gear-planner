@@ -48,5 +48,26 @@
 		"20524": "Shadowhide Leggings: never released in the original game; no source known in WoW Forever (warcraft.wiki.gg, 2026-11-24)",
 		"22230": "Frightmaw Hide: never released in the original game; no source known in WoW Forever (warcraft.wiki.gg, 2026-11-24)",
 		"22273": "Moonshadow Hood: never released in the original game; no source known in WoW Forever (warcraft.wiki.gg, 2026-11-24)"
+	},
+	"enchants": {
+		"_comment": "By the enchant's item id. Enchants of Season of Discovery that the WoWSims database carries without any source and that are not among the enchanting recipes of WoW Forever (reported by a player on 2026-11-25, who checked wowhead.com/forever/items/recipes/enchanting).",
+		"273590": "Enchant Weapon - Dismantle: Season of Discovery",
+		"273591": "Enchant Chest - Retricutioner: Season of Discovery",
+		"273592": "Enchant Shield - Law of Nature: Season of Discovery",
+		"273593": "Enchant Chest - Living Stats: Season of Discovery",
+		"273596": "Enchant Bracer - Spell Power: Season of Discovery",
+		"273597": "Enchant Bracer - Agility: Season of Discovery (WoW Forever has Superior Agility instead)",
+		"273598": "Enchant Off-Hand - Superior Intellect: Season of Discovery",
+		"273599": "Enchant Off-Hand - Excellent Spirit: Season of Discovery",
+		"273602": "Enchant Shield - Excellent Stamina: Season of Discovery",
+		"273605": "Enchant Shield - Critical Strike: Season of Discovery",
+		"273607": "Enchant Weapon - Grand Crusader: Season of Discovery",
+		"273608": "Enchant 2H Weapon - Grand Arcanist: Season of Discovery",
+		"273609": "Enchant Weapon - Grand Sorcerer: Season of Discovery",
+		"273610": "Enchant 2H Weapon - Grand Inquisitor: Season of Discovery"
+	},
+	"enchantStats": {
+		"_comment": "By the enchant's item id: stats where the game differs from the WoWSims database. The simulator still counts its own value.",
+		"249511": { "agility": 15 }
 	}
 }

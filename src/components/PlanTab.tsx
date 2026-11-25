@@ -27,13 +27,13 @@ interface Props {
 	onFilterChange: (next: SourceFilter) => void;
 	onChange: (next: Character) => void;
 	/** 'sim': the plan's numbers, the simulation and the content choice. 'list': the planned items and the to-do list. */
-	part: 'sim' | 'list';
+	part?: 'all';
 }
 
 const formatGain = formatDps;
 
 /** The guided view: pick your content, get one plan, tick it off. */
-export function PlanTab({ spec, character, data, filter, onFilterChange, onChange, part }: Props) {
+export function PlanTab({ spec, character, data, filter, onFilterChange, onChange }: Props) {
 	const [contentOpen, setContentOpen] = useContentOpen();
 	const options = useMemo(() => ({ character, data, spec, filter }), [character, data, spec, filter]);
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
@@ -135,7 +135,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 	return (
 		<div className="plan">
 			{/* First what counts, then the plan and its simulation. */}
-			{part === 'sim' && (
+			{(
 				<details className="content-fold fold" open={contentOpen} onToggle={event => setContentOpen(event.currentTarget.open)}>
 					<summary>
 						What content do you do?<span className="slot-source">Dungeons, reputations, PvP, crafting and more. The plan is rebuilt on every change.</span>
@@ -156,8 +156,8 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				</details>
 			)}
 			<section className="panel" aria-labelledby="plan-result">
-				<h2 id="plan-result">{part === 'sim' ? 'Simulate your character' : 'Your plan'}</h2>
-				{part === 'sim' && (
+				<h2 id="plan-result">Your plan</h2>
+				{(
 					<>
 				<div className="summary">
 					<div className="summary-scores">
@@ -215,11 +215,10 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						single slot by hand, click its icon.
 					</p>
 				</div>
-						<p className="hint part-pointer">The planned items and the to-do list are on the Upgrades tab.</p>
 					</>
 				)}
 
-				{part === 'list' && (
+				{(
 					<>
 				<MeasuredNote specId={spec.id} />
 				<ul className="plain-list plan-slots">
@@ -287,9 +286,9 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				)}
 			</section>
 
-			{part === 'list' && (
+			{(
 			<section className="panel" aria-labelledby="plan-todo">
-				<h2 id="plan-todo">3. To do, biggest gain first</h2>
+				<h2 id="plan-todo">To do, biggest gain first</h2>
 				{steps.length === 0 ? (
 					<p className="farm-empty">Nothing left to do with the content you picked. Switch more content on above to see what else there is.</p>
 				) : (

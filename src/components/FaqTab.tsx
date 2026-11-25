@@ -40,7 +40,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 					<ol>
 						<li>On the start page, paste your character: an export from wowsims.com or a link somebody copied from this site. No export at hand? Load the WoWSims preset for your build and change the items by clicking the slots.</li>
 						<li>Pick your build on the Character page. Talents, consumables and buffs follow the build; change them under "Sim setup".</li>
-						<li>Open "Upgrades". Each slot lists the better items with the gain in front. "Plan" puts one into your plan, "Plan the best set" fills every slot.</li>
+						<li>Open "Upgrades". Each slot lists the better items with the gain in front. "Plan" puts one into your plan. The Plan page fills every slot with the best set for your content; "Rebuild the plan" there does it again.</li>
 						<li>"Plan" shows the result and simulates your gear against the plan.</li>
 						<li>"Farm plan" sorts the planned items by dungeon, "Enchants &amp; professions" does the same for enchants.</li>
 					</ol>

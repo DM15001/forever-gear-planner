@@ -7,16 +7,15 @@ import { formatDps, unit } from '../lib/format';
 import type { GameData } from '../lib/gameData';
 import { type Guide, type GuideMark, guideMarks, guidePlan, markLabel, swapDelta } from '../lib/guides';
 import { applicableEnchants } from '../lib/enchants';
-import { EVERYTHING, type Candidate, clash, type Gear, oneRandomRoll, pairedSlot, plannedGear, scoreSet, setChanges, setStandings, slotCandidates, slotInUse, type SourceFilter, suggestPlan, usableSources, withItem } from '../lib/scoring';
+import { EVERYTHING, type Candidate, clash, type Gear, oneRandomRoll, pairedSlot, plannedGear, scoreSet, setChanges, setStandings, slotCandidates, slotInUse, type SourceFilter, usableSources, withItem } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
 import { measureWeights, weightRuns } from '../lib/sim/live';
 import { conditionalLines, matchesFight, pieceStats, STAT_LABELS, statLine, wowheadItemUrl, wowheadData } from '../lib/stats';
-import { ContentPicker, useContentOpen } from './ContentPicker';
 import { ItemIcon } from './ItemIcon';
 import { SuffixNote, suffixText } from './SuffixNote';
 import { SourceLabel, SourceList } from './SourceLabel';
 import { MeasuredNote } from './MeasuredNote';
-import { SET_ITERATIONS, SimDelta, SimSummary, SWAP_ITERATIONS, useSim } from './Sim';
+import { SET_ITERATIONS, SimDelta, SWAP_ITERATIONS, useSim } from './Sim';
 import type { Character, Item, SpecConfig, Stats } from '../lib/types';
 
 interface Props {
@@ -30,7 +29,7 @@ interface Props {
 	/** null resets to the defaults. */
 	onWeightsChange: (weights: SpecConfig['weights'] | null) => void;
 	/** 'sim': content, stat weights and the simulation. 'list': the possible upgrades per slot. */
-	part: 'sim' | 'list';
+	part: 'tools' | 'list';
 	/** Opens the page with the planned items and the lists. */
 	onShowList?: () => void;
 }
@@ -63,7 +62,6 @@ const ALTERNATIVES = 5;
 const LONG_LIST = 25;
 
 export function UpgradesTab({ spec, character, data, onChange, filter, onFilterChange: setFilter, defaultWeights, onWeightsChange, part, onShowList }: Props) {
-	const [contentOpen, setContentOpen] = useContentOpen();
 	const [expanded, setExpanded] = useState<Set<number>>(new Set());
 	const [guideNotice, setGuideNotice] = useState<{
 		title: string;
@@ -190,7 +188,6 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 	const sim = useSim();
 	const simEquipped = sim.result(character.gear, SET_ITERATIONS);
 	const simPlanned = sim.result(gear, SET_ITERATIONS);
-	const hitText = (hit: typeof planned.hit) => `${hit.total.toFixed(1)}% of ${hit.cap}% hit${hit.ratingOver ? `, ${hit.ratingOver} rating over the cap` : ''}`;
 
 	// The slot being read: the bar marks its chip and keeps it in view while the page scrolls.
 	const nav = useRef<HTMLElement>(null);
@@ -230,16 +227,8 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 
 	return (
 		<div className="upgrades">
-			{part === 'sim' && (
+			{part === 'tools' && (
 				<>
-			<details className="content-fold fold" open={contentOpen} onToggle={event => setContentOpen(event.currentTarget.open)}>
-				<summary>
-					What content do you do?<span className="slot-source">Dungeons, reputations, PvP, crafting and more: click a tile to choose what counts.</span>
-					<span className="content-fold-toggle">{contentOpen ? 'Hide' : 'Show'}</span>
-				</summary>
-				<ContentPicker spec={spec} character={character} data={data} filter={filter} onChange={setFilter} />
-			</details>
-
 			<WeightsEditor
 				weights={spec.weights}
 				defaults={defaultWeights}
@@ -251,36 +240,8 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 			/>
 
 			<section className="panel summary" aria-labelledby="upgrades-title">
-				<h2 id="upgrades-title">Simulate your character</h2>
-				<div className="summary-scores">
-					<div>
-						<span className="field-label">Your plan, estimated</span>
-						<span className={`score num ${gain >= 0 ? 'delta-up' : 'delta-down'}`}>{planCount > 0 ? formatDelta(gain) : 'No plan yet'}</span>
-						{spec.hitCapPercent > 0 && (
-							<span className="summary-hit">
-								{hitText(equipped.hit)} now
-								{planCount > 0 ? `, ${hitText(planned.hit)} planned` : ''}
-							</span>
-						)}
-					</div>
-				</div>
+				<h2 id="upgrades-title">Other ways to fill the plan</h2>
 				<div className="actions">
-					<button
-						className="button button-primary"
-						onClick={() =>
-							setPlan(
-								suggestPlan({
-									character: { ...character, plan: {} },
-									data,
-									spec,
-									filter,
-								}),
-								'Best set planned',
-							)
-						}
-					>
-						Plan the best set
-					</button>
 					<button className="button" onClick={() => setPlan({}, 'Plan cleared')} disabled={planCount === 0}>
 						Clear plan{planCount > 0 ? ` (${planCount})` : ''}
 					</button>
@@ -296,7 +257,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 					</p>
 				)}
 				<p className="hidden-note">
-					Too expensive, or you just do not want it? "Hide" next to an item leaves it out of every list and out of "Plan the best set".
+					Too expensive, or you just do not want it? "Hide" next to an item leaves it out of every list and out of "Rebuild the plan".
 					{filter.hiddenItems.length > 0 && (
 						<>
 							{' '}
@@ -308,7 +269,6 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 					)}
 				</p>
 				{spec.role !== 'healer' && <FightPicker character={character} onChange={onChange} />}
-				<SimSummary equipped={character.gear} planned={gear} hasPlan={planCount > 0} />
 				<div className="guide-sets">
 					<span className="field-label">Or start from a guide</span>
 					{data.guides.map(guide => (
@@ -339,7 +299,6 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 					</p>
 				</details>
 			</section>
-					<p className="hint part-pointer">The lists of possible upgrades are on the Upgrades tab.</p>
 				</>
 			)}
 
@@ -540,7 +499,7 @@ const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, open: char
 										<button className="link" onClick={() => unplan(index)}>
 											Undo
 										</button>{' '}
-										<button className="link hide-item" onClick={() => hidePlanned(index, plannedItem)} title="Takes it out of the plan and leaves it out of every list and out of 'Plan the best set'. Bring it back under 'What content do you do?', at the bottom.">
+										<button className="link hide-item" onClick={() => hidePlanned(index, plannedItem)} title="Takes it out of the plan and leaves it out of every list and out of 'Rebuild the plan'. Bring it back under 'What content do you do?', at the bottom.">
 											Hide
 										</button>
 									</>
@@ -548,7 +507,7 @@ const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, open: char
 									<>
 										<ItemName item={equippedItem} icon worn /> equipped{' '}
 										{!filter.hiddenItems.includes(equippedItem.id) && (
-											<button className="link hide-item" onClick={() => hide(equippedItem)} title="You keep wearing it, but it is left out of the lists, the guide picks and 'Plan the best set': for an item you are about to replace anyway.">
+											<button className="link hide-item" onClick={() => hide(equippedItem)} title="You keep wearing it, but it is left out of the lists, the guide picks and 'Rebuild the plan': for an item you are about to replace anyway.">
 												Hide
 											</button>
 										)}
@@ -827,7 +786,7 @@ function CandidateRow({ candidate, note, current, healWeights, marks, base, vari
 				<button className="button button-small button-plan" onClick={onPlan}>
 					Plan
 				</button>
-				<button className="link hide-item" onClick={onHide} title="Leave this item out of every list and out of 'Plan the best set', for example because it is too expensive or not in the game yet. Bring it back under Plan, Content.">
+				<button className="link hide-item" onClick={onHide} title="Leave this item out of every list and out of 'Rebuild the plan', for example because it is too expensive or not in the game yet. Bring it back under Plan, Content.">
 					Hide
 				</button>
 			</span>
@@ -946,7 +905,7 @@ function GuidePicks({ guides, slotIndex, data, currentId, deltaOf, onPlan, block
 											</button>
 										</>
 									)}{' '}
-									<button className="link hide-item guide-hide" onClick={() => onHide(item)} title="Leaves this item out of every list, the guide picks and 'Plan the best set'. Bring it back under 'What content do you do?', at the bottom.">
+									<button className="link hide-item guide-hide" onClick={() => onHide(item)} title="Leaves this item out of every list, the guide picks and 'Rebuild the plan'. Bring it back under 'What content do you do?', at the bottom.">
 										Hide
 									</button>
 								</span>

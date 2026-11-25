@@ -1,8 +1,9 @@
 import { buildGuides, type Guide, type SimSet } from './guides';
 import wingConfig from '../config/dungeonWings.json';
+import notAvailable from '../config/not-available.json';
 import { applyLoot } from './loot';
 import { DEFAULT_SPEC, enchantUsableBy, usableBy } from './specs';
-import type { Enchant, Item, Npc, RandomSuffix, SimValues, SlotKind, SpecConfig, Zone, Fight } from './types';
+import type { Enchant, Item, Npc, RandomSuffix, SimValues, SlotKind, SpecConfig, Stats, Zone, Fight } from './types';
 
 export interface GameData {
 	/** The enemy kind and terrain the scores assume, from the character. */
@@ -41,7 +42,12 @@ export async function loadGameData(spec: SpecConfig = DEFAULT_SPEC): Promise<Gam
 	// This build's own measurement (scripts/build-sim-values.mjs, made in GitHub Actions) when there is one.
 	const own = MEASURED[`../data/simValues/${spec.id}.json`];
 	const enchantsBySlot = new Map<SlotKind, Enchant[]>();
-	const specEnchants = (enchants.default as unknown as Enchant[]).filter(enchant => enchantUsableBy(enchant, spec));
+	// Enchants the database carries from another version of the game are left out; a few get the stats the game really gives.
+	const closed = notAvailable.enchants as Record<string, string>;
+	const fixed = notAvailable.enchantStats as unknown as Record<string, Stats>;
+	const specEnchants = (enchants.default as unknown as Enchant[])
+		.filter(enchant => enchantUsableBy(enchant, spec) && !(enchant.itemId && closed[enchant.itemId]))
+		.map(enchant => (enchant.itemId && fixed[enchant.itemId] ? { ...enchant, stats: fixed[enchant.itemId] } : enchant));
 	for (const enchant of specEnchants) {
 		for (const slot of enchant.slots) {
 			if (!enchantsBySlot.has(slot)) enchantsBySlot.set(slot, []);

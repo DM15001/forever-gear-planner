@@ -9,6 +9,22 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Plan and Upgrades: one job each",
+							"text": "The switch between \"Slot by slot\" and \"Plan for me\" is gone. The Plan page has the content choice, the best set for it, the planned items, the to-do list and the simulation. The Upgrades page is always slot by slot and overrides single slots of the plan. Stat weights, guide sets and the encounter moved to the bottom of the Plan page.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Enchants from Season of Discovery removed",
+							"text": "14 enchants that the simulator's database carries but WoW Forever does not have are out of the lists and plans, among them Grand Arcanist, Grand Sorcerer, Grand Crusader, Grand Inquisitor and Dismantle. 2H Weapon - Lesser Agility counts 15 agility as in the game.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Theme 2006: heavy gold frames",
 							"text": "The theme got a new build: header, menu, page and gear panes each sit in a thick cast-gold frame with rivets and engraving, on dark planks and leather, with the page itself on paper. More room between things, a wider page for large screens, larger text.",
 							"source": "Gear Planner",
