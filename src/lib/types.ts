@@ -223,6 +223,8 @@ export interface SimValues {
 	items: Map<number, number>;
 	/** Enchant effectId -> worth of its proc or effect. */
 	enchants: Map<number, number>;
+	/** The same for a weapon enchant on the off hand, where it was measured there. */
+	enchantsOffHand?: Map<number, number>;
 	/** Set id -> piece count -> worth of the bonuses active at that count. */
 	sets: Map<number, Map<number, number>>;
 	/** What was measured at all; anything else with an effect is still unknown. */

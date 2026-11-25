@@ -9,6 +9,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Proc enchants on the off hand count less",
+							"text": "Weapon enchants with a proc (Fiery Weapon, Crusader and the like) were valued on the off hand as if they sat on the main hand, so plans for dual wielders put them there too eagerly. They now count with the off hand's smaller share, and the nightly measurement measures them on the off hand itself.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Themes renamed",
 							"text": "The two themes are now called Modern (dark and gold) and Classic (the former \"2006\").",
 							"source": "Gear Planner",

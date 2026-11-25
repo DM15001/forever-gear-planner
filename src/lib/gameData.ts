@@ -132,6 +132,7 @@ interface RawSimValues {
 interface RawMeasured {
 	items: Record<string, { dps: number }>;
 	enchants: Record<string, { dps: number }>;
+	enchantsOffHand?: Record<string, { dps: number }>;
 	sets: Record<string, { byCount: Record<string, { dps: number }> }>;
 	measured: { items: number[]; enchants: number[]; sets: number[] };
 }
@@ -165,6 +166,7 @@ function readMeasured(raw: RawMeasured): SimValues {
 	return {
 		items: dpsMap(raw.items),
 		enchants: dpsMap(raw.enchants),
+		enchantsOffHand: raw.enchantsOffHand ? dpsMap(raw.enchantsOffHand) : undefined,
 		sets: new Map(Object.entries(raw.sets).map(([id, set]) => [Number(id), dpsMap(set.byCount)])),
 		measuredItems: new Set(raw.measured.items),
 		measuredEnchants: new Set(raw.measured.enchants),

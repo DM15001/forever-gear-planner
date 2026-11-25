@@ -292,6 +292,9 @@ if (isMainThread) {
 			if (slotIndex < 0) continue;
 			seen.add(enchant.effectId);
 			tasks.push({ kind: 'enchant', effectId: enchant.effectId, name: enchant.name, slotIndex });
+			// A weapon enchant is worth less on the off hand (fewer and weaker hits), so with two weapons it is measured there too.
+			const offHandWeapon = ['oneHand', 'offHand', 'mainHand'].includes(planItem.get(reference[OFF_HAND]?.id)?.weapon?.hand) && !['shield', 'offHand'].includes(planItem.get(reference[OFF_HAND]?.id)?.weapon?.type);
+			if (slotIndex === MAIN_HAND && !enchant.only && offHandWeapon) tasks.push({ kind: 'enchant', effectId: enchant.effectId, name: enchant.name, slotIndex: OFF_HAND, off: true });
 		}
 
 		// Sets: every set the build can wear two pieces of, PvP sets and low-level ones included. One piece per slot, the highest item level variant.
@@ -363,6 +366,7 @@ if (isMainThread) {
 		reference: { dps: round(ap.referenceDps), iterations: FINAL_ITERATIONS },
 		items: {},
 		enchants: {},
+		enchantsOffHand: {},
 		sets: {},
 		measured: { items: [], enchants: [], sets: [] },
 	};
@@ -371,6 +375,9 @@ if (isMainThread) {
 		if (task.kind === 'item') {
 			out.measured.items.push(task.id);
 			if (clear(result)) out.items[task.id] = { name: task.name, dps: round(result.dps) };
+		} else if (task.kind === 'enchant' && task.off) {
+			// Stored even when it is nothing: "worth nothing on the off hand" is a finding of its own.
+			out.enchantsOffHand[task.effectId] = { name: task.name, dps: clear(result) ? round(result.dps) : 0 };
 		} else if (task.kind === 'enchant') {
 			out.measured.enchants.push(task.effectId);
 			if (clear(result)) out.enchants[task.effectId] = { name: task.name, dps: round(result.dps) };
