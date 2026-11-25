@@ -11,12 +11,11 @@ import { buildPlan, fallbacks, gotEnchant, gotItem, type PlanStep, planSteps } f
 import { EMPTY_SLOT, EVERYTHING, isUnmeasured, plannedGear, scoreSet, slotInUse, type SourceFilter, usableSources, withItem, isObtainable } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
 import { REFINE_DEPTH, REFINE_DEPTHS, refinePlan } from '../lib/sim/live';
-import { wowheadItemUrl, wowheadData } from '../lib/stats';
-import type { Character, Item, SpecConfig } from '../lib/types';
+import { sourceLine, statLine, wowheadItemUrl, wowheadData, wowheadEnchantUrl, wowheadSourceLink } from '../lib/stats';
+import type { Character, Enchant, Item, SpecConfig } from '../lib/types';
 import { ContentPicker, useContentOpen } from './ContentPicker';
 import { ItemIcon } from './ItemIcon';
 import { SuffixNote, suffixText } from './SuffixNote';
-import { SourceLabel } from './SourceLabel';
 import { ItemPicker } from './ItemPicker';
 import { SimSummary, ProgressBar } from './Sim';
 
@@ -165,10 +164,26 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 		[character, gear, data, spec, options, planned],
 	);
 
-	const sourceOf = (item: Item) => {
+	/** The word "Source": where the item comes from as a tooltip, and a click to that source on Wowhead. */
+	const sourceWord = (item: Item) => {
 		const guide = marks.get(item.id)?.find(m => m.source);
-		if (guide) return `${guide.source} (per ${guide.guide.label})`;
-		return <SourceLabel source={usableSources(item, faction, filter, character.professions)[0] ?? usableSources(item, faction, EVERYTHING)[0]} data={data} item={item} />;
+		const source = usableSources(item, faction, filter, character.professions)[0] ?? usableSources(item, faction, EVERYTHING)[0];
+		const text = guide ? `${guide.source} (per ${guide.guide.label})` : sourceLine(source, data);
+		const link = wowheadSourceLink(source);
+		return link ? (
+			<a className="plan-source" href={link.url} title={text} target="_blank" rel="noreferrer">
+				Source
+			</a>
+		) : (
+			<span className="plan-source" title={text} tabIndex={0}>
+				Source
+			</span>
+		);
+	};
+	/** What an enchant gives: its stats, or the DPS the simulator measured for its effect. */
+	const enchantGives = (enchant: Enchant) => {
+		const measured = data.simValues.enchants.get(enchant.effectId);
+		return statLine(enchant.stats ?? {}) || (measured !== undefined ? `${formatGain(measured)} from its effect` : '');
 	};
 
 	// What the estimate does not know about this character: said next to it, before anybody wonders.
@@ -318,21 +333,17 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 					<>
 				<MeasuredNote specId={spec.id} />
 				<ul className="plain-list plan-slots">
-					{slots.map(({ slot, index, equippedItem, goalItem, goalEnchant, isChange, overWorn, enchantOpen, others }) => (
+					{slots.map(({ slot, index, equippedItem, goalItem, goalEnchant, isChange, overWorn, others }) => (
 						<li key={slot.key} className={`plan-slot${isChange ? '' : ' plan-slot-done'}`}>
 							<button className="slot-button" onClick={() => setPicking(index)} title={`Change the planned ${slot.label.toLowerCase()} item`} aria-label={`Change the planned ${slot.label.toLowerCase()} item`}>
 								<ItemIcon icon={goalItem?.icon} quality={goalItem?.quality} small />
 							</button>
 							<div className="plan-slot-body">
-								<span className="slot-label">
-									{slot.label}
-									<button className="link slot-change" onClick={() => setPicking(index)}>
-										Change
-									</button>
-								</span>
+								<span className="slot-label">{slot.label}</span>
 								{goalItem ? (
-									<span className="plan-goal">
+									<span className="plan-row plan-goal">
 										<ItemLink item={goalItem} />
+										{isChange && sourceWord(goalItem)}
 										{isChange && <SuffixNote item={goalItem} />}
 										{marks.get(goalItem.id)?.map(mark => (
 											<span key={mark.guide.id} className="badge badge-guide">
@@ -351,33 +362,60 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 										)}
 									</span>
 								) : (
-									<span className="plan-goal plan-empty">Nothing to wear here</span>
+									<span className="plan-row plan-goal plan-empty">Nothing to wear here</span>
 								)}
-								{goalItem && (
-									<span className="slot-source">
-										{isChange ? sourceOf(goalItem) : 'You have it'}
-										{isChange && equippedItem && `, replaces ${equippedItem.name}`}
-										{isChange && equippedItem && <span className={`num ${overWorn >= 0 ? 'delta-up' : 'delta-down'}`}> ({formatDps(overWorn)} over it)</span>}
-									</span>
-								)}
-								{goalEnchant && (
-									<span className={enchantOpen ? 'plan-enchant plan-enchant-open' : 'plan-enchant'}>
-										{goalEnchant.name}
-										<span className="plan-enchant-state">{enchantOpen ? 'enchant to get' : 'enchant, you have it'}</span>
-									</span>
-								)}
-								{isChange && others.length > 0 && (
-									<span className="slot-source plan-others">
-										Otherwise:{' '}
-										{others.map((c, i) => (
-											<span key={c.item.id}>
-												{i > 0 && ', '}
-												<ItemIcon icon={c.item.icon} quality={c.item.quality} inline />
-												<ItemLink item={c.item} /> ({formatGain(c.delta)}, {sourceOf(c.item)})
-											</span>
-										))}
-									</span>
-								)}
+								<span className="plan-row plan-enchant-row">
+									{goalEnchant ? (
+										<>
+											{wowheadEnchantUrl(goalEnchant) ? (
+												<a className="plan-enchant-name" href={wowheadEnchantUrl(goalEnchant)} target="_blank" rel="noreferrer">
+													{goalEnchant.name}
+												</a>
+											) : (
+												<span className="plan-enchant-name">{goalEnchant.name}</span>
+											)}
+											<span className="slot-source">{enchantGives(goalEnchant)}</span>
+										</>
+									) : (
+										<span className="slot-source">{goalItem && applicableEnchants(index, goalItem, data).length > 0 ? 'No enchant planned' : '\u00a0'}</span>
+									)}
+								</span>
+								<span className="plan-row plan-replaces">
+									{!goalItem ? (
+										'\u00a0'
+									) : !isChange ? (
+										'You wear it'
+									) : equippedItem ? (
+										<>
+											replaces <ItemLink item={equippedItem} />
+											<span className={`num ${overWorn >= 0 ? 'delta-up' : 'delta-down'}`}>({formatDps(overWorn)} over it)</span>
+										</>
+									) : (
+										<>
+											fills an empty slot <span className={`num ${overWorn >= 0 ? 'delta-up' : 'delta-down'}`}>({formatDps(overWorn)})</span>
+										</>
+									)}
+								</span>
+								{[0, 1].map(n => {
+									const other = isChange ? others[n] : undefined;
+									return (
+										<span key={n} className="plan-row plan-option">
+											{other ? (
+												<>
+													<span className="plan-option-label">Option {n + 1}:</span>
+													<button type="button" className="plan-option-pick" title={`Plan ${other.item.name} for this slot instead`} aria-label={`Plan ${other.item.name} instead`} onClick={() => pickItem(index, other.item.id)}>
+														<ItemIcon icon={other.item.icon} quality={other.item.quality} inline />
+													</button>
+													<ItemLink item={other.item} />
+													<span className="num" title={`${formatGain(other.delta)} against the planned item, estimated`}>{formatGain(other.delta).replace(` ${unit()}`, '')}</span>
+													{sourceWord(other.item)}
+												</>
+											) : (
+												'\u00a0'
+											)}
+										</span>
+									);
+								})}
 							</div>
 						</li>
 					))}

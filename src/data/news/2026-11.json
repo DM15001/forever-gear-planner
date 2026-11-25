@@ -96,6 +96,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Tidier plan cards",
+							"text": "The slots of your plan are cards of one size, two to a row, with the same lines in the same order: item with a \"Source\" word (hover for where it comes from, click for Wowhead) and guide tags, the enchant and what it gives, the item it replaces, then option 1 and option 2. Click the icon to change a slot. Click an option's icon to plan that item instead.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Less text around the simulation",
 							"text": "Build plan lost several lines of explanation. Damage breakdown and Sim setup sit side by side, the estimate note has a warning sign, and what \"Check the plan with the simulator\" does is a short list of four steps with a link to WoWSims.",
 							"source": "Gear Planner",
