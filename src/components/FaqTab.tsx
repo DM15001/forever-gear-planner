@@ -142,7 +142,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 				q: 'What can the site not do?',
 				a: (
 					<ul>
-						<li><strong>No raids yet.</strong> Raid loot is not planned for.</li>
+						<li><strong>No raids yet.</strong> Raid loot is not planned for. The raids are already listed, greyed out, under "What content do you do?"; that is where you will switch them on.</li>
 						<li><strong>No tanks.</strong> There is no number for survival.</li>
 						<li><strong>One target, one standard fight</strong> unless you change it under "Sim setup". Movement, mistakes and your group's real buffs are not in it.</li>
 						<li><strong>Some item effects are unknown.</strong> Where WoWSims has no trigger rate for an effect, the item is left out instead of guessed. "News" lists them under "On the radar".</li>

@@ -6348,3 +6348,15 @@ details.content-fold[open] > summary {
 	color: #ff8a65;
 	border-color: #ff8a65;
 }
+
+/* Raids: listed, greyed out, until their loot is in the planner */
+.content-soon legend .badge {
+	font-family: var(--sans, inherit);
+	font-weight: 600;
+	letter-spacing: 0;
+	text-transform: none;
+	vertical-align: middle;
+}
+.content-soon .content-tile:disabled {
+	opacity: 0.55;
+}

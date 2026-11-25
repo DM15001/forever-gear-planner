@@ -7,6 +7,17 @@ import type { Character, SpecConfig } from '../lib/types';
 import DUNGEON_ICONS from '../config/dungeonIcons.json';
 import { DungeonIcon } from './ItemIcon';
 
+/** The raids the planner will cover, with the game's own icon for each. Shown greyed out until their loot is in the data. */
+const RAIDS: [name: string, icon: string][] = [
+	['Molten Core', 'achievement_boss_ragnaros'],
+	["Onyxia's Lair", 'achievement_boss_onyxia'],
+	['Blackwing Lair', 'achievement_boss_nefarion'],
+	["Zul'Gurub", 'achievement_boss_hakkar'],
+	["Ruins of Ahn'Qiraj", 'achievement_boss_ossiriantheunscarred'],
+	["Temple of Ahn'Qiraj", 'achievement_boss_cthun'],
+	['Naxxramas', 'achievement_boss_kelthuzad_01'],
+];
+
 interface Props {
 	spec: SpecConfig;
 	character: Character;
@@ -80,6 +91,14 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				</p>
 				{catalog.dungeons.map(d => tile(d.name, dungeonIcons(d.key), !filter.excludedDungeons.includes(d.key), on => set({ excludedDungeons: toggled(filter.excludedDungeons, [d.key], on) })))}
 				{catalog.lowDungeonKeys.length > 0 && tile('Lower-level dungeons', ['achievement_boss_edwinvancleef', 'inv_misc_head_murloc_01'], lowOn, on => set({ excludedDungeons: toggled(filter.excludedDungeons, catalog.lowDungeonKeys, on) }), false, 'Deadmines to Maraudon')}
+			</fieldset>
+
+			<fieldset className="content-group content-tiles content-soon">
+				<legend>
+					Raids <span className="badge badge-plan">coming soon</span>
+				</legend>
+				<p className="hint tier-hint">Raid loot is not in the planner yet. When it is, you switch the raids on here and they count everywhere: Upgrades, Farm plan and Group plan.</p>
+				{RAIDS.map(([name, icon]) => tile(name, [icon], false, () => undefined, true, 'Coming soon'))}
 			</fieldset>
 
 			<fieldset className="content-group content-tiles">

@@ -87,6 +87,14 @@
 							"tags": [
 								"Planner"
 							]
+						},
+						{
+							"title": "Raids: coming soon",
+							"text": "\"What content do you do?\" now lists the raids, greyed out. Once their loot is in the planner you switch them on there, and they count in Upgrades, Farm plan and Group plan.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
 						}
 					]
 				}
