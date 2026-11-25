@@ -63,7 +63,9 @@ jobs:
     timeout-minutes: 120
     strategy:
       fail-fast: false
-      max-parallel: 6
+      # GitHub runs 20 jobs at once for this repository. The three measurements together take 17,
+      # so the simulator check and the site's deploy never wait behind them.
+      max-parallel: 5
       matrix:
         spec: ${{ fromJson(needs.list.outputs.specs) }}
     steps:
