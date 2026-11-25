@@ -3,8 +3,95 @@
 	"entries": [
 		{
 			"date": "2026-11-25",
-			"summary": "Planner update: presets per character, the group plan as cards or list, an FAQ, and a changelog of its own.",
+			"summary": "A hotfix on 24 November makes Blackblade of Shahram's haste proc speed up its wielder, binds Rogue poisons on pickup, and fixes long battleground queues on European PvE realms. WoWSims reworked its Balance Druid preset. Planner update: presets per character, the group plan as cards or list, an FAQ, and a changelog of its own.",
 			"sections": [
+				{
+					"title": "Game",
+					"items": [
+						{
+							"title": "Blackblade of Shahram: the haste proc now helps you",
+							"text": "A hotfix seen on 24 November, for which Blizzard has posted no notes yet, changes Fist of Shahram, one of the spells the sword's spirit casts: the 30% attack speed now goes to the wielder instead of to the spirit itself. That makes the sword's proc worth more than before.",
+							"url": "https://foreverchanges.pro/patch-notes",
+							"source": "ForeverChanges",
+							"tags": [
+								"Items"
+							]
+						},
+						{
+							"title": "Stealthblade tooltip corrected",
+							"text": "The dagger's Stealth effect is now described as lasting 20 seconds. Only the text changed; the effect already lasted that long.",
+							"url": "https://foreverchanges.pro/patch-notes",
+							"source": "ForeverChanges",
+							"tags": [
+								"Items",
+								"Rogue"
+							]
+						},
+						{
+							"title": "Rogue poisons and Blinding Powder bind on pickup",
+							"text": "Poisons and Blinding Powder a Rogue makes are now bound when picked up and vendors pay nothing for them, so they can no longer be traded or sold.",
+							"url": "https://foreverchanges.pro/patch-notes",
+							"source": "ForeverChanges",
+							"tags": [
+								"Rogue"
+							]
+						},
+						{
+							"title": "Epic class mounts teach the riding skill",
+							"text": "Learning Summon Charger or Summon Forsaken Charger (Paladin) or Summon Dreadsteed (Warlock) now also teaches Journeyman Riding, so the mount can be used right away.",
+							"url": "https://foreverchanges.pro/patch-notes",
+							"source": "ForeverChanges",
+							"tags": [
+								"Paladin",
+								"Warlock"
+							]
+						},
+						{
+							"title": "Quest fix: Lord Valthalak Laid to Rest",
+							"text": "Lord Valthalak Laid to Rest now counts every version of the quest Saving the Best for Last that comes before it, including the Hardcore one.",
+							"url": "https://foreverchanges.pro/patch-notes",
+							"source": "ForeverChanges",
+							"tags": [
+								"Quests"
+							]
+						},
+						{
+							"title": "Europe: long battleground queues on PvE realms fixed",
+							"text": "Players on the European PvE ruleset were being matched in the Russian region by mistake, which made battleground queues much longer than they should be. Blizzard hotfixed it on 24 November; it takes full effect after a realm restart, such as the weekly maintenance of 25 November.",
+							"url": "https://www.pcgameshardware.de/World-of-Warcraft-Forever-Spiel-78891/News/WoW-Forever-down-Blizzard-is-fixing-an-annoying-issue-right-now-1560998/",
+							"source": "PC Games Hardware",
+							"tags": [
+								"PvP"
+							]
+						}
+					]
+				},
+				{
+					"title": "WoWSims",
+					"items": [
+						{
+							"title": "Preset changes: Balance Druid and Fire Mage",
+							"text": "The simulator's Balance Druid preset was reworked: it is now a Windshaper Skyborne instead of a Night Elf, takes Leatherworking instead of Tailoring, and has new gear in 14 slots and a new rotation. The Fire Mage preset got a different main-hand weapon imbue.",
+							"url": "https://github.com/wowsims/forever",
+							"source": "WoWSims",
+							"tags": [
+								"WoWSims",
+								"Druid",
+								"Mage"
+							]
+						},
+						{
+							"title": "Vilerend Slicer removed from the item list",
+							"text": "The fist weapon Vilerend Slicer is no longer in the simulator's item data, so it can no longer be picked there.",
+							"url": "https://github.com/wowsims/forever",
+							"source": "WoWSims",
+							"tags": [
+								"WoWSims",
+								"Items"
+							]
+						}
+					]
+				},
 				{
 					"title": "Gear Planner",
 					"items": [
