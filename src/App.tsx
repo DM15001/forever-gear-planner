@@ -1,3 +1,4 @@
+import dataMeta from './data/meta.json';
 import measurementStatus from './data/measurementStatus.json';
 import { restartTour, Tour } from './components/Tour';
 import { createPortal } from 'react-dom';
@@ -21,7 +22,7 @@ import { ImportPanel } from './components/ImportPanel';
 import { BarCap, Emblem } from './components/Ornaments';
 import { PlanTab } from './components/PlanTab';
 import { SimSetupTab } from './components/SimSetupTab';
-import { SimProvider } from './components/Sim';
+import { Modal, SimProvider } from './components/Sim';
 import { simClient } from './lib/sim/client';
 import { UpgradesTab } from './components/UpgradesTab';
 import { type GameData, loadGameData, dataFor } from './lib/gameData';
@@ -62,9 +63,10 @@ const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
 /**
  * Everything needed to see what a visitor sees: all the planner has saved in this browser (characters with their
  * plans, content choice and sim setup, the group, the options), which version of the site and the simulator it is,
- * and the text of the page as it stands. Copied and saved as a file. Only on Dev, for reporting a problem.
+ * and the text of the page as it stands. Copied and saved as a file, for reporting a problem. The button sits under
+ * the Live/Dev switch, so only those who have that switch see it.
  */
-async function exportEverything(tab: string, builtAt: string | undefined): Promise<string> {
+async function exportEverything(): Promise<string> {
 	const saved: Record<string, unknown> = {};
 	for (let index = 0; index < localStorage.length; index++) {
 		const key = localStorage.key(index);
@@ -80,10 +82,10 @@ async function exportEverything(tab: string, builtAt: string | undefined): Promi
 		exportedAt: new Date().toISOString(),
 		url: window.location.href.split('#')[0],
 		channel: import.meta.env.VITE_CHANNEL ?? 'live',
-		dataBuiltAt: builtAt ?? null,
+		dataBuiltAt: (dataMeta as { generatedAt?: string }).generatedAt ?? null,
 		simulator: (measurementStatus as { simVersion?: string | null; simDate?: string | null }).simVersion ?? null,
 		simulatorDate: (measurementStatus as { simDate?: string | null }).simDate ?? null,
-		page: tab,
+		page: document.querySelector('.tab[aria-current], .tool-link[aria-current]')?.textContent?.trim() ?? null,
 		window: `${window.innerWidth} x ${window.innerHeight}`,
 		browser: navigator.userAgent,
 		// What the page says right now: the numbers somebody is asking about.
@@ -93,7 +95,7 @@ async function exportEverything(tab: string, builtAt: string | undefined): Promi
 	const text = JSON.stringify(report, null, '\t');
 	const link = document.createElement('a');
 	link.href = URL.createObjectURL(new Blob([text], { type: 'application/json' }));
-	link.download = `gear-planner-export-${new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-')}.json`;
+	link.download = `gear-planner-report-${new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-')}.json`;
 	link.click();
 	URL.revokeObjectURL(link.href);
 	const size = `${Math.round(text.length / 1024)} KB`;
@@ -515,6 +517,7 @@ function ThemeMenu() {
 function ChannelSwitch() {
 	const [unlocked, setUnlocked] = useState(switchUnlocked);
 	const [cheer, setCheer] = useState(false);
+	const [report, setReport] = useState<string | null>(null);
 	const shown = useRef(unlocked);
 	useEffect(() => {
 		let typed = '';
@@ -550,10 +553,20 @@ function ChannelSwitch() {
 	const other = IS_DEV ? '../' : './dev/';
 	return (
 		<>
-			<nav className={`channel-switch${IS_DEV ? ' channel-dev' : ''}`} aria-label="Site version">
-				{IS_DEV ? <a href={other}>Live</a> : <span aria-current="page">Live</span>}
-				{IS_DEV ? <span aria-current="page">Dev</span> : <a href={other}>Dev</a>}
-			</nav>
+			<div className="channel-corner">
+				<nav className={`channel-switch${IS_DEV ? ' channel-dev' : ''}`} aria-label="Site version">
+					{IS_DEV ? <a href={other}>Live</a> : <span aria-current="page">Live</span>}
+					{IS_DEV ? <span aria-current="page">Dev</span> : <a href={other}>Dev</a>}
+				</nav>
+				<button className="channel-report" onClick={() => exportEverything().then(setReport, () => setReport('The report could not be made.'))} title="Copies and saves everything needed to look into a problem: all the planner has stored in this browser (every character with plan, content choice and sim setup), the site and simulator version, and the text of the page as it stands.">
+					Bug report
+				</button>
+				{report && (
+					<span className="channel-report-note" role="status">
+						{report}
+					</span>
+				)}
+			</div>
 			{/* He stands in the middle of the tab bar. */}
 			{cheer &&
 				createPortal(
@@ -636,8 +649,13 @@ export function App() {
 	const character = activeCharacter(roster);
 	// The spec follows the character. The user's own stat weights replace the spec's defaults
 	// everywhere a score is computed; they are kept per spec.
-	// What the last export said (Dev only).
-	const [exported, setExported] = useState<string | null>(null);
+	// Dev trial: Sim setup opens as a window from the simulation, not as a page from the header.
+	const [simSetupOpen, setSimSetupOpen] = useState(false);
+	useEffect(() => {
+		const open = () => setSimSetupOpen(true);
+		window.addEventListener('fgp-sim-setup', open);
+		return () => window.removeEventListener('fgp-sim-setup', open);
+	}, []);
 	const baseSpec = specOf(character);
 	const [weightsVersion, setWeightsVersion] = useState(0);
 	// A healer has one set of weights per healing scenario; the character's choice picks it.
@@ -785,7 +803,7 @@ export function App() {
 					</div>
 				</div>
 				<nav className="masthead-tools" aria-label="Settings, news and questions">
-					{SIDE_TABS.map(t => (
+					{SIDE_TABS.filter(t => !(IS_DEV && t.id === 'sim')).map(t => (
 						<button key={t.id} className="tool-link" aria-current={t.id === tab ? 'page' : undefined} onClick={() => {
 								setTab(t.id);
 								if (character) setImporting(false);
@@ -888,6 +906,11 @@ export function App() {
 						{tab === 'faq' && <FaqTab />}
 						{tab === 'news' && <NewsTab myClass={baseSpec.className} onSeen={newsSeen} />}
 						{tab === 'sim' && <SimSetupTab spec={spec} character={character} data={data} onChange={update} />}
+						{simSetupOpen && (
+							<Modal title="Sim setup" onClose={() => setSimSetupOpen(false)} wide>
+								<SimSetupTab spec={spec} character={character} data={data} onChange={update} />
+							</Modal>
+						)}
 						{tab === 'character' && (
 							<>
 								{warnings.length > 0 && (
@@ -929,15 +952,6 @@ export function App() {
 				<button className="link" onClick={() => { if (tab === 'group' && character && !importing) return restartTour('group'); setTab('character'); restartTour(); }}>
 					Take the tour
 				</button>
-				{IS_DEV && (
-					<>
-						{' '}
-						<button className="link" onClick={() => exportEverything(tab, data?.builtAt).then(setExported, () => setExported('The export failed.'))} title="Copies everything this browser has saved for the planner, plus what the page shows right now, and saves it as a file: for reporting a problem.">
-							Export everything
-						</button>
-						{exported && <span className="hint" role="status"> {exported}</span>}
-					</>
-				)}
 			</footer>
 		</div>
 	);

@@ -1,3 +1,4 @@
+import { SPECS } from '../lib/specs';
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import { unit } from '../lib/format';
@@ -608,6 +609,8 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 	const runningNow = sim.isRunning(equipped, SET_ITERATIONS) || sim.isRunning(planned, SET_ITERATIONS);
 	const complete = Boolean(a && (!hasPlan || b));
 	const [breakdownOpen, setBreakdownOpen] = useState(false);
+	// The lists' weights were measured with the build's own talents; a character with others gets less exact estimates.
+	const talentsDiffer = Boolean(sim.character.talents) && sim.character.talents !== SPECS.find(spec => spec.id === sim.character.specId)?.talents;
 	const show = (outcome: typeof a) => (outcome ? `${outcome.dps.toFixed(0)} ${unit()}` : '—');
 
 	// With `auto`, a short pause after the last change starts the missing runs by itself.
@@ -666,6 +669,7 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 			{hasPlan && a && b && b.dps >= a.dps - 1 && estimated !== undefined && Math.abs(estimated - (b.dps - a.dps)) > Math.max(10, 0.35 * Math.abs(estimated)) && (
 				<p className="notice sim-verdict" role="status">
 					<strong>Estimate and simulator are far apart:</strong> the lists estimate {signed(estimated, 0)} {unit()}, the simulator measures {signed(b.dps - a.dps, 0)}. The simulator is the one to trust. "Check the plan with the simulator" below goes through the plan with real simulations.
+					{talentsDiffer && <> Your talents are not the build's standard ones, and the estimate assumes those: "Measure for my character" under Stat weights below makes it fit your talents.</>}
 				</p>
 			)}
 			{sim.error && (
@@ -679,6 +683,14 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 						{(a?.healing ?? b?.healing) ? 'Healing breakdown' : 'Damage breakdown'}
 					</button>
 					<span className="slot-source">Every spell, a graph and a timeline, for the equipped or the planned gear.</span>
+				</p>
+			)}
+			{import.meta.env.VITE_CHANNEL === 'dev' && (
+				<p className="breakdown-open">
+					<button className="button" onClick={() => window.dispatchEvent(new Event('fgp-sim-setup'))}>
+						Sim setup
+					</button>
+					<span className="slot-source">Buffs, consumables, talents and rotation the simulation uses.</span>
 				</p>
 			)}
 			{breakdownOpen && <BreakdownDialog equipped={equipped} planned={planned} hasPlan={hasPlan} onClose={() => setBreakdownOpen(false)} />}

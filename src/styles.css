@@ -4604,11 +4604,41 @@ summary.breakdown-toggle:focus-visible {
 
 /* Live / Dev switch: two published copies of the site, see pages.yml. */
 /* Flush in the top right corner, like a tab hanging from the edge of the page. */
-.channel-switch {
+.channel-corner {
 	position: fixed;
 	top: 0;
 	right: 0;
 	z-index: 50;
+	display: grid;
+	justify-items: end;
+	gap: 2px;
+}
+.channel-report {
+	padding: 0.15rem 0.55rem;
+	font: inherit;
+	font-size: 0.6875rem;
+	color: var(--haze);
+	background: var(--slate);
+	border: solid var(--ridge);
+	border-width: 1px 0 1px 1px;
+	border-radius: 6px 0 0 6px;
+	opacity: 0.85;
+	cursor: pointer;
+}
+.channel-report:hover {
+	color: var(--mist);
+	opacity: 1;
+}
+.channel-report-note {
+	max-width: 16rem;
+	padding: 0.3rem 0.5rem;
+	font-size: 0.6875rem;
+	color: var(--mist);
+	background: var(--slate);
+	border: 1px solid var(--ridge);
+	border-radius: 6px 0 0 6px;
+}
+.channel-switch {
 	display: flex;
 	border: solid var(--ridge);
 	border-width: 0 0 1px 1px;

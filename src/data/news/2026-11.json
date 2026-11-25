@@ -96,8 +96,16 @@
 					"title": "Gear Planner",
 					"items": [
 						{
-							"title": "Dev: export everything",
-							"text": "On the Dev version, \"Export everything\" at the bottom of the page copies and saves all the planner has stored in your browser, the site and simulator version, and the text of the page as it stands. For reporting a problem.",
+							"title": "Estimates and your own talents",
+							"text": "When estimate and simulator are far apart and your talents are not the build's standard ones, the note now says so: the estimate assumes the build's talents. \"Measure for my character\" under Stat weights makes it fit yours.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "A nightly look for odd numbers",
+							"text": "Every night the measured values are searched for things that deserve a second look: values that jumped, an enchant or item worth a lot to one build of a class and nothing to another that fights the same way, and things WoWSims' own set wears that measured as nothing. What is new goes into one report.",
 							"source": "Gear Planner",
 							"tags": [
 								"Planner"
