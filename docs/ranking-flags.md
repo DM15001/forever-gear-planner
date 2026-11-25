@@ -6,12 +6,9 @@ truly special or valued wrongly by the simulator: look at how its effect works b
 `src/config/sim-issues.json` under "fine" and leaves this list; one that is wrong goes under "wrong" and is kept out of the lists.
 
 - Oathbound Bracers (274599, rare 39, wrist): top 3 for 9 builds (Enhancement Shaman #3, Rogue: Combat SS #2, Rogue: Combat BS #2, …)
-- Flurry Axe (871, epic 47, weapon): top 3 for 6 builds (Warrior: Fury (Pre-BiS) #1, Rogue: Combat SS #1, Rogue: Combat Venom #2, …); its effect is measured at up to 27.1
-- Gloves of Holy Might (867, epic 42, hands): top 3 for 6 builds (Rogue: Combat SS #3, Rogue: Combat BS #2, Rogue: Combat Venom #2, …); its effect is measured at up to 8.6
-- Gut Ripper (2164, epic 45, weapon): top 3 for 2 builds (Rogue: Hemo Seal Fate #3, Hunter: Survival (melee) #2); its effect is measured at up to 10.1
+- Flurry Axe (871, epic 47, weapon): top 3 for 6 builds (Warrior: Fury (Pre-BiS) #2, Rogue: Combat SS #1, Rogue: Combat Venom #2, …); its effect is measured at up to 28.3
+- Gloves of Holy Might (867, epic 42, hands): top 3 for 6 builds (Rogue: Combat SS #2, Rogue: Combat BS #2, Rogue: Combat Venom #2, …); its effect is measured at up to 8.7
+- Gut Ripper (2164, epic 45, weapon): top 3 for 2 builds (Rogue: Hemo Seal Fate #3, Hunter: Survival (melee) #3); its effect is measured at up to 9.9
 - Precisely Calibrated Boomstick (2100, epic 48, ranged): top 3 for 2 builds (Rogue: Asn Muti #3, Hunter: Survival (melee weave) #3)
-- Celestial Orb (7515, rare 40, weapon): top 3 for 1 build (Mage: FFB #3); its effect is measured at up to 7.6
 - Icemail Jerkin (1981, epic 44, chest): top 3 for 1 build (Hunter: Survival (melee) #3)
-- Kang the Decapitator (2291, epic 49, weapon): top 3 for 1 build (Hunter: Survival (melee weave) #3); its effect is measured at up to 17.5
-- Phantom Blade (7961, rare 49, weapon): top 3 for 1 build (Hunter: Survival (melee) #3); its effect is measured at up to 8.0
-- Polished Driftwood Icon (249398, rare 25, ranged): top 3 for 1 build (Elemental Shaman #3); its effect is measured at up to 3.1
+- Kang the Decapitator (2291, epic 49, weapon): top 3 for 1 build (Hunter: Survival (melee weave) #3); its effect is measured at up to 17.1
