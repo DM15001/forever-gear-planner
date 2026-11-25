@@ -7272,3 +7272,9 @@ a.plan-enchant-name:hover {
 	margin-right: 0.45em;
 	vertical-align: -0.2em;
 }
+.button-sign {
+	color: var(--brass);
+}
+:root[data-theme='classic'] main .button-sign {
+	color: #b8860b;
+}
