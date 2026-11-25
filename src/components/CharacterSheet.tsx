@@ -104,21 +104,29 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 						{presets && presets.list.length > 1 && <span className="set-chip">{character.set ?? 'Main'}</span>}
 					</h2>
 					<p className="identity-line">
-						{spec.name}
-						{race ? `, ${race.name}` : ', race not set'}
-						{character.level ? `, level ${character.level}` : ''}
+						<span>{spec.name}</span>
+						<span className="identity-dot" aria-hidden="true" />
+						<span>{race ? race.name : 'Race not set'}</span>
+						{character.level ? (
+							<>
+								<span className="identity-dot" aria-hidden="true" />
+								<span>Level {character.level}</span>
+							</>
+						) : null}
 						{race && <FactionMark faction={race.faction} />}
+						{points && (
+							<span className="talent-chip" title={talents}>
+								<span className="talent-chip-label">Talents</span>
+								<strong className="num">{points}</strong>
+								<span className="talent-chip-source">{talentSource}</span>
+								{onOpenTalents && (
+									<button className="talent-chip-change" onClick={onOpenTalents}>
+										Change
+									</button>
+								)}
+							</span>
+						)}
 					</p>
-					{points && (
-						<p className="identity-line identity-talent-line" title={talents}>
-							Talents {points}, {talentSource}
-							{onOpenTalents && (
-								<button className="button button-small sheet-talents" onClick={onOpenTalents}>
-									Change talents
-								</button>
-							)}
-						</p>
-					)}
 				</div>
 				<div className="sheet-actions">
 				<div className="sheet-share">

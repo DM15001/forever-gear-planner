@@ -105,7 +105,7 @@
 						},
 						{
 							"title": "Check gear: tidier head of the character sheet",
-							"text": "Name, build and talents sit on the left with a \"Change talents\" button; \"Copy character link\" and \"Build my gear plan\" sit together on the right.",
+							"text": "Build, race and level sit in one quiet line under the name, the talents are one chip with a \"Change\" button, and \"Copy character link\" and \"Build my gear plan\" are two buttons of one height on the right.",
 							"source": "Gear Planner",
 							"tags": [
 								"Planner"
