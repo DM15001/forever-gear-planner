@@ -696,6 +696,16 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 					</button>
 				)}
 				<button className="button" title="Buffs, consumables, talents and rotation the simulation uses." onClick={() => window.dispatchEvent(new Event('fgp-sim-setup'))}>
+					<svg className="button-sign" viewBox="0 0 24 24" aria-hidden="true">
+						<path
+							d="M10.3 2.5h3.4l.5 2.6 1.9.8 2.2-1.500 2.400 2.400-1.500 2.200.8 1.900 2.600.500v3.400l-2.600.500-.8 1.900 1.500 2.200-2.400 2.400-2.200-1.500-1.900.8-.5 2.600h-3.400l-.5-2.600-1.900-.8-2.200 1.500-2.400-2.400 1.500-2.200-.8-1.900-2.600-.500v-3.400l2.600-.500.8-1.900-1.500-2.200 2.400-2.400 2.200 1.500 1.900-.8Z"
+							fill="none"
+							stroke="currentColor"
+							strokeWidth="1.6"
+							strokeLinejoin="round"
+						/>
+						<circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" strokeWidth="1.6" />
+					</svg>
 					Sim setup
 				</button>
 				{missing.length > 0 && (

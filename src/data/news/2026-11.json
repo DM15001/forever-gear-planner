@@ -145,7 +145,7 @@
 						},
 						{
 							"title": "Less text around the simulation",
-							"text": "Build plan lost several lines of explanation. Damage breakdown and Sim setup sit side by side, the estimate note has a warning sign, and what \"Check the plan with the simulator\" does shows when you hover \"Powered by WoWSims\". The spell-book note is a small book sign with a number next to Sim setup; hover it to read it.",
+							"text": "Build plan lost several lines of explanation. Damage breakdown and Sim setup sit side by side, the estimate note has a warning sign, and what \"Check the plan with the simulator\" does shows when you hover \"Powered by WoWSims\". The spell-book note is a small book sign with a number next to Sim setup; hover it to read it. Sim setup has a cog on its button.",
 							"source": "Gear Planner",
 							"tags": [
 								"Planner"
