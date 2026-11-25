@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T12:23:21.739Z",
-	"inputs": "950391f985b1e149",
+	"generatedAt": "2026-11-25T14:58:57.734Z",
+	"inputs": "7f291dd3cc199893",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -60,8 +60,8 @@
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"mainHand": -122.88,
-			"offHand": -32.65
+			"offHand": -32.65,
+			"mainHand": -122.88
 		},
 		"8190": {
 			"name": "Hanzo Sword",
@@ -173,8 +173,8 @@
 		},
 		"11744": {
 			"name": "Bloodfist",
-			"offHand": -16.9,
-			"mainHand": -90.75
+			"mainHand": -90.75,
+			"offHand": -16.9
 		},
 		"11784": {
 			"name": "Arbiter's Blade",
@@ -275,8 +275,8 @@
 		},
 		"12781": {
 			"name": "Serenity",
-			"mainHand": -57.35,
-			"offHand": -25.89
+			"offHand": -25.89,
+			"mainHand": -57.35
 		},
 		"12783": {
 			"name": "Heartseeker",
@@ -363,8 +363,8 @@
 		},
 		"13204": {
 			"name": "Bashguuder",
-			"offHand": -15.38,
-			"mainHand": -74.21
+			"mainHand": -74.21,
+			"offHand": -15.38
 		},
 		"13218": {
 			"name": "Fang of the Crystal Spider",
@@ -465,8 +465,8 @@
 		},
 		"15219": {
 			"name": "Dimensional Blade",
-			"mainHand": -99.46,
-			"offHand": -25.55
+			"offHand": -25.55,
+			"mainHand": -99.46
 		},
 		"15220": {
 			"name": "Battlefell Sabre",
@@ -499,8 +499,8 @@
 		},
 		"15238": {
 			"name": "Warlord's Axe",
-			"mainHand": -73.67,
-			"offHand": -29.11
+			"offHand": -29.11,
+			"mainHand": -73.67
 		},
 		"15239": {
 			"name": "Felstone Reaver",
@@ -519,8 +519,8 @@
 		},
 		"15246": {
 			"name": "Demon Blade",
-			"mainHand": -107.08,
-			"offHand": -30.3
+			"offHand": -30.3,
+			"mainHand": -107.08
 		},
 		"15247": {
 			"name": "Bloodstrike Dagger",
@@ -595,8 +595,8 @@
 		},
 		"17705": {
 			"name": "Thrash Blade",
-			"mainHand": -29.05,
-			"offHand": -15.09
+			"offHand": -15.09,
+			"mainHand": -29.05
 		},
 		"17710": {
 			"name": "Charstone Dirk",
@@ -692,8 +692,8 @@
 		},
 		"18683": {
 			"name": "Hammer of the Vesper",
-			"mainHand": -43.8,
-			"offHand": -17.18
+			"offHand": -17.18,
+			"mainHand": -43.8
 		},
 		"18737": {
 			"name": "Bone Slicing Hatchet",
@@ -707,8 +707,8 @@
 		},
 		"19099": {
 			"name": "Glacial Blade",
-			"offHand": -15.62,
-			"mainHand": -85.6
+			"mainHand": -85.6,
+			"offHand": -15.62
 		},
 		"19100": {
 			"name": "Electrified Dagger",
@@ -717,8 +717,8 @@
 		},
 		"19103": {
 			"name": "Frostbite",
-			"offHand": -9.94,
-			"mainHand": -20.67
+			"mainHand": -20.67,
+			"offHand": -9.94
 		},
 		"19104": {
 			"name": "Stormstrike Hammer",
@@ -752,8 +752,8 @@
 		},
 		"19550": {
 			"name": "Legionnaire's Sword",
-			"mainHand": -25.47,
-			"offHand": -12.55
+			"offHand": -12.55,
+			"mainHand": -25.47
 		},
 		"19551": {
 			"name": "Legionnaire's Sword",
@@ -934,8 +934,8 @@
 		},
 		"272693": {
 			"name": "Premier Grand Marshal's Longsword",
-			"offHand": 4.25,
-			"mainHand": 9.68
+			"mainHand": 9.68,
+			"offHand": 4.25
 		},
 		"272839": {
 			"name": "Premier Grand Marshal's Handaxe",
@@ -990,8 +990,8 @@
 		},
 		"274517": {
 			"name": "Unerring Purpose",
-			"offHand": -20.69,
-			"mainHand": -47.34
+			"mainHand": -47.34,
+			"offHand": -20.69
 		},
 		"275293": {
 			"name": "Barkskin Scepter",
@@ -1016,8 +1016,8 @@
 		},
 		"276338": {
 			"name": "Claw of Shalla'kal",
-			"mainHand": -65.36,
-			"offHand": -27.22
+			"offHand": -27.22,
+			"mainHand": -65.36
 		},
 		"276398": {
 			"name": "Scarlet Malice",
@@ -1074,8 +1074,8 @@
 		},
 		"280029": {
 			"name": "Cinderedge Crescent",
-			"offHand": -12.31,
-			"mainHand": -39.41
+			"mainHand": -39.41,
+			"offHand": -12.31
 		},
 		"280068": {
 			"name": "Bloody Claws of Attack",
@@ -1117,8 +1117,8 @@
 		},
 		"284157": {
 			"name": "Ranger Lord's Longsword",
-			"mainHand": -54.07,
-			"offHand": -21.87
+			"offHand": -21.87,
+			"mainHand": -54.07
 		},
 		"284230": {
 			"name": "Rage Paw",
@@ -1131,8 +1131,8 @@
 		},
 		"286613": {
 			"name": "King Mosh's Tooth",
-			"offHand": -15.07,
-			"mainHand": -96.26
+			"mainHand": -96.26,
+			"offHand": -15.07
 		},
 		"287034": {
 			"name": "Grove Subjugator's Blade",

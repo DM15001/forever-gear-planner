@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T11:01:26.109Z",
-	"inputs": "9a4160a84159a2d6",
+	"generatedAt": "2026-11-25T13:49:42.057Z",
+	"inputs": "efd3a906e7c8af99",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -46,8 +46,8 @@
 		},
 		"6660": {
 			"name": "Julie's Dagger",
-			"offHand": -10.54,
-			"mainHand": -80.25
+			"mainHand": -80.25,
+			"offHand": -10.54
 		},
 		"7947": {
 			"name": "Ebon Shiv",
@@ -56,8 +56,8 @@
 		},
 		"8190": {
 			"name": "Hanzo Sword",
-			"offHand": -19.07,
-			"mainHand": -56.73
+			"mainHand": -56.73,
+			"offHand": -19.07
 		},
 		"9379": {
 			"name": "Sang'thraze the Deflector",
@@ -92,8 +92,8 @@
 		},
 		"10797": {
 			"name": "Firebreather",
-			"offHand": -47.19,
-			"mainHand": -41.58
+			"mainHand": -41.58,
+			"offHand": -47.19
 		},
 		"10803": {
 			"name": "Blade of the Wretched",
@@ -187,8 +187,8 @@
 		},
 		"12535": {
 			"name": "Doomforged Straightedge",
-			"offHand": -32.94,
-			"mainHand": -49.79
+			"mainHand": -49.79,
+			"offHand": -32.94
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
@@ -197,8 +197,8 @@
 		},
 		"12590": {
 			"name": "Felstriker",
-			"offHand": -12.38,
-			"mainHand": -31.05
+			"mainHand": -31.05,
+			"offHand": -12.38
 		},
 		"12621": {
 			"name": "Demonfork",
@@ -246,8 +246,8 @@
 		},
 		"12797": {
 			"name": "Frostguard",
-			"offHand": -58.57,
-			"mainHand": -17.52
+			"mainHand": -17.52,
+			"offHand": -58.57
 		},
 		"12798": {
 			"name": "Annihilator",
@@ -269,8 +269,8 @@
 		},
 		"13015": {
 			"name": "Serathil",
-			"mainHand": -44.58,
-			"offHand": -34.37
+			"offHand": -34.37,
+			"mainHand": -44.58
 		},
 		"13022": {
 			"name": "Gryphonwing Long Bow",
@@ -314,8 +314,8 @@
 		},
 		"13246": {
 			"name": "Argent Avenger",
-			"offHand": -39.26,
-			"mainHand": -24.48
+			"mainHand": -24.48,
+			"offHand": -39.26
 		},
 		"13286": {
 			"name": "Rivenspike",
@@ -419,8 +419,8 @@
 		},
 		"15237": {
 			"name": "Corpse Harvester",
-			"offHand": -61.22,
-			"mainHand": -44.94
+			"mainHand": -44.94,
+			"offHand": -61.22
 		},
 		"15238": {
 			"name": "Warlord's Axe",
@@ -584,8 +584,8 @@
 		},
 		"17752": {
 			"name": "Satyr's Lash",
-			"offHand": -27.96,
-			"mainHand": -73.07
+			"mainHand": -73.07,
+			"offHand": -27.96
 		},
 		"17753": {
 			"name": "Verdant Keeper's Aim",
@@ -597,8 +597,8 @@
 		},
 		"18310": {
 			"name": "Fiendish Machete",
-			"offHand": -45.38,
-			"mainHand": -27.77
+			"mainHand": -27.77,
+			"offHand": -45.38
 		},
 		"18347": {
 			"name": "Well Balanced Axe",
@@ -628,8 +628,8 @@
 		},
 		"18463": {
 			"name": "Ogre Pocket Knife",
-			"offHand": -50.61,
-			"mainHand": -37.85
+			"mainHand": -37.85,
+			"offHand": -50.61
 		},
 		"18482": {
 			"name": "Ogre Toothpick Shooter",
@@ -725,8 +725,8 @@
 		},
 		"19550": {
 			"name": "Legionnaire's Sword",
-			"mainHand": -16.12,
-			"offHand": -53.81
+			"offHand": -53.81,
+			"mainHand": -16.12
 		},
 		"19551": {
 			"name": "Legionnaire's Sword",
@@ -897,8 +897,8 @@
 		},
 		"272693": {
 			"name": "Premier Grand Marshal's Longsword",
-			"offHand": -40.34,
-			"mainHand": 15.43
+			"mainHand": 15.43,
+			"offHand": -40.34
 		},
 		"272839": {
 			"name": "Premier Grand Marshal's Handaxe",
@@ -936,8 +936,8 @@
 		},
 		"272859": {
 			"name": "Premier Grand Marshal's Swiftblade",
-			"mainHand": -16.32,
-			"offHand": -11.46
+			"offHand": -11.46,
+			"mainHand": -16.32
 		},
 		"274265": {
 			"name": "Brush Cutter",
@@ -951,13 +951,13 @@
 		},
 		"274383": {
 			"name": "Kanai's Knife",
-			"mainHand": -70.08,
-			"offHand": -22.73
+			"offHand": -22.73,
+			"mainHand": -70.08
 		},
 		"274517": {
 			"name": "Unerring Purpose",
-			"mainHand": -31.45,
-			"offHand": -58.52
+			"offHand": -58.52,
+			"mainHand": -31.45
 		},
 		"275296": {
 			"name": "Deadwood Boomstick",
@@ -985,8 +985,8 @@
 		},
 		"276338": {
 			"name": "Claw of Shalla'kal",
-			"offHand": -56.13,
-			"mainHand": -43.37
+			"mainHand": -43.37,
+			"offHand": -56.13
 		},
 		"276738": {
 			"name": "Katerina's Shanker",
@@ -1097,8 +1097,8 @@
 		},
 		"284283": {
 			"name": "Horn of Antilos",
-			"mainHand": -87.97,
-			"offHand": -62.26
+			"offHand": -62.26,
+			"mainHand": -87.97
 		},
 		"286613": {
 			"name": "King Mosh's Tooth",

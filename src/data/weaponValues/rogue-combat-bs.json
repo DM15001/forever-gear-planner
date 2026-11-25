@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T11:23:55.852Z",
-	"inputs": "79c004b5e668a35a",
+	"generatedAt": "2026-11-25T13:44:40.184Z",
+	"inputs": "56a6f293a888e845",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -70,8 +70,8 @@
 		},
 		"11635": {
 			"name": "Hookfang Shanker",
-			"mainHand": -36.31,
-			"offHand": -11.06
+			"offHand": -11.06,
+			"mainHand": -36.31
 		},
 		"11744": {
 			"name": "Bloodfist",
@@ -296,8 +296,8 @@
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"offHand": -22.63,
-			"mainHand": -56.36
+			"mainHand": -56.36,
+			"offHand": -22.63
 		},
 		"15246": {
 			"name": "Demon Blade",
@@ -441,8 +441,8 @@
 		},
 		"19324": {
 			"name": "The Lobotomizer",
-			"mainHand": -13.69,
-			"offHand": -8.92
+			"offHand": -8.92,
+			"mainHand": -13.69
 		},
 		"19542": {
 			"name": "Scout's Blade",
@@ -451,8 +451,8 @@
 		},
 		"19543": {
 			"name": "Scout's Blade",
-			"offHand": -14.64,
-			"mainHand": -35.61
+			"mainHand": -35.61,
+			"offHand": -14.64
 		},
 		"19546": {
 			"name": "Sentinel's Blade",
@@ -461,8 +461,8 @@
 		},
 		"19547": {
 			"name": "Sentinel's Blade",
-			"offHand": -14.64,
-			"mainHand": -35.61
+			"mainHand": -35.61,
+			"offHand": -14.64
 		},
 		"19550": {
 			"name": "Legionnaire's Sword",
@@ -529,8 +529,8 @@
 		},
 		"260180": {
 			"name": "Scout's Dagger",
-			"offHand": -19.5,
-			"mainHand": -44.79
+			"mainHand": -44.79,
+			"offHand": -19.5
 		},
 		"260213": {
 			"name": "Great Bear Claw",
@@ -591,8 +591,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"offHand": 0.71,
-			"mainHand": 10.58
+			"mainHand": 10.58,
+			"offHand": 0.71
 		},
 		"272845": {
 			"name": "Premier Grand Marshal's Left Hand Blade",

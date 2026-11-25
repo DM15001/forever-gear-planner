@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T10:55:34.467Z",
-	"inputs": "e49e73eb2fba292e",
+	"generatedAt": "2026-11-25T13:23:54.467Z",
+	"inputs": "e05e549ae0abd318",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -22,8 +22,8 @@
 		},
 		"6660": {
 			"name": "Julie's Dagger",
-			"mainHand": -29.24,
-			"offHand": -12.7
+			"offHand": -12.7,
+			"mainHand": -29.24
 		},
 		"7947": {
 			"name": "Ebon Shiv",
@@ -110,8 +110,8 @@
 		},
 		"14024": {
 			"name": "Frightalon",
-			"offHand": -5.74,
-			"mainHand": -22.83
+			"mainHand": -22.83,
+			"offHand": -5.74
 		},
 		"14555": {
 			"name": "Alcor's Sunrazor",
@@ -120,8 +120,8 @@
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"offHand": -21.39,
-			"mainHand": -49.62
+			"mainHand": -49.62,
+			"offHand": -21.39
 		},
 		"15246": {
 			"name": "Demon Blade",
@@ -149,8 +149,8 @@
 		},
 		"17752": {
 			"name": "Satyr's Lash",
-			"offHand": -10.53,
-			"mainHand": -36.88
+			"mainHand": -36.88,
+			"offHand": -10.53
 		},
 		"17780": {
 			"name": "Blade of Eternal Darkness",
@@ -228,8 +228,8 @@
 		},
 		"260172": {
 			"name": "Assassin's Dagger",
-			"mainHand": -45.99,
-			"offHand": -14.98
+			"offHand": -14.98,
+			"mainHand": -45.99
 		},
 		"260180": {
 			"name": "Scout's Dagger",
