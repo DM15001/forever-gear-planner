@@ -41,7 +41,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 						<li>On the start page, paste your character: an export from wowsims.com or a link somebody copied from this site. No export at hand? Load the WoWSims preset for your build and change the items by clicking the slots.</li>
 						<li>Pick your build under "Check gear". Talents, consumables and buffs follow the build; change them under "Sim setup".</li>
 						<li>Open "Build plan". Say what content you do and it fills every slot with the best set for it; "Rebuild the plan" does it again. Enchants and professions are a section at the bottom of that page.</li>
-						<li>"Swap a slot" lists the better items for each slot with the gain in front, to pick single ones yourself. What you pick there overrides the plan.</li>
+						<li>"Customize" lists the better items for each slot with the gain in front, to pick single ones yourself. What you pick there overrides the plan.</li>
 						<li>"Farm it" sorts the planned items by dungeon.</li>
 					</ol>
 				),
@@ -90,7 +90,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 						<p>From two places, and it matters which one you are looking at.</p>
 						<ul>
 							<li><strong>Simulate</strong> runs the real WoWSims simulator on your exact character. This is the number to trust.</li>
-							<li><strong>The lists</strong> (Swap a slot, Farm it, Group up) use values measured in advance: stat weights per build, plus a measured value for every item effect, set bonus and weapon. They are estimates, good for ranking, not exact for your character.</li>
+							<li><strong>The lists</strong> (Customize, Farm it, Group up) use values measured in advance: stat weights per build, plus a measured value for every item effect, set bonus and weapon. They are estimates, good for ranking, not exact for your character.</li>
 						</ul>
 						<p>When it counts, press "Check the top 5 with the simulator" in a slot, or simulate your plan.</p>
 					</>

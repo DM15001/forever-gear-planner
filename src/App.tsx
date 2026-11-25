@@ -38,7 +38,7 @@ const TABS = [
 	{ id: 'character', label: 'Check gear', step: true },
 	{ id: 'simulate', label: 'Build plan', step: true },
 	{ id: 'farm', label: 'Farm it', step: true },
-	{ id: 'upgrades', label: 'Swap a slot' },
+	{ id: 'upgrades', label: 'Customize', hint: 'Pick single items yourself, slot by slot. What you pick overrides the plan.' },
 	{ id: 'group', label: 'Group up' },
 ];
 /** Where each step of the way leads next. */
@@ -754,7 +754,7 @@ export function App() {
 								<Fragment key={t.id}>
 									{/* An arrow between the steps, a line before the extras. */}
 									{index > 0 && (t.step ? <span className="tab-arrow" aria-hidden="true">›</span> : TABS[index - 1].step ? <span className="tab-divide" aria-hidden="true" /> : null)}
-									<button className={t.step ? 'tab tab-way' : 'tab tab-extra'} data-tab={t.id} aria-current={t.id === tab ? 'page' : undefined} onClick={() => {
+									<button className={t.step ? 'tab tab-way' : 'tab tab-extra'} title={'hint' in t ? t.hint : undefined} data-tab={t.id} aria-current={t.id === tab ? 'page' : undefined} onClick={() => {
 											setTab(t.id);
 											if (character) setImporting(false);
 										}}>
@@ -867,14 +867,16 @@ export function App() {
 				)}
 				</PresetContext.Provider>
 			</main>
-			<Tour hasCharacter={Boolean(character) && !importing} onPage={tab !== 'faq' && tab !== 'news' && tab !== 'sim'} />
+			<Tour hasCharacter={Boolean(character) && !importing} onPage={tab !== 'faq' && tab !== 'news' && tab !== 'sim' && tab !== 'group'} />
+			{/* The group page has a tour of its own, the first time someone opens it. */}
+			<Tour id="group" hasCharacter={Boolean(character) && !importing} onPage={tab === 'group' && Boolean(character) && !importing} />
 			<BackToTop />
 
 			<footer className="colophon">
 				Item data and stat weights from <a href="https://github.com/wowsims/forever">WoWSims Forever</a>
 				{data && <>, data built {new Date(data.builtAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</>}. Drop chances, extra sources and the top picks of the linked guides from <a href="https://www.wowhead.com/forever">Wowhead</a>; the full guides are there. Further loot data from <a href="https://github.com/Hoizame/AtlasLootClassic">AtlasLootClassic</a> and <a href="https://www.curseforge.com/wow/addons/atlasloot-forever">AtlasLoot Classic Forever</a>. Item icons and game content are © Blizzard Entertainment. This is a fan project, not affiliated with or endorsed by Blizzard.
 				{' '}
-				<button className="link" onClick={() => { setTab('character'); restartTour(); }}>
+				<button className="link" onClick={() => { if (tab === 'group' && character && !importing) return restartTour('group'); setTab('character'); restartTour(); }}>
 					Take the tour
 				</button>
 			</footer>

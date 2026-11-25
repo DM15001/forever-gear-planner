@@ -91,7 +91,7 @@ export function FarmTab({ spec, character, data, filter, onChange }: Props) {
 			<section className="panel" aria-labelledby="farm-plan">
 				<h2 id="farm-plan">How to get your plan</h2>
 				{planSize === 0 ? (
-					<p className="farm-empty">No plan yet. Open "Build plan" to get the best set for your content, or pick items with "Plan this" under "Swap a slot". They show up here, sorted by where to get them.</p>
+					<p className="farm-empty">No plan yet. Open "Build plan" to get the best set for your content, or pick items with "Plan this" under "Customize". They show up here, sorted by where to get them.</p>
 				) : (
 					<>
 						{gotBack && (

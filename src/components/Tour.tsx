@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-const TOUR_KEY = 'fgp.tour';
+const keyOf = (id: TourId) => (id === 'main' ? 'fgp.tour' : `fgp.tour.${id}`);
+export type TourId = 'main' | 'group';
 
 interface TourStep {
 	/** What the step points at; without one the bubble sits in the middle of the page. */
@@ -11,7 +12,7 @@ interface TourStep {
 	needsCharacter?: boolean;
 }
 
-const STEPS: TourStep[] = [
+const MAIN_STEPS: TourStep[] = [
 	{ title: 'Welcome to the Forever Gear Planner', text: 'It tells you which gear to get before raids, where it drops and what it is worth, with the real WoWSims simulator. This tour takes a minute.' },
 	{ target: '.import', title: 'Bring your character', text: 'Install the WoWSims Exporter addon, type /wse in the game and paste the text here. A JSON export from wowsims.com works too.' },
 	{ target: '.start-example', title: 'Or just try it', text: 'No export at hand? Pick a build and load its preset to look around. The tour goes on once a character is open.' },
@@ -19,34 +20,44 @@ const STEPS: TourStep[] = [
 	{ target: '.character-bar', title: 'Your characters', text: 'Every character you add is saved in this browser. Click one to switch, the plus adds another.', needsCharacter: true },
 	{ target: '.tab[data-tab="simulate"]', title: 'Build plan', text: 'Say what content you do (dungeons, reputations, crafting, PvP) and the planner picks the best set for it, with a to-do list.', needsCharacter: true },
 	{ target: '.tab[data-tab="farm"]', title: 'Farm it', text: 'Your plan sorted by dungeon, with drop chances and how many runs to expect. "Group up" does the same for several characters.', needsCharacter: true },
-	{ target: '.tab[data-tab="upgrades"]', title: 'Swap a slot', text: 'Every slot with its better items, to pick single ones yourself. What you pick here overrides the plan.', needsCharacter: true },
+	{ target: '.tab[data-tab="upgrades"]', title: 'Customize', text: 'Every slot with its better items, to pick single ones yourself. What you pick here overrides the plan.', needsCharacter: true },
 	{ target: '.masthead-tools', title: 'Settings and help', text: 'Sim setup changes buffs, consumables and rotation. News has game and site changes. The FAQ explains every number. "Take the tour" at the very bottom of the page starts this again.', needsCharacter: true },
 ];
 
-const stored = () => {
+const GROUP_STEPS: TourStep[] = [
+	{ title: 'Farm as a group', text: 'This page adds up what several characters need and shows which dungeons help the group most. Four things to know.' },
+	{ target: '.group-add', title: 'Bring your friends in', text: 'Each friend presses "Copy character" on their side and sends you the text; paste it here. A group link adds everybody at once, and "Share the whole group" makes one.' },
+	{ target: '.group-members', title: 'Who is in', text: 'Every character saved in this browser can take part. Untick the ones who are not coming along.' },
+	{ target: '.group-switches', title: 'What counts and how it looks', text: '"Planned items only" counts what each one has in their plan, "Every upgrade" anything better than what they wear. Sort by gain or by people, as cards or as a list.' },
+	{ target: '.group-dungeon', title: 'The dungeons', text: 'Best for the group first. Each one shows the drops, who needs them and the gain. Click it for the bosses, and "Got it" when someone has their item.' },
+];
+const TOURS: Record<TourId, TourStep[]> = { main: MAIN_STEPS, group: GROUP_STEPS };
+
+const stored = (id: TourId) => {
 	try {
-		return localStorage.getItem(TOUR_KEY);
+		return localStorage.getItem(keyOf(id));
 	} catch {
 		return null;
 	}
 };
 
-/** Starts the tour again, from anywhere on the page. */
-export function restartTour() {
+/** Starts a tour again, from anywhere on the page. */
+export function restartTour(id: TourId = 'main') {
 	try {
-		localStorage.removeItem(TOUR_KEY);
+		localStorage.removeItem(keyOf(id));
 	} catch {
 		/* private mode */
 	}
-	window.dispatchEvent(new Event('fgp-tour'));
+	window.dispatchEvent(new CustomEvent('fgp-tour', { detail: id }));
 }
 
 /**
  * A short tour on the first visit: one bubble after the other, each pointing at the real thing on the page.
  * The first part runs on the start page; the second begins when the first character is open.
  */
-export function Tour({ hasCharacter, onPage }: { hasCharacter: boolean; onPage: boolean }) {
-	const [index, setIndex] = useState<number | null>(() => (stored() ? null : 0));
+export function Tour({ id = 'main', hasCharacter, onPage }: { id?: TourId; hasCharacter: boolean; onPage: boolean }) {
+	const STEPS = TOURS[id];
+	const [index, setIndex] = useState<number | null>(() => (stored(id) ? null : 0));
 	const [never, setNever] = useState(false);
 	const [box, setBox] = useState<DOMRect | null>(null);
 	// The bubble's own height, measured, so it can be placed where it fits.
@@ -58,13 +69,14 @@ export function Tour({ hasCharacter, onPage }: { hasCharacter: boolean; onPage: 
 	});
 
 	useEffect(() => {
-		const again = () => {
+		const again = (event: Event) => {
+			if ((event as CustomEvent<TourId>).detail !== id) return;
 			setNever(false);
 			setIndex(0);
 		};
 		window.addEventListener('fgp-tour', again);
 		return () => window.removeEventListener('fgp-tour', again);
-	}, []);
+	}, [id]);
 
 	// The steps that can be shown right now: those whose thing is on the page.
 	const usable = useCallback((step: TourStep) => (!step.needsCharacter || hasCharacter) && (!step.target || document.querySelector(step.target) !== null), [hasCharacter]);
@@ -96,7 +108,7 @@ export function Tour({ hasCharacter, onPage }: { hasCharacter: boolean; onPage: 
 		// Ticked, or seen to the end: it stays away. Closed early without the tick: it comes back on the next visit.
 		if (never || finished) {
 			try {
-				localStorage.setItem(TOUR_KEY, 'off');
+				localStorage.setItem(keyOf(id), 'off');
 			} catch {
 				/* private mode: gone for this visit */
 			}

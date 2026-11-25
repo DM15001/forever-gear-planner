@@ -260,7 +260,7 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 					</p>
 				)}
 				<p className="hint">
-					The quick scores under "Build plan" and "Swap a slot" use fixed stat weights that were measured with the build's own talents, consumables and buffs. They do not follow changes made here; the simulated numbers
+					The quick scores under "Build plan" and "Customize" use fixed stat weights that were measured with the build's own talents, consumables and buffs. They do not follow changes made here; the simulated numbers
 					do.
 				</p>
 			</section>
