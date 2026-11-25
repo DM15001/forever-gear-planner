@@ -9,6 +9,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Fewer re-measurements after simulator updates",
+							"text": "A simulator update that only changes single items, foods or one class's spells now re-measures only the builds that use them, instead of all of them. Updates to shared code still re-measure everything, and so does the nightly run.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Plan and Upgrades: one job each",
 							"text": "The switch between \"Slot by slot\" and \"Plan for me\" is gone. The Plan page has the content choice, the best set for it, the planned items, the to-do list and the simulation. The Upgrades page is always slot by slot and overrides single slots of the plan. Stat weights, guide sets and the encounter moved to the bottom of the Plan page.",
 							"source": "Gear Planner",
