@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T03:51:21.562Z",
-	"inputs": "a1e101846815a9cf",
+	"generatedAt": "2026-11-25T09:02:22.416Z",
+	"inputs": "7455d2fd4c2554f3",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -56,8 +56,8 @@
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"offHand": -31.28,
-			"mainHand": -111.45
+			"mainHand": -111.45,
+			"offHand": -31.28
 		},
 		"8190": {
 			"name": "Hanzo Sword",
@@ -154,14 +154,10 @@
 			"name": "Belgrom's Hammer",
 			"mainHand": -51.16
 		},
-		"11603": {
-			"name": "Vilerend Slicer",
-			"mainHand": -85.46
-		},
 		"11635": {
 			"name": "Hookfang Shanker",
-			"offHand": -22.92,
-			"mainHand": -103.18
+			"mainHand": -103.18,
+			"offHand": -22.92
 		},
 		"11684": {
 			"name": "Ironfoe",
@@ -173,8 +169,8 @@
 		},
 		"11744": {
 			"name": "Bloodfist",
-			"offHand": -21.76,
-			"mainHand": -66.32
+			"mainHand": -66.32,
+			"offHand": -21.76
 		},
 		"11784": {
 			"name": "Arbiter's Blade",
@@ -218,8 +214,8 @@
 		},
 		"12061": {
 			"name": "Blade of Reckoning",
-			"offHand": -25.04,
-			"mainHand": -52.01
+			"mainHand": -52.01,
+			"offHand": -25.04
 		},
 		"12062": {
 			"name": "Skilled Fighting Blade",
@@ -232,8 +228,8 @@
 		},
 		"12531": {
 			"name": "Searing Needle",
-			"offHand": -28.99,
-			"mainHand": -97.86
+			"mainHand": -97.86,
+			"offHand": -28.99
 		},
 		"12535": {
 			"name": "Doomforged Straightedge",
@@ -280,8 +276,8 @@
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"mainHand": -73.33,
-			"offHand": -18.76
+			"offHand": -18.76,
+			"mainHand": -73.33
 		},
 		"12791": {
 			"name": "Barman Shanker",
@@ -325,8 +321,8 @@
 		},
 		"13014": {
 			"name": "Axe of Rin'ji",
-			"mainHand": -72.1,
-			"offHand": -20.61
+			"offHand": -20.61,
+			"mainHand": -72.1
 		},
 		"13015": {
 			"name": "Serathil",
@@ -363,18 +359,18 @@
 		},
 		"13204": {
 			"name": "Bashguuder",
-			"offHand": -16.67,
-			"mainHand": -66.19
+			"mainHand": -66.19,
+			"offHand": -16.67
 		},
 		"13218": {
 			"name": "Fang of the Crystal Spider",
-			"offHand": -26.73,
-			"mainHand": -95.08
+			"mainHand": -95.08,
+			"offHand": -26.73
 		},
 		"13246": {
 			"name": "Argent Avenger",
-			"offHand": -11.88,
-			"mainHand": -35.9
+			"mainHand": -35.9,
+			"offHand": -11.88
 		},
 		"13286": {
 			"name": "Rivenspike",
@@ -504,8 +500,8 @@
 		},
 		"15239": {
 			"name": "Felstone Reaver",
-			"mainHand": -68.96,
-			"offHand": -23.84
+			"offHand": -23.84,
+			"mainHand": -68.96
 		},
 		"15240": {
 			"name": "Demon's Claw",
@@ -514,8 +510,8 @@
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"mainHand": -118.94,
-			"offHand": -36.05
+			"offHand": -36.05,
+			"mainHand": -118.94
 		},
 		"15246": {
 			"name": "Demon Blade",
@@ -524,8 +520,8 @@
 		},
 		"15247": {
 			"name": "Bloodstrike Dagger",
-			"mainHand": -96.3,
-			"offHand": -28.88
+			"offHand": -28.88,
+			"mainHand": -96.3
 		},
 		"15705": {
 			"name": "Tidecrest Blade",
@@ -633,8 +629,8 @@
 		},
 		"18310": {
 			"name": "Fiendish Machete",
-			"offHand": -18.42,
-			"mainHand": -39.61
+			"mainHand": -39.61,
+			"offHand": -18.42
 		},
 		"18321": {
 			"name": "Energetic Rod",
@@ -702,8 +698,8 @@
 		},
 		"18758": {
 			"name": "Specter's Blade",
-			"offHand": -20.91,
-			"mainHand": -80.14
+			"mainHand": -80.14,
+			"offHand": -20.91
 		},
 		"19099": {
 			"name": "Glacial Blade",
@@ -717,8 +713,8 @@
 		},
 		"19103": {
 			"name": "Frostbite",
-			"mainHand": -18.38,
-			"offHand": -19.72
+			"offHand": -19.72,
+			"mainHand": -18.38
 		},
 		"19104": {
 			"name": "Stormstrike Hammer",
@@ -752,8 +748,8 @@
 		},
 		"19550": {
 			"name": "Legionnaire's Sword",
-			"mainHand": -22.77,
-			"offHand": -21.65
+			"offHand": -21.65,
+			"mainHand": -22.77
 		},
 		"19551": {
 			"name": "Legionnaire's Sword",
@@ -917,8 +913,8 @@
 		},
 		"272600": {
 			"name": "Premier High Warlord's Bludgeon",
-			"offHand": -2.78,
-			"mainHand": 9.67
+			"mainHand": 9.67,
+			"offHand": -2.78
 		},
 		"272681": {
 			"name": "Premier High Warlord's Battle Mace",
@@ -945,8 +941,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"mainHand": -50.56,
-			"offHand": -10.58
+			"offHand": -10.58,
+			"mainHand": -50.56
 		},
 		"272844": {
 			"name": "Premier Grand Marshal's Right Hand Blade",
@@ -1017,8 +1013,8 @@
 		},
 		"276338": {
 			"name": "Claw of Shalla'kal",
-			"mainHand": -50.26,
-			"offHand": -35.09
+			"offHand": -35.09,
+			"mainHand": -50.26
 		},
 		"276398": {
 			"name": "Scarlet Malice",
@@ -1060,8 +1056,8 @@
 		},
 		"280012": {
 			"name": "Talon of Tor'Rel",
-			"mainHand": -53.49,
-			"offHand": -8.73
+			"offHand": -8.73,
+			"mainHand": -53.49
 		},
 		"280021": {
 			"name": "Tooth of the Matriarch",
@@ -1118,8 +1114,8 @@
 		},
 		"284157": {
 			"name": "Ranger Lord's Longsword",
-			"offHand": -23.46,
-			"mainHand": -44.28
+			"mainHand": -44.28,
+			"offHand": -23.46
 		},
 		"284230": {
 			"name": "Rage Paw",

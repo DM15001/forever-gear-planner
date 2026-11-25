@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T03:24:59.929Z",
-	"inputs": "f01804ebea3a139c",
+	"generatedAt": "2026-11-25T08:27:16.648Z",
+	"inputs": "3795cf330b9db449",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -22,8 +22,8 @@
 		},
 		"6660": {
 			"name": "Julie's Dagger",
-			"offHand": -12.7,
-			"mainHand": -29.24
+			"mainHand": -29.24,
+			"offHand": -12.7
 		},
 		"7947": {
 			"name": "Ebon Shiv",
@@ -37,8 +37,8 @@
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
-			"mainHand": -38.31,
-			"offHand": -14.72
+			"offHand": -14.72,
+			"mainHand": -38.31
 		},
 		"10828": {
 			"name": "Dire Nail",
@@ -60,8 +60,8 @@
 		},
 		"12531": {
 			"name": "Searing Needle",
-			"mainHand": -38.62,
-			"offHand": -12.93
+			"offHand": -12.93,
+			"mainHand": -38.62
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
@@ -110,8 +110,8 @@
 		},
 		"14024": {
 			"name": "Frightalon",
-			"mainHand": -22.83,
-			"offHand": -5.74
+			"offHand": -5.74,
+			"mainHand": -22.83
 		},
 		"14555": {
 			"name": "Alcor's Sunrazor",
@@ -120,8 +120,8 @@
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"mainHand": -49.62,
-			"offHand": -21.39
+			"offHand": -21.39,
+			"mainHand": -49.62
 		},
 		"15246": {
 			"name": "Demon Blade",
@@ -130,8 +130,8 @@
 		},
 		"15247": {
 			"name": "Bloodstrike Dagger",
-			"mainHand": -34,
-			"offHand": -13.77
+			"offHand": -13.77,
+			"mainHand": -34
 		},
 		"15706": {
 			"name": "Hunt Tracker Blade",
@@ -166,8 +166,8 @@
 		},
 		"18758": {
 			"name": "Specter's Blade",
-			"offHand": -6.04,
-			"mainHand": -25.11
+			"mainHand": -25.11,
+			"offHand": -6.04
 		},
 		"19099": {
 			"name": "Glacial Blade",
@@ -176,8 +176,8 @@
 		},
 		"19100": {
 			"name": "Electrified Dagger",
-			"offHand": -2.03,
-			"mainHand": -19.84
+			"mainHand": -19.84,
+			"offHand": -2.03
 		},
 		"19324": {
 			"name": "The Lobotomizer",
@@ -196,13 +196,13 @@
 		},
 		"19546": {
 			"name": "Sentinel's Blade",
-			"mainHand": -21.15,
-			"offHand": -3.59
+			"offHand": -3.59,
+			"mainHand": -21.15
 		},
 		"19547": {
 			"name": "Sentinel's Blade",
-			"offHand": -10.58,
-			"mainHand": -34.71
+			"mainHand": -34.71,
+			"offHand": -10.58
 		},
 		"20070": {
 			"name": "Sageclaw",
@@ -304,8 +304,8 @@
 		},
 		"280021": {
 			"name": "Tooth of the Matriarch",
-			"offHand": -2.26,
-			"mainHand": -18.64
+			"mainHand": -18.64,
+			"offHand": -2.26
 		},
 		"280085": {
 			"name": "Tunnelweb Pincer",
@@ -319,8 +319,8 @@
 		},
 		"284283": {
 			"name": "Horn of Antilos",
-			"offHand": -31.04,
-			"mainHand": -73.03
+			"mainHand": -73.03,
+			"offHand": -31.04
 		},
 		"286613": {
 			"name": "King Mosh's Tooth",
