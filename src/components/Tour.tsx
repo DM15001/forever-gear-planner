@@ -1,0 +1,165 @@
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+
+const TOUR_KEY = 'fgp.tour';
+
+interface TourStep {
+	/** What the step points at; without one the bubble sits in the middle of the page. */
+	target?: string;
+	title: string;
+	text: string;
+	/** Shown only once a character is open (the sections do not exist before). */
+	needsCharacter?: boolean;
+}
+
+const STEPS: TourStep[] = [
+	{ title: 'Welcome to the Forever Gear Planner', text: 'It tells you which gear to get before raids, where it drops and what it is worth, with the real WoWSims simulator. This tour takes a minute.' },
+	{ target: '.import', title: 'Bring your character', text: 'Install the WoWSims Exporter addon, type /wse in the game and paste the text here. A JSON export from wowsims.com works too.' },
+	{ target: '.start-example', title: 'Or just try it', text: 'No export at hand? Pick a build and load its preset to look around. The tour goes on once a character is open.' },
+	{ target: '.tabs', title: 'The pages', text: 'From left to right in the order you use them: check your character, get a plan, then see where to farm it.', needsCharacter: true },
+	{ target: '.character-bar', title: 'Your characters', text: 'Every character you add is saved in this browser. Click one to switch, the plus adds another.', needsCharacter: true },
+	{ target: '.tab[data-tab="simulate"]', title: 'Plan', text: 'Say what content you do (dungeons, reputations, crafting, PvP) and the planner picks the best set for it, with a to-do list.', needsCharacter: true },
+	{ target: '.tab[data-tab="upgrades"]', title: 'Upgrades', text: 'Every slot with its better items, to pick single ones yourself. What you pick here overrides the plan.', needsCharacter: true },
+	{ target: '.tab[data-tab="farm"]', title: 'Farm plan', text: 'Your plan sorted by dungeon, with drop chances and how many runs to expect. Group plan does the same for several characters.', needsCharacter: true },
+	{ target: '.masthead-tools', title: 'Settings and help', text: 'Sim setup changes buffs, consumables and rotation. News has game and site changes. The FAQ explains every number. "Take the tour" at the very bottom of the page starts this again.', needsCharacter: true },
+];
+
+const stored = () => {
+	try {
+		return localStorage.getItem(TOUR_KEY);
+	} catch {
+		return null;
+	}
+};
+
+/** Starts the tour again, from anywhere on the page. */
+export function restartTour() {
+	try {
+		localStorage.removeItem(TOUR_KEY);
+	} catch {
+		/* private mode */
+	}
+	window.dispatchEvent(new Event('fgp-tour'));
+}
+
+/**
+ * A short tour on the first visit: one bubble after the other, each pointing at the real thing on the page.
+ * The first part runs on the start page; the second begins when the first character is open.
+ */
+export function Tour({ hasCharacter, onPage }: { hasCharacter: boolean; onPage: boolean }) {
+	const [index, setIndex] = useState<number | null>(() => (stored() ? null : 0));
+	const [never, setNever] = useState(false);
+	const [box, setBox] = useState<DOMRect | null>(null);
+	// The bubble's own height, measured, so it can be placed where it fits.
+	const [size, setSize] = useState<number | null>(null);
+	const bubble = useRef<HTMLDivElement>(null);
+	useLayoutEffect(() => {
+		const height = bubble.current?.offsetHeight;
+		if (height && height !== size) setSize(height);
+	});
+
+	useEffect(() => {
+		const again = () => {
+			setNever(false);
+			setIndex(0);
+		};
+		window.addEventListener('fgp-tour', again);
+		return () => window.removeEventListener('fgp-tour', again);
+	}, []);
+
+	// The steps that can be shown right now: those whose thing is on the page.
+	const usable = useCallback((step: TourStep) => (!step.needsCharacter || hasCharacter) && (!step.target || document.querySelector(step.target) !== null), [hasCharacter]);
+	// Skips ahead over what is not there; waits (shows nothing) when the rest needs a character that is not open yet.
+	const current = index === null || !onPage ? null : (STEPS.slice(index).find(usable) ?? null);
+	const at = current ? STEPS.indexOf(current) : -1;
+
+	useLayoutEffect(() => {
+		if (!current?.target) {
+			setBox(null);
+			return;
+		}
+		const element = document.querySelector(current.target);
+		if (!element) return;
+		element.scrollIntoView({ block: 'center', behavior: 'auto' });
+		const measure = () => setBox(element.getBoundingClientRect());
+		measure();
+		window.addEventListener('resize', measure);
+		window.addEventListener('scroll', measure, true);
+		return () => {
+			window.removeEventListener('resize', measure);
+			window.removeEventListener('scroll', measure, true);
+		};
+	}, [current]);
+
+	if (!current) return null;
+
+	const close = (finished: boolean) => {
+		// Ticked, or seen to the end: it stays away. Closed early without the tick: it comes back on the next visit.
+		if (never || finished) {
+			try {
+				localStorage.setItem(TOUR_KEY, 'off');
+			} catch {
+				/* private mode: gone for this visit */
+			}
+		}
+		setIndex(null);
+	};
+	const later = STEPS.slice(at + 1);
+	const next = later.find(usable);
+	// The first part ends on the start page; the rest waits for a character.
+	const waits = !next && later.some(step => step.needsCharacter) && !hasCharacter;
+	const shown = STEPS.filter(usable);
+	const pad = 6;
+	const gap = pad + 12;
+	// Where the bubble goes: under the thing, over it, beside it, whichever has the room; else the corner of the window.
+	const [width, height] = [Math.min(360, window.innerWidth - 24), size ?? 240];
+	const across = box ? Math.max(12, Math.min(box.left, window.innerWidth - width - 12)) : 0;
+	const along = box ? Math.max(12, Math.min(box.top, window.innerHeight - height - 12)) : 0;
+	const style = !box
+		? undefined
+		: box.bottom + gap + height <= window.innerHeight
+			? { left: across, top: box.bottom + gap }
+			: box.top - gap - height >= 0
+				? { left: across, top: box.top - gap - height }
+				: box.right + gap + width <= window.innerWidth
+					? { left: box.right + gap, top: along }
+					: box.left - gap - width >= 0
+						? { left: box.left - gap - width, top: along }
+						: { right: 16, bottom: 16 };
+
+	return (
+		<div className="tour" role="dialog" aria-modal="false" aria-labelledby="tour-title">
+			{box ? <div className="tour-spot" style={{ left: box.left - pad, top: box.top - pad, width: box.width + pad * 2, height: box.height + pad * 2 }} /> : <div className="tour-veil" />}
+			<div ref={bubble} className={box ? 'tour-bubble' : 'tour-bubble tour-bubble-middle'} style={style}>
+				<p className="tour-count">
+					{shown.indexOf(current) + 1} of {shown.length}
+					{waits ? ', more once a character is open' : ''}
+				</p>
+				<h2 id="tour-title">{current.title}</h2>
+				<p>{current.text}</p>
+				<div className="tour-actions">
+					<label className="tour-never">
+						<input type="checkbox" checked={never} onChange={event => setNever(event.target.checked)} /> Don't show this again
+					</label>
+					<span className="tour-buttons">
+						<button className="button button-small" onClick={() => close(false)}>
+							Close
+						</button>
+						{next ? (
+							<button className="button button-small button-primary" onClick={() => setIndex(STEPS.indexOf(next))}>
+								Next
+							</button>
+						) : waits ? (
+							<button className="button button-small button-primary" onClick={() => setIndex(STEPS.findIndex(step => step.needsCharacter))}>
+								Got it
+							</button>
+						) : (
+							<button className="button button-small button-primary" onClick={() => close(true)}>
+								Done
+							</button>
+						)}
+					</span>
+				</div>
+			</div>
+		</div>
+	);
+}

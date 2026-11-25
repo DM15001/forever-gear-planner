@@ -1,3 +1,4 @@
+import { restartTour, Tour } from './components/Tour';
 import { createPortal } from 'react-dom';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
@@ -744,7 +745,7 @@ export function App() {
 						<BarCap />
 						<nav className="tabs" aria-label="Sections">
 							{TABS.map(t => (
-								<button key={t.id} className="tab" aria-current={t.id === tab ? 'page' : undefined} onClick={() => {
+								<button key={t.id} className="tab" data-tab={t.id} aria-current={t.id === tab ? 'page' : undefined} onClick={() => {
 										setTab(t.id);
 										if (character) setImporting(false);
 									}}>
@@ -782,7 +783,9 @@ export function App() {
 				)}
 				{/* The FAQ needs no character: it is there for the first visit too. */}
 				{tab === 'faq' && !character && <FaqTab />}
-				{(!character || importing) && tab !== 'faq' && <ImportPanel hasCharacter={Boolean(character)} onImported={onImported} onCancel={() => setImporting(false)} />}
+				{/* Neither does the news. */}
+				{tab === 'news' && !character && <NewsTab onSeen={newsSeen} />}
+				{(!character || importing) && tab !== 'faq' && !(tab === 'news' && !character) && <ImportPanel hasCharacter={Boolean(character)} onImported={onImported} onCancel={() => setImporting(false)} />}
 
 				{/* Reading pages are not about one character: no character bar, no gear panes. */}
 				{character && !importing && tab !== 'faq' && tab !== 'news' && (
@@ -839,11 +842,16 @@ export function App() {
 				)}
 				</PresetContext.Provider>
 			</main>
+			<Tour hasCharacter={Boolean(character) && !importing} onPage={tab !== 'faq' && tab !== 'news' && tab !== 'sim'} />
 			<BackToTop />
 
 			<footer className="colophon">
 				Item data and stat weights from <a href="https://github.com/wowsims/forever">WoWSims Forever</a>
 				{data && <>, data built {new Date(data.builtAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</>}. Drop chances, extra sources and the top picks of the linked guides from <a href="https://www.wowhead.com/forever">Wowhead</a>; the full guides are there. Further loot data from <a href="https://github.com/Hoizame/AtlasLootClassic">AtlasLootClassic</a> and <a href="https://www.curseforge.com/wow/addons/atlasloot-forever">AtlasLoot Classic Forever</a>. Item icons and game content are © Blizzard Entertainment. This is a fan project, not affiliated with or endorsed by Blizzard.
+				{' '}
+				<button className="link" onClick={() => { setTab('character'); restartTour(); }}>
+					Take the tour
+				</button>
 			</footer>
 		</div>
 	);

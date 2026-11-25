@@ -9,6 +9,22 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "News without a character",
+							"text": "The News page opens before you have imported a character, like the FAQ.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "A tour on your first visit",
+							"text": "The first time you open the planner, a short tour points at the real things on the page: importing a character, the pages in the order you use them, settings and help. It has a \"Don't show this again\" tick, and \"Take the tour\" at the bottom of the page starts it again.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Plan page flags items from switched-off content",
 							"text": "A plan made earlier could keep an item whose source you switched off afterwards, for example a crafted piece with only dungeons and quests chosen. Such items are now marked \"not in your content\", with a note that \"Rebuild the plan\" replaces them.",
 							"source": "Gear Planner",
