@@ -155,6 +155,14 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 		// A ring or trinket that excludes the planned one in the other slot takes its place.
 		const other = pairedSlot(index);
 		if (other !== undefined && next[other] !== undefined && clash(data.itemById.get(itemId), data.itemById.get(next[other]))) delete next[other];
+		// A weapon that cannot carry the slot's enchant is planned with the best one that fits, as the list counted it.
+		const enchant = withItem(gear, index, itemId, data, { character, spec })[index]?.enchant;
+		if (enchant && enchant !== gear[index]?.enchant) {
+			setGuideNotice(null);
+			setUndo(null);
+			onChange({ ...character, plan: next, planEnchants: { ...character.planEnchants, [index]: enchant } });
+			return;
+		}
 		setPlan(next);
 	};
 	/** True if the item cannot go into the slot because of what is worn in the other ring or trinket slot. */
@@ -322,7 +330,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 										note={GEAR_SLOTS[index].label}
 										marks={marks.get(candidate.item.id)}
 										base={gear}
-										variant={withItem(gear, index, candidate.item.id, data)}
+										variant={withItem(gear, index, candidate.item.id, data, { character, spec })}
 										data={data}
 										faction={faction}
 										filter={filter}
@@ -432,9 +440,9 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				// The first few can be checked with the real simulator in one go; once all are in, they are sorted by it.
 				const top = upgradeRows.list.slice(0, VERIFY_TOP);
 				const baseSim = sim.result(gear, SWAP_ITERATIONS);
-				const simOf = (candidate: Candidate) => sim.result(withItem(gear, index, candidate.item.id, data), SWAP_ITERATIONS);
+				const simOf = (candidate: Candidate) => sim.result(withItem(gear, index, candidate.item.id, data, { character, spec }), SWAP_ITERATIONS);
 				const verified = Boolean(baseSim) && top.length > 1 && top.every(candidate => simOf(candidate));
-				const checking = !verified && top.some(candidate => sim.isRunning(withItem(gear, index, candidate.item.id, data), SWAP_ITERATIONS));
+				const checking = !verified && top.some(candidate => sim.isRunning(withItem(gear, index, candidate.item.id, data, { character, spec }), SWAP_ITERATIONS));
 				const shownUpgrades = verified ? [...[...top].sort((a, b) => simOf(b)!.dps - simOf(a)!.dps), ...upgradeRows.list.slice(VERIFY_TOP)] : upgradeRows.list;
 				const currentPiece = gear[index];
 				const currentItemNow = currentPiece ? data.itemById.get(currentPiece.id) : undefined;
@@ -454,7 +462,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						note={note}
 						marks={marks.get(candidate.item.id)}
 						base={gear}
-						variant={withItem(gear, index, candidate.item.id, data)}
+						variant={withItem(gear, index, candidate.item.id, data, { character, spec })}
 						data={data}
 						faction={faction}
 						filter={filter}
@@ -547,7 +555,7 @@ const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, open: char
 										title="Runs the real simulator for each of them against your current gear, then sorts them by the result."
 										onClick={() => {
 											if (!baseSim) sim.run(gear, SWAP_ITERATIONS);
-											for (const candidate of top) if (!simOf(candidate)) sim.run(withItem(gear, index, candidate.item.id, data), SWAP_ITERATIONS);
+											for (const candidate of top) if (!simOf(candidate)) sim.run(withItem(gear, index, candidate.item.id, data, { character, spec }), SWAP_ITERATIONS);
 										}}>
 										{checking ? 'Checking…' : `Check the top ${top.length} with the simulator`}
 									</button>
@@ -590,7 +598,7 @@ const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, open: char
 													candidate={candidate}
 													marks={marks.get(candidate.item.id)}
 													base={gear}
-													variant={withItem(gear, index, candidate.item.id, data)}
+													variant={withItem(gear, index, candidate.item.id, data, { character, spec })}
 													data={data}
 													faction={faction}
 													filter={{ ...EVERYTHING, unknown: true }}
@@ -610,7 +618,7 @@ const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, open: char
 								</summary>
 								<ul className="candidates">
 									{alternatives.map(candidate => {
-											const overWorn = plannedItem ? scoreSet(withItem(gear, index, candidate.item.id, data), character, data, spec).score - wornScore : undefined;
+											const overWorn = plannedItem ? scoreSet(withItem(gear, index, candidate.item.id, data, { character, spec }), character, data, spec).score - wornScore : undefined;
 											return (
 												<Fragment key={candidate.item.id}>
 													{rowFor(candidate, candidate.item.id === wornId ? 'what you wear now' : overWorn !== undefined ? `${formatDelta(overWorn)} over what you wear` : undefined)}

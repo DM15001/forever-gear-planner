@@ -93,7 +93,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 	const [picking, setPicking] = useState<number | null>(null);
 	const pickItem = (index: number, itemId: number | null) => {
 		// A two-hander empties the off hand and the other way round, so more than one slot can change.
-		const next = withItem(gear, index, itemId, data);
+		const next = withItem(gear, index, itemId, data, { character, spec });
 		const plan = { ...(character.plan ?? {}) };
 		next.forEach((piece, slot) => {
 			if (piece?.id === gear[slot]?.id) return;
@@ -101,6 +101,13 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 			if (piece?.id === character.gear[slot]?.id) delete plan[slot];
 			else plan[slot] = piece?.id ?? EMPTY_SLOT;
 		});
+		// A weapon that cannot carry the slot's enchant comes with the best one that fits.
+		const enchant = next[index]?.enchant;
+		if (itemId !== null && enchant && enchant !== gear[index]?.enchant) {
+			onChange({ ...character, plan, planEnchants: { ...character.planEnchants, [index]: enchant } });
+			setPicking(null);
+			return;
+		}
 		onChange({ ...character, plan });
 		setPicking(null);
 	};
