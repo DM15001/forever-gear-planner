@@ -1,5 +1,5 @@
 {
-	"seq": 8,
+	"seq": 9,
 	"effects": {
 		"druid-balance": 8,
 		"druid-cat": 8,
@@ -13,7 +13,7 @@
 		"mage-arcane-fire": 8,
 		"mage-arcane": 8,
 		"mage-ffb": 8,
-		"mage-fire": 8,
+		"mage-fire": 9,
 		"mage-frost-incin": 8,
 		"mage-frost": 8,
 		"paladin-ret-holy-shock": 8,
@@ -49,7 +49,7 @@
 		"mage-arcane-fire": 8,
 		"mage-arcane": 8,
 		"mage-ffb": 8,
-		"mage-fire": 8,
+		"mage-fire": 9,
 		"mage-frost-incin": 8,
 		"mage-frost": 8,
 		"paladin-ret-holy-shock": 8,
