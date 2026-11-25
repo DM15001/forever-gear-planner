@@ -104,9 +104,9 @@ export function Tour({ id = 'main', hasCharacter, onPage }: { id?: TourId; hasCh
 
 	if (!current) return null;
 
-	const close = (finished: boolean) => {
-		// Ticked, or seen to the end: it stays away. Closed early without the tick: it comes back on the next visit.
-		if (never || finished) {
+	const close = () => {
+		// Only the tick keeps it away: without it the tour opens again on the next visit, also after "Done".
+		if (never) {
 			try {
 				localStorage.setItem(keyOf(id), 'off');
 			} catch {
@@ -153,7 +153,7 @@ export function Tour({ id = 'main', hasCharacter, onPage }: { id?: TourId; hasCh
 						<input type="checkbox" checked={never} onChange={event => setNever(event.target.checked)} /> Don't show this again
 					</label>
 					<span className="tour-buttons">
-						<button className="button button-small" onClick={() => close(false)}>
+						<button className="button button-small" onClick={close}>
 							Close
 						</button>
 						{next ? (
@@ -165,7 +165,7 @@ export function Tour({ id = 'main', hasCharacter, onPage }: { id?: TourId; hasCh
 								Got it
 							</button>
 						) : (
-							<button className="button button-small button-primary" onClick={() => close(true)}>
+							<button className="button button-small button-primary" onClick={close}>
 								Done
 							</button>
 						)}
