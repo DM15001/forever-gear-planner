@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T15:45:51.716Z",
-	"inputs": "11c3749fffcde8c3",
+	"generatedAt": "2026-11-25T17:59:27.605Z",
+	"inputs": "c3f61ae5194e817e",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -87,7 +87,7 @@
 		},
 		"12463": {
 			"name": "Drakefang Butcher",
-			"mainHand": -94.27
+			"mainHand": -94.49
 		},
 		"12528": {
 			"name": "The Judge's Gavel",
@@ -99,7 +99,7 @@
 		},
 		"12592": {
 			"name": "Blackblade of Shahram",
-			"mainHand": -29.56
+			"mainHand": -21.93
 		},
 		"12764": {
 			"name": "Thorium Greatsword",
@@ -187,7 +187,7 @@
 		},
 		"13285": {
 			"name": "The Blackrock Slicer",
-			"mainHand": -19.6
+			"mainHand": -21.43
 		},
 		"13348": {
 			"name": "Demonshear",
@@ -283,7 +283,7 @@
 		},
 		"17730": {
 			"name": "Gatorbite Axe",
-			"mainHand": -86.22
+			"mainHand": -86.47
 		},
 		"17766": {
 			"name": "Princess Theradras' Scepter",

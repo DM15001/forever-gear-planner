@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T16:13:10.268Z",
-	"inputs": "58a4f5d39c7c399d",
+	"generatedAt": "2026-11-25T18:39:10.590Z",
+	"inputs": "e7b7271f1a887b4d",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -12,7 +12,7 @@
 	"weapons": {
 		"809": {
 			"name": "Bloodrazor",
-			"mainHand": -16.77
+			"mainHand": -16.88
 		},
 		"811": {
 			"name": "Axe of the Deep Woods",
@@ -87,8 +87,8 @@
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
-			"offHand": -24.7,
-			"mainHand": -76.08
+			"mainHand": -76.08,
+			"offHand": -24.7
 		},
 		"10797": {
 			"name": "Firebreather",
@@ -173,8 +173,8 @@
 		},
 		"12062": {
 			"name": "Skilled Fighting Blade",
-			"offHand": -15.49,
-			"mainHand": -74.62
+			"mainHand": -74.62,
+			"offHand": -15.49
 		},
 		"12527": {
 			"name": "Ribsplitter",
@@ -238,11 +238,11 @@
 		},
 		"12791": {
 			"name": "Barman Shanker",
-			"mainHand": -53.73
+			"mainHand": -54
 		},
 		"12795": {
 			"name": "Blood Talon",
-			"mainHand": -53.48
+			"mainHand": -53.54
 		},
 		"12797": {
 			"name": "Frostguard",
@@ -269,8 +269,8 @@
 		},
 		"13015": {
 			"name": "Serathil",
-			"offHand": -34.37,
-			"mainHand": -44.58
+			"mainHand": -44.58,
+			"offHand": -34.37
 		},
 		"13022": {
 			"name": "Gryphonwing Long Bow",
@@ -314,8 +314,8 @@
 		},
 		"13246": {
 			"name": "Argent Avenger",
-			"mainHand": -24.48,
-			"offHand": -39.26
+			"offHand": -39.26,
+			"mainHand": -24.48
 		},
 		"13286": {
 			"name": "Rivenspike",
@@ -342,7 +342,7 @@
 		},
 		"13399": {
 			"name": "Gargoyle Shredder Talons",
-			"offHand": -24.55
+			"offHand": -24.64
 		},
 		"13408": {
 			"name": "Soul Breaker",
@@ -439,8 +439,8 @@
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"mainHand": -88.07,
-			"offHand": -28.97
+			"offHand": -28.97,
+			"mainHand": -88.07
 		},
 		"15246": {
 			"name": "Demon Blade",
@@ -505,8 +505,8 @@
 		},
 		"15783": {
 			"name": "Beasthunter Dagger",
-			"mainHand": -70.47,
-			"offHand": -24.97
+			"offHand": -24.97,
+			"mainHand": -70.47
 		},
 		"15800": {
 			"name": "Intrepid Shortsword",
@@ -524,8 +524,8 @@
 		},
 		"15814": {
 			"name": "Hameya's Slayer",
-			"mainHand": -49.59,
-			"offHand": -39.96
+			"mainHand": -49.66,
+			"offHand": -39.99
 		},
 		"15853": {
 			"name": "Windreaper",
@@ -584,8 +584,8 @@
 		},
 		"17752": {
 			"name": "Satyr's Lash",
-			"mainHand": -73.07,
-			"offHand": -27.96
+			"offHand": -27.96,
+			"mainHand": -73.07
 		},
 		"17753": {
 			"name": "Verdant Keeper's Aim",
@@ -597,8 +597,8 @@
 		},
 		"18310": {
 			"name": "Fiendish Machete",
-			"offHand": -45.38,
-			"mainHand": -27.77
+			"mainHand": -27.77,
+			"offHand": -45.38
 		},
 		"18347": {
 			"name": "Well Balanced Axe",
@@ -623,8 +623,8 @@
 		},
 		"18462": {
 			"name": "Jagged Bone Fist",
-			"offHand": -31.57,
-			"mainHand": -54.11
+			"mainHand": -54.11,
+			"offHand": -31.57
 		},
 		"18463": {
 			"name": "Ogre Pocket Knife",
@@ -646,8 +646,8 @@
 		},
 		"18498": {
 			"name": "Hedgecutter",
-			"mainHand": -42.02,
-			"offHand": -34.57
+			"offHand": -34.57,
+			"mainHand": -42.02
 		},
 		"18680": {
 			"name": "Ancient Bone Bow",
@@ -687,8 +687,8 @@
 		},
 		"19103": {
 			"name": "Frostbite",
-			"mainHand": -12.92,
-			"offHand": -52.76
+			"offHand": -52.76,
+			"mainHand": -12.92
 		},
 		"19107": {
 			"name": "Bloodseeker",
@@ -705,8 +705,8 @@
 		},
 		"19542": {
 			"name": "Scout's Blade",
-			"mainHand": -55.83,
-			"offHand": -18.87
+			"offHand": -18.87,
+			"mainHand": -55.83
 		},
 		"19543": {
 			"name": "Scout's Blade",
@@ -892,8 +892,8 @@
 		},
 		"272684": {
 			"name": "Premier High Warlord's Quickblade",
-			"offHand": -11.46,
-			"mainHand": -16.32
+			"mainHand": -16.32,
+			"offHand": -11.46
 		},
 		"272693": {
 			"name": "Premier Grand Marshal's Longsword",
@@ -902,8 +902,8 @@
 		},
 		"272839": {
 			"name": "Premier Grand Marshal's Handaxe",
-			"offHand": -40.34,
-			"mainHand": 15.43
+			"mainHand": 15.43,
+			"offHand": -40.34
 		},
 		"272841": {
 			"name": "Premier Grand Marshal's Bullseye",
@@ -915,8 +915,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"offHand": -20.25,
-			"mainHand": -29.56
+			"mainHand": -29.56,
+			"offHand": -20.25
 		},
 		"272844": {
 			"name": "Premier Grand Marshal's Right Hand Blade",
@@ -936,8 +936,8 @@
 		},
 		"272859": {
 			"name": "Premier Grand Marshal's Swiftblade",
-			"mainHand": -16.32,
-			"offHand": -11.46
+			"offHand": -11.46,
+			"mainHand": -16.32
 		},
 		"274265": {
 			"name": "Brush Cutter",
@@ -946,13 +946,13 @@
 		},
 		"274271": {
 			"name": "Deadhead Blade",
-			"mainHand": -71.86,
-			"offHand": -30.41
+			"offHand": -30.41,
+			"mainHand": -71.86
 		},
 		"274383": {
 			"name": "Kanai's Knife",
-			"offHand": -22.73,
-			"mainHand": -70.08
+			"mainHand": -70.08,
+			"offHand": -22.73
 		},
 		"274517": {
 			"name": "Unerring Purpose",

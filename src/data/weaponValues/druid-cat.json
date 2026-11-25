@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T15:38:25.531Z",
-	"inputs": "c908c63503a71183",
+	"generatedAt": "2026-11-25T18:05:18.311Z",
+	"inputs": "f1707532eb72445e",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -235,7 +235,7 @@
 		},
 		"12791": {
 			"name": "Barman Shanker",
-			"mainHand": -47.17
+			"mainHand": -47.38
 		},
 		"12792": {
 			"name": "Volcanic Hammer",
@@ -247,7 +247,7 @@
 		},
 		"12795": {
 			"name": "Blood Talon",
-			"mainHand": -51.24
+			"mainHand": -51.3
 		},
 		"12796": {
 			"name": "Hammer of the Titans",

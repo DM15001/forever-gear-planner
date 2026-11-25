@@ -1,517 +1,517 @@
 {
-	"generatedAt": "2026-11-25T15:10:48.300Z",
-	"inputs": "01f42bfcf2ca1d04",
+	"generatedAt": "2026-11-25T17:34:23.770Z",
+	"inputs": "dcb270b805035183",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
-		"dps": 887.66,
+		"dps": 885.45,
 		"mainHand": 13285,
 		"ranged": 22395
 	},
 	"weapons": {
 		"812": {
 			"name": "Glowing Brightwood Staff",
-			"mainHand": -54.13
+			"mainHand": -51.92
 		},
 		"944": {
 			"name": "Elemental Mage Staff",
-			"mainHand": -35.37
+			"mainHand": -33.15
 		},
 		"1263": {
 			"name": "Brain Hacker",
-			"mainHand": -1.18
+			"mainHand": 1.03
 		},
 		"1607": {
 			"name": "Soulkeeper",
-			"mainHand": -38.43
+			"mainHand": -36.21
 		},
 		"2915": {
 			"name": "Taran Icebreaker",
-			"mainHand": -13.43
+			"mainHand": -11.21
 		},
 		"9477": {
 			"name": "The Chief's Enforcer",
-			"mainHand": -43.29
+			"mainHand": -41.08
 		},
 		"9683": {
 			"name": "Strength of the Treant",
-			"mainHand": -78.59
+			"mainHand": -76.38
 		},
 		"10626": {
 			"name": "Ragehammer",
-			"mainHand": -23.37
+			"mainHand": -21.16
 		},
 		"10652": {
 			"name": "Will of the Mountain Giant",
-			"mainHand": -74.37
+			"mainHand": -72.16
 		},
 		"10698": {
 			"name": "Enchanted Azsharite Felbane Staff",
-			"mainHand": -54.75
+			"mainHand": -52.53
 		},
 		"10844": {
 			"name": "Spire of Hakkar",
-			"mainHand": -66.66
+			"mainHand": -64.45
 		},
 		"11608": {
 			"name": "Dark Iron Pulverizer",
-			"mainHand": -45.9
+			"mainHand": -43.68
 		},
 		"11750": {
 			"name": "Kindling Stave",
-			"mainHand": -65.74
+			"mainHand": -63.53
 		},
 		"11803": {
 			"name": "Force of Magma",
-			"mainHand": -27.19
+			"mainHand": -24.97
 		},
 		"11816": {
 			"name": "Angerforge's Battle Axe",
-			"mainHand": -36.51
+			"mainHand": -34.29
 		},
 		"11907": {
 			"name": "Beastslayer",
-			"mainHand": -58.23
+			"mainHand": -56.01
 		},
 		"11921": {
 			"name": "Impervious Giant",
-			"mainHand": -42.39
+			"mainHand": -40.18
 		},
 		"11931": {
 			"name": "Dreadforge Retaliator",
-			"mainHand": -22.82
+			"mainHand": -20.6
 		},
 		"11932": {
 			"name": "Guiding Stave of Wisdom",
-			"mainHand": -65.72
+			"mainHand": -63.5
 		},
 		"12000": {
 			"name": "Limb Cleaver",
-			"mainHand": -73.64
+			"mainHand": -71.42
 		},
 		"12528": {
 			"name": "The Judge's Gavel",
-			"mainHand": -56.62
+			"mainHand": -54.41
 		},
 		"12532": {
 			"name": "Spire of the Stoneshaper",
-			"mainHand": -57.11
+			"mainHand": -54.89
 		},
 		"12772": {
 			"name": "Inlaid Thorium Hammer",
-			"mainHand": -61.18
+			"mainHand": -58.97
 		},
 		"12775": {
 			"name": "Huge Thorium Battleaxe",
-			"mainHand": -52.9
+			"mainHand": -50.68
 		},
 		"12776": {
 			"name": "Enchanted Battlehammer",
-			"mainHand": -37.39
+			"mainHand": -35.17
 		},
 		"12784": {
 			"name": "Arcanite Reaper",
-			"mainHand": -11.39
+			"mainHand": -9.17
 		},
 		"12796": {
 			"name": "Hammer of the Titans",
-			"mainHand": -16.87
+			"mainHand": -14.66
 		},
 		"12969": {
 			"name": "Seeping Willow",
-			"mainHand": -17.41
+			"mainHand": -15.19
 		},
 		"13000": {
 			"name": "Staff of Hale Magefire",
-			"mainHand": -26.66
+			"mainHand": -24.45
 		},
 		"13003": {
 			"name": "Lord Alexander's Battle Axe",
-			"mainHand": -40.16
+			"mainHand": -37.95
 		},
 		"13046": {
 			"name": "Blanchard's Stout",
-			"mainHand": -56.28
+			"mainHand": -54.07
 		},
 		"13047": {
 			"name": "Twig of the World Tree",
-			"mainHand": -32.69
+			"mainHand": -30.48
 		},
 		"13161": {
 			"name": "Trindlehaven Staff",
-			"mainHand": -66.13
+			"mainHand": -63.91
 		},
 		"13167": {
 			"name": "Fist of Omokk",
-			"mainHand": -29.14
+			"mainHand": -26.92
 		},
 		"13249": {
 			"name": "Argent Crusader",
-			"mainHand": -54.7
+			"mainHand": -52.48
 		},
 		"13372": {
 			"name": "Slavedriver's Cane",
-			"mainHand": -15.39
+			"mainHand": -13.17
 		},
 		"13393": {
 			"name": "Malown's Slam",
-			"mainHand": -10.82
+			"mainHand": -8.6
 		},
 		"13937": {
 			"name": "Headmaster's Charge",
-			"mainHand": -37.39
+			"mainHand": -35.17
 		},
 		"13983": {
 			"name": "Gravestone War Axe",
-			"mainHand": -26.6
+			"mainHand": -24.38
 		},
 		"14531": {
 			"name": "Frightskull Shaft",
-			"mainHand": -34.5
+			"mainHand": -32.28
 		},
 		"15263": {
 			"name": "Royal Mallet",
-			"mainHand": -83.2
+			"mainHand": -80.99
 		},
 		"15264": {
 			"name": "Backbreaker",
-			"mainHand": -64.73
+			"mainHand": -62.51
 		},
 		"15265": {
 			"name": "Painbringer",
-			"mainHand": -66.94
+			"mainHand": -64.73
 		},
 		"15266": {
 			"name": "Fierce Mauler",
-			"mainHand": -52.09
+			"mainHand": -49.87
 		},
 		"15267": {
 			"name": "Brutehammer",
-			"mainHand": -45.82
+			"mainHand": -43.61
 		},
 		"15271": {
 			"name": "Colossal Great Axe",
-			"mainHand": -52.79
+			"mainHand": -50.58
 		},
 		"15272": {
 			"name": "Razor Axe",
-			"mainHand": -72.36
+			"mainHand": -70.15
 		},
 		"15273": {
 			"name": "Death Striker",
-			"mainHand": -56.31
+			"mainHand": -54.09
 		},
 		"15274": {
 			"name": "Diviner Long Staff",
-			"mainHand": -81.41
+			"mainHand": -79.2
 		},
 		"15275": {
 			"name": "Thaumaturgist Staff",
-			"mainHand": -62.06
+			"mainHand": -59.84
 		},
 		"15276": {
 			"name": "Magus Long Staff",
-			"mainHand": -56.62
+			"mainHand": -54.41
 		},
 		"15278": {
 			"name": "Solstice Staff",
-			"mainHand": -65.27
+			"mainHand": -63.05
 		},
 		"15418": {
 			"name": "Shimmering Platinum Warhammer",
-			"mainHand": -14.53
+			"mainHand": -12.32
 		},
 		"15854": {
 			"name": "Dancing Sliver",
-			"mainHand": -70.24
+			"mainHand": -68.02
 		},
 		"17004": {
 			"name": "Sarah's Guide",
-			"mainHand": -78.89
+			"mainHand": -76.67
 		},
 		"17730": {
 			"name": "Gatorbite Axe",
-			"mainHand": -41.4
+			"mainHand": -39.42
 		},
 		"17743": {
 			"name": "Resurgence Rod",
-			"mainHand": -67.91
+			"mainHand": -65.7
 		},
 		"17766": {
 			"name": "Princess Theradras' Scepter",
-			"mainHand": -24.91
+			"mainHand": -22.69
 		},
 		"18311": {
 			"name": "Quel'dorai Channeling Rod",
-			"mainHand": -69
+			"mainHand": -66.78
 		},
 		"18324": {
 			"name": "Waveslicer",
-			"mainHand": -25.57
+			"mainHand": -23.36
 		},
 		"18353": {
 			"name": "Stoneflower Staff",
-			"mainHand": -44.27
+			"mainHand": -42.05
 		},
 		"18420": {
 			"name": "Bonecrusher",
-			"mainHand": -21.38
+			"mainHand": -19.16
 		},
 		"18481": {
 			"name": "Skullcracking Mace",
-			"mainHand": -44.97
+			"mainHand": -42.76
 		},
 		"18531": {
 			"name": "Unyielding Maul",
-			"mainHand": -39.28
+			"mainHand": -37.07
 		},
 		"18534": {
 			"name": "Rod of the Ogre Magi",
-			"mainHand": -47.54
+			"mainHand": -45.32
 		},
 		"18538": {
 			"name": "Treant's Bane",
-			"mainHand": -11.04
+			"mainHand": -8.83
 		},
 		"18717": {
 			"name": "Hammer of the Grand Crusader",
-			"mainHand": -58.79
+			"mainHand": -56.57
 		},
 		"18759": {
 			"name": "Malicious Axe",
-			"mainHand": -34.03
+			"mainHand": -31.81
 		},
 		"19101": {
 			"name": "Whiteout Staff",
-			"mainHand": -40.51
+			"mainHand": -38.29
 		},
 		"19102": {
 			"name": "Crackling Staff",
-			"mainHand": -40.51
+			"mainHand": -38.29
 		},
 		"19323": {
 			"name": "The Unstoppable Force",
-			"mainHand": 1.15
+			"mainHand": 3.36
 		},
 		"19566": {
 			"name": "Advisor's Gnarled Staff",
-			"mainHand": -35.58
+			"mainHand": -33.37
 		},
 		"19567": {
 			"name": "Advisor's Gnarled Staff",
-			"mainHand": -58.02
+			"mainHand": -55.8
 		},
 		"19570": {
 			"name": "Lorekeeper's Staff",
-			"mainHand": -35.58
+			"mainHand": -33.37
 		},
 		"19571": {
 			"name": "Lorekeeper's Staff",
-			"mainHand": -58.02
+			"mainHand": -55.8
 		},
 		"20069": {
 			"name": "Ironbark Staff",
-			"mainHand": -18.72
+			"mainHand": -16.51
 		},
 		"20220": {
 			"name": "Ironbark Staff",
-			"mainHand": -18.72
+			"mainHand": -16.51
 		},
 		"20522": {
 			"name": "Feral Staff",
-			"mainHand": -51.85
+			"mainHand": -49.63
 		},
 		"20556": {
 			"name": "Wildstaff",
-			"mainHand": -67.46
+			"mainHand": -65.24
 		},
 		"22208": {
 			"name": "Lavastone Hammer",
-			"mainHand": -26.96
+			"mainHand": -24.75
 		},
 		"22333": {
 			"name": "Hammer of Divine Might",
-			"mainHand": -72.27
+			"mainHand": -70.05
 		},
 		"22335": {
 			"name": "Lord Valthalak's Staff of Command",
-			"mainHand": -61.03
+			"mainHand": -58.82
 		},
 		"22394": {
 			"name": "Staff of Metanoia",
-			"mainHand": -77.28
+			"mainHand": -75.07
 		},
 		"22406": {
 			"name": "Redemption",
-			"mainHand": -84.71
+			"mainHand": -82.49
 		},
 		"221518": {
 			"name": "Whisper",
-			"mainHand": -37.22
+			"mainHand": -35
 		},
 		"249453": {
 			"name": "Radiant Staff",
-			"mainHand": -85.6
+			"mainHand": -83.39
 		},
 		"249454": {
 			"name": "Dreamstaff",
-			"mainHand": -98.15
+			"mainHand": -95.93
 		},
 		"250613": {
 			"name": "Thorium Greatmace",
-			"mainHand": -31.62
+			"mainHand": -29.41
 		},
 		"250617": {
 			"name": "Stormcarver",
-			"mainHand": -13.53
+			"mainHand": -11.31
 		},
 		"260166": {
 			"name": "Rageroar's Best Club",
-			"mainHand": -63.77
+			"mainHand": -61.55
 		},
 		"260207": {
 			"name": "Staff of Archmage Selwyn",
-			"mainHand": -88.94
+			"mainHand": -86.72
 		},
 		"260214": {
 			"name": "Staff of Wild Beasts",
-			"mainHand": -78.44
+			"mainHand": -76.23
 		},
 		"260215": {
 			"name": "Wild Malleus",
-			"mainHand": -42.48
+			"mainHand": -40.26
 		},
 		"270108": {
 			"name": "Bloodied Longmace",
-			"mainHand": -83.2
+			"mainHand": -80.99
 		},
 		"271924": {
 			"name": "Rebels' Rugged Reaper",
-			"mainHand": -23.01
+			"mainHand": -20.79
 		},
 		"271925": {
 			"name": "Rebels' Rugged Reaper",
-			"mainHand": -46.77
+			"mainHand": -44.56
 		},
 		"272079": {
 			"name": "Darkspear Raider's Reaper",
-			"mainHand": -23.01
+			"mainHand": -20.79
 		},
 		"272080": {
 			"name": "Darkspear Raider's Reaper",
-			"mainHand": -46.77
+			"mainHand": -44.56
 		},
 		"272593": {
 			"name": "Premier High Warlord's Battle Axe",
-			"mainHand": 16.11
+			"mainHand": 18.33
 		},
 		"272601": {
 			"name": "Premier High Warlord's Pulverizer",
-			"mainHand": 16.11
+			"mainHand": 18.33
 		},
 		"272603": {
 			"name": "Premier High Warlord's War Staff",
-			"mainHand": -27.97
+			"mainHand": -25.76
 		},
 		"272682": {
 			"name": "Premier High Warlord's Destroyer",
-			"mainHand": 21.61
+			"mainHand": 23.82
 		},
 		"272840": {
 			"name": "Premier Grand Marshal's Sunderer",
-			"mainHand": 16.11
+			"mainHand": 18.33
 		},
 		"272848": {
 			"name": "Premier Grand Marshal's Battle Hammer",
-			"mainHand": 16.11
+			"mainHand": 18.33
 		},
 		"272850": {
 			"name": "Premier Grand Marshal's Stave",
-			"mainHand": -27.97
+			"mainHand": -25.76
 		},
 		"272858": {
 			"name": "Premier Grand Marshal's Demolisher",
-			"mainHand": 21.61
+			"mainHand": 23.82
 		},
 		"274270": {
 			"name": "Weed Whacker",
-			"mainHand": -52.05
+			"mainHand": -49.83
 		},
 		"274420": {
 			"name": "Wisepaw Totem",
-			"mainHand": -54.36
+			"mainHand": -52.15
 		},
 		"275291": {
 			"name": "Staff of the Deeproar",
-			"mainHand": -76.41
+			"mainHand": -74.19
 		},
 		"275648": {
 			"name": "Purified Gnarlybark Staff",
-			"mainHand": -68.46
+			"mainHand": -66.24
 		},
 		"275701": {
 			"name": "Copper Plated Pipe",
-			"mainHand": -50
+			"mainHand": -47.79
 		},
 		"276069": {
 			"name": "Gravetoll Gavel",
-			"mainHand": -59.09
+			"mainHand": -56.88
 		},
 		"276397": {
 			"name": "Hand of the Zealous",
-			"mainHand": -39.48
+			"mainHand": -37.26
 		},
 		"276403": {
 			"name": "Scarlet Bonebreaker",
-			"mainHand": -30.8
+			"mainHand": -28.59
 		},
 		"276732": {
 			"name": "Alcaz Willcrusher",
-			"mainHand": -44.56
+			"mainHand": -42.35
 		},
 		"280018": {
 			"name": "Hammer of Thundering Hooves",
-			"mainHand": -15.6
+			"mainHand": -13.38
 		},
 		"280023": {
 			"name": "Nanaya's Control Spire",
-			"mainHand": -40.4
+			"mainHand": -38.19
 		},
 		"280056": {
 			"name": "Flameslash Crescent",
-			"mainHand": -10.63
+			"mainHand": -8.42
 		},
 		"280082": {
 			"name": "Staff of Sorrow",
-			"mainHand": -44.6
+			"mainHand": -42.39
 		},
 		"282014": {
 			"name": "Twisted Shadow Staff",
-			"mainHand": -120.35
+			"mainHand": -118.14
 		},
 		"282070": {
 			"name": "Gruklash's Basher",
-			"mainHand": -38.35
+			"mainHand": -36.14
 		},
 		"282632": {
 			"name": "Scalding Staff",
-			"mainHand": -61.96
+			"mainHand": -59.75
 		},
 		"284257": {
 			"name": "Icesworn Decapitator",
-			"mainHand": -27.01
+			"mainHand": -24.79
 		},
 		"286641": {
 			"name": "Cannibal's Cleaver",
-			"mainHand": -54.14
+			"mainHand": -51.92
 		},
 		"287025": {
 			"name": "Enchantresses' Spire",
-			"mainHand": -75.24
+			"mainHand": -73.03
 		},
 		"287046": {
 			"name": "Pylon Poker",
-			"mainHand": -19.85
+			"mainHand": -17.63
 		}
 	},
 	"failed": []
