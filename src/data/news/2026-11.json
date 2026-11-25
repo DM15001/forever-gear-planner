@@ -9,6 +9,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "The simulator check looks for the best set, faster",
+							"text": "\"Check the plan with the simulator\" now starts by running your plan, the guides' sets and your worn gear against each other and goes on from the best. Every candidate gets a short run first and a longer one only when it is close, so clear losers cost little. Small gains from 1.5 DPS count, after a second, longer run confirms them. At the end the winner and the runner-up get a long run, and the note says when the two are equal.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "The simulator check tries enchants and pairs",
 							"text": "\"Check the plan with the simulator\" used to swap single items only. It now also tries the enchants of every slot (the worn one, the proc enchants, the next best) and pairs of slots changed together: both rings, both trinkets, both hands and slots that trade hit rating. It never ends below what you wear. It takes longer than before.",
 							"source": "Gear Planner",

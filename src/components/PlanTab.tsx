@@ -78,12 +78,18 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				() => stopRefine.current,
 			);
 			onChange({ ...character, plan: result.plan, planEnchants: result.planEnchants });
+			const kept = Object.keys(result.plan).length + Object.keys(result.planEnchants).length === 0;
+			const second = result.runnerUp
+				? result.runnerUp.equal
+					? ` Next best: ${result.runnerUp.label} at ${result.runnerUp.dps.toFixed(0)} ${unit()}. The two are equal within the margin: take whichever is easier to get.`
+					: ` Next best: ${result.runnerUp.label} at ${result.runnerUp.dps.toFixed(0)} ${unit()}.`
+				: '';
 			setRefineNote(
-				Object.keys(result.plan).length + Object.keys(result.planEnchants).length === 0 && result.changes > 0
-					? `The simulator found nothing better than what you wear (${result.after.toFixed(0)} ${unit()}; the plan came to ${result.before.toFixed(0)}). The plan is empty now: your gear is as good as anything it tried.`
+				(kept && result.changes > 0
+					? `The simulator found nothing better than what you wear (${result.after.toFixed(0)} ${unit()}; the plan came to ${result.before.toFixed(0)}). The plan is empty now.`
 					: result.changes === 0
-					? `The simulator agrees with the plan: no other item, enchant or pair it tried does better (${result.before.toFixed(0)} ${unit()}).`
-					: `The simulator changed the plan in ${result.changes} ${result.changes === 1 ? 'place' : 'places'}: ${result.before.toFixed(0)} to ${result.after.toFixed(0)} ${unit()}.`,
+						? `The simulator agrees with the plan (${result.after.toFixed(0)} ${unit()}): no other start, item, enchant or pair it tried does better.`
+						: `The simulator changed the plan in ${result.changes} ${result.changes === 1 ? 'place' : 'places'}: ${result.before.toFixed(0)} to ${result.after.toFixed(0)} ${unit()}${result.startedFrom === 'the plan' ? '' : `, starting from ${result.startedFrom}`}.`) + second,
 			);
 		} catch (err) {
 			setRefineNote(`The check failed: ${err instanceof Error ? err.message : 'the simulator did not answer'}`);
@@ -224,9 +230,10 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						</p>
 					)}
 					<p className="hint">
-						"Check the plan with the simulator" runs the real simulator on the {REFINE_DEPTH} best-scored items of every slot, then on the enchants (the worn one, the proc enchants and the next best), then on pairs
-						of slots changed together: both rings, both trinkets, both hands and slots that trade hit rating. It keeps a change only when the {unit()} really goes up, and it never ends below what you wear.
-						It takes several minutes.
+						"Check the plan with the simulator" looks for the best set with the real simulator. It first runs your plan, the guides' sets and your worn gear against each other and goes on from the best. Then
+						it tries the {REFINE_DEPTH} best-scored items of every slot, the enchants, and pairs of slots changed together (both rings, both trinkets, both hands, slots that trade hit rating). Every
+						candidate gets a short run first and a longer one only when it is close, and the winner and the runner-up get a long run at the end. It keeps a change only when the {unit()} really goes up,
+						never ends below what you wear, and takes several minutes.
 					</p>
 					<p className="hint">
 						The estimate is stats times the build's stat weights, in {unit()}, plus what the simulator measured for procs, on-use effects, proc enchants and set bonuses. To change a

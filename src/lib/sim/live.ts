@@ -1,6 +1,7 @@
 import { GEAR_SLOTS } from '../constants';
-import { enchantOverview } from '../enchants';
-import { applicableEnchants, type CandidateOptions, EMPTY_SLOT, type Gear, plannedGear, slotCandidates, slotInUse, withItem } from '../scoring';
+import { bestEnchants, enchantOverview } from '../enchants';
+import { guidePlan } from '../guides';
+import { applicableEnchants, type CandidateOptions, EMPTY_SLOT, type Gear, isObtainable, plannedGear, slotCandidates, slotInUse, withItem } from '../scoring';
 import type { Character, SpecConfig } from '../types';
 import type { BonusStats, SimOutcome } from './request';
 
@@ -82,11 +83,26 @@ export async function measureWeights(character: Character, spec: SpecConfig, run
 	};
 }
 
+/** A first look: enough to tell a clear loser from a candidate. */
+export const ROUGH_ITERATIONS = 250;
+/** The run that decides whether a change is kept. */
 export const REFINE_ITERATIONS = 1000;
+/** The last run, for the winner and the runner-up. */
+export const FINAL_ITERATIONS = 5000;
 /** How many of a slot's best-scored items get a real run. */
 export const REFINE_DEPTH = 3;
-/** A swap has to beat the set by this many DPS to count; less is noise at this run length. */
-const REFINE_MARGIN = 3;
+/** A change that is not at least level with the set in the rough run is dropped there. */
+const ROUGH_MARGIN = 0;
+/**
+ * A change has to beat the set by this many DPS in the deciding run. Every run uses the same random seed, so two
+ * sets differ by far less than one run's own noise, and a gain this small is real.
+ */
+const REFINE_MARGIN = 1.5;
+/** A gain smaller than this is run again, longer, before it counts. */
+const CONFIRM_BELOW = 4;
+const CONFIRM_ITERATIONS = 3000;
+/** Winner and runner-up within this many DPS in the last run count as equal. */
+export const EQUAL_MARGIN = 1;
 
 export interface RefineProgress {
 	slot: string;
@@ -106,48 +122,112 @@ const REFINE_PROCS = 3;
 /** How many pairs of hit-rating slots are tried together. */
 const REFINE_HIT_PAIRS = 3;
 
+/** What the check found: the plan, and how sure it is. */
+export interface RefineResult {
+	plan: Record<number, number>;
+	planEnchants: Record<number, number>;
+	/** The plan as it was, and the set that won, both in the deciding run length (the winner's is its last, long run when there was one). */
+	before: number;
+	after: number;
+	changes: number;
+	/** Where the winning set started from: the plan, a guide's set, or the worn gear. */
+	startedFrom: string;
+	/** The second best whole set and its DPS in the last run; `equal` when the two cannot be told apart. */
+	runnerUp?: { label: string; dps: number; equal: boolean };
+}
+
 /**
- * Checks the plan against the simulator, in four passes, and keeps a change only when the real DPS goes up.
+ * Looks for the best set with the simulator and keeps a change only when the real DPS goes up.
  *
+ * 0. Starting points: the plan, the set of every guide (as far as the content choice allows) and the worn gear run
+ *    against each other; the search goes on from the best. A plan that the estimate got wrong is not the only start.
  * 1. Items: slot by slot, the items the quick score likes best and the worn one.
- * 2. Enchants: slot by slot, the worn enchant, the proc enchants (the score only knows them roughly) and the next
- *    best stat enchant.
+ * 2. Enchants: slot by slot, the worn enchant, the proc enchants and the next best stat enchant.
  * 3. Pairs: two slots changed at once, which no single swap finds. Both rings, both trinkets, both hands, and slots
- *    that trade hit rating between them: each pair with the worn items back in, and with each slot's next best item.
- * 4. The worn gear as a whole: the result is never below what the character wears.
+ *    that trade hit rating between them.
+ * 4. The winner and the runner-up once more in a long run, so the last word is not a short run's.
  *
- * Returns the new plan with its enchants and the DPS before and after.
+ * Every change gets a short run first and the deciding run only when the short one does not rule it out: most
+ * candidates are clear losers, and the time goes to the close calls. The result is never below the worn gear.
  */
-export async function refinePlan(
-	options: CandidateOptions,
-	runner: SimRunner,
-	onProgress: (progress: RefineProgress) => void,
-	cancelled: () => boolean = () => false,
-): Promise<{ plan: Record<number, number>; planEnchants: Record<number, number>; before: number; after: number; changes: number }> {
-	const { character, data, spec } = options;
+export async function refinePlan(options: CandidateOptions, runner: SimRunner, onProgress: (progress: RefineProgress) => void, cancelled: () => boolean = () => false): Promise<RefineResult> {
+	const { character, data, spec, filter } = options;
 	const slots = GEAR_SLOTS.map((_, slot) => slot).filter(slot => slotInUse(slot, spec));
 	const itemOf = (set: Gear, slot: number) => (set[slot] ? data.itemById.get(set[slot]!.id) : undefined);
-	let gear = plannedGear(character, data);
-	let best = (await runner.run(character, gear, REFINE_ITERATIONS)).dps;
-	const before = best;
-	let changes = 0;
+	const run = async (set: Gear, iterations: number) => (await runner.run(character, set, iterations)).dps;
+	const keyOf = (set: Gear) => set.map(piece => (piece ? `${piece.id}.${piece.enchant ?? 0}.${piece.randomSuffix ?? 0}` : '-')).join('|');
+	const faction = spec.races.find(race => race.id === character.race)?.faction;
 
-	// What is still to come, for the progress bar: every slot twice (item, enchant), the pairs, the worn gear.
-	const hitSlots = slots.filter(slot => (itemOf(gear, slot)?.stats?.hitRating ?? 0) > 0 || (itemOf(character.gear, slot)?.stats?.hitRating ?? 0) > 0);
-	const hitPairs: [number, number, string][] = [];
-	for (const a of hitSlots)
-		for (const b of hitSlots)
-			if (a < b && !TWIN_SLOTS.some(([x, y]) => x === a && y === b) && hitPairs.length < REFINE_HIT_PAIRS && (gear[a]?.id !== character.gear[a]?.id || gear[b]?.id !== character.gear[b]?.id))
-				hitPairs.push([a, b, `${GEAR_SLOTS[a].label} and ${GEAR_SLOTS[b].label} (hit)`]);
-	const pairs = [...TWIN_SLOTS.filter(([a, b]) => slots.includes(a) && slots.includes(b)), ...hitPairs];
-	const total = slots.length * 2 + pairs.length + 1;
+	// 0. Starting points.
+	const planned = plannedGear(character, data);
+	const starts: { label: string; gear: Gear }[] = [{ label: 'the plan', gear: planned }];
+	for (const guide of data.guides) {
+		const { plan } = guidePlan(guide, character, data, spec);
+		for (const [slot, id] of Object.entries(plan)) {
+			const item = data.itemById.get(id);
+			if (!item || !isObtainable(item, character, faction, filter, spec)) delete plan[Number(slot)];
+		}
+		const blank: Character = { ...character, plan, planEnchants: {} };
+		const gear = plannedGear({ ...blank, planEnchants: bestEnchants(plannedGear(blank, data), blank, data, spec) }, data);
+		starts.push({ label: `the ${guide.title}`, gear });
+	}
+	starts.push({ label: 'what you wear', gear: character.gear });
+	const distinct = starts.filter((start, index) => starts.findIndex(other => keyOf(other.gear) === keyOf(start.gear)) === index);
+
+	const before = await run(planned, REFINE_ITERATIONS);
+	const total = 1 + slots.length * 2 + 3 + REFINE_HIT_PAIRS + 1;
 	let done = 0;
-	const step = (label: string) => onProgress({ slot: label, done: done++, total, dps: best });
-	/** Runs a set and keeps it when it is really better. */
+	let best = before;
+	const step = (label: string) => onProgress({ slot: label, done: Math.min(done++, total - 1), total, dps: best });
+	// Whole sets that were measured in the deciding run: the runner-up comes from these.
+	const measured = new Map<string, { label: string; gear: Gear; dps: number }>([[keyOf(planned), { label: 'the plan as it was', gear: planned, dps: before }]]);
+
+	step('Starting points');
+	let gear = planned;
+	let startedFrom = 'the plan';
+	let changes = 0;
+	if (distinct.length > 1 && !cancelled()) {
+		const rough: { label: string; gear: Gear; dps: number }[] = [];
+		for (const start of distinct) {
+			if (cancelled()) break;
+			rough.push({ ...start, dps: await run(start.gear, ROUGH_ITERATIONS) });
+		}
+		const plannedRough = rough[0]?.dps ?? 0;
+		// Every start that is not clearly behind the plan gets the deciding run.
+		for (const start of rough.slice(1)) {
+			if (cancelled() || start.dps < plannedRough - ROUGH_MARGIN) continue;
+			const dps = await run(start.gear, REFINE_ITERATIONS);
+			measured.set(keyOf(start.gear), { label: start.label, gear: start.gear, dps });
+			if (dps > best + REFINE_MARGIN) {
+				best = dps;
+				gear = start.gear;
+				startedFrom = start.label;
+			}
+		}
+		if (gear !== planned) changes++;
+	}
+
+	// The set in the short run: what every candidate is compared with before it earns the deciding run.
+	let roughBest = cancelled() ? best : await run(gear, ROUGH_ITERATIONS);
+	// The set in the confirming run, once one was needed.
+	let sure: number | undefined;
+	/** A short run first; the deciding run only when the short one does not rule the change out. */
 	const attempt = async (variant: Gear) => {
-		const dps = (await runner.run(character, variant, REFINE_ITERATIONS)).dps;
+		if (keyOf(variant) === keyOf(gear)) return false;
+		const rough = await run(variant, ROUGH_ITERATIONS);
+		if (rough < roughBest + ROUGH_MARGIN) return false;
+		const dps = await run(variant, REFINE_ITERATIONS);
 		if (dps <= best + REFINE_MARGIN) return false;
+		// A small gain has to hold in a longer run of both sets, or a lucky run would be taken for a better item.
+		if (dps <= best + CONFIRM_BELOW) {
+			sure ??= await run(gear, CONFIRM_ITERATIONS);
+			const again = await run(variant, CONFIRM_ITERATIONS);
+			if (again <= sure + REFINE_MARGIN / 2) return false;
+			sure = again;
+		} else sure = undefined;
+		measured.set(keyOf(gear), { label: 'the set before the last change', gear, dps: best });
 		best = dps;
+		roughBest = rough;
 		gear = variant;
 		changes++;
 		return true;
@@ -193,11 +273,17 @@ export async function refinePlan(
 		}
 	}
 
-	// 3. Pairs.
-	for (const [a, b, label] of pairs) {
+	// 3. Pairs: the twins, and slots that trade hit rating (as the set stands now).
+	const hitSlots = slots.filter(slot => (itemOf(gear, slot)?.stats?.hitRating ?? 0) > 0 || (itemOf(character.gear, slot)?.stats?.hitRating ?? 0) > 0);
+	const hitPairs: [number, number, string][] = [];
+	for (const a of hitSlots)
+		for (const b of hitSlots)
+			if (a < b && !TWIN_SLOTS.some(([x, y]) => x === a && y === b) && hitPairs.length < REFINE_HIT_PAIRS && (gear[a]?.id !== character.gear[a]?.id || gear[b]?.id !== character.gear[b]?.id))
+				hitPairs.push([a, b, `${GEAR_SLOTS[a].label} and ${GEAR_SLOTS[b].label} (hit)`]);
+	for (const [a, b, label] of [...TWIN_SLOTS.filter(([x, y]) => slots.includes(x) && slots.includes(y)), ...hitPairs]) {
 		if (cancelled()) break;
 		step(label);
-		// Both as worn, where the plan changed at least one of them.
+		// Both as worn, where the set changed at least one of them.
 		if (gear[a]?.id !== character.gear[a]?.id || gear[b]?.id !== character.gear[b]?.id) await attempt(wornIn(wornIn(gear, a), b));
 		if (cancelled()) break;
 		// Each slot's next best item, together.
@@ -207,15 +293,25 @@ export async function refinePlan(
 		if (first !== undefined && second !== undefined) await attempt(withItem(half, b, second, data, { character, spec }));
 	}
 
-	// 4. Never below what is worn.
+	// 4. The last word: the winner and the best other whole set in a long run. Never below what is worn.
+	let runnerUp: RefineResult['runnerUp'];
 	if (!cancelled()) {
-		step('Your worn gear');
-		if (gear.some((piece, slot) => piece?.id !== character.gear[slot]?.id || piece?.enchant !== character.gear[slot]?.enchant)) {
-			const worn = (await runner.run(character, character.gear, REFINE_ITERATIONS)).dps;
-			if (worn > best) {
-				best = worn;
-				gear = character.gear;
+		done = total - 1;
+		step('Winner and runner-up, long run');
+		if (!measured.has(keyOf(character.gear)) && keyOf(character.gear) !== keyOf(gear)) measured.set(keyOf(character.gear), { label: 'what you wear', gear: character.gear, dps: await run(character.gear, REFINE_ITERATIONS) });
+		const second = [...measured.entries()].filter(([key]) => key !== keyOf(gear)).sort((x, y) => y[1].dps - x[1].dps)[0]?.[1];
+		if (second) {
+			const winner = await run(gear, FINAL_ITERATIONS);
+			const other = await run(second.gear, FINAL_ITERATIONS);
+			if (other > winner) {
+				// The long run turned it around: the runner-up is the answer.
+				runnerUp = { label: startedFrom === 'the plan' && changes === 0 ? 'the plan' : 'the set the search ended on', dps: winner, equal: other - winner <= EQUAL_MARGIN };
+				gear = second.gear;
+				best = other;
 				changes++;
+			} else {
+				runnerUp = { label: second.label, dps: other, equal: winner - other <= EQUAL_MARGIN };
+				best = winner;
 			}
 		}
 	}
@@ -229,5 +325,5 @@ export async function refinePlan(
 		const enchant = gear[slot]?.enchant;
 		if (enchant && (id !== character.gear[slot]?.id || enchant !== character.gear[slot]?.enchant)) planEnchants[slot] = enchant;
 	}
-	return { plan, planEnchants, before, after: best, changes };
+	return { plan, planEnchants, before, after: best, changes, startedFrom, runnerUp };
 }
