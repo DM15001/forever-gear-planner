@@ -1,10 +1,10 @@
 {
-	"generatedAt": "2026-11-25T17:30:15.415Z",
-	"inputs": "89a369d5ba0a50fa",
+	"generatedAt": "2026-11-25T19:54:39.688Z",
+	"inputs": "b12dce4366b86e07",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
-		"dps": 965.53,
+		"dps": 965.34,
 		"mainHand": 250619,
 		"ranged": 19107
 	},
@@ -15,7 +15,7 @@
 		},
 		"2824": {
 			"name": "Hurricane",
-			"ranged": -1.27
+			"ranged": -1.26
 		},
 		"11628": {
 			"name": "Houndmaster's Bow",
@@ -31,7 +31,7 @@
 		},
 		"12653": {
 			"name": "Riphook",
-			"ranged": 3.51
+			"ranged": 3.52
 		},
 		"13022": {
 			"name": "Gryphonwing Long Bow",
@@ -59,11 +59,11 @@
 		},
 		"13474": {
 			"name": "Farmer Dalson's Shotgun",
-			"ranged": -2.39
+			"ranged": -2.4
 		},
 		"15288": {
 			"name": "Blasthorn Bow",
-			"ranged": -11.76
+			"ranged": -11.75
 		},
 		"15289": {
 			"name": "Archstrike Bow",
@@ -91,7 +91,7 @@
 		},
 		"15324": {
 			"name": "Burnside Rifle",
-			"ranged": -13.78
+			"ranged": -13.79
 		},
 		"15325": {
 			"name": "Sharpshooter Harquebus",
@@ -103,7 +103,7 @@
 		},
 		"16004": {
 			"name": "Dark Iron Rifle",
-			"ranged": -10.06
+			"ranged": -10.05
 		},
 		"16007": {
 			"name": "Flawless Arcanite Rifle",
@@ -187,7 +187,7 @@
 		},
 		"259891": {
 			"name": "Berdun's Trusty Rifle",
-			"ranged": -24.25
+			"ranged": -24.26
 		},
 		"270107": {
 			"name": "Bloodstained Longbow",
@@ -219,7 +219,7 @@
 		},
 		"275296": {
 			"name": "Deadwood Boomstick",
-			"ranged": -13.84
+			"ranged": -13.85
 		},
 		"275439": {
 			"name": "Blunderflame Bone Bow",
@@ -227,7 +227,7 @@
 		},
 		"275441": {
 			"name": "Cremation Longbow",
-			"ranged": -4.88
+			"ranged": -4.89
 		},
 		"276332": {
 			"name": "Abigail's Hope",
@@ -239,11 +239,11 @@
 		},
 		"280020": {
 			"name": "Deep Jungle Rifle",
-			"ranged": -0.75
+			"ranged": -0.76
 		},
 		"280083": {
 			"name": "Truesight Rifle",
-			"ranged": -1.07
+			"ranged": -1.08
 		},
 		"282029": {
 			"name": "Reaver's Repeater",
