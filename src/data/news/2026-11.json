@@ -96,6 +96,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Sim setup: explanations behind question marks",
+							"text": "The long notes under Talents, Consumables, Buffs and \"What the sim runs\" moved behind a small question mark next to each heading. Hover or tap it to read them.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Check gear: tidier head of the character sheet",
 							"text": "Name, build and talents sit on the left with a \"Change talents\" button; \"Copy character link\" and \"Build my gear plan\" sit together on the right.",
 							"source": "Gear Planner",

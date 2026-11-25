@@ -1,3 +1,4 @@
+import { Help } from './Help';
 import { useEffect, useMemo, useState } from 'react';
 
 import { simClient } from '../lib/sim/client';
@@ -246,7 +247,13 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 	return (
 		<div className="sim-setup">
 			<section className="panel">
-				<h2>What the sim runs</h2>
+				<h2>
+					What the sim runs{' '}
+					<Help label="What follows these settings">
+						The quick scores under "Build plan" and "Customize" use fixed stat weights that were measured with the build's own talents, consumables and buffs. They do not follow changes made here; the
+						simulated numbers do.
+					</Help>
+				</h2>
 				<p>
 					The "Simulated with WoWSims" numbers come from the WoWSims engine itself, running inside this page. It starts from the WoWSims settings for <strong>{spec.name}</strong> and swaps in your race,
 					professions and gear, plus what you change below: talents, consumables, buffs and debuffs. The fight and the rotation are taken as WoWSims ships them.
@@ -260,10 +267,6 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 						</button>
 					</p>
 				)}
-				<p className="hint">
-					The quick scores under "Build plan" and "Customize" use fixed stat weights that were measured with the build's own talents, consumables and buffs. They do not follow changes made here; the simulated numbers
-					do.
-				</p>
 			</section>
 
 			<details className="fold compare-fold">
@@ -348,7 +351,13 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 			</details>
 
 			<section className="panel">
-				<h2>Talents</h2>
+				<h2>
+					Talents{' '}
+					<Help label="How the talent trees work">
+						Click a talent to put a point in, right-click (or Shift-click, or the small minus on a phone) to take one out. Rows open after 5 points per row above them and arrows need the talent they come
+						from at its maximum, as in the game. A build pasted as a talent string is taken as it is.
+					</Help>
+				</h2>
 				<p>
 					{usingPreset ? 'Using the talents of the WoWSims build.' : 'Using your own talents.'}{' '}
 					<span className={spent > available ? 'field-error' : 'num'}>
@@ -413,14 +422,16 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 						/>
 					))}
 				</div>
-				<p className="hint">
-					Click a talent to put a point in, right-click (or Shift-click, or the small minus on a phone) to take one out. Rows open after 5 points per row above them and arrows need the talent they
-					come from at its maximum, as in the game. A build pasted as a talent string is taken as it is.
-				</p>
 			</section>
 
 			<section className="panel">
-				<h2>Consumables</h2>
+				<h2>
+					Consumables{' '}
+					<Help label="How consumables count">
+						Every consumable WoWSims knows can be picked. Flask, food and the other single choices replace each other by design. Elixirs and scrolls that buff the same thing overwrite each other; the page
+						warns about those. The sim applies its own stacking rules on top, for example a scroll against the raid buff of the same stat. Simulate before and after to see what a consumable is worth.
+					</Help>
+				</h2>
 				<div className="consumables">
 					{fields.map(f => {
 						const options = byKind(f.kind).filter(c => !f.resourceOnly || c.resource);
@@ -512,15 +523,16 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 						Use the WoWSims build's consumables
 					</button>
 				</p>
-				<p className="hint">
-					Every consumable WoWSims knows can be picked. Flask, food and the other single choices replace each other by design. Elixirs and scrolls that buff the same thing overwrite each other; the
-					page warns about those. The sim applies its own stacking rules on top, for example a scroll against the raid buff of the same stat. Simulate before and after to see what a consumable is
-					worth.
-				</p>
 			</section>
 
 			<section className="panel">
-				<h2>Buffs and fight</h2>
+				<h2>
+					Buffs and fight{' '}
+					<Help label="About buffs and the fight">
+						Every buff and debuff WoWSims knows is listed, and each can be switched on its own. Click an icon to switch it on or to the next level, right-click to go back. The fight and the class options
+						come from the build and cannot be changed here yet.
+					</Help>
+				</h2>
 				<p>
 					{healer ? (
 						`A ${healingFight(healingChoice(character)).duration} second fight (give or take 5). The heals go to the Priest's group of five; there is no incoming damage, so every heal counts in full.`
@@ -565,7 +577,6 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 				<p className="buff-pointed" aria-live="polite">
 					{pointed ?? 'Point at an icon to see what it is. Click switches it on or to the next level, right-click back.'}
 				</p>
-				<p className="hint">Every buff and debuff WoWSims knows is listed, and each can be switched on its own. The fight and the class options come from the build and cannot be changed here yet.</p>
 			</section>
 
 			{books.length > 0 && (

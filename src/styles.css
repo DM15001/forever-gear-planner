@@ -7425,3 +7425,19 @@ a.plan-enchant-name:hover {
 		display: contents;
 	}
 }
+
+/* A question mark next to a heading. */
+.help {
+	margin-left: 0.4rem;
+	vertical-align: middle;
+	font-family: var(--sans, inherit);
+	font-size: 0.875rem;
+	font-weight: 400;
+	letter-spacing: 0;
+	text-transform: none;
+	color: var(--haze);
+}
+.help .powered-pop {
+	font-size: 0.875rem;
+	line-height: 1.5;
+}
