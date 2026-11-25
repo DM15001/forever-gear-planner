@@ -9,6 +9,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Theme 2006: heavy gold frames",
+							"text": "The theme got a new build: header, menu, page and gear panes each sit in a thick cast-gold frame with rivets and engraving, on dark planks and leather, with the page itself on paper. More room between things, a wider page for large screens, larger text.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Farm plan: filter and tags",
 							"text": "The dungeon list can show every upgrade, only BiS or only what is in your plan; the totals follow. Every drop now carries a tag: in your plan, BiS, or alternative with its place in the slot (2nd best, 3rd best). The group plan names the place too.",
 							"source": "Gear Planner",

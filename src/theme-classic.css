@@ -758,8 +758,9 @@
 		radial-gradient(ellipse 70rem 34rem at 50% -8rem, rgb(34 58 104 / 0.42), transparent 70%),
 		radial-gradient(ellipse at 50% 40%, transparent 35%, rgb(0 0 0 / 0.72) 100%),
 		repeating-linear-gradient(90deg, transparent 0 158px, rgb(0 0 0 / 0.6) 158px 160px, rgb(255 214 140 / 0.05) 160px 161px),
-		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='640'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.45 .006' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .3 0 0 0 0 .12 .9 0 0 0 -.25'/%3E%3C/filter%3E%3Crect width='320' height='640' filter='url(%23w)' opacity='.5'/%3E%3C/svg%3E"),
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 640' preserveAspectRatio='none'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.45 .006' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .3 0 0 0 0 .12 .9 0 0 0 -.25'/%3E%3C/filter%3E%3Crect width='320' height='640' filter='url(%23w)' opacity='.5'/%3E%3C/svg%3E"),
 		linear-gradient(180deg, #2a1a0e, #170d06 60%, #0c0603);
+	background-size: auto, auto, auto, 320px 100vh, auto;
 	background-attachment: fixed;
 }
 :root[data-theme='classic'] body::before {
