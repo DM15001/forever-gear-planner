@@ -134,6 +134,27 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 
 	return (
 		<div className="plan">
+			{/* First what counts, then the plan and its simulation. */}
+			{part === 'sim' && (
+				<details className="content-fold fold" open={contentOpen} onToggle={event => setContentOpen(event.currentTarget.open)}>
+					<summary>
+						What content do you do?<span className="slot-source">Dungeons, reputations, PvP, crafting and more. The plan is rebuilt on every change.</span>
+						<span className="content-fold-toggle">{contentOpen ? 'Hide' : 'Show'}</span>
+					</summary>
+					<ContentPicker
+						spec={spec}
+						character={character}
+						data={data}
+						filter={filter}
+						onChange={next => {
+							// The plan is rebuilt once the new choice has arrived (see the effect above): rebuilding here would
+							// save the character as it was before the change and undo it.
+							rebuildAfterChange.current = true;
+							onFilterChange(next);
+						}}
+					/>
+				</details>
+			)}
 			<section className="panel" aria-labelledby="plan-result">
 				<h2 id="plan-result">{part === 'sim' ? 'Simulate your character' : 'Your plan'}</h2>
 				{part === 'sim' && (
@@ -194,24 +215,6 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						single slot by hand, click its icon.
 					</p>
 				</div>
-				<details className="content-fold fold" open={contentOpen} onToggle={event => setContentOpen(event.currentTarget.open)}>
-					<summary>
-						What content do you do?<span className="slot-source">Dungeons, reputations, PvP, crafting and more. The plan is rebuilt on every change.</span>
-						<span className="content-fold-toggle">{contentOpen ? 'Hide' : 'Show'}</span>
-					</summary>
-					<ContentPicker
-						spec={spec}
-						character={character}
-						data={data}
-						filter={filter}
-						onChange={next => {
-							// The plan is rebuilt once the new choice has arrived (see the effect above): rebuilding here would
-							// save the character as it was before the change and undo it.
-							rebuildAfterChange.current = true;
-							onFilterChange(next);
-						}}
-					/>
-				</details>
 						<p className="hint part-pointer">The planned items and the to-do list are on the Upgrades tab.</p>
 					</>
 				)}

@@ -710,6 +710,20 @@ function setOutlook(setId: number | undefined, base: Gear, variant: Gear, data: 
 	return `${worn}. Set bonuses for this build, in total: ${bonuses}. ${state}`.trim();
 }
 
+/** A line of stats with the caster stats told apart: spell damage and healing each in their own colour. */
+function StatText({ text }: { text: string }) {
+	return (
+		<>
+			{text.split(', ').map((part, index) => (
+				<span key={index}>
+					{index > 0 && ', '}
+					<span className={/healing/i.test(part) ? 'stat-healing' : /spell (dmg|damage)|spell power/i.test(part) ? 'stat-spell' : undefined}>{part}</span>
+				</span>
+			))}
+		</>
+	);
+}
+
 /** A stat comparison with what you gain in green and what you lose in red. */
 function DiffText({ text }: { text: string }) {
 	return (
@@ -717,7 +731,7 @@ function DiffText({ text }: { text: string }) {
 			{text.split(', ').map((part, index) => (
 				<span key={index}>
 					{index > 0 && ', '}
-					<span className={/^[-−–]/.test(part) ? 'diff-down' : 'diff-up'}>{part}</span>
+					<span className={`${/^[-−–]/.test(part) ? 'diff-down' : 'diff-up'}${/healing/i.test(part) ? ' diff-healing' : /spell (dmg|damage)|spell power/i.test(part) ? ' diff-spell' : ''}`}>{part}</span>
 				</span>
 			))}
 		</>
@@ -762,7 +776,7 @@ function CandidateRow({ candidate, note, current, healWeights, marks, base, vari
 				</span>
 				<span className="slot-stats">
 					{item.weapon?.dps ? `${item.weapon.dps.toFixed(1)} DPS, ${item.weapon.speed?.toFixed(2)} speed${stats ? ', ' : ''}` : ''}
-					{stats || (item.weapon?.dps ? '' : 'No stats')}
+					{stats ? <StatText text={stats} /> : item.weapon?.dps ? '' : 'No stats'}
 				</span>
 				{current && statChange(pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data), current) && (
 					<span className="stat-diff">

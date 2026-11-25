@@ -6414,3 +6414,19 @@ details.content-fold[open] > summary {
 .preset-menu-pick {
 	line-height: 1.25;
 }
+
+/* Caster stats told apart: spell damage violet, healing turquoise. In a comparison the sign keeps its colour and the stat gets a line under it. */
+.stat-spell {
+	color: #c9a2ff;
+}
+.stat-healing {
+	color: #5fe3d0;
+}
+.diff-spell {
+	text-decoration: underline 2px #c9a2ff;
+	text-underline-offset: 3px;
+}
+.diff-healing {
+	text-decoration: underline 2px #5fe3d0;
+	text-underline-offset: 3px;
+}

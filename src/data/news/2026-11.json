@@ -119,6 +119,14 @@
 							"tags": [
 								"Planner"
 							]
+						},
+						{
+							"title": "Spell damage and healing in their own colours",
+							"text": "In the item rows spell damage is violet and healing turquoise. On the Plan page, \"What content do you do?\" now comes before the simulation.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
 						}
 					]
 				}
