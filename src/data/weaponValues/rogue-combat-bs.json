@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T13:44:40.184Z",
-	"inputs": "56a6f293a888e845",
+	"generatedAt": "2026-11-25T15:53:13.230Z",
+	"inputs": "78b8617f1e93a331",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -12,8 +12,8 @@
 	"weapons": {
 		"2163": {
 			"name": "Shadowblade",
-			"offHand": -5.64,
-			"mainHand": -18.59
+			"mainHand": -18.59,
+			"offHand": -5.64
 		},
 		"2243": {
 			"name": "Hand of Edward the Odd",
@@ -134,8 +134,8 @@
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"mainHand": -14.08,
-			"offHand": -6.71
+			"offHand": -6.71,
+			"mainHand": -14.08
 		},
 		"12791": {
 			"name": "Barman Shanker",
@@ -229,8 +229,8 @@
 		},
 		"13984": {
 			"name": "Darrowspike",
-			"mainHand": -21.47,
-			"offHand": -6.97
+			"offHand": -6.97,
+			"mainHand": -21.47
 		},
 		"14024": {
 			"name": "Frightalon",
@@ -315,8 +315,8 @@
 		},
 		"15706": {
 			"name": "Hunt Tracker Blade",
-			"mainHand": -43.34,
-			"offHand": -14.39
+			"offHand": -14.39,
+			"mainHand": -43.34
 		},
 		"15782": {
 			"name": "Beaststalker Blade",
@@ -451,8 +451,8 @@
 		},
 		"19543": {
 			"name": "Scout's Blade",
-			"mainHand": -35.61,
-			"offHand": -14.64
+			"offHand": -14.64,
+			"mainHand": -35.61
 		},
 		"19546": {
 			"name": "Sentinel's Blade",
@@ -461,8 +461,8 @@
 		},
 		"19547": {
 			"name": "Sentinel's Blade",
-			"mainHand": -35.61,
-			"offHand": -14.64
+			"offHand": -14.64,
+			"mainHand": -35.61
 		},
 		"19550": {
 			"name": "Legionnaire's Sword",
@@ -506,8 +506,8 @@
 		},
 		"24222": {
 			"name": "The Shadowfoot Stabber",
-			"mainHand": -28.1,
-			"offHand": -13.69
+			"offHand": -13.69,
+			"mainHand": -28.1
 		},
 		"250614": {
 			"name": "Thorium Cestus",
@@ -529,8 +529,8 @@
 		},
 		"260180": {
 			"name": "Scout's Dagger",
-			"mainHand": -44.79,
-			"offHand": -19.5
+			"offHand": -19.5,
+			"mainHand": -44.79
 		},
 		"260213": {
 			"name": "Great Bear Claw",

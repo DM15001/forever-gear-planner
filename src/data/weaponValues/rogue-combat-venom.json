@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T14:17:10.696Z",
-	"inputs": "c001330e505c750b",
+	"generatedAt": "2026-11-25T16:45:56.861Z",
+	"inputs": "74ae02b84282a254",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -56,8 +56,8 @@
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"offHand": -21.65,
-			"mainHand": -89.65
+			"mainHand": -89.65,
+			"offHand": -21.65
 		},
 		"8190": {
 			"name": "Hanzo Sword",
@@ -108,13 +108,13 @@
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
-			"mainHand": -80.9,
-			"offHand": -22.55
+			"offHand": -22.55,
+			"mainHand": -80.9
 		},
 		"10797": {
 			"name": "Firebreather",
-			"offHand": -18.56,
-			"mainHand": -43.49
+			"mainHand": -43.49,
+			"offHand": -18.56
 		},
 		"10803": {
 			"name": "Blade of the Wretched",
@@ -219,8 +219,8 @@
 		},
 		"12062": {
 			"name": "Skilled Fighting Blade",
-			"offHand": -16.81,
-			"mainHand": -76.28
+			"mainHand": -76.28,
+			"offHand": -16.81
 		},
 		"12527": {
 			"name": "Ribsplitter",
@@ -344,8 +344,8 @@
 		},
 		"13182": {
 			"name": "Phase Blade",
-			"mainHand": -44.74,
-			"offHand": -17.5
+			"offHand": -17.5,
+			"mainHand": -44.74
 		},
 		"13183": {
 			"name": "Venomspitter",
@@ -490,8 +490,8 @@
 		},
 		"15237": {
 			"name": "Corpse Harvester",
-			"mainHand": -50.64,
-			"offHand": -27.17
+			"offHand": -27.17,
+			"mainHand": -50.64
 		},
 		"15238": {
 			"name": "Warlord's Axe",
@@ -500,8 +500,8 @@
 		},
 		"15239": {
 			"name": "Felstone Reaver",
-			"mainHand": -51.56,
-			"offHand": -20.34
+			"offHand": -20.34,
+			"mainHand": -51.56
 		},
 		"15240": {
 			"name": "Demon's Claw",
@@ -530,8 +530,8 @@
 		},
 		"15706": {
 			"name": "Hunt Tracker Blade",
-			"mainHand": -81.02,
-			"offHand": -17.62
+			"offHand": -17.62,
+			"mainHand": -81.02
 		},
 		"15782": {
 			"name": "Beaststalker Blade",
@@ -564,8 +564,8 @@
 		},
 		"15853": {
 			"name": "Windreaper",
-			"offHand": -20.17,
-			"mainHand": -39.03
+			"mainHand": -39.03,
+			"offHand": -20.17
 		},
 		"15862": {
 			"name": "Blitzcleaver",
@@ -688,8 +688,8 @@
 		},
 		"18683": {
 			"name": "Hammer of the Vesper",
-			"mainHand": -29.14,
-			"offHand": -17.98
+			"offHand": -17.98,
+			"mainHand": -29.14
 		},
 		"18737": {
 			"name": "Bone Slicing Hatchet",
@@ -713,8 +713,8 @@
 		},
 		"19103": {
 			"name": "Frostbite",
-			"mainHand": -15.3,
-			"offHand": -14.43
+			"offHand": -14.43,
+			"mainHand": -15.3
 		},
 		"19104": {
 			"name": "Stormstrike Hammer",
@@ -834,8 +834,8 @@
 		},
 		"250618": {
 			"name": "Bagh Nakh",
-			"mainHand": -16.31,
-			"offHand": -13.76
+			"offHand": -13.76,
+			"mainHand": -16.31
 		},
 		"260172": {
 			"name": "Assassin's Dagger",
@@ -844,8 +844,8 @@
 		},
 		"260180": {
 			"name": "Scout's Dagger",
-			"mainHand": -86.07,
-			"offHand": -20.12
+			"offHand": -20.12,
+			"mainHand": -86.07
 		},
 		"260209": {
 			"name": "Truesong's Hammer",
@@ -900,8 +900,8 @@
 		},
 		"272596": {
 			"name": "Premier High Warlord's Razor",
-			"mainHand": -37.79,
-			"offHand": 0.54
+			"offHand": 0.54,
+			"mainHand": -37.79
 		},
 		"272597": {
 			"name": "Premier High Warlord's Right Claw",
@@ -926,8 +926,8 @@
 		},
 		"272684": {
 			"name": "Premier High Warlord's Quickblade",
-			"offHand": 3.5,
-			"mainHand": -16.25
+			"mainHand": -16.25,
+			"offHand": 3.5
 		},
 		"272693": {
 			"name": "Premier Grand Marshal's Longsword",
@@ -941,8 +941,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"offHand": 0.54,
-			"mainHand": -37.79
+			"mainHand": -37.79,
+			"offHand": 0.54
 		},
 		"272844": {
 			"name": "Premier Grand Marshal's Right Hand Blade",
@@ -1076,8 +1076,8 @@
 		},
 		"280068": {
 			"name": "Bloody Claws of Attack",
-			"offHand": -13.77,
-			"mainHand": -20.52
+			"mainHand": -20.52,
+			"offHand": -13.77
 		},
 		"280077": {
 			"name": "Fist of Revelation",

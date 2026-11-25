@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T13:23:54.467Z",
-	"inputs": "e05e549ae0abd318",
+	"generatedAt": "2026-11-25T15:57:10.517Z",
+	"inputs": "3fc928b24f119d03",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -12,8 +12,8 @@
 	"weapons": {
 		"2163": {
 			"name": "Shadowblade",
-			"offHand": -0.85,
-			"mainHand": -20.92
+			"mainHand": -20.92,
+			"offHand": -0.85
 		},
 		"5267": {
 			"name": "Scarlet Kris",
@@ -22,13 +22,13 @@
 		},
 		"6660": {
 			"name": "Julie's Dagger",
-			"offHand": -12.7,
-			"mainHand": -29.24
+			"mainHand": -29.24,
+			"offHand": -12.7
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"mainHand": -44.82,
-			"offHand": -15.38
+			"offHand": -15.38,
+			"mainHand": -44.82
 		},
 		"10697": {
 			"name": "Enchanted Azsharite Felbane Dagger",
@@ -37,8 +37,8 @@
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
-			"mainHand": -38.31,
-			"offHand": -14.72
+			"offHand": -14.72,
+			"mainHand": -38.31
 		},
 		"10828": {
 			"name": "Dire Nail",
@@ -60,8 +60,8 @@
 		},
 		"12531": {
 			"name": "Searing Needle",
-			"mainHand": -38.62,
-			"offHand": -12.93
+			"offHand": -12.93,
+			"mainHand": -38.62
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
@@ -87,8 +87,8 @@
 		},
 		"13218": {
 			"name": "Fang of the Crystal Spider",
-			"mainHand": -28.74,
-			"offHand": -11.14
+			"offHand": -11.14,
+			"mainHand": -28.74
 		},
 		"13360": {
 			"name": "Gift of the Elven Magi",
@@ -110,8 +110,8 @@
 		},
 		"14024": {
 			"name": "Frightalon",
-			"mainHand": -22.83,
-			"offHand": -5.74
+			"offHand": -5.74,
+			"mainHand": -22.83
 		},
 		"14555": {
 			"name": "Alcor's Sunrazor",
@@ -130,8 +130,8 @@
 		},
 		"15247": {
 			"name": "Bloodstrike Dagger",
-			"mainHand": -34,
-			"offHand": -13.77
+			"offHand": -13.77,
+			"mainHand": -34
 		},
 		"15706": {
 			"name": "Hunt Tracker Blade",
@@ -140,8 +140,8 @@
 		},
 		"15783": {
 			"name": "Beasthunter Dagger",
-			"mainHand": -34.64,
-			"offHand": -11.44
+			"offHand": -11.44,
+			"mainHand": -34.64
 		},
 		"17710": {
 			"name": "Charstone Dirk",
@@ -228,8 +228,8 @@
 		},
 		"260172": {
 			"name": "Assassin's Dagger",
-			"offHand": -14.98,
-			"mainHand": -45.99
+			"mainHand": -45.99,
+			"offHand": -14.98
 		},
 		"260180": {
 			"name": "Scout's Dagger",
@@ -254,8 +254,8 @@
 		},
 		"272596": {
 			"name": "Premier High Warlord's Razor",
-			"mainHand": -3.78,
-			"offHand": 6.03
+			"offHand": 6.03,
+			"mainHand": -3.78
 		},
 		"272683": {
 			"name": "Premier High Warlord's Spellblade",

@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T13:49:40.531Z",
-	"inputs": "1709c7c9467886ab",
+	"generatedAt": "2026-11-25T16:33:11.471Z",
+	"inputs": "07ec310a7a7b893c",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -56,8 +56,8 @@
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"mainHand": -111.45,
-			"offHand": -31.28
+			"offHand": -31.28,
+			"mainHand": -111.45
 		},
 		"8190": {
 			"name": "Hanzo Sword",
@@ -99,8 +99,8 @@
 		},
 		"10697": {
 			"name": "Enchanted Azsharite Felbane Dagger",
-			"offHand": -24.55,
-			"mainHand": -101.6
+			"mainHand": -101.6,
+			"offHand": -24.55
 		},
 		"10744": {
 			"name": "Axe of the Ebon Drake",
@@ -256,8 +256,8 @@
 		},
 		"12773": {
 			"name": "Ornate Thorium Handaxe",
-			"mainHand": -77.95,
-			"offHand": -22.58
+			"offHand": -22.58,
+			"mainHand": -77.95
 		},
 		"12774": {
 			"name": "Dawn's Edge",
@@ -271,8 +271,8 @@
 		},
 		"12781": {
 			"name": "Serenity",
-			"offHand": -24.84,
-			"mainHand": -50.79
+			"mainHand": -50.79,
+			"offHand": -24.84
 		},
 		"12783": {
 			"name": "Heartseeker",
@@ -344,8 +344,8 @@
 		},
 		"13182": {
 			"name": "Phase Blade",
-			"mainHand": -59.65,
-			"offHand": -22.5
+			"offHand": -22.5,
+			"mainHand": -59.65
 		},
 		"13183": {
 			"name": "Venomspitter",
@@ -495,8 +495,8 @@
 		},
 		"15238": {
 			"name": "Warlord's Axe",
-			"mainHand": -63.97,
-			"offHand": -29.85
+			"offHand": -29.85,
+			"mainHand": -63.97
 		},
 		"15239": {
 			"name": "Felstone Reaver",
@@ -505,8 +505,8 @@
 		},
 		"15240": {
 			"name": "Demon's Claw",
-			"mainHand": -53.42,
-			"offHand": -26.46
+			"offHand": -26.46,
+			"mainHand": -53.42
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
@@ -540,8 +540,8 @@
 		},
 		"15783": {
 			"name": "Beasthunter Dagger",
-			"offHand": -26.09,
-			"mainHand": -98.05
+			"mainHand": -98.05,
+			"offHand": -26.09
 		},
 		"15800": {
 			"name": "Intrepid Shortsword",
@@ -688,8 +688,8 @@
 		},
 		"18683": {
 			"name": "Hammer of the Vesper",
-			"offHand": -19.69,
-			"mainHand": -40.47
+			"mainHand": -40.47,
+			"offHand": -19.69
 		},
 		"18737": {
 			"name": "Bone Slicing Hatchet",
@@ -703,8 +703,8 @@
 		},
 		"19099": {
 			"name": "Glacial Blade",
-			"mainHand": -75.13,
-			"offHand": -19.46
+			"offHand": -19.46,
+			"mainHand": -75.13
 		},
 		"19100": {
 			"name": "Electrified Dagger",
@@ -713,8 +713,8 @@
 		},
 		"19103": {
 			"name": "Frostbite",
-			"mainHand": -18.38,
-			"offHand": -19.72
+			"offHand": -19.72,
+			"mainHand": -18.38
 		},
 		"19104": {
 			"name": "Stormstrike Hammer",
@@ -753,8 +753,8 @@
 		},
 		"19551": {
 			"name": "Legionnaire's Sword",
-			"mainHand": -43.06,
-			"offHand": -28.14
+			"offHand": -28.14,
+			"mainHand": -43.06
 		},
 		"19554": {
 			"name": "Protector's Sword",
@@ -844,8 +844,8 @@
 		},
 		"260180": {
 			"name": "Scout's Dagger",
-			"mainHand": -106.29,
-			"offHand": -31.48
+			"offHand": -31.48,
+			"mainHand": -106.29
 		},
 		"260209": {
 			"name": "Truesong's Hammer",
@@ -913,8 +913,8 @@
 		},
 		"272600": {
 			"name": "Premier High Warlord's Bludgeon",
-			"mainHand": 9.67,
-			"offHand": -2.78
+			"offHand": -2.78,
+			"mainHand": 9.67
 		},
 		"272681": {
 			"name": "Premier High Warlord's Battle Mace",
@@ -936,8 +936,8 @@
 		},
 		"272839": {
 			"name": "Premier Grand Marshal's Handaxe",
-			"offHand": -7.16,
-			"mainHand": 14.04
+			"mainHand": 14.04,
+			"offHand": -7.16
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
@@ -954,8 +954,8 @@
 		},
 		"272847": {
 			"name": "Premier Grand Marshal's Punisher",
-			"mainHand": 9.67,
-			"offHand": -2.78
+			"offHand": -2.78,
+			"mainHand": 9.67
 		},
 		"272856": {
 			"name": "Premier Grand Marshal's Mageblade",
