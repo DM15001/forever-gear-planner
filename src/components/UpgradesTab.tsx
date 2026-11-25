@@ -11,7 +11,7 @@ import { EVERYTHING, type Candidate, clash, type Gear, oneRandomRoll, pairedSlot
 import { simClient } from '../lib/sim/client';
 import { measureWeights, weightRuns } from '../lib/sim/live';
 import { conditionalLines, matchesFight, pieceStats, STAT_LABELS, statLine, wowheadItemUrl, wowheadData } from '../lib/stats';
-import { ContentPicker } from './ContentPicker';
+import { ContentPicker, useContentOpen } from './ContentPicker';
 import { ItemIcon } from './ItemIcon';
 import { SuffixNote, suffixText } from './SuffixNote';
 import { SourceLabel, SourceList } from './SourceLabel';
@@ -38,6 +38,24 @@ interface Props {
 /** How many items the list for a picked enemy or terrain shows. */
 const FIGHT_PICKS = 12;
 const SHORT_LIST = 6;
+/** One plain picture per kind of slot, the same for everybody: the bar names slots, it does not show your items. */
+const SLOT_ICONS: Record<string, string> = {
+	head: 'inv_helmet_03',
+	neck: 'inv_jewelry_necklace_01',
+	shoulder: 'inv_shoulder_02',
+	back: 'inv_misc_cape_02',
+	chest: 'inv_chest_chain',
+	wrist: 'inv_bracer_02',
+	hands: 'inv_gauntlets_04',
+	waist: 'inv_belt_03',
+	legs: 'inv_pants_02',
+	feet: 'inv_boots_05',
+	finger: 'inv_jewelry_ring_03',
+	trinket: 'inv_jewelry_talisman_01',
+	weapon: 'inv_sword_04',
+	ranged: 'inv_weapon_bow_02',
+};
+
 /** How many of a slot's best upgrades "Check the top with the simulator" runs. */
 const VERIFY_TOP = 5;
 /** How many next-best items a slot lists below its upgrades. */
@@ -45,6 +63,7 @@ const ALTERNATIVES = 5;
 const LONG_LIST = 25;
 
 export function UpgradesTab({ spec, character, data, onChange, filter, onFilterChange: setFilter, defaultWeights, onWeightsChange, part, onShowList }: Props) {
+	const [contentOpen, setContentOpen] = useContentOpen();
 	const [expanded, setExpanded] = useState<Set<number>>(new Set());
 	const [guideNotice, setGuideNotice] = useState<{
 		title: string;
@@ -204,9 +223,10 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 		<div className="upgrades">
 			{part === 'sim' && (
 				<>
-			<details className="content-fold fold">
+			<details className="content-fold fold" open={contentOpen} onToggle={event => setContentOpen(event.currentTarget.open)}>
 				<summary>
-					What content do you do?<span className="slot-source">Dungeons, reputations, PvP, crafting and more: click to choose what counts.</span>
+					What content do you do?<span className="slot-source">Dungeons, reputations, PvP, crafting and more: click a tile to choose what counts.</span>
+					<span className="content-fold-toggle">{contentOpen ? 'Hide' : 'Show'}</span>
 				</summary>
 				<ContentPicker spec={spec} character={character} data={data} filter={filter} onChange={setFilter} />
 			</details>
@@ -383,8 +403,6 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 					if (!candidates) return null;
 					const best = candidates[0]?.delta ?? 0;
 					const isPlanned = character.plan?.[index] !== undefined && character.plan[index] !== character.gear[index]?.id;
-					// The picture of what the slot ends up with: the planned item, else the worn one.
-					const chipItem = gear[index] ? data.itemById.get(gear[index]!.id) : undefined;
 					return (
 						<a
 							key={slot.key}
@@ -394,11 +412,9 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 							className={`${isPlanned ? 'slot-chip slot-chip-planned' : best > 0 ? 'slot-chip slot-chip-open' : 'slot-chip'}${here === slot.key ? ' slot-chip-here' : ''}`}
 							title={isPlanned ? 'Planned' : best > 0 ? 'An upgrade is available' : 'Nothing better with these filters'}
 						>
-							<ItemIcon icon={chipItem?.icon} quality={chipItem?.quality} inline />
-							<span className="slot-chip-text">
-								<strong>{slot.label}</strong>
-								{best > 0 ? <span className="num delta-up">{formatDelta(best).replace(` ${unit()}`, '')} open</span> : isPlanned ? <span className="slot-chip-mark">planned</span> : <span className="slot-chip-mark slot-chip-done">best you have</span>}
-							</span>
+							<ItemIcon icon={SLOT_ICONS[slot.kind]} quality={undefined} inline />
+							<strong>{slot.label}</strong>
+							{best > 0 ? <span className="num delta-up">{formatDelta(best).replace(` ${unit()}`, '')}</span> : isPlanned ? <span className="slot-chip-mark">planned</span> : null}
 						</a>
 					);
 				})}
@@ -724,7 +740,7 @@ function CandidateRow({ candidate, note, current, healWeights, marks, base, vari
 		),
 	);
 	return (
-		<li className="candidate">
+		<li className={`candidate candidate-${item.quality ?? 'common'}`}>
 			<span className={`candidate-delta num ${delta > 0 ? 'delta-up' : 'delta-down'}`}>
 				{formatDelta(delta)}
 				{note && <span className="candidate-note">{note}</span>}

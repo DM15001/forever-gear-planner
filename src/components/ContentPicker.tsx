@@ -1,8 +1,8 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 import { contentCatalog, presets, sameFilter, toggled } from '../lib/content';
 import type { GameData } from '../lib/gameData';
-import { type SourceFilter, TIER_SLOTS, tierSets, PVP_RANKS } from '../lib/scoring';
+import { type SourceFilter, TIER_SLOTS, tierSets, PVP_RANKS, usableSources } from '../lib/scoring';
 import type { Character, SpecConfig } from '../lib/types';
 import DUNGEON_ICONS from '../config/dungeonIcons.json';
 import { DungeonIcon } from './ItemIcon';
@@ -17,6 +17,30 @@ const RAIDS: [name: string, icon: string][] = [
 	["Temple of Ahn'Qiraj", 'achievement_boss_cthun'],
 	['Naxxramas', 'achievement_boss_kelthuzad_01'],
 ];
+
+const FOLD_KEY = 'fgp.contentOpen';
+
+/** Whether the content choice is open: it is, until somebody closes it; the browser remembers. */
+export function useContentOpen(): [boolean, (open: boolean) => void] {
+	const [open, setOpen] = useState(() => {
+		try {
+			return localStorage.getItem(FOLD_KEY) !== '0';
+		} catch {
+			return true;
+		}
+	});
+	return [
+		open,
+		next => {
+			setOpen(next);
+			try {
+				localStorage.setItem(FOLD_KEY, next ? '1' : '0');
+			} catch {
+				// Without storage it lasts until the page is closed.
+			}
+		},
+	];
+}
 
 interface Props {
 	spec: SpecConfig;
@@ -35,14 +59,42 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 	const tiers = tierSets(spec);
 	// The sets whose bonuses are worth something for this build, by name; the ones already switched off stay listed.
 	const setChoices = useMemo(() => {
-		const names = new Map<number, string>();
-		for (const item of data.itemById.values()) if (item.setId !== undefined && item.setName && !names.has(item.setId)) names.set(item.setId, item.setName);
-		const ids = new Set([...data.simValues.sets.keys(), ...filter.ignoredSets]);
-		// Several sets can share a name (the two factions' versions of one PvP set): one tick stands for all of them.
+		const mine = new Set([...character.gear.flatMap(piece => (piece ? [piece.id] : [])), ...Object.values(character.plan ?? {})]);
+		const pieces = new Map<number, { name: string; icon?: string; count: number }>();
+		for (const item of data.itemById.values()) {
+			if (item.setId === undefined || !item.setName) continue;
+			// The other faction's version of a set is not one this character can wear.
+			if (item.faction && faction && item.faction !== faction) continue;
+			const known = pieces.get(item.setId) ?? { name: item.setName, icon: item.icon, count: 0 };
+			// A piece counts if you wear or plan it, or can get it with the content that is switched on.
+			if (mine.has(item.id) || usableSources(item, faction, { ...filter, ignoredSets: [] }, character.professions).length > 0) known.count++;
+			pieces.set(item.setId, known);
+		}
+		// The fewest pieces that give this build anything.
+		const firstStep = (id: number) => Math.min(...[...(data.simValues.sets.get(id) ?? [])].filter(([, worth]) => worth > 0.05).map(([count]) => count), 99);
+		const worthOf = (id: number) => Math.max(0, ...(data.simValues.sets.get(id)?.values() ?? []));
+		const steps = (id: number) => {
+			const byCount = data.simValues.sets.get(id);
+			if (!byCount) return '';
+			let last = 0;
+			const parts: string[] = [];
+			for (const count of [...byCount.keys()].sort((x, y) => x - y)) {
+				const worth = byCount.get(count)!;
+				if (Math.abs(worth - last) < 0.05) continue;
+				last = worth;
+				parts.push(`${count} pieces +${worth >= 10 ? worth.toFixed(0) : worth.toFixed(1)}`);
+			}
+			return parts.join(', ');
+		};
+		// Worth something for this build and enough pieces within reach for a bonus; what is already switched off stays listed.
+		const ids = [...new Set([...data.simValues.sets.keys(), ...filter.ignoredSets])].filter(id => pieces.has(id) && (filter.ignoredSets.includes(id) || (worthOf(id) > 0.05 && pieces.get(id)!.count >= firstStep(id))));
+		// Several sets can share a name (the two factions' versions of one PvP set): one tile stands for all of them.
 		const byName = new Map<string, number[]>();
-		for (const id of ids) if (names.has(id)) byName.set(names.get(id)!, [...(byName.get(names.get(id)!) ?? []), id]);
-		return [...byName].map(([name, setIds]) => ({ name, setIds })).sort((x, y) => x.name.localeCompare(y.name));
-	}, [data, filter.ignoredSets]);
+		for (const id of ids) byName.set(pieces.get(id)!.name, [...(byName.get(pieces.get(id)!.name) ?? []), id]);
+		return [...byName]
+			.map(([name, setIds]) => ({ name, setIds, icon: pieces.get(setIds[0])!.icon, note: steps(setIds.find(id => data.simValues.sets.has(id)) ?? setIds[0]), worth: Math.max(...setIds.map(worthOf)) }))
+			.sort((x, y) => y.worth - x.worth || x.name.localeCompare(y.name));
+	}, [data, filter, faction, character]);
 	const lowOn = !catalog.lowDungeonKeys.some(key => filter.excludedDungeons.includes(key));
 
 	const check = (label: string, checked: boolean, change: (on: boolean) => void, disabled = false) => (
@@ -145,10 +197,10 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 			)}
 
 			{setChoices.length > 0 && (
-				<fieldset className="content-group">
+				<fieldset className="content-group content-tiles">
 					<legend>Set bonuses to count</legend>
 					<p className="hint tier-hint">
-						Untick a set and the planner stops aiming for its bonus. Its pieces can still be suggested as single items.{' '}
+						The sets you can complete with the content switched on above and whose bonus is worth something for your build, best first. Switch one off and the planner stops aiming for it; its pieces can still come up as single items.{' '}
 						<button className="link" onClick={() => set({ ignoredSets: [] })}>
 							All
 						</button>{' '}
@@ -157,8 +209,13 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 						</button>
 					</p>
 					{setChoices.map(choice =>
-						check(choice.name, choice.setIds.some(id => !filter.ignoredSets.includes(id)), on =>
-							set({ ignoredSets: on ? filter.ignoredSets.filter(id => !choice.setIds.includes(id)) : [...new Set([...filter.ignoredSets, ...choice.setIds])] }),
+						tile(
+							choice.name,
+							choice.icon ? [choice.icon] : [],
+							choice.setIds.some(id => !filter.ignoredSets.includes(id)),
+							on => set({ ignoredSets: on ? filter.ignoredSets.filter(id => !choice.setIds.includes(id)) : [...new Set([...filter.ignoredSets, ...choice.setIds])] }),
+							false,
+							choice.note || undefined,
 						),
 					)}
 				</fieldset>

@@ -12,7 +12,7 @@ import { simClient } from '../lib/sim/client';
 import { REFINE_DEPTH, refinePlan } from '../lib/sim/live';
 import { wowheadItemUrl, wowheadData } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
-import { ContentPicker } from './ContentPicker';
+import { ContentPicker, useContentOpen } from './ContentPicker';
 import { ItemIcon } from './ItemIcon';
 import { SuffixNote, suffixText } from './SuffixNote';
 import { SourceLabel } from './SourceLabel';
@@ -34,6 +34,7 @@ const formatGain = formatDps;
 
 /** The guided view: pick your content, get one plan, tick it off. */
 export function PlanTab({ spec, character, data, filter, onFilterChange, onChange, part }: Props) {
+	const [contentOpen, setContentOpen] = useContentOpen();
 	const options = useMemo(() => ({ character, data, spec, filter }), [character, data, spec, filter]);
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
 	const marks = useMemo(() => guideMarks(data.guides), [data]);
@@ -193,9 +194,10 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						single slot by hand, click its icon.
 					</p>
 				</div>
-				<details className="content-fold fold">
+				<details className="content-fold fold" open={contentOpen} onToggle={event => setContentOpen(event.currentTarget.open)}>
 					<summary>
 						What content do you do?<span className="slot-source">Dungeons, reputations, PvP, crafting and more. The plan is rebuilt on every change.</span>
+						<span className="content-fold-toggle">{contentOpen ? 'Hide' : 'Show'}</span>
 					</summary>
 					<ContentPicker
 						spec={spec}

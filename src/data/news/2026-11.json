@@ -95,6 +95,22 @@
 							"tags": [
 								"Planner"
 							]
+						},
+						{
+							"title": "Content choice open by default",
+							"text": "\"What content do you do?\" starts open and stays how you leave it. Set bonuses are tiles too, and only the sets you can complete with the content you switched on are listed, with what each bonus gives.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Upgrades: calmer slot bar, clearer rows",
+							"text": "The slot bar is plain again: a generic picture of the slot and its name. Item rows are separate cards with the quality colour at the left edge.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
 						}
 					]
 				}

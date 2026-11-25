@@ -6263,56 +6263,78 @@ details.content-fold[open] > summary {
 	border-radius: 999px;
 }
 
-/* Upgrades: the row of slots at the top, each with the picture of what it holds */
+/* Upgrades: the row of slots at the top. A plain picture of the slot and its name; the colour says where it stands. */
 .slot-nav .slot-chip {
-	gap: 0.5rem;
-	padding: 0.3rem 0.75rem 0.3rem 0.35rem;
-	color: var(--mist);
+	gap: 0.45rem;
+	padding: 0.3rem 0.8rem 0.3rem 0.35rem;
+	font-size: 0.875rem;
+	color: var(--haze);
 	background: #0a0806;
-	border: 1px solid var(--ridge);
-	border-radius: 8px;
+	border: 1px solid var(--hairline);
+	border-radius: 6px;
 }
 .slot-nav .slot-chip .slot-icon {
-	width: 1.9rem;
-	height: 1.9rem;
+	width: 1.6rem;
+	height: 1.6rem;
+	border-color: var(--ridge);
+	box-shadow: none;
+	filter: grayscale(0.6);
 }
-.slot-chip-text {
-	display: flex;
-	flex-direction: column;
-	line-height: 1.2;
-}
-.slot-chip-text strong {
-	font-size: 0.8125rem;
-}
-.slot-chip-text span {
-	font-size: 0.6875rem;
-}
-.slot-chip-done {
-	color: var(--haze);
+.slot-nav .slot-chip strong {
+	font-weight: 600;
 }
 .slot-nav .slot-chip-planned {
-	background: linear-gradient(180deg, rgb(214 174 95 / 0.2), rgb(214 174 95 / 0.06));
+	color: var(--brass);
+	background: rgb(214 174 95 / 0.12);
 	border-color: var(--brass);
 }
-.slot-nav .slot-chip-planned .slot-chip-mark {
-	color: var(--brass);
-}
 .slot-nav .slot-chip-open {
+	color: var(--mist);
 	border-color: #2f7d3a;
 }
 .slot-nav .slot-chip:hover {
+	color: #fff;
 	border-color: var(--brass);
 }
 .slot-nav .slot-chip-here {
+	color: #fff;
 	box-shadow: 0 0 0 1px var(--brass), 0 0 12px -3px var(--brass);
 }
+.slot-nav .slot-chip-here .slot-icon,
+.slot-nav .slot-chip-planned .slot-icon {
+	filter: none;
+}
 /* Upgrades: the rows of items. Colour for what is gained and lost, and buttons that say which one is the main one. */
+.candidates {
+	display: grid;
+	gap: 0.45rem;
+}
 .candidates .candidate {
-	padding: 0.55rem 0.6rem;
+	padding: 0.6rem 0.8rem;
+	background: #14110d;
+	border: 1px solid var(--hairline);
+	border-left: 4px solid var(--ridge);
 	border-radius: 6px;
 }
+.candidates .candidate:nth-child(even) {
+	background: #1c1812;
+}
 .candidates .candidate:hover {
-	background: rgb(255 255 255 / 0.035);
+	border-color: var(--brass-deep);
+	border-left-color: var(--brass);
+	background: #241e15;
+}
+.candidates .candidate-uncommon {
+	border-left-color: #1eff00;
+}
+.candidates .candidate-rare {
+	border-left-color: #0070dd;
+}
+.candidates .candidate-epic {
+	border-left-color: #a335ee;
+}
+.candidates .candidate-legendary {
+	border-left-color: #ff8000;
 }
 .candidates .candidate-delta {
 	font-size: 1.0625rem;
@@ -6359,4 +6381,15 @@ details.content-fold[open] > summary {
 }
 .content-soon .content-tile:disabled {
 	opacity: 0.55;
+}
+
+/* Content choice: open by default, with a plain word for closing it */
+.content-fold-toggle {
+	float: right;
+	font-family: var(--sans, inherit);
+	font-size: 0.8125rem;
+	font-weight: 600;
+	letter-spacing: 0;
+	text-transform: none;
+	color: var(--haze);
 }
