@@ -105,16 +105,18 @@
 	background:
 		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .1 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E"),
 		linear-gradient(180deg, #ecdcaa, #e3d09a);
-	border: 3px solid #6b5326;
-	border-radius: 2px;
+	border: 9px solid #3a2412;
+	border-image: linear-gradient(90deg, #2a180a, #6a4320 18%, #3a2412 40%, #7a5028 62%, #3a2412 82%, #2a180a) 1;
+	border-radius: 0;
 	box-shadow:
-		inset 0 0 0 1px #f8eecb,
-		inset 0 0 0 4px #b89a52,
-		inset 0 0 0 5px #4a3a17,
-		0 0 0 2px #000,
-		0 0 0 4px #8a6d2a,
-		0 0 0 5px #000,
-		0 10px 40px #000;
+		inset 0 0 0 1px #000,
+		inset 0 0 0 3px #c9a85a,
+		inset 0 0 0 4px #5a431a,
+		inset 0 0 14px 4px rgb(90 62 20 / 0.35),
+		0 0 0 1px #000,
+		0 0 0 3px #a5873e,
+		0 0 0 4px #000,
+		0 12px 40px #000;
 }
 :root[data-theme='classic'] main a {
 	color: #173a7a;
@@ -513,12 +515,100 @@
 		background: #173a7a;
 	}
 }
-/* The gear panes sit at the edges of the window; with the menu column they need a wider window to fit. */
-@media (max-width: 106rem) {
-	:root[data-theme='classic'] :is(.gear-rail, .gear-rail-edge, .gear-rail-open:not(.gear-rail-hide)) {
+/* The gear panes sit beside the page; the page is wider here, so they get their room from what is left. */
+@media (min-width: 90rem) {
+	:root[data-theme='classic'] .gear-rail {
+		--gutter: calc((100vw - 80rem) / 2);
+	}
+}
+@media (max-width: 101rem) {
+	:root[data-theme='classic'] :is(.gear-rail, .gear-rail-show) {
 		display: none;
 	}
 }
+:root[data-theme='classic'] .gear-rail-show {
+	color: #ffd75a;
+	background: linear-gradient(90deg, #1a2f66, #3d63b0);
+	border-color: #000;
+	border-radius: 0;
+}
+
+/* The menu column: a silver riveted cap above and below, like a plate screwed to the wall. */
+@media (min-width: 64rem) {
+	:root[data-theme='classic'] .tab-bar::after {
+		content: '';
+		display: block;
+		height: 12px;
+		background:
+			radial-gradient(circle at 10px 6px, #e8ecef 0 1.5px, #555 2.5px, transparent 3px) 0 0 / 34px 12px,
+			linear-gradient(180deg, #b9c0c6, #6d747a 50%, #3a3f44);
+		border: 1px solid #000;
+	}
+	:root[data-theme='classic'] .tab-bar::before {
+		border-top: 12px solid #7b8288;
+		border-image: linear-gradient(180deg, #c9cfd4, #6d747a) 1;
+	}
+	:root[data-theme='classic'] .tabs {
+		border-radius: 0;
+		background: #070a12;
+	}
+}
+
+/* Jump buttons and small floating things, in the blue of the bars. */
+:root[data-theme='classic'] .back-to-top {
+	color: #ffd75a;
+	background: linear-gradient(180deg, #4a72c4, #1d3470 50%, #0f1d47);
+	border: 1px solid #000;
+	border-radius: 0;
+	box-shadow:
+		inset 0 0 0 1px rgb(150 180 255 / 0.3),
+		0 0 0 1px #8a6d2a,
+		0 4px 14px #000a;
+}
+:root[data-theme='classic'] .back-to-top:hover {
+	color: #fff;
+}
+:root[data-theme='classic'] .channel-switch {
+	border-radius: 0;
+}
+:root[data-theme='classic'] .theme-menu-list {
+	background: #f1e3b6;
+	border: 1px solid #000;
+	border-radius: 0;
+	box-shadow:
+		0 0 0 1px #8a6d2a,
+		0 10px 28px #000;
+}
+:root[data-theme='classic'] .theme-menu-list button {
+	color: #2a1c0a;
+	border-radius: 0;
+}
+:root[data-theme='classic'] .theme-menu-list button span {
+	color: #5e4b2a;
+}
+:root[data-theme='classic'] .theme-menu-list button[aria-pressed='true'] {
+	border-color: #173a7a;
+	background: linear-gradient(180deg, #dfe8fa, #c9d7f3);
+}
+/* Notes and warnings: a slip of yellowed paper with a red edge. */
+:root[data-theme='classic'] main :is(.notice, .measured-note) {
+	color: #2a1c0a;
+	background: #f6e7a8;
+	border: 1px solid #9b8248;
+	border-left: 4px solid #a8231a;
+	border-radius: 0;
+}
+/* Lists as they were: a small square dot. */
+:root[data-theme='classic'] main :is(.faq-answer, .notice) ul {
+	list-style: square;
+}
+:root[data-theme='classic'] .masthead-sub {
+	color: #b9c7d6;
+}
+:root[data-theme='classic'] h1 .masthead-home {
+	letter-spacing: 0.02em;
+}
+
 
 /* The foot of the page, outside the column */
 :root[data-theme='classic'] footer {
@@ -565,4 +655,25 @@
 .theme-menu-list button[aria-pressed='true'] {
 	border-color: #ffd100;
 	background: rgb(214 174 95 / 0.14);
+}
+
+/* Two things every site of the time had. */
+:root[data-theme='classic'] .page > footer::after {
+	content: 'Best viewed at 1024 × 768 with Internet Explorer 6.';
+	display: block;
+	margin-top: 0.4rem;
+	color: #7d8a99;
+}
+:root[data-theme='classic'] main :is(.news, .faq) a:visited {
+	color: #5a2a82;
+}
+/* The title sits on a thin gold rule, as a masthead did. */
+@media (min-width: 64rem) {
+	:root[data-theme='classic'] .masthead-title {
+		padding-bottom: 0.7rem;
+		border-bottom: 1px solid #000;
+		box-shadow:
+			0 1px 0 #8a6d2a,
+			0 2px 0 #000;
+	}
 }

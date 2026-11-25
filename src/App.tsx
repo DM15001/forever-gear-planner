@@ -390,7 +390,7 @@ function CheerFriends() {
 const THEME_KEY = 'fgp.theme';
 const THEMES: { id: string; name: string; note: string }[] = [
 	{ id: 'forever', name: 'Forever', note: 'Dark and gold: the planner as you know it.' },
-	{ id: 'classic', name: '2006', note: 'Parchment, blue bars, gold letters: the web as it was back then.' },
+	{ id: 'classic', name: '2006', note: 'Parchment in a wooden frame, a menu at the left, blue bars with gold letters: the web as it was back then.' },
 ];
 
 /** The button that picks the look of the site. The choice stays in this browser. */
