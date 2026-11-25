@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T09:59:51.495Z",
-	"inputs": "0d4ebd4d84b2b1b6",
+	"generatedAt": "2026-11-25T12:23:21.739Z",
+	"inputs": "950391f985b1e149",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -46,8 +46,8 @@
 		},
 		"5267": {
 			"name": "Scarlet Kris",
-			"offHand": -18.89,
-			"mainHand": -102.72
+			"mainHand": -102.72,
+			"offHand": -18.89
 		},
 		"6622": {
 			"name": "Sword of Zeal",
@@ -112,8 +112,8 @@
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
-			"offHand": -32.59,
-			"mainHand": -118.26
+			"mainHand": -118.26,
+			"offHand": -32.59
 		},
 		"10797": {
 			"name": "Firebreather",
@@ -218,8 +218,8 @@
 		},
 		"12061": {
 			"name": "Blade of Reckoning",
-			"mainHand": -59.85,
-			"offHand": -24.38
+			"offHand": -24.38,
+			"mainHand": -59.85
 		},
 		"12062": {
 			"name": "Skilled Fighting Blade",
@@ -242,8 +242,8 @@
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
-			"offHand": -24.79,
-			"mainHand": -96.73
+			"mainHand": -96.73,
+			"offHand": -24.79
 		},
 		"12590": {
 			"name": "Felstriker",
@@ -270,13 +270,13 @@
 		},
 		"12777": {
 			"name": "Blazing Rapier",
-			"mainHand": -57.88,
-			"offHand": -23.05
+			"offHand": -23.05,
+			"mainHand": -57.88
 		},
 		"12781": {
 			"name": "Serenity",
-			"offHand": -25.89,
-			"mainHand": -57.35
+			"mainHand": -57.35,
+			"offHand": -25.89
 		},
 		"12783": {
 			"name": "Heartseeker",
@@ -363,8 +363,8 @@
 		},
 		"13204": {
 			"name": "Bashguuder",
-			"mainHand": -74.21,
-			"offHand": -15.38
+			"offHand": -15.38,
+			"mainHand": -74.21
 		},
 		"13218": {
 			"name": "Fang of the Crystal Spider",
@@ -378,8 +378,8 @@
 		},
 		"13286": {
 			"name": "Rivenspike",
-			"mainHand": -37.87,
-			"offHand": -26.55
+			"offHand": -26.55,
+			"mainHand": -37.87
 		},
 		"13349": {
 			"name": "Scepter of the Unholy",
@@ -465,8 +465,8 @@
 		},
 		"15219": {
 			"name": "Dimensional Blade",
-			"offHand": -25.55,
-			"mainHand": -99.46
+			"mainHand": -99.46,
+			"offHand": -25.55
 		},
 		"15220": {
 			"name": "Battlefell Sabre",
@@ -519,8 +519,8 @@
 		},
 		"15246": {
 			"name": "Demon Blade",
-			"offHand": -30.3,
-			"mainHand": -107.08
+			"mainHand": -107.08,
+			"offHand": -30.3
 		},
 		"15247": {
 			"name": "Bloodstrike Dagger",
@@ -702,13 +702,13 @@
 		},
 		"18758": {
 			"name": "Specter's Blade",
-			"mainHand": -89.83,
-			"offHand": -18.56
+			"offHand": -18.56,
+			"mainHand": -89.83
 		},
 		"19099": {
 			"name": "Glacial Blade",
-			"mainHand": -85.6,
-			"offHand": -15.62
+			"offHand": -15.62,
+			"mainHand": -85.6
 		},
 		"19100": {
 			"name": "Electrified Dagger",
@@ -722,8 +722,8 @@
 		},
 		"19104": {
 			"name": "Stormstrike Hammer",
-			"mainHand": -20.67,
-			"offHand": -9.94
+			"offHand": -9.94,
+			"mainHand": -20.67
 		},
 		"19324": {
 			"name": "The Lobotomizer",
@@ -742,8 +742,8 @@
 		},
 		"19546": {
 			"name": "Sentinel's Blade",
-			"mainHand": -91.88,
-			"offHand": -18.3
+			"offHand": -18.3,
+			"mainHand": -91.88
 		},
 		"19547": {
 			"name": "Sentinel's Blade",
@@ -752,8 +752,8 @@
 		},
 		"19550": {
 			"name": "Legionnaire's Sword",
-			"offHand": -12.55,
-			"mainHand": -25.47
+			"mainHand": -25.47,
+			"offHand": -12.55
 		},
 		"19551": {
 			"name": "Legionnaire's Sword",
@@ -957,8 +957,8 @@
 		},
 		"272847": {
 			"name": "Premier Grand Marshal's Punisher",
-			"mainHand": 9.68,
-			"offHand": 4.25
+			"offHand": 4.25,
+			"mainHand": 9.68
 		},
 		"272856": {
 			"name": "Premier Grand Marshal's Mageblade",
@@ -1131,8 +1131,8 @@
 		},
 		"286613": {
 			"name": "King Mosh's Tooth",
-			"mainHand": -96.26,
-			"offHand": -15.07
+			"offHand": -15.07,
+			"mainHand": -96.26
 		},
 		"287034": {
 			"name": "Grove Subjugator's Blade",

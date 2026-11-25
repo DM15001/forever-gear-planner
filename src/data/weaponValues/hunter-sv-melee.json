@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T08:58:45.140Z",
-	"inputs": "f8ee31e71a6ed28d",
+	"generatedAt": "2026-11-25T11:01:26.109Z",
+	"inputs": "9a4160a84159a2d6",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -46,8 +46,8 @@
 		},
 		"6660": {
 			"name": "Julie's Dagger",
-			"mainHand": -80.25,
-			"offHand": -10.54
+			"offHand": -10.54,
+			"mainHand": -80.25
 		},
 		"7947": {
 			"name": "Ebon Shiv",
@@ -56,8 +56,8 @@
 		},
 		"8190": {
 			"name": "Hanzo Sword",
-			"mainHand": -56.73,
-			"offHand": -19.07
+			"offHand": -19.07,
+			"mainHand": -56.73
 		},
 		"9379": {
 			"name": "Sang'thraze the Deflector",
@@ -87,8 +87,8 @@
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
-			"mainHand": -76.08,
-			"offHand": -24.7
+			"offHand": -24.7,
+			"mainHand": -76.08
 		},
 		"10797": {
 			"name": "Firebreather",
@@ -187,8 +187,8 @@
 		},
 		"12535": {
 			"name": "Doomforged Straightedge",
-			"mainHand": -49.79,
-			"offHand": -32.94
+			"offHand": -32.94,
+			"mainHand": -49.79
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
@@ -197,8 +197,8 @@
 		},
 		"12590": {
 			"name": "Felstriker",
-			"mainHand": -31.05,
-			"offHand": -12.38
+			"offHand": -12.38,
+			"mainHand": -31.05
 		},
 		"12621": {
 			"name": "Demonfork",
@@ -314,8 +314,8 @@
 		},
 		"13246": {
 			"name": "Argent Avenger",
-			"mainHand": -24.48,
-			"offHand": -39.26
+			"offHand": -39.26,
+			"mainHand": -24.48
 		},
 		"13286": {
 			"name": "Rivenspike",
@@ -419,8 +419,8 @@
 		},
 		"15237": {
 			"name": "Corpse Harvester",
-			"mainHand": -44.94,
-			"offHand": -61.22
+			"offHand": -61.22,
+			"mainHand": -44.94
 		},
 		"15238": {
 			"name": "Warlord's Axe",
@@ -563,8 +563,8 @@
 		},
 		"17705": {
 			"name": "Thrash Blade",
-			"offHand": -53.18,
-			"mainHand": -17.33
+			"mainHand": -17.33,
+			"offHand": -53.18
 		},
 		"17710": {
 			"name": "Charstone Dirk",
@@ -687,8 +687,8 @@
 		},
 		"19103": {
 			"name": "Frostbite",
-			"mainHand": -12.92,
-			"offHand": -52.76
+			"offHand": -52.76,
+			"mainHand": -12.92
 		},
 		"19107": {
 			"name": "Bloodseeker",
@@ -705,13 +705,13 @@
 		},
 		"19542": {
 			"name": "Scout's Blade",
-			"offHand": -18.87,
-			"mainHand": -55.83
+			"mainHand": -55.83,
+			"offHand": -18.87
 		},
 		"19543": {
 			"name": "Scout's Blade",
-			"mainHand": -70.58,
-			"offHand": -24.29
+			"offHand": -24.29,
+			"mainHand": -70.58
 		},
 		"19546": {
 			"name": "Sentinel's Blade",
@@ -725,8 +725,8 @@
 		},
 		"19550": {
 			"name": "Legionnaire's Sword",
-			"offHand": -53.81,
-			"mainHand": -16.12
+			"mainHand": -16.12,
+			"offHand": -53.81
 		},
 		"19551": {
 			"name": "Legionnaire's Sword",
@@ -804,8 +804,8 @@
 		},
 		"250616": {
 			"name": "Bold Dirk",
-			"offHand": -26.63,
-			"mainHand": -70.64
+			"mainHand": -70.64,
+			"offHand": -26.63
 		},
 		"250618": {
 			"name": "Bagh Nakh",
@@ -892,18 +892,18 @@
 		},
 		"272684": {
 			"name": "Premier High Warlord's Quickblade",
-			"offHand": -11.46,
-			"mainHand": -16.32
+			"mainHand": -16.32,
+			"offHand": -11.46
 		},
 		"272693": {
 			"name": "Premier Grand Marshal's Longsword",
-			"mainHand": 15.43,
-			"offHand": -40.34
+			"offHand": -40.34,
+			"mainHand": 15.43
 		},
 		"272839": {
 			"name": "Premier Grand Marshal's Handaxe",
-			"offHand": -40.34,
-			"mainHand": 15.43
+			"mainHand": 15.43,
+			"offHand": -40.34
 		},
 		"272841": {
 			"name": "Premier Grand Marshal's Bullseye",
@@ -915,8 +915,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"offHand": -20.25,
-			"mainHand": -29.56
+			"mainHand": -29.56,
+			"offHand": -20.25
 		},
 		"272844": {
 			"name": "Premier Grand Marshal's Right Hand Blade",
@@ -941,18 +941,18 @@
 		},
 		"274265": {
 			"name": "Brush Cutter",
-			"offHand": -61.75,
-			"mainHand": -29.11
+			"mainHand": -29.11,
+			"offHand": -61.75
 		},
 		"274271": {
 			"name": "Deadhead Blade",
-			"mainHand": -71.86,
-			"offHand": -30.41
+			"offHand": -30.41,
+			"mainHand": -71.86
 		},
 		"274383": {
 			"name": "Kanai's Knife",
-			"offHand": -22.73,
-			"mainHand": -70.08
+			"mainHand": -70.08,
+			"offHand": -22.73
 		},
 		"274517": {
 			"name": "Unerring Purpose",
@@ -985,8 +985,8 @@
 		},
 		"276338": {
 			"name": "Claw of Shalla'kal",
-			"mainHand": -43.37,
-			"offHand": -56.13
+			"offHand": -56.13,
+			"mainHand": -43.37
 		},
 		"276738": {
 			"name": "Katerina's Shanker",
@@ -1003,8 +1003,8 @@
 		},
 		"279259": {
 			"name": "Ironwood Blade",
-			"mainHand": -7.57,
-			"offHand": -41.38
+			"offHand": -41.38,
+			"mainHand": -7.57
 		},
 		"279474": {
 			"name": "Dustwallow Dirk",

@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T09:44:45.797Z",
-	"inputs": "7e6b05906973e91e",
+	"generatedAt": "2026-11-25T12:30:07.669Z",
+	"inputs": "6e7dcf1b7c14cadd",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -37,8 +37,8 @@
 		},
 		"2243": {
 			"name": "Hand of Edward the Odd",
-			"mainHand": -79.64,
-			"offHand": -22.32
+			"offHand": -22.32,
+			"mainHand": -79.64
 		},
 		"2244": {
 			"name": "Krol Blade",
@@ -259,8 +259,8 @@
 		},
 		"12773": {
 			"name": "Ornate Thorium Handaxe",
-			"mainHand": -67.13,
-			"offHand": -20.19
+			"offHand": -20.19,
+			"mainHand": -67.13
 		},
 		"12774": {
 			"name": "Dawn's Edge",
@@ -347,8 +347,8 @@
 		},
 		"13182": {
 			"name": "Phase Blade",
-			"mainHand": -55.68,
-			"offHand": -21
+			"offHand": -21,
+			"mainHand": -55.68
 		},
 		"13183": {
 			"name": "Venomspitter",
@@ -367,8 +367,8 @@
 		},
 		"13218": {
 			"name": "Fang of the Crystal Spider",
-			"mainHand": -35.6,
-			"offHand": -15.83
+			"offHand": -15.83,
+			"mainHand": -35.6
 		},
 		"13246": {
 			"name": "Argent Avenger",
@@ -377,8 +377,8 @@
 		},
 		"13286": {
 			"name": "Rivenspike",
-			"offHand": -27.97,
-			"mainHand": -41.03
+			"mainHand": -41.03,
+			"offHand": -27.97
 		},
 		"13349": {
 			"name": "Scepter of the Unholy",
@@ -430,8 +430,8 @@
 		},
 		"14024": {
 			"name": "Frightalon",
-			"mainHand": -32.68,
-			"offHand": -7.26
+			"offHand": -7.26,
+			"mainHand": -32.68
 		},
 		"14487": {
 			"name": "Bonechill Hammer",
@@ -440,8 +440,8 @@
 		},
 		"14555": {
 			"name": "Alcor's Sunrazor",
-			"mainHand": -29.02,
-			"offHand": -8.41
+			"offHand": -8.41,
+			"mainHand": -29.02
 		},
 		"14576": {
 			"name": "Ebon Hilt of Marduk",
@@ -513,8 +513,8 @@
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"mainHand": -59.64,
-			"offHand": -21.67
+			"offHand": -21.67,
+			"mainHand": -59.64
 		},
 		"15246": {
 			"name": "Demon Blade",
@@ -697,8 +697,8 @@
 		},
 		"18758": {
 			"name": "Specter's Blade",
-			"offHand": -11.46,
-			"mainHand": -24.07
+			"mainHand": -24.07,
+			"offHand": -11.46
 		},
 		"19099": {
 			"name": "Glacial Blade",
@@ -717,8 +717,8 @@
 		},
 		"19104": {
 			"name": "Stormstrike Hammer",
-			"mainHand": -28.95,
-			"offHand": -20.89
+			"offHand": -20.89,
+			"mainHand": -28.95
 		},
 		"19324": {
 			"name": "The Lobotomizer",
@@ -971,8 +971,8 @@
 		},
 		"274265": {
 			"name": "Brush Cutter",
-			"mainHand": -47.61,
-			"offHand": -27.21
+			"offHand": -27.21,
+			"mainHand": -47.61
 		},
 		"274271": {
 			"name": "Deadhead Blade",
@@ -1060,18 +1060,18 @@
 		},
 		"280021": {
 			"name": "Tooth of the Matriarch",
-			"mainHand": -23.01,
-			"offHand": -7.91
+			"offHand": -7.91,
+			"mainHand": -23.01
 		},
 		"280022": {
 			"name": "Scaleguard Scimitar",
-			"mainHand": -44.48,
-			"offHand": -17.42
+			"offHand": -17.42,
+			"mainHand": -44.48
 		},
 		"280029": {
 			"name": "Cinderedge Crescent",
-			"mainHand": -37.74,
-			"offHand": -15.81
+			"offHand": -15.81,
+			"mainHand": -37.74
 		},
 		"280068": {
 			"name": "Bloody Claws of Attack",
@@ -1080,8 +1080,8 @@
 		},
 		"280077": {
 			"name": "Fist of Revelation",
-			"mainHand": -81.02,
-			"offHand": -28.87
+			"offHand": -28.87,
+			"mainHand": -81.02
 		},
 		"280085": {
 			"name": "Tunnelweb Pincer",
@@ -1113,8 +1113,8 @@
 		},
 		"284157": {
 			"name": "Ranger Lord's Longsword",
-			"mainHand": -47.78,
-			"offHand": -20.75
+			"offHand": -20.75,
+			"mainHand": -47.78
 		},
 		"284230": {
 			"name": "Rage Paw",

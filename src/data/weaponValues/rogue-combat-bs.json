@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T08:36:48.835Z",
-	"inputs": "043b0c532025b854",
+	"generatedAt": "2026-11-25T11:23:55.852Z",
+	"inputs": "79c004b5e668a35a",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -12,8 +12,8 @@
 	"weapons": {
 		"2163": {
 			"name": "Shadowblade",
-			"mainHand": -18.59,
-			"offHand": -5.64
+			"offHand": -5.64,
+			"mainHand": -18.59
 		},
 		"2243": {
 			"name": "Hand of Edward the Odd",
@@ -21,8 +21,8 @@
 		},
 		"5267": {
 			"name": "Scarlet Kris",
-			"offHand": -6.41,
-			"mainHand": -23.73
+			"mainHand": -23.73,
+			"offHand": -6.41
 		},
 		"6660": {
 			"name": "Julie's Dagger",
@@ -31,8 +31,8 @@
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"offHand": -19.94,
-			"mainHand": -48.78
+			"mainHand": -48.78,
+			"offHand": -19.94
 		},
 		"8190": {
 			"name": "Hanzo Sword",
@@ -70,8 +70,8 @@
 		},
 		"11635": {
 			"name": "Hookfang Shanker",
-			"offHand": -11.06,
-			"mainHand": -36.31
+			"mainHand": -36.31,
+			"offHand": -11.06
 		},
 		"11744": {
 			"name": "Bloodfist",
@@ -134,8 +134,8 @@
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"offHand": -6.71,
-			"mainHand": -14.08
+			"mainHand": -14.08,
+			"offHand": -6.71
 		},
 		"12791": {
 			"name": "Barman Shanker",
@@ -212,8 +212,8 @@
 		},
 		"13368": {
 			"name": "Bonescraper",
-			"offHand": -2.95,
-			"mainHand": -23.24
+			"mainHand": -23.24,
+			"offHand": -2.95
 		},
 		"13399": {
 			"name": "Gargoyle Shredder Talons",
@@ -306,8 +306,8 @@
 		},
 		"15247": {
 			"name": "Bloodstrike Dagger",
-			"mainHand": -33,
-			"offHand": -17.05
+			"offHand": -17.05,
+			"mainHand": -33
 		},
 		"15705": {
 			"name": "Tidecrest Blade",
@@ -418,8 +418,8 @@
 		},
 		"18758": {
 			"name": "Specter's Blade",
-			"mainHand": -17.91,
-			"offHand": -8.95
+			"offHand": -8.95,
+			"mainHand": -17.91
 		},
 		"19099": {
 			"name": "Glacial Blade",
@@ -428,8 +428,8 @@
 		},
 		"19100": {
 			"name": "Electrified Dagger",
-			"mainHand": -13.17,
-			"offHand": -7.19
+			"offHand": -7.19,
+			"mainHand": -13.17
 		},
 		"19103": {
 			"name": "Frostbite",
@@ -441,8 +441,8 @@
 		},
 		"19324": {
 			"name": "The Lobotomizer",
-			"offHand": -8.92,
-			"mainHand": -13.69
+			"mainHand": -13.69,
+			"offHand": -8.92
 		},
 		"19542": {
 			"name": "Scout's Blade",
@@ -461,8 +461,8 @@
 		},
 		"19547": {
 			"name": "Sentinel's Blade",
-			"mainHand": -35.61,
-			"offHand": -14.64
+			"offHand": -14.64,
+			"mainHand": -35.61
 		},
 		"19550": {
 			"name": "Legionnaire's Sword",
@@ -506,8 +506,8 @@
 		},
 		"24222": {
 			"name": "The Shadowfoot Stabber",
-			"offHand": -13.69,
-			"mainHand": -28.1
+			"mainHand": -28.1,
+			"offHand": -13.69
 		},
 		"250614": {
 			"name": "Thorium Cestus",

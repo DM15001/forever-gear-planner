@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T09:02:22.416Z",
-	"inputs": "7455d2fd4c2554f3",
+	"generatedAt": "2026-11-25T11:42:04.511Z",
+	"inputs": "6d84212762cb2c35",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -33,8 +33,8 @@
 		},
 		"2243": {
 			"name": "Hand of Edward the Odd",
-			"offHand": -26.83,
-			"mainHand": -99.13
+			"mainHand": -99.13,
+			"offHand": -26.83
 		},
 		"2244": {
 			"name": "Krol Blade",
@@ -51,13 +51,13 @@
 		},
 		"6660": {
 			"name": "Julie's Dagger",
-			"offHand": -26.74,
-			"mainHand": -109.76
+			"mainHand": -109.76,
+			"offHand": -26.74
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"mainHand": -111.45,
-			"offHand": -31.28
+			"offHand": -31.28,
+			"mainHand": -111.45
 		},
 		"8190": {
 			"name": "Hanzo Sword",
@@ -99,8 +99,8 @@
 		},
 		"10697": {
 			"name": "Enchanted Azsharite Felbane Dagger",
-			"offHand": -24.55,
-			"mainHand": -101.6
+			"mainHand": -101.6,
+			"offHand": -24.55
 		},
 		"10744": {
 			"name": "Axe of the Ebon Drake",
@@ -238,8 +238,8 @@
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
-			"offHand": -25.82,
-			"mainHand": -84.38
+			"mainHand": -84.38,
+			"offHand": -25.82
 		},
 		"12590": {
 			"name": "Felstriker",
@@ -321,8 +321,8 @@
 		},
 		"13014": {
 			"name": "Axe of Rin'ji",
-			"offHand": -20.61,
-			"mainHand": -72.1
+			"mainHand": -72.1,
+			"offHand": -20.61
 		},
 		"13015": {
 			"name": "Serathil",
@@ -364,13 +364,13 @@
 		},
 		"13218": {
 			"name": "Fang of the Crystal Spider",
-			"mainHand": -95.08,
-			"offHand": -26.73
+			"offHand": -26.73,
+			"mainHand": -95.08
 		},
 		"13246": {
 			"name": "Argent Avenger",
-			"mainHand": -35.9,
-			"offHand": -11.88
+			"offHand": -11.88,
+			"mainHand": -35.9
 		},
 		"13286": {
 			"name": "Rivenspike",
@@ -500,13 +500,13 @@
 		},
 		"15239": {
 			"name": "Felstone Reaver",
-			"offHand": -23.84,
-			"mainHand": -68.96
+			"mainHand": -68.96,
+			"offHand": -23.84
 		},
 		"15240": {
 			"name": "Demon's Claw",
-			"offHand": -26.46,
-			"mainHand": -53.42
+			"mainHand": -53.42,
+			"offHand": -26.46
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
@@ -629,8 +629,8 @@
 		},
 		"18310": {
 			"name": "Fiendish Machete",
-			"mainHand": -39.61,
-			"offHand": -18.42
+			"offHand": -18.42,
+			"mainHand": -39.61
 		},
 		"18321": {
 			"name": "Energetic Rod",
@@ -638,8 +638,8 @@
 		},
 		"18347": {
 			"name": "Well Balanced Axe",
-			"mainHand": -56.09,
-			"offHand": -12.99
+			"offHand": -12.99,
+			"mainHand": -56.09
 		},
 		"18372": {
 			"name": "Blade of the New Moon",
@@ -698,8 +698,8 @@
 		},
 		"18758": {
 			"name": "Specter's Blade",
-			"mainHand": -80.14,
-			"offHand": -20.91
+			"offHand": -20.91,
+			"mainHand": -80.14
 		},
 		"19099": {
 			"name": "Glacial Blade",
@@ -815,8 +815,8 @@
 		},
 		"24222": {
 			"name": "The Shadowfoot Stabber",
-			"mainHand": -90.23,
-			"offHand": -25.79
+			"offHand": -25.79,
+			"mainHand": -90.23
 		},
 		"227935": {
 			"name": "Hammer of the Fallen Thane",
@@ -844,8 +844,8 @@
 		},
 		"260180": {
 			"name": "Scout's Dagger",
-			"mainHand": -106.29,
-			"offHand": -31.48
+			"offHand": -31.48,
+			"mainHand": -106.29
 		},
 		"260209": {
 			"name": "Truesong's Hammer",
@@ -982,8 +982,8 @@
 		},
 		"274383": {
 			"name": "Kanai's Knife",
-			"offHand": -24.24,
-			"mainHand": -97.81
+			"mainHand": -97.81,
+			"offHand": -24.24
 		},
 		"274517": {
 			"name": "Unerring Purpose",
@@ -1013,8 +1013,8 @@
 		},
 		"276338": {
 			"name": "Claw of Shalla'kal",
-			"offHand": -35.09,
-			"mainHand": -50.26
+			"mainHand": -50.26,
+			"offHand": -35.09
 		},
 		"276398": {
 			"name": "Scarlet Malice",
@@ -1056,8 +1056,8 @@
 		},
 		"280012": {
 			"name": "Talon of Tor'Rel",
-			"offHand": -8.73,
-			"mainHand": -53.49
+			"mainHand": -53.49,
+			"offHand": -8.73
 		},
 		"280021": {
 			"name": "Tooth of the Matriarch",
@@ -1133,8 +1133,8 @@
 		},
 		"287034": {
 			"name": "Grove Subjugator's Blade",
-			"mainHand": -117.84,
-			"offHand": -35.11
+			"offHand": -35.11,
+			"mainHand": -117.84
 		}
 	},
 	"failed": [],
