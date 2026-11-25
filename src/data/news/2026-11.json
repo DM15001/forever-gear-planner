@@ -96,6 +96,30 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Bug report copies instead of saving a file",
+							"text": "\"Bug report\" and \"Report a problem\" put the report on the clipboard, ready to paste. A file is only saved when the browser does not allow copying.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Group up: the glowing frame marks the open card",
+							"text": "The gold frame used to sit on the first-ranked dungeon all the time, which looked like it was selected. Now the frame marks the card you opened; first place keeps its gold number.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Farm it lists the Tier 0 piece behind a Tier 0.5 upgrade",
+							"text": "A Tier 0.5 piece comes from a questline that takes the Tier 0 piece of the same slot. When a Tier 0.5 piece is an upgrade or in your plan, Farm it now lists that Tier 0 piece at the boss that drops it, tagged with what it turns into.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Tidier plan cards",
 							"text": "The slots of your plan are cards of one size, two to a row, with the same lines in the same order: item with a \"Source\" word (hover for where it comes from, click for Wowhead) and guide tags, the enchant and what it gives, the item it replaces, then option 1 and option 2. Click the icon to change a slot. Click an option's icon to plan that item instead.",
 							"source": "Gear Planner",
@@ -105,7 +129,7 @@
 						},
 						{
 							"title": "Less text around the simulation",
-							"text": "Build plan lost several lines of explanation. Damage breakdown and Sim setup sit side by side, the estimate note has a warning sign, and what \"Check the plan with the simulator\" does is a short list of four steps with a link to WoWSims.",
+							"text": "Build plan lost several lines of explanation. Damage breakdown and Sim setup sit side by side, the estimate note has a warning sign, and what \"Check the plan with the simulator\" does shows when you hover \"Powered by WoWSims\".",
 							"source": "Gear Planner",
 							"tags": [
 								"Planner"

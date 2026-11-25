@@ -46,8 +46,9 @@ describe('dungeonRanking', () => {
 	it('marks the planned items', () => {
 		const plan = suggestPlan(options);
 		const withPlan = dungeonRanking({ ...options, character: { ...dwarf, plan } });
-		const marked = new Set(withPlan.flatMap(d => d.bosses.flatMap(b => b.drops.filter(x => x.planned).map(x => x.item.id))));
-		for (const id of marked) expect(Object.values(plan)).toContain(id);
+		const marked = new Set(withPlan.flatMap(d => d.bosses.flatMap(b => b.drops.filter(x => x.planned))));
+		// A Tier 0 piece is marked when the Tier 0.5 piece it becomes is the planned one.
+		for (const drop of marked) expect(Object.values(plan).some(id => id === drop.item.id || id === drop.leadsTo?.id)).toBe(true);
 		expect(withPlan.reduce((sum, d) => sum + d.plannedCount, 0)).toBeGreaterThan(0);
 	});
 });

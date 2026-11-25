@@ -304,6 +304,11 @@ function DungeonCard({ dungeon, open, onToggle }: { dungeon: FarmDungeon; open: 
 											<ItemLink item={drop.item} />
 											<span className="slot-source"> {GEAR_SLOTS[drop.slotIndex].label}</span>
 											{boss.sources.get(drop.item.id)?.dropChance !== undefined && <span className="effort"> {effortLine(boss.sources.get(drop.item.id))}</span>}
+											{drop.leadsTo && (
+												<span className="badge badge-plan farm-tag-tier" title={`The Tier 0.5 questline takes this piece and gives you ${drop.leadsTo.name}. The gain shown is the one of ${drop.leadsTo.name}.`}>
+													becomes {drop.leadsTo.name}
+												</span>
+											)}
 											{drop.planned && <span className="badge badge-plan farm-tag-planned">in your plan</span>}
 											{drop.best ? (
 												<span className="badge badge-plan farm-tag-bis" title="Nothing in the game is better for you in that slot">BiS</span>

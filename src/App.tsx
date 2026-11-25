@@ -92,17 +92,18 @@ async function exportEverything(): Promise<string> {
 		saved,
 	};
 	const text = JSON.stringify(report, null, '\t');
-	const link = document.createElement('a');
-	link.href = URL.createObjectURL(new Blob([text], { type: 'application/json' }));
-	link.download = `gear-planner-report-${new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-')}.json`;
-	link.click();
-	URL.revokeObjectURL(link.href);
 	const size = `${Math.round(text.length / 1024)} KB`;
 	try {
 		await navigator.clipboard.writeText(text);
-		return `Copied and saved as ${link.download} (${size}).`;
+		return `Copied (${size}). Paste it where you report the problem.`;
 	} catch {
-		return `Saved as ${link.download} (${size}); the browser did not allow copying.`;
+		// No clipboard (an old browser, or the page is not allowed to): a file is the way that is left.
+		const link = document.createElement('a');
+		link.href = URL.createObjectURL(new Blob([text], { type: 'application/json' }));
+		link.download = `gear-planner-report-${new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-')}.json`;
+		link.click();
+		URL.revokeObjectURL(link.href);
+		return `The browser did not allow copying, so it was saved as ${link.download} (${size}).`;
 	}
 }
 
@@ -557,7 +558,7 @@ function ChannelSwitch() {
 					{IS_DEV ? <a href={other}>Live</a> : <span aria-current="page">Live</span>}
 					{IS_DEV ? <span aria-current="page">Dev</span> : <a href={other}>Dev</a>}
 				</nav>
-				<button className="channel-report" onClick={() => exportEverything().then(setReport, () => setReport('The report could not be made.'))} title="Copies and saves everything needed to look into a problem: all the planner has stored in this browser (every character with plan, content choice and sim setup), the site and simulator version, and the text of the page as it stands.">
+				<button className="channel-report" onClick={() => exportEverything().then(setReport, () => setReport('The report could not be made.'))} title="Copies everything needed to look into a problem: all the planner has stored in this browser (every character with plan, content choice and sim setup), the site and simulator version, and the text of the page as it stands.">
 					Bug report
 				</button>
 				{report && (
@@ -954,7 +955,7 @@ export function App() {
 					Take the tour
 				</button>
 				{' '}
-				<button className="link" onClick={() => exportEverything().then(setReported, () => setReported('The report could not be made.'))} title="Copies and saves everything needed to look into a problem: your characters with plan, content choice and sim setup, the site and simulator version, and the text of the page as it stands. Send the file to whoever looks after the site.">
+				<button className="link" onClick={() => exportEverything().then(setReported, () => setReported('The report could not be made.'))} title="Copies everything needed to look into a problem: your characters with plan, content choice and sim setup, the site and simulator version, and the text of the page as it stands. Send the file to whoever looks after the site.">
 					Report a problem
 				</button>
 				{reported && <span role="status"> {reported}</span>}

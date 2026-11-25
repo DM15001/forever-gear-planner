@@ -309,21 +309,27 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						</p>
 					)}
 					{!import.meta.env.VITE_NO_SIM && (
-						<div className="hint check-steps">
-							<p>
-								"Check the plan with the simulator" looks for your best set with the{' '}
+						<p className="hint powered">
+							<span className="powered-by" tabIndex={0}>
+								Powered by{' '}
 								<a href="https://wowsims.com" target="_blank" rel="noreferrer">
 									WoWSims
-								</a>{' '}
-								simulator, the same one behind wowsims.com. It takes several minutes:
-							</p>
-							<ol>
-								<li>It runs your plan, the guides' sets and what you wear against each other and starts from the best.</li>
-								<li>Slot by slot it tries the best items (as many as "How thorough" says), then the enchants.</li>
-								<li>It tries slots that only pay off together: both rings, both trinkets, both hands, and slots that trade hit rating.</li>
-								<li>A change stays only when the {unit()} really goes up. The result is never below what you wear.</li>
-							</ol>
-						</div>
+								</a>
+								<span className="powered-mark" aria-hidden="true">
+									?
+								</span>
+								<span className="powered-pop" role="tooltip">
+									<strong>What "Check the plan with the simulator" does</strong>
+									<ol>
+										<li>It runs your plan, the guides' sets and what you wear against each other and starts from the best.</li>
+										<li>Slot by slot it tries the best items (as many as "How thorough" says), then the enchants.</li>
+										<li>It tries slots that only pay off together: both rings, both trinkets, both hands, and slots that trade hit rating.</li>
+										<li>A change stays only when the {unit()} really goes up. The result is never below what you wear.</li>
+									</ol>
+									It takes several minutes.
+								</span>
+							</span>
+						</p>
 					)}
 				</div>
 					</>

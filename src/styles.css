@@ -7099,3 +7099,68 @@ a.plan-enchant-name:hover {
 .plan-option-label {
 	min-width: 0;
 }
+
+/* "Powered by WoWSims": what the check does shows on hover or focus. */
+.powered {
+	margin: 0.5rem 0 0;
+}
+.powered-by {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	cursor: help;
+}
+.powered-mark {
+	display: inline-grid;
+	place-items: center;
+	width: 1.1rem;
+	height: 1.1rem;
+	border: 1px solid currentColor;
+	border-radius: 50%;
+	font-size: 0.75rem;
+	line-height: 1;
+}
+.powered-pop {
+	display: none;
+	position: absolute;
+	z-index: 30;
+	top: calc(100% + 0.4rem);
+	left: 0;
+	width: min(34rem, 85vw);
+	padding: 0.8rem 1rem;
+	color: var(--mist);
+	background: var(--slate-raised, #1c1712);
+	border: 1px solid var(--brass-deep);
+	border-radius: 6px;
+	box-shadow: 0 10px 30px rgb(0 0 0 / 0.5);
+	cursor: default;
+}
+.powered-by:hover .powered-pop,
+.powered-by:focus-within .powered-pop,
+.powered-by:focus .powered-pop {
+	display: block;
+}
+.powered-pop ol {
+	margin: 0.4rem 0;
+	padding-left: 1.2rem;
+}
+.powered-pop li + li {
+	margin-top: 0.2rem;
+}
+:root[data-theme='classic'] main .powered-pop {
+	background: #f9efcf;
+	color: #2a1c0c;
+	border-color: #8a5a24;
+}
+
+/* The card frame marks the open card only; first place shows on its gold number. */
+.group-dungeons-cards .group-dungeon-top:not(.group-dungeon-open) {
+	border-color: var(--ridge);
+	box-shadow: none;
+}
+.group-dungeons-cards .group-dungeon-open {
+	box-shadow:
+		0 0 0 1px var(--brass),
+		0 0 18px -4px var(--brass);
+}

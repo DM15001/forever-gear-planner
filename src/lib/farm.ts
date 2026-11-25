@@ -1,6 +1,6 @@
 import { GEAR_SLOTS } from './constants';
 import { runChance } from './loot';
-import { type CandidateOptions, EVERYTHING, filterKey, plannedGear, scoreSet, slotCandidates, slotInUse, usableSources } from './scoring';
+import { type CandidateOptions, EVERYTHING, filterKey, plannedGear, scoreSet, slotCandidates, slotInUse, tierSets, usableSources } from './scoring';
 import type { Item, ItemSource, Zone } from './types';
 
 export interface FarmDrop {
@@ -15,6 +15,8 @@ export interface FarmDrop {
 	rank: number;
 	/** True if nothing in the game is better for this character in that slot, whatever content is switched on. */
 	best?: boolean;
+	/** For a Tier 0 piece: the Tier 0.5 piece it is handed in for, when that one is the upgrade wanted. */
+	leadsTo?: Item;
 }
 
 export interface FarmBoss {
@@ -78,14 +80,43 @@ export function markBest(drops: FarmDrop[], options: CandidateOptions): FarmDrop
 	return drops;
 }
 
+/**
+ * The Tier 0 pieces behind the Tier 0.5 upgrades. A Tier 0.5 piece comes from a questline that takes the Tier 0
+ * piece of the same slot, so that one is what gets farmed: it is listed where it drops, with what it turns into,
+ * and counts for as much as the piece it becomes. Left out when the character already wears it.
+ */
+export function withTierZero(drops: FarmDrop[], options: CandidateOptions): FarmDrop[] {
+	const { character, data, spec } = options;
+	const sets = tierSets(spec);
+	if (!sets) return drops;
+	const faction = spec.races.find(r => r.id === character.race)?.faction;
+	const worn = new Set(character.gear.flatMap(piece => (piece ? [piece.id] : [])));
+	const byId = new Map(drops.map(drop => [drop.item.id, drop]));
+	// The planned piece first, then the biggest gain: a Tier 0 piece is listed for one Tier 0.5 piece only.
+	const upgrades = drops.filter(drop => drop.item.setId === sets.tier05).sort((x, y) => Number(y.planned) - Number(x.planned) || y.delta - x.delta);
+	for (const upgrade of upgrades) {
+		const base = [...data.itemById.values()].find(item => item.setId === sets.tier0 && item.slot === upgrade.item.slot && !(item.faction && faction && item.faction !== faction));
+		if (!base || worn.has(base.id)) continue;
+		const known = byId.get(base.id);
+		if (known?.leadsTo) continue;
+		if (known) {
+			known.leadsTo = upgrade.item;
+			known.planned ||= upgrade.planned;
+			if (upgrade.delta > known.delta) Object.assign(known, { delta: upgrade.delta, rank: upgrade.rank, best: upgrade.best, slotIndex: upgrade.slotIndex });
+		} else byId.set(base.id, { ...upgrade, item: base, leadsTo: upgrade.item });
+	}
+	return [...byId.values()];
+}
+
 export function dungeonRanking(options: CandidateOptions, show: FarmShow = 'all'): FarmDungeon[] {
 	const { character, data, spec, filter } = options;
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
 	const dungeons = new Map<string, { key: string; name: string; zone: Zone; bosses: Map<string, FarmDrop[]>; sources: Map<string, Map<number, ItemSource>> }>();
 
-	for (const drop of markBest(allUpgrades(options), options)) {
+	for (const drop of withTierZero(markBest(allUpgrades(options), options), options)) {
 		if ((show === 'bis' && !drop.best) || (show === 'plan' && !drop.planned)) continue;
-		for (const source of usableSources(drop.item, faction, filter, character.professions)) {
+		// A Tier 0 piece that is only farmed for its upgrade counts whatever the slot ticks say about wearing it.
+		for (const source of usableSources(drop.item, faction, drop.leadsTo ? { ...filter, tierSlots: EVERYTHING.tierSlots } : filter, character.professions)) {
 			if (!source.dungeonKey || !source.zoneId) continue;
 			const zone = data.zoneById.get(source.zoneId);
 			if (!zone) continue;
