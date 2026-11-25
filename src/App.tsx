@@ -230,8 +230,15 @@ function CheerFriends() {
 				<path d="M54 126 Q60 124 66 126 M72 126 Q78 124 84 126 L87 123.5" fill="none" stroke="#0a0908" strokeWidth="2.2" strokeLinecap="round" />
 				<path d="M54 126 L51 123.5" stroke="#0a0908" strokeWidth="2.2" strokeLinecap="round" />
 				<path d="M55 132.5 Q60 135 65 132.5 M73 132.5 Q78 135 83 132.5" fill="none" stroke="#c99a8c" strokeWidth="1.4" strokeLinecap="round" />
-				<path d="M54 119 L65 120 M73 120 L84 119" stroke="#17131c" strokeWidth="1.8" strokeLinecap="round" />
-				<path d="M62 138 Q69 142 76 137" fill="none" stroke="#8a3d4f" strokeWidth="2" strokeLinecap="round" />
+				{/* in agony: brows pulled up in the middle, a crease between them, teeth clenched in a crooked grimace */}
+				<path d="M53 121.5 Q58 118.5 65.8 115.8 M85 121.5 Q80 118.5 72.2 115.8" fill="none" stroke="#17131c" strokeWidth="2.2" strokeLinecap="round" />
+				<path d="M68 117.5 L67.5 121.5 M70.5 117.5 L70.8 121" stroke="#c99a8c" strokeWidth="1" strokeLinecap="round" />
+				<g transform="translate(69 139) scale(0.82) rotate(-4) translate(-69 -138.5)">
+				<path d="M59.5 135 Q69 131.5 78.5 135 Q80.5 139.5 77.5 143 Q69 140.5 60.5 143 Q57.5 139.5 59.5 135 Z" fill="#4a1420" stroke="#8a3d4f" strokeWidth="1.4" strokeLinejoin="round" />
+				<path d="M61 136 Q69 133.5 77 136 Q78 139.3 76.5 141.5 Q69 139.5 61.5 141.5 Q60 139.3 61 136 Z" fill="#f4efe2" />
+				<path d="M60.8 138.6 Q69 136.6 77.4 138.6 M64 135.2 L64.3 141 M67.3 134.6 L67.4 140.3 M70.7 134.6 L70.6 140.3 M74 135.2 L73.8 141" fill="none" stroke="#b9ad98" strokeWidth="0.7" />
+				</g>
+				<path d="M58.5 135 Q57 138.5 59 142.5 M79.5 134 Q81 137.5 79 141.5" fill="none" stroke="#c99a8c" strokeWidth="1" strokeLinecap="round" />
 				{/* crossed arms */}
 				<path d="M48 162 Q70 176 90 164" fill="none" stroke="#4a1f70" strokeWidth="11" strokeLinecap="round" />
 				<path d="M50 172 Q70 160 90 170" fill="none" stroke="#5b2a86" strokeWidth="11" strokeLinecap="round" />
