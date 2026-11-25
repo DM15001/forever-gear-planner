@@ -111,6 +111,14 @@
 							"tags": [
 								"Planner"
 							]
+						},
+						{
+							"title": "Presets show their build",
+							"text": "The preset menus name the build of each preset, and a character's tile stays in its place in the bar when you make or open another preset.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
 						}
 					]
 				}

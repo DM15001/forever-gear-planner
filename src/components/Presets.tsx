@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useRef, useState } from 'react';
 
 /** The gear presets of the open character: the same character saved under several names (Main, Fire, vs beasts), each with its own build, worn gear and plan. */
 export interface Presets {
-	list: { index: number; label: string }[];
+	list: { index: number; label: string; /** The build of that preset, to tell them apart. */ spec?: string }[];
 	/** Place of the open preset in the saved list. */
 	active: number;
 	create: (name: string) => void;
@@ -77,6 +77,7 @@ export function PresetField() {
 				{presets.list.map(preset => (
 					<option key={preset.index} value={preset.index}>
 						{preset.label}
+						{preset.spec ? ` (${preset.spec})` : ''}
 					</option>
 				))}
 			</select>
@@ -118,7 +119,7 @@ export function PresetMenu() {
 	const presets = useContext(PresetContext);
 	const [open, setOpen] = useState(false);
 	const [naming, setNaming] = useState(false);
-	const [asking, setAsking] = useState<{ index: number; label: string } | null>(null);
+	const [asking, setAsking] = useState<{ index: number; label: string; spec?: string } | null>(null);
 	const box = useRef<HTMLDivElement>(null);
 	useEffect(() => {
 		if (!open) return;
@@ -142,7 +143,10 @@ export function PresetMenu() {
 	return (
 		<div className="preset-menu" ref={box}>
 			<button className="preset-menu-button" aria-haspopup="true" aria-expanded={open} onClick={() => setOpen(!open)} title="Presets of this character">
-				<span>{current?.label ?? 'Main'}</span>
+				<span>
+					{current?.label ?? 'Main'}
+					{current?.spec && <small>{current.spec}</small>}
+				</span>
 				<svg viewBox="0 0 16 16" width="10" height="10" aria-hidden="true">
 					<path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
 				</svg>
@@ -176,6 +180,7 @@ export function PresetMenu() {
 									setOpen(false);
 								}}>
 								{preset.label}
+								{preset.spec && <small>{preset.spec}</small>}
 							</button>
 						</div>
 					))}

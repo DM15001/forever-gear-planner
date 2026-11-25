@@ -540,7 +540,7 @@ export function App() {
 	};
 	// The presets of the open character, for the Character page and the gear panes.
 	const presets: Presets = {
-		list: setsOf(roster),
+		list: setsOf(roster).map(preset => ({ ...preset, spec: specOf(roster.characters[preset.index]).name })),
 		active: roster.active,
 		create: name => changeRoster(addSet(roster, name)),
 		select: index => changeRoster(selectCharacter(roster, index)),

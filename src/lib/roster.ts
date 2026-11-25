@@ -44,10 +44,10 @@ export function tileIndexes(roster: Roster): number[] {
 	const seen = new Set<string>();
 	return roster.characters.flatMap((c, index) => {
 		if (!c.group) return [index];
-		if (c.group === openGroup) return index === roster.active ? [index] : [];
 		if (seen.has(c.group)) return [];
 		seen.add(c.group);
-		return [index];
+		// The tile stays where the character's first preset is, whichever preset is open.
+		return [c.group === openGroup ? roster.active : index];
 	});
 }
 

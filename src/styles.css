@@ -6393,3 +6393,24 @@ details.content-fold[open] > summary {
 	text-transform: none;
 	color: var(--haze);
 }
+
+/* Presets: the build under the name, in the menu and on its button */
+.preset-menu-button span {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	line-height: 1.2;
+}
+.preset-menu small {
+	display: block;
+	overflow: hidden;
+	max-width: 100%;
+	font-size: 0.6875rem;
+	font-weight: 400;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	color: var(--haze);
+}
+.preset-menu-pick {
+	line-height: 1.25;
+}
