@@ -104,8 +104,8 @@
 							]
 						},
 						{
-							"title": "All on and All off for content rows",
-							"text": "Dungeons, reputations and set bonuses under \"What content do you do?\" each have two buttons in their row: All on and All off.",
+							"title": "Content rows start folded, each with All on and All off",
+							"text": "Every row under \"What content do you do?\" (dungeons, reputations, dungeon set pieces, set bonuses, PvP, everything else) starts folded and shows how much of it counts, with two buttons: All on and All off. Open a row only for the finer choice.",
 							"source": "Gear Planner",
 							"tags": [
 								"Planner"

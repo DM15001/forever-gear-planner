@@ -22,6 +22,9 @@ const RAIDS: [name: string, icon: string][] = [
 	['Naxxramas', 'achievement_boss_kelthuzad_01'],
 ];
 
+/** The ordinary sources under "Everything else": the ones All on and All off switch. */
+const OTHER_SOURCES = ['quest', 'crafted', 'drop', 'randomSuffix', 'currency', 'vendor'] as const;
+
 const FOLD_KEY = 'fgp.contentOpen';
 
 /** Whether the content choice is open: it is, until somebody closes it; the browser remembers. */
@@ -125,18 +128,21 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 	const dungeonIcons = (key: string) => (DUNGEON_ICONS as unknown as Record<string, string[] | undefined>)[key.split(':')[0]] ?? [];
 	const allDungeonKeys = [...catalog.dungeons.map(d => d.key), ...catalog.lowDungeonKeys];
 	const plainReputations = catalog.reputations.filter(r => !r.battleground).map(r => r.name);
+	const battlegrounds = catalog.reputations.filter(r => r.battleground).map(r => r.name);
 	// Which rows the visitor opened or shut by hand; the others follow what they hold.
 	const [opened, setOpened] = useState<Record<string, boolean>>({});
 
 	/**
-	 * One kind of content as a row that folds: a line with what counts and a switch for all of it. Everything on:
-	 * the row is shut, there is nothing to decide. Anything left out: it opens to show what.
+	 * One kind of content as a row that folds: a line with what counts and two switches for all of it. Every row
+	 * starts shut; opening it is for the finer choice.
 	 */
-	const group = (key: string, title: ReactNode, counted: number, of: number, allOn: (() => void) | null, allOff: (() => void) | null, children: ReactNode, extra = '') => {
+	const group = (key: string, title: ReactNode, counted: number, of: number, allOn: (() => void) | null, allOff: (() => void) | null, children: ReactNode, extra = '', body = 'content-tiles') => {
 		const everything = of > 0 && counted === of;
-		const isOpen = opened[key] ?? (of > 0 && !everything);
+		const isOpen = opened[key] ?? false;
 		return (
-			<details className={`content-group content-fold-group ${extra}`} open={isOpen} onToggle={event => event.currentTarget.open !== isOpen && setOpened({ ...opened, [key]: event.currentTarget.open })}>
+			<details className={`content-group content-fold-group ${extra}`} open={isOpen} onToggle={event => {
+				const now = event.currentTarget.open; if (now !== isOpen) setOpened(before => ({ ...before, [key]: now }));
+			}}>
 				<summary>
 					<span className="content-group-title">{title}</span>
 					{of > 0 && <span className={everything ? 'content-group-count content-group-all' : 'content-group-count'}>{everything ? `all ${of} count` : counted === 0 ? 'none count' : `${counted} of ${of} count`}</span>}
@@ -149,7 +155,6 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 								onClick={event => {
 									event.preventDefault();
 									allOn();
-									setOpened({ ...opened, [key]: false });
 								}}>
 								All on
 							</button>
@@ -169,7 +174,7 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 					)}
 					<span className="content-group-toggle">{isOpen ? 'Hide' : 'Choose'}</span>
 				</summary>
-				<div className="content-tiles">{children}</div>
+				<div className={body}>{children}</div>
 			</details>
 		);
 	};
@@ -234,17 +239,17 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				</>,
 			)}
 
-			{tiers && (
-				<fieldset className="content-group">
-					<legend>Dungeon set pieces (Tier 0 and Tier 0.5)</legend>
+			{tiers &&
+				group(
+					'tier',
+					'Dungeon set pieces (Tier 0 and Tier 0.5)',
+					filter.tierSlots.length,
+					TIER_SLOTS.length,
+					() => set({ tierSlots: TIER_SLOTS.map(([kind]) => kind) }),
+					() => set({ tierSlots: [] }),
+					<>
 					<p className="hint tier-hint">
-						Tick the slots that may hold a set piece. All ticked: the planner takes as many as are worth it. None ticked: no set piece at all.{' '}
-						<button className="link" onClick={() => set({ tierSlots: TIER_SLOTS.map(([kind]) => kind) })}>
-							All
-						</button>{' '}
-						<button className="link" onClick={() => set({ tierSlots: [] })}>
-							None
-						</button>
+						Tick the slots that may hold a set piece. All ticked: the planner takes as many as are worth it. None ticked: no set piece at all.
 					</p>
 					<label className="field-label tier-minimum">
 						How many set pieces
@@ -259,8 +264,10 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 					</label>
 					{check('I do the Tier 0.5 questline (the upgraded dungeon set)', filter.tier05, on => set({ tier05: on }))}
 					{TIER_SLOTS.map(([kind, label]) => check(`${label} (set piece)`, filter.tierSlots.includes(kind), on => set({ tierSlots: on ? [...filter.tierSlots, kind] : filter.tierSlots.filter(slot => slot !== kind) })))}
-				</fieldset>
-			)}
+					</>,
+					'',
+					'content-plain',
+				)}
 
 			{setChoices.length > 0 &&
 				group(
@@ -309,8 +316,14 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 					</>,
 				)}
 
-			<fieldset className="content-group content-tiles">
-				<legend>PvP</legend>
+			{group(
+				'pvp',
+				'PvP',
+				filter.pvp ? 1 + battlegrounds.filter(name => !filter.excludedReputations.includes(name)).length : 0,
+				1 + battlegrounds.length,
+				() => set({ pvp: true, excludedReputations: filter.excludedReputations.filter(name => !battlegrounds.includes(name)) }),
+				() => set({ pvp: false }),
+				<>
 				{tile('PvP', ['inv_bannerpvp_02', 'inv_bannerpvp_01'], filter.pvp, on => set({ pvp: on }), false, 'Rank rewards and battlegrounds')}
 				{catalog.reputations
 					.filter(r => r.battleground)
@@ -330,10 +343,18 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 						<span className="slot-source">Rewards of a higher rank are left out. Battleground reputations and quests stay in.</span>
 					</label>
 				)}
-			</fieldset>
+				</>,
+			)}
 
-			<fieldset className="content-group content-tiles">
-				<legend>Everything else</legend>
+			{group(
+				'other',
+				'Everything else',
+				OTHER_SOURCES.filter(key => filter[key]).length,
+				OTHER_SOURCES.length,
+				() => set(Object.fromEntries(OTHER_SOURCES.map(key => [key, true]))),
+				() => set(Object.fromEntries(OTHER_SOURCES.map(key => [key, false]))),
+				<>
+				<p className="hint tier-hint">All on and All off switch the six ordinary sources. "Only my professions" and the last three are special cases and stay as you set them.</p>
 				{tile('Quest rewards', ['inv_scroll_03'], filter.quest, on => set({ quest: on }))}
 				{tile('Crafted items', ['trade_blacksmithing'], filter.crafted, on => set({ crafted: on }))}
 				{tile('Only my professions', ['trade_engineering', 'trade_blacksmithing'], filter.crafted && filter.ownCraftsOnly, on => set({ ownCraftsOnly: on }), !filter.crafted, character.professions.length ? character.professions.join(', ') : 'Crafts from your own professions only')}
@@ -344,7 +365,8 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				{tile('Not in the game yet', ['inv_misc_pocketwatch_01'], filter.notYetAvailable, on => set({ notYetAvailable: on }), false, 'Later raids, events, closed content')}
 				{tile('Procs unknown', ['spell_nature_lightning'], filter.unknownProcs, on => set({ unknownProcs: on }), false, 'The simulator overvalues them')}
 				{tile('No known source', ['inv_misc_questionmark'], filter.unknown, on => set({ unknown: on }), false, 'Nobody knows where they drop')}
-			</fieldset>
+				</>,
+			)}
 			{!faction && <p className="field-error">Pick a race under "Check gear" to hide the other faction's items.</p>}
 			{filter.hiddenItems.length > 0 && (
 				<fieldset className="content-group hidden-items">
