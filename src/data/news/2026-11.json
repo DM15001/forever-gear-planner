@@ -151,6 +151,14 @@
 							"tags": [
 								"Planner"
 							]
+						},
+						{
+							"title": "Hide a planned item",
+							"text": "A planned item now has \"Hide\" next to \"Undo\": it leaves the plan and every list in one click.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
 						}
 					]
 				}

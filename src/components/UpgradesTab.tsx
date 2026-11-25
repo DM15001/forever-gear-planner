@@ -164,6 +164,15 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 		const other = pairedSlot(index);
 		return other !== undefined && character.plan?.[other] === undefined && clash(data.itemById.get(itemId), data.itemById.get(character.gear[other]?.id ?? -1));
 	};
+	/** Hides the planned item: out of the plan and out of every list, in one step, with a way back. */
+	const hidePlanned = (index: number, item: Item) => {
+		const { [index]: _removed, ...rest } = character.plan ?? {};
+		const before = character;
+		setGuideNotice(null);
+		setUndo({ label: `${item.name} hidden and taken out of the plan`, back: () => onChange(before) });
+		// The content choice lives on the character, so plan and hidden list change together.
+		onChange({ ...character, plan: rest, content: { ...filter, hiddenItems: [...filter.hiddenItems, item.id] } });
+	};
 	const unplan = (index: number) => {
 		const { [index]: _removed, ...rest } = character.plan ?? {};
 		setPlan(rest);
@@ -530,6 +539,9 @@ const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, open: char
 										<span className={`num ${planned.score - wornScore >= 0 ? 'delta-up' : 'delta-down'}`} title="What this one swap is worth: your plan against the same plan with the worn item in this slot.">({formatDelta(planned.score - wornScore)} over it)</span>{' '}
 										<button className="link" onClick={() => unplan(index)}>
 											Undo
+										</button>{' '}
+										<button className="link hide-item" onClick={() => hidePlanned(index, plannedItem)} title="Takes it out of the plan and leaves it out of every list and out of 'Plan the best set'. Bring it back under 'What content do you do?', at the bottom.">
+											Hide
 										</button>
 									</>
 								) : equippedItem ? (
