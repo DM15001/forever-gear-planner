@@ -1,7 +1,7 @@
 # Items to check
 
 Items whose source the planner does not know: it either guesses "World drop (assumed)" or shows "Source unknown".
-1137 such items are in the data; this page lists the ones worth checking first. Written by
+1136 such items are in the data; this page lists the ones worth checking first. Written by
 `scripts/items-to-check.ts`; do not edit by hand. To fix one, add its source to `src/config/sources.manual.json`
 (or to `src/config/not-available.json` when it cannot be had), or open an issue saying where it comes from.
 
@@ -84,7 +84,7 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Frenzied Striker](https://www.wowhead.com/forever/item=13056) (13056, rare 56, weapon): no source; 1 build, best #10 (Hunter: Beast Mastery)
 - [Gryphon Rider's Crop](https://www.wowhead.com/forever/item=270112) (270112, uncommon 53, weapon): no source; 1 build, best #10 (Priest: Smite Testing)
 
-## Other rare and epic items (376)
+## Other rare and epic items (375)
 
 - [Ecks'av's Tribal Guardian](https://www.wowhead.com/forever/item=211940) (211940, rare 64, weapon): no source
 - [Scarlet Forgemaster's Bindings](https://www.wowhead.com/forever/item=284091) (284091, rare 64, wrist): no source
@@ -208,7 +208,6 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Cow King's Hide](https://www.wowhead.com/forever/item=13009) (13009, rare 51, chest): no source
 - [Lei of Lilies](https://www.wowhead.com/forever/item=1315) (1315, epic 51, neck): no source
 - [Six Demon Bag](https://www.wowhead.com/forever/item=7734) (7734, rare 51, trinket): no source
-- [Vilerend Slicer](https://www.wowhead.com/forever/item=11603) (11603, rare 51, weapon): no source
 - [Wyrmslayer Spaulders](https://www.wowhead.com/forever/item=13066) (13066, rare 51, shoulder): no source
 - [Blanchard's Stout](https://www.wowhead.com/forever/item=13046) (13046, rare 50, weapon): no source
 - [Bloodrazor](https://www.wowhead.com/forever/item=809) (809, epic 50, weapon): no source
@@ -386,3 +385,4 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Harpyclaw Short Bow](https://www.wowhead.com/forever/item=13019) (13019, rare 32, ranged): no source
 - [Holy Shroud](https://www.wowhead.com/forever/item=2721) (2721, rare 32, head): no source
 - [Malignant Root](https://www.wowhead.com/forever/item=282283) (282283, rare 32, finger): no source
+- [Rune-Etched Ring](https://www.wowhead.com/forever/item=281320) (281320, rare 32, finger): no source

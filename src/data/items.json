@@ -47161,29 +47161,6 @@
 		]
 	},
 	{
-		"id": 11603,
-		"name": "Vilerend Slicer",
-		"icon": "ability_whirlwind",
-		"slot": "weapon",
-		"quality": "rare",
-		"ilvl": 51,
-		"reqLvl": 46,
-		"weapon": {
-			"type": "fist",
-			"hand": "mainHand",
-			"speed": 1.4,
-			"dps": 34.07,
-			"damageMin": 33,
-			"damageMax": 62
-		},
-		"effects": [
-			{
-				"name": "Wound (1320808)",
-				"kind": "proc"
-			}
-		]
-	},
-	{
 		"id": 11604,
 		"name": "Dark Iron Plate",
 		"icon": "inv_chest_plate08",
