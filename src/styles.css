@@ -6430,3 +6430,26 @@ details.content-fold[open] > summary {
 	text-decoration: underline 2px #5fe3d0;
 	text-underline-offset: 3px;
 }
+
+/* Upgrades: every slot in sight. The bar wraps into rows instead of scrolling sideways. */
+.slot-bar .slot-nav {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(8.1rem, 1fr));
+	gap: 0.35rem;
+	overflow: visible;
+}
+.slot-nav .slot-chip {
+	min-width: 0;
+	padding-right: 0.5rem;
+}
+.slot-nav .slot-chip strong {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.slot-nav .slot-chip > span:last-child {
+	margin-left: auto;
+	font-size: 0.6875rem;
+}
+.upgrade-slot {
+	scroll-margin-top: 12.5rem;
+}

@@ -127,6 +127,14 @@
 							"tags": [
 								"Planner"
 							]
+						},
+						{
+							"title": "All slots in sight",
+							"text": "The slot bar on the Upgrades page wraps into two rows instead of scrolling sideways.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
 						}
 					]
 				}
