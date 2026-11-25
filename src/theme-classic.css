@@ -533,27 +533,6 @@
 	border-radius: 0;
 }
 
-/* The menu column: a silver riveted cap above and below, like a plate screwed to the wall. */
-@media (min-width: 64rem) {
-	:root[data-theme='classic'] .tab-bar::after {
-		content: '';
-		display: block;
-		height: 12px;
-		background:
-			radial-gradient(circle at 10px 6px, #e8ecef 0 1.5px, #555 2.5px, transparent 3px) 0 0 / 34px 12px,
-			linear-gradient(180deg, #b9c0c6, #6d747a 50%, #3a3f44);
-		border: 1px solid #000;
-	}
-	:root[data-theme='classic'] .tab-bar::before {
-		border-top: 12px solid #7b8288;
-		border-image: linear-gradient(180deg, #c9cfd4, #6d747a) 1;
-	}
-	:root[data-theme='classic'] .tabs {
-		border-radius: 0;
-		background: #070a12;
-	}
-}
-
 /* Jump buttons and small floating things, in the blue of the bars. */
 :root[data-theme='classic'] .back-to-top {
 	color: #ffd75a;
@@ -763,4 +742,184 @@
 /* Paper with a little more age: darker at the edges. */
 :root[data-theme='classic'] main .panel {
 	background-image: radial-gradient(ellipse at 50% 40%, transparent 55%, rgb(120 84 30 / 0.12));
+}
+
+
+/* ---- Heavy frames. Every large piece of the page sits in a thick cast-gold frame with rivets at the corners and
+   engraving along the bars; behind them dark planks, inside them leather or paper. All of it drawn here. ---- */
+:root[data-theme='classic'] {
+	--frame: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23fff0b0'/%3E%3Cstop offset='.18' stop-color='%23e0b548'/%3E%3Cstop offset='.38' stop-color='%238f6114'/%3E%3Cstop offset='.55' stop-color='%23f3d478'/%3E%3Cstop offset='.75' stop-color='%23a8791f'/%3E%3Cstop offset='1' stop-color='%235d3b0a'/%3E%3C/linearGradient%3E%3CradialGradient id='r' cx='.35' cy='.35' r='.7'%3E%3Cstop offset='0' stop-color='%23fff6cc'/%3E%3Cstop offset='.45' stop-color='%23d9aa3c'/%3E%3Cstop offset='1' stop-color='%234a2f08'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect x='17' y='17' width='86' height='86' fill='none' stroke='%23170d04' stroke-width='34'/%3E%3Crect x='13' y='13' width='94' height='94' fill='none' stroke='url(%23g)' stroke-width='20'/%3E%3Crect x='3.5' y='3.5' width='113' height='113' fill='none' stroke='%23fff3c0' stroke-opacity='.75' stroke-width='1'/%3E%3Crect x='8' y='8' width='104' height='104' fill='none' stroke='%234a2f08' stroke-opacity='.8' stroke-width='1.5'/%3E%3Crect x='9.5' y='9.5' width='101' height='101' fill='none' stroke='%23fff0b0' stroke-opacity='.45' stroke-width='1'/%3E%3Crect x='18' y='18' width='84' height='84' fill='none' stroke='%23fff0b0' stroke-opacity='.4' stroke-width='1'/%3E%3Crect x='19.5' y='19.5' width='81' height='81' fill='none' stroke='%233a2406' stroke-opacity='.85' stroke-width='1.5'/%3E%3Crect x='23.5' y='23.5' width='73' height='73' fill='none' stroke='%23120a02' stroke-width='1.5'/%3E%3Crect x='28' y='28' width='64' height='64' fill='none' stroke='%23c79a3a' stroke-width='2'/%3E%3Crect x='30' y='30' width='60' height='60' fill='none' stroke='%23fff0b0' stroke-opacity='.35' stroke-width='.8'/%3E%3Cg fill='%233a2406'%3E%3Cpath d='M60 9l5 5-5 5-5-5zM60 101l5 5-5 5-5-5zM9 60l5-5 5 5-5 5zM101 60l5-5 5 5-5 5z'/%3E%3Ccircle cx='48' cy='14' r='1.6'/%3E%3Ccircle cx='72' cy='14' r='1.6'/%3E%3Ccircle cx='48' cy='106' r='1.6'/%3E%3Ccircle cx='72' cy='106' r='1.6'/%3E%3Ccircle cx='14' cy='48' r='1.6'/%3E%3Ccircle cx='14' cy='72' r='1.6'/%3E%3Ccircle cx='106' cy='48' r='1.6'/%3E%3Ccircle cx='106' cy='72' r='1.6'/%3E%3C/g%3E%3Cg fill='%23fff0b0' fill-opacity='.7'%3E%3Cpath d='M60 11l3 3-3 3-3-3zM60 103l3 3-3 3-3-3zM11 60l3-3 3 3-3 3zM103 60l3-3 3 3-3 3z'/%3E%3C/g%3E%3Cg id='c'%3E%3Cpath d='M1 1h34v10c-10 0-14 4-14 14v10H1z' fill='url(%23g)' stroke='%23120a02' stroke-width='2'/%3E%3Cpath d='M5 5h26v3c-10 1-13 4-14 14v9H5z' fill='none' stroke='%23fff3c0' stroke-opacity='.6'/%3E%3Ccircle cx='13' cy='13' r='6.5' fill='%23120a02'/%3E%3Ccircle cx='13' cy='13' r='5' fill='url(%23r)'/%3E%3Cpath d='M27 15c5 0 8 3 7 7-1 3-5 3-5 0M15 27c0 5 3 8 7 7 3-1 3-5 0-5' fill='none' stroke='%23120a02' stroke-width='3.4' stroke-linecap='round'/%3E%3Cpath d='M27 15c5 0 8 3 7 7-1 3-5 3-5 0M15 27c0 5 3 8 7 7 3-1 3-5 0-5' fill='none' stroke='%23e9c765' stroke-width='1.6' stroke-linecap='round'/%3E%3C/g%3E%3Cuse href='%23c' transform='translate(120 0) scale(-1 1)'/%3E%3Cuse href='%23c' transform='translate(0 120) scale(1 -1)'/%3E%3Cuse href='%23c' transform='translate(120 120) scale(-1 -1)'/%3E%3C/svg%3E");
+	--leather: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='l'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .7 0 0 0 0 .45 0 0 0 0 .2 0 0 0 .5 -.1'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23l)' opacity='.3'/%3E%3C/svg%3E");
+}
+:root[data-theme='classic'] body {
+	font-size: 15px;
+	line-height: 1.55;
+	background:
+		radial-gradient(ellipse 70rem 34rem at 50% -8rem, rgb(34 58 104 / 0.42), transparent 70%),
+		radial-gradient(ellipse at 50% 40%, transparent 35%, rgb(0 0 0 / 0.72) 100%),
+		repeating-linear-gradient(90deg, transparent 0 158px, rgb(0 0 0 / 0.6) 158px 160px, rgb(255 214 140 / 0.05) 160px 161px),
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='640'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.45 .006' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .3 0 0 0 0 .12 .9 0 0 0 -.25'/%3E%3C/filter%3E%3Crect width='320' height='640' filter='url(%23w)' opacity='.5'/%3E%3C/svg%3E"),
+		linear-gradient(180deg, #2a1a0e, #170d06 60%, #0c0603);
+	background-attachment: fixed;
+}
+:root[data-theme='classic'] body::before {
+	height: 14px;
+	background: linear-gradient(180deg, #fff0b0, #d9aa3c 18%, #8f6114 52%, #5d3b0a 56%, #b98a2a 82%, #3a2406);
+	border-bottom: 2px solid #000;
+	box-shadow: 0 1px 0 #6b5326, 0 6px 14px rgb(0 0 0 / 0.6);
+}
+:root[data-theme='classic'] :is(main, .masthead-title, .tab-bar, .gear-rail) {
+	border: 22px solid #6b4a14;
+	border-image: var(--frame) 40 / 22px round;
+	border-radius: 0;
+}
+:root[data-theme='classic'] main {
+	padding: 1.4rem 1.6rem 2rem;
+	box-shadow:
+		inset 0 0 0 1px rgb(60 38 8 / 0.5),
+		inset 0 0 46px rgb(96 64 18 / 0.3),
+		0 18px 50px rgb(0 0 0 / 0.85);
+}
+/* The corner curls of the old frame: the cast corners do that job now. */
+:root[data-theme='classic'] main::before,
+:root[data-theme='classic'] main::after {
+	display: none;
+}
+:root[data-theme='classic'] .masthead-title {
+	padding: 0.9rem 1.3rem;
+	background: var(--leather), radial-gradient(ellipse at 30% 0, #3a2614, #1a0f07 70%);
+	box-shadow:
+		inset 0 0 30px rgb(0 0 0 / 0.7),
+		0 14px 36px rgb(0 0 0 / 0.8);
+}
+:root[data-theme='classic'] .masthead-sub {
+	color: #d8c49a;
+}
+:root[data-theme='classic'] h1 {
+	filter: drop-shadow(0 2px 1px #000) drop-shadow(0 0 14px rgb(255 200 80 / 0.25));
+}
+:root[data-theme='classic'] .tab-bar {
+	border-width: 18px;
+	border-image-width: 18px;
+	background: var(--leather), linear-gradient(180deg, #2c1b0d, #150c05);
+	box-shadow:
+		inset 0 0 22px rgb(0 0 0 / 0.8),
+		0 14px 36px rgb(0 0 0 / 0.8);
+}
+:root[data-theme='classic'] .tabs {
+	padding: 4px;
+	background: none;
+	border: 0;
+	box-shadow: none;
+}
+:root[data-theme='classic'] .tab {
+	margin: 2px 0;
+	background: linear-gradient(180deg, #4a321a, #2a1a0c 48%, #170d05 52%, #24160a);
+	box-shadow: inset 0 0 0 1px rgb(255 214 140 / 0.22), 0 1px 0 rgb(255 214 140 / 0.12);
+}
+:root[data-theme='classic'] .tab:hover {
+	background: linear-gradient(180deg, #6a4a26, #3a2512 48%, #22140a 52%, #33200f);
+}
+:root[data-theme='classic'] .tab[aria-current='page'] {
+	background: linear-gradient(180deg, #fff0b0, #e6bb4c 40%, #a9781c 58%, #d9aa3c);
+	box-shadow: inset 0 0 0 1px #fff3c0, 0 0 12px rgb(255 200 80 / 0.35);
+}
+:root[data-theme='classic'] .tool-link,
+:root[data-theme='classic'] .tool-link:nth-child(odd) {
+	color: #ffe39a;
+	background: linear-gradient(180deg, #5a3d1e, #2e1c0d 50%, #1a0f06 54%, #2a1a0c);
+	border: 1px solid #000;
+	box-shadow:
+		inset 0 0 0 1px rgb(255 214 140 / 0.28),
+		0 0 0 1px #c79a3a,
+		0 0 0 2px #000,
+		0 3px 8px rgb(0 0 0 / 0.6);
+}
+:root[data-theme='classic'] .tool-link:hover {
+	color: #fff;
+	background: linear-gradient(180deg, #76522a, #3d2612 50%, #24150a 54%, #38230f);
+}
+:root[data-theme='classic'] .tool-link[aria-current='page'] {
+	color: #1a1203;
+	background: linear-gradient(180deg, #fff0b0, #e6bb4c 40%, #a9781c 58%, #d9aa3c);
+}
+:root[data-theme='classic'] main .gear-rail {
+	border: 16px solid #6b4a14;
+	border-image: var(--frame) 40 / 16px round;
+	background: var(--leather), linear-gradient(180deg, #24160b, #120a04);
+	box-shadow:
+		inset 0 0 20px rgb(0 0 0 / 0.8),
+		0 12px 30px rgb(0 0 0 / 0.85);
+}
+/* Panels on the paper: a fine double line in old gold, more air inside. */
+:root[data-theme='classic'] main .panel {
+	padding: 1.1rem 1.25rem 1.25rem;
+	border: 1px solid #5a3f12;
+	outline: 1px solid #c79a3a;
+	outline-offset: -5px;
+	box-shadow:
+		inset 0 0 0 1px #f8eecb,
+		inset 0 0 22px rgb(120 84 30 / 0.16),
+		0 2px 6px rgb(60 38 8 / 0.3);
+}
+:root[data-theme='classic'] main .panel + .panel {
+	margin-top: 1.4rem;
+}
+:root[data-theme='classic'] .page > footer {
+	color: #b9a67c;
+}
+:root[data-theme='classic'] .page > footer::after {
+	color: #8c7a55;
+}
+@media (min-width: 64rem) {
+	:root[data-theme='classic'] .page {
+		grid-template-columns: 14rem minmax(0, 1fr);
+		column-gap: 1.5rem;
+		max-width: 84rem;
+	}
+	:root[data-theme='classic'] .masthead-title {
+		margin-bottom: 1.5rem;
+	}
+	:root[data-theme='classic'] .masthead-tools {
+		align-self: center;
+		margin: 0 2.4rem 1.5rem 0;
+		position: relative;
+		z-index: 1;
+	}
+	:root[data-theme='classic'] .tab-bar::before {
+		margin: 4px 4px 2px;
+		border: 1px solid #000;
+		background: linear-gradient(180deg, #fff0b0, #e6bb4c 40%, #a9781c 58%, #d9aa3c);
+	}
+	:root[data-theme='classic'] .tab {
+		padding: 0.6rem 1.6rem 0.6rem 0.7rem;
+	}
+}
+@media (min-width: 90rem) {
+	:root[data-theme='classic'] .gear-rail {
+		--gutter: calc((100vw - 84rem) / 2);
+	}
+}
+@media (max-width: 110rem) {
+	:root[data-theme='classic'] :is(.gear-rail, .gear-rail-show) {
+		display: none;
+	}
+}
+@media (max-width: 63.99rem) {
+	:root[data-theme='classic'] :is(main, .masthead-title, .tab-bar) {
+		border-width: 12px;
+		border-image-width: 12px;
+	}
+	:root[data-theme='classic'] main {
+		padding: 0.9rem 0.8rem 1.4rem;
+	}
+}
+:root[data-theme='classic'] main .farm-tag-bis {
+	color: #a24a00;
+	border-color: #a24a00;
+}
+:root[data-theme='classic'] main .farm-tag-planned {
+	color: #ffd75a;
+	background: #5a2d0c;
+	border-color: #2a1505;
 }
