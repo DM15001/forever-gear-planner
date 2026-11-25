@@ -1,27 +1,33 @@
 {
 	"note": "Stat weights of this build, measured with the WoWSims simulator on its preset by scripts/build-weights.mjs. The planner uses them instead of the weights in src/specs, unless \"held\" is true: then a weight moved so far that a person should look first.",
-	"inputs": "62094ca36e64ad90",
-	"measuredOn": "2026-11-24",
+	"inputs": "97f54c30ab65932e",
+	"measuredOn": "2026-11-25",
 	"iterations": 8000,
 	"unit": "attackPower",
-	"referenceDps": 770.9,
-	"dpsPerPoint": 0.107,
+	"referenceDps": 964.3,
+	"dpsPerPoint": 0.1704,
 	"stats": {
 		"strength": 2.42,
-		"agility": 2.46,
-		"intellect": 2.9,
-		"spellDamage": 4.1,
-		"holyDamage": 3.51,
-		"spellPiercing": 0.93,
+		"agility": 1.89,
+		"intellect": 1.78,
+		"spellDamage": 2.47,
+		"holyDamage": 2.06,
+		"spellPiercing": 0.81,
 		"attackPower": 1,
-		"critRating": 3.91,
-		"hasteRating": 3.05,
-		"armorPenetration": 0.2,
-		"expertiseRating": 4.49,
-		"hitRating": 3.68
+		"critRating": 2.96,
+		"hasteRating": 2.48,
+		"armorPenetration": 0.23,
+		"expertiseRating": 4.83,
+		"hitRating": 7.21
 	},
+	"hitCapPercent": 8,
+	"hitRatingOverCap": 0.35,
 	"held": true,
 	"reasons": [
-		"hitRating: 7.7 in use, 3.68 measured"
+		"intellect: 4.53 in use, 1.78 measured",
+		"spellDamage: 5.78 in use, 2.47 measured",
+		"holyDamage: 4.98 in use, 2.06 measured",
+		"spellPiercing: 0.01 in use, 0.81 measured",
+		"DPS per point of attackPower: 0.1085 in use, 0.1704 measured"
 	]
 }
