@@ -3,9 +3,13 @@ import { useMemo, useState } from 'react';
 import { contentCatalog, presets, sameFilter, toggled } from '../lib/content';
 import type { GameData } from '../lib/gameData';
 import { type SourceFilter, TIER_SLOTS, tierSets, PVP_RANKS, usableSources } from '../lib/scoring';
-import type { Character, SpecConfig } from '../lib/types';
+import { unit } from '../lib/format';
+import { pieceStats, statLine } from '../lib/stats';
+import type { Character, Item, SpecConfig } from '../lib/types';
 import DUNGEON_ICONS from '../config/dungeonIcons.json';
-import { DungeonIcon } from './ItemIcon';
+import { DungeonIcon, ItemIcon } from './ItemIcon';
+
+const SLOT_NAMES: Record<string, string> = { head: 'Head', neck: 'Neck', shoulder: 'Shoulders', back: 'Back', chest: 'Chest', wrist: 'Wrists', hands: 'Hands', waist: 'Waist', legs: 'Legs', feet: 'Feet', finger: 'Ring', trinket: 'Trinket', weapon: 'Weapon', ranged: 'Ranged' };
 
 /** The raids the planner will cover, with the game's own icon for each. Shown greyed out until their loot is in the data. */
 const RAIDS: [name: string, icon: string][] = [
@@ -60,12 +64,13 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 	// The sets whose bonuses are worth something for this build, by name; the ones already switched off stay listed.
 	const setChoices = useMemo(() => {
 		const mine = new Set([...character.gear.flatMap(piece => (piece ? [piece.id] : [])), ...Object.values(character.plan ?? {})]);
-		const pieces = new Map<number, { name: string; icon?: string; count: number }>();
+		const pieces = new Map<number, { name: string; icon?: string; count: number; items: Item[] }>();
 		for (const item of data.itemById.values()) {
 			if (item.setId === undefined || !item.setName) continue;
 			// The other faction's version of a set is not one this character can wear.
 			if (item.faction && faction && item.faction !== faction) continue;
-			const known = pieces.get(item.setId) ?? { name: item.setName, icon: item.icon, count: 0 };
+			const known = pieces.get(item.setId) ?? { name: item.setName, icon: item.icon, count: 0, items: [] };
+			known.items.push(item);
 			// A piece counts if you wear or plan it, or can get it with the content that is switched on.
 			if (mine.has(item.id) || usableSources(item, faction, { ...filter, ignoredSets: [] }, character.professions).length > 0) known.count++;
 			pieces.set(item.setId, known);
@@ -92,7 +97,7 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 		const byName = new Map<string, number[]>();
 		for (const id of ids) byName.set(pieces.get(id)!.name, [...(byName.get(pieces.get(id)!.name) ?? []), id]);
 		return [...byName]
-			.map(([name, setIds]) => ({ name, setIds, icon: pieces.get(setIds[0])!.icon, note: steps(setIds.find(id => data.simValues.sets.has(id)) ?? setIds[0]), worth: Math.max(...setIds.map(worthOf)) }))
+			.map(([name, setIds]) => ({ name, setIds, items: pieces.get(setIds[0])!.items, icon: pieces.get(setIds[0])!.icon, note: steps(setIds.find(id => data.simValues.sets.has(id)) ?? setIds[0]), worth: Math.max(...setIds.map(worthOf)) }))
 			.sort((x, y) => y.worth - x.worth || x.name.localeCompare(y.name));
 	}, [data, filter, faction, character]);
 	const lowOn = !catalog.lowDungeonKeys.some(key => filter.excludedDungeons.includes(key));
@@ -128,6 +133,9 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 						{preset.label}
 					</button>
 				))}
+				<button className="button content-preset" disabled title="Raid loot is not in the planner yet.">
+					Dungeons and raids <span className="badge badge-plan">coming soon</span>
+				</button>
 			</div>
 
 			<fieldset className="content-group content-tiles">
@@ -156,16 +164,9 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 			<fieldset className="content-group content-tiles">
 				<legend>Reputations</legend>
 				{tile('Any reputation', ['inv_misc_note_02', 'inv_scroll_03'], filter.rep, on => set({ rep: on }), false, 'The switch for all of them')}
-				{catalog.reputations.map(r =>
-					tile(
-						r.name,
-						r.battleground ? ['inv_bannerpvp_02', 'inv_bannerpvp_01'] : ['inv_misc_tournaments_banner_human', 'inv_scroll_03'],
-						filter.rep && !filter.excludedReputations.includes(r.name) && (!r.battleground || filter.pvp),
-						on => set({ excludedReputations: toggled(filter.excludedReputations, [r.name], on) }),
-						!filter.rep || (r.battleground && !filter.pvp),
-						r.battleground ? (filter.pvp ? 'Battleground' : 'Battleground: needs PvP switched on') : undefined,
-					),
-				)}
+				{catalog.reputations
+					.filter(r => !r.battleground)
+					.map(r => tile(r.name, ['inv_misc_tournaments_banner_human', 'inv_scroll_03'], filter.rep && !filter.excludedReputations.includes(r.name), on => set({ excludedReputations: toggled(filter.excludedReputations, [r.name], on) }), !filter.rep))}
 			</fieldset>
 
 			{tiers && (
@@ -208,32 +209,47 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 							None
 						</button>
 					</p>
-					{setChoices.map(choice =>
-						tile(
-							choice.name,
-							choice.icon ? [choice.icon] : [],
-							choice.setIds.some(id => !filter.ignoredSets.includes(id)),
-							on => set({ ignoredSets: on ? filter.ignoredSets.filter(id => !choice.setIds.includes(id)) : [...new Set([...filter.ignoredSets, ...choice.setIds])] }),
-							false,
-							choice.note || undefined,
-						),
-					)}
+					{setChoices.map(choice => (
+						<div key={choice.name} className="set-tile">
+							{tile(
+								choice.name,
+								choice.icon ? [choice.icon] : [],
+								choice.setIds.some(id => !filter.ignoredSets.includes(id)),
+								on => set({ ignoredSets: on ? filter.ignoredSets.filter(id => !choice.setIds.includes(id)) : [...new Set([...filter.ignoredSets, ...choice.setIds])] }),
+								false,
+								choice.note || undefined,
+							)}
+							<div className="set-pop" role="tooltip">
+								<strong>{choice.name}</strong>
+								{choice.note && <p className="set-pop-bonus">Bonus for your build, in total: {choice.note} {unit()}</p>}
+								<ul className="plain-list">
+									{choice.items.map(item => (
+										<li key={item.id}>
+											<ItemIcon icon={item.icon} quality={item.quality} inline />
+											<span>
+												<span className={`quality-${item.quality}`}>{item.name}</span>
+												<span className="slot-source">
+													{SLOT_NAMES[item.slot] ?? item.slot}: {statLine(pieceStats(item, { id: item.id }, data)) || 'no stats'}
+												</span>
+											</span>
+										</li>
+									))}
+								</ul>
+								<a href={`https://www.wowhead.com/forever/item-set=${choice.setIds[0]}`} target="_blank" rel="noreferrer">
+									What the bonuses do, on Wowhead
+								</a>
+							</div>
+						</div>
+					))}
 				</fieldset>
 			)}
 
 			<fieldset className="content-group content-tiles">
-				<legend>Everything else</legend>
-				{tile('Quest rewards', ['inv_scroll_03'], filter.quest, on => set({ quest: on }))}
-				{tile('Crafted items', ['trade_blacksmithing'], filter.crafted, on => set({ crafted: on }))}
-				{tile('Only my professions', ['trade_engineering', 'trade_blacksmithing'], filter.crafted && filter.ownCraftsOnly, on => set({ ownCraftsOnly: on }), !filter.crafted, character.professions.length ? character.professions.join(', ') : 'Crafts from your own professions only')}
-				{tile('World drops', ['inv_misc_bag_08'], filter.drop, on => set({ drop: on }))}
-				{tile('Random-suffix items', ['inv_jewelry_ring_03'], filter.randomSuffix, on => set({ randomSuffix: on }), false, '"of Shadow Wrath", best roll')}
-				{tile('Currency vendors', ['inv_misc_coin_02', 'inv_misc_coin_01'], filter.currency, on => set({ currency: on }), false, 'Tarnished Undermine Reals')}
-				{tile('Other vendors', ['inv_misc_coin_01'], filter.vendor, on => set({ vendor: on }))}
+				<legend>PvP</legend>
 				{tile('PvP', ['inv_bannerpvp_02', 'inv_bannerpvp_01'], filter.pvp, on => set({ pvp: on }), false, 'Rank rewards and battlegrounds')}
-				{tile('Not in the game yet', ['inv_misc_pocketwatch_01'], filter.notYetAvailable, on => set({ notYetAvailable: on }), false, 'Later raids, events, closed content')}
-				{tile('Procs unknown', ['spell_nature_lightning'], filter.unknownProcs, on => set({ unknownProcs: on }), false, 'The simulator overvalues them')}
-				{tile('No known source', ['inv_misc_questionmark'], filter.unknown, on => set({ unknown: on }), false, 'Nobody knows where they drop')}
+				{catalog.reputations
+					.filter(r => r.battleground)
+					.map(r => tile(r.name, ['inv_bannerpvp_01', 'inv_bannerpvp_02'], filter.pvp && !filter.excludedReputations.includes(r.name), on => set({ excludedReputations: toggled(filter.excludedReputations, [r.name], on) }), !filter.pvp, 'Battleground faction'))}
 				{filter.pvp && (
 					<label className="tier-minimum content-wide">
 						Highest honor rank you will reach
@@ -249,6 +265,20 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 						<span className="slot-source">Rewards of a higher rank are left out. Battleground reputations and quests stay in.</span>
 					</label>
 				)}
+			</fieldset>
+
+			<fieldset className="content-group content-tiles">
+				<legend>Everything else</legend>
+				{tile('Quest rewards', ['inv_scroll_03'], filter.quest, on => set({ quest: on }))}
+				{tile('Crafted items', ['trade_blacksmithing'], filter.crafted, on => set({ crafted: on }))}
+				{tile('Only my professions', ['trade_engineering', 'trade_blacksmithing'], filter.crafted && filter.ownCraftsOnly, on => set({ ownCraftsOnly: on }), !filter.crafted, character.professions.length ? character.professions.join(', ') : 'Crafts from your own professions only')}
+				{tile('World drops', ['inv_misc_bag_08'], filter.drop, on => set({ drop: on }))}
+				{tile('Random-suffix items', ['inv_jewelry_ring_03'], filter.randomSuffix, on => set({ randomSuffix: on }), false, '"of Shadow Wrath", best roll')}
+				{tile('Currency vendors', ['inv_misc_coin_02', 'inv_misc_coin_01'], filter.currency, on => set({ currency: on }), false, 'Tarnished Undermine Reals')}
+				{tile('Other vendors', ['inv_misc_coin_01'], filter.vendor, on => set({ vendor: on }))}
+				{tile('Not in the game yet', ['inv_misc_pocketwatch_01'], filter.notYetAvailable, on => set({ notYetAvailable: on }), false, 'Later raids, events, closed content')}
+				{tile('Procs unknown', ['spell_nature_lightning'], filter.unknownProcs, on => set({ unknownProcs: on }), false, 'The simulator overvalues them')}
+				{tile('No known source', ['inv_misc_questionmark'], filter.unknown, on => set({ unknown: on }), false, 'Nobody knows where they drop')}
 			</fieldset>
 			{!faction && <p className="field-error">Pick a race on the Character tab to hide the other faction's items.</p>}
 			{filter.hiddenItems.length > 0 && (

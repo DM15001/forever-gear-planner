@@ -432,10 +432,12 @@ export function usableSources(item: Item, faction: Faction | undefined, filter: 
 		if (pvpItem && s.kind === 'vendor' && !filter.pvp) return false;
 		if (s.dungeonKey) {
 			if (filter.excludedDungeons.includes(s.dungeonKey)) return false;
-		} else if (!filter[filterKey(s)]) return false;
-		// Everything earned in a battleground is PvP, whether a rank, a reputation or a quest pays for it.
+		}
+		// Everything earned in a battleground is PvP, whether a rank, a reputation or a quest pays for it: the PvP switch alone decides.
 		const battleground = battlegroundOf(s);
-		if (battleground && !filter.pvp) return false;
+		if (battleground) {
+			if (!filter.pvp) return false;
+		} else if (!s.dungeonKey && !filter[filterKey(s)]) return false;
 		const reputation = reputationOf(s) ?? battleground;
 		if (reputation && filter.excludedReputations.includes(reputation)) return false;
 		if (s.faction && faction && s.faction !== faction) return false;

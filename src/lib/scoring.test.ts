@@ -178,9 +178,9 @@ describe('reputation filter', () => {
 	const withPvp = { ...options, filter: { ...DEFAULT_FILTER, pvp: true } };
 	const has = (list: { item: { id: number } }[], id: number) => list.some(c => c.item.id === id);
 
-	it('treats battleground quartermasters as reputation, and as PvP', () => {
+	it('treats battleground quartermasters as PvP: the PvP switch decides, the reputation switch does not', () => {
 		expect(has(slotCandidates(10, dwarf.gear, withPvp), DON_JULIOS_BAND)).toBe(true);
-		expect(has(slotCandidates(10, dwarf.gear, { ...withPvp, filter: { ...withPvp.filter, rep: false } }), DON_JULIOS_BAND)).toBe(false);
+		expect(has(slotCandidates(10, dwarf.gear, { ...withPvp, filter: { ...withPvp.filter, rep: false } }), DON_JULIOS_BAND)).toBe(true);
 		expect(has(slotCandidates(10, dwarf.gear, { ...withPvp, filter: { ...withPvp.filter, excludedReputations: ['Stormpike Guard'] } }), DON_JULIOS_BAND)).toBe(false);
 		// Without the PvP switch nothing from a battleground is offered.
 		expect(has(slotCandidates(10, dwarf.gear, options), DON_JULIOS_BAND)).toBe(false);

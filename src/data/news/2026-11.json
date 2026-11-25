@@ -135,6 +135,22 @@
 							"tags": [
 								"Planner"
 							]
+						},
+						{
+							"title": "PvP has its own group",
+							"text": "The battleground factions moved from Reputations to a PvP group, next to the PvP switch and the rank limit. The PvP switch alone decides whether their rewards count.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Set bonuses: hover for the pieces",
+							"text": "Hovering a set under \"Set bonuses to count\" shows its pieces with their stats, what the bonus is worth for your build, and a link to the bonus text on Wowhead.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
 						}
 					]
 				}

@@ -6453,3 +6453,64 @@ details.content-fold[open] > summary {
 .upgrade-slot {
 	scroll-margin-top: 12.5rem;
 }
+
+/* Set bonus tiles: hover or focus shows the pieces with their stats and what the bonus is worth */
+.set-tile {
+	position: relative;
+	display: grid;
+}
+.set-pop {
+	position: absolute;
+	top: calc(100% + 4px);
+	left: 0;
+	z-index: 40;
+	display: none;
+	width: max(100%, 24rem);
+	max-width: calc(100vw - 2rem);
+	padding: 0.7rem 0.85rem;
+	font-size: 0.8125rem;
+	background: #0a0806;
+	border: 1px solid var(--brass);
+	border-radius: 8px;
+	box-shadow: 0 10px 28px rgb(0 0 0 / 0.8);
+}
+.set-tile:hover .set-pop,
+.set-tile:focus-within .set-pop {
+	display: block;
+}
+/* The tiles at the right edge open their card to the left. */
+.content-tiles .set-tile:nth-child(4n + 2) .set-pop {
+	left: auto;
+	right: 0;
+}
+.set-pop > strong {
+	font-size: 0.9375rem;
+	color: var(--brass);
+}
+.set-pop-bonus {
+	margin: 0.2rem 0 0.5rem;
+	color: #6fdc7a;
+}
+.set-pop li {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.45rem;
+	padding: 0.25rem 0;
+	border-top: 1px solid var(--hairline);
+}
+.set-pop li > span {
+	display: flex;
+	flex-direction: column;
+	font-weight: 600;
+}
+.set-pop li .slot-source {
+	font-weight: 400;
+}
+.set-pop a {
+	display: inline-block;
+	margin-top: 0.5rem;
+}
+.presets .content-preset:disabled {
+	opacity: 0.55;
+	cursor: not-allowed;
+}
