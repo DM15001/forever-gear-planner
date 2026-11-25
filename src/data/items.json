@@ -61039,7 +61039,8 @@
 		"effects": [
 			{
 				"name": "Flaming Shell (29647)",
-				"kind": "proc"
+				"kind": "proc",
+				"ppm": 3.75
 			}
 		]
 	},

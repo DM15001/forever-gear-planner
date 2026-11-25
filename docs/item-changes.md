@@ -2,6 +2,13 @@
 
 What each data update from WoWSims changed in the item list, newest first. Written by `scripts/item-report.mjs` from `.github/workflows/engine.yml`.
 
+## 2026-11-25: WoWSims df07dfe400
+
+1 other changes
+
+**Other changes (1)**
+- Shell Launcher Shotgun (13146, rare 58, ranged): effects
+
 ## 2026-11-25: WoWSims 589c7a574b
 
 1 removed items
