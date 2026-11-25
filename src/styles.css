@@ -6807,3 +6807,13 @@ details.content-fold[open] > summary {
 	width: auto;
 	max-width: 100%;
 }
+
+.content-group-switches {
+	display: inline-flex;
+	gap: 0.3rem;
+}
+
+.standard-talents {
+	margin-top: 0.3rem;
+	width: fit-content;
+}

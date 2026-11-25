@@ -96,6 +96,22 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "One click back to the build's standard talents",
+							"text": "When your talents differ from the ones the build was measured with, Build plan shows a button \"Use the build's standard talents\" next to the hint. Estimate and simulator then fit together again; Sim setup changes them back any time.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "All on and All off for content rows",
+							"text": "Dungeons, reputations and set bonuses under \"What content do you do?\" each have two buttons in their row: All on and All off.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "The plan says when it is only an estimate",
 							"text": "Until the simulator has checked a plan, a box above the buttons says so and points to \"Check the plan with the simulator\". It goes away once the check has run, and comes back when the plan changes.",
 							"source": "Gear Planner",

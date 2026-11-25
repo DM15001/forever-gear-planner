@@ -601,7 +601,7 @@ export function BreakdownDialog({ equipped, planned, hasPlan, initial = 'equippe
 }
 
 /** Simulated DPS of the equipped and the planned gear, side by side. */
-export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated, caveats }: { /** What makes the estimate less exact for this character, in words. */ caveats?: string[]; equipped: Gear; planned: Gear; hasPlan: boolean; auto?: boolean; /** The plan's gain as the lists estimate it, to warn when the simulator disagrees. */ estimated?: number }) {
+export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated, caveats, onStandardTalents }: { /** Sets the talents back to the build's standard ones; given only when they differ. */ onStandardTalents?: () => void; /** What makes the estimate less exact for this character, in words. */ caveats?: string[]; equipped: Gear; planned: Gear; hasPlan: boolean; auto?: boolean; /** The plan's gain as the lists estimate it, to warn when the simulator disagrees. */ estimated?: number }) {
 	const sim = useSim();
 	const a = sim.result(equipped, SET_ITERATIONS);
 	const b = hasPlan ? sim.result(planned, SET_ITERATIONS) : undefined;
@@ -672,6 +672,14 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 						<>
 							{' '}
 							Why the estimate is off for you: {caveats.join('; ')}.
+						</>
+					)}
+					{onStandardTalents && (
+						<>
+							{' '}
+							<button type="button" className="button button-small standard-talents" onClick={onStandardTalents}>
+								Use the build's standard talents
+							</button>
 						</>
 					)}
 				</p>

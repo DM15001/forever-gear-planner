@@ -132,7 +132,7 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 	 * One kind of content as a row that folds: a line with what counts and a switch for all of it. Everything on:
 	 * the row is shut, there is nothing to decide. Anything left out: it opens to show what.
 	 */
-	const group = (key: string, title: ReactNode, counted: number, of: number, allOn: (() => void) | null, children: ReactNode, extra = '') => {
+	const group = (key: string, title: ReactNode, counted: number, of: number, allOn: (() => void) | null, allOff: (() => void) | null, children: ReactNode, extra = '') => {
 		const everything = of > 0 && counted === of;
 		const isOpen = opened[key] ?? (of > 0 && !everything);
 		return (
@@ -140,17 +140,32 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				<summary>
 					<span className="content-group-title">{title}</span>
 					{of > 0 && <span className={everything ? 'content-group-count content-group-all' : 'content-group-count'}>{everything ? `all ${of} count` : counted === 0 ? 'none count' : `${counted} of ${of} count`}</span>}
-					{allOn && !everything && (
-						<button
-							type="button"
-							className="button button-small"
-							onClick={event => {
-								event.preventDefault();
-								allOn();
-								setOpened({ ...opened, [key]: false });
-							}}>
-							Switch all on
-						</button>
+					{allOn && (
+						<span className="content-group-switches">
+							<button
+								type="button"
+								className="button button-small"
+								disabled={everything}
+								onClick={event => {
+									event.preventDefault();
+									allOn();
+									setOpened({ ...opened, [key]: false });
+								}}>
+								All on
+							</button>
+							{allOff && (
+								<button
+									type="button"
+									className="button button-small"
+									disabled={counted === 0}
+									onClick={event => {
+										event.preventDefault();
+										allOff();
+									}}>
+									All off
+								</button>
+							)}
+						</span>
 					)}
 					<span className="content-group-toggle">{isOpen ? 'Hide' : 'Choose'}</span>
 				</summary>
@@ -178,15 +193,10 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				catalog.dungeons.filter(d => !filter.excludedDungeons.includes(d.key)).length + (catalog.lowDungeonKeys.length > 0 && lowOn ? 1 : 0),
 				catalog.dungeons.length + (catalog.lowDungeonKeys.length > 0 ? 1 : 0),
 				() => set({ excludedDungeons: filter.excludedDungeons.filter(key => !allDungeonKeys.includes(key)) }),
+				() => set({ excludedDungeons: [...new Set([...filter.excludedDungeons, ...allDungeonKeys])] }),
 				<>
 				<p className="hint tier-hint">
-					Click a dungeon to count or leave out its loot.{' '}
-					<button className="link" onClick={() => set({ excludedDungeons: filter.excludedDungeons.filter(key => !allDungeonKeys.includes(key)) })}>
-						All
-					</button>{' '}
-					<button className="link" onClick={() => set({ excludedDungeons: [...new Set([...filter.excludedDungeons, ...allDungeonKeys])] })}>
-						None
-					</button>
+					Click a dungeon to count or leave out its loot.
 				</p>
 				{catalog.dungeons.map(d => tile(d.name, dungeonIcons(d.key), !filter.excludedDungeons.includes(d.key), on => set({ excludedDungeons: toggled(filter.excludedDungeons, [d.key], on) })))}
 				{catalog.lowDungeonKeys.length > 0 && tile('Lower-level dungeons', ['achievement_boss_edwinvancleef', 'inv_misc_head_murloc_01'], lowOn, on => set({ excludedDungeons: toggled(filter.excludedDungeons, catalog.lowDungeonKeys, on) }), false, 'Deadmines to Maraudon')}
@@ -201,6 +211,7 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				0,
 				0,
 				null,
+				null,
 				<>
 				<p className="hint tier-hint">Raid loot is not in the planner yet. When it is, you switch the raids on here and they count everywhere: the plan, the single slots, the farm list and the group.</p>
 				{RAIDS.map(([name, icon]) => tile(name, [icon], false, () => undefined, true, 'Coming soon'))}
@@ -214,6 +225,7 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				filter.rep ? plainReputations.filter(name => !filter.excludedReputations.includes(name)).length : 0,
 				plainReputations.length,
 				() => set({ rep: true, excludedReputations: filter.excludedReputations.filter(name => !plainReputations.includes(name)) }),
+				() => set({ rep: false }),
 				<>
 				{tile('Any reputation', ['inv_misc_note_02', 'inv_scroll_03'], filter.rep, on => set({ rep: on }), false, 'The switch for all of them')}
 				{catalog.reputations
@@ -257,15 +269,10 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 					setChoices.filter(choice => choice.setIds.some(id => !filter.ignoredSets.includes(id))).length,
 					setChoices.length,
 					() => set({ ignoredSets: [] }),
+					() => set({ ignoredSets: [...new Set([...filter.ignoredSets, ...setChoices.flatMap(choice => choice.setIds)])] }),
 					<>
 					<p className="hint tier-hint">
-						The sets you can complete with the content switched on above and whose bonus is worth something for your build, best first. Switch one off and the planner stops aiming for it; its pieces can still come up as single items.{' '}
-						<button className="link" onClick={() => set({ ignoredSets: [] })}>
-							All
-						</button>{' '}
-						<button className="link" onClick={() => set({ ignoredSets: [...new Set([...filter.ignoredSets, ...setChoices.flatMap(choice => choice.setIds)])] })}>
-							None
-						</button>
+						The sets you can complete with the content switched on above and whose bonus is worth something for your build, best first. Switch one off and the planner stops aiming for it; its pieces can still come up as single items.
 					</p>
 					{setChoices.map(choice => (
 						<div key={choice.name} className="set-tile">
