@@ -1,3 +1,4 @@
+import { restartTour, Tour } from './components/Tour';
 import { createPortal } from 'react-dom';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
@@ -88,6 +89,9 @@ function GuideSteps({ current, onOpen }: { current: string | null; onOpen?: (id:
 					Hide these steps
 				</button>
 			)}
+			<button className="link guide-steps-hide" onClick={restartTour}>
+				Take the tour
+			</button>
 		</nav>
 	);
 }
@@ -898,6 +902,7 @@ export function App() {
 				)}
 				</PresetContext.Provider>
 			</main>
+			<Tour hasCharacter={Boolean(character) && !importing} onPage={tab !== 'faq' && tab !== 'news' && tab !== 'sim'} />
 			<BackToTop />
 
 			<footer className="colophon">
