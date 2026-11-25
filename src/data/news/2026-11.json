@@ -1,5 +1,5 @@
 {
-	"_comment": "News of one month, newest day first. Written once a day by the scheduled task 'WoW Forever daily news (gear planner)'; nothing is ever deleted, this is also the changelog. Sections in this order when they have items: 'Game' (hotfixes, patch notes, fixed quests, announcements), 'WoWSims' (changes to the simulator). Every item: title, text (own words, one or two sentences), url, source, and tags. Tags, one to three per item, only from this list: Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior, Items, Dungeons, Quests, Professions, PvP, World, Races, Upcoming, WoWSims. A last section 'Gear Planner' holds the planner's own patch notes (tag 'Planner', source 'Gear Planner', no url; the News page shows it as a feed of its own); it is written when the site changes and must be kept when the day's news is added.",
+	"_comment": "News of one month, newest day first. Written once a day by the scheduled task 'WoW Forever daily news (gear planner)'; nothing is ever deleted, this is also the changelog. Sections in this order when they have items: 'Game' (hotfixes, patch notes, fixed quests, announcements), 'WoWSims' (changes to the simulator). Every item: title, text (own words, one or two sentences), url, source, and tags. Tags, one to three per item, only from this list: Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior, Items, Dungeons, Quests, Professions, PvP, World, Races, Upcoming, WoWSims. A last section 'Gear Planner' holds the planner's own patch notes (tag 'Planner', source 'Gear Planner', no url; the News page shows it as a feed of its own); it is written when the site changes and must be kept when the day's news is added. Never mention the cheering figures (Bogdan, Afly, Larry) in the Gear Planner changelog: they are a surprise.",
 	"entries": [
 		{
 			"date": "2026-11-25",
@@ -27,14 +27,6 @@
 						{
 							"title": "Plan page flags items from switched-off content",
 							"text": "A plan made earlier could keep an item whose source you switched off afterwards, for example a crafted piece with only dungeons and quests chosen. Such items are now marked \"not in your content\", with a note that \"Rebuild the plan\" replaces them.",
-							"source": "Gear Planner",
-							"tags": [
-								"Planner"
-							]
-						},
-						{
-							"title": "Afly suffers more",
-							"text": "Afly now grits her teeth in agony while Larry pulls.",
 							"source": "Gear Planner",
 							"tags": [
 								"Planner"
