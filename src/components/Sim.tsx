@@ -682,14 +682,11 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 				</p>
 			)}
 			{breakdownOpen && <BreakdownDialog equipped={equipped} planned={planned} hasPlan={hasPlan} onClose={() => setBreakdownOpen(false)} />}
-			<details className="more-info">
-				<summary>What does the simulation assume?</summary>
 			<p className="hint">
 				{unit() === 'HPS'
 					? 'Healing per second over the whole fight, from the WoWSims simulator: its spell data, talents, mana regeneration and consumables, with the healing scenario picked above. Time spent out of mana counts as time without healing. The first run downloads the simulator (6 MB) and takes a few seconds longer.'
 					: 'Real DPS from the WoWSims simulator, including procs and set bonuses: full raid buffs, a 3-minute single-target fight, the default rotation, enchants as set on your gear. The first run downloads the simulator (6 MB) and takes a few seconds longer. Each number has a margin of about ±1 DPS.'}
 			</p>
-			</details>
 		</div>
 	);
 }

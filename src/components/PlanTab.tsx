@@ -214,8 +214,6 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 							{refineNote}
 						</p>
 					)}
-					<details className="more-info">
-						<summary>How are these numbers made?</summary>
 					<p className="hint">
 						"Check the plan with the simulator" runs the {REFINE_DEPTH} best-scored items of every slot through the real simulator and keeps the one with the highest {unit()}. Use it when procs, on-use
 						trinkets or set bonuses matter, which the quick score only knows for the Enhancement Shaman. It takes a few minutes.
@@ -224,7 +222,6 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						The estimate is stats times the build's stat weights, in {unit()}, plus what the simulator measured for procs, on-use effects, proc enchants and set bonuses. To change a
 						single slot by hand, click its icon.
 					</p>
-					</details>
 				</div>
 					</>
 				)}
