@@ -39,7 +39,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 				a: (
 					<ol>
 						<li>On the start page, paste your character: an export from wowsims.com or a link somebody copied from this site. No export at hand? Load the WoWSims preset for your build and change the items by clicking the slots.</li>
-						<li>Pick your build under "Check gear". Talents, consumables and buffs follow the build; change them under "Sim setup".</li>
+						<li>Pick your build under "Check gear". Talents, consumables and buffs follow the build; change them with the "Sim setup" button under the simulation on "Build plan".</li>
 						<li>Open "Build plan". Say what content you do and it fills every slot with the best set for it; "Rebuild the plan" does it again. Enchants and professions are a section at the bottom of that page.</li>
 						<li>"Customize" lists the better items for each slot with the gain in front, to pick single ones yourself. What you pick there overrides the plan.</li>
 						<li>"Farm it" sorts the planned items by dungeon.</li>
@@ -144,7 +144,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 					<ul>
 						<li><strong>No raids yet.</strong> Raid loot is not planned for. The raids are already listed, greyed out, under "What content do you do?"; that is where you will switch them on.</li>
 						<li><strong>No tanks.</strong> There is no number for survival.</li>
-						<li><strong>One target, one standard fight</strong> unless you change it under "Sim setup". Movement, mistakes and your group's real buffs are not in it.</li>
+						<li><strong>One target, one standard fight</strong> unless you change it with "Sim setup" under the simulation. Movement, mistakes and your group's real buffs are not in it.</li>
 						<li><strong>Some item effects are unknown.</strong> Where WoWSims has no trigger rate for an effect, the item is left out instead of guessed. "News" lists them under "On the radar".</li>
 						<li><strong>Some sources are unknown.</strong> Forever has new items nobody has documented yet.</li>
 						<li><strong>Drop chances are Wowhead's</strong> and can be off for Forever.</li>

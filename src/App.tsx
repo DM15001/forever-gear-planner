@@ -52,7 +52,6 @@ const NEXT_STEP: Record<string, { to: string; label: string }> = {
 };
 /** Settings and reading: small links beside the title, out of the way of the planner's own sections. */
 const SIDE_TABS = [
-	{ id: 'sim', label: 'Sim setup' },
 	{ id: 'news', label: 'News' },
 	{ id: 'faq', label: 'FAQ' },
 ];
@@ -649,7 +648,9 @@ export function App() {
 	const character = activeCharacter(roster);
 	// The spec follows the character. The user's own stat weights replace the spec's defaults
 	// everywhere a score is computed; they are kept per spec.
-	// Dev trial: Sim setup opens as a window from the simulation, not as a page from the header.
+	// What the last problem report said.
+	const [reported, setReported] = useState<string | null>(null);
+	// Sim setup opens as a window from the simulation: it belongs to the numbers it changes.
 	const [simSetupOpen, setSimSetupOpen] = useState(false);
 	useEffect(() => {
 		const open = () => setSimSetupOpen(true);
@@ -765,7 +766,7 @@ export function App() {
 			builds={specsOfClass(baseSpec.className)}
 			activeIndex={roster.active}
 			shareLink={shareUrl(character, window.location.href)}
-			onOpenTalents={() => setTab('sim')}
+			onOpenTalents={() => setSimSetupOpen(true)}
 			next={
 				<>
 					<span className="slot-source">Check race, professions and enchants, then</span>
@@ -803,7 +804,7 @@ export function App() {
 					</div>
 				</div>
 				<nav className="masthead-tools" aria-label="Settings, news and questions">
-					{SIDE_TABS.filter(t => !(IS_DEV && t.id === 'sim')).map(t => (
+					{SIDE_TABS.map(t => (
 						<button key={t.id} className="tool-link" aria-current={t.id === tab ? 'page' : undefined} onClick={() => {
 								setTab(t.id);
 								if (character) setImporting(false);
@@ -952,6 +953,11 @@ export function App() {
 				<button className="link" onClick={() => { if (tab === 'group' && character && !importing) return restartTour('group'); setTab('character'); restartTour(); }}>
 					Take the tour
 				</button>
+				{' '}
+				<button className="link" onClick={() => exportEverything().then(setReported, () => setReported('The report could not be made.'))} title="Copies and saves everything needed to look into a problem: your characters with plan, content choice and sim setup, the site and simulator version, and the text of the page as it stands. Send the file to whoever looks after the site.">
+					Report a problem
+				</button>
+				{reported && <span role="status"> {reported}</span>}
 			</footer>
 		</div>
 	);

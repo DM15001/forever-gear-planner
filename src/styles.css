@@ -6752,3 +6752,10 @@ details.content-fold[open] > summary {
 .content-fold-group:not([open]) {
 	padding-bottom: 0.1rem;
 }
+
+/* Next to the estimate: what it does not know about this character. */
+.estimate-caveat {
+	display: block;
+	max-width: 30rem;
+	color: var(--ember, #ffb347);
+}

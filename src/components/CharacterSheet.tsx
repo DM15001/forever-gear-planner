@@ -167,7 +167,7 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 							))}
 						</select>
 						<p className="hint build-note">
-							The WoWSims preset configurations for this class. Picking one sets its talents, rotation, consumables, buffs, debuffs and class options for the sim; see Sim setup (top right).
+							The WoWSims preset configurations for this class. Picking one sets its talents, rotation, consumables, buffs, debuffs and class options for the sim; see "Sim setup" under the simulation on "Build plan".
 							{character.talents && (
 								<>
 									{' '}

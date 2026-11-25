@@ -96,8 +96,24 @@
 					"title": "Gear Planner",
 					"items": [
 						{
-							"title": "Estimates and your own talents",
-							"text": "When estimate and simulator are far apart and your talents are not the build's standard ones, the note now says so: the estimate assumes the build's talents. \"Measure for my character\" under Stat weights makes it fit yours.",
+							"title": "The estimate says what it does not know about you",
+							"text": "The estimate assumes the build's own talents, buffs, consumables and rotation. When yours differ (other talents, a WoWSims import with its own settings, changed buffs or consumables), a line under the estimate says so, and the \"far apart\" note names the reasons. \"Measure for my character\" under Stat weights makes the estimate fit you.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Sim setup moved next to the simulation",
+							"text": "\"Sim setup\" is no longer in the top row. It is a button under the simulated numbers on Build plan and opens as a window, next to the numbers it changes.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Report a problem",
+							"text": "\"Report a problem\" at the bottom of every page copies and saves what is needed to look into a problem: your characters with plan, content choice and sim setup, the site and simulator version, and the text of the page. Nothing is sent anywhere; you pass the file on yourself.",
 							"source": "Gear Planner",
 							"tags": [
 								"Planner"

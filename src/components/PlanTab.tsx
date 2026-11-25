@@ -1,3 +1,4 @@
+import { estimateCaveats } from '../lib/caveats';
 import { MeasuredNote } from './MeasuredNote';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
@@ -147,6 +148,8 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 		return <SourceLabel source={usableSources(item, faction, filter, character.professions)[0] ?? usableSources(item, faction, EVERYTHING)[0]} data={data} item={item} />;
 	};
 
+	// What the estimate does not know about this character: said next to it, before anybody wonders.
+	const caveats = estimateCaveats(character, spec);
 	const staleCount = slots.filter(row => row.isChange && row.goalItem && !isObtainable(row.goalItem, character, faction, filter, spec)).length;
 
 	return (
@@ -186,6 +189,11 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 									{equipped.hit.total.toFixed(1)}% hit now, {planned.hit.total.toFixed(1)}% of {planned.hit.cap}% planned
 								</span>
 							)}
+							{caveats.length > 0 && (
+								<span className="summary-hit estimate-caveat" title={`${caveats.join('; ')}.`}>
+									less exact for you: {caveats.slice(0, -1).join('; ')}
+								</span>
+							)}
 						</div>
 						<div>
 							<span className="field-label">Still to do</span>
@@ -193,7 +201,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 							<span className="summary-hit">{openCount === 1 ? 'change' : 'changes'}</span>
 						</div>
 					</div>
-					<SimSummary equipped={character.gear} planned={gear} hasPlan={hasPlan} auto estimated={hasPlan ? planned.score - equipped.score : undefined} />
+					<SimSummary equipped={character.gear} planned={gear} hasPlan={hasPlan} auto estimated={hasPlan ? planned.score - equipped.score : undefined} caveats={caveats} />
 					{staleCount > 0 && (
 						<p className="notice" role="status">
 							{staleCount === 1 ? 'One planned item comes' : `${staleCount} planned items come`} from content that is switched off above (marked "not in your content" below). The plan was made before
