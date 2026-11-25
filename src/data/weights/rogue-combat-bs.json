@@ -1,10 +1,10 @@
 {
 	"note": "Stat weights of this build, measured with the WoWSims simulator on its preset by scripts/build-weights.mjs. The planner uses them instead of the weights in src/specs, unless \"held\" is true: then a weight moved so far that a person should look first.",
-	"inputs": "e8362f940f5e0f8f",
+	"inputs": "0edfc85988f57d69",
 	"measuredOn": "2026-11-25",
 	"iterations": 8000,
 	"unit": "attackPower",
-	"referenceDps": 829.6,
+	"referenceDps": 829.2,
 	"dpsPerPoint": 0.2906,
 	"stats": {
 		"agility": 1.85,
