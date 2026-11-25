@@ -9,6 +9,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Dev: export everything",
+							"text": "On the Dev version, \"Export everything\" at the bottom of the page copies and saves all the planner has stored in your browser, the site and simulator version, and the text of the page as it stands. For reporting a problem.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Content choice folds away",
 							"text": "Dungeons, raids, reputations and set bonuses under \"What content do you do?\" are rows now. A row is shut while everything in it counts and says so (\"all 19 count\"); it opens when something is left out, or when you click \"Choose\". \"Switch all on\" turns a whole row on and shuts it.",
 							"source": "Gear Planner",

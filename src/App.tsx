@@ -1,3 +1,4 @@
+import measurementStatus from './data/measurementStatus.json';
 import { restartTour, Tour } from './components/Tour';
 import { createPortal } from 'react-dom';
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -57,6 +58,52 @@ const SIDE_TABS = [
 
 /** Two copies of the site are published: the live one, and under dev/ the one with changes still being tried out. Both read the same saved characters. */
 const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+
+/**
+ * Everything needed to see what a visitor sees: all the planner has saved in this browser (characters with their
+ * plans, content choice and sim setup, the group, the options), which version of the site and the simulator it is,
+ * and the text of the page as it stands. Copied and saved as a file. Only on Dev, for reporting a problem.
+ */
+async function exportEverything(tab: string, builtAt: string | undefined): Promise<string> {
+	const saved: Record<string, unknown> = {};
+	for (let index = 0; index < localStorage.length; index++) {
+		const key = localStorage.key(index);
+		if (!key || !/^(fgp\.|forever-gear-planner\.)/.test(key)) continue;
+		const value = localStorage.getItem(key) ?? '';
+		try {
+			saved[key] = JSON.parse(value);
+		} catch {
+			saved[key] = value;
+		}
+	}
+	const report = {
+		exportedAt: new Date().toISOString(),
+		url: window.location.href.split('#')[0],
+		channel: import.meta.env.VITE_CHANNEL ?? 'live',
+		dataBuiltAt: builtAt ?? null,
+		simulator: (measurementStatus as { simVersion?: string | null; simDate?: string | null }).simVersion ?? null,
+		simulatorDate: (measurementStatus as { simDate?: string | null }).simDate ?? null,
+		page: tab,
+		window: `${window.innerWidth} x ${window.innerHeight}`,
+		browser: navigator.userAgent,
+		// What the page says right now: the numbers somebody is asking about.
+		shown: (document.querySelector('main')?.innerText ?? '').replace(/\n{3,}/g, '\n\n').slice(0, 20000),
+		saved,
+	};
+	const text = JSON.stringify(report, null, '\t');
+	const link = document.createElement('a');
+	link.href = URL.createObjectURL(new Blob([text], { type: 'application/json' }));
+	link.download = `gear-planner-export-${new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-')}.json`;
+	link.click();
+	URL.revokeObjectURL(link.href);
+	const size = `${Math.round(text.length / 1024)} KB`;
+	try {
+		await navigator.clipboard.writeText(text);
+		return `Copied and saved as ${link.download} (${size}).`;
+	} catch {
+		return `Saved as ${link.download} (${size}); the browser did not allow copying.`;
+	}
+}
 
 const SWITCH_WORD = 'penis1';
 const SWITCH_KEY = 'fgp.channelSwitch';
@@ -589,6 +636,8 @@ export function App() {
 	const character = activeCharacter(roster);
 	// The spec follows the character. The user's own stat weights replace the spec's defaults
 	// everywhere a score is computed; they are kept per spec.
+	// What the last export said (Dev only).
+	const [exported, setExported] = useState<string | null>(null);
 	const baseSpec = specOf(character);
 	const [weightsVersion, setWeightsVersion] = useState(0);
 	// A healer has one set of weights per healing scenario; the character's choice picks it.
@@ -880,6 +929,15 @@ export function App() {
 				<button className="link" onClick={() => { if (tab === 'group' && character && !importing) return restartTour('group'); setTab('character'); restartTour(); }}>
 					Take the tour
 				</button>
+				{IS_DEV && (
+					<>
+						{' '}
+						<button className="link" onClick={() => exportEverything(tab, data?.builtAt).then(setExported, () => setExported('The export failed.'))} title="Copies everything this browser has saved for the planner, plus what the page shows right now, and saves it as a file: for reporting a problem.">
+							Export everything
+						</button>
+						{exported && <span className="hint" role="status"> {exported}</span>}
+					</>
+				)}
 			</footer>
 		</div>
 	);
