@@ -6531,3 +6531,13 @@ details.content-fold[open] > summary {
 	opacity: 0.55;
 	cursor: not-allowed;
 }
+
+/* A planned item whose source was switched off after it was planned. */
+.badge-stale {
+	color: #ffb347;
+	border-color: #ffb347;
+}
+:root[data-theme='classic'] main .badge-stale {
+	color: #9a4a00;
+	border-color: #9a4a00;
+}

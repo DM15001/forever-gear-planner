@@ -7,7 +7,7 @@ import { applicableEnchants } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
 import { guideMarks, markLabel } from '../lib/guides';
 import { buildPlan, fallbacks, gotEnchant, gotItem, type PlanStep, planSteps } from '../lib/plan';
-import { EMPTY_SLOT, EVERYTHING, isUnmeasured, plannedGear, scoreSet, slotInUse, type SourceFilter, usableSources, withItem } from '../lib/scoring';
+import { EMPTY_SLOT, EVERYTHING, isUnmeasured, plannedGear, scoreSet, slotInUse, type SourceFilter, usableSources, withItem, isObtainable } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
 import { REFINE_DEPTH, refinePlan } from '../lib/sim/live';
 import { wowheadItemUrl, wowheadData } from '../lib/stats';
@@ -132,6 +132,8 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 		return <SourceLabel source={usableSources(item, faction, filter, character.professions)[0] ?? usableSources(item, faction, EVERYTHING)[0]} data={data} item={item} />;
 	};
 
+	const staleCount = slots.filter(row => row.isChange && row.goalItem && !isObtainable(row.goalItem, character, faction, filter, spec)).length;
+
 	return (
 		<div className="plan">
 			{/* First what counts, then the plan and its simulation. */}
@@ -177,6 +179,12 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						</div>
 					</div>
 					<SimSummary equipped={character.gear} planned={gear} hasPlan={hasPlan} auto estimated={hasPlan ? planned.score - equipped.score : undefined} />
+					{staleCount > 0 && (
+						<p className="notice" role="status">
+							{staleCount === 1 ? 'One planned item comes' : `${staleCount} planned items come`} from content that is switched off above (marked "not in your content" below). The plan was made before
+							that choice. "Rebuild the plan" replaces {staleCount === 1 ? 'it' : 'them'}.
+						</p>
+					)}
 					<div className="actions">
 						<button className="button" onClick={() => rebuild()} disabled={refining !== null}>
 							Rebuild the plan
@@ -243,6 +251,11 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 												{markLabel(mark)}
 											</span>
 										))}
+										{isChange && !isObtainable(goalItem, character, faction, filter, spec) && (
+											<span className="badge badge-stale" title="This item comes from content you have switched off above, or you hid it. It is still here because it was planned before. 'Rebuild the plan' replaces it.">
+												not in your content
+											</span>
+										)}
 										{isUnmeasured(goalItem, data) && (
 											<span className="badge" title="Part of this item's worth is not in the score. Use Simulate on the Plan page to check it.">
 												sim it

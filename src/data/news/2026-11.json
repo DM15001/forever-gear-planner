@@ -9,6 +9,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Plan page flags items from switched-off content",
+							"text": "A plan made earlier could keep an item whose source you switched off afterwards, for example a crafted piece with only dungeons and quests chosen. Such items are now marked \"not in your content\", with a note that \"Rebuild the plan\" replaces them.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Afly suffers more",
 							"text": "Afly now grits her teeth in agony while Larry pulls.",
 							"source": "Gear Planner",
