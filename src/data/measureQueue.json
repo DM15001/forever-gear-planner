@@ -1,9 +1,9 @@
 {
-	"seq": 12,
+	"seq": 13,
 	"effects": {
 		"druid-balance": 12,
 		"druid-cat": 12,
-		"elemental-shaman": 12,
+		"elemental-shaman": 13,
 		"enhancement-shaman": 12,
 		"hunter-bm": 12,
 		"hunter-mm": 12,
@@ -39,7 +39,7 @@
 	"weights": {
 		"druid-balance": 12,
 		"druid-cat": 12,
-		"elemental-shaman": 12,
+		"elemental-shaman": 13,
 		"enhancement-shaman": 12,
 		"hunter-bm": 12,
 		"hunter-mm": 12,
