@@ -9,6 +9,46 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Group cards: a real button",
+							"text": "\"Who wants what\" on a dungeon card is a button now instead of underlined text.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "The bar is a path now",
+							"text": "The pages read from left to right in the order you use them: Check gear, Build plan, Customize, Farm it, with arrows between them, and Group up apart. Old names: Character, Plan, Upgrades, Farm plan, Group plan. Customize is the step you may skip. Each page of the path ends with a button to the next one.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Enchants moved into Build plan",
+							"text": "The Enchants & professions page is now a section at the bottom of Build plan that opens on a click.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "A tour for Group up",
+							"text": "The first time you open Group up, a short tour shows how to bring friends in, who counts, the switches and the dungeon cards.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "The tour comes back until you tick it off",
+							"text": "Both tours now open on every visit until \"Don't show this again\" is ticked. \"Take the tour\" at the bottom of the page still starts them by hand.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Weapons count with the enchant that fits them",
 							"text": "A weapon in the upgrade lists used to keep the enchant of the weapon it replaces, so a staff was counted with a one-hand enchant. Now every weapon that goes into an enchanted slot counts with the best enchant that can sit on it, in the lists, the plan and \"Sim this\". For casters this moves two-handers up a lot. Planning such a weapon plans the enchant with it.",
 							"source": "Gear Planner",

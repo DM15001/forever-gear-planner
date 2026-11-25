@@ -6675,3 +6675,8 @@ details.content-fold[open] > summary {
 	color: var(--haze);
 	font-style: italic;
 }
+
+.group-open {
+	margin-left: auto;
+	white-space: nowrap;
+}

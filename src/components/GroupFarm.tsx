@@ -371,8 +371,8 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 									<strong className="num delta-up">{gain(strip[0]?.best ?? 0)}</strong>
 									<span className="group-people">best drop</span>
 								</span>
-								<button className="link" onClick={() => toggle(dungeon.key)}>
-									{isOpen ? 'Close' : 'Who wants what'}
+								<button className="button button-small group-open" aria-expanded={isOpen} onClick={() => toggle(dungeon.key)}>
+									{isOpen ? 'Close' : 'Who wants what'} <span aria-hidden="true">{isOpen ? '▴' : '▾'}</span>
 								</button>
 							</div>
 							<ul className="plain-list group-split" aria-label="What each of the group gains here">
