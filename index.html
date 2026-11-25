@@ -5,6 +5,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23141c26'/%3E%3Cpath d='M9 2 4 9h3l-1 5 6-8H8.5z' fill='%23d6ae5f'/%3E%3C/svg%3E" />
 		<title>Forever Gear Planner</title>
+		<!-- The chosen theme, set before anything is drawn. -->
+		<script>
+			try {
+				const theme = localStorage.getItem('fgp.theme');
+				if (theme && theme !== 'forever') document.documentElement.dataset.theme = theme;
+			} catch {}
+		</script>
 		<!-- Wowhead item tooltips on hover. The page works without it. -->
 		<script>
 			const whTooltips = { colorLinks: false, iconizeLinks: false, renameLinks: false };

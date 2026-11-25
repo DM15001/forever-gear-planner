@@ -387,6 +387,68 @@ function CheerFriends() {
 	);
 }
 
+const THEME_KEY = 'fgp.theme';
+const THEMES: { id: string; name: string; note: string }[] = [
+	{ id: 'forever', name: 'Forever', note: 'Dark and gold: the planner as you know it.' },
+	{ id: 'classic', name: '2006', note: 'Parchment, blue bars, gold letters: the web as it was back then.' },
+];
+
+/** The button that picks the look of the site. The choice stays in this browser. */
+function ThemeMenu() {
+	const [theme, setTheme] = useState(() => {
+		try {
+			return localStorage.getItem(THEME_KEY) ?? 'forever';
+		} catch {
+			return 'forever';
+		}
+	});
+	const [open, setOpen] = useState(false);
+	const box = useRef<HTMLDivElement>(null);
+	useEffect(() => {
+		if (theme === 'forever') delete document.documentElement.dataset.theme;
+		else document.documentElement.dataset.theme = theme;
+		try {
+			localStorage.setItem(THEME_KEY, theme);
+		} catch {
+			// Without storage the theme lasts until the page is closed.
+		}
+	}, [theme]);
+	useEffect(() => {
+		if (!open) return;
+		const away = (event: MouseEvent) => !box.current?.contains(event.target as Node) && setOpen(false);
+		const onKey = (event: KeyboardEvent) => event.key === 'Escape' && setOpen(false);
+		document.addEventListener('mousedown', away);
+		window.addEventListener('keydown', onKey);
+		return () => {
+			document.removeEventListener('mousedown', away);
+			window.removeEventListener('keydown', onKey);
+		};
+	}, [open]);
+	return (
+		<div className="theme-menu" ref={box}>
+			<button className="tool-link" aria-haspopup="true" aria-expanded={open} onClick={() => setOpen(!open)}>
+				Themes
+			</button>
+			{open && (
+				<div className="theme-menu-list">
+					{THEMES.map(option => (
+						<button
+							key={option.id}
+							aria-pressed={theme === option.id}
+							onClick={() => {
+								setTheme(option.id);
+								setOpen(false);
+							}}>
+							<strong>{option.name}</strong>
+							<span>{option.note}</span>
+						</button>
+					))}
+				</div>
+			)}
+		</div>
+	);
+}
+
 /** Hidden on the live site until the unlock word is typed anywhere outside a text field; typing it again hides it. The dev copy always shows it, as the way back. */
 function ChannelSwitch() {
 	const [unlocked, setUnlocked] = useState(switchUnlocked);
@@ -670,6 +732,7 @@ export function App() {
 							{t.label}
 						</button>
 					))}
+					<ThemeMenu />
 				</nav>
 				<div className="masthead-side">
 					<div className="tab-bar">

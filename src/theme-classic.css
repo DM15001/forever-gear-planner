@@ -1,0 +1,289 @@
+/*
+ * Theme "2006": the look of a fan site from the first years of the game. Night-blue page, a parchment
+ * column in a gold frame, blue bars with gold lettering, small Verdana. Our own drawing of that era,
+ * made of plain CSS: no artwork, logo or layout of anybody's site.
+ *
+ * How it works: inside the page column the palette turns light (parchment, brown ink, blue for what
+ * was gold). Boxes that carry their own dark background get the dark palette back, so their text stays
+ * readable. The list of those boxes is the second block; a new dark box in styles.css belongs in it.
+ */
+:root[data-theme='classic'] {
+	--storm: #000;
+	--storm-glow: #0c2b3d;
+	--sans: Verdana, Geneva, Tahoma, Arial, sans-serif;
+	--serif: Georgia, 'Times New Roman', serif;
+}
+:root[data-theme='classic'] body {
+	font-size: 14px;
+	background:
+		radial-gradient(ellipse 34rem 46rem at 8% 12rem, rgb(24 78 92 / 0.55), transparent 70%),
+		radial-gradient(ellipse 34rem 46rem at 92% 12rem, rgb(34 52 110 / 0.55), transparent 70%),
+		linear-gradient(180deg, #071019 0, #000 46rem);
+	background-attachment: fixed;
+}
+/* The strip along the top: riveted stone. */
+:root[data-theme='classic'] body::before {
+	height: 18px;
+	background:
+		radial-gradient(circle at 12px 9px, #9aa0a6 0 2px, transparent 3px) 0 0 / 48px 18px,
+		linear-gradient(180deg, #5d6166, #2b2e32 55%, #15171a);
+	border-bottom: 2px solid #000;
+	box-shadow: 0 1px 0 #6b5326;
+}
+
+/* Sections: blue metal bars with gold lettering. */
+:root[data-theme='classic'] .tabs {
+	padding: 3px;
+	background: #05070d;
+	border: 1px solid #000;
+	box-shadow:
+		inset 0 0 0 1px #8a6d2a,
+		0 4px 10px rgb(0 0 0 / 0.7);
+}
+:root[data-theme='classic'] .tab {
+	margin: 1px;
+	color: #ffd75a;
+	text-shadow: 0 1px 0 #000;
+	background: linear-gradient(180deg, #3d63b0, #1a2f66 48%, #0d1a40 52%, #16295c);
+	border: 1px solid #000;
+	border-radius: 0;
+	box-shadow: inset 0 0 0 1px rgb(150 180 255 / 0.25);
+}
+:root[data-theme='classic'] .tab:hover {
+	color: #fff;
+	background: linear-gradient(180deg, #5380d6, #25408a 48%, #132456 52%, #1f3878);
+}
+:root[data-theme='classic'] .tab[aria-current='page'] {
+	color: #1a1203;
+	text-shadow: none;
+	background: linear-gradient(180deg, #fff4b3, #ffd100 45%, #b8860b);
+	box-shadow: inset 0 0 0 1px #fff7cc;
+}
+:root[data-theme='classic'] .tool-link {
+	color: #ffe98a;
+	text-shadow: 0 1px 0 #000;
+	background: linear-gradient(180deg, #2f7d3a, #14401b 50%, #0a2a10);
+	border: 1px solid #000;
+	border-radius: 0;
+	box-shadow:
+		inset 0 0 0 1px rgb(170 255 170 / 0.3),
+		0 0 0 1px #8a6d2a;
+}
+:root[data-theme='classic'] .tool-link:nth-child(odd) {
+	background: linear-gradient(180deg, #3d63b0, #1a2f66 50%, #0d1a40);
+	box-shadow:
+		inset 0 0 0 1px rgb(150 180 255 / 0.3),
+		0 0 0 1px #8a6d2a;
+}
+:root[data-theme='classic'] .tool-link[aria-current='page'] {
+	color: #1a1203;
+	text-shadow: none;
+	background: linear-gradient(180deg, #fff4b3, #ffd100 45%, #b8860b);
+}
+
+/* The page column: parchment in a gold frame, brown ink, blue where the dark theme has gold. */
+:root[data-theme='classic'] main {
+	--mist: #2a1c0a;
+	--haze: #5e4b2a;
+	--slate: #f1e3b6;
+	--slate-raised: #e7d6a3;
+	--well: #dccb93;
+	--hairline: #c7b27a;
+	--ridge: #8c7440;
+	--brass: #173a7a;
+	--brass-deep: #5c74ad;
+	--on-brass: #ffd75a;
+	--metal-light: #2a55a8;
+	--ember: #a8451a;
+	--q-uncommon: #17780f;
+	--q-rare: #0b4fb0;
+	--q-epic: #7a1fb8;
+	--q-legendary: #b85a00;
+	margin-top: 0.5rem;
+	padding: 1rem 1rem 1.5rem;
+	color: var(--mist);
+	background:
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .1 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E"),
+		linear-gradient(180deg, #ecdcaa, #e3d09a);
+	border: 3px solid #6b5326;
+	border-radius: 2px;
+	box-shadow:
+		inset 0 0 0 1px #f8eecb,
+		inset 0 0 0 4px #b89a52,
+		inset 0 0 0 5px #4a3a17,
+		0 0 0 2px #000,
+		0 0 0 4px #8a6d2a,
+		0 0 0 5px #000,
+		0 10px 40px #000;
+}
+:root[data-theme='classic'] main a {
+	color: #173a7a;
+}
+:root[data-theme='classic'] main .panel {
+	border: 1px solid #6b5326;
+	border-radius: 0;
+	box-shadow:
+		inset 0 0 0 1px #f8eecb,
+		2px 2px 0 rgb(74 58 23 / 0.35);
+}
+/* A panel's title: the blue bar. */
+:root[data-theme='classic'] main .panel > h2:first-child,
+:root[data-theme='classic'] main .news-day > h3 {
+	margin: -1rem -1.1rem 0.9rem;
+	padding: 0.4rem 0.9rem;
+	font-size: 1.15rem;
+	color: #ffd75a;
+	text-shadow: 0 1px 0 #000;
+	background: linear-gradient(180deg, #4a72c4, #1d3470 50%, #0f1d47 54%, #1a2f66);
+	border: 1px solid #000;
+	border-image: none;
+	box-shadow: inset 0 0 0 1px rgb(150 180 255 / 0.3);
+}
+:root[data-theme='classic'] main .panel > h2:first-child::after {
+	display: none;
+}
+:root[data-theme='classic'] main h2,
+:root[data-theme='classic'] main h3,
+:root[data-theme='classic'] main h4 {
+	text-shadow: none;
+}
+:root[data-theme='classic'] main .button {
+	border-radius: 0;
+	box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.35);
+}
+:root[data-theme='classic'] main .button-primary,
+:root[data-theme='classic'] main .button-plan {
+	color: #ffd75a;
+	background: linear-gradient(180deg, #4a72c4, #1d3470 50%, #0f1d47);
+	border-color: #000;
+}
+:root[data-theme='classic'] main :is(input, select, textarea) {
+	color: #2a1c0a;
+	background: #fbf3d6;
+	border-color: #8c7440;
+	border-radius: 0;
+}
+:root[data-theme='classic'] main .delta-up,
+:root[data-theme='classic'] main .diff-up,
+:root[data-theme='classic'] main .set-pop-bonus {
+	color: #17780f;
+}
+:root[data-theme='classic'] main .delta-down,
+:root[data-theme='classic'] main .diff-down {
+	color: #b0300f;
+}
+:root[data-theme='classic'] main .stat-spell {
+	color: #6a2fb0;
+}
+:root[data-theme='classic'] main .stat-healing {
+	color: #0d7d70;
+}
+:root[data-theme='classic'] main :is(.faq-item h4, .faq-answer strong) {
+	color: #2a1c0a;
+}
+:root[data-theme='classic'] main .notice {
+	color: #2a1c0a;
+}
+
+/* Boxes with a dark background of their own: the dark palette again, so nothing in them turns unreadable. */
+:root[data-theme='classic'] main :is(
+	.talent-rank, .talent-minus, .undo-toast, .enchant-winner, .chip[aria-pressed='true'], .buff-level, .result-bar, .result-table tr.result-lit,
+	.progress-track, .sheet .slot, .shopping-row:hover, .shopping-row:focus-within, .shopping-got, .card, .plan-slot, .fold, .candidate, .enchant-option:hover,
+	.enchant-option:focus-within, .farm .shopping-card, .farm .dungeon, .view-switch, .fight-tile-on, .character-tile, .mending-toggle, .picker-row-on,
+	.expert-switch, .expert-tip, button.character-add, .view-choice, .result-timeline-plot, summary.breakdown-toggle, .result-tab, .cast-timeline-frame,
+	.log-scroll, .log-table, .group-dungeons-list, .group-detail, .group-dungeon, .preset-menu, .content-tile, .fight-pick, .fight-card, .slot-bar, .slot-nav,
+	.set-pop, .gear-rail, .modal, .preset-confirm, .engine-notice, details.content-fold > summary, .group-prio, .candidates
+) {
+	--mist: #ebe4d6;
+	--haze: #a79b84;
+	--slate: #16120e;
+	--slate-raised: #231c14;
+	--well: #050403;
+	--hairline: #2a2219;
+	--ridge: #4b3e2b;
+	--brass: #ffd100;
+	--brass-deep: #8f6d1c;
+	--on-brass: #1a1203;
+	--metal-light: #fff4b3;
+	--ember: #ff9a5c;
+	--q-uncommon: #1eff00;
+	--q-rare: #2e8dff;
+	--q-epic: #b455f5;
+	--q-legendary: #ff8000;
+	color: var(--mist);
+}
+:root[data-theme='classic'] main :is(.card, .fold, .candidate, .view-choice, .character-tile, .group-dungeon, .group-detail, .content-tile, .fight-pick, .fight-card, .slot-bar, .set-pop, .gear-rail, .modal, .candidates, .plan-slot, .sheet .slot, .farm .dungeon, .farm .shopping-card, .log-scroll, .result-tab) :is(.delta-up, .diff-up, .set-pop-bonus) {
+	color: #1eff00;
+}
+:root[data-theme='classic'] main :is(.card, .fold, .candidate, .view-choice, .character-tile, .group-dungeon, .group-detail, .content-tile, .fight-pick, .fight-card, .slot-bar, .set-pop, .gear-rail, .modal, .candidates, .plan-slot, .sheet .slot, .farm .dungeon, .farm .shopping-card, .log-scroll, .result-tab) :is(.delta-down, .diff-down) {
+	color: #ff8a65;
+}
+:root[data-theme='classic'] main :is(.card, .fold, .candidate, .view-choice, .character-tile, .group-dungeon, .group-detail, .content-tile, .fight-pick, .fight-card, .slot-bar, .set-pop, .gear-rail, .modal, .candidates, .plan-slot, .sheet .slot, .farm .dungeon, .farm .shopping-card, .log-scroll, .result-tab) a {
+	color: var(--brass);
+}
+:root[data-theme='classic'] main :is(.card, .fold, .candidate, .view-choice, .character-tile, .group-dungeon, .group-detail, .content-tile, .fight-pick, .set-pop, .gear-rail, .modal, .preset-menu) :is(input, select, textarea) {
+	color: #ebe4d6;
+	background: #0a0806;
+	border-color: #4b3e2b;
+}
+:root[data-theme='classic'] main :is(.card, .fold, .candidate, .group-dungeon, .group-detail, .set-pop, .gear-rail, .modal) .button:not(.button-primary, .button-plan, [aria-pressed='true']) {
+	color: #ebe4d6;
+}
+/* Dark boxes on parchment get a frame of the time: black line, gold line. */
+:root[data-theme='classic'] main :is(.card, .view-choice, .character-tile, .group-dungeon, .group-detail, .fight-card, .content-tile) {
+	border-radius: 0;
+	border-color: #000;
+	box-shadow: 0 0 0 1px #8a6d2a;
+}
+:root[data-theme='classic'] main .gear-rail,
+:root[data-theme='classic'] main .fight-card,
+:root[data-theme='classic'] main .group-dungeon {
+	background: #16120e;
+}
+
+/* The foot of the page, outside the column */
+:root[data-theme='classic'] footer {
+	font-size: 11px;
+}
+
+/* The menu that picks the theme */
+.theme-menu {
+	position: relative;
+}
+.theme-menu-list {
+	position: absolute;
+	top: calc(100% + 6px);
+	right: 0;
+	z-index: 60;
+	display: grid;
+	gap: 0.2rem;
+	min-width: 15rem;
+	padding: 0.4rem;
+	background: #16120e;
+	border: 1px solid #ffd100;
+	border-radius: 6px;
+	box-shadow: 0 10px 28px rgb(0 0 0 / 0.8);
+}
+.theme-menu-list button {
+	display: grid;
+	gap: 0.1rem;
+	padding: 0.45rem 0.6rem;
+	font: inherit;
+	text-align: left;
+	color: #ebe4d6;
+	background: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	cursor: pointer;
+}
+.theme-menu-list button span {
+	font-size: 0.75rem;
+	color: #a79b84;
+}
+.theme-menu-list button:hover {
+	border-color: #8f6d1c;
+}
+.theme-menu-list button[aria-pressed='true'] {
+	border-color: #ffd100;
+	background: rgb(214 174 95 / 0.14);
+}
