@@ -16,7 +16,7 @@ name: Keep the simulator current
 on:
   schedule:
     - cron: '7,37 * * * *'
-    - cron: '41 1 * * *'
+    - cron: '41 4 * * *'
   workflow_dispatch:
 
 permissions:
@@ -115,7 +115,7 @@ jobs:
           gh workflow run presets.yml --ref main -f measure=true
       # The nightly catch-up: a version that arrived while a measurement was running is measured now.
       - name: Start the nightly measurements (no simulator update tonight)
-        if: github.event.schedule == '41 1 * * *' && steps.commit.outputs.pushed != 'true'
+        if: github.event.schedule == '41 4 * * *' && steps.commit.outputs.pushed != 'true'
         run: |
           busy=0
           for workflow in measure.yml weights.yml weapons.yml; do

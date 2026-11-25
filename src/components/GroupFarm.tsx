@@ -145,6 +145,8 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 		[roster, saved.out.join(','), loaded],
 	);
 	const dungeons = useMemo(() => sortGroup(groupFarm(members, saved.scope), saved.sort), [members, saved.scope, saved.sort]);
+	// How many dungeons there would be with every upgrade counted: so "planned only" can say what it leaves out.
+	const allCount = useMemo(() => (saved.scope === 'plan' ? groupFarm(members, 'any').length : 0), [members, saved.scope]);
 	const waiting = members.length < chosen.length;
 	const mixed = new Set(members.map(member => member.options.spec.role === 'healer')).size > 1;
 
@@ -305,6 +307,14 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 			{!waiting && members.length === 0 && <p className="farm-empty">Tick at least one character.</p>}
 			{!waiting && members.length > 0 && dungeons.length === 0 && (
 				<p className="farm-empty">{saved.scope === 'plan' ? 'Nobody in the group has a dungeon drop in their plan. Switch to "Every upgrade", or build the plans first.' : 'No dungeon has an upgrade for anybody in the group.'}</p>
+			)}
+			{saved.scope === 'plan' && dungeons.length > 0 && allCount > dungeons.length && (
+				<p className="hint group-scope-note">
+					Showing the {dungeons.length} dungeon{dungeons.length === 1 ? '' : 's'} with planned items. {allCount - dungeons.length} more hold upgrades nobody has planned.{' '}
+					<button className="link" onClick={() => change({ scope: 'any' })}>
+						Show every upgrade
+					</button>
+				</p>
 			)}
 			<ol ref={gridRef} className={`plain-list group-dungeons group-dungeons-${saved.look}`}>
 				{dungeons.map((dungeon, rank) => {

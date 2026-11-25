@@ -175,6 +175,14 @@
 							"tags": [
 								"Planner"
 							]
+						},
+						{
+							"title": "Hide worn items and guide picks",
+							"text": "On the Upgrades page the item you wear and the WoWSims and Wowhead picks have a \"Hide\" too. The Group plan says how many dungeons \"Planned items only\" leaves out.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
 						}
 					]
 				}

@@ -546,7 +546,12 @@ const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, open: char
 									</>
 								) : equippedItem ? (
 									<>
-										<ItemName item={equippedItem} icon worn /> equipped
+										<ItemName item={equippedItem} icon worn /> equipped{' '}
+										{!filter.hiddenItems.includes(equippedItem.id) && (
+											<button className="link hide-item" onClick={() => hide(equippedItem)} title="You keep wearing it, but it is left out of the lists, the guide picks and 'Plan the best set': for an item you are about to replace anyway.">
+												Hide
+											</button>
+										)}
 									</>
 								) : (
 									'Empty'
@@ -567,6 +572,8 @@ const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, open: char
 							currentId={gear[index]?.id}
 							deltaOf={itemId => swapDelta(index, itemId, gear, character, data, spec)}
 							onPlan={itemId => planItem(index, itemId)}
+							hidden={filter.hiddenItems}
+							onHide={hide}
 							blocked={itemId => blocked(index, itemId)}
 							otherId={pairedSlot(index) !== undefined ? gear[pairedSlot(index)!]?.id : undefined}
 						/>
@@ -887,15 +894,18 @@ interface GuidePicksProps {
 	blocked: (itemId: number) => boolean;
 	/** What sits in the other ring or trinket slot. */
 	otherId: number | undefined;
+	/** Items the user has hidden: they are not shown as picks either. */
+	hidden: number[];
+	onHide: (item: Item) => void;
 }
 
 /** What the guides pick for this slot, whatever the filters say. */
-function GuidePicks({ guides, slotIndex, data, currentId, deltaOf, onPlan, blocked, otherId }: GuidePicksProps) {
+function GuidePicks({ guides, slotIndex, data, currentId, deltaOf, onPlan, blocked, otherId, hidden, onHide }: GuidePicksProps) {
 	const kind = GEAR_SLOTS[slotIndex].kind;
 	const rows = guides
 		.map(guide => ({
 			guide,
-			entries: guide.entries.filter(e => (guide.fixedSet ? e.slotIndex === slotIndex : e.slot === kind)),
+			entries: guide.entries.filter(e => (guide.fixedSet ? e.slotIndex === slotIndex : e.slot === kind) && !hidden.includes(e.itemId)),
 		}))
 		.filter(row => row.entries.length > 0);
 	if (rows.length === 0) return null;
@@ -935,7 +945,10 @@ function GuidePicks({ guides, slotIndex, data, currentId, deltaOf, onPlan, block
 												Plan
 											</button>
 										</>
-									)}
+									)}{' '}
+									<button className="link hide-item guide-hide" onClick={() => onHide(item)} title="Leaves this item out of every list, the guide picks and 'Plan the best set'. Bring it back under 'What content do you do?', at the bottom.">
+										Hide
+									</button>
 								</span>
 							);
 						})}
