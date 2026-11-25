@@ -144,8 +144,8 @@ jobs:
       - name: Republish the site
         if: steps.commit.outputs.pushed == 'true'
         run: gh workflow run pages.yml --ref main
-      # The measurements run once a night, on the builds as they are after this step: one WoWSims version, one set of presets.
-      - name: Start the nightly measurements
+      # The measurements start after every simulator update, on the builds as they are after this step: one WoWSims version, one set of presets.
+      - name: Start the measurements
         if: inputs.measure == 'true' && inputs.specs == '' && (steps.apply.outputs.changed != 'true' || steps.test.outcome == 'success')
         run: |
           busy=0
@@ -155,7 +155,7 @@ jobs:
               busy=$((busy + count))
             done
           done
-          if [ "$busy" != "0" ]; then echo "A measurement is still running; tomorrow night picks this up."; exit 0; fi
+          if [ "$busy" != "0" ]; then echo "A measurement is still running; the nightly check picks this version up."; exit 0; fi
           for workflow in measure.yml weights.yml weapons.yml; do gh workflow run "$workflow" --ref main; done
       - name: Put the WoWSims checkout back for the clean-up steps
         if: always()

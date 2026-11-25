@@ -8,8 +8,9 @@ name: Keep the simulator current
 # Each update also writes what it changed in the item list to docs/item-changes.md and refreshes
 # docs/items-to-check.md, the list of items whose source is still a guess.
 #
-# The long measurements (item effects, stat weights, weapons) run once a night only, after the nightly check:
-# on one WoWSims version and the presets that belong to it.
+# The long measurements (item effects, stat weights, weapons) start after every simulator update, on that
+# version and the presets that belong to it. While one is still running, a newer version waits: the nightly
+# check starts them again, so the lists are never more than a night behind.
 # If the tests fail on the new data, nothing is committed and an issue says so.
 
 on:
@@ -110,8 +111,8 @@ jobs:
         if: steps.commit.outputs.pushed == 'true'
         run: |
           gh workflow run pages.yml --ref main
-          # The nightly run hands the measurements to the preset step, so they start on the new presets.
-          gh workflow run presets.yml --ref main -f measure=${{ github.event.schedule == '41 1 * * *' && 'true' || 'false' }}
+          # The preset step starts the measurements, so they run on the new presets. It skips them while a run is going.
+          gh workflow run presets.yml --ref main -f measure=true
       # Measurements run once a night only: during the day the simulator may move on several times, and a run
       # started for each of those would never finish on one version.
       - name: Start the nightly measurements (no simulator update tonight)
