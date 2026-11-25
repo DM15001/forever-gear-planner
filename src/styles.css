@@ -6776,3 +6776,34 @@ details.content-fold[open] > summary {
 	font-weight: 600;
 	color: var(--mist);
 }
+
+/* How deep the simulator check looks, next to its button. */
+.refine-depth {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	font-size: 0.85rem;
+	color: var(--haze);
+}
+
+/* The plan is an estimate until the simulator has checked it: said where the button is. */
+.check-callout {
+	margin: 0.9rem 0 0.2rem;
+	padding: 0.6rem 0.85rem;
+	color: var(--mist);
+	background: rgb(255 209 0 / 0.08);
+	border: 1px solid var(--brass);
+	border-left-width: 4px;
+	border-radius: 4px;
+}
+:root[data-theme='classic'] main .check-callout {
+	background: #f9e7a6;
+	border-color: #8a5a24;
+}
+.refine-depth {
+	white-space: nowrap;
+}
+.refine-depth select {
+	width: auto;
+	max-width: 100%;
+}

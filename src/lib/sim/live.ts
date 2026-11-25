@@ -89,8 +89,15 @@ export const ROUGH_ITERATIONS = 250;
 export const REFINE_ITERATIONS = 1000;
 /** The last run, for the winner and the runner-up. */
 export const FINAL_ITERATIONS = 5000;
-/** How many of a slot's best-scored items get a real run. */
+/** How many of a slot's best-scored items get a real run, unless the visitor picks another depth. */
 export const REFINE_DEPTH = 3;
+/** The depths on offer: fewer runs and a shorter wait, or more of each slot's list tried. */
+export const REFINE_DEPTHS = [
+	{ depth: 2, label: 'Quick', note: 'the 2 best per slot' },
+	{ depth: 3, label: 'Normal', note: 'the 3 best per slot' },
+	{ depth: 5, label: 'Thorough', note: 'the 5 best per slot, about a third longer' },
+	{ depth: 8, label: 'Very thorough', note: 'the 8 best per slot, about twice as long' },
+];
 /** A change that is not at least level with the set in the rough run is dropped there. */
 const ROUGH_MARGIN = 0;
 /**
@@ -151,7 +158,14 @@ export interface RefineResult {
  * Every change gets a short run first and the deciding run only when the short one does not rule it out: most
  * candidates are clear losers, and the time goes to the close calls. The result is never below the worn gear.
  */
-export async function refinePlan(options: CandidateOptions, runner: SimRunner, onProgress: (progress: RefineProgress) => void, cancelled: () => boolean = () => false): Promise<RefineResult> {
+export async function refinePlan(
+	options: CandidateOptions,
+	runner: SimRunner,
+	onProgress: (progress: RefineProgress) => void,
+	cancelled: () => boolean = () => false,
+	/** How many of a slot's best-scored items get a real run: the visitor's choice between quick and thorough. */
+	depth: number = REFINE_DEPTH,
+): Promise<RefineResult> {
 	const { character, data, spec, filter } = options;
 	const slots = GEAR_SLOTS.map((_, slot) => slot).filter(slot => slotInUse(slot, spec));
 	const itemOf = (set: Gear, slot: number) => (set[slot] ? data.itemById.get(set[slot]!.id) : undefined);
@@ -245,7 +259,7 @@ export async function refinePlan(options: CandidateOptions, runner: SimRunner, o
 			if (cancelled()) break;
 			step(sweep === 0 ? GEAR_SLOTS[slot].label : `${GEAR_SLOTS[slot].label}, second look`);
 			const ids = slotCandidates(slot, gear, options)
-				.slice(0, REFINE_DEPTH)
+				.slice(0, depth)
 				.map(candidate => candidate.item.id);
 			for (const id of ids) {
 				if (cancelled()) break;

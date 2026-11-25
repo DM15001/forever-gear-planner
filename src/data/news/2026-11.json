@@ -96,6 +96,22 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "The plan says when it is only an estimate",
+							"text": "Until the simulator has checked a plan, a box above the buttons says so and points to \"Check the plan with the simulator\". It goes away once the check has run, and comes back when the plan changes.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "You choose how thorough the simulator check is",
+							"text": "Next to \"Check the plan with the simulator\" there is a choice now: Quick (the 2 best items per slot), Normal (3), Thorough (5) or Very thorough (8). Deeper finds items the estimate ranks lower, and takes longer. The choice is remembered.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "The simulator check looks twice",
 							"text": "When the first round through the slots changed something, \"Check the plan with the simulator\" goes through them a second time. An item taken early, for example for its hit rating, is judged again against the set as it ended up.",
 							"source": "Gear Planner",

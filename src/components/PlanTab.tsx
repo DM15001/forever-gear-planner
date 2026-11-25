@@ -10,7 +10,7 @@ import { guideMarks, markLabel } from '../lib/guides';
 import { buildPlan, fallbacks, gotEnchant, gotItem, type PlanStep, planSteps } from '../lib/plan';
 import { EMPTY_SLOT, EVERYTHING, isUnmeasured, plannedGear, scoreSet, slotInUse, type SourceFilter, usableSources, withItem, isObtainable } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
-import { REFINE_DEPTH, refinePlan } from '../lib/sim/live';
+import { REFINE_DEPTH, REFINE_DEPTHS, refinePlan } from '../lib/sim/live';
 import { wowheadItemUrl, wowheadData } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
 import { ContentPicker, useContentOpen } from './ContentPicker';
@@ -64,6 +64,26 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 	const [refineSteps, setRefineSteps] = useState({ done: 0, total: 1 });
 	const [refineNote, setRefineNote] = useState<string | null>(null);
 	const stopRefine = useRef(false);
+	// Which plan the simulator check last went through: until then the page says the plan is only an estimate.
+	const [checkedPlan, setCheckedPlan] = useState<string | null>(null);
+	const planKey = JSON.stringify([character.gear.map(piece => piece?.id ?? 0), character.plan ?? {}, character.planEnchants ?? {}]);
+	// How deep the check looks into each slot's list: the visitor's choice, kept in this browser.
+	const [depth, setDepthState] = useState(() => {
+		try {
+			const saved = Number(localStorage.getItem('fgp.refineDepth'));
+			return REFINE_DEPTHS.some(option => option.depth === saved) ? saved : REFINE_DEPTH;
+		} catch {
+			return REFINE_DEPTH;
+		}
+	});
+	const setDepth = (next: number) => {
+		setDepthState(next);
+		try {
+			localStorage.setItem('fgp.refineDepth', String(next));
+		} catch {
+			/* private mode: kept for this visit */
+		}
+	};
 	const refine = async () => {
 		stopRefine.current = false;
 		setRefineNote(null);
@@ -77,8 +97,11 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 					setRefining(`${p.slot}, step ${p.done + 1} of ${p.total} (${p.dps.toFixed(0)} ${unit()} so far)`);
 				},
 				() => stopRefine.current,
+				depth,
 			);
 			onChange({ ...character, plan: result.plan, planEnchants: result.planEnchants });
+			// The plan as the check left it counts as checked; any later change asks for it again.
+			setCheckedPlan(JSON.stringify([character.gear.map(piece => piece?.id ?? 0), result.plan, result.planEnchants]));
 			const kept = Object.keys(result.plan).length + Object.keys(result.planEnchants).length === 0;
 			const second = result.runnerUp
 				? result.runnerUp.equal
@@ -208,6 +231,12 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 							that choice. "Rebuild the plan" replaces {staleCount === 1 ? 'it' : 'them'}.
 						</p>
 					)}
+					{!import.meta.env.VITE_NO_SIM && hasPlan && !refining && checkedPlan !== planKey && (
+						<p className="check-callout" role="note">
+							<strong>This plan is an estimate.</strong> For the best result, press "Check the plan with the simulator": it tests the plan and its alternatives with real simulations and swaps in whatever
+							is really better. It takes a few minutes and you only need it once per plan.
+						</p>
+					)}
 					<div className="actions">
 						<button className="button" onClick={() => rebuild()} disabled={refining !== null}>
 							Rebuild the plan
@@ -216,6 +245,18 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 							<button className="button button-primary" onClick={refine} disabled={refining !== null}>
 								Check the plan with the simulator
 							</button>
+						)}
+						{!import.meta.env.VITE_NO_SIM && (
+							<label className="refine-depth">
+								How thorough
+								<select value={depth} onChange={event => setDepth(Number(event.target.value))} disabled={refining !== null}>
+									{REFINE_DEPTHS.map(option => (
+										<option key={option.depth} value={option.depth}>
+											{option.label}: {option.note}
+										</option>
+									))}
+								</select>
+							</label>
 						)}
 						{refining && (
 							<button className="button" onClick={() => (stopRefine.current = true)}>
@@ -239,7 +280,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 					)}
 					<p className="hint">
 						"Check the plan with the simulator" looks for the best set with the real simulator. It first runs your plan, the guides' sets and your worn gear against each other and goes on from the best. Then
-						it tries the {REFINE_DEPTH} best-scored items of every slot (twice when the first round changed something), the enchants, and pairs of slots changed together (both rings, both trinkets, both hands, slots that trade hit rating). Every
+						it tries the best-scored items of every slot, as many as "How thorough" says (twice when the first round changed something), the enchants, and pairs of slots changed together (both rings, both trinkets, both hands, slots that trade hit rating). Every
 						candidate gets a short run first and a longer one only when it is close, and the winner and the runner-up get a long run at the end. It keeps a change only when the {unit()} really goes up,
 						never ends below what you wear, and takes several minutes.
 					</p>
