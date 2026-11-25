@@ -6083,3 +6083,268 @@ summary.breakdown-toggle:focus-visible {
 	max-width: 44rem;
 	margin: 0.8rem 0;
 }
+
+/* Content choice: switches you can see. A picture, a name, lit when it counts. */
+.content-tiles {
+	grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr));
+	gap: 0.5rem;
+}
+.content-tiles > .hint,
+.content-tiles > .content-wide {
+	grid-column: 1 / -1;
+}
+.content-tile {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	padding: 0.4rem 0.6rem 0.4rem 0.4rem;
+	font: inherit;
+	text-align: left;
+	color: var(--haze);
+	background: #0a0806;
+	border: 1px solid var(--hairline);
+	border-radius: 6px;
+	cursor: pointer;
+	transition:
+		border-color 0.12s,
+		background 0.12s;
+}
+.content-tile .dungeon-icon {
+	width: 2.4rem;
+	height: 2.4rem;
+	filter: grayscale(0.9) brightness(0.6);
+}
+.content-tile-text {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	min-width: 0;
+	line-height: 1.25;
+}
+.content-tile-text strong {
+	font-weight: 600;
+}
+.content-tile-text span {
+	font-size: 0.75rem;
+}
+.content-tile-mark {
+	flex: none;
+	width: 1.1rem;
+	font-weight: 700;
+	color: var(--brass);
+}
+.content-tile:hover:not(:disabled) {
+	border-color: var(--brass-deep);
+}
+.content-tile-on {
+	color: var(--mist);
+	background: linear-gradient(90deg, rgb(214 174 95 / 0.13), transparent 70%), var(--slate-raised);
+	border-color: var(--brass-deep);
+}
+.content-tile-on .dungeon-icon {
+	filter: none;
+}
+.content-tile-on .content-tile-text strong {
+	color: #fff;
+}
+.content-tile:disabled {
+	opacity: 0.45;
+	cursor: not-allowed;
+}
+.presets .content-preset {
+	padding: 0.5rem 1rem;
+	font-weight: 600;
+}
+.presets .content-preset[aria-pressed='true'] {
+	color: var(--on-brass);
+	background: var(--brass);
+}
+/* The fold that holds the content choice: a bar you want to click, not a line of text. */
+details.content-fold > summary {
+	padding: 0.7rem 1rem;
+	font-family: var(--display);
+	font-weight: 700;
+	color: var(--brass);
+	background: linear-gradient(90deg, rgb(214 174 95 / 0.12), transparent 70%), var(--slate-raised);
+	border: 1px solid var(--brass-deep);
+	border-radius: 6px;
+	cursor: pointer;
+}
+details.content-fold > summary:hover {
+	border-color: var(--brass);
+}
+details.content-fold[open] > summary {
+	margin-bottom: 0.9rem;
+}
+
+/* Encounter: a card with the three choices in plain sight */
+.fight-card {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.8rem 1.5rem;
+	margin: 0.9rem 0;
+	padding: 0.8rem 1rem;
+	background: linear-gradient(90deg, rgb(214 174 95 / 0.08), transparent 70%), var(--slate-raised);
+	border: 1px solid var(--ridge);
+	border-radius: 8px;
+}
+.fight-card-text {
+	display: flex;
+	flex: 1 1 16rem;
+	flex-direction: column;
+}
+.fight-card-text strong {
+	font-family: var(--display);
+	font-size: 1.05rem;
+	color: var(--brass);
+}
+.fight-card-picks {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+}
+.fight-pick {
+	display: flex;
+	align-items: center;
+	gap: 0.55rem;
+	min-width: 9rem;
+	padding: 0.35rem 0.8rem 0.35rem 0.4rem;
+	font: inherit;
+	text-align: left;
+	color: var(--mist);
+	background: #0a0806;
+	border: 1px solid var(--ridge);
+	border-radius: 6px;
+	cursor: pointer;
+}
+.fight-pick:hover {
+	border-color: var(--brass);
+}
+.fight-pick-on {
+	border-color: var(--brass);
+	box-shadow: 0 0 10px -4px var(--brass);
+}
+.fight-pick img,
+.fight-pick-any {
+	flex: none;
+	width: 2.2rem;
+	height: 2.2rem;
+	border: 1px solid var(--ridge);
+	border-radius: 4px;
+}
+.fight-pick-any {
+	display: grid;
+	place-items: center;
+	font-weight: 700;
+	color: var(--haze);
+	background: var(--well);
+}
+.fight-pick > span:last-child {
+	display: flex;
+	flex-direction: column;
+	line-height: 1.2;
+}
+.fight-pick-on strong {
+	color: var(--brass);
+}
+.news-class {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+}
+.news-class select {
+	padding: 0.3rem 0.5rem;
+	font: inherit;
+	color: inherit;
+	background: #0a0806;
+	border: 1px solid var(--ridge);
+	border-radius: 999px;
+}
+
+/* Upgrades: the row of slots at the top, each with the picture of what it holds */
+.slot-nav .slot-chip {
+	gap: 0.5rem;
+	padding: 0.3rem 0.75rem 0.3rem 0.35rem;
+	color: var(--mist);
+	background: #0a0806;
+	border: 1px solid var(--ridge);
+	border-radius: 8px;
+}
+.slot-nav .slot-chip .slot-icon {
+	width: 1.9rem;
+	height: 1.9rem;
+}
+.slot-chip-text {
+	display: flex;
+	flex-direction: column;
+	line-height: 1.2;
+}
+.slot-chip-text strong {
+	font-size: 0.8125rem;
+}
+.slot-chip-text span {
+	font-size: 0.6875rem;
+}
+.slot-chip-done {
+	color: var(--haze);
+}
+.slot-nav .slot-chip-planned {
+	background: linear-gradient(180deg, rgb(214 174 95 / 0.2), rgb(214 174 95 / 0.06));
+	border-color: var(--brass);
+}
+.slot-nav .slot-chip-planned .slot-chip-mark {
+	color: var(--brass);
+}
+.slot-nav .slot-chip-open {
+	border-color: #2f7d3a;
+}
+.slot-nav .slot-chip:hover {
+	border-color: var(--brass);
+}
+.slot-nav .slot-chip-here {
+	box-shadow: 0 0 0 1px var(--brass), 0 0 12px -3px var(--brass);
+}
+/* Upgrades: the rows of items. Colour for what is gained and lost, and buttons that say which one is the main one. */
+.candidates .candidate {
+	padding: 0.55rem 0.6rem;
+	border-radius: 6px;
+}
+.candidates .candidate:hover {
+	background: rgb(255 255 255 / 0.035);
+}
+.candidates .candidate-delta {
+	font-size: 1.0625rem;
+}
+.diff-up {
+	color: #6fdc7a;
+}
+.diff-down {
+	color: #ff8a65;
+}
+.stat-diff {
+	color: var(--haze);
+}
+.candidate-actions .button-plan {
+	padding: 0.3rem 0.9rem;
+	font-weight: 700;
+	color: var(--on-brass);
+	background: var(--brass);
+	border-color: var(--brass);
+}
+.candidate-actions .button-plan:hover {
+	filter: brightness(1.12);
+}
+.candidate-actions .sim-button {
+	color: #8fdcff;
+	border-color: #3d7fa0;
+}
+.candidate-actions .sim-button:hover {
+	color: #fff;
+	border-color: #8fdcff;
+}
+.candidate-actions .hide-item:hover {
+	color: #ff8a65;
+	border-color: #ff8a65;
+}

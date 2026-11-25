@@ -41,6 +41,38 @@
 							]
 						},
 						{
+							"title": "Content choice you can see",
+							"text": "\"What content do you do?\" is now a bar you cannot miss, and dungeons, reputations and the other sources are tiles with a picture: lit when they count, grey when left out.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "New switch: procs unknown",
+							"text": "Items whose proc rate the simulator does not know are still off by default, but can now be switched on under \"Everything else\".",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Encounter in plain sight",
+							"text": "Enemy, creature and terrain show as three buttons on a card instead of one small button.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Upgrades page",
+							"text": "The slots at the top show the item they hold and whether an upgrade is open. In the item rows, gains are green and losses red, and \"Plan\" is the gold button.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Planned swaps show their worth",
 							"text": "A planned item now says what it gains over the item it replaces.",
 							"source": "Gear Planner",

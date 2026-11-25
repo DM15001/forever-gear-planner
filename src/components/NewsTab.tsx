@@ -201,7 +201,17 @@ export function NewsTab({ myClass, onSeen }: { myClass?: string; onSeen: () => v
 				<div className="filter-chips" role="group" aria-label="Show only">
 					{chip(null, 'Everything')}
 					{mine && chip(mine, `My class: ${mine}`)}
-					{CLASS_TAGS.filter(name => name !== mine).map(name => chip(name, name))}
+					<label className="news-class">
+						<span className="slot-source">Class</span>
+						<select value={tag !== null && CLASS_TAGS.includes(tag) ? tag : ''} onChange={event => setTag(event.target.value || null)}>
+							<option value="">All classes</option>
+							{CLASS_TAGS.map(name => (
+								<option key={name} value={name}>
+									{name}
+								</option>
+							))}
+						</select>
+					</label>
 				</div>
 				<div className="filter-chips" role="group" aria-label="Show only a topic">
 					{TOPIC_TAGS.map(name => chip(name, name))}

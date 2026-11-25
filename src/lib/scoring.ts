@@ -19,6 +19,9 @@ const UNKNOWN_PROCS: Record<string, string> = unknownProcs;
 /** Items whose simulated value is known to be wrong (src/config/sim-issues.json, kept by hand). */
 const WRONG_IN_SIM: Record<string, string> = simIssues.wrong;
 
+/** True for an item whose simulated value cannot be trusted: no known trigger rate, or a known error in the simulator. */
+export const simUnsure = (item: Item): boolean => Boolean(UNKNOWN_PROCS[item.id] || WRONG_IN_SIM[item.id]);
+
 /** Why an item cannot be had in the game yet, or undefined when nothing is known against it. */
 export function notYetAvailable(item: Item): string | undefined {
 	if (CLOSED_ITEMS[item.id]) return CLOSED_ITEMS[item.id];
@@ -323,6 +326,8 @@ export interface SourceFilter {
 	randomSuffix: boolean;
 	/** Items from content that is in the data but not open in the game yet (src/config/not-available.json). */
 	notYetAvailable: boolean;
+	/** Items whose effect the simulator cannot value yet (no known trigger rate, or a known error). Their number is far too high, so they are off unless asked for. */
+	unknownProcs: boolean;
 	/** Items the user has hidden by hand, by id. */
 	hiddenItems: number[];
 	ownCraftsOnly: boolean; // crafted items only from the character's own professions
@@ -349,6 +354,7 @@ export const DEFAULT_FILTER: SourceFilter = {
 	tierMinimum: 0,
 	randomSuffix: true,
 	notYetAvailable: false,
+	unknownProcs: false,
 	hiddenItems: [],
 	ownCraftsOnly: false,
 	excludedDungeons: [],
@@ -356,7 +362,7 @@ export const DEFAULT_FILTER: SourceFilter = {
 	excludedReputations: ['The Watchers'],
 };
 
-export type SourceKindKey = Exclude<keyof SourceFilter, 'tierSlots' | 'tier05' | 'ignoredSets' | 'tierMinimum' | 'randomSuffix' | 'notYetAvailable' | 'hiddenItems' | 'ownCraftsOnly' | 'excludedDungeons' | 'excludedReputations'>;
+export type SourceKindKey = Exclude<keyof SourceFilter, 'tierSlots' | 'tier05' | 'ignoredSets' | 'tierMinimum' | 'randomSuffix' | 'notYetAvailable' | 'unknownProcs' | 'hiddenItems' | 'ownCraftsOnly' | 'excludedDungeons' | 'excludedReputations'>;
 
 /** The reputation a source needs, if any: a reputation reward or a quartermaster's goods. */
 export const reputationOf = (source: ItemSource): string | undefined => (source.kind === 'rep' ? source.repFaction : vendorReputation(source));
@@ -446,7 +452,10 @@ export function isObtainable(item: Item, character: Character, faction: Faction 
 	if (isTierPiece(item, spec) && !filter.tierSlots.includes(item.slot)) return false;
 	if (!filter.tier05 && item.setId !== undefined && item.setId === tierSets(spec)?.tier05) return false;
 	if (!filter.randomSuffix && item.randomSuffixOptions?.length) return false;
-	if (!filter.notYetAvailable && notYetAvailable(item)) return false;
+	// What the simulator cannot value has a switch of its own; everything else that is closed goes by "not in the game yet".
+	if (simUnsure(item)) {
+		if (!filter.unknownProcs) return false;
+	} else if (!filter.notYetAvailable && notYetAvailable(item)) return false;
 	if (filter.hiddenItems.includes(item.id)) return false;
 	if (item.faction && faction && item.faction !== faction) return false;
 	if (item.requiredProfession && !character.professions.includes(item.requiredProfession)) return false;

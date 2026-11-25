@@ -128,7 +128,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 				q: 'An item is missing or its source is wrong. What now?',
 				a: (
 					<>
-						<p>First check "Content: dungeons, reputations, crafting and more" on the Plan and Upgrades pages: items with no known source and items not in the game yet are switched off by default, and a hidden item stays hidden until you bring it back there. Class-only items show only for that class.</p>
+						<p>First check "What content do you do?" on the Plan and Upgrades pages: items with no known source and items not in the game yet are switched off by default, and a hidden item stays hidden until you bring it back there. Class-only items show only for that class.</p>
 						<p>If the source really is unknown or wrong: next to such items there is a link "know where it drops?", which opens a filled-in report. Or write an <a href={`${REPO}/issues`}>issue</a>.</p>
 					</>
 				),

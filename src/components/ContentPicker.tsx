@@ -4,6 +4,8 @@ import { contentCatalog, presets, sameFilter, toggled } from '../lib/content';
 import type { GameData } from '../lib/gameData';
 import { type SourceFilter, TIER_SLOTS, tierSets, PVP_RANKS } from '../lib/scoring';
 import type { Character, SpecConfig } from '../lib/types';
+import DUNGEON_ICONS from '../config/dungeonIcons.json';
+import { DungeonIcon } from './ItemIcon';
 
 interface Props {
 	spec: SpecConfig;
@@ -39,31 +41,58 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 		</label>
 	);
 
+	/** A switch you can see: picture, name, lit when it counts. */
+	const tile = (label: string, icons: string[], on: boolean, change: (on: boolean) => void, disabled = false, note?: string) => (
+		<button key={label} type="button" className={`content-tile${on ? ' content-tile-on' : ''}`} aria-pressed={on} disabled={disabled} onClick={() => change(!on)} title={disabled ? note : on ? `${label}: counted. Click to leave it out.` : `${label}: left out. Click to count it.`}>
+			<DungeonIcon icons={icons} />
+			<span className="content-tile-text">
+				<strong>{label}</strong>
+				{note && <span>{note}</span>}
+			</span>
+			<span className="content-tile-mark" aria-hidden="true">
+				{on ? '✓' : ''}
+			</span>
+		</button>
+	);
+	const dungeonIcons = (key: string) => (DUNGEON_ICONS as unknown as Record<string, string[] | undefined>)[key.split(':')[0]] ?? [];
+	const allDungeonKeys = [...catalog.dungeons.map(d => d.key), ...catalog.lowDungeonKeys];
+
 	return (
 		<div className="content-picker">
 			<div className="presets" role="group" aria-label="Presets">
 				{options.map(preset => (
-					<button key={preset.id} className="button button-small" aria-pressed={sameFilter({ ...filter, hiddenItems: [], randomSuffix: true, notYetAvailable: false }, preset.filter)} title={preset.hint} onClick={() => onChange({ ...preset.filter, hiddenItems: filter.hiddenItems, randomSuffix: filter.randomSuffix, notYetAvailable: filter.notYetAvailable })}>
+					<button key={preset.id} className="button content-preset" aria-pressed={sameFilter({ ...filter, hiddenItems: [], randomSuffix: true, notYetAvailable: false, unknownProcs: false }, preset.filter)} title={preset.hint} onClick={() => onChange({ ...preset.filter, hiddenItems: filter.hiddenItems, randomSuffix: filter.randomSuffix, notYetAvailable: filter.notYetAvailable, unknownProcs: filter.unknownProcs })}>
 						{preset.label}
 					</button>
 				))}
 			</div>
 
-			<fieldset className="content-group">
+			<fieldset className="content-group content-tiles">
 				<legend>Dungeons</legend>
-				{catalog.dungeons.map(d => check(d.name, !filter.excludedDungeons.includes(d.key), on => set({ excludedDungeons: toggled(filter.excludedDungeons, [d.key], on) })))}
-				{catalog.lowDungeonKeys.length > 0 && check('Lower-level dungeons', lowOn, on => set({ excludedDungeons: toggled(filter.excludedDungeons, catalog.lowDungeonKeys, on) }))}
+				<p className="hint tier-hint">
+					Click a dungeon to count or leave out its loot.{' '}
+					<button className="link" onClick={() => set({ excludedDungeons: filter.excludedDungeons.filter(key => !allDungeonKeys.includes(key)) })}>
+						All
+					</button>{' '}
+					<button className="link" onClick={() => set({ excludedDungeons: [...new Set([...filter.excludedDungeons, ...allDungeonKeys])] })}>
+						None
+					</button>
+				</p>
+				{catalog.dungeons.map(d => tile(d.name, dungeonIcons(d.key), !filter.excludedDungeons.includes(d.key), on => set({ excludedDungeons: toggled(filter.excludedDungeons, [d.key], on) })))}
+				{catalog.lowDungeonKeys.length > 0 && tile('Lower-level dungeons', ['achievement_boss_edwinvancleef', 'inv_misc_head_murloc_01'], lowOn, on => set({ excludedDungeons: toggled(filter.excludedDungeons, catalog.lowDungeonKeys, on) }), false, 'Deadmines to Maraudon')}
 			</fieldset>
 
-			<fieldset className="content-group">
+			<fieldset className="content-group content-tiles">
 				<legend>Reputations</legend>
-				{check('Any reputation', filter.rep, on => set({ rep: on }))}
+				{tile('Any reputation', ['inv_misc_note_02', 'inv_scroll_03'], filter.rep, on => set({ rep: on }), false, 'The switch for all of them')}
 				{catalog.reputations.map(r =>
-					check(
-						r.battleground ? `${r.name} (battleground${filter.pvp ? '' : ', needs PvP switched on'})` : r.name,
+					tile(
+						r.name,
+						r.battleground ? ['inv_bannerpvp_02', 'inv_bannerpvp_01'] : ['inv_misc_tournaments_banner_human', 'inv_scroll_03'],
 						filter.rep && !filter.excludedReputations.includes(r.name) && (!r.battleground || filter.pvp),
 						on => set({ excludedReputations: toggled(filter.excludedReputations, [r.name], on) }),
 						!filter.rep || (r.battleground && !filter.pvp),
+						r.battleground ? (filter.pvp ? 'Battleground' : 'Battleground: needs PvP switched on') : undefined,
 					),
 				)}
 			</fieldset>
@@ -116,19 +145,21 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				</fieldset>
 			)}
 
-			<fieldset className="content-group">
+			<fieldset className="content-group content-tiles">
 				<legend>Everything else</legend>
-				{check('Random-suffix items ("of Shadow Wrath"), best roll', filter.randomSuffix, on => set({ randomSuffix: on }))}
-				{check('Items not in the game yet', filter.notYetAvailable, on => set({ notYetAvailable: on }))}
-				{check('Quest rewards', filter.quest, on => set({ quest: on }))}
-				{check('Crafted items', filter.crafted, on => set({ crafted: on }))}
-				{check(`Only crafts from my professions${character.professions.length ? ` (${character.professions.join(', ')})` : ''}`, filter.crafted && filter.ownCraftsOnly, on => set({ ownCraftsOnly: on }), !filter.crafted)}
-				{check('Currency vendors (Tarnished Undermine Reals)', filter.currency, on => set({ currency: on }))}
-				{check('Other vendors', filter.vendor, on => set({ vendor: on }))}
-				{check('World drops', filter.drop, on => set({ drop: on }))}
-				{check('PvP: rank rewards and battlegrounds (their reputations and quests)', filter.pvp, on => set({ pvp: on }))}
+				{tile('Quest rewards', ['inv_scroll_03'], filter.quest, on => set({ quest: on }))}
+				{tile('Crafted items', ['trade_blacksmithing'], filter.crafted, on => set({ crafted: on }))}
+				{tile('Only my professions', ['trade_engineering', 'trade_blacksmithing'], filter.crafted && filter.ownCraftsOnly, on => set({ ownCraftsOnly: on }), !filter.crafted, character.professions.length ? character.professions.join(', ') : 'Crafts from your own professions only')}
+				{tile('World drops', ['inv_misc_bag_08'], filter.drop, on => set({ drop: on }))}
+				{tile('Random-suffix items', ['inv_jewelry_ring_03'], filter.randomSuffix, on => set({ randomSuffix: on }), false, '"of Shadow Wrath", best roll')}
+				{tile('Currency vendors', ['inv_misc_coin_02', 'inv_misc_coin_01'], filter.currency, on => set({ currency: on }), false, 'Tarnished Undermine Reals')}
+				{tile('Other vendors', ['inv_misc_coin_01'], filter.vendor, on => set({ vendor: on }))}
+				{tile('PvP', ['inv_bannerpvp_02', 'inv_bannerpvp_01'], filter.pvp, on => set({ pvp: on }), false, 'Rank rewards and battlegrounds')}
+				{tile('Not in the game yet', ['inv_misc_pocketwatch_01'], filter.notYetAvailable, on => set({ notYetAvailable: on }), false, 'Later raids, events, closed content')}
+				{tile('Procs unknown', ['spell_nature_lightning'], filter.unknownProcs, on => set({ unknownProcs: on }), false, 'The simulator overvalues them')}
+				{tile('No known source', ['inv_misc_questionmark'], filter.unknown, on => set({ unknown: on }), false, 'Nobody knows where they drop')}
 				{filter.pvp && (
-					<label className="tier-minimum">
+					<label className="tier-minimum content-wide">
 						Highest honor rank you will reach
 						<select value={filter.pvpMaxRank ?? 14} onChange={e => set({ pvpMaxRank: Number(e.target.value) })}>
 							{PVP_RANKS.filter(([rank]) => rank >= 3).map(([rank, alliance, horde]) => (
@@ -142,7 +173,6 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 						<span className="slot-source">Rewards of a higher rank are left out. Battleground reputations and quests stay in.</span>
 					</label>
 				)}
-				{check('Items with no known source', filter.unknown, on => set({ unknown: on }))}
 			</fieldset>
 			{!faction && <p className="field-error">Pick a race on the Character tab to hide the other faction's items.</p>}
 			{filter.hiddenItems.length > 0 && (

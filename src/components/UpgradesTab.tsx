@@ -204,8 +204,10 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 		<div className="upgrades">
 			{part === 'sim' && (
 				<>
-			<details className="weights fold">
-				<summary>Content: dungeons, reputations, crafting and more</summary>
+			<details className="content-fold fold">
+				<summary>
+					What content do you do?<span className="slot-source">Dungeons, reputations, PvP, crafting and more: click to choose what counts.</span>
+				</summary>
 				<ContentPicker spec={spec} character={character} data={data} filter={filter} onChange={setFilter} />
 			</details>
 
@@ -381,6 +383,8 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 					if (!candidates) return null;
 					const best = candidates[0]?.delta ?? 0;
 					const isPlanned = character.plan?.[index] !== undefined && character.plan[index] !== character.gear[index]?.id;
+					// The picture of what the slot ends up with: the planned item, else the worn one.
+					const chipItem = gear[index] ? data.itemById.get(gear[index]!.id) : undefined;
 					return (
 						<a
 							key={slot.key}
@@ -390,8 +394,11 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 							className={`${isPlanned ? 'slot-chip slot-chip-planned' : best > 0 ? 'slot-chip slot-chip-open' : 'slot-chip'}${here === slot.key ? ' slot-chip-here' : ''}`}
 							title={isPlanned ? 'Planned' : best > 0 ? 'An upgrade is available' : 'Nothing better with these filters'}
 						>
-							{slot.label}
-							{best > 0 ? <span className="num delta-up">{formatDelta(best).replace(` ${unit()}`, '')}</span> : isPlanned ? <span className="slot-chip-mark">planned</span> : null}
+							<ItemIcon icon={chipItem?.icon} quality={chipItem?.quality} inline />
+							<span className="slot-chip-text">
+								<strong>{slot.label}</strong>
+								{best > 0 ? <span className="num delta-up">{formatDelta(best).replace(` ${unit()}`, '')} open</span> : isPlanned ? <span className="slot-chip-mark">planned</span> : <span className="slot-chip-mark slot-chip-done">best you have</span>}
+							</span>
 						</a>
 					);
 				})}
@@ -687,6 +694,20 @@ function setOutlook(setId: number | undefined, base: Gear, variant: Gear, data: 
 	return `${worn}. Set bonuses for this build, in total: ${bonuses}. ${state}`.trim();
 }
 
+/** A stat comparison with what you gain in green and what you lose in red. */
+function DiffText({ text }: { text: string }) {
+	return (
+		<>
+			{text.split(', ').map((part, index) => (
+				<span key={index}>
+					{index > 0 && ', '}
+					<span className={/^[-−–]/.test(part) ? 'diff-down' : 'diff-up'}>{part}</span>
+				</span>
+			))}
+		</>
+	);
+}
+
 function CandidateRow({ candidate, note, current, healWeights, marks, base, variant, data, faction, filter, onPlan, onHide }: RowProps) {
 	const { item, delta, incomplete } = candidate;
 	const sets = setChanges(base, variant, data);
@@ -728,7 +749,9 @@ function CandidateRow({ candidate, note, current, healWeights, marks, base, vari
 					{stats || (item.weapon?.dps ? '' : 'No stats')}
 				</span>
 				{current && statChange(pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data), current) && (
-					<span className="stat-diff">Against your item: {statChange(pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data), current)}</span>
+					<span className="stat-diff">
+						Against your item: <DiffText text={statChange(pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data), current)} />
+					</span>
 				)}
 				{current && healWeights && <HealSplit next={pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data)} now={current} weights={healWeights} />}
 				{conditionalLines(item, data.fight).map(line => (
@@ -752,7 +775,7 @@ function CandidateRow({ candidate, note, current, healWeights, marks, base, vari
 			</span>
 			<span className="candidate-actions">
 				<SimDelta base={base} variant={variant} />
-				<button className="button button-small" onClick={onPlan}>
+				<button className="button button-small button-plan" onClick={onPlan}>
 					Plan
 				</button>
 				<button className="link hide-item" onClick={onHide} title="Leave this item out of every list and out of 'Plan the best set', for example because it is too expensive or not in the game yet. Bring it back under Plan, Content.">

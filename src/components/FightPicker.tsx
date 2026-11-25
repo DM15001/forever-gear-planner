@@ -56,6 +56,13 @@ function Tile({ id, label, active, onClick }: { id: string; label: string; activ
 	);
 }
 
+/** The picture of a chosen enemy or terrain on the encounter card; a plain mark while nothing is chosen. */
+function PickIcon({ id }: { id: string | undefined }) {
+	const [attempt, setAttempt] = useState(0);
+	const icon = id ? ICONS[id] : undefined;
+	return icon && attempt < ICON_SOURCES.length ? <img src={ICON_SOURCES[attempt](icon)} alt="" loading="lazy" onError={() => setAttempt(attempt + 1)} /> : <span className="fight-pick-any" aria-hidden="true">?</span>;
+}
+
 /** The enemy kind and terrain the character fights in. Some items are only strong against one of them. */
 export function FightPicker({ character, onChange }: { character: Character; onChange: (next: Character) => void }) {
 	const [open, setOpen] = useState(false);
@@ -76,11 +83,33 @@ export function FightPicker({ character, onChange }: { character: Character; onC
 	);
 	const chosen = [fight.mobType, fight.family && spaced(fight.family), fight.area && AREAS.find(([key]) => key === fight.area)?.[1]].filter(Boolean).join(', ');
 	return (
-		<div className="fight-open">
-			<button className="button" onClick={() => setOpen(true)}>
-				Encounter: {chosen || 'any enemy, any terrain'}
-			</button>
-			<span className="slot-source">For items that are only strong against one kind of enemy or in one terrain.</span>
+		<div className="fight-card">
+			<div className="fight-card-text">
+				<strong>What are you fighting?</strong>
+				<span className="slot-source">Some items are only strong against one kind of enemy or in one terrain. Pick it and they count.</span>
+			</div>
+			<div className="fight-card-picks">
+				{(
+					[
+						['Enemy', fight.mobType, fight.mobType],
+						['Creature', fight.family, fight.family && spaced(fight.family)],
+						['Terrain', fight.area, fight.area && AREAS.find(([key]) => key === fight.area)?.[1]],
+					] as [string, string | undefined, string | undefined][]
+				).map(([kind, id, label]) => (
+					<button key={kind} className={id ? 'fight-pick fight-pick-on' : 'fight-pick'} onClick={() => setOpen(true)} title={`Choose the ${kind.toLowerCase()}`}>
+						<PickIcon id={id} />
+						<span>
+							<span className="slot-source">{kind}</span>
+							<strong>{label ?? 'Any'}</strong>
+						</span>
+					</button>
+				))}
+				{chosen && (
+					<button className="link" onClick={() => onChange({ ...character, fight: undefined })}>
+						Clear
+					</button>
+				)}
+			</div>
 			{open && (
 				<Modal title="Encounter: enemy type and terrain" onClose={() => setOpen(false)} wide>
 			<div className="fight-picker">
