@@ -256,10 +256,10 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				group(
 					'tier',
 					'Dungeon set pieces (Tier 0 and Tier 0.5)',
-					filter.tierSlots.length,
-					TIER_SLOTS.length,
-					() => set({ tierSlots: TIER_SLOTS.map(([kind]) => kind) }),
-					() => set({ tierSlots: [] }),
+					filter.tierSlots.length + (filter.tier05 ? 1 : 0),
+					TIER_SLOTS.length + 1,
+					() => set({ tier05: true, tierSlots: TIER_SLOTS.map(([kind]) => kind) }),
+					() => set({ tier05: false, tierSlots: [] }),
 					<>
 					<p className="hint tier-hint">
 						Tick the slots that may hold a set piece. All ticked: the planner takes as many as are worth it. None ticked: no set piece at all.
