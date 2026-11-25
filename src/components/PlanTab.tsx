@@ -241,14 +241,18 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 					)}
 					{!import.meta.env.VITE_NO_SIM && hasPlan && !refining && checkedPlan !== planKey && (
 						<p className="check-callout" role="note">
-							<strong>This plan is an estimate.</strong> For the best result, press "Check the plan with the simulator": it tests the plan and its alternatives with real simulations and swaps in whatever
-							is really better. It takes a few minutes and you only need it once per plan.
+							<svg className="check-callout-sign" viewBox="0 0 24 22" aria-hidden="true">
+								<path d="M12 1.5 23 20.5H1Z" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+								<path d="M12 8v6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+								<circle cx="12" cy="17.2" r="1.3" fill="currentColor" />
+							</svg>
+							<span>
+								<strong>This plan is an estimate.</strong> For the best result, press "Check the plan with the simulator": it tests the plan and its alternatives with real simulations and swaps in whatever
+								is really better. It takes a few minutes and you only need it once per plan.
+							</span>
 						</p>
 					)}
 					<div className="actions">
-						<button className="button" onClick={() => rebuild()} disabled={refining !== null}>
-							Rebuild the plan
-						</button>
 						{!import.meta.env.VITE_NO_SIM && (
 							<button className="button button-primary" onClick={refine} disabled={refining !== null}>
 								Check the plan with the simulator
@@ -271,6 +275,9 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 								Stop
 							</button>
 						)}
+						<button className="button" title="Throws away your own changes and the simulator's, and builds the plan again from the estimate. Use it after changing what you wear." onClick={() => rebuild()} disabled={refining !== null}>
+							Rebuild the plan
+						</button>
 					</div>
 					{refining && <ProgressBar done={refineSteps.done} total={refineSteps.total} label={`Checking the plan: ${refining}`} />}
 					{character.planTier && character.planTier.asked > 0 && (
@@ -286,16 +293,23 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 							{refineNote}
 						</p>
 					)}
-					<p className="hint">
-						"Check the plan with the simulator" looks for the best set with the real simulator. It first runs your plan, the guides' sets and your worn gear against each other and goes on from the best. Then
-						it tries the best-scored items of every slot, as many as "How thorough" says (twice when the first round changed something), the enchants, and pairs of slots changed together (both rings, both trinkets, both hands, slots that trade hit rating). Every
-						candidate gets a short run first and a longer one only when it is close, and the winner and the runner-up get a long run at the end. It keeps a change only when the {unit()} really goes up,
-						never ends below what you wear, and takes several minutes.
-					</p>
-					<p className="hint">
-						The estimate is stats times the build's stat weights, in {unit()}, plus what the simulator measured for procs, on-use effects, proc enchants and set bonuses. To change a
-						single slot by hand, click its icon.
-					</p>
+					{!import.meta.env.VITE_NO_SIM && (
+						<div className="hint check-steps">
+							<p>
+								"Check the plan with the simulator" looks for your best set with the{' '}
+								<a href="https://wowsims.com" target="_blank" rel="noreferrer">
+									WoWSims
+								</a>{' '}
+								simulator, the same one behind wowsims.com. It takes several minutes:
+							</p>
+							<ol>
+								<li>It runs your plan, the guides' sets and what you wear against each other and starts from the best.</li>
+								<li>Slot by slot it tries the best items (as many as "How thorough" says), then the enchants.</li>
+								<li>It tries slots that only pay off together: both rings, both trinkets, both hands, and slots that trade hit rating.</li>
+								<li>A change stays only when the {unit()} really goes up. The result is never below what you wear.</li>
+							</ol>
+						</div>
+					)}
 				</div>
 					</>
 				)}

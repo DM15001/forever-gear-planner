@@ -689,22 +689,16 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 					The simulator failed: {sim.error}
 				</p>
 			)}
-			{(a?.breakdown || b?.breakdown) && (
-				<p className="breakdown-open">
-					<button className="button button-primary" onClick={() => setBreakdownOpen(true)}>
+			<p className="breakdown-open">
+				{(a?.breakdown || b?.breakdown) && (
+					<button className="button button-primary" title="Every spell, a graph and a timeline, for the equipped or the planned gear." onClick={() => setBreakdownOpen(true)}>
 						{(a?.healing ?? b?.healing) ? 'Healing breakdown' : 'Damage breakdown'}
 					</button>
-					<span className="slot-source">Every spell, a graph and a timeline, for the equipped or the planned gear.</span>
-				</p>
-			)}
-			{(
-				<p className="breakdown-open">
-					<button className="button" onClick={() => window.dispatchEvent(new Event('fgp-sim-setup'))}>
-						Sim setup
-					</button>
-					<span className="slot-source">Buffs, consumables, talents and rotation the simulation uses.</span>
-				</p>
-			)}
+				)}
+				<button className="button" title="Buffs, consumables, talents and rotation the simulation uses." onClick={() => window.dispatchEvent(new Event('fgp-sim-setup'))}>
+					Sim setup
+				</button>
+			</p>
 			{missing.length > 0 && (
 				<p className="hint book-hint">
 					<strong>Spell books:</strong> like wowsims.com, the simulation casts {missing.map(choice => `${choice.book.spell} rank ${choice.book.rank - 1}`).join(', ')}, the highest a trainer teaches. A book
@@ -714,8 +708,8 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 			{breakdownOpen && <BreakdownDialog equipped={equipped} planned={planned} hasPlan={hasPlan} onClose={() => setBreakdownOpen(false)} />}
 			<p className="hint">
 				{unit() === 'HPS'
-					? 'Healing per second over the whole fight, from the WoWSims simulator: its spell data, talents, mana regeneration and consumables, with the healing scenario picked above. Time spent out of mana counts as time without healing. The first run downloads the simulator (6 MB) and takes a few seconds longer.'
-					: 'Real DPS from the WoWSims simulator, including procs and set bonuses: full raid buffs, a 3-minute single-target fight, the default rotation, enchants as set on your gear. The first run downloads the simulator (6 MB) and takes a few seconds longer. Each number has a margin of about ±1 DPS.'}
+					? 'Healing per second over the whole fight, from the WoWSims simulator: its spell data, talents, mana regeneration and consumables, with the healing scenario picked above. Time spent out of mana counts as time without healing.'
+					: 'Real DPS from the WoWSims simulator, including procs and set bonuses: full raid buffs, a 3-minute single-target fight, the default rotation, enchants as set on your gear. Each number has a margin of about ±1 DPS.'}
 			</p>
 		</div>
 	);

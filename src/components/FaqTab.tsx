@@ -101,6 +101,10 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 				a: <p>The list values are measured on the build's standard gear, once a night. Your gear is different, and caps (hit, for example) or set bonuses shift what a stat is worth. Small differences in the lists are noise; the simulator decides.</p>,
 			},
 			{
+				q: 'Why does the first simulation take longer?',
+				a: 'The first run downloads the simulator, about 6 MB. After that your browser keeps it and every run starts at once.',
+			},
+			{
 				q: 'How current is it?',
 				a: <p>The site looks for a new WoWSims version every half hour and takes it over together with WoWSims' own presets. The measurements for the lists follow: after an update only the builds it touches are measured again (a change to one class takes minutes, a change to the shared rules a few hours), and once a night everything is. The note above each list says from when its numbers are.</p>,
 			},

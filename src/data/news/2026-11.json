@@ -96,6 +96,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Less text around the simulation",
+							"text": "Build plan lost several lines of explanation. Damage breakdown and Sim setup sit side by side, the estimate note has a warning sign, and what \"Check the plan with the simulator\" does is a short list of four steps with a link to WoWSims.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "The simulator check gets a second opinion on hit rating",
 							"text": "Near the hit cap the quick estimate pays more for hit rating than the simulator does, so the really better items could sit too far down the list to be tried. \"Check the plan with the simulator\" now also runs each slot's two best items by a score in which hit counts for nothing.",
 							"source": "Gear Planner",
