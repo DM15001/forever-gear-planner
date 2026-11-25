@@ -239,7 +239,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 					)}
 					<p className="hint">
 						"Check the plan with the simulator" looks for the best set with the real simulator. It first runs your plan, the guides' sets and your worn gear against each other and goes on from the best. Then
-						it tries the {REFINE_DEPTH} best-scored items of every slot, the enchants, and pairs of slots changed together (both rings, both trinkets, both hands, slots that trade hit rating). Every
+						it tries the {REFINE_DEPTH} best-scored items of every slot (twice when the first round changed something), the enchants, and pairs of slots changed together (both rings, both trinkets, both hands, slots that trade hit rating). Every
 						candidate gets a short run first and a longer one only when it is close, and the winner and the runner-up get a long run at the end. It keeps a change only when the {unit()} really goes up,
 						never ends below what you wear, and takes several minutes.
 					</p>

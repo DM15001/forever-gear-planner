@@ -141,7 +141,8 @@ export interface RefineResult {
  *
  * 0. Starting points: the plan, the set of every guide (as far as the content choice allows) and the worn gear run
  *    against each other; the search goes on from the best. A plan that the estimate got wrong is not the only start.
- * 1. Items: slot by slot, the items the quick score likes best and the worn one.
+ * 1. Items: slot by slot, the items the quick score likes best and the worn one; a second time when the first
+ *    changed something, so an early slot is judged against the set as it ended up.
  * 2. Enchants: slot by slot, the worn enchant, the proc enchants and the next best stat enchant.
  * 3. Pairs: two slots changed at once, which no single swap finds. Both rings, both trinkets, both hands, and slots
  *    that trade hit rating between them.
@@ -175,7 +176,7 @@ export async function refinePlan(options: CandidateOptions, runner: SimRunner, o
 	const distinct = starts.filter((start, index) => starts.findIndex(other => keyOf(other.gear) === keyOf(start.gear)) === index);
 
 	const before = await run(planned, REFINE_ITERATIONS);
-	const total = 1 + slots.length * 2 + 3 + REFINE_HIT_PAIRS + 1;
+	const total = 1 + slots.length * 3 + 3 + REFINE_HIT_PAIRS + 1;
 	let done = 0;
 	let best = before;
 	const step = (label: string) => onProgress({ slot: label, done: Math.min(done++, total - 1), total, dps: best });
@@ -236,19 +237,27 @@ export async function refinePlan(options: CandidateOptions, runner: SimRunner, o
 	const wornIn = (set: Gear, slot: number): Gear => withItem(set, slot, character.gear[slot]?.id ?? null, data).map((piece, index) => (index === slot ? (character.gear[slot] ?? null) : piece));
 	const nextBest = (set: Gear, slot: number) => slotCandidates(slot, set, options)[0]?.item.id;
 
-	// 1. Items.
-	for (const slot of slots) {
-		if (cancelled()) break;
-		step(GEAR_SLOTS[slot].label);
-		const ids = slotCandidates(slot, gear, options)
-			.slice(0, REFINE_DEPTH)
-			.map(candidate => candidate.item.id);
-		for (const id of ids) {
+	// 1. Items. Twice when the first time changed something: a slot decided early is looked at again against the set
+	// as it ended up (a helm taken for its hit rating, before a ring brought the cap).
+	for (let sweep = 0; sweep < 2; sweep++) {
+		const changesBefore = changes;
+		for (const slot of slots) {
 			if (cancelled()) break;
-			await attempt(withItem(gear, slot, id, data, { character, spec }));
+			step(sweep === 0 ? GEAR_SLOTS[slot].label : `${GEAR_SLOTS[slot].label}, second look`);
+			const ids = slotCandidates(slot, gear, options)
+				.slice(0, REFINE_DEPTH)
+				.map(candidate => candidate.item.id);
+			for (const id of ids) {
+				if (cancelled()) break;
+				await attempt(withItem(gear, slot, id, data, { character, spec }));
+			}
+			// What is worn now: the plan may have dropped an item whose proc the score cannot see.
+			if (!cancelled() && character.gear[slot] && gear[slot]?.id !== character.gear[slot]?.id) await attempt(wornIn(gear, slot));
 		}
-		// What is worn now: the plan may have dropped an item whose proc the score cannot see.
-		if (!cancelled() && character.gear[slot] && gear[slot]?.id !== character.gear[slot]?.id) await attempt(wornIn(gear, slot));
+		if (changes === changesBefore || cancelled()) {
+			if (sweep === 0) done += slots.length;
+			break;
+		}
 	}
 
 	// 2. Enchants.

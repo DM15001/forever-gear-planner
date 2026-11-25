@@ -96,6 +96,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "The simulator check looks twice",
+							"text": "When the first round through the slots changed something, \"Check the plan with the simulator\" goes through them a second time. An item taken early, for example for its hit rating, is judged again against the set as it ended up.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Clearer lines next to the simulation buttons",
 							"text": "The lines behind \"Damage breakdown\" and \"Sim setup\" are larger and bold, so it is clear what each button opens.",
 							"source": "Gear Planner",
