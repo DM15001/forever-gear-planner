@@ -73,15 +73,17 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				simClient,
 				p => {
 					setRefineSteps({ done: p.done, total: p.total });
-					setRefining(`${p.slot}, slot ${p.done + 1} of ${p.total} (${p.dps.toFixed(0)} ${unit()} so far)`);
+					setRefining(`${p.slot}, step ${p.done + 1} of ${p.total} (${p.dps.toFixed(0)} ${unit()} so far)`);
 				},
 				() => stopRefine.current,
 			);
-			onChange({ ...character, plan: result.plan });
+			onChange({ ...character, plan: result.plan, planEnchants: result.planEnchants });
 			setRefineNote(
-				result.changes === 0
-					? `The simulator agrees with the plan: none of the ${REFINE_DEPTH} best-scored items per slot does better (${result.before.toFixed(0)} ${unit()}).`
-					: `The simulator changed ${result.changes} ${result.changes === 1 ? 'slot' : 'slots'}: ${result.before.toFixed(0)} to ${result.after.toFixed(0)} ${unit()}.`,
+				Object.keys(result.plan).length + Object.keys(result.planEnchants).length === 0 && result.changes > 0
+					? `The simulator found nothing better than what you wear (${result.after.toFixed(0)} ${unit()}; the plan came to ${result.before.toFixed(0)}). The plan is empty now: your gear is as good as anything it tried.`
+					: result.changes === 0
+					? `The simulator agrees with the plan: no other item, enchant or pair it tried does better (${result.before.toFixed(0)} ${unit()}).`
+					: `The simulator changed the plan in ${result.changes} ${result.changes === 1 ? 'place' : 'places'}: ${result.before.toFixed(0)} to ${result.after.toFixed(0)} ${unit()}.`,
 			);
 		} catch (err) {
 			setRefineNote(`The check failed: ${err instanceof Error ? err.message : 'the simulator did not answer'}`);
@@ -222,8 +224,9 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						</p>
 					)}
 					<p className="hint">
-						"Check the plan with the simulator" runs the {REFINE_DEPTH} best-scored items of every slot through the real simulator and keeps the one with the highest {unit()}. Use it when procs, on-use
-						trinkets or set bonuses matter, which the quick score only knows for the Enhancement Shaman. It takes a few minutes.
+						"Check the plan with the simulator" runs the real simulator on the {REFINE_DEPTH} best-scored items of every slot, then on the enchants (the worn one, the proc enchants and the next best), then on pairs
+						of slots changed together: both rings, both trinkets, both hands and slots that trade hit rating. It keeps a change only when the {unit()} really goes up, and it never ends below what you wear.
+						It takes several minutes.
 					</p>
 					<p className="hint">
 						The estimate is stats times the build's stat weights, in {unit()}, plus what the simulator measured for procs, on-use effects, proc enchants and set bonuses. To change a

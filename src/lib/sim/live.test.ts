@@ -2,9 +2,10 @@ import { describe, expect, it } from 'vitest';
 
 import { GEAR_SLOTS } from '../constants';
 import { loadGameData } from '../gameData';
-import { DEFAULT_FILTER, plannedGear, scoreSet, suggestPlan } from '../scoring';
+import { DEFAULT_FILTER, type Gear, plannedGear, scoreSet, suggestPlan } from '../scoring';
 import { SPECS } from '../specs';
 import type { Character } from '../types';
+import { buildPlan } from '../plan';
 import { measureWeights, refinePlan, type SimRunner, weightRuns } from './live';
 
 const spec = SPECS.find(s => s.id === 'warrior-fury')!;
@@ -46,7 +47,7 @@ describe('checking the plan with the simulator', () => {
 		expect(seen.length).toBeGreaterThan(10);
 		expect(result.after).toBeGreaterThanOrEqual(result.before);
 		expect(result.changes).toBeGreaterThan(0);
-		const after = scoreSet(plannedGear({ ...character, plan: result.plan }, data), character, data, strengthOnly).score;
+		const after = scoreSet(plannedGear({ ...character, plan: result.plan, planEnchants: result.planEnchants }, data), character, data, strengthOnly).score;
 		expect(after).toBeCloseTo(result.after, 5);
 	});
 
@@ -56,5 +57,27 @@ describe('checking the plan with the simulator', () => {
 		const result = await refinePlan({ character, data, spec, filter: DEFAULT_FILTER }, runner, () => calls++, () => calls >= 2);
 		expect(calls).toBe(2);
 		expect(result.changes).toBe(0);
+	});
+
+	it('never ends below the worn gear, and takes the worn enchant back when the simulator prefers it', async () => {
+		const planned = { ...character, ...buildPlan({ character, data, spec, filter: DEFAULT_FILTER }) };
+		// A stand-in that likes nothing but exactly what is worn.
+		const same = (gear: Gear) => gear.every((piece, slot) => piece?.id === character.gear[slot]?.id && piece?.enchant === character.gear[slot]?.enchant);
+		const wornOnly: SimRunner = { run: async (_c, gear) => outcome(same(gear) ? 1000 : 900) };
+		const kept = await refinePlan({ character: planned, data, spec, filter: DEFAULT_FILTER }, wornOnly, () => {});
+		expect(kept.plan).toEqual({});
+		expect(kept.planEnchants).toEqual({});
+		expect(kept.after).toBe(1000);
+
+		// A stand-in that pays for one worn enchant: the plan names another one, the check takes the worn one back.
+		const dressed = plannedGear(planned, data).map(piece => (piece ? { id: piece.id } : null));
+		const slot = 4;
+		const [wornEnchant, plannedEnchant] = (data.enchantsBySlot.get('chest') ?? []).filter(enchant => Object.keys(enchant.stats ?? {}).length > 0 && !enchant.only).map(enchant => enchant.effectId);
+		const enchanted = { ...character, gear: dressed.map((piece, index) => (index === slot && piece ? { ...piece, enchant: wornEnchant } : piece)) };
+		const start = { ...enchanted, plan: {}, planEnchants: { [slot]: plannedEnchant } };
+		expect(plannedGear(start, data)[slot]?.enchant).toBe(plannedEnchant);
+		const enchantFan: SimRunner = { run: async (_c, gear) => outcome(500 + (gear[slot]?.enchant === wornEnchant ? 50 : 0)) };
+		const result = await refinePlan({ character: start, data, spec, filter: DEFAULT_FILTER }, enchantFan, () => {});
+		expect(plannedGear({ ...start, plan: result.plan, planEnchants: result.planEnchants }, data)[slot]?.enchant).toBe(wornEnchant);
 	});
 });

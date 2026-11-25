@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-const keyOf = (id: TourId) => (id === 'main' ? 'fgp.tour' : `fgp.tour.${id}`);
+// "2": the first version also stayed away after "Done"; this one only after the tick, so everybody sees it once more.
+const keyOf = (id: TourId) => (id === 'main' ? 'fgp.tour2' : `fgp.tour2.${id}`);
 export type TourId = 'main' | 'group';
 
 interface TourStep {
