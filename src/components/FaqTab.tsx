@@ -174,10 +174,6 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 				q: 'What is in a share link?',
 				a: <p>The character itself: name, race, build, talents, professions, worn and planned gear with enchants. Nothing else, and it is not stored on a server: the link is the data.</p>,
 			},
-			{
-				q: 'What are "Live" and "Dev"?',
-				a: <p>"Live" is this site. "Dev" is a copy for trying changes first. Both keep their own characters.</p>,
-			},
 		],
 	},
 ];
