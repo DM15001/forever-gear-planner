@@ -6669,3 +6669,9 @@ details.content-fold[open] > summary {
 		margin: 0.4rem 0.3rem;
 	}
 }
+
+/* The step you may skip: a little quieter than the others. */
+.tab-optional:not([aria-current='page']) {
+	color: var(--haze);
+	font-style: italic;
+}

@@ -33,18 +33,19 @@ import type { Character, SpecConfig } from './lib/types';
 
 
 /** The planner's sections, in the bar. */
-// The first three are the way through, in order; the rest is for when you want more.
+// The way through, in order (Customize is the step you may skip); Group up stands apart.
 const TABS = [
 	{ id: 'character', label: 'Check gear', step: true },
 	{ id: 'simulate', label: 'Build plan', step: true },
+	{ id: 'upgrades', label: 'Customize', step: true, optional: true, hint: 'Optional: pick single items yourself, slot by slot. What you pick overrides the plan.' },
 	{ id: 'farm', label: 'Farm it', step: true },
-	{ id: 'upgrades', label: 'Customize', hint: 'Pick single items yourself, slot by slot. What you pick overrides the plan.' },
 	{ id: 'group', label: 'Group up' },
 ];
 /** Where each step of the way leads next. */
 const NEXT_STEP: Record<string, { to: string; label: string }> = {
 	character: { to: 'simulate', label: 'Next: build your plan' },
 	simulate: { to: 'farm', label: 'Next: farm it' },
+	upgrades: { to: 'farm', label: 'Next: farm it' },
 	farm: { to: 'group', label: 'Farming with friends? Group up' },
 };
 /** Settings and reading: small links beside the title, out of the way of the planner's own sections. */
@@ -754,7 +755,7 @@ export function App() {
 								<Fragment key={t.id}>
 									{/* An arrow between the steps, a line before the extras. */}
 									{index > 0 && (t.step ? <span className="tab-arrow" aria-hidden="true">›</span> : TABS[index - 1].step ? <span className="tab-divide" aria-hidden="true" /> : null)}
-									<button className={t.step ? 'tab tab-way' : 'tab tab-extra'} title={'hint' in t ? t.hint : undefined} data-tab={t.id} aria-current={t.id === tab ? 'page' : undefined} onClick={() => {
+									<button className={!t.step ? 'tab tab-extra' : 'optional' in t ? 'tab tab-way tab-optional' : 'tab tab-way'} title={'hint' in t ? t.hint : undefined} data-tab={t.id} aria-current={t.id === tab ? 'page' : undefined} onClick={() => {
 											setTab(t.id);
 											if (character) setImporting(false);
 										}}>

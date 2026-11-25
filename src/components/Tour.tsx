@@ -16,11 +16,11 @@ const MAIN_STEPS: TourStep[] = [
 	{ title: 'Welcome to the Forever Gear Planner', text: 'It tells you which gear to get before raids, where it drops and what it is worth, with the real WoWSims simulator. This tour takes a minute.' },
 	{ target: '.import', title: 'Bring your character', text: 'Install the WoWSims Exporter addon, type /wse in the game and paste the text here. A JSON export from wowsims.com works too.' },
 	{ target: '.start-example', title: 'Or just try it', text: 'No export at hand? Pick a build and load its preset to look around. The tour goes on once a character is open.' },
-	{ target: '.tabs', title: 'The pages', text: 'Three steps from left to right: check your gear, build a plan, farm it. The two at the end are extras.', needsCharacter: true },
+	{ target: '.tabs', title: 'The pages', text: 'From left to right: check your gear, build a plan, change single slots if you like, farm it. Group up is for playing with friends.', needsCharacter: true },
 	{ target: '.character-bar', title: 'Your characters', text: 'Every character you add is saved in this browser. Click one to switch, the plus adds another.', needsCharacter: true },
 	{ target: '.tab[data-tab="simulate"]', title: 'Build plan', text: 'Say what content you do (dungeons, reputations, crafting, PvP) and the planner picks the best set for it, with a to-do list.', needsCharacter: true },
-	{ target: '.tab[data-tab="farm"]', title: 'Farm it', text: 'Your plan sorted by dungeon, with drop chances and how many runs to expect. "Group up" does the same for several characters.', needsCharacter: true },
 	{ target: '.tab[data-tab="upgrades"]', title: 'Customize', text: 'Every slot with its better items, to pick single ones yourself. What you pick here overrides the plan.', needsCharacter: true },
+	{ target: '.tab[data-tab="farm"]', title: 'Farm it', text: 'Your plan sorted by dungeon, with drop chances and how many runs to expect. "Group up" does the same for several characters.', needsCharacter: true },
 	{ target: '.masthead-tools', title: 'Settings and help', text: 'Sim setup changes buffs, consumables and rotation. News has game and site changes. The FAQ explains every number. "Take the tour" at the very bottom of the page starts this again.', needsCharacter: true },
 ];
 
