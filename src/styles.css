@@ -6769,3 +6769,10 @@ details.content-fold[open] > summary {
 .book-hint {
 	margin-top: 0.4rem;
 }
+
+/* What the big buttons under the simulation do: said in a line you can read, not in small grey print. */
+.breakdown-open .slot-source {
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: var(--mist);
+}
