@@ -202,7 +202,7 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 					</div>
 				</fieldset>
 				<fieldset className="fight-group sheet-choice">
-					<legend>Professions (up to two)</legend>
+					<legend>Professions</legend>
 					<div className="fight-tiles">
 						{PROFESSIONS.map(p => {
 							const mine = character.professions.includes(p);
