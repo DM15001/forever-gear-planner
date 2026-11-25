@@ -124,7 +124,7 @@ export interface Character {
 	consumables?: import('./sim/setup').ConsumablePicks;
 	/**
 	 * Spell ranks only a book teaches (src/data/bookRanks.json), by the book rank's spell id: true = learned, the
-	 * simulation casts it; false = not learned, it casts the rank below. Missing = as the build ships it.
+	 * simulation casts it; false = not learned, it casts the rank below. Missing = learned: the best rank there is.
 	 */
 	bookRanks?: Record<string, boolean>;
 	/** Buffs and debuffs changed on Sim setup (top right). Missing fields keep the build's own. */

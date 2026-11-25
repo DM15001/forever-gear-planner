@@ -97,7 +97,7 @@
 					"items": [
 						{
 							"title": "Spell ranks from books",
-							"text": "The highest rank of some spells comes from a book that drops, not from a trainer: Flame Shock VI, Fireball XII, Serpent Sting IX, Eviscerate IX and others. The simulation used to cast the trained rank for almost every build without saying so. Now a note under the simulation names the books your build could use, and Sim setup has a tick for each one you have learned; the simulation then casts that rank. Depending on the spell that is worth about 3 to 22 DPS.",
+							"text": "The highest rank of some spells comes from a book that drops, not from a trainer: Flame Shock VI, Fireball XII, Serpent Sting IX, Eviscerate IX and others. The simulation used to cast the trained rank for almost every build without saying so. It now casts the book's rank, because the plan is for the best your character can have, and a note under the simulation names the books that takes. Depending on the spell that is worth about 3 to 22 DPS. A book you do not have yet can be unticked in Sim setup.",
 							"source": "Gear Planner",
 							"tags": [
 								"Planner"

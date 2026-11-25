@@ -608,8 +608,10 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 	const runningNow = sim.isRunning(equipped, SET_ITERATIONS) || sim.isRunning(planned, SET_ITERATIONS);
 	const complete = Boolean(a && (!hasPlan || b));
 	const [breakdownOpen, setBreakdownOpen] = useState(false);
-	// Book ranks the simulation does not cast because the character has not said it learned them.
-	const unlearned = sim.character.simSettings ? [] : bookChoices(sim.character).filter(choice => !choice.learned);
+	// The plan is for the best the character can have: spell ranks from books count as learned, and the page says which.
+	const allBooks = sim.character.simSettings ? [] : bookChoices(sim.character);
+	const bookRanks = allBooks.filter(choice => choice.learned);
+	const missing = allBooks.filter(choice => !choice.learned);
 	const show = (outcome: typeof a) => (outcome ? `${outcome.dps.toFixed(0)} ${unit()}` : '—');
 
 	// With `auto`, a short pause after the last change starts the missing runs by itself.
@@ -697,10 +699,11 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 					<span className="slot-source">Buffs, consumables, talents and rotation the simulation uses.</span>
 				</p>
 			)}
-			{unlearned.length > 0 && (
+			{allBooks.length > 0 && (
 				<p className="hint book-hint">
-					<strong>Learned a spell book?</strong> The simulation casts {unlearned.map(choice => `${choice.book.spell} rank ${choice.book.rank - 1}`).join(', ')}, the highest a trainer teaches. If you have{' '}
-					{unlearned.map(choice => choice.book.item).join(', ')}, tick {unlearned.length === 1 ? 'it' : 'them'} in Sim setup: the simulation then casts the book's rank, which is worth a few {unit()}.
+					<strong>Spell books:</strong> the simulation casts the highest rank of {bookRanks.map(choice => `${choice.book.spell} (rank ${choice.book.rank}, from ${choice.book.item})`).join(', ')}. A trainer does not
+					teach {bookRanks.length === 1 ? 'that rank' : 'those ranks'}: get the {bookRanks.length === 1 ? 'book' : 'books'} to reach these numbers.
+					{missing.length > 0 && ` Left out because you unticked ${missing.length === 1 ? 'it' : 'them'} in Sim setup: ${missing.map(choice => choice.book.item).join(', ')}.`}
 				</p>
 			)}
 			{breakdownOpen && <BreakdownDialog equipped={equipped} planned={planned} hasPlan={hasPlan} onClose={() => setBreakdownOpen(false)} />}

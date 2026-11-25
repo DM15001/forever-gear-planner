@@ -16,19 +16,19 @@ const cast = (c: Character) => new Set(spellIds((buildSimRequest(c, c.gear, inde
 describe('spell ranks from books', () => {
 	const flame = bookChoices(character).find(choice => choice.book.spell === 'Flame Shock')!;
 
-	it('knows the books whose spell the rotation casts, and that the build ships the trained rank', () => {
+	it('knows the books whose spell the rotation casts and takes them as learned: the best rank there is', () => {
 		expect(flame.book.item).toBe('Tablet of Flame Shock VI');
 		expect(flame.shipped).toBe(false);
-		expect(flame.learned).toBe(false);
-		expect(cast(character).has(flame.book.below!)).toBe(true);
-		expect(cast(character).has(flame.id)).toBe(false);
+		expect(flame.learned).toBe(true);
+		expect(cast(character).has(flame.id)).toBe(true);
+		expect(cast(character).has(flame.book.below!)).toBe(false);
 	});
 
-	it('casts the book rank once it is ticked, and a new simulation is run for it', () => {
-		const learned = { ...character, bookRanks: { [flame.id]: true } };
-		expect(bookChoices(learned).find(choice => choice.id === flame.id)!.learned).toBe(true);
-		expect(cast(learned).has(flame.id)).toBe(true);
-		expect(cast(learned).has(flame.book.below!)).toBe(false);
-		expect(simKey(learned, learned.gear, 100)).not.toBe(simKey(character, character.gear, 100));
+	it('casts the trained rank once the book is unticked, and a new simulation is run for it', () => {
+		const without = { ...character, bookRanks: { [flame.id]: false } };
+		expect(bookChoices(without).find(choice => choice.id === flame.id)!.learned).toBe(false);
+		expect(cast(without).has(flame.book.below!)).toBe(true);
+		expect(cast(without).has(flame.id)).toBe(false);
+		expect(simKey(without, without.gear, 100)).not.toBe(simKey(character, character.gear, 100));
 	});
 });

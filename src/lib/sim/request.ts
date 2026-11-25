@@ -69,13 +69,14 @@ interface BookRank {
 }
 const BOOKS = bookRankData as unknown as { books: Record<string, BookRank>; bySpec: Record<string, { book: number; casts: 'book' | 'below' }[]> };
 
-/** The books whose spell this build's rotation casts, each with what the build ships and what the character says. */
+/** The books whose spell this build's rotation casts, each with what the build ships and whether the character counts as having it. */
 export function bookChoices(character: Character): { id: number; book: BookRank; shipped: boolean; learned: boolean }[] {
 	return (BOOKS.bySpec[specOf(character).id] ?? []).flatMap(entry => {
 		const book = BOOKS.books[entry.book];
 		if (!book?.below) return [];
 		const shipped = entry.casts === 'book';
-		return [{ id: entry.book, book, shipped, learned: character.bookRanks?.[entry.book] ?? shipped }];
+		// Taken as learned unless the character says otherwise: the plan is for the best the character can have.
+		return [{ id: entry.book, book, shipped, learned: character.bookRanks?.[entry.book] ?? true }];
 	});
 }
 
