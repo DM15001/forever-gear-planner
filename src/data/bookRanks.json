@@ -1,0 +1,462 @@
+{
+	"books": {
+		"25286": {
+			"item": "Manual of Heroic Strike IX",
+			"spell": "Heroic Strike",
+			"rank": 9,
+			"below": 11567
+		},
+		"25288": {
+			"item": "Manual of Revenge VI",
+			"spell": "Revenge",
+			"rank": 6,
+			"below": 11601
+		},
+		"25289": {
+			"item": "Manual of Battle Shout VII",
+			"spell": "Battle Shout",
+			"rank": 7,
+			"below": 11551
+		},
+		"25290": {
+			"item": "Libram: Blessing of Wisdom VI",
+			"spell": "Blessing of Wisdom",
+			"rank": 6,
+			"below": 19854
+		},
+		"25291": {
+			"item": "Libram: Blessing of Might VII",
+			"spell": "Blessing of Might",
+			"rank": 7,
+			"below": 19838
+		},
+		"25292": {
+			"item": "Libram: Holy Light IX",
+			"spell": "Holy Light",
+			"rank": 9,
+			"below": 10329
+		},
+		"25295": {
+			"item": "Guide: Serpent Sting IX",
+			"spell": "Serpent Sting",
+			"rank": 9,
+			"below": 13555
+		},
+		"25296": {
+			"item": "Guide: Aspect of the Hawk VII",
+			"spell": "Aspect of the Hawk",
+			"rank": 7,
+			"below": 14322
+		},
+		"25297": {
+			"item": "Book of Healing Touch XI",
+			"spell": "Healing Touch",
+			"rank": 11,
+			"below": 9889
+		},
+		"25298": {
+			"item": "Book of Starfire VII",
+			"spell": "Starfire",
+			"rank": 7,
+			"below": 9876
+		},
+		"25299": {
+			"item": "Book of Rejuvenation XI",
+			"spell": "Rejuvenation",
+			"rank": 11,
+			"below": 9841
+		},
+		"25300": {
+			"item": "Handbook of Backstab IX",
+			"spell": "Backstab",
+			"rank": 9,
+			"below": 11281
+		},
+		"25302": {
+			"item": "Handbook of Feint V",
+			"spell": "Feint",
+			"rank": 5,
+			"below": 11303
+		},
+		"25304": {
+			"item": "Tome of Frostbolt XI",
+			"spell": "Frostbolt",
+			"rank": 11,
+			"below": 10181
+		},
+		"25306": {
+			"item": "Tome of Fireball XII",
+			"spell": "Fireball",
+			"rank": 12,
+			"below": 10151
+		},
+		"25307": {
+			"item": "Grimoire of Shadow Bolt X",
+			"spell": "Shadow Bolt",
+			"rank": 10,
+			"below": 11661
+		},
+		"25309": {
+			"item": "Grimoire of Immolate VIII",
+			"spell": "Immolate",
+			"rank": 8,
+			"below": 11668
+		},
+		"25311": {
+			"item": "Grimoire of Corruption VII",
+			"spell": "Corruption",
+			"rank": 7,
+			"below": 11672
+		},
+		"25314": {
+			"item": "Codex of Greater Heal V",
+			"spell": "Greater Heal",
+			"rank": 5,
+			"below": 10965
+		},
+		"25315": {
+			"item": "Codex of Renew X",
+			"spell": "Renew",
+			"rank": 10,
+			"below": 10929
+		},
+		"25316": {
+			"item": "Codex of Prayer of Healing V",
+			"spell": "Prayer of Healing",
+			"rank": 5,
+			"below": 10961
+		},
+		"25345": {
+			"item": "Tome of Arcane Missiles VIII",
+			"spell": "Arcane Missiles",
+			"rank": 8,
+			"below": 10212
+		},
+		"25357": {
+			"item": "Tablet of Healing Wave X",
+			"spell": "Healing Wave",
+			"rank": 10,
+			"below": 10396
+		},
+		"25359": {
+			"item": "Tablet of Grace of Air Totem III",
+			"spell": "Grace of Air Totem",
+			"rank": 3,
+			"below": 10627
+		},
+		"25361": {
+			"item": "Tablet of Strength of Earth Totem V",
+			"spell": "Strength of Earth Totem",
+			"rank": 5,
+			"below": 10442
+		},
+		"28609": {
+			"item": "Tome of Frost Ward V",
+			"spell": "Frost Ward",
+			"rank": 5,
+			"below": 10177
+		},
+		"28610": {
+			"item": "Grimoire of Shadow Ward IV",
+			"spell": "Shadow Ward",
+			"rank": 4,
+			"below": 11740
+		},
+		"28612": {
+			"item": "Tome of Conjure Food VII",
+			"spell": "Conjure Food",
+			"rank": 7,
+			"below": 10145
+		},
+		"29228": {
+			"item": "Tablet of Flame Shock VI",
+			"spell": "Flame Shock",
+			"rank": 6,
+			"below": 10448
+		},
+		"31016": {
+			"item": "Manual of Eviscerate IX",
+			"spell": "Eviscerate",
+			"rank": 9,
+			"below": 11300
+		},
+		"31018": {
+			"item": "Book of Ferocious Bite V",
+			"spell": "Ferocious Bite",
+			"rank": 6,
+			"below": 22829
+		}
+	},
+	"bySpec": {
+		"druid-balance": [
+			{
+				"book": 25298,
+				"casts": "below"
+			}
+		],
+		"druid-cat": [
+			{
+				"book": 31018,
+				"casts": "below"
+			}
+		],
+		"elemental-shaman": [
+			{
+				"book": 25361,
+				"casts": "below"
+			},
+			{
+				"book": 29228,
+				"casts": "below"
+			}
+		],
+		"enhancement-shaman": [
+			{
+				"book": 25361,
+				"casts": "below"
+			},
+			{
+				"book": 29228,
+				"casts": "below"
+			}
+		],
+		"hunter-bm": [
+			{
+				"book": 25295,
+				"casts": "below"
+			},
+			{
+				"book": 25296,
+				"casts": "below"
+			}
+		],
+		"hunter-mm": [
+			{
+				"book": 25295,
+				"casts": "below"
+			},
+			{
+				"book": 25296,
+				"casts": "below"
+			}
+		],
+		"hunter-sv-melee": [
+			{
+				"book": 25295,
+				"casts": "below"
+			}
+		],
+		"hunter-sv-weave": [
+			{
+				"book": 25295,
+				"casts": "below"
+			},
+			{
+				"book": 25296,
+				"casts": "below"
+			}
+		],
+		"hunter-sv": [
+			{
+				"book": 25295,
+				"casts": "below"
+			},
+			{
+				"book": 25296,
+				"casts": "below"
+			}
+		],
+		"mage-arcane-fire": [
+			{
+				"book": 25345,
+				"casts": "below"
+			}
+		],
+		"mage-arcane": [
+			{
+				"book": 25345,
+				"casts": "below"
+			}
+		],
+		"mage-fire": [
+			{
+				"book": 25306,
+				"casts": "below"
+			},
+			{
+				"book": 25345,
+				"casts": "below"
+			}
+		],
+		"mage-frost-incin": [
+			{
+				"book": 25304,
+				"casts": "below"
+			}
+		],
+		"mage-frost": [
+			{
+				"book": 25304,
+				"casts": "below"
+			}
+		],
+		"priest-disc": [
+			{
+				"book": 25314,
+				"casts": "book"
+			},
+			{
+				"book": 25315,
+				"casts": "book"
+			}
+		],
+		"priest-holy": [
+			{
+				"book": 25314,
+				"casts": "book"
+			},
+			{
+				"book": 25315,
+				"casts": "book"
+			}
+		],
+		"rogue-asn-muti": [
+			{
+				"book": 25300,
+				"casts": "below"
+			},
+			{
+				"book": 31016,
+				"casts": "below"
+			}
+		],
+		"rogue-combat-bs": [
+			{
+				"book": 25300,
+				"casts": "below"
+			},
+			{
+				"book": 31016,
+				"casts": "below"
+			}
+		],
+		"rogue-combat-ss": [
+			{
+				"book": 25300,
+				"casts": "below"
+			},
+			{
+				"book": 31016,
+				"casts": "below"
+			}
+		],
+		"rogue-combat-venom": [
+			{
+				"book": 25300,
+				"casts": "below"
+			},
+			{
+				"book": 31016,
+				"casts": "below"
+			}
+		],
+		"rogue-hemo-sf": [
+			{
+				"book": 25300,
+				"casts": "below"
+			},
+			{
+				"book": 31016,
+				"casts": "below"
+			}
+		],
+		"rogue-sub-hemo": [
+			{
+				"book": 25300,
+				"casts": "below"
+			},
+			{
+				"book": 31016,
+				"casts": "below"
+			}
+		],
+		"warlock-affliction": [
+			{
+				"book": 25307,
+				"casts": "below"
+			},
+			{
+				"book": 25311,
+				"casts": "below"
+			}
+		],
+		"warlock-demo-fire": [
+			{
+				"book": 25309,
+				"casts": "below"
+			},
+			{
+				"book": 25311,
+				"casts": "below"
+			}
+		],
+		"warlock-demo-shadow": [
+			{
+				"book": 25307,
+				"casts": "below"
+			},
+			{
+				"book": 25309,
+				"casts": "below"
+			},
+			{
+				"book": 25311,
+				"casts": "below"
+			}
+		],
+		"warlock-destruction": [
+			{
+				"book": 25309,
+				"casts": "below"
+			},
+			{
+				"book": 25311,
+				"casts": "below"
+			}
+		],
+		"warlock-sm-ruin": [
+			{
+				"book": 25307,
+				"casts": "below"
+			},
+			{
+				"book": 25309,
+				"casts": "below"
+			},
+			{
+				"book": 25311,
+				"casts": "below"
+			}
+		],
+		"warrior-arms": [
+			{
+				"book": 25286,
+				"casts": "below"
+			},
+			{
+				"book": 25289,
+				"casts": "book"
+			}
+		],
+		"warrior-fury": [
+			{
+				"book": 25286,
+				"casts": "below"
+			},
+			{
+				"book": 25289,
+				"casts": "book"
+			}
+		]
+	}
+}

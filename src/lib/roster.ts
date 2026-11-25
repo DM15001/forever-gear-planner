@@ -119,6 +119,8 @@ function cleanCharacter(value: unknown): Character | null {
 		gear: c.gear.map(p => (p ? { id: p.id, ...(Number.isInteger(p.enchant) ? { enchant: p.enchant } : {}), ...(Number.isInteger(p.randomSuffix) ? { randomSuffix: p.randomSuffix } : {}) } : null)),
 		plan: c.plan,
 		planEnchants: c.planEnchants,
+		// Which spell books are learned: it changes what the simulation casts, so a shared character keeps it.
+		...(c.bookRanks && typeof c.bookRanks === 'object' ? { bookRanks: Object.fromEntries(Object.entries(c.bookRanks).filter(([id, learned]) => /^\d{1,9}$/.test(id) && typeof learned === 'boolean').slice(0, 20)) } : {}),
 	};
 }
 

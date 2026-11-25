@@ -6759,3 +6759,13 @@ details.content-fold[open] > summary {
 	max-width: 30rem;
 	color: var(--ember, #ffb347);
 }
+
+/* Spell ranks from books: one tick per book in Sim setup, and a reminder next to the simulation. */
+.book-ranks {
+	display: grid;
+	gap: 0.45rem;
+	margin-top: 0.6rem;
+}
+.book-hint {
+	margin-top: 0.4rem;
+}

@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { simClient } from '../lib/sim/client';
 import type { GameData } from '../lib/gameData';
 import { plannedGear } from '../lib/scoring';
-import { type RotationChecks, type SimTemplate, withSimSettings, wowsimsSettings } from '../lib/sim/request';
+import { type RotationChecks, type SimTemplate, withSimSettings, wowsimsSettings, bookChoices } from '../lib/sim/request';
 import { countsMending, MENDING_STEP } from '../lib/sim/mending';
 import {
 	BUFF_SCOPES,
@@ -107,6 +107,7 @@ function ownSpell(raw: string | undefined): number | undefined {
 
 /** Everything the simulator is given besides gear: shown in words, with talents and consumables open to change. */
 export function SimSetupTab({ spec, character, data, onChange }: Props) {
+	const books = bookChoices(character);
 	const [loaded, setLoaded] = useState<{ specId: string; setup: SimSetupData; template: SimTemplate } | null>(null);
 	const [failed, setFailed] = useState<string | null>(null);
 	useEffect(() => {
@@ -566,6 +567,38 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 				</p>
 				<p className="hint">Every buff and debuff WoWSims knows is listed, and each can be switched on its own. The fight and the class options come from the build and cannot be changed here yet.</p>
 			</section>
+
+			{books.length > 0 && (
+				<section className="panel">
+					<h2>Spell ranks from books</h2>
+					<p>
+						The highest rank of some spells is not taught by a trainer but by a book that drops. Tick the ones you have learned: the simulation then casts that rank, otherwise the highest rank a trainer
+						teaches.
+					</p>
+					{imported && <p className="hint">This character uses the rotation of its WoWSims import, ranks included, so these ticks change nothing for it.</p>}
+					<div className="book-ranks">
+						{books.map(choice => (
+							<label key={choice.id} className="check">
+								<input
+									type="checkbox"
+									checked={choice.learned}
+									disabled={imported}
+									onChange={event => onChange({ ...character, bookRanks: { ...character.bookRanks, [choice.id]: event.target.checked } })}
+								/>
+								<span>
+									<strong>
+										{choice.book.spell}, rank {choice.book.rank}
+									</strong>{' '}
+									<span className="slot-source">
+										from {choice.book.item}
+										{choice.shipped ? '' : `; without it the simulation casts rank ${choice.book.rank - 1}`}
+									</span>
+								</span>
+							</label>
+						))}
+					</div>
+				</section>
+			)}
 
 			<section className="panel">
 				<h2>Rotation</h2>

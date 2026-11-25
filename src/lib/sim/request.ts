@@ -1,3 +1,4 @@
+import bookRankData from '../../data/bookRanks.json';
 import { applyHealingFight, healingChoice } from './healing';
 import { fittingImbue, type ImbueRecord, type WeaponRecord } from './imbue';
 import type { MendingEstimate } from './mending';
@@ -60,6 +61,48 @@ export function withSimSettings<T extends SimTemplate>(template: T, character: C
 	return request;
 }
 
+interface BookRank {
+	item: string;
+	spell: string;
+	rank: number;
+	below?: number;
+}
+const BOOKS = bookRankData as unknown as { books: Record<string, BookRank>; bySpec: Record<string, { book: number; casts: 'book' | 'below' }[]> };
+
+/** The books whose spell this build's rotation casts, each with what the build ships and what the character says. */
+export function bookChoices(character: Character): { id: number; book: BookRank; shipped: boolean; learned: boolean }[] {
+	return (BOOKS.bySpec[specOf(character).id] ?? []).flatMap(entry => {
+		const book = BOOKS.books[entry.book];
+		if (!book?.below) return [];
+		const shipped = entry.casts === 'book';
+		return [{ id: entry.book, book, shipped, learned: character.bookRanks?.[entry.book] ?? shipped }];
+	});
+}
+
+/** Casts the rank the character has: the book's where it is learned, the trainer's highest where it is not. */
+function applyBookRanks(player: { rotation?: unknown }, character: Character): void {
+	// A WoWSims import brings its own rotation, ranks included.
+	if (character.simSettings && character.simSettings.specId === specOf(character).id) return;
+	const swaps = new Map<number, { to: number; rank: number }>();
+	for (const choice of bookChoices(character)) {
+		if (choice.learned === choice.shipped) continue;
+		if (choice.learned) swaps.set(choice.book.below!, { to: choice.id, rank: choice.book.rank });
+		else swaps.set(choice.id, { to: choice.book.below!, rank: choice.book.rank - 1 });
+	}
+	if (!swaps.size) return;
+	const walk = (value: unknown): void => {
+		if (!value || typeof value !== 'object') return;
+		const node = value as Record<string, unknown>;
+		const swap = typeof node.spellId === 'number' ? swaps.get(node.spellId) : undefined;
+		if (swap) {
+			node.spellId = swap.to;
+			if (typeof node.rank === 'number') node.rank = swap.rank;
+		}
+		for (const inner of Object.values(node)) walk(inner);
+	};
+	walk(player.rotation);
+}
+
 /** Puts the character's race, professions, talents, consumables and buffs over the build's own. */
 function personalize(request: SimTemplate, character: Character): void {
 	const player = request.raid.parties[0].players[0];
@@ -73,6 +116,7 @@ function personalize(request: SimTemplate, character: Character): void {
 		party.buffs = { ...(party.buffs as object), ...character.buffs.party };
 		player.buffs = { ...player.buffs, ...character.buffs.player };
 	}
+	applyBookRanks(player, character);
 	// The enemy kind and terrain: the sim then counts the gear's bonuses against them.
 	const encounter = request.encounter as { targets?: Record<string, unknown>[]; areaTypes?: string[] } | undefined;
 	if (encounter && character.fight?.mobType) for (const target of encounter.targets ?? []) target.mobType = `MobType${character.fight.mobType}`;
@@ -486,4 +530,4 @@ export function readRotationChecks(json: string | null | undefined): RotationChe
 
 /** Identifies a run, so the same gear is never simulated twice. */
 export const simKey = (character: Character, gear: Gear, iterations: number, bonus?: BonusStats) =>
-	JSON.stringify([bonus ?? 0, character.specId ?? '', character.simSettings?.id ?? 0, character.race, character.talents, character.consumables ?? 0, character.buffs ?? 0, character.fight ?? 0, character.healing ?? 0, character.professions, gear.map(p => (p ? [p.id, p.enchant ?? 0, p.randomSuffix ?? 0] : 0)), iterations]);
+	JSON.stringify([bonus ?? 0, character.specId ?? '', character.simSettings?.id ?? 0, character.race, character.talents, character.consumables ?? 0, character.buffs ?? 0, character.bookRanks ?? 0, character.fight ?? 0, character.healing ?? 0, character.professions, gear.map(p => (p ? [p.id, p.enchant ?? 0, p.randomSuffix ?? 0] : 0)), iterations]);

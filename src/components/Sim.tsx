@@ -3,7 +3,7 @@ import { createContext, type ReactNode, useCallback, useContext, useEffect, useM
 import { unit } from '../lib/format';
 import type { Gear } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
-import { type SimActionId, type SimActionRow, simKey, type SimOutcome, actionKey, type SimTimeline } from '../lib/sim/request';
+import { type SimActionId, type SimActionRow, simKey, type SimOutcome, actionKey, type SimTimeline, bookChoices } from '../lib/sim/request';
 import type { SimSetupData } from '../lib/sim/setup';
 import { wowheadItemUrl, wowheadSpellUrl, wowheadData } from '../lib/stats';
 import type { Character } from '../lib/types';
@@ -608,6 +608,8 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 	const runningNow = sim.isRunning(equipped, SET_ITERATIONS) || sim.isRunning(planned, SET_ITERATIONS);
 	const complete = Boolean(a && (!hasPlan || b));
 	const [breakdownOpen, setBreakdownOpen] = useState(false);
+	// Book ranks the simulation does not cast because the character has not said it learned them.
+	const unlearned = sim.character.simSettings ? [] : bookChoices(sim.character).filter(choice => !choice.learned);
 	const show = (outcome: typeof a) => (outcome ? `${outcome.dps.toFixed(0)} ${unit()}` : '—');
 
 	// With `auto`, a short pause after the last change starts the missing runs by itself.
@@ -693,6 +695,12 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 						Sim setup
 					</button>
 					<span className="slot-source">Buffs, consumables, talents and rotation the simulation uses.</span>
+				</p>
+			)}
+			{unlearned.length > 0 && (
+				<p className="hint book-hint">
+					<strong>Learned a spell book?</strong> The simulation casts {unlearned.map(choice => `${choice.book.spell} rank ${choice.book.rank - 1}`).join(', ')}, the highest a trainer teaches. If you have{' '}
+					{unlearned.map(choice => choice.book.item).join(', ')}, tick {unlearned.length === 1 ? 'it' : 'them'} in Sim setup: the simulation then casts the book's rank, which is worth a few {unit()}.
 				</p>
 			)}
 			{breakdownOpen && <BreakdownDialog equipped={equipped} planned={planned} hasPlan={hasPlan} onClose={() => setBreakdownOpen(false)} />}

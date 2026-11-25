@@ -122,6 +122,11 @@ export interface Character {
 	talents: string;
 	/** Consumables changed on Sim setup (top right). Missing fields keep the build's own picks. */
 	consumables?: import('./sim/setup').ConsumablePicks;
+	/**
+	 * Spell ranks only a book teaches (src/data/bookRanks.json), by the book rank's spell id: true = learned, the
+	 * simulation casts it; false = not learned, it casts the rank below. Missing = as the build ships it.
+	 */
+	bookRanks?: Record<string, boolean>;
 	/** Buffs and debuffs changed on Sim setup (top right). Missing fields keep the build's own. */
 	buffs?: import('./sim/setup').BuffPicks;
 	/** A healer's spell mix and how much mana matters in the fight (src/lib/sim/healing.ts). Unset = the default scenario. */

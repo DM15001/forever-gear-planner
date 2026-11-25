@@ -12,6 +12,7 @@
 // No dependencies; needs Node 20+. Safe to re-run at any time: it overwrites its outputs.
 // Source: https://github.com/wowsims/forever (MIT). Keep the link back to WoWSims in the app.
 
+import { bookRanks } from './book-ranks.mjs';
 import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { readdirSync, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
@@ -488,6 +489,12 @@ const wasmStatus = await fetchWasm();
 await writeFile(join(SIM_DIR, 'db.json'), JSON.stringify(simDb));
 for (const [specId, template] of simTemplates) await writeFile(join(SIM_DIR, `template.${specId}.json`), JSON.stringify(template));
 
+// Spell ranks only a class book teaches (Tablet of Flame Shock VI and the like), and what each build's rotation does
+// about them: the page offers a tick for every book, and the simulation casts the rank the character has.
+const [bookText, spellText] = [await readRepoText('sim/core/spelldata/book_ranks.go'), await readRepoText('sim/core/spelldata/spells_auto_gen.go')];
+const bookData = bookText && spellText ? bookRanks(bookText, spellText, simTemplates) : null;
+if (!bookData || !Object.keys(bookData.books).length) console.warn('Book ranks not read (sim/core/spelldata): src/data/bookRanks.json stays as it is.');
+
 // What the "Sim setup" tab needs to show and change the sim's settings in words: talent trees per
 // class, spell and item names for the rotation, and the consumables the sim knows.
 const talentIcons = new Map((db.spellIcons ?? []).map(spell => [spell.id, spell.icon]));
@@ -672,6 +679,7 @@ const simSetup = {
 if (Object.keys(talentTrees).length) await writeFile(join(SIM_DIR, 'setup.json'), JSON.stringify(simSetup));
 for (const spec of specs) if (!simTemplates.has(spec.id)) console.warn(`Sim template for ${spec.id} not written: its build could not be read. The existing file stays.`);
 const write = (name, data) => writeFile(join(OUT_DIR, name), JSON.stringify(data, null, '\t') + '\n');
+if (bookData && Object.keys(bookData.books).length) await write('bookRanks.json', bookData);
 
 // Items whose effect WoWSims itself marks as "waiting for PPM data": the game files give no rate for it (the
 // proc chance reads the placeholder 101), and until WoWSims has one the simulator triggers it on every hit or
