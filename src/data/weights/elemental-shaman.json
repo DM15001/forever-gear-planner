@@ -1,21 +1,21 @@
 {
 	"note": "Stat weights of this build, measured with the WoWSims simulator on its preset by scripts/build-weights.mjs. The planner uses them instead of the weights in src/specs, unless \"held\" is true: then a weight moved so far that a person should look first.",
-	"inputs": "855a98eeb2d96771",
+	"inputs": "98c2b739eab13c49",
 	"measuredOn": "2026-11-25",
 	"iterations": 8000,
 	"unit": "spellDamage",
-	"referenceDps": 836.8,
-	"dpsPerPoint": 0.6331,
+	"referenceDps": 844.8,
+	"dpsPerPoint": 0.636,
 	"stats": {
-		"intellect": 0.39,
+		"intellect": 0.28,
 		"spellDamage": 1,
-		"fireDamage": 0.11,
-		"natureDamage": 0.89,
+		"fireDamage": 0.12,
+		"natureDamage": 0.88,
 		"spellPiercing": 2.17,
 		"critRating": 0.65,
-		"hasteRating": 1.02,
-		"hitRating": 1.52
+		"hasteRating": 1.1,
+		"hitRating": 1.53
 	},
-	"hitCapPercent": 17.3,
+	"hitCapPercent": 17.2,
 	"hitRatingOverCap": 0
 }
