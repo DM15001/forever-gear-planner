@@ -10,10 +10,10 @@ Items whose source the planner does not know: it either guesses "World drop (ass
 Most builds first. "best #2" = second-best item of its slot for at least one build, starting from empty gear.
 
 - [Horn of Ve'han](https://www.wowhead.com/forever/item=275736) (275736, rare 61, neck): no source; 27 builds, best #4 (Enhancement Shaman, Elemental Shaman, Warlock: Destro, Warlock: Demo (Fire Brand), …)
-- [Cleansed Vilebranch Medallion](https://www.wowhead.com/forever/item=270275) (270275, uncommon 51, trinket): no source; 23 builds, best #2 (Enhancement Shaman, Elemental Shaman, Priest: Shadow Testing, Mage: Fire, …)
+- [Cleansed Vilebranch Medallion](https://www.wowhead.com/forever/item=270275) (270275, uncommon 51, trinket): no source; 23 builds, best #3 (Enhancement Shaman, Elemental Shaman, Priest: Shadow Testing, Mage: Fire, …)
 - [Highborne Research Tablet](https://www.wowhead.com/forever/item=260205) (260205, uncommon 55, trinket): no source; 18 builds, best #1 (Enhancement Shaman, Priest: Smite Testing, Mage: Arcane, Warrior: Fury (Pre-BiS), …)
 - [Staff of Sorrow](https://www.wowhead.com/forever/item=280082) (280082, rare 57, weapon): no source; 16 builds, best #3 (Elemental Shaman, Warlock: SM/Ruin, Warlock: Destro, Warlock: Aff (Wrack), …)
-- [Cleansed Vilebranch Icon](https://www.wowhead.com/forever/item=270276) (270276, uncommon 51, trinket): no source; 16 builds, best #4 (Elemental Shaman, Warlock: SM/Ruin, Warlock: Destro, Warlock: Aff (Wrack), …)
+- [Cleansed Vilebranch Icon](https://www.wowhead.com/forever/item=270276) (270276, uncommon 51, trinket): no source; 15 builds, best #4 (Elemental Shaman, Warlock: SM/Ruin, Warlock: Destro, Warlock: Aff (Wrack), …)
 - [Jewel of the Guard Captain](https://www.wowhead.com/forever/item=270225) (270225, uncommon 51, trinket): no source; 15 builds, best #5 (Elemental Shaman, Warlock: SM/Ruin, Warlock: Destro, Warlock: Aff (Wrack), …)
 - [Furbolg Rib Protector](https://www.wowhead.com/forever/item=280084) (280084, rare 57, chest): no source; 10 builds, best #2 (Enhancement Shaman, Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Hunter: Marksmanship, …)
 - [Truesight Rifle](https://www.wowhead.com/forever/item=280083) (280083, rare 57, ranged): no source; 9 builds, best #5 (Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Rogue: Combat SS, Rogue: Combat BS, …)
