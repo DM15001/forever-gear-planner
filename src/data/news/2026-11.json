@@ -96,6 +96,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Check gear: tidier head of the character sheet",
+							"text": "Name, build and talents sit on the left with a \"Change talents\" button; \"Copy character link\" and \"Build my gear plan\" sit together on the right.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "\"Everything but PvP\" includes The Watchers",
 							"text": "The preset used to leave out The Watchers reputation. It counts now; switch it off under Reputations if you do not want it.",
 							"source": "Gear Planner",

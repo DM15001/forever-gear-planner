@@ -783,7 +783,7 @@ export function App() {
 			onOpenTalents={() => setSimSetupOpen(true)}
 			next={
 				<>
-					<span className="slot-source">Check race, professions and enchants, then</span>
+					<span className="slot-source">Race, professions and enchants right? Then build the plan.</span>
 					<button
 						className="button button-primary"
 						onClick={() => {

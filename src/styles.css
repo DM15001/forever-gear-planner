@@ -7278,3 +7278,65 @@ a.plan-enchant-name:hover {
 :root[data-theme='classic'] main .button-sign {
 	color: #b8860b;
 }
+
+/* Check gear, the head of the sheet: who it is on the left, what to do next on the right. */
+.sheet-head {
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr) auto;
+	align-items: center;
+	gap: 0.8rem 1.1rem;
+}
+.sheet-head-text {
+	display: grid;
+	gap: 0.25rem;
+}
+.sheet-head-text h2 {
+	margin: 0;
+}
+.sheet-head .identity-line {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.3rem 0.6rem;
+	margin: 0;
+}
+.sheet-talents {
+	margin-left: 0.2rem;
+}
+.sheet-actions {
+	display: grid;
+	grid-template-columns: auto auto;
+	align-items: center;
+	justify-items: end;
+	gap: 0.4rem 0.7rem;
+}
+.sheet-share {
+	grid-column: 1;
+	grid-row: 1;
+	margin: 0;
+}
+.sheet-next {
+	display: contents;
+}
+.sheet-next .button {
+	grid-column: 2;
+	grid-row: 1;
+}
+.sheet-next .slot-source {
+	grid-column: 1 / -1;
+	grid-row: 2;
+	font-size: 0.8125rem;
+	text-align: right;
+}
+@media (max-width: 58rem) {
+	.sheet-head {
+		grid-template-columns: auto minmax(0, 1fr);
+	}
+	.sheet-actions {
+		grid-column: 1 / -1;
+		justify-items: start;
+	}
+	.sheet-next .slot-source {
+		text-align: left;
+	}
+}

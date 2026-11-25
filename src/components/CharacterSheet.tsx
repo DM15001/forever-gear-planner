@@ -113,20 +113,22 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 						<p className="identity-line identity-talent-line" title={talents}>
 							Talents {points}, {talentSource}
 							{onOpenTalents && (
-								<button className="link" onClick={onOpenTalents}>
-									change talents
+								<button className="button button-small sheet-talents" onClick={onOpenTalents}>
+									Change talents
 								</button>
 							)}
 						</p>
 					)}
 				</div>
+				<div className="sheet-actions">
 				<div className="sheet-share">
 					<button className="button button-strong" onClick={share} title="Copies a link with this character's equipped gear, plan, talents and professions. A friend opens it, or pastes it into Import or the Group plan, to get a copy of the character.">
-						{shared === 'copied' ? 'Copied: send it to your friend' : 'Copy character (equipped + planned gear)'}
+						{shared === 'copied' ? 'Copied: send it to a friend' : 'Copy character link'}
 					</button>
 					{shared === 'shown' && <input type="text" readOnly aria-label="Share link" value={shareLink} onFocus={e => e.target.select()} />}
 				</div>
 				{next && <div className="sheet-next">{next}</div>}
+				</div>
 			</header>
 			{noSuffix.length > 0 && (
 				<p className="notice sheet-notice">
