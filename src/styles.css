@@ -6613,3 +6613,43 @@ details.content-fold[open] > summary {
 		transition: none;
 	}
 }
+
+/* The bar reads as a way: three steps with arrows between them, then a line, then the extras. */
+.tabs {
+	align-items: center;
+}
+.tab-arrow {
+	padding: 0 0.15rem;
+	font: 700 1.5rem/1 var(--display);
+	color: var(--brass);
+}
+.tab-divide {
+	align-self: stretch;
+	width: 1px;
+	margin: 0.3rem 0.7rem;
+	background: var(--brass-deep);
+}
+.tab-extra:not([aria-current='page']) {
+	color: var(--haze);
+}
+.next-step {
+	display: flex;
+	justify-content: flex-end;
+	margin: 1.5rem 0 0;
+}
+.enchant-fold {
+	margin-top: 1.25rem;
+}
+.enchant-fold > summary + * {
+	margin-top: 0.75rem;
+}
+@media (min-width: 64rem) {
+	:root[data-theme='classic'] .tab-arrow {
+		display: none;
+	}
+	:root[data-theme='classic'] .tab-divide {
+		width: auto;
+		height: 1px;
+		margin: 0.4rem 0.3rem;
+	}
+}

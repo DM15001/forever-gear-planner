@@ -1,6 +1,6 @@
 import { restartTour, Tour } from './components/Tour';
 import { createPortal } from 'react-dom';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { CharacterSheet } from './components/CharacterSheet';
 import { EnchantsTab } from './components/EnchantsTab';
@@ -33,14 +33,20 @@ import type { Character, SpecConfig } from './lib/types';
 
 
 /** The planner's sections, in the bar. */
+// The first three are the way through, in order; the rest is for when you want more.
 const TABS = [
-	{ id: 'character', label: 'Character' },
-	{ id: 'simulate', label: 'Plan' },
-	{ id: 'upgrades', label: 'Upgrades' },
-	{ id: 'enchants', label: 'Enchants & professions' },
-	{ id: 'farm', label: 'Farm plan' },
-	{ id: 'group', label: 'Group plan' },
+	{ id: 'character', label: 'Check gear', step: true },
+	{ id: 'simulate', label: 'Build plan', step: true },
+	{ id: 'farm', label: 'Farm it', step: true },
+	{ id: 'upgrades', label: 'Swap a slot' },
+	{ id: 'group', label: 'Group up' },
 ];
+/** Where each step of the way leads next. */
+const NEXT_STEP: Record<string, { to: string; label: string }> = {
+	character: { to: 'simulate', label: 'Next: build your plan' },
+	simulate: { to: 'farm', label: 'Next: farm it' },
+	farm: { to: 'group', label: 'Farming with friends? Group up' },
+};
 /** Settings and reading: small links beside the title, out of the way of the planner's own sections. */
 const SIDE_TABS = [
 	{ id: 'sim', label: 'Sim setup' },
@@ -744,13 +750,17 @@ export function App() {
 					<div className="tab-bar">
 						<BarCap />
 						<nav className="tabs" aria-label="Sections">
-							{TABS.map(t => (
-								<button key={t.id} className="tab" data-tab={t.id} aria-current={t.id === tab ? 'page' : undefined} onClick={() => {
-										setTab(t.id);
-										if (character) setImporting(false);
-									}}>
-									{t.label}
-								</button>
+							{TABS.map((t, index) => (
+								<Fragment key={t.id}>
+									{/* An arrow between the steps, a line before the extras. */}
+									{index > 0 && (t.step ? <span className="tab-arrow" aria-hidden="true">›</span> : TABS[index - 1].step ? <span className="tab-divide" aria-hidden="true" /> : null)}
+									<button className={t.step ? 'tab tab-way' : 'tab tab-extra'} data-tab={t.id} aria-current={t.id === tab ? 'page' : undefined} onClick={() => {
+											setTab(t.id);
+											if (character) setImporting(false);
+										}}>
+										{t.label}
+									</button>
+								</Fragment>
 							))}
 						</nav>
 						<BarCap mirrored />
@@ -810,12 +820,20 @@ export function App() {
 						{tab === 'simulate' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} /> : <p>Loading item data…</p>)}
 						{(tab === 'simulate' || tab === 'upgrades') && data && <UpgradesTab part={tab === 'simulate' ? 'tools' : 'list'} spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} />}
 						{tab === 'upgrades' && !data && <p>Loading item data…</p>}
+						{tab === 'simulate' && data && (
+							<details className="fold enchant-fold">
+								<summary>
+									Enchants and professions
+									<span className="slot-source">The best enchant for every slot, and what your professions add</span>
+								</summary>
+								<EnchantsTab spec={spec} character={character} data={data} filter={filter} onChange={update} />
+							</details>
+						)}
 
 						{tab === 'farm' && (data ? <FarmTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
 						{/* The group plan is about all saved characters, not the one that is open. */}
 						{tab === 'group' && <div className="farm"><GroupFarm roster={roster} onRosterChange={changeRoster} /></div>}
 
-						{tab === 'enchants' && (data ? <EnchantsTab spec={spec} character={character} data={data} filter={filter} onChange={update} /> : <p>Loading item data…</p>)}
 
 						{tab === 'faq' && <FaqTab />}
 						{tab === 'news' && <NewsTab myClass={baseSpec.className} onSeen={newsSeen} />}
@@ -837,6 +855,13 @@ export function App() {
 								)}
 								{characterSheet}
 							</>
+						)}
+						{NEXT_STEP[tab] && (
+							<p className="next-step">
+								<button className="button button-primary" onClick={() => { setTab(NEXT_STEP[tab].to); window.scrollTo({ top: 0 }); }}>
+									{NEXT_STEP[tab].label} <span aria-hidden="true">›</span>
+								</button>
+							</p>
 						)}
 					</SimProvider>
 				)}
