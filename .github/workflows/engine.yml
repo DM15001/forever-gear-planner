@@ -113,8 +113,7 @@ jobs:
           gh workflow run pages.yml --ref main
           # The preset step starts the measurements, so they run on the new presets. It skips them while a run is going.
           gh workflow run presets.yml --ref main -f measure=true
-      # Measurements run once a night only: during the day the simulator may move on several times, and a run
-      # started for each of those would never finish on one version.
+      # The nightly catch-up: a version that arrived while a measurement was running is measured now.
       - name: Start the nightly measurements (no simulator update tonight)
         if: github.event.schedule == '41 1 * * *' && steps.commit.outputs.pushed != 'true'
         run: |
