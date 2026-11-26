@@ -7829,3 +7829,47 @@ a.plan-enchant-name:hover {
 	padding: 0.3rem 0.4rem;
 	font-size: 0.75rem;
 }
+
+/* Your characters: smaller tiles, two lines each, so more fit in the row. */
+.character-tile {
+	min-width: 0;
+	max-width: 17rem;
+}
+.character-tile-pick {
+	gap: 0.55rem;
+	padding: 0.4rem 0.8rem 0.4rem 0.5rem;
+}
+.character-tile .class-icon {
+	width: 2.25rem;
+	height: 2.25rem;
+}
+.character-tile-text {
+	line-height: 1.25;
+}
+.character-tile-text strong {
+	font-size: 0.875rem;
+}
+.character-tile-meta {
+	flex-wrap: nowrap;
+	gap: 0 0.35rem;
+	white-space: nowrap;
+}
+.character-tile-meta .race-icon {
+	width: 1rem;
+	height: 1rem;
+	flex: none;
+}
+.character-tile-spec {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+/* Group up: who is in, yours and your friends'. */
+.group-member {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 0.5rem;
+	margin-right: 1.2rem;
+}
+.group-member .link {
+	font-size: 0.8125rem;
+}

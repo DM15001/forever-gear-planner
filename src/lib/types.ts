@@ -112,6 +112,8 @@ export interface Character {
 	name?: string;
 	/** The name of this gear set when the same character is saved several times: "Fire", "vs beasts". */
 	set?: string;
+	/** Somebody else's character, added under "Group up": it counts in the group and has no tile among your own. */
+	friend?: boolean;
 	/** Shared by all gear sets of one character, so they show as one tile with a choice of sets. */
 	group?: string;
 	/** The spec this character is planned as (src/specs). Unset on characters saved before there was a choice. */

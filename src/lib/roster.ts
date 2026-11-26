@@ -43,6 +43,8 @@ export function tileIndexes(roster: Roster): number[] {
 	const openGroup = activeCharacter(roster)?.group;
 	const seen = new Set<string>();
 	return roster.characters.flatMap((c, index) => {
+		// A friend's character lives under "Group up" only.
+		if (c.friend && index !== roster.active) return [];
 		if (!c.group) return [index];
 		if (seen.has(c.group)) return [];
 		seen.add(c.group);
@@ -65,7 +67,10 @@ export function removeActive(roster: Roster): Roster {
 	const characters = roster.characters.filter((_, i) => i !== roster.active);
 	// Removing one gear set opens another set of the same character, if there is one.
 	const sibling = gone?.group ? characters.findIndex(c => c.group === gone.group) : -1;
-	return { characters, active: sibling >= 0 ? sibling : Math.max(0, Math.min(roster.active, characters.length - 1)) };
+	// A neighbour opens, and one of your own rather than a friend's.
+	const neighbour = Math.max(0, Math.min(roster.active, characters.length - 1));
+	const own = characters[neighbour]?.friend ? characters.findIndex(c => !c.friend) : -1;
+	return { characters, active: sibling >= 0 ? sibling : own >= 0 ? own : neighbour };
 }
 
 /** Removes the saved character at that place. The open one stays open; if it was the one removed, a sibling preset or a neighbour opens. */
@@ -196,9 +201,11 @@ export async function groupFromShareText(text: string): Promise<Character[] | nu
 	}
 }
 
-/** Adds a shared group to the saved characters. A character that is already saved exactly like that is not added twice. The open character stays open. */
+/** Adds a shared group to the saved characters, as friends: they count under "Group up" and get no tile. A character that is already saved exactly like that is not added twice. The open character stays open. */
 export function addGroup(roster: Roster, characters: Character[]): { roster: Roster; added: number } {
-	const known = new Set(roster.characters.map(c => JSON.stringify(c)));
-	const fresh = characters.filter(c => !known.has(JSON.stringify(c)));
+	// Whether it is saved as a friend's or as one's own makes no difference to "already here".
+	const plain = ({ friend: _friend, ...rest }: Character) => JSON.stringify(rest);
+	const known = new Set(roster.characters.map(plain));
+	const fresh = characters.filter(c => !known.has(plain(c))).map(c => ({ ...c, friend: true }));
 	return { roster: { characters: [...roster.characters, ...fresh], active: roster.active }, added: fresh.length };
 }

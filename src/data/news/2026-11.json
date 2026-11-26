@@ -96,6 +96,22 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Smaller character tiles",
+							"text": "The tiles under the tabs are two lines high: name, then race icon, build and level. The faction shows as the coloured edge. More characters fit in one row.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Group up: friends stay on the group page",
+							"text": "A character or group link pasted under \"Group up\" is saved as a friend: it counts in the group and no longer gets a tile among your own characters. The page lists \"Your characters\" and \"Friends\" separately; a friend can be removed or made yours, and one of your tiles can be turned into a friend.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Check gear: smaller slot cards, notes behind question marks, talents in the details",
 							"text": "Slot cards are only as tall as their content, with the enchant right under the item. The notes under Build and Preset moved behind question marks, and Character details has a Talents button that opens the talent trees. The line with class and \"pre-raid\" under the site title is gone.",
 							"source": "Gear Planner",

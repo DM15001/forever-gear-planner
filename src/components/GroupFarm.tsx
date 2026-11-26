@@ -3,7 +3,7 @@ import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 
 import { type GameData, dataFor, loadGameData } from '../lib/gameData';
 import { type GroupDungeon, type GroupMember, type GroupScope, groupFarm, sortGroup, withDrop } from '../lib/group';
-import { addCharacter, addGroup, characterFromShareText, characterLabel, groupFromShareText, groupUrl, type Roster, shareUrl } from '../lib/roster';
+import { addCharacter, addGroup, removeAt, characterFromShareText, characterLabel, groupFromShareText, groupUrl, type Roster, shareUrl } from '../lib/roster';
 import { DEFAULT_FILTER } from '../lib/scoring';
 import { specOf } from '../lib/specs';
 import { wowheadData, wowheadItemUrl } from '../lib/stats';
@@ -208,8 +208,8 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 		<section className="panel group-farm" aria-labelledby="group-farm">
 			<h2 id="group-farm">Farm plan for the group</h2>
 			<p className="hint">
-				Every character saved in this browser can be part of the group. To add a friend, have them press "Copy character (equipped + planned gear)" under "Check gear" and send you what it copies; paste it here. Their later changes need a
-				new copy: nothing is synced.
+				Tick your own character, then add your friends: have them press "Copy character link" under "Check gear" and send you what it copies; paste it here. Friends are kept on this page only and get no tile among your
+				characters. Their later changes need a new copy: nothing is synced.
 			</p>
 			<form
 				className="group-add"
@@ -217,7 +217,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 					event.preventDefault();
 					const friend = characterFromShareText(pasted);
 					if (friend) {
-						onRosterChange({ ...addCharacter(roster, { ...friend, name: friend.name ?? 'Shared character' }), active: roster.active });
+						onRosterChange({ ...addCharacter(roster, { ...friend, name: friend.name ?? 'Shared character', friend: true }), active: roster.active });
 						setPasted('');
 						setAddNote(`${friend.name ?? 'The character'} was added to the group.`);
 						return;
@@ -248,18 +248,53 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 				)}
 				{addNote && <span className="hint" role="status">{addNote}</span>}
 			</form>
-			<fieldset className="group-members">
-				<legend>Who is in the group</legend>
-				{roster.characters.map((character, index) => {
-					const spec = specOf(character);
-					return (
-						<label key={index} className="check">
-							<input type="checkbox" checked={!saved.out.includes(index)} onChange={event => change({ out: event.target.checked ? saved.out.filter(i => i !== index) : [...saved.out, index] })} />
-							{characterLabel(character, index, spec)} <span className="slot-source">{spec.name}</span>
-						</label>
-					);
-				})}
-			</fieldset>
+			{(
+				[
+					['Your characters', false],
+					['Friends', true],
+				] as const
+			).map(([title, friends]) => {
+				const rows = roster.characters.map((character, index) => ({ character, index })).filter(({ character }) => Boolean(character.friend) === friends);
+				if (friends && rows.length === 0) return null;
+				return (
+					<fieldset key={title} className="group-members">
+						<legend>{title}</legend>
+						{rows.map(({ character, index }) => {
+							const spec = specOf(character);
+							return (
+								<span key={index} className="group-member">
+									<label className="check">
+										<input type="checkbox" checked={!saved.out.includes(index)} onChange={event => change({ out: event.target.checked ? saved.out.filter(i => i !== index) : [...saved.out, index] })} />
+										{characterLabel(character, index, spec)} <span className="slot-source">{spec.name}</span>
+									</label>
+									{friends ? (
+										<>
+											<button className="link" title="Gives this character a tile among your own, to open and edit it" onClick={() => onRosterChange({ ...roster, characters: roster.characters.map((c, i) => (i === index ? { ...c, friend: undefined } : c)) })}>
+												make it mine
+											</button>
+											<button
+												className="link link-danger"
+												title="Removes this friend from this browser"
+												onClick={() => {
+													onRosterChange(removeAt(roster, index));
+													change({ out: saved.out.filter(i => i !== index).map(i => (i > index ? i - 1 : i)) });
+												}}>
+												remove
+											</button>
+										</>
+									) : (
+										index !== roster.active && (
+											<button className="link" title="Keeps this character for the group only: its tile among your characters goes away" onClick={() => onRosterChange({ ...roster, characters: roster.characters.map((c, i) => (i === index ? { ...c, friend: true } : c)) })}>
+												it is a friend's
+											</button>
+										)
+									)}
+								</span>
+							);
+						})}
+					</fieldset>
+				);
+			})}
 			{picked.length > MOST && <p className="hint">Only the first {MOST} ticked characters are counted.</p>}
 			<div className="group-switches">
 				<div className="farm-order" role="group" aria-label="What counts as wanted">

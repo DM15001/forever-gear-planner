@@ -34,19 +34,17 @@ export function CharacterBar({ roster, onSelect, onAdd, onRemove, aside }: { ros
 				const active = index === roster.active;
 				return (
 					<div key={index} className={`character-tile${active ? ' character-tile-on' : ''}${race ? ` character-tile-${race.faction}` : ''}`}>
-						<button className="character-tile-pick" aria-current={active ? 'true' : undefined} onClick={() => { setAsking(false); onSelect(index); }}>
+						<button className="character-tile-pick" title={`${spec.name}, ${race ? `${race.name}, ${race.faction === 'alliance' ? 'Alliance' : 'Horde'}` : 'race not set'}${character.level ? `, level ${character.level}` : ''}`} aria-current={active ? 'true' : undefined} onClick={() => { setAsking(false); onSelect(index); }}>
 						<ClassIcon className={spec.className} />
 						<span className="character-tile-text">
 							<strong>
 								{character.name ?? `${race?.name ?? 'Unnamed'} ${spec.className}`}
 								{sets > 1 && <span className="set-chip" title={`${sets} gear sets; switch under "Check gear"`}>{character.set ?? 'Main'}</span>}
 							</strong>
-							<span className="character-tile-spec">{spec.name}</span>
 							<span className="character-tile-meta">
 								{race && <RaceIcon name={race.name} />}
-								{race ? race.name : 'Race not set'}
-								{character.level ? `, level ${character.level}` : ''}
-								{race && <FactionMark faction={race.faction} />}
+								<span className="character-tile-spec">{spec.name}</span>
+								{character.level ? <span className="num">{character.level}</span> : null}
 							</span>
 						</span>
 						</button>
