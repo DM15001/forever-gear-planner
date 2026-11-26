@@ -9580,3 +9580,7 @@ details.content-fold,
 .plan-hero .summary-scores {
 	align-items: stretch;
 }
+/* Build plan: air between the enchant line and the "You wear it" mark. */
+.plan-replaces .plan-worn {
+	margin-top: 0.55rem;
+}
