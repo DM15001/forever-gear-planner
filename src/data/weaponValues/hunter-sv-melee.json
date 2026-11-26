@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T22:53:06.132Z",
-	"inputs": "e376523324715d46",
+	"generatedAt": "2026-11-26T06:18:32.780Z",
+	"inputs": "88c83e144763390b",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -51,13 +51,13 @@
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"offHand": -28.16,
-			"mainHand": -82.06
+			"mainHand": -82.06,
+			"offHand": -28.16
 		},
 		"8190": {
 			"name": "Hanzo Sword",
-			"mainHand": -56.73,
-			"offHand": -19.07
+			"offHand": -19.07,
+			"mainHand": -56.73
 		},
 		"9379": {
 			"name": "Sang'thraze the Deflector",
@@ -173,8 +173,8 @@
 		},
 		"12062": {
 			"name": "Skilled Fighting Blade",
-			"mainHand": -74.62,
-			"offHand": -15.49
+			"offHand": -15.49,
+			"mainHand": -74.62
 		},
 		"12527": {
 			"name": "Ribsplitter",
@@ -233,8 +233,8 @@
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"offHand": -24.67,
-			"mainHand": -50.79
+			"mainHand": -50.79,
+			"offHand": -24.67
 		},
 		"12791": {
 			"name": "Barman Shanker",
@@ -400,8 +400,8 @@
 		},
 		"15219": {
 			"name": "Dimensional Blade",
-			"offHand": -25.73,
-			"mainHand": -59.66
+			"mainHand": -59.66,
+			"offHand": -25.73
 		},
 		"15220": {
 			"name": "Battlefell Sabre",
@@ -439,8 +439,8 @@
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"offHand": -28.96,
-			"mainHand": -88.07
+			"mainHand": -88.07,
+			"offHand": -28.96
 		},
 		"15246": {
 			"name": "Demon Blade",
@@ -584,8 +584,8 @@
 		},
 		"17752": {
 			"name": "Satyr's Lash",
-			"mainHand": -73.07,
-			"offHand": -27.96
+			"offHand": -27.96,
+			"mainHand": -73.07
 		},
 		"17753": {
 			"name": "Verdant Keeper's Aim",
@@ -646,8 +646,8 @@
 		},
 		"18498": {
 			"name": "Hedgecutter",
-			"offHand": -34.57,
-			"mainHand": -42.02
+			"mainHand": -42.02,
+			"offHand": -34.57
 		},
 		"18680": {
 			"name": "Ancient Bone Bow",
@@ -705,8 +705,8 @@
 		},
 		"19542": {
 			"name": "Scout's Blade",
-			"offHand": -18.87,
-			"mainHand": -55.82
+			"mainHand": -55.82,
+			"offHand": -18.87
 		},
 		"19543": {
 			"name": "Scout's Blade",
@@ -951,8 +951,8 @@
 		},
 		"274383": {
 			"name": "Kanai's Knife",
-			"mainHand": -70.07,
-			"offHand": -22.73
+			"offHand": -22.73,
+			"mainHand": -70.07
 		},
 		"274517": {
 			"name": "Unerring Purpose",
@@ -985,8 +985,8 @@
 		},
 		"276338": {
 			"name": "Claw of Shalla'kal",
-			"offHand": -56.13,
-			"mainHand": -43.37
+			"mainHand": -43.37,
+			"offHand": -56.13
 		},
 		"276738": {
 			"name": "Katerina's Shanker",
@@ -1008,8 +1008,8 @@
 		},
 		"279474": {
 			"name": "Dustwallow Dirk",
-			"offHand": -25.88,
-			"mainHand": -70.35
+			"mainHand": -70.35,
+			"offHand": -25.88
 		},
 		"279908": {
 			"name": "Crystal-Infused Cleaver",

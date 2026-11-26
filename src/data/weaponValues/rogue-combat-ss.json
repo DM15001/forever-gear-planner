@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T23:39:01.973Z",
-	"inputs": "f1e8f3511dca7188",
+	"generatedAt": "2026-11-26T06:23:28.831Z",
+	"inputs": "217f20aa2b19e08f",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -56,8 +56,8 @@
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"offHand": -31.77,
-			"mainHand": -111.33
+			"mainHand": -111.33,
+			"offHand": -31.77
 		},
 		"8190": {
 			"name": "Hanzo Sword",
@@ -113,8 +113,8 @@
 		},
 		"10797": {
 			"name": "Firebreather",
-			"mainHand": -56.22,
-			"offHand": -25.61
+			"offHand": -25.61,
+			"mainHand": -56.22
 		},
 		"10803": {
 			"name": "Blade of the Wretched",
@@ -219,8 +219,8 @@
 		},
 		"12062": {
 			"name": "Skilled Fighting Blade",
-			"mainHand": -106.67,
-			"offHand": -24.74
+			"offHand": -24.74,
+			"mainHand": -106.67
 		},
 		"12527": {
 			"name": "Ribsplitter",
@@ -238,8 +238,8 @@
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
-			"mainHand": -84.37,
-			"offHand": -26.82
+			"offHand": -26.82,
+			"mainHand": -84.37
 		},
 		"12590": {
 			"name": "Felstriker",
@@ -505,8 +505,8 @@
 		},
 		"15240": {
 			"name": "Demon's Claw",
-			"offHand": -29.2,
-			"mainHand": -53.44
+			"mainHand": -53.44,
+			"offHand": -29.2
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
@@ -629,8 +629,8 @@
 		},
 		"18310": {
 			"name": "Fiendish Machete",
-			"offHand": -21.17,
-			"mainHand": -39.38
+			"mainHand": -39.38,
+			"offHand": -21.17
 		},
 		"18321": {
 			"name": "Energetic Rod",
@@ -688,8 +688,8 @@
 		},
 		"18683": {
 			"name": "Hammer of the Vesper",
-			"offHand": -22.7,
-			"mainHand": -40.38
+			"mainHand": -40.38,
+			"offHand": -22.7
 		},
 		"18737": {
 			"name": "Bone Slicing Hatchet",
@@ -713,8 +713,8 @@
 		},
 		"19103": {
 			"name": "Frostbite",
-			"mainHand": -18.18,
-			"offHand": -23.46
+			"offHand": -23.46,
+			"mainHand": -18.18
 		},
 		"19104": {
 			"name": "Stormstrike Hammer",
@@ -733,8 +733,8 @@
 		},
 		"19543": {
 			"name": "Scout's Blade",
-			"mainHand": -98.7,
-			"offHand": -26.34
+			"offHand": -26.34,
+			"mainHand": -98.7
 		},
 		"19546": {
 			"name": "Sentinel's Blade",
@@ -763,8 +763,8 @@
 		},
 		"19555": {
 			"name": "Protector's Sword",
-			"offHand": -31.93,
-			"mainHand": -42.91
+			"mainHand": -42.91,
+			"offHand": -31.93
 		},
 		"20070": {
 			"name": "Sageclaw",
@@ -815,8 +815,8 @@
 		},
 		"24222": {
 			"name": "The Shadowfoot Stabber",
-			"mainHand": -90.04,
-			"offHand": -26.71
+			"offHand": -26.71,
+			"mainHand": -90.04
 		},
 		"227935": {
 			"name": "Hammer of the Fallen Thane",
@@ -834,8 +834,8 @@
 		},
 		"250618": {
 			"name": "Bagh Nakh",
-			"offHand": -29.24,
-			"mainHand": -13.89
+			"mainHand": -13.89,
+			"offHand": -29.24
 		},
 		"260172": {
 			"name": "Assassin's Dagger",
@@ -936,13 +936,13 @@
 		},
 		"272839": {
 			"name": "Premier Grand Marshal's Handaxe",
-			"mainHand": 14.37,
-			"offHand": -11.1
+			"offHand": -11.1,
+			"mainHand": 14.37
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"offHand": -12.08,
-			"mainHand": -50.28
+			"mainHand": -50.28,
+			"offHand": -12.08
 		},
 		"272844": {
 			"name": "Premier Grand Marshal's Right Hand Blade",
@@ -982,8 +982,8 @@
 		},
 		"274383": {
 			"name": "Kanai's Knife",
-			"offHand": -24.62,
-			"mainHand": -97.58
+			"mainHand": -97.58,
+			"offHand": -24.62
 		},
 		"274517": {
 			"name": "Unerring Purpose",
@@ -1013,8 +1013,8 @@
 		},
 		"276338": {
 			"name": "Claw of Shalla'kal",
-			"offHand": -38.09,
-			"mainHand": -50.16
+			"mainHand": -50.16,
+			"offHand": -38.09
 		},
 		"276398": {
 			"name": "Scarlet Malice",
@@ -1051,8 +1051,8 @@
 		},
 		"279908": {
 			"name": "Crystal-Infused Cleaver",
-			"offHand": -22.7,
-			"mainHand": -32.56
+			"mainHand": -32.56,
+			"offHand": -22.7
 		},
 		"280012": {
 			"name": "Talon of Tor'Rel",
@@ -1071,13 +1071,13 @@
 		},
 		"280029": {
 			"name": "Cinderedge Crescent",
-			"mainHand": -33.12,
-			"offHand": -19.88
+			"offHand": -19.88,
+			"mainHand": -33.12
 		},
 		"280068": {
 			"name": "Bloody Claws of Attack",
-			"offHand": -28.13,
-			"mainHand": -21.12
+			"mainHand": -21.12,
+			"offHand": -28.13
 		},
 		"280077": {
 			"name": "Fist of Revelation",
