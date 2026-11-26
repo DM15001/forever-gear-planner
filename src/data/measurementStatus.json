@@ -1,31 +1,31 @@
 {
-	"simVersion": "9640317ce3",
+	"simVersion": "b6c9efc485",
 	"simDate": "2026-11-26",
 	"builds": {
 		"druid-balance": {
 			"effects": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-26",
-				"current": true,
+				"current": false,
 				"held": false
 			}
 		},
 		"druid-cat": {
 			"effects": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weapons": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weights": {
 				"at": "2026-11-26",
-				"current": true,
+				"current": false,
 				"held": false
 			}
 		},

@@ -5,11 +5,11 @@ Items whose source the planner does not know: it either guesses "World drop (ass
 `scripts/items-to-check.ts`; do not edit by hand. To fix one, add its source to `src/config/sources.manual.json`
 (or to `src/config/not-available.json` when it cannot be had), or open an issue saying where it comes from.
 
-## In a build's top 10 for a slot (70)
+## In a build's top 10 for a slot (69)
 
 Most builds first. "best #2" = second-best item of its slot for at least one build, starting from empty gear.
 
-- [Horn of Ve'han](https://www.wowhead.com/forever/item=275736) (275736, rare 61, neck): no source; 24 builds, best #3 (Enhancement Shaman, Elemental Shaman, Warlock: Destro, Warlock: Demo (Fire Brand), …)
+- [Horn of Ve'han](https://www.wowhead.com/forever/item=275736) (275736, rare 61, neck): no source; 25 builds, best #3 (Enhancement Shaman, Elemental Shaman, Warlock: Destro, Warlock: Demo (Fire Brand), …)
 - [Cleansed Vilebranch Medallion](https://www.wowhead.com/forever/item=270275) (270275, uncommon 51, trinket): no source; 19 builds, best #3 (Enhancement Shaman, Mage: Frost Med, Mage: Frost Incin, Mage: Arcane Fire, …)
 - [Highborne Research Tablet](https://www.wowhead.com/forever/item=260205) (260205, uncommon 55, trinket): no source; 18 builds, best #1 (Enhancement Shaman, Priest: Smite Testing, Mage: Arcane, Warrior: Fury (Pre-BiS), …)
 - [Staff of Sorrow](https://www.wowhead.com/forever/item=280082) (280082, rare 57, weapon): no source; 16 builds, best #3 (Elemental Shaman, Warlock: SM/Ruin, Warlock: Destro, Warlock: Aff (Wrack), …)
@@ -45,7 +45,6 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Shadow Council Apprentice's Mantle](https://www.wowhead.com/forever/item=282704) (282704, rare 41, shoulder): no source; 3 builds, best #8 (Enhancement Shaman, Mage: Arcane Fire, Hunter: Survival (melee))
 - [Dark Phantom Cape](https://www.wowhead.com/forever/item=13122) (13122, rare 55, back): no source; 3 builds, best #9 (Rogue: Asn Muti, Hunter: Beast Mastery, Hunter: Survival)
 - [Skyfury Gauntlets](https://www.wowhead.com/forever/item=20133) (20133, epic 62, hands): no source; 2 builds, best #1 (Enhancement Shaman, Elemental Shaman)
-- [Lapidis Tankard of Tidesippe](https://www.wowhead.com/forever/item=4696) (4696, rare 59, weapon): no source; 2 builds, best #1 (Warlock: Destro, Mage: FFB)
 - [Glowing Brightwood Staff](https://www.wowhead.com/forever/item=812) (812, epic 54, weapon): no source; 2 builds, best #1 (Priest: Holy (healing), Priest: Discipline (healing))
 - [Alcor's Sunrazor](https://www.wowhead.com/forever/item=14555) (14555, epic 63, weapon): no source; 2 builds, best #2 (Rogue: Combat BS, Rogue: Asn Muti)
 - [Mardenholde Armbands](https://www.wowhead.com/forever/item=278570) (278570, rare 63, wrist): no source; 2 builds, best #3 (Priest: Smite Testing, Paladin: Retribution (Holy Shock))
@@ -58,6 +57,7 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Signet of the Soulless Rider](https://www.wowhead.com/forever/item=284102) (284102, rare 62, finger): no source; 2 builds, best #8 (Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS))
 - [Naturopathy Footpads](https://www.wowhead.com/forever/item=287038) (287038, rare 59, feet): no source; 2 builds, best #10 (Priest: Holy (healing), Priest: Discipline (healing))
 - [Heartseeking Crossbow](https://www.wowhead.com/forever/item=13040) (13040, rare 56, ranged): no source; 1 build, best #1 (Hunter: Survival (melee weave))
+- [Lapidis Tankard of Tidesippe](https://www.wowhead.com/forever/item=4696) (4696, rare 59, weapon): no source; 1 build, best #3 (Warlock: Destro)
 - [Kang the Decapitator](https://www.wowhead.com/forever/item=2291) (2291, epic 49, weapon): no source; 1 build, best #4 (Hunter: Survival (melee weave))
 - [Engraved Band](https://www.wowhead.com/forever/item=260219) (260219, rare 62, finger): no source; 1 build, best #5 (Druid: Feral Cat)
 - [Wolfrunner Shoes](https://www.wowhead.com/forever/item=13101) (13101, rare 59, feet): no source; 1 build, best #6 (Priest: Smite Testing)
@@ -75,7 +75,6 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Assassination Blade](https://www.wowhead.com/forever/item=13036) (13036, rare 57, weapon): no source; 1 build, best #9 (Hunter: Beast Mastery)
 - [Blade of Senseless Slaughter](https://www.wowhead.com/forever/item=284101) (284101, rare 62, weapon): no source; 1 build, best #10 (Hunter: Survival (melee))
 - [Museum Keeper's Chain](https://www.wowhead.com/forever/item=281636) (281636, rare 58, neck): no source; 1 build, best #10 (Priest: Smite Testing)
-- [Illegible Dogtags](https://www.wowhead.com/forever/item=274384) (274384, uncommon 58, neck): no source; 1 build, best #10 (Druid: Balance)
 - [Elder Wizard's Mantle](https://www.wowhead.com/forever/item=13013) (13013, rare 56, shoulder): no source; 1 build, best #10 (Mage: Arcane)
 - [Gryphon Rider's Crop](https://www.wowhead.com/forever/item=270112) (270112, uncommon 53, weapon): no source; 1 build, best #10 (Priest: Smite Testing)
 - [Guardian's Maulers](https://www.wowhead.com/forever/item=277244) (277244, rare 45, weapon): no source; 1 build, best #10 (Hunter: Survival (melee))
