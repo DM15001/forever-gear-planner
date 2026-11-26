@@ -43,6 +43,9 @@ interface Props {
 const formatGain = formatDps;
 
 /** The guided view: pick your content, get one plan, tick it off. */
+/** On trial on Dev. */
+const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+
 export function PlanTab({ spec, character, data, filter, onFilterChange, onChange, undoSteps = 0, onUndo, defaultWeights, onWeightsChange, hideContent = false }: Props) {
 	const [contentOpen, setContentOpen] = useContentOpen();
 	const options = useMemo(() => ({ character, data, spec, filter }), [character, data, spec, filter]);
@@ -406,6 +409,16 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				{(
 					<>
 				<MeasuredNote specId={spec.id} />
+				{IS_DEV && (
+					<header className="plan-gear-head">
+						<h3>Your planned gear</h3>
+						<p>
+							<span className="plan-gear-key plan-gear-key-goal">Planned</span> the item each card names is what the plan wants you to wear.
+							<span className="plan-gear-key">Replaces</span> is what you wear now.
+							<span className="plan-gear-key">Options</span> are the next best, click one to plan it instead.
+						</p>
+					</header>
+				)}
 				<ul className="plain-list plan-slots" inert={refining !== null}>
 					{slots.map(({ slot, index, equippedItem, goalItem, goalEnchant, isChange, overWorn, others }) => (
 						<li key={slot.key} className={`plan-slot${isChange ? '' : ' plan-slot-done'}`}>

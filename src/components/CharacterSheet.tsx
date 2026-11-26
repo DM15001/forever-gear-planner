@@ -1,3 +1,4 @@
+import type { MouseEvent as ReactMouseEvent } from 'react';
 import talentPresets from '../config/talentPresets.json';
 import { type ReactNode, useContext, useState } from 'react';
 import { PresetContext, PresetField } from './Presets';
@@ -296,6 +297,14 @@ function statGroups(spec: SpecConfig): { title: string; keys: string[] }[] {
 }
 const LONG_LABEL = new Map(STAT_LABELS.map(([key, , long]) => [key, long]));
 
+/** On trial on Dev. */
+const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+/** The item's tooltip belongs to its name (a Wowhead link). Hovering the icon passes the pointer on to that link, so the same tooltip shows. */
+function relayHover(event: ReactMouseEvent<HTMLElement>, type: 'mouseover' | 'mouseout') {
+	const link = event.currentTarget.parentElement?.querySelector('a.slot-item');
+	link?.dispatchEvent(new MouseEvent(type, { bubbles: true, cancelable: true, view: window, clientX: event.clientX, clientY: event.clientY }));
+}
+
 function StatsPanel({ stats, character, spec }: { stats: Stats; character: Character; spec: SpecConfig }) {
 	const hit = hitSummary(stats, character, spec);
 	const percent = (value: number) => `${value.toFixed(1)}%`;
@@ -373,7 +382,7 @@ function GearSlot({ index, mirrored, piece, data, onChange, onPick, onEnchant, b
 
 	return (
 		<div className={`slot${piece ? '' : ' slot-empty'}${mirrored ? ' slot-mirrored' : ''}${blockedBy ? ' slot-blocked' : ''}`} title={blockedBy ? `${blockedBy.name} is held in both hands. To use the off hand, put a one-handed weapon in the main hand first.` : undefined}>
-			<button className="slot-button" onClick={onPick} disabled={!data || !!blockedBy} title={blockedBy ? undefined : `Change the ${label.toLowerCase()} item`} aria-label={blockedBy ? `${label}: taken by ${blockedBy.name}` : `Change the ${label.toLowerCase()} item`}>
+			<button className="slot-button" onClick={onPick} disabled={!data || !!blockedBy} title={blockedBy || (IS_DEV && piece) ? undefined : `Change the ${label.toLowerCase()} item`} onMouseEnter={IS_DEV ? event => relayHover(event, 'mouseover') : undefined} onMouseLeave={IS_DEV ? event => relayHover(event, 'mouseout') : undefined} aria-label={blockedBy ? `${label}: taken by ${blockedBy.name}` : `Change the ${label.toLowerCase()} item`}>
 				<ItemIcon icon={blockedBy ? blockedBy.icon : item?.icon} quality={blockedBy ? 'none' : quality} />
 			</button>
 			<div className="slot-body" title={stats || undefined}>

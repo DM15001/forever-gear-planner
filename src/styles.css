@@ -8658,3 +8658,37 @@ details.content-fold,
 	color: var(--haze);
 	text-align: center;
 }
+/* On trial on Dev, Build plan: a heading that says what the slot cards show. */
+.plan-gear-head {
+	margin: 1.2rem 0 0.7rem;
+	padding-bottom: 0.5rem;
+	border-bottom: 1px solid var(--brass-deep);
+}
+.plan-gear-head h3 {
+	margin: 0 0 0.3rem;
+	font-family: var(--display);
+	font-size: 1.25rem;
+	color: var(--brass);
+}
+.plan-gear-head p {
+	margin: 0;
+	font-size: 0.875rem;
+	color: var(--haze);
+	line-height: 1.9;
+}
+.plan-gear-key {
+	display: inline-block;
+	margin: 0 0.35rem 0 0.6rem;
+	padding: 0 0.5rem;
+	border: 1px solid var(--ridge);
+	border-radius: 999px;
+	color: var(--mist);
+	line-height: 1.5;
+}
+.plan-gear-key:first-child {
+	margin-left: 0;
+}
+.plan-gear-key-goal {
+	border-color: var(--brass);
+	color: var(--brass);
+}
