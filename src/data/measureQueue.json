@@ -1,12 +1,6 @@
 {
 	"seq": 36,
-	"effects": {
-		"hunter-bm": 36,
-		"hunter-mm": 36,
-		"hunter-sv-melee": 36,
-		"hunter-sv-weave": 36,
-		"hunter-sv": 36
-	},
+	"effects": {},
 	"weights": {
 		"hunter-bm": 36,
 		"hunter-mm": 36,
