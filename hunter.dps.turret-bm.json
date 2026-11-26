@@ -85,8 +85,7 @@
           "quiverBonus": "AncientSinewWrappedLamina",
           "ammo": "ThoriumHeadedArrow",
           "petType": "Raptor",
-          "petUptime": 1,
-          "petAttackSpeed": "FasterAttackII"
+          "petUptime": 1
         }
       }
     },
