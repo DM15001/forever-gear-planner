@@ -90,23 +90,15 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 	const refineNote = job.note;
 	const checkedPlan = job.checkedKey;
 	const planKey = planKeyOf(character);
-	// How deep the check looks into each slot's list: the visitor's choice, kept in this browser.
-	const [depth, setDepthState] = useState(() => {
+	// How deep the check looks into each slot's list. Every visit starts on Normal: a choice remembered from last time looked like a wrong default.
+	const [depth, setDepth] = useState(REFINE_DEPTH);
+	useEffect(() => {
 		try {
-			const saved = Number(localStorage.getItem('fgp.refineDepth'));
-			return REFINE_DEPTHS.some(option => option.depth === saved) ? saved : REFINE_DEPTH;
+			localStorage.removeItem('fgp.refineDepth');
 		} catch {
-			return REFINE_DEPTH;
+			/* nothing was saved */
 		}
-	});
-	const setDepth = (next: number) => {
-		setDepthState(next);
-		try {
-			localStorage.setItem('fgp.refineDepth', String(next));
-		} catch {
-			/* private mode: kept for this visit */
-		}
-	};
+	}, []);
 	const refine = () => void refineJob.start({ character, data, spec, filter }, depth);
 	// Stat weights for these talents: measured with the simulator, then the plan is built again with them.
 	const [measuring, setMeasuring] = useState<string | null>(null);
