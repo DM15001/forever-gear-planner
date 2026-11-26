@@ -9780,3 +9780,11 @@ details.content-fold,
 		animation: none;
 	}
 }
+.group-switches .group-low {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	font-size: 0.875rem;
+	color: var(--mist);
+	cursor: pointer;
+}

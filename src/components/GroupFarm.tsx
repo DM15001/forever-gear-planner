@@ -8,6 +8,7 @@ import { type GroupDungeon, type GroupMember, type GroupScope, groupFarm, sortGr
 import { addCharacter, addGroup, removeAt, characterFromShareText, characterLabel, groupFromShareText, groupUrl, type Roster, shareUrl } from '../lib/roster';
 import { DEFAULT_FILTER } from '../lib/scoring';
 import { GROUPS_EVENT, GROUPS_KEY, type GroupsSaved, loadGroups } from '../lib/groups';
+import { contentCatalog } from '../lib/content';
 import { specOf } from '../lib/specs';
 import { wowheadData, wowheadItemUrl } from '../lib/stats';
 import { normalFilter } from '../lib/storage';
@@ -24,11 +25,13 @@ interface Saved {
 	sort: 'total' | 'people';
 	/** Dungeons as cards side by side, or as one row each. */
 	look: 'cards' | 'list';
+	/** Leaves the dungeons below level 60 (Deadmines to Maraudon) out of the list. */
+	noLow?: boolean;
 }
 function loadSaved(): Saved {
 	try {
 		const saved = JSON.parse(localStorage.getItem(GROUP_KEY) ?? '{}') as Partial<Saved>;
-		return { out: Array.isArray(saved.out) ? saved.out.filter(Number.isInteger) : [], scope: saved.scope === 'any' ? 'any' : 'plan', sort: saved.sort === 'people' ? 'people' : 'total', look: saved.look === 'list' ? 'list' : 'cards' };
+		return { out: Array.isArray(saved.out) ? saved.out.filter(Number.isInteger) : [], scope: saved.scope === 'any' ? 'any' : 'plan', sort: saved.sort === 'people' ? 'people' : 'total', look: saved.look === 'list' ? 'list' : 'cards', noLow: saved.noLow === true };
 	} catch {
 		return { out: [], scope: 'plan', sort: 'total', look: 'cards' };
 	}
@@ -193,7 +196,15 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[roster, out.join(','), loaded],
 	);
-	const dungeons = useMemo(() => sortGroup(groupFarm(members, saved.scope), saved.sort), [members, saved.scope, saved.sort]);
+	// The dungeons below level 60: low for every build in the group, so no build's level-60 dungeon is taken for one.
+	const lowKeys = useMemo(() => {
+		const catalogs = Object.values(loaded).map(data => contentCatalog(data, undefined));
+		const high = new Set(catalogs.flatMap(catalog => catalog.dungeons.map(dungeon => dungeon.key)));
+		return new Set(catalogs.flatMap(catalog => catalog.lowDungeonKeys).filter(key => !high.has(key)));
+	}, [loaded]);
+	const everyDungeon = useMemo(() => sortGroup(groupFarm(members, saved.scope), saved.sort), [members, saved.scope, saved.sort]);
+	const lowCount = everyDungeon.filter(dungeon => lowKeys.has(dungeon.key)).length;
+	const dungeons = saved.noLow ? everyDungeon.filter(dungeon => !lowKeys.has(dungeon.key)) : everyDungeon;
 	// How many dungeons there would be with every upgrade counted: so "planned only" can say what it leaves out.
 	const allCount = useMemo(() => (saved.scope === 'plan' ? groupFarm(members, 'any').length : 0), [members, saved.scope]);
 	const waiting = members.length < chosen.length;
@@ -441,6 +452,10 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 						List
 					</button>
 				</div>
+				<label className="check group-low" title="Leaves the dungeons below level 60 out of the list: Deadmines to Maraudon.">
+					<input type="checkbox" checked={saved.noLow === true} onChange={event => change({ noLow: event.target.checked })} />
+					Hide low-level dungeons{lowCount > 0 ? ` (${lowCount})` : ''}
+				</label>
 			</div>
 			{undo && (
 				<p className="undo-toast" role="status">

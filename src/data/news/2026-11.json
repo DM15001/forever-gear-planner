@@ -2,6 +2,33 @@
 	"_comment": "News of one month, newest day first. Written once a day by the scheduled task 'WoW Forever daily news (gear planner)'; nothing is ever deleted, this is also the changelog. Sections in this order when they have items: 'Game' (hotfixes, patch notes, fixed quests, announcements), 'WoWSims' (changes to the simulator). Every item: title, text (own words, one or two sentences), url, source, and tags. Tags, one to three per item, only from this list: Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior, Items, Dungeons, Quests, Professions, PvP, World, Races, Upcoming, WoWSims. A last section 'Gear Planner' holds the planner's own patch notes (tag 'Planner', source 'Gear Planner', no url; the News page shows it as a feed of its own); it is written when the site changes and must be kept when the day's news is added. Never mention the cheering figures (Bogdan, Afly, Larry) in the Gear Planner changelog: they are a surprise.",
 	"entries": [
 		{
+			"date": "2026-11-27",
+			"summary": "Gear Planner: Group up can hide low-level dungeons; crafted items stay out when Crafted is off.",
+			"sections": [
+				{
+					"title": "Gear Planner",
+					"items": [
+						{
+							"title": "Group up can hide low-level dungeons",
+							"text": "Next to View there is a tick \"Hide low-level dungeons\". With it the dungeons below level 60, Deadmines to Maraudon, are left out of the group's list.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Small things",
+							"text": "Crafted items no longer come back through the drop of their pattern when Crafted is switched off (Gloves of Spell Mastery and six others). \"How thorough\" starts on Normal on every visit, and its buttons show training dummies.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						}
+					]
+				}
+			]
+		},
+		{
 			"date": "2026-11-26",
 			"summary": "Blizzard's hotfix notes of 25 November rework Balance Druid talents, let Hunter and Warlock pets and Paladin's Exorcism crit again, tone down the Revelation enchant on area spells and change Alterac Valley to reward objectives. WoWSims updated its Warlock, Druid, Shaman and Hunter presets.",
 			"sections": [

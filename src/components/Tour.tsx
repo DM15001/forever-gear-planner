@@ -49,7 +49,7 @@ const DEV_GROUP_STEPS: TourStep[] = [
 	GROUP_STEPS[0],
 	{ target: '.group-add', title: 'Bring your friends in', text: 'Each friend presses "Copy character link" under "Check gear" and sends you the text; paste it here. A group link adds everybody at once, and "Share the whole group" makes one.' },
 	{ target: '.group-members', title: 'Who is in', text: 'Your own characters and your friends, in two lists. Friends stay on this page only and get no tile among your characters. Untick the ones who are not coming along.' },
-	{ target: '.group-switches', title: 'What counts and how it looks', text: '"Planned items only" counts what each one has in their plan, "Every upgrade" anything better than what they wear. Sort by gain or by people, as cards or as a list.' },
+	{ target: '.group-switches', title: 'What counts and how it looks', text: '"Planned items only" counts what each one has in their plan, "Every upgrade" anything better than what they wear. Sort by gain or by people, as cards or as a list. "Hide low-level dungeons" leaves Deadmines to Maraudon out.' },
 	{ target: '.group-dungeon', title: 'The dungeons', text: 'Best for the group first. "Who wants what" opens a table below the card: every drop, who needs it and the gain. Press "Got it" when someone has their item.' },
 ];
 DEV_GROUP_STEPS.splice(1, 0, { target: '.group-tabs', title: 'Your groups', text: 'Keep several groups, one per circle of friends. Each has its own name and its own members. "New group" starts one with your open character in it.' });
