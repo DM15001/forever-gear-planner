@@ -1,11 +1,6 @@
 {
 	"seq": 32,
 	"effects": {},
-	"weights": {
-		"paladin-ret-holy-shock": 32,
-		"paladin-ret": 32,
-		"warrior-arms": 32,
-		"warrior-fury": 32
-	},
+	"weights": {},
 	"weapons": {}
 }
