@@ -8950,3 +8950,9 @@ details.content-fold,
 		opacity: 0.5;
 	}
 }
+/* Build plan: the slot cards on the same lighter ground as the dungeon cards of Group up, so they do not sink into the panel. */
+.plan-slots .plan-slot {
+	background: linear-gradient(180deg, rgb(255 255 255 / 0.035), transparent 45%), var(--slate-raised);
+	border-color: var(--ridge);
+	box-shadow: 0 2px 6px rgb(0 0 0 / 0.45);
+}
