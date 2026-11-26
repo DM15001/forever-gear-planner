@@ -320,8 +320,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 								<circle cx="12" cy="17.2" r="1.3" fill="currentColor" />
 							</svg>
 							<span>
-								<strong>This plan is an estimate.</strong> For the best result, press "Check the plan with the simulator": it tests the plan and its alternatives with real simulations and swaps in whatever
-								is really better. It takes a few minutes and you only need it once per plan.
+								<strong>This plan is an estimate.</strong> "Check the plan with the simulator" tests it for real and swaps in what is better. A few minutes, once per plan.
 							</span>
 						</p>
 					)}
@@ -368,11 +367,11 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 					)}
 					{locks.length > 0 && (
 						<p className="lock-note" role="status">
-							<strong>
-								{locks.length} {locks.length === 1 ? 'slot is' : 'slots are'} locked
+							<strong className="lock-count" tabIndex={0} title={`Locked: ${locks.map(slot => GEAR_SLOTS[slot].label).join(', ')}`}>
+								{locks.length} {locks.length === 1 ? 'slot' : 'slots'} locked
 							</strong>
-							: {locks.map(slot => GEAR_SLOTS[slot].label).join(', ')}. "Rebuild the plan" and the simulator check keep {locks.length === 1 ? 'it' : 'them'} and fit the other slots around {locks.length === 1 ? 'it' : 'them'}.{' '}
-							{lockCost >= 0.05 ? `Against a plan with every slot free that costs ${formatGain(-lockCost)} (estimated).` : 'Against a plan with every slot free that costs nothing (estimated).'}{' '}
+							. The plan is built around {locks.length === 1 ? 'it' : 'them'}
+							{lockCost >= 0.05 ? `, which costs ${formatGain(-lockCost)} (estimated)` : ', at no cost'}.{' '}
 							<button className="link" onClick={() => onChange({ ...character, planLocks: undefined })} disabled={refining !== null}>
 								Unlock all
 							</button>
