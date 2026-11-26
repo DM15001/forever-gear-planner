@@ -3,7 +3,7 @@
 	"wowsims": "hunter.dps.melee-sv-melee",
 	"name": "Hunter: Survival (melee)",
 	"preset": "SV Melee",
-	"talents": "53200005001-005005-5302002300500221",
+	"talents": "53200005001-005005-5002302300500221",
 	"classId": 3,
 	"className": "hunter",
 	"simKey": "hunter",
