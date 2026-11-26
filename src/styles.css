@@ -8330,3 +8330,49 @@ details.content-fold,
 :root:root[data-channel='dev'] .sheet .slot-blocked .slot-body > .slot-source {
 	grid-row: 3;
 }
+/* Content Selection speaks the language of the Group up cards: same surface, frame, name and open state. */
+.source-panels {
+	gap: 0.8rem;
+}
+.source-panel-main {
+	border: 1px solid var(--ridge);
+	border-radius: 8px;
+	background: linear-gradient(180deg, rgb(255 255 255 / 0.035), transparent 45%), var(--slate-raised);
+	box-shadow: 0 2px 6px rgb(0 0 0 / 0.45);
+}
+.source-panel-main:hover {
+	border-color: var(--brass-deep);
+}
+.source-panel-back {
+	opacity: 0.55;
+}
+.source-panel-name {
+	font-family: var(--serif);
+	font-size: 1.1875rem;
+	letter-spacing: 0;
+	color: var(--haze);
+}
+.source-panel-on .source-panel-name {
+	color: var(--brass);
+}
+.source-panel-on .source-panel-main {
+	border-color: var(--brass-deep);
+	box-shadow: 0 2px 6px rgb(0 0 0 / 0.45);
+}
+.source-panel-open .source-panel-main,
+.source-panel-open .source-panel-main:hover {
+	border-color: var(--brass);
+	background: linear-gradient(180deg, rgb(214 174 95 / 0.12), transparent 60%), var(--slate-raised);
+	box-shadow: 0 2px 6px rgb(0 0 0 / 0.45);
+}
+.source-detail {
+	padding: 0.8rem 1rem 1rem;
+	background: #0a0806;
+	border: 1px solid var(--brass);
+	border-radius: 8px;
+}
+.source-detail-head h3 {
+	font-family: var(--serif);
+	font-size: 1.1875rem;
+	color: var(--brass);
+}
