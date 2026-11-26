@@ -8097,131 +8097,79 @@ details.content-fold,
 	cursor: not-allowed;
 }
 
-/* Content Selection: cards built like the dungeon cards of Group up. Grey until the kind counts; the finer
-   choice opens below the card's row, full width, as the bosses do there. */
+/* Content Selection: one list to work through. Every kind of content is a section, open, with its mark, its
+   count and the switch for all of it; below it the single switches. */
 .content-step-head h2 {
 	margin: 0 0 0.2rem;
 }
 .content-step-head .hint {
 	margin: 0 0 0.9rem;
 }
-.source-cards {
-	grid-auto-flow: dense;
-	margin: 1rem 0 1.2rem;
-}
-.source-cards .source-card {
-	grid-template-areas:
-		'head prio'
-		'strip strip'
-		'numbers numbers';
-	grid-template-rows: 3rem auto auto;
-}
-.source-card .group-dungeon-head:disabled {
-	cursor: default;
-}
-.source-card .dungeon-icon,
-.source-card .group-strip,
-.source-card .dungeon-name {
-	transition: filter 0.2s, color 0.2s;
-}
-.source-card:not(.source-card-on) .dungeon-icon {
-	filter: grayscale(1) brightness(0.65);
-}
-.source-card:not(.source-card-on) .dungeon-name {
-	color: var(--haze);
-}
-.source-card .group-strip .dungeon-icon {
-	width: 2.4rem;
-	height: 2.4rem;
-}
-.source-card-on {
-	border-color: var(--brass-deep);
-}
-.source-card-soon {
-	border-style: dashed;
-	opacity: 0.75;
-}
-/* The round mark at the right is the switch: filled with a check when the kind counts. */
-.source-toggle {
-	padding: 0;
-	background: none;
-	border: 0;
-	font: inherit;
-	font-size: 0.6875rem;
-	cursor: pointer;
-}
-.source-toggle strong {
-	transition: background 0.15s, color 0.15s;
-}
-.source-card:not(.source-card-on) .source-toggle strong {
-	background: none;
-	color: transparent;
-	border-color: var(--ridge);
-	box-shadow: none;
-}
-.source-card-on .source-toggle strong {
-	background: var(--brass);
-	color: var(--on-brass);
-}
-.source-toggle:hover strong {
-	border-color: var(--brass);
-}
-.source-detail header {
-	align-items: center;
-	justify-content: flex-start;
-	margin-bottom: 0.7rem;
-}
-.source-detail header .link {
-	margin-left: auto;
-}
-.source-detail > .content-tiles {
+.source-list {
 	display: grid;
+	gap: 0.8rem;
+	margin-top: 1rem;
 }
-/* The plain sources (quests, crafting, drops, vendors): the same card, one line high. */
-.source-small-title {
-	margin: 0 0 0.5rem;
-	font-family: var(--serif);
-	font-size: 1.05rem;
+.source-section {
+	padding: 0.8rem 1rem 1rem;
+	background: linear-gradient(180deg, rgb(255 255 255 / 0.035), transparent 45%), var(--slate-raised);
+	border: 1px solid var(--ridge);
+	border-left: 3px solid var(--ridge);
+	border-radius: 8px;
+}
+.source-section-on {
+	border-left-color: var(--brass);
+}
+.source-section-soon {
+	opacity: 0.7;
+}
+.source-section-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.6rem;
+	margin-bottom: 0.7rem;
+	padding-bottom: 0.6rem;
+	border-bottom: 1px solid var(--hairline);
+}
+.source-section-head h3 {
+	margin: 0;
+	font-family: var(--display);
+	font-size: 1.15rem;
 	color: var(--haze);
 }
-.source-cards-small {
-	grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
-	gap: 0.5rem;
-	margin-top: 0;
+.source-section-on .source-section-head h3 {
+	color: var(--brass);
 }
-.source-cards .source-card-small {
-	grid-template-areas: 'head more prio';
-	grid-template-columns: minmax(0, 1fr) auto auto;
-	grid-template-rows: auto;
-	align-items: center;
-	padding: 0.45rem 0.7rem;
-}
-.source-cards .source-card-small:hover {
-	transform: none;
-}
-.source-card-small .dungeon-icon {
+.source-section-head .dungeon-icon {
 	width: 2.2rem;
 	height: 2.2rem;
 }
-.source-card-small .dungeon-name {
-	font-size: 1rem;
+.source-section:not(.source-section-on) .source-section-head .dungeon-icon {
+	filter: grayscale(1) brightness(0.65);
 }
-.source-card-small .source-card-more {
-	grid-area: more;
-	font-size: 0.8125rem;
+.source-section-mark {
+	display: grid;
+	place-items: center;
+	flex: none;
+	width: 1.5rem;
+	height: 1.5rem;
+	border: 2px solid var(--ridge);
+	border-radius: 50%;
+	color: var(--on-brass);
+	font-size: 0.85rem;
+	font-weight: 700;
+	line-height: 1;
 }
-.source-card-small .source-toggle {
-	align-self: center;
-	flex-direction: row;
-	gap: 0.35rem;
+.source-section-on .source-section-mark {
+	background: var(--brass);
+	border-color: var(--brass);
 }
-.source-card-small .source-toggle strong {
-	width: 1.6rem;
-	height: 1.6rem;
-	font-size: 0.9rem;
+.source-section-head .content-switch {
+	margin-left: auto;
 }
-.source-card-small .source-toggle span {
-	display: none;
+.source-section > .content-tiles {
+	display: grid;
 }
 
 /* On trial on Dev: the worn pieces without their stat lines (they are in the hover and summed up in "Stats from gear"). */

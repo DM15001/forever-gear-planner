@@ -40,7 +40,7 @@ export function ContentStep({ spec, character, data, filter, onFilterChange, onC
 		<div className="content-step" inert={locked}>
 			<header className="content-step-head">
 				<h2>What content do you do?</h2>
-				<p className="hint">Pick every kind you play. Only items from lit panels go into your plan. Click a panel for the finer choice.</p>
+				<p className="hint">Go through the list from top to bottom and switch on what you play. Only items from switched-on content go into your plan.</p>
 			</header>
 			<ContentPicker
 				panels

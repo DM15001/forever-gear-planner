@@ -1,4 +1,4 @@
-import { Fragment, type ReactNode, useMemo, useState } from 'react';
+import { type ReactNode, useMemo, useState } from 'react';
 
 import { contentCatalog, presets, sameFilter, toggled } from '../lib/content';
 import type { GameData } from '../lib/gameData';
@@ -75,8 +75,6 @@ const PANEL_ICONS: Record<string, string[]> = {
 };
 /** Short names for the panels, where the row's own title is a sentence. */
 const PANEL_NAMES: Record<string, string> = { raids: 'Raids', tier: 'Dungeon sets', sets: 'Set bonuses' };
-/** Kinds with little or nothing to choose inside: a small switch instead of a picture panel. */
-const SMALL_PANELS = ['quest', 'crafted', 'drop', 'vendors', 'special'];
 interface PanelDef {
 	key: string;
 	title: ReactNode;
@@ -169,35 +167,42 @@ export function ContentPicker({ spec, character, data, filter, onChange, panels 
 	 */
 	// As panels: each kind is noted for the grid on top, and shows its finer choice below only while it is open.
 	const defs: PanelDef[] = [];
-	const detailOf: Record<string, ReactNode> = {};
 	const group = (key: string, title: ReactNode, counted: number, of: number, allOn: (() => void) | null, allOff: (() => void) | null, children: ReactNode, extra = '', body = 'content-tiles') => {
 		const everything = of > 0 && counted === of;
 		const isOpen = opened[key] ?? false;
 		if (panels) {
 			defs.push({ key, title, counted, of, allOn, allOff, hasDetail: children !== null });
-			if (isOpen && children !== null)
-				detailOf[key] = (
-					<li key={`${key}-detail`} className={`group-detail source-detail ${extra}`}>
-						<header>
-							<h3>{PANEL_NAMES[key] ?? title}: what counts</h3>
-							{allOn && allOff && of > 1 && (
-								<span className="content-switch" role="group" aria-label={`All of ${key}`}>
-									<button type="button" aria-pressed={everything} onClick={() => !everything && allOn()}>
-										All on
-									</button>
-									<button type="button" aria-pressed={counted === 0} onClick={() => counted > 0 && allOff()}>
-										All off
-									</button>
-								</span>
-							)}
-							<button type="button" className="link" onClick={() => setOpened(before => ({ ...before, [key]: false }))}>
-								Close
-							</button>
-						</header>
-						<div className={body}>{children}</div>
-					</li>
-				);
-			return null;
+			// One list to work through: every kind is a section, open, with its count and the switch for all of it.
+			const soon = !allOn;
+			return (
+				<section key={key} className={`source-section${counted > 0 ? ' source-section-on' : ''}${soon ? ' source-section-soon' : ''} ${extra}`} aria-label={typeof title === 'string' ? title : key}>
+					<header className="source-section-head">
+						<span className="source-section-mark" aria-hidden="true">
+							{counted > 0 ? '✓' : ''}
+						</span>
+						<DungeonIcon icons={[(PANEL_ICONS[key] ?? [])[1] ?? '']} />
+						<h3>{PANEL_NAMES[key] ?? title}</h3>
+						{!soon && (
+							<span className="content-meter-text">
+								<strong className="num">{counted}</strong>
+								<span className="num">/{of}</span>
+							</span>
+						)}
+						{soon && <span className="badge badge-plan">coming soon</span>}
+						{allOn && allOff && (
+							<span className="content-switch" role="group" aria-label={`All of ${key}`}>
+								<button type="button" aria-pressed={everything} onClick={() => !everything && allOn()}>
+									{of > 1 ? 'All on' : 'On'}
+								</button>
+								<button type="button" aria-pressed={counted === 0} onClick={() => counted > 0 && allOff()}>
+									{of > 1 ? 'All off' : 'Off'}
+								</button>
+							</span>
+						)}
+					</header>
+					{children !== null && <div className={body}>{children}</div>}
+				</section>
+			);
 		}
 		return (
 			<details className={`content-group content-fold-group ${extra}`} open={isOpen} onToggle={event => {
@@ -447,7 +452,7 @@ export function ContentPicker({ spec, character, data, filter, onChange, panels 
 			)}
 
 			{!panels && OTHER_ROW}
-			{panels && group('quest', 'Quests', filter.quest ? 1 : 0, 1, () => set({ quest: true }), () => set({ quest: false }), null)}
+			{panels && group('quest', 'Quests', filter.quest ? 1 : 0, 1, () => set({ quest: true }), () => set({ quest: false }), tile('Quest rewards', ['inv_misc_note_02'], filter.quest, on => set({ quest: on })))}
 			{panels &&
 				group(
 					'crafted',
@@ -541,80 +546,6 @@ export function ContentPicker({ spec, character, data, filter, onChange, panels 
 		});
 	const standard = options.find(option => option.id === 'standard');
 	const everythingOn = options.find(option => option.id === 'all');
-	// A card per kind, built like the dungeon cards of Group up: picture and name, the round mark at the right
-	// (here the switch), a strip of pictures, the count and the button that opens the finer choice below the row.
-	const panel = (def: PanelDef) => {
-		const on = def.counted > 0;
-		const open = opened[def.key] ?? false;
-		const soon = !def.allOn;
-		const name = PANEL_NAMES[def.key] ?? def.title;
-		const label = typeof name === 'string' ? name : def.key;
-		const icons = PANEL_ICONS[def.key] ?? [];
-		const toggleOpen = () => def.hasDetail && setOpened(before => ({ ...before, [def.key]: !open }));
-		const small = SMALL_PANELS.includes(def.key);
-		return (
-			<Fragment key={def.key}>
-				<li className={`group-dungeon source-card${small ? ' source-card-small' : ''}${on ? ' source-card-on' : ''}${open ? ' group-dungeon-open' : ''}${soon ? ' source-card-soon' : ''}`}>
-					<button type="button" className="group-dungeon-head" aria-expanded={def.hasDetail ? open : undefined} disabled={!def.hasDetail} onClick={toggleOpen} title={def.hasDetail ? (open ? 'Hide the finer choice' : 'Show the finer choice') : undefined}>
-						<DungeonIcon icons={[icons[1] ?? icons[0] ?? '']} />
-						<span className="group-dungeon-title">
-							<strong className="dungeon-name">{name}</strong>
-							<span className="group-people">{soon ? 'Coming soon' : def.of > 1 ? `${def.counted} of ${def.of} count` : on ? 'Counts' : 'Left out'}</span>
-						</span>
-					</button>
-					{!soon && (
-						<button
-							type="button"
-							className="group-prio source-toggle"
-							role="switch"
-							aria-checked={on}
-							aria-label={`${label}: ${on ? 'counts' : 'left out'}`}
-							title={on ? 'Counts. Click to leave all of it out.' : 'Left out. Click to count all of it.'}
-							onClick={() => {
-								if (on) {
-									def.allOff?.();
-									setOpened(before => ({ ...before, [def.key]: false }));
-								} else {
-									def.allOn?.();
-									if (def.hasDetail && !small) setOpened(before => ({ ...before, [def.key]: true }));
-								}
-							}}>
-							<strong aria-hidden="true">{on ? '✓' : ''}</strong>
-							<span>{on ? 'On' : 'Off'}</span>
-						</button>
-					)}
-					{!small && (
-						<ul className="plain-list group-strip" aria-hidden="true">
-							{icons.map(icon => (
-								<li key={icon}>
-									<DungeonIcon icons={[icon]} />
-								</li>
-							))}
-						</ul>
-					)}
-					{!small && (
-						<div className="group-dungeon-numbers">
-							<span>
-								<strong className="num">{soon ? '–' : def.of > 1 ? `${def.counted}/${def.of}` : on ? 'On' : 'Off'}</strong>
-								<span className="group-people">selected</span>
-							</span>
-							{def.hasDetail && (
-								<button type="button" className="button button-small group-open" aria-expanded={open} onClick={toggleOpen}>
-									{open ? 'Close' : 'Choose'} <span aria-hidden="true">{open ? '▴' : '▾'}</span>
-								</button>
-							)}
-						</div>
-					)}
-					{small && def.hasDetail && (
-						<button type="button" className="link source-card-more" aria-expanded={open} onClick={toggleOpen}>
-							{open ? 'Close' : 'Choose'}
-						</button>
-					)}
-				</li>
-				{detailOf[def.key]}
-			</Fragment>
-		);
-	};
 	return (
 		<div className="content-picker source-picker">
 			<div className="presets" role="group" aria-label="Quick choices">
@@ -632,10 +563,7 @@ export function ContentPicker({ spec, character, data, filter, onChange, panels 
 					Clear all
 				</button>
 			</div>
-			<ul className="plain-list group-dungeons group-dungeons-cards source-cards">{defs.filter(def => !SMALL_PANELS.includes(def.key)).map(panel)}</ul>
-			<h3 className="source-small-title">Other sources</h3>
-			<ul className="plain-list group-dungeons group-dungeons-cards source-cards source-cards-small">{defs.filter(def => SMALL_PANELS.includes(def.key)).map(panel)}</ul>
-			{body}
+			<div className="source-list">{body}</div>
 		</div>
 	);
 }
