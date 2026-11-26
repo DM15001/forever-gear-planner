@@ -1,13 +1,6 @@
 {
 	"seq": 26,
-	"effects": {
-		"hunter-bm": 26,
-		"hunter-mm": 25,
-		"hunter-sv-melee": 26,
-		"hunter-sv-weave": 25,
-		"hunter-sv": 25,
-		"druid-balance": 26
-	},
+	"effects": {},
 	"weights": {},
 	"weapons": {}
 }
