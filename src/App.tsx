@@ -1,3 +1,4 @@
+import { groupsAfterRemoval } from './lib/groups';
 import { ICON_SOURCES } from './components/ItemIcon';
 import dataMeta from './data/meta.json';
 import measurementStatus from './data/measurementStatus.json';
@@ -912,6 +913,11 @@ export function App() {
 		setWeightsVersion(version => version + 1);
 	};
 	const changeRoster = (next: Roster) => {
+		// One character fewer: the groups of "Group up" know their members by place, so everybody after it moves up there too.
+		if (next.characters.length === roster.characters.length - 1) {
+			const gone = roster.characters.findIndex((character, index) => character !== next.characters[index]);
+			groupsAfterRemoval(gone >= 0 ? gone : roster.characters.length - 1);
+		}
 		setRoster(next);
 		saveRoster(next);
 	};

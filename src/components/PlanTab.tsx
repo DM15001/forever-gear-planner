@@ -50,11 +50,11 @@ const formatGain = formatDps;
 /** The layout of 26 Nov (first tried on Dev). */
 const NEW_LAYOUT = true;
 
-/** On trial on the Dev copy: the head of the plan as "before → after" with the simulator check as the next step. */
-const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+/** The head of the plan as "before → after" with the simulator check as the next step (first tried on Dev, on both copies since 26 Nov). */
+const NEW_HEAD = true;
 
 /** What the button that builds the plan anew is called: the texts that point at it use the same name. */
-const REBUILD = IS_DEV ? 'Reset to the automatic plan' : 'Rebuild the plan';
+const REBUILD = NEW_HEAD ? 'Reset to the automatic plan' : 'Rebuild the plan';
 
 export function PlanTab({ spec, character, data, filter, onFilterChange, onChange, undoSteps = 0, onUndo, defaultWeights, onWeightsChange, hideContent = false, tools, extras }: Props) {
 	const [contentOpen, setContentOpen] = useContentOpen();
@@ -316,7 +316,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 					Check the plan with the simulator
 				</button>
 			)}
-			{!import.meta.env.VITE_NO_SIM && IS_DEV && (
+			{!import.meta.env.VITE_NO_SIM && NEW_HEAD && (
 				<div className="depth-pick" role="radiogroup" aria-label="How thorough the check is">
 					<span className="depth-pick-label">How thorough</span>
 					<div className="depth-pick-row">
@@ -334,7 +334,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 					<span className="depth-pick-note">{REFINE_DEPTHS.find(option => option.depth === depth)?.note ?? ''}</span>
 				</div>
 			)}
-			{!import.meta.env.VITE_NO_SIM && !IS_DEV && (
+			{!import.meta.env.VITE_NO_SIM && !NEW_HEAD && (
 				<label className="refine-depth">
 					How thorough
 					<select value={depth} onChange={event => setDepth(Number(event.target.value))} disabled={refining !== null}>
@@ -357,7 +357,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 		<>
 			{onUndo && (
 				<button className="button" disabled={undoSteps === 0 || refining !== null} title={undoSteps === 0 ? 'Nothing to take back yet' : `Takes back the last change of the plan (${undoSteps} ${undoSteps === 1 ? 'step' : 'steps'} kept)`} onClick={onUndo}>
-					{IS_DEV ? (
+					{NEW_HEAD ? (
 						<span className="tool-button">
 							<svg viewBox="0 0 20 20" aria-hidden="true">
 								<path d="M8 4 3.500 8.500 8 13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -374,7 +374,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				</button>
 			)}
 			<button className="button" title="Throws away your own changes and the simulator's, and builds the plan again from the estimate. Locked slots stay. Use it after changing what you wear." onClick={() => rebuild()} disabled={refining !== null}>
-				{IS_DEV ? (
+				{NEW_HEAD ? (
 					<span className="tool-button">
 						<svg viewBox="0 0 20 20" aria-hidden="true">
 							<path d="M16.500 10a6.500 6.500 0 1 1-2-4.700" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -420,8 +420,8 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				<h2 id="plan-result">Your plan</h2>
 				{(
 					<>
-				<div className={IS_DEV ? 'summary plan-hero' : 'summary'}>
-					{IS_DEV ? (
+				<div className={NEW_HEAD ? 'summary plan-hero' : 'summary'}>
+					{NEW_HEAD ? (
 						<div className="plan-hero-grid">
 							<div className="plan-hero-main">
 								{simSummary}
@@ -455,14 +455,14 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 									: `"${REBUILD}" replaces ${staleCount === 1 ? 'it' : 'them'}.`}
 						</p>
 					)}
-					{!IS_DEV && callout}
-					{!IS_DEV && (
+					{!NEW_HEAD && callout}
+					{!NEW_HEAD && (
 						<div className="actions">
 							{checkButtons}
 							{toolButtons}
 						</div>
 					)}
-					{!IS_DEV && progress}
+					{!NEW_HEAD && progress}
 					{character.planTier && character.planTier.asked > 0 && (
 						<p className={character.planTier.count < character.planTier.asked ? 'notice notice-error' : 'notice'} role="status">
 							{character.planTier.count < character.planTier.asked

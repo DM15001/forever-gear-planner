@@ -7,6 +7,7 @@ import { type GameData, dataFor, loadGameData } from '../lib/gameData';
 import { type GroupDungeon, type GroupMember, type GroupScope, groupFarm, sortGroup, withDrop } from '../lib/group';
 import { addCharacter, addGroup, removeAt, characterFromShareText, characterLabel, groupFromShareText, groupUrl, type Roster, shareUrl } from '../lib/roster';
 import { DEFAULT_FILTER } from '../lib/scoring';
+import { GROUPS_EVENT, GROUPS_KEY, type GroupsSaved, loadGroups } from '../lib/groups';
 import { specOf } from '../lib/specs';
 import { wowheadData, wowheadItemUrl } from '../lib/stats';
 import { normalFilter } from '../lib/storage';
@@ -33,29 +34,6 @@ function loadSaved(): Saved {
 	}
 }
 
-/** On trial on the Dev copy: several groups, each with its own name and its own pick of characters. */
-const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
-const GROUPS_KEY = 'fgp.groups';
-interface NamedGroup {
-	name: string;
-	/** The characters in this group, by their place among the saved ones. */
-	members: number[];
-}
-interface GroupsSaved {
-	groups: NamedGroup[];
-	at: number;
-}
-function loadGroups(): GroupsSaved | null {
-	try {
-		const saved = JSON.parse(localStorage.getItem(GROUPS_KEY) ?? 'null') as Partial<GroupsSaved> | null;
-		if (!saved || !Array.isArray(saved.groups) || saved.groups.length === 0) return null;
-		const groups = saved.groups.filter(group => group && typeof group.name === 'string' && Array.isArray(group.members)).map(group => ({ name: group.name.slice(0, 40), members: group.members.filter(Number.isInteger) }));
-		if (groups.length === 0) return null;
-		return { groups, at: Number.isInteger(saved.at) && saved.at! >= 0 && saved.at! < groups.length ? saved.at! : 0 };
-	} catch {
-		return null;
-	}
-}
 /** A small sign for a group: three heads. */
 const GroupSign = () => (
 	<svg className="group-sign" viewBox="0 0 24 16" aria-hidden="true">
@@ -113,7 +91,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 			// Without storage the choice lasts until the page is closed.
 		}
 	};
-	// Dev trial: named groups. Each keeps who is in it; the first one starts from the ticks there were before.
+	// Named groups. Each keeps who is in it; the first one starts from the ticks there were before.
 	const [many, setMany] = useState<GroupsSaved>(() => loadGroups() ?? { groups: [{ name: 'Group 1', members: roster.characters.map((_, index) => index).filter(index => !saved.out.includes(index)) }], at: 0 });
 	const saveMany = (next: GroupsSaved) => {
 		setMany(next);
@@ -125,18 +103,23 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 	};
 	const group = many.groups[many.at] ?? many.groups[0];
 	const [renaming, setRenaming] = useState(false);
-	/** Who is left out of the group that is open: on Dev whoever is not in it, elsewhere the unticked ones. */
-	const out = IS_DEV ? roster.characters.map((_, index) => index).filter(index => !group.members.includes(index)) : saved.out;
+	/** Who is left out of the group that is open. */
+	const out = roster.characters.map((_, index) => index).filter(index => !group.members.includes(index));
 	const setIn = (index: number, on: boolean) => {
-		if (!IS_DEV) return change({ out: on ? saved.out.filter(i => i !== index) : [...saved.out, index] });
 		saveMany({ ...many, groups: many.groups.map((g, i) => (i === many.at ? { ...g, members: on ? [...new Set([...g.members, index])] : g.members.filter(m => m !== index) } : g)) });
 	};
 	/** New characters at the end of the saved ones join the open group. */
 	const joinGroup = (from: number, count: number) =>
-		IS_DEV && count > 0 && saveMany({ ...many, groups: many.groups.map((g, i) => (i === many.at ? { ...g, members: [...g.members, ...Array.from({ length: count }, (_, k) => from + k)] } : g)) });
-	/** A character was removed: everybody after it moves up one place, in every group. */
-	const dropFromGroups = (index: number) =>
-		IS_DEV && saveMany({ ...many, groups: many.groups.map(g => ({ ...g, members: g.members.filter(m => m !== index).map(m => (m > index ? m - 1 : m)) })) });
+		count > 0 && saveMany({ ...many, groups: many.groups.map((g, i) => (i === many.at ? { ...g, members: [...g.members, ...Array.from({ length: count }, (_, k) => from + k)] } : g)) });
+	// A character removed anywhere on the site shifts the groups in storage (see App): take them over from there.
+	useEffect(() => {
+		const reload = () => {
+			const saved = loadGroups();
+			if (saved) setMany(saved);
+		};
+		window.addEventListener(GROUPS_EVENT, reload);
+		return () => window.removeEventListener(GROUPS_EVENT, reload);
+	}, []);
 	const [undo, setUndo] = useState<{ text: string; index: number; before: Character } | null>(null);
 	const [open, setOpen] = useState<Set<string>>(new Set());
 	const [pasted, setPasted] = useState('');
@@ -288,7 +271,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 					characters. Their later changes need a new copy: nothing is synced.
 				</p>
 			)}
-			{IS_DEV && (
+			{(
 				<div className="group-tabs" role="tablist" aria-label="Your groups">
 					{many.groups.map((g, i) =>
 						i === many.at && renaming ? (
@@ -409,7 +392,6 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 												onClick={() => {
 													onRosterChange(removeAt(roster, index));
 													change({ out: saved.out.filter(i => i !== index).map(i => (i > index ? i - 1 : i)) });
-													dropFromGroups(index);
 												}}>
 												remove
 											</button>

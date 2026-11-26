@@ -279,7 +279,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 					</p>
 				)}
 				<p className="hidden-note">
-					Too expensive, or you just do not want it? "Hide" next to an item leaves it out of every list and out of "Rebuild the plan".
+					Too expensive, or you just do not want it? "Hide" next to an item leaves it out of every list and out of "Reset to the automatic plan".
 					{filter.hiddenItems.length > 0 && (
 						<>
 							{' '}

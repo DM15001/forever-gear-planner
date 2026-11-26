@@ -170,6 +170,30 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Build plan opens with before and after",
+							"text": "The head of Build plan is one big line: your equipped DPS, an arrow with the gain, the planned DPS. The simulator check has a card of its own next to it, \"Next: check it for real\", which turns green once the plan is checked. \"How thorough\" is four buttons instead of a dropdown. Undo and the reset say what they do, and \"Rebuild the plan\" is now called \"Reset to the automatic plan\": it drops your changes and the simulator's, locked slots stay.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Several groups in Group up",
+							"text": "Group up can keep more than one group. A row of tabs at the top has one per group, with its name and how many characters are in it; \"New group\" starts one with your open character in it. Each group has its own members, a friend you paste joins the group that is open, and \"Share the whole group\" shares that one. Rename or delete a group at the right; deleting a group keeps its characters.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Smaller fixes",
+							"text": "A battleground switched off under PvP now really takes its quartermaster's items out of the lists. Enchant names link to Wowhead with a tooltip. The preset buttons under Check gear fit their column. Build plan says when a locked slot keeps an item from content you switched off.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "A new way through the planner",
 							"text": "The steps are now: Check gear, Content Selection, Customize, Build plan, Farm it. What content you do has a page of its own, as one list to work through: dungeons, reputations, dungeon sets, set bonuses, PvP, quests, crafting, world drops, vendors. The plan is built as soon as you choose. Customize comes before Build plan: an item you pick by hand is locked, and \"Check the plan with the simulator\" builds around it. The tour and the FAQ follow the new order.",
 							"source": "Gear Planner",

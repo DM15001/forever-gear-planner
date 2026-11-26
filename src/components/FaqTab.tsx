@@ -51,7 +51,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 							</>
 						) : (
 							<>
-								<li>Open "Build plan". Say what content you do and it fills every slot with the best set for it; "Rebuild the plan" does it again. Enchants and professions are a section at the bottom of that page.</li>
+								<li>Open "Build plan". Say what content you do and it fills every slot with the best set for it; "Reset to the automatic plan" does it again. Enchants and professions are a section at the bottom of that page.</li>
 								<li>"Customize" lists the better items for each slot with the gain in front, to pick single ones yourself. What you pick there overrides the plan.</li>
 								<li>"Farm it" sorts the planned items by dungeon.</li>
 							</>
@@ -90,7 +90,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 				q: 'How do I plan with friends?',
 				a: (
 					<>
-						<p>Everyone presses "Copy character (equipped + planned gear)" under "Check gear" and sends what it copies. Paste each one into the box on "Group up". Or one person collects everybody and presses "Share the whole group": that link carries all of them.</p>
+						<p>Everyone presses "Copy character (equipped + planned gear)" under "Check gear" and sends what it copies. Paste each one into the box on "Group up". You can keep several groups there: each has its own name and members, and "New group" starts one with your open character in it. Or one person collects everybody and presses "Share the whole group": that link carries all of them.</p>
 						<p>Nothing is synced. A link is a snapshot of the moment it was copied; after changes, copy it again.</p>
 					</>
 				),
