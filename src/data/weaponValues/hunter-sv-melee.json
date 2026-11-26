@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T20:56:08.320Z",
-	"inputs": "08673280ba5c373a",
+	"generatedAt": "2026-11-25T22:53:06.132Z",
+	"inputs": "e376523324715d46",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -92,8 +92,8 @@
 		},
 		"10797": {
 			"name": "Firebreather",
-			"mainHand": -41.58,
-			"offHand": -47.19
+			"offHand": -47.19,
+			"mainHand": -41.58
 		},
 		"10803": {
 			"name": "Blade of the Wretched",
@@ -187,8 +187,8 @@
 		},
 		"12535": {
 			"name": "Doomforged Straightedge",
-			"mainHand": -49.79,
-			"offHand": -32.94
+			"offHand": -32.94,
+			"mainHand": -49.79
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
@@ -233,8 +233,8 @@
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"mainHand": -50.79,
-			"offHand": -24.67
+			"offHand": -24.67,
+			"mainHand": -50.79
 		},
 		"12791": {
 			"name": "Barman Shanker",
@@ -295,7 +295,7 @@
 		},
 		"13146": {
 			"name": "Shell Launcher Shotgun",
-			"ranged": -11.68
+			"ranged": -10.1
 		},
 		"13182": {
 			"name": "Phase Blade",
@@ -376,8 +376,8 @@
 		},
 		"14555": {
 			"name": "Alcor's Sunrazor",
-			"offHand": -5.82,
-			"mainHand": -62.16
+			"mainHand": -62.16,
+			"offHand": -5.82
 		},
 		"14576": {
 			"name": "Ebon Hilt of Marduk",
@@ -390,8 +390,8 @@
 		},
 		"15217": {
 			"name": "Widow Blade",
-			"offHand": -44.32,
-			"mainHand": -60.36
+			"mainHand": -60.36,
+			"offHand": -44.32
 		},
 		"15218": {
 			"name": "Crystal Sword",
@@ -419,8 +419,8 @@
 		},
 		"15237": {
 			"name": "Corpse Harvester",
-			"mainHand": -44.94,
-			"offHand": -61.22
+			"offHand": -61.22,
+			"mainHand": -44.94
 		},
 		"15238": {
 			"name": "Warlord's Axe",
@@ -439,8 +439,8 @@
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"mainHand": -88.07,
-			"offHand": -28.96
+			"offHand": -28.96,
+			"mainHand": -88.07
 		},
 		"15246": {
 			"name": "Demon Blade",
@@ -584,8 +584,8 @@
 		},
 		"17752": {
 			"name": "Satyr's Lash",
-			"offHand": -27.96,
-			"mainHand": -73.07
+			"mainHand": -73.07,
+			"offHand": -27.96
 		},
 		"17753": {
 			"name": "Verdant Keeper's Aim",
@@ -687,8 +687,8 @@
 		},
 		"19103": {
 			"name": "Frostbite",
-			"offHand": -52.76,
-			"mainHand": -12.92
+			"mainHand": -12.92,
+			"offHand": -52.76
 		},
 		"19107": {
 			"name": "Bloodseeker",
@@ -705,8 +705,8 @@
 		},
 		"19542": {
 			"name": "Scout's Blade",
-			"mainHand": -55.82,
-			"offHand": -18.87
+			"offHand": -18.87,
+			"mainHand": -55.82
 		},
 		"19543": {
 			"name": "Scout's Blade",
@@ -871,8 +871,8 @@
 		},
 		"272596": {
 			"name": "Premier High Warlord's Razor",
-			"offHand": -20.25,
-			"mainHand": -29.57
+			"mainHand": -29.57,
+			"offHand": -20.25
 		},
 		"272597": {
 			"name": "Premier High Warlord's Right Claw",
@@ -990,8 +990,8 @@
 		},
 		"276738": {
 			"name": "Katerina's Shanker",
-			"mainHand": -71.76,
-			"offHand": -25.93
+			"offHand": -25.93,
+			"mainHand": -71.76
 		},
 		"276902": {
 			"name": "Youngster's First Bow",

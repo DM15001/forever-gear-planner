@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T22:06:33.637Z",
-	"inputs": "5dd2ff2c862be28b",
+	"generatedAt": "2026-11-26T00:33:22.436Z",
+	"inputs": "24b30d36376c5627",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -60,8 +60,8 @@
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"mainHand": -122.94,
-			"offHand": -32.69
+			"offHand": -32.69,
+			"mainHand": -122.94
 		},
 		"8190": {
 			"name": "Hanzo Sword",
@@ -173,8 +173,8 @@
 		},
 		"11744": {
 			"name": "Bloodfist",
-			"offHand": -16.92,
-			"mainHand": -90.82
+			"mainHand": -90.82,
+			"offHand": -16.92
 		},
 		"11784": {
 			"name": "Arbiter's Blade",
@@ -270,8 +270,8 @@
 		},
 		"12777": {
 			"name": "Blazing Rapier",
-			"offHand": -23.07,
-			"mainHand": -57.91
+			"mainHand": -57.91,
+			"offHand": -23.07
 		},
 		"12781": {
 			"name": "Serenity",
@@ -436,8 +436,8 @@
 		},
 		"14487": {
 			"name": "Bonechill Hammer",
-			"mainHand": -43.17,
-			"offHand": -18.79
+			"offHand": -18.79,
+			"mainHand": -43.17
 		},
 		"14555": {
 			"name": "Alcor's Sunrazor",
@@ -494,8 +494,8 @@
 		},
 		"15237": {
 			"name": "Corpse Harvester",
-			"offHand": -32.66,
-			"mainHand": -67.28
+			"mainHand": -67.28,
+			"offHand": -32.66
 		},
 		"15238": {
 			"name": "Warlord's Axe",
@@ -595,8 +595,8 @@
 		},
 		"17705": {
 			"name": "Thrash Blade",
-			"offHand": -15.11,
-			"mainHand": -29.03
+			"mainHand": -29.03,
+			"offHand": -15.11
 		},
 		"17710": {
 			"name": "Charstone Dirk",
@@ -642,8 +642,8 @@
 		},
 		"18347": {
 			"name": "Well Balanced Axe",
-			"offHand": -15.47,
-			"mainHand": -70.7
+			"mainHand": -70.7,
+			"offHand": -15.47
 		},
 		"18372": {
 			"name": "Blade of the New Moon",
@@ -980,8 +980,8 @@
 		},
 		"274271": {
 			"name": "Deadhead Blade",
-			"mainHand": -109.09,
-			"offHand": -28.49
+			"offHand": -28.49,
+			"mainHand": -109.09
 		},
 		"274383": {
 			"name": "Kanai's Knife",
@@ -1074,8 +1074,8 @@
 		},
 		"280029": {
 			"name": "Cinderedge Crescent",
-			"offHand": -12.34,
-			"mainHand": -39.45
+			"mainHand": -39.45,
+			"offHand": -12.34
 		},
 		"280068": {
 			"name": "Bloody Claws of Attack",
@@ -1108,8 +1108,8 @@
 		},
 		"282023": {
 			"name": "Clack's Claw",
-			"mainHand": -66.61,
-			"offHand": -26.26
+			"offHand": -26.26,
+			"mainHand": -66.61
 		},
 		"284101": {
 			"name": "Blade of Senseless Slaughter",
@@ -1131,13 +1131,13 @@
 		},
 		"286613": {
 			"name": "King Mosh's Tooth",
-			"mainHand": -96.35,
-			"offHand": -15.1
+			"offHand": -15.1,
+			"mainHand": -96.35
 		},
 		"287034": {
 			"name": "Grove Subjugator's Blade",
-			"offHand": -32.11,
-			"mainHand": -126
+			"mainHand": -126,
+			"offHand": -32.11
 		}
 	},
 	"failed": [],
