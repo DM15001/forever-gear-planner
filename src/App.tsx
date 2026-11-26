@@ -477,24 +477,66 @@ function CheerFriends() {
 function CheerGnome() {
 	return (
 		<svg className="cheer-gnome" viewBox="0 0 170 240" width="170" height="240" aria-hidden="true">
+			<defs>
+				<radialGradient id="gnome-skin" cx="0.4" cy="0.3" r="0.8">
+					<stop offset="0" stopColor="#ffe1c4" />
+					<stop offset="0.6" stopColor="#f2c9a8" />
+					<stop offset="1" stopColor="#c98f6e" />
+				</radialGradient>
+				<linearGradient id="gnome-robe" x1="0" y1="0" x2="1" y2="1">
+					<stop offset="0" stopColor="#2f4aa8" />
+					<stop offset="0.5" stopColor="#17275c" />
+					<stop offset="1" stopColor="#0a1233" />
+				</linearGradient>
+				<linearGradient id="gnome-beard" x1="0" y1="0" x2="0" y2="1">
+					<stop offset="0" stopColor="#f1f3f5" />
+					<stop offset="1" stopColor="#8f97a1" />
+				</linearGradient>
+				<radialGradient id="gnome-arcane" cx="0.5" cy="0.5" r="0.5">
+					<stop offset="0" stopColor="#ffffff" />
+					<stop offset="0.35" stopColor="#c9a8ff" />
+					<stop offset="1" stopColor="#6a3df0" stopOpacity="0" />
+				</radialGradient>
+				<filter id="gnome-glow" x="-50%" y="-50%" width="200%" height="200%">
+					<feGaussianBlur stdDeviation="3" />
+				</filter>
+			</defs>
+			{/* the spell's circle on the ground under him, and light rising from it */}
+			<ellipse className="cheer-bling cheer-bling-2" cx="85" cy="198" rx="70" ry="13" fill="#7a4dff" opacity="0.35" filter="url(#gnome-glow)" />
+			<ellipse cx="85" cy="198" rx="66" ry="11" fill="none" stroke="#c9a8ff" strokeWidth="2" />
+			<ellipse cx="85" cy="198" rx="54" ry="8" fill="none" stroke="#e9dcff" strokeWidth="1" strokeDasharray="3 5" />
+			<path d="M85 187 l4 11 l-4 11 l-4 -11 Z M19 198 l12 -3 l12 3 l-12 3 Z M127 198 l12 -3 l12 3 l-12 3 Z" fill="#c9a8ff" opacity="0.8" />
+			<path className="cheer-rise cheer-rise-1" d="M30 190 v-26" stroke="#c9a8ff" strokeWidth="2" strokeLinecap="round" />
+			<path className="cheer-rise cheer-rise-2" d="M140 190 v-30" stroke="#e9dcff" strokeWidth="2" strokeLinecap="round" />
+			<path className="cheer-rise cheer-rise-3" d="M52 196 v-20" stroke="#e9dcff" strokeWidth="1.5" strokeLinecap="round" />
+			<path className="cheer-rise cheer-rise-1" d="M118 196 v-22" stroke="#c9a8ff" strokeWidth="1.5" strokeLinecap="round" />
 			{/* coins already on the floor */}
 			<ellipse cx="34" cy="196" rx="8" ry="3.5" fill="#ffd100" stroke="#8f6d1c" strokeWidth="1" />
 			<ellipse cx="46" cy="199" rx="8" ry="3.5" fill="#ffe45c" stroke="#8f6d1c" strokeWidth="1" />
 			<ellipse cx="132" cy="198" rx="8" ry="3.5" fill="#ffd100" stroke="#8f6d1c" strokeWidth="1" />
 			<ellipse cx="121" cy="195" rx="7" ry="3" fill="#ffe45c" stroke="#8f6d1c" strokeWidth="1" />
 			{/* shoes */}
-			<ellipse cx="68" cy="197" rx="15" ry="7" fill="#3a2414" />
-			<ellipse cx="102" cy="197" rx="15" ry="7" fill="#3a2414" />
+			<path d="M52 198 Q50 186 64 186 H78 Q84 190 82 198 Z" fill="#4a2c16" stroke="#1f1208" strokeWidth="2" strokeLinejoin="round" />
+			<path d="M52 198 Q51 191 58 189 Q57 195 60 198 Z" fill="#d6a52c" />
+			<path d="M118 198 Q120 186 106 186 H92 Q86 190 88 198 Z" fill="#4a2c16" stroke="#1f1208" strokeWidth="2" strokeLinejoin="round" />
+			<path d="M118 198 Q119 191 112 189 Q113 195 110 198 Z" fill="#d6a52c" />
 			{/* dark blue robe, wide at the hem, with a gold trim */}
-			<path d="M58 118 Q40 170 46 192 Q85 202 124 192 Q130 170 112 118 Q85 108 58 118 Z" fill="#17275c" stroke="#0c1638" strokeWidth="2" />
+			<path d="M58 118 Q40 170 46 192 Q85 202 124 192 Q130 170 112 118 Q85 108 58 118 Z" fill="url(#gnome-robe)" stroke="#060b22" strokeWidth="2.5" strokeLinejoin="round" />
 			<path d="M46 184 Q85 196 124 184 L124 192 Q85 202 46 192 Z" fill="#d6a52c" />
 			<path d="M85 122 V186" stroke="#0c1638" strokeWidth="2" />
 			<path d="M70 122 Q85 134 100 122" fill="none" stroke="#2c4296" strokeWidth="3" />
 			{/* sleeves and hands */}
-			<path d="M60 120 Q42 122 26 104 L34 94 Q48 108 66 108 Z" fill="#1d3170" stroke="#0c1638" strokeWidth="1.5" />
-			<path d="M110 120 Q128 122 144 104 L136 94 Q122 108 104 108 Z" fill="#1d3170" stroke="#0c1638" strokeWidth="1.5" />
-			<circle cx="28" cy="97" r="7" fill="#f2c9a8" />
-			<circle cx="142" cy="97" r="7" fill="#f2c9a8" />
+			<path d="M60 120 Q42 122 26 104 L34 94 Q48 108 66 108 Z" fill="url(#gnome-robe)" stroke="#060b22" strokeWidth="2.5" strokeLinejoin="round" />
+			<path d="M110 120 Q128 122 144 104 L136 94 Q122 108 104 108 Z" fill="url(#gnome-robe)" stroke="#060b22" strokeWidth="2.5" strokeLinejoin="round" />
+			<circle cx="28" cy="97" r="9" fill="url(#gnome-skin)" stroke="#8a5a3c" strokeWidth="1.5" />
+			<path d="M21 92 l-3 -6 M26 89 l-1 -7 M32 89 l2 -6" stroke="#f2c9a8" strokeWidth="4" strokeLinecap="round" />
+			<circle cx="142" cy="97" r="9" fill="url(#gnome-skin)" stroke="#8a5a3c" strokeWidth="1.5" />
+			<path d="M149 92 l3 -6 M144 89 l1 -7 M138 89 l-2 -6" stroke="#f2c9a8" strokeWidth="4" strokeLinecap="round" />
+			{/* shoulder pieces, gold-rimmed, with a glowing stone each */}
+			<path d="M46 126 Q40 108 58 104 Q72 106 72 120 Q62 130 46 126 Z" fill="#22357a" stroke="#d6a52c" strokeWidth="2.5" strokeLinejoin="round" />
+			<path d="M124 126 Q130 108 112 104 Q98 106 98 120 Q108 130 124 126 Z" fill="#22357a" stroke="#d6a52c" strokeWidth="2.5" strokeLinejoin="round" />
+			<circle className="cheer-bling cheer-bling-1" cx="57" cy="115" r="4.5" fill="#c9a8ff" stroke="#ffffff" strokeWidth="1" />
+			<circle className="cheer-bling cheer-bling-3" cx="113" cy="115" r="4.5" fill="#c9a8ff" stroke="#ffffff" strokeWidth="1" />
 			{/* belt */}
 			<path d="M52 146 Q85 156 118 146 L119 153 Q85 163 51 153 Z" fill="#5c3814" />
 			<rect x="79" y="148" width="12" height="11" rx="2" fill="none" stroke="#d6a52c" strokeWidth="2.5" />
@@ -536,22 +578,24 @@ function CheerGnome() {
 			</g>
 			{/* head: big, as gnomes have them, with large ears */}
 			<path d="M52 82 l-14 -8 l10 18 Z M118 82 l14 -8 l-10 18 Z" fill="#f2c9a8" stroke="#d9a587" strokeWidth="1" />
-			<circle cx="85" cy="78" r="32" fill="#f2c9a8" />
+			<circle cx="85" cy="78" r="32" fill="url(#gnome-skin)" stroke="#8a5a3c" strokeWidth="1.5" />
 			{/* bald crown with a shine, grey hair standing up at both sides */}
 			<path d="M72 52 Q80 46 90 49" fill="none" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" opacity="0.7" />
-			<path d="M55 76 L40 62 L52 62 L42 44 L56 52 L54 34 L66 50 L68 58 Q58 64 55 76 Z" fill="#b9bec5" stroke="#8d949c" strokeWidth="1.2" strokeLinejoin="round" />
-			<path d="M115 76 L130 62 L118 62 L128 44 L114 52 L116 34 L104 50 L102 58 Q112 64 115 76 Z" fill="#b9bec5" stroke="#8d949c" strokeWidth="1.2" strokeLinejoin="round" />
+			<path d="M55 76 L40 62 L52 62 L42 44 L56 52 L54 34 L66 50 L68 58 Q58 64 55 76 Z" fill="url(#gnome-beard)" stroke="#5f6770" strokeWidth="1.8" strokeLinejoin="round" />
+			<path d="M115 76 L130 62 L118 62 L128 44 L114 52 L116 34 L104 50 L102 58 Q112 64 115 76 Z" fill="url(#gnome-beard)" stroke="#5f6770" strokeWidth="1.8" strokeLinejoin="round" />
 			{/* eyes, bushy brows, a round nose */}
 			<ellipse cx="74" cy="76" rx="6" ry="6.5" fill="#ffffff" />
 			<ellipse cx="96" cy="76" rx="6" ry="6.5" fill="#ffffff" />
-			<circle cx="75" cy="77" r="3.4" fill="#9b4fe0" />
-			<circle cx="97" cy="77" r="3.4" fill="#9b4fe0" />
+			<circle cx="75" cy="77" r="6" fill="#b06bff" opacity="0.45" filter="url(#gnome-glow)" />
+			<circle cx="75" cy="77" r="3.6" fill="#b06bff" />
+			<circle cx="97" cy="77" r="6" fill="#b06bff" opacity="0.45" filter="url(#gnome-glow)" />
+			<circle cx="97" cy="77" r="3.6" fill="#b06bff" />
 			<circle cx="75.500" cy="77" r="1.5" fill="#12222c" />
 			<circle cx="97.500" cy="77" r="1.5" fill="#12222c" />
 			<path d="M65 68 Q74 62 82 68 M88 68 Q96 62 105 68" fill="none" stroke="#b9bec5" strokeWidth="4.5" strokeLinecap="round" />
 			<ellipse cx="85" cy="86" rx="7" ry="6" fill="#e8b08e" />
 			{/* the full grey beard, with a moustache and a grin in it */}
-			<path d="M54 84 Q52 118 70 132 Q85 142 100 132 Q118 118 116 84 Q108 96 96 92 Q85 100 74 92 Q62 96 54 84 Z" fill="#c7ccd2" stroke="#8d949c" strokeWidth="1.5" strokeLinejoin="round" />
+			<path d="M54 84 Q52 118 70 132 Q85 142 100 132 Q118 118 116 84 Q108 96 96 92 Q85 100 74 92 Q62 96 54 84 Z" fill="url(#gnome-beard)" stroke="#5f6770" strokeWidth="2" strokeLinejoin="round" />
 			<path d="M64 104 Q68 122 78 130 M85 104 V136 M106 104 Q102 122 92 130" fill="none" stroke="#9aa1a9" strokeWidth="1.5" strokeLinecap="round" />
 			<path d="M85 90 Q70 86 52 98 Q56 102 62 100 Q74 104 85 96 Q96 104 108 100 Q114 102 118 98 Q100 86 85 90 Z" fill="#dfe3e7" stroke="#8d949c" strokeWidth="1" strokeLinejoin="round" />
 			<path d="M70 103 Q85 118 100 103 Q85 108 70 103 Z" fill="#7a2a2a" stroke="#5a1c1c" strokeWidth="1" strokeLinejoin="round" />
@@ -607,13 +651,13 @@ function CheerGnome() {
 			</g>
 			</g>
 			{/* he is casting the intellect buff: arcane light in both hands, streams of it up to the spell's sign over his head, sparks all round */}
-			<circle className="cheer-bling cheer-bling-1" cx="28" cy="97" r="13" fill="#b48cff" opacity="0.45" />
-			<circle className="cheer-bling cheer-bling-3" cx="142" cy="97" r="13" fill="#b48cff" opacity="0.45" />
-			<circle cx="28" cy="97" r="6" fill="#e9dcff" opacity="0.9" />
-			<circle cx="142" cy="97" r="6" fill="#e9dcff" opacity="0.9" />
+			<circle className="cheer-bling cheer-bling-1" cx="28" cy="92" r="20" fill="url(#gnome-arcane)" />
+			<circle className="cheer-bling cheer-bling-3" cx="142" cy="92" r="20" fill="url(#gnome-arcane)" />
+			<circle cx="28" cy="90" r="5" fill="#ffffff" opacity="0.95" />
+			<circle cx="142" cy="90" r="5" fill="#ffffff" opacity="0.95" />
 			<path d="M28 90 Q30 40 70 18" fill="none" stroke="#c9a8ff" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="2 5" opacity="0.9" />
 			<path d="M142 90 Q140 40 100 18" fill="none" stroke="#c9a8ff" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="2 5" opacity="0.9" />
-			<circle className="cheer-bling cheer-bling-2" cx="85" cy="17" r="24" fill="#8f6bff" opacity="0.35" />
+			<circle className="cheer-bling cheer-bling-2" cx="85" cy="17" r="30" fill="url(#gnome-arcane)" />
 			<ellipse cx="85" cy="17" rx="26" ry="7" fill="none" stroke="#d9c6ff" strokeWidth="1.5" opacity="0.8" transform="rotate(-18 85 17)" />
 			<ellipse cx="85" cy="17" rx="26" ry="7" fill="none" stroke="#d9c6ff" strokeWidth="1.5" opacity="0.8" transform="rotate(18 85 17)" />
 			<rect x="70" y="2" width="30" height="30" rx="5" fill="#1b1340" stroke="#d9c6ff" strokeWidth="2" />

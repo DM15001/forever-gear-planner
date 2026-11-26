@@ -8920,3 +8920,33 @@ details.content-fold,
 	filter: grayscale(1);
 	box-shadow: none;
 }
+/* Light rising out of the gnome's spell circle. */
+.cheer-rise {
+	opacity: 0;
+	animation: cheer-rise 1.4s ease-out infinite;
+}
+.cheer-rise-2 {
+	animation-delay: 0.45s;
+}
+.cheer-rise-3 {
+	animation-delay: 0.9s;
+}
+@keyframes cheer-rise {
+	0% {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+	30% {
+		opacity: 0.9;
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(-26px);
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.cheer-rise {
+		animation: none;
+		opacity: 0.5;
+	}
+}

@@ -177,9 +177,6 @@ export function ContentPicker({ spec, character, data, filter, onChange, panels 
 			return (
 				<section key={key} className={`panel source-section${counted > 0 ? ' source-section-on' : ''}${soon ? ' source-section-soon' : ''} ${extra}`} aria-label={typeof title === 'string' ? title : key}>
 					<header className="source-section-head">
-						<span className="source-section-mark" aria-hidden="true">
-							{counted > 0 ? '✓' : ''}
-						</span>
 						<DungeonIcon icons={[(PANEL_ICONS[key] ?? [])[1] ?? '']} />
 						<h3>{PANEL_NAMES[key] ?? title}</h3>
 						{!soon && (
