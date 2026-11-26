@@ -8429,3 +8429,30 @@ details.content-fold,
 	transform: translateY(-50%);
 	background: transparent;
 }
+/* On trial on Dev: an option's row shows only what changes against the worn piece, as small marks. Its own stats are in the hover. */
+:root[data-channel='dev'] .slot-stats-compared:has(+ .stat-diff) {
+	display: none;
+}
+:root[data-channel='dev'] .stat-diff {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.3rem;
+	margin: 0.25rem 0 0.2rem;
+}
+:root[data-channel='dev'] .stat-diff .diff-sep,
+:root[data-channel='dev'] .stat-diff-label {
+	display: none;
+}
+:root[data-channel='dev'] .stat-diff .diff-part {
+	padding: 0.05rem 0.45rem;
+	border-radius: 999px;
+	border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+	background: color-mix(in srgb, currentColor 10%, transparent);
+	font-size: 0.8125rem;
+	line-height: 1.5;
+	white-space: nowrap;
+	text-decoration: none;
+	box-shadow: none;
+	border-bottom-width: 1px;
+}

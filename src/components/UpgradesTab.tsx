@@ -716,8 +716,8 @@ function DiffText({ text }: { text: string }) {
 		<>
 			{text.split(', ').map((part, index) => (
 				<span key={index}>
-					{index > 0 && ', '}
-					<span className={`${/^[-−–]/.test(part) ? 'diff-down' : 'diff-up'}${/healing/i.test(part) ? ' diff-healing' : /spell (dmg|damage)|spell power/i.test(part) ? ' diff-spell' : ''}`}>{part}</span>
+					{index > 0 && <span className="diff-sep">, </span>}
+					<span className={`diff-part ${/^[-−–]/.test(part) ? 'diff-down' : 'diff-up'}${/healing/i.test(part) ? ' diff-healing' : /spell (dmg|damage)|spell power/i.test(part) ? ' diff-spell' : ''}`}>{part}</span>
 				</span>
 			))}
 		</>
@@ -760,13 +760,14 @@ function CandidateRow({ candidate, note, current, healWeights, marks, base, vari
 						</span>
 					)}
 				</span>
-				<span className="slot-stats">
+				<span className={current ? 'slot-stats slot-stats-compared' : 'slot-stats'} title={stats || undefined}>
 					{item.weapon?.dps ? `${item.weapon.dps.toFixed(1)} DPS, ${item.weapon.speed?.toFixed(2)} speed${stats ? ', ' : ''}` : ''}
 					{stats ? <StatText text={stats} /> : item.weapon?.dps ? '' : 'No stats'}
 				</span>
 				{current && statChange(pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data), current) && (
 					<span className="stat-diff">
-						Against your item: <DiffText text={statChange(pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data), current)} />
+						<span className="stat-diff-label">Against your item: </span>
+						<DiffText text={statChange(pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data), current)} />
 					</span>
 				)}
 				{current && healWeights && <HealSplit next={pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data)} now={current} weights={healWeights} />}
