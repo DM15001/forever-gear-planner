@@ -1,7 +1,7 @@
 # Items to check
 
 Items whose source the planner does not know: it either guesses "World drop (assumed)" or shows "Source unknown".
-1091 such items are in the data; this page lists the ones worth checking first. Written by
+1090 such items are in the data; this page lists the ones worth checking first. Written by
 `scripts/items-to-check.ts`; do not edit by hand. To fix one, add its source to `src/config/sources.manual.json`
 (or to `src/config/not-available.json` when it cannot be had), or open an issue saying where it comes from.
 

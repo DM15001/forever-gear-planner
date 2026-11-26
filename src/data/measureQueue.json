@@ -1,10 +1,10 @@
 {
-	"seq": 15,
+	"seq": 16,
 	"effects": {
-		"druid-balance": 15,
-		"druid-cat": 14,
-		"elemental-shaman": 15,
-		"enhancement-shaman": 14,
+		"druid-balance": 16,
+		"druid-cat": 16,
+		"elemental-shaman": 16,
+		"enhancement-shaman": 16,
 		"hunter-bm": 14,
 		"hunter-mm": 14,
 		"hunter-sv-melee": 14,
@@ -37,10 +37,10 @@
 		"warrior-fury": 14
 	},
 	"weights": {
-		"druid-balance": 15,
-		"druid-cat": 14,
-		"elemental-shaman": 15,
-		"enhancement-shaman": 14,
+		"druid-balance": 16,
+		"druid-cat": 16,
+		"elemental-shaman": 16,
+		"enhancement-shaman": 16,
 		"hunter-bm": 14,
 		"hunter-mm": 14,
 		"hunter-sv-melee": 14,
@@ -71,8 +71,8 @@
 		"warrior-fury": 14
 	},
 	"weapons": {
-		"druid-cat": 14,
-		"enhancement-shaman": 14,
+		"druid-cat": 16,
+		"enhancement-shaman": 16,
 		"hunter-bm": 14,
 		"hunter-mm": 14,
 		"hunter-sv-melee": 14,

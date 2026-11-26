@@ -1,5 +1,5 @@
 {
-	"generatedAt": "2026-11-26T02:51:27.156Z",
+	"generatedAt": "2026-11-26T05:06:09.854Z",
 	"specs": [
 		"druid-balance",
 		"druid-cat",
@@ -39,7 +39,7 @@
 	"source": {
 		"repo": "https://github.com/wowsims/forever",
 		"license": "MIT",
-		"origin": "local file /tmp/claude-0/-home-claude-forever-gear-planner/4c9c68d9-b7e5-564f-92bf-841193277c70/scratchpad/pages/forever/assets/database/db.json",
+		"origin": "local file /home/runner/work/_temp/pages/forever/assets/database/db.json",
 		"commit": null
 	},
 	"counts": {
