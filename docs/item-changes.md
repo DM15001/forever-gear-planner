@@ -2,6 +2,19 @@
 
 What each data update from WoWSims changed in the item list, newest first. Written by `scripts/item-report.mjs` from `.github/workflows/engine.yml`.
 
+## 2026-11-26: WoWSims 08af2bab2a
+
+7 other changes
+
+**Other changes (7)**
+- Shadowblade (2163, epic 53, weapon): effects
+- The Judge's Gavel (12528, rare 52, weapon): effects
+- Felstriker (12590, epic 63, weapon): effects
+- The Cruel Hand of Timmy (13401, rare 60, weapon): effects
+- Alcor's Sunrazor (14555, epic 63, weapon): effects
+- Shimmering Platinum Warhammer (15418, rare 63, weapon): effects
+- Electrified Dagger (19100, rare 65, weapon): effects
+
 ## 2026-11-26: WoWSims e745a64c8c
 
 2 other changes
