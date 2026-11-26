@@ -31,6 +31,8 @@ interface Props {
 	onWeightsChange: (weights: SpecConfig['weights'] | null) => void;
 	/** 'sim': content, stat weights and the simulation. 'list': the possible upgrades per slot. */
 	part: 'tools' | 'list';
+	/** The tools sit inside another panel (on trial on Dev: inside "Your plan"): no frame, no heading, no second count of the plan. */
+	embedded?: boolean;
 	/** Opens the page with the planned items and the lists. */
 	onShowList?: () => void;
 }
@@ -65,7 +67,7 @@ const LONG_LIST = 25;
 /** On trial on Dev. */
 const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
 
-export function UpgradesTab({ spec, character, data, onChange, filter, onFilterChange: setFilter, defaultWeights, onWeightsChange, part, onShowList }: Props) {
+export function UpgradesTab({ spec, character, data, onChange, filter, onFilterChange: setFilter, defaultWeights, onWeightsChange, part, onShowList, embedded = false }: Props) {
 	const [expanded, setExpanded] = useState<Set<number>>(new Set());
 	const [guideNotice, setGuideNotice] = useState<{
 		title: string;
@@ -259,14 +261,14 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				onMeasure={import.meta.env.VITE_NO_SIM ? undefined : measure}
 			/>
 
-			<section className="panel summary" aria-labelledby="upgrades-title">
-				<h2 id="upgrades-title">Other ways to fill the plan</h2>
+			<section className={embedded ? 'summary plan-tools' : 'panel summary'} aria-label="Other ways to fill the plan">
+				{!embedded && <h2 id="upgrades-title">Other ways to fill the plan</h2>}
 				<div className="actions">
 					<button className="button" onClick={() => setPlan({}, 'Plan cleared')} disabled={planCount === 0}>
 						Clear plan{planCount > 0 ? ` (${planCount})` : ''}
 					</button>
 				</div>
-				{planCount > 0 && (
+				{planCount > 0 && !embedded && (
 					<p className="plan-done" role="status">
 						{planCount === 1 ? 'One slot is' : `${planCount} slots are`} planned, {formatDelta(gain)} over your equipped gear.{' '}
 						{onShowList && (

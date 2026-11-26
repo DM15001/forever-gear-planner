@@ -8751,3 +8751,40 @@ details.content-fold,
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+/* On trial on Dev, Build plan as one whole: the tools as a fold inside "Your plan", enchants and professions
+   below the planned gear in the same panel, without frames of their own. */
+.plan-tools-fold {
+	margin: 0.9rem 0;
+}
+.plan-tools-fold .upgrades > .panel,
+.plan-tools-fold .plan-tools {
+	margin: 0.8rem 0 0;
+	padding: 0;
+	background: none;
+	border: 0;
+	box-shadow: none;
+}
+.plan-tools-fold .upgrades > .panel::before,
+.plan-tools-fold .upgrades > .panel::after,
+.plan-extras .panel::before,
+.plan-extras .panel::after {
+	content: none;
+}
+.plan-extras {
+	margin-top: 1.4rem;
+}
+.plan-extras .panel {
+	margin: 1.4rem 0 0;
+	padding: 0;
+	background: none;
+	border: 0;
+	box-shadow: none;
+}
+.plan-extras .panel > h2 {
+	margin: 0 0 0.7rem;
+	padding-bottom: 0.5rem;
+	font-family: var(--display);
+	font-size: 1.25rem;
+	color: var(--brass);
+	border-bottom: 1px solid var(--brass-deep);
+}

@@ -968,10 +968,10 @@ export function App() {
 						{data && tab !== 'character' && tab !== 'group' && tab !== 'faq' && tab !== 'news' && <GearRails spec={spec} character={character} data={data} showEquipped={options.equippedPanel} showPlanned={options.plannedPanel} onShow={(kind, on) => changeOptions({ ...options, [kind === 'equipped' ? 'equippedPanel' : 'plannedPanel']: on })} filter={filter} onChange={update} />}
 						{tab === 'content' && (data ? <ContentStep spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} locked={locked} /> : <p>Loading item data…</p>)}
 						{tab === 'simulate' && baseSpec.role === 'healer' && <div inert={locked}><HealingPicker character={character} spec={spec} onChange={update} /></div>}
-						{tab === 'simulate' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} hideContent={IS_DEV} undoSteps={undoSteps} onUndo={undoPlan} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} /> : <p>Loading item data…</p>)}
-						{(tab === 'simulate' || tab === 'upgrades') && data && <div inert={locked}><UpgradesTab part={tab === 'simulate' ? 'tools' : 'list'} spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /></div>}
+						{tab === 'simulate' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} hideContent={IS_DEV} tools={IS_DEV ? <div inert={locked}><UpgradesTab part="tools" embedded spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /></div> : undefined} extras={IS_DEV ? <div inert={locked}><EnchantsTab spec={spec} character={character} data={data} filter={filter} onChange={update} /></div> : undefined} undoSteps={undoSteps} onUndo={undoPlan} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} /> : <p>Loading item data…</p>)}
+						{((tab === 'simulate' && !IS_DEV) || tab === 'upgrades') && data && <div inert={locked}><UpgradesTab part={tab === 'simulate' ? 'tools' : 'list'} spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /></div>}
 						{tab === 'upgrades' && !data && <p>Loading item data…</p>}
-						{tab === 'simulate' && data && (
+						{tab === 'simulate' && data && !IS_DEV && (
 							<details className="fold enchant-fold">
 								<summary>
 									Enchants and professions

@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { reportSource } from './ReportSource';
 import { estimateCaveats } from '../lib/caveats';
 import { MeasuredNote } from './MeasuredNote';
@@ -38,6 +39,9 @@ interface Props {
 	part?: 'all';
 	/** The content choice has a page of its own. */
 	hideContent?: boolean;
+	/** On trial on Dev: what used to be panels of their own, now parts of the plan. The tools (fight, guides, weights) and the enchants and professions. */
+	tools?: ReactNode;
+	extras?: ReactNode;
 }
 
 const formatGain = formatDps;
@@ -46,7 +50,7 @@ const formatGain = formatDps;
 /** On trial on Dev. */
 const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
 
-export function PlanTab({ spec, character, data, filter, onFilterChange, onChange, undoSteps = 0, onUndo, defaultWeights, onWeightsChange, hideContent = false }: Props) {
+export function PlanTab({ spec, character, data, filter, onFilterChange, onChange, undoSteps = 0, onUndo, defaultWeights, onWeightsChange, hideContent = false, tools, extras }: Props) {
 	const [contentOpen, setContentOpen] = useContentOpen();
 	const options = useMemo(() => ({ character, data, spec, filter }), [character, data, spec, filter]);
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
@@ -408,6 +412,14 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 
 				{(
 					<>
+				{tools && (
+					<details className="fold plan-tools-fold">
+						<summary>
+							More options<span className="slot-source">What you are fighting, start from a guide, clear the plan, stat weights</span>
+						</summary>
+						{tools}
+					</details>
+				)}
 				<MeasuredNote specId={spec.id} />
 				{IS_DEV && (
 					<header className="plan-gear-head">
@@ -524,6 +536,14 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						</li>
 					))}
 				</ul>
+				{extras && (
+					<details className="fold plan-extras">
+						<summary>
+							Enchants and professions<span className="slot-source">Every enchant option per planned slot, and what your professions add</span>
+						</summary>
+						{extras}
+					</details>
+				)}
 				{picking !== null && <ItemPicker slotIndex={picking} gear={gear} character={character} data={data} spec={spec} filter={filter} onPick={id => pickItem(picking, id)} onEnchant={effectId => { onChange({ ...character, planEnchants: { ...(character.planEnchants ?? {}), [picking]: effectId ?? 0 } }); setPicking(null); }} onClose={() => setPicking(null)} />}
 					</>
 				)}
