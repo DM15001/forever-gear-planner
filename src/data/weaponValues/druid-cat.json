@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T16:20:29.009Z",
-	"inputs": "53daef9b06d46013",
+	"generatedAt": "2026-11-26T21:16:10.398Z",
+	"inputs": "d9e59aa93414f13a",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -31,7 +31,7 @@
 		},
 		"2163": {
 			"name": "Shadowblade",
-			"mainHand": -44.14
+			"mainHand": -44.33
 		},
 		"2243": {
 			"name": "Hand of Edward the Odd",
@@ -211,7 +211,7 @@
 		},
 		"12590": {
 			"name": "Felstriker",
-			"mainHand": -28.91
+			"mainHand": -30.18
 		},
 		"12709": {
 			"name": "Pip's Skinner",
@@ -347,7 +347,7 @@
 		},
 		"13401": {
 			"name": "The Cruel Hand of Timmy",
-			"mainHand": -50.59
+			"mainHand": -50.58
 		},
 		"13937": {
 			"name": "Headmaster's Charge",
@@ -375,7 +375,7 @@
 		},
 		"14555": {
 			"name": "Alcor's Sunrazor",
-			"mainHand": -41.17
+			"mainHand": -37.11
 		},
 		"15228": {
 			"name": "Smashing Star",
@@ -435,7 +435,7 @@
 		},
 		"15418": {
 			"name": "Shimmering Platinum Warhammer",
-			"mainHand": -16.03
+			"mainHand": -14.97
 		},
 		"15706": {
 			"name": "Hunt Tracker Blade",
@@ -575,7 +575,7 @@
 		},
 		"19100": {
 			"name": "Electrified Dagger",
-			"mainHand": -41.33
+			"mainHand": -41.31
 		},
 		"19101": {
 			"name": "Whiteout Staff",

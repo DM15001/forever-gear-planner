@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T16:17:36.449Z",
-	"inputs": "2f77f32ca4dfeb7e",
+	"generatedAt": "2026-11-26T21:15:17.224Z",
+	"inputs": "5d24b9e097adbfa8",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -83,7 +83,7 @@
 		},
 		"11750": {
 			"name": "Kindling Stave",
-			"mainHand": -120.77
+			"mainHand": -119.93
 		},
 		"11786": {
 			"name": "Stone of the Earth",

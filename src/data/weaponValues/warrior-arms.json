@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T19:11:29.340Z",
-	"inputs": "fbf37580301976fd",
+	"generatedAt": "2026-11-26T22:02:57.574Z",
+	"inputs": "42b4a27a4feb5992",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -75,7 +75,7 @@
 		},
 		"11750": {
 			"name": "Kindling Stave",
-			"mainHand": -200.48
+			"mainHand": -198.85
 		},
 		"11786": {
 			"name": "Stone of the Earth",
@@ -351,7 +351,7 @@
 		},
 		"15418": {
 			"name": "Shimmering Platinum Warhammer",
-			"mainHand": -99.79
+			"mainHand": -98.02
 		},
 		"15854": {
 			"name": "Dancing Sliver",

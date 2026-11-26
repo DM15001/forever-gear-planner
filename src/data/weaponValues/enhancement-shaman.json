@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T18:20:16.616Z",
-	"inputs": "1556b63b09d49ff3",
+	"generatedAt": "2026-11-26T21:07:14.795Z",
+	"inputs": "ecb9b87cf751d7aa",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -219,7 +219,7 @@
 		},
 		"15418": {
 			"name": "Shimmering Platinum Warhammer",
-			"mainHand": -7.56
+			"mainHand": -5.71
 		},
 		"15854": {
 			"name": "Dancing Sliver",

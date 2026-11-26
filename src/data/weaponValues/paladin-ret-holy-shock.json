@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T19:15:32.118Z",
-	"inputs": "1648b0a1aba8342c",
+	"generatedAt": "2026-11-26T21:21:54.745Z",
+	"inputs": "9ab768237c87b47c",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -275,7 +275,7 @@
 		},
 		"15418": {
 			"name": "Shimmering Platinum Warhammer",
-			"mainHand": -29.92
+			"mainHand": -27.87
 		},
 		"16039": {
 			"name": "Ta'Kierthan Songblade",

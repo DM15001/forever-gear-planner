@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T16:39:36.878Z",
-	"inputs": "c05e3b5973bfe1f1",
+	"generatedAt": "2026-11-26T21:45:03.777Z",
+	"inputs": "7eb61e225ba0b824",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -24,8 +24,8 @@
 		},
 		"2163": {
 			"name": "Shadowblade",
-			"mainHand": -57.2,
-			"offHand": -27.49
+			"offHand": -27.31,
+			"mainHand": -57.38
 		},
 		"2244": {
 			"name": "Krol Blade",
@@ -46,8 +46,8 @@
 		},
 		"6660": {
 			"name": "Julie's Dagger",
-			"mainHand": -81.31,
-			"offHand": -13.2
+			"offHand": -13.2,
+			"mainHand": -81.31
 		},
 		"7947": {
 			"name": "Ebon Shiv",
@@ -56,8 +56,8 @@
 		},
 		"8190": {
 			"name": "Hanzo Sword",
-			"mainHand": -59.32,
-			"offHand": -22.88
+			"offHand": -22.88,
+			"mainHand": -59.32
 		},
 		"9379": {
 			"name": "Sang'thraze the Deflector",
@@ -87,8 +87,8 @@
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
-			"mainHand": -78.37,
-			"offHand": -28.28
+			"offHand": -28.28,
+			"mainHand": -78.37
 		},
 		"10797": {
 			"name": "Firebreather",
@@ -187,8 +187,8 @@
 		},
 		"12535": {
 			"name": "Doomforged Straightedge",
-			"mainHand": -50.71,
-			"offHand": -37.95
+			"offHand": -37.95,
+			"mainHand": -50.71
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
@@ -197,8 +197,8 @@
 		},
 		"12590": {
 			"name": "Felstriker",
-			"offHand": -18.44,
-			"mainHand": -32.09
+			"offHand": -19.68,
+			"mainHand": -34.38
 		},
 		"12621": {
 			"name": "Demonfork",
@@ -233,8 +233,8 @@
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"mainHand": -50.94,
-			"offHand": -29.4
+			"offHand": -29.4,
+			"mainHand": -50.94
 		},
 		"12791": {
 			"name": "Barman Shanker",
@@ -269,8 +269,8 @@
 		},
 		"13015": {
 			"name": "Serathil",
-			"mainHand": -45.3,
-			"offHand": -39.41
+			"offHand": -39.41,
+			"mainHand": -45.3
 		},
 		"13022": {
 			"name": "Gryphonwing Long Bow",
@@ -376,8 +376,8 @@
 		},
 		"14555": {
 			"name": "Alcor's Sunrazor",
-			"mainHand": -64.72,
-			"offHand": -7.78
+			"mainHand": -57.49,
+			"offHand": -3.4
 		},
 		"14576": {
 			"name": "Ebon Hilt of Marduk",
@@ -400,8 +400,8 @@
 		},
 		"15219": {
 			"name": "Dimensional Blade",
-			"mainHand": -62.72,
-			"offHand": -29.25
+			"offHand": -29.25,
+			"mainHand": -62.72
 		},
 		"15220": {
 			"name": "Battlefell Sabre",
@@ -409,8 +409,8 @@
 		},
 		"15221": {
 			"name": "Holy War Sword",
-			"mainHand": -43.18,
-			"offHand": -53.15
+			"offHand": -53.15,
+			"mainHand": -43.18
 		},
 		"15236": {
 			"name": "Moon Cleaver",
@@ -419,8 +419,8 @@
 		},
 		"15237": {
 			"name": "Corpse Harvester",
-			"mainHand": -49.23,
-			"offHand": -67.34
+			"offHand": -67.34,
+			"mainHand": -49.23
 		},
 		"15238": {
 			"name": "Warlord's Axe",
@@ -529,8 +529,8 @@
 		},
 		"15853": {
 			"name": "Windreaper",
-			"offHand": -56.68,
-			"mainHand": -40.12
+			"mainHand": -40.12,
+			"offHand": -56.68
 		},
 		"15862": {
 			"name": "Blitzcleaver",
@@ -623,8 +623,8 @@
 		},
 		"18462": {
 			"name": "Jagged Bone Fist",
-			"mainHand": -56.74,
-			"offHand": -37.14
+			"offHand": -37.14,
+			"mainHand": -56.74
 		},
 		"18463": {
 			"name": "Ogre Pocket Knife",
@@ -682,8 +682,8 @@
 		},
 		"19100": {
 			"name": "Electrified Dagger",
-			"offHand": -28.52,
-			"mainHand": -53.94
+			"offHand": -28.19,
+			"mainHand": -53.76
 		},
 		"19103": {
 			"name": "Frostbite",
@@ -700,8 +700,8 @@
 		},
 		"19324": {
 			"name": "The Lobotomizer",
-			"offHand": -31.2,
-			"mainHand": -53.94
+			"mainHand": -53.94,
+			"offHand": -31.2
 		},
 		"19542": {
 			"name": "Scout's Blade",
@@ -871,8 +871,8 @@
 		},
 		"272596": {
 			"name": "Premier High Warlord's Razor",
-			"mainHand": -30.6,
-			"offHand": -26.16
+			"offHand": -26.16,
+			"mainHand": -30.6
 		},
 		"272597": {
 			"name": "Premier High Warlord's Right Claw",
@@ -897,8 +897,8 @@
 		},
 		"272693": {
 			"name": "Premier Grand Marshal's Longsword",
-			"mainHand": 15.95,
-			"offHand": -46.81
+			"offHand": -46.81,
+			"mainHand": 15.95
 		},
 		"272839": {
 			"name": "Premier Grand Marshal's Handaxe",
@@ -915,8 +915,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"offHand": -26.16,
-			"mainHand": -30.6
+			"mainHand": -30.6,
+			"offHand": -26.16
 		},
 		"272844": {
 			"name": "Premier Grand Marshal's Right Hand Blade",
@@ -946,13 +946,13 @@
 		},
 		"274271": {
 			"name": "Deadhead Blade",
-			"mainHand": -74.49,
-			"offHand": -35.29
+			"offHand": -35.29,
+			"mainHand": -74.49
 		},
 		"274383": {
 			"name": "Kanai's Knife",
-			"offHand": -27.2,
-			"mainHand": -72.71
+			"mainHand": -72.71,
+			"offHand": -27.2
 		},
 		"274517": {
 			"name": "Unerring Purpose",
@@ -1003,8 +1003,8 @@
 		},
 		"279259": {
 			"name": "Ironwood Blade",
-			"mainHand": -10.06,
-			"offHand": -47.21
+			"offHand": -47.21,
+			"mainHand": -10.06
 		},
 		"279474": {
 			"name": "Dustwallow Dirk",
