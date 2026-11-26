@@ -24,7 +24,7 @@
         {"id":226778},
         {"id":272411,"enchant":2621},
         {"id":226776,"enchant":8492},
-        {"id":13409,"randomSuffix":13055,"enchant":7665},
+        {"id":10256,"randomSuffix":12734,"enchant":7665},
         {"id":226777,"enchant":7647},
         {"id":226772},
         {"id":252486,"enchant":2544},
@@ -33,8 +33,8 @@
         {"id":22339},
         {"id":272438},
         {"id":13968},
-        {"id":2243,"enchant":8217},
-        {"id":19315,"enchant":7659},
+        {"id":13937,"enchant":7662},
+        {},
         {"id":272430}
       ]
     },
@@ -74,7 +74,7 @@
         }
       }
     },
-    "talentsString": "5532220115001351--505302",
+    "talentsString": "5532220115001321--5553",
     "profession1": "Enchanting",
     "profession2": "Leatherworking",
     "cooldowns": {
