@@ -192,6 +192,14 @@
 							"tags": [
 								"Planner"
 							]
+						},
+						{
+							"title": "Themes are paused",
+							"text": "The Classic theme is taken out for now and the Themes button is greyed out. Everybody sees the standard dark and gold look; a browser that had Classic chosen is put back to it. Themes will return later.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
 						}
 					]
 				}

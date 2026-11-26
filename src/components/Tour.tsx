@@ -22,7 +22,7 @@ const MAIN_STEPS: TourStep[] = [
 	{ target: '.tab[data-tab="simulate"]', title: 'Build plan', text: 'Say what content you do (dungeons, reputations, crafting, PvP) and the planner picks the best set for it, with a to-do list.', needsCharacter: true },
 	{ target: '.tab[data-tab="upgrades"]', title: 'Customize', text: 'Every slot with its better items, to pick single ones yourself. What you pick here overrides the plan.', needsCharacter: true },
 	{ target: '.tab[data-tab="farm"]', title: 'Farm it', text: 'Your plan sorted by dungeon, with drop chances and how many runs to expect. "Group up" does the same for several characters.', needsCharacter: true },
-	{ target: '.masthead-tools', title: 'News, help and look', text: 'News has game and site changes. The FAQ explains every number. "Take the tour" at the very bottom of the page starts this again.', needsCharacter: true },
+	{ target: '.masthead-tools', title: 'News and help', text: 'News has game and site changes. The FAQ explains every number. "Take the tour" at the very bottom of the page starts this again.', needsCharacter: true },
 ];
 
 const GROUP_STEPS: TourStep[] = [

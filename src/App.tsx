@@ -1,3 +1,4 @@
+import { ICON_SOURCES } from './components/ItemIcon';
 import dataMeta from './data/meta.json';
 import measurementStatus from './data/measurementStatus.json';
 import { restartTour, Tour } from './components/Tour';
@@ -605,6 +606,25 @@ function CheerGnome() {
 			<ellipse cx="105.46" cy="143.68" rx="0.52" ry="0.97" fill="#12222c" />
 			</g>
 			</g>
+			{/* he is casting the intellect buff: arcane light in both hands, streams of it up to the spell's sign over his head, sparks all round */}
+			<circle className="cheer-bling cheer-bling-1" cx="28" cy="97" r="13" fill="#b48cff" opacity="0.45" />
+			<circle className="cheer-bling cheer-bling-3" cx="142" cy="97" r="13" fill="#b48cff" opacity="0.45" />
+			<circle cx="28" cy="97" r="6" fill="#e9dcff" opacity="0.9" />
+			<circle cx="142" cy="97" r="6" fill="#e9dcff" opacity="0.9" />
+			<path d="M28 90 Q30 40 70 18" fill="none" stroke="#c9a8ff" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="2 5" opacity="0.9" />
+			<path d="M142 90 Q140 40 100 18" fill="none" stroke="#c9a8ff" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="2 5" opacity="0.9" />
+			<circle className="cheer-bling cheer-bling-2" cx="85" cy="17" r="24" fill="#8f6bff" opacity="0.35" />
+			<ellipse cx="85" cy="17" rx="26" ry="7" fill="none" stroke="#d9c6ff" strokeWidth="1.5" opacity="0.8" transform="rotate(-18 85 17)" />
+			<ellipse cx="85" cy="17" rx="26" ry="7" fill="none" stroke="#d9c6ff" strokeWidth="1.5" opacity="0.8" transform="rotate(18 85 17)" />
+			<rect x="70" y="2" width="30" height="30" rx="5" fill="#1b1340" stroke="#d9c6ff" strokeWidth="2" />
+			<path d="M85 7 l2.5 7.500 l7.500 2.500 l-7.500 2.500 l-2.500 7.500 l-2.500 -7.500 l-7.500 -2.500 l7.500 -2.500 Z" fill="#c9a8ff" />
+			<image href={ICON_SOURCES[0]('spell_holy_magicalsentry')} x="72" y="4" width="26" height="26" preserveAspectRatio="xMidYMid slice" clipPath="inset(0 round 3px)" onError={event => (event.currentTarget.style.display = 'none')} />
+			<path className="cheer-bling cheer-bling-1" d="M52 30 l1.5 5 l5 1.5 l-5 1.5 l-1.5 5 l-1.5 -5 l-5 -1.5 l5 -1.5 Z" fill="#e9dcff" />
+			<path className="cheer-bling cheer-bling-3" d="M120 26 l1.5 5 l5 1.5 l-5 1.5 l-1.5 5 l-1.5 -5 l-5 -1.5 l5 -1.5 Z" fill="#e9dcff" />
+			<path className="cheer-bling cheer-bling-2" d="M14 72 l1.2 4 l4 1.2 l-4 1.2 l-1.2 4 l-1.2 -4 l-4 -1.2 l4 -1.2 Z" fill="#c9a8ff" />
+			<path className="cheer-bling cheer-bling-1" d="M156 70 l1.2 4 l4 1.2 l-4 1.2 l-1.2 4 l-1.2 -4 l-4 -1.2 l4 -1.2 Z" fill="#c9a8ff" />
+			<path className="cheer-bling cheer-bling-3" d="M40 56 l1 3 l3 1 l-3 1 l-1 3 l-1 -3 l-3 -1 l3 -1 Z" fill="#ffffff" />
+			<path className="cheer-bling cheer-bling-2" d="M132 54 l1 3 l3 1 l-3 1 l-1 3 l-1 -3 l-3 -1 l3 -1 Z" fill="#ffffff" />
 			{/* name plate */}
 			<rect x="35" y="210" width="100" height="22" rx="6" fill="#3b1560" stroke="#d6a52c" strokeWidth="2.5" />
 			<text x="85" y="226.5" textAnchor="middle" fontFamily="Cinzel, Georgia, serif" fontWeight="700" fontStyle="italic" fontSize="15" fill="#ffd100">
@@ -615,63 +635,22 @@ function CheerGnome() {
 }
 
 const THEME_KEY = 'fgp.theme';
-const THEMES: { id: string; name: string; note: string }[] = [
-	{ id: 'forever', name: 'Modern', note: 'Dark and gold: the planner as you know it.' },
-	{ id: 'classic', name: 'Classic', note: 'The same layout as Modern in the look of the mid-2000s: parchment in bronze frames, steel-blue bars, a night backdrop.' },
-];
 
-/** The button that picks the look of the site. The choice stays in this browser. */
+/** Themes are paused: there is one look for now. The button stays, greyed out, as the place they will come back to. A look chosen earlier is put back to the standard one. */
 function ThemeMenu() {
-	const [theme, setTheme] = useState(() => {
-		try {
-			return localStorage.getItem(THEME_KEY) ?? 'forever';
-		} catch {
-			return 'forever';
-		}
-	});
-	const [open, setOpen] = useState(false);
-	const box = useRef<HTMLDivElement>(null);
 	useEffect(() => {
-		if (theme === 'forever') delete document.documentElement.dataset.theme;
-		else document.documentElement.dataset.theme = theme;
+		delete document.documentElement.dataset.theme;
 		try {
-			localStorage.setItem(THEME_KEY, theme);
+			localStorage.removeItem(THEME_KEY);
 		} catch {
-			// Without storage the theme lasts until the page is closed.
+			// Without storage there was nothing saved.
 		}
-	}, [theme]);
-	useEffect(() => {
-		if (!open) return;
-		const away = (event: MouseEvent) => !box.current?.contains(event.target as Node) && setOpen(false);
-		const onKey = (event: KeyboardEvent) => event.key === 'Escape' && setOpen(false);
-		document.addEventListener('mousedown', away);
-		window.addEventListener('keydown', onKey);
-		return () => {
-			document.removeEventListener('mousedown', away);
-			window.removeEventListener('keydown', onKey);
-		};
-	}, [open]);
+	}, []);
 	return (
-		<div className="theme-menu" ref={box}>
-			<button className="tool-link" aria-haspopup="true" aria-expanded={open} onClick={() => setOpen(!open)}>
+		<div className="theme-menu">
+			<button className="tool-link tool-link-off" disabled title="Themes are paused for now. They will be back.">
 				Themes
 			</button>
-			{open && (
-				<div className="theme-menu-list">
-					{THEMES.map(option => (
-						<button
-							key={option.id}
-							aria-pressed={theme === option.id}
-							onClick={() => {
-								setTheme(option.id);
-								setOpen(false);
-							}}>
-							<strong>{option.name}</strong>
-							<span>{option.note}</span>
-						</button>
-					))}
-				</div>
-			)}
 		</div>
 	);
 }

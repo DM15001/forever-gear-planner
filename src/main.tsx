@@ -1,7 +1,6 @@
 import '@fontsource/cinzel/latin-600.css';
 import '@fontsource/cinzel/latin-700.css';
 import './styles.css';
-import './theme-classic.css';
 
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
