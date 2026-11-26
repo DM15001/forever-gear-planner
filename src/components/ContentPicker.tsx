@@ -75,6 +75,8 @@ const PANEL_ICONS: Record<string, string[]> = {
 };
 /** Short names for the panels, where the row's own title is a sentence. */
 const PANEL_NAMES: Record<string, string> = { raids: 'Raids', tier: 'Dungeon sets', sets: 'Set bonuses' };
+/** The picture of each slot that can hold a dungeon set piece. */
+const TIER_ICONS: Record<string, string> = { head: 'inv_helmet_03', shoulder: 'inv_shoulder_02', chest: 'inv_chest_chain', wrist: 'inv_bracer_02', hands: 'inv_gauntlets_04', waist: 'inv_belt_03', legs: 'inv_pants_02', feet: 'inv_boots_05' };
 interface PanelDef {
 	key: string;
 	title: ReactNode;
@@ -352,9 +354,9 @@ export function ContentPicker({ spec, character, data, filter, onChange, panels 
 					() => set({ tier05: false, tierSlots: [] }),
 					<>
 					<p className="hint tier-hint">
-						Tick the slots that may hold a set piece. All ticked: the planner takes as many as are worth it. None ticked: no set piece at all.
+						{panels ? 'Switch on' : 'Tick'} the slots that may hold a set piece. All on: the planner takes as many as are worth it. None: no set piece at all.
 					</p>
-					<label className="field-label tier-minimum">
+					<label className={panels ? 'field-label tier-minimum content-wide' : 'field-label tier-minimum'}>
 						How many set pieces
 						<select value={filter.tierMinimum} onChange={e => set({ tierMinimum: Number(e.target.value) })}>
 							<option value={0}>Whatever is best</option>
@@ -365,11 +367,16 @@ export function ContentPicker({ spec, character, data, filter, onChange, panels 
 							))}
 						</select>
 					</label>
-					{check('I do the Tier 0.5 questline (the upgraded dungeon set)', filter.tier05, on => set({ tier05: on }))}
-					{TIER_SLOTS.map(([kind, label]) => check(`${label} (set piece)`, filter.tierSlots.includes(kind), on => set({ tierSlots: on ? [...filter.tierSlots, kind] : filter.tierSlots.filter(slot => slot !== kind) })))}
+					{panels
+						? tile('Tier 0.5 questline', ['inv_misc_note_02'], filter.tier05, on => set({ tier05: on }), false, 'The upgraded dungeon set')
+						: check('I do the Tier 0.5 questline (the upgraded dungeon set)', filter.tier05, on => set({ tier05: on }))}
+					{TIER_SLOTS.map(([kind, label]) => {
+						const change = (on: boolean) => set({ tierSlots: on ? [...filter.tierSlots, kind] : filter.tierSlots.filter(slot => slot !== kind) });
+						return panels ? tile(label, [TIER_ICONS[kind] ?? ''], filter.tierSlots.includes(kind), change, false, 'May hold a set piece') : check(`${label} (set piece)`, filter.tierSlots.includes(kind), change);
+					})}
 					</>,
 					'',
-					'content-plain',
+					panels ? 'content-tiles' : 'content-plain',
 				)}
 
 			{setChoices.length > 0 &&
