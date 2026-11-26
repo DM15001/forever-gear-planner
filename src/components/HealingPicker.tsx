@@ -3,8 +3,8 @@ import { countsMending, hasMendingTalent, MENDING } from '../lib/sim/mending';
 import type { Character, SpecConfig } from '../lib/types';
 import { Help } from './Help';
 
-/** On trial on Dev: the scenario as tiles, the explanations behind question marks. */
-const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+/** The layout of 26 Nov (first tried on Dev): the scenario as tiles, the explanations behind question marks. */
+const NEW_LAYOUT = true;
 
 const WORTH: [key: string, label: string][] = [
 	['healingPower', 'Healing power'],
@@ -27,7 +27,7 @@ export function HealingPicker({ character, spec, onChange }: { character: Charac
 	const measured = spec.healing?.scenarios[`${choice.style}.${choice.pressure}`];
 	// With Prayer of Mending counted, the spec passed in already carries the adjusted weights.
 	const weights = spec.weights.stats;
-	if (!IS_DEV) return (
+	if (!NEW_LAYOUT) return (
 		<section className="panel healing-picker" aria-label="Healing scenario">
 			<h3>What kind of healing?</h3>
 			<div className="healing-choices">
@@ -103,7 +103,7 @@ export function HealingPicker({ character, spec, onChange }: { character: Charac
 			</p>
 		</section>
 	);
-	// On trial on Dev: the choices, then the scenario's numbers as tiles; every explanation behind a question mark.
+	// The layout of 26 Nov (first tried on Dev): the choices, then the scenario's numbers as tiles; every explanation behind a question mark.
 	return (
 		<section className="panel healing-picker healing-tidy" aria-label="Healing scenario">
 			<h3>

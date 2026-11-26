@@ -39,7 +39,7 @@ interface Props {
 	part?: 'all';
 	/** The content choice has a page of its own. */
 	hideContent?: boolean;
-	/** On trial on Dev: what used to be panels of their own, now parts of the plan. The tools (fight, guides, weights) and the enchants and professions. */
+	/** The layout of 26 Nov (first tried on Dev): what used to be panels of their own, now parts of the plan. The tools (fight, guides, weights) and the enchants and professions. */
 	tools?: ReactNode;
 	extras?: ReactNode;
 }
@@ -47,8 +47,8 @@ interface Props {
 const formatGain = formatDps;
 
 /** The guided view: pick your content, get one plan, tick it off. */
-/** On trial on Dev. */
-const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+/** The layout of 26 Nov (first tried on Dev). */
+const NEW_LAYOUT = true;
 
 export function PlanTab({ spec, character, data, filter, onFilterChange, onChange, undoSteps = 0, onUndo, defaultWeights, onWeightsChange, hideContent = false, tools, extras }: Props) {
 	const [contentOpen, setContentOpen] = useContentOpen();
@@ -421,7 +421,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 					</details>
 				)}
 				<MeasuredNote specId={spec.id} />
-				{IS_DEV && (
+				{NEW_LAYOUT && (
 					<header className="plan-gear-head">
 						<h3>Your planned gear</h3>
 						<dl className="plan-gear-legend">
@@ -495,7 +495,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 								<span className="plan-row plan-enchant-row">
 									{goalEnchant ? (
 										<>
-											{IS_DEV && <ItemIcon icon={goalEnchant.icon ?? 'trade_engraving'} quality={goalEnchant.quality} inline />}
+											{NEW_LAYOUT && <ItemIcon icon={goalEnchant.icon ?? 'trade_engraving'} quality={goalEnchant.quality} inline />}
 											{wowheadEnchantUrl(goalEnchant) ? (
 												<a className="plan-enchant-name" href={wowheadEnchantUrl(goalEnchant)} target="_blank" rel="noreferrer">
 													{goalEnchant.name}
@@ -513,7 +513,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 									{!goalItem ? (
 										'\u00a0'
 									) : !isChange ? (
-										IS_DEV ? (
+										NEW_LAYOUT ? (
 											<span className="plan-worn">
 												<svg viewBox="0 0 16 16" aria-hidden="true">
 													<path d="M3 8.5l3.2 3.2L13 5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -571,8 +571,8 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				)}
 			</section>
 
-			{/* On trial on Dev: where to get the plan is Farm it's job ("How to get your plan"), so the list is not repeated here. */}
-			{!IS_DEV && (
+			{/* The layout of 26 Nov (first tried on Dev): where to get the plan is Farm it's job ("How to get your plan"), so the list is not repeated here. */}
+			{!NEW_LAYOUT && (
 			<section className="panel" aria-labelledby="plan-todo">
 				<h2 id="plan-todo">To do, biggest gain first</h2>
 				{steps.length === 0 ? (

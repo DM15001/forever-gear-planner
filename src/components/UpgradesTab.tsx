@@ -64,8 +64,8 @@ const VERIFY_TOP = 5;
 const ALTERNATIVES = 5;
 const LONG_LIST = 25;
 
-/** On trial on Dev. */
-const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+/** The layout of 26 Nov (first tried on Dev). */
+const NEW_LAYOUT = true;
 
 export function UpgradesTab({ spec, character, data, onChange, filter, onFilterChange: setFilter, defaultWeights, onWeightsChange, part, onShowList, embedded = false }: Props) {
 	const [expanded, setExpanded] = useState<Set<number>>(new Set());
@@ -158,8 +158,8 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 	};
 	const planItem = (index: number, itemId: number) => {
 		const next: Record<number, number> = { ...character.plan, [index]: itemId };
-		// On trial on Dev, where Customize comes before the simulator check: an item picked by hand is locked, so the check builds around it.
-		const picked = IS_DEV ? [...new Set([...(character.planLocks ?? []), index])] : character.planLocks;
+		// The layout of 26 Nov (first tried on Dev), where Customize comes before the simulator check: an item picked by hand is locked, so the check builds around it.
+		const picked = NEW_LAYOUT ? [...new Set([...(character.planLocks ?? []), index])] : character.planLocks;
 		// A ring or trinket that excludes the planned one in the other slot takes its place.
 		const other = pairedSlot(index);
 		if (other !== undefined && next[other] !== undefined && clash(data.itemById.get(itemId), data.itemById.get(next[other]))) delete next[other];
@@ -171,7 +171,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 			onChange({ ...character, plan: next, planEnchants: { ...character.planEnchants, [index]: enchant }, planLocks: picked });
 			return;
 		}
-		if (IS_DEV) {
+		if (NEW_LAYOUT) {
 			setGuideNotice(null);
 			setUndo(null);
 			onChange({ ...character, plan: next, planLocks: picked });
@@ -388,7 +388,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						</button>
 					)}
 				</p>
-			<nav className={IS_DEV ? 'slot-nav slot-strip' : 'slot-nav'} style={IS_DEV ? ({ '--slots': slots.filter(row => row.candidates).length } as CSSProperties) : undefined} aria-label="Jump to a slot" ref={nav}>
+			<nav className={NEW_LAYOUT ? 'slot-nav slot-strip' : 'slot-nav'} style={NEW_LAYOUT ? ({ '--slots': slots.filter(row => row.candidates).length } as CSSProperties) : undefined} aria-label="Jump to a slot" ref={nav}>
 				{slots.map(({ slot, index, candidates }) => {
 					if (!candidates) return null;
 					const best = candidates[0]?.delta ?? 0;
@@ -402,7 +402,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 							className={`${isPlanned ? 'slot-chip slot-chip-planned' : best > 0 ? 'slot-chip slot-chip-open' : 'slot-chip'}${here === slot.key ? ' slot-chip-here' : ''}`}
 							title={isPlanned ? 'Planned' : best > 0 ? 'An upgrade is available' : 'Nothing better with these filters'}
 						>
-							{IS_DEV ? (
+							{NEW_LAYOUT ? (
 								<>
 									{isPlanned && (
 										<b className="slot-chip-check" aria-hidden="true">
@@ -525,7 +525,7 @@ const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, open: char
 						).score
 					: planned.score;
 				return (
-					<section key={slot.key} className={IS_DEV ? 'card panel upgrade-slot' : 'card upgrade-slot'} aria-labelledby={`slot-${slot.key}`}>
+					<section key={slot.key} className={NEW_LAYOUT ? 'panel upgrade-slot' : 'card upgrade-slot'} aria-labelledby={`slot-${slot.key}`}>
 						<header className="upgrade-head">
 							<h3 id={`slot-${slot.key}`}>{slot.label}</h3>
 							<p className="upgrade-current">
@@ -770,7 +770,7 @@ function CandidateRow({ candidate, note, current, healWeights, marks, base, vari
 	);
 	return (
 		<li className={`candidate candidate-${item.quality ?? 'common'}`}>
-			<span className={`candidate-delta num ${delta > 0 ? 'delta-up' : 'delta-down'}`} title={IS_DEV ? [stats, current ? `Against your item: ${statChange(pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data), current)}` : ''].filter(Boolean).join('\n') || undefined : undefined}>
+			<span className={`candidate-delta num ${delta > 0 ? 'delta-up' : 'delta-down'}`} title={NEW_LAYOUT ? [stats, current ? `Against your item: ${statChange(pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data), current)}` : ''].filter(Boolean).join('\n') || undefined : undefined}>
 				{formatDelta(delta)}
 				{note && <span className="candidate-note">{note}</span>}
 			</span>

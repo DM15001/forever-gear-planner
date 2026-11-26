@@ -297,8 +297,8 @@ function statGroups(spec: SpecConfig): { title: string; keys: string[] }[] {
 }
 const LONG_LABEL = new Map(STAT_LABELS.map(([key, , long]) => [key, long]));
 
-/** On trial on Dev. */
-const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+/** The layout of 26 Nov (first tried on Dev). */
+const NEW_LAYOUT = true;
 /** The item's tooltip belongs to its name (a Wowhead link). Hovering the icon passes the pointer on to that link, so the same tooltip shows. */
 function relayHover(event: ReactMouseEvent<HTMLElement>, type: 'mouseover' | 'mouseout') {
 	const link = event.currentTarget.parentElement?.querySelector('a.slot-item');
@@ -382,7 +382,7 @@ function GearSlot({ index, mirrored, piece, data, onChange, onPick, onEnchant, b
 
 	return (
 		<div className={`slot${piece ? '' : ' slot-empty'}${mirrored ? ' slot-mirrored' : ''}${blockedBy ? ' slot-blocked' : ''}`} title={blockedBy ? `${blockedBy.name} is held in both hands. To use the off hand, put a one-handed weapon in the main hand first.` : undefined}>
-			<button className="slot-button" onClick={onPick} disabled={!data || !!blockedBy} title={blockedBy || (IS_DEV && piece) ? undefined : `Change the ${label.toLowerCase()} item`} onMouseEnter={IS_DEV ? event => relayHover(event, 'mouseover') : undefined} onMouseLeave={IS_DEV ? event => relayHover(event, 'mouseout') : undefined} aria-label={blockedBy ? `${label}: taken by ${blockedBy.name}` : `Change the ${label.toLowerCase()} item`}>
+			<button className="slot-button" onClick={onPick} disabled={!data || !!blockedBy} title={blockedBy || (NEW_LAYOUT && piece) ? undefined : `Change the ${label.toLowerCase()} item`} onMouseEnter={NEW_LAYOUT ? event => relayHover(event, 'mouseover') : undefined} onMouseLeave={NEW_LAYOUT ? event => relayHover(event, 'mouseout') : undefined} aria-label={blockedBy ? `${label}: taken by ${blockedBy.name}` : `Change the ${label.toLowerCase()} item`}>
 				<ItemIcon icon={blockedBy ? blockedBy.icon : item?.icon} quality={blockedBy ? 'none' : quality} />
 			</button>
 			<div className="slot-body" title={stats || undefined}>
@@ -446,8 +446,8 @@ function GearSlot({ index, mirrored, piece, data, onChange, onPick, onEnchant, b
 					{(enchants.length > 0 || piece.enchant) && (
 						<div className="slot-enchant">
 							{enchant ? (
-								<a className="enchant-gives" href={wowheadEnchantUrl(enchant)} target="_blank" rel="noreferrer" title={IS_DEV ? enchantLine(enchant) : enchant.name}>
-									{IS_DEV ? (
+								<a className="enchant-gives" href={wowheadEnchantUrl(enchant)} target="_blank" rel="noreferrer" title={NEW_LAYOUT ? enchantLine(enchant) : enchant.name}>
+									{NEW_LAYOUT ? (
 										<>
 											<ItemIcon icon={enchant.icon ?? 'trade_engraving'} quality={enchant.quality} inline /> {enchant.name}
 										</>

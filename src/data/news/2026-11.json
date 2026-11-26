@@ -165,6 +165,35 @@
 							]
 						}
 					]
+				},
+				{
+					"title": "Gear Planner",
+					"items": [
+						{
+							"title": "A new way through the planner",
+							"text": "The steps are now: Check gear, Content Selection, Customize, Build plan, Farm it. What content you do has a page of its own, as one list to work through: dungeons, reputations, dungeon sets, set bonuses, PvP, quests, crafting, world drops, vendors. The plan is built as soon as you choose. Customize comes before Build plan: an item you pick by hand is locked, and \"Check the plan with the simulator\" builds around it. The tour and the FAQ follow the new order.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Build plan is one panel",
+							"text": "What used to be three boxes is one: the fight, the guides, \"Clear plan\" and the stat weights sit under \"More options\", and enchants and professions are a fold right below your planned gear. A short key says what the cards show; slots where you already wear the planned item carry a green \"You wear it\" mark. Planned enchants show their icon. The to-do list is no longer repeated here: it is the first thing on Farm it.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Tidier lists everywhere",
+							"text": "Check gear: the slot name stands above the item, the stat lines are gone (hover the item or its icon), and an enchant shows as icon and name. Customize: the slots are one row of item icons (gold is planned, green means a better option is open), and each option shows only its gain, with the stats in the hover of the number. Farm it and Group up: an open dungeon is a table with one line per drop and aligned columns. The healer panel shows its numbers as tiles, with the explanations behind question marks.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						}
+					]
 				}
 			]
 		},

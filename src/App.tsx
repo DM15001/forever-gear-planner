@@ -61,14 +61,16 @@ const SIDE_TABS = [
 
 /** Two copies of the site are published: the live one, and under dev/ the one with changes still being tried out. Both read the same saved characters. */
 const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
-// On trial on Dev: the content choice as a step of its own, before the plan.
-// Also on trial there: Customize before Build plan. The plan exists as soon as the content is chosen; you change
+/** The layout of 26 Nov, first tried on Dev: content choice as a step of its own, Customize before the simulator check. */
+const NEW_LAYOUT = true;
+// The content choice as a step of its own, before the plan.
+// And Customize before Build plan. The plan exists as soon as the content is chosen; you change
 // what you want by hand, then Build plan checks the rest with the simulator around your picks.
 const DEV_ORDER = ['character', 'content', 'upgrades', 'simulate', 'farm', 'group'];
-const TABS = IS_DEV
+const TABS = NEW_LAYOUT
 	? DEV_ORDER.map(id => ALL_TABS.find(t => t.id === id)!).map(t => (t.id === 'upgrades' ? { ...t, hint: 'Optional: pick single items yourself, slot by slot. What you pick is locked, and the simulator check in Build plan works around it.' } : t))
 	: ALL_TABS.filter(t => t.id !== 'content');
-const NEXT_STEP: Record<string, { to: string; label: string }> = IS_DEV
+const NEXT_STEP: Record<string, { to: string; label: string }> = NEW_LAYOUT
 	? {
 			character: { to: 'content', label: 'Next: content selection' },
 			content: { to: 'upgrades', label: 'Next: customize (or skip to Build plan)' },
@@ -1111,10 +1113,10 @@ export function App() {
 						{data && tab !== 'character' && tab !== 'group' && tab !== 'faq' && tab !== 'news' && <GearRails spec={spec} character={character} data={data} showEquipped={options.equippedPanel} showPlanned={options.plannedPanel} onShow={(kind, on) => changeOptions({ ...options, [kind === 'equipped' ? 'equippedPanel' : 'plannedPanel']: on })} filter={filter} onChange={update} />}
 						{tab === 'content' && (data ? <ContentStep spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} locked={locked} /> : <p>Loading item data…</p>)}
 						{tab === 'simulate' && baseSpec.role === 'healer' && <div inert={locked}><HealingPicker character={character} spec={spec} onChange={update} /></div>}
-						{tab === 'simulate' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} hideContent={IS_DEV} tools={IS_DEV ? <div inert={locked}><UpgradesTab part="tools" embedded spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /></div> : undefined} extras={IS_DEV ? <div inert={locked}><EnchantsTab spec={spec} character={character} data={data} filter={filter} onChange={update} /></div> : undefined} undoSteps={undoSteps} onUndo={undoPlan} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} /> : <p>Loading item data…</p>)}
-						{((tab === 'simulate' && !IS_DEV) || tab === 'upgrades') && data && <div inert={locked}><UpgradesTab part={tab === 'simulate' ? 'tools' : 'list'} spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /></div>}
+						{tab === 'simulate' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} hideContent={NEW_LAYOUT} tools={NEW_LAYOUT ? <div inert={locked}><UpgradesTab part="tools" embedded spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /></div> : undefined} extras={NEW_LAYOUT ? <div inert={locked}><EnchantsTab spec={spec} character={character} data={data} filter={filter} onChange={update} /></div> : undefined} undoSteps={undoSteps} onUndo={undoPlan} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} /> : <p>Loading item data…</p>)}
+						{((tab === 'simulate' && !NEW_LAYOUT) || tab === 'upgrades') && data && <div inert={locked}><UpgradesTab part={tab === 'simulate' ? 'tools' : 'list'} spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /></div>}
 						{tab === 'upgrades' && !data && <p>Loading item data…</p>}
-						{tab === 'simulate' && data && !IS_DEV && (
+						{tab === 'simulate' && data && !NEW_LAYOUT && (
 							<details className="fold enchant-fold">
 								<summary>
 									Enchants and professions

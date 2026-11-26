@@ -1,7 +1,7 @@
 import { type ReactNode, useState } from 'react';
 
-/** On trial on Dev: the pages in their new order. The answers that name pages follow it there. */
-const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+/** The layout of 26 Nov (first tried on Dev): the pages in their new order. The answers that name pages follow it there. */
+const NEW_LAYOUT = true;
 const REPO = 'https://github.com/DM15001/forever-gear-planner';
 
 interface Question {
@@ -42,7 +42,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 					<ol>
 						<li>On the start page, paste your character: an export from wowsims.com or a link somebody copied from this site. No export at hand? Load the WoWSims preset for your build and change the items by clicking the slots.</li>
 						<li>Pick your build under "Check gear". Talents, consumables and buffs follow the build; change them with the "Sim setup" button under the simulation on "Build plan".</li>
-						{IS_DEV ? (
+						{NEW_LAYOUT ? (
 							<>
 								<li>Open "Content Selection" and go through the list: switch on the dungeons, reputations, sets, PvP and other sources you play. The plan is built from that and rebuilt on every change.</li>
 								<li>"Customize" is optional: it lists the better items for each slot with the gain in front, to pick single ones yourself. What you pick is locked.</li>
@@ -63,7 +63,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 				q: 'What do the tabs do?',
 				a: (
 					<ul>
-						{IS_DEV ? (
+						{NEW_LAYOUT ? (
 							<>
 								<li><strong>Check gear</strong>: what you wear, your build, talents and the link to copy your character.</li>
 								<li><strong>Content Selection</strong>: what counts for the plan: dungeons, reputations, sets, PvP, quests, crafting, drops, vendors.</li>
@@ -157,7 +157,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 				q: 'An item is missing or its source is wrong. What now?',
 				a: (
 					<>
-						<p>First check {IS_DEV ? '"Content Selection"' : '"What content do you do?" on "Build plan"'}: items with no known source and items not in the game yet are switched off by default, and a hidden item stays hidden until you bring it back there. Class-only items show only for that class.</p>
+						<p>First check {NEW_LAYOUT ? '"Content Selection"' : '"What content do you do?" on "Build plan"'}: items with no known source and items not in the game yet are switched off by default, and a hidden item stays hidden until you bring it back there. Class-only items show only for that class.</p>
 						<p>If the source really is unknown or wrong: next to such items there is a link "know where it drops?", which opens a filled-in report. Or write an <a href={`${REPO}/issues`}>issue</a>.</p>
 					</>
 				),
@@ -171,7 +171,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 				q: 'What can the site not do?',
 				a: (
 					<ul>
-						<li><strong>No raids yet.</strong> Raid loot is not planned for. The raids are already listed, greyed out, under {IS_DEV ? '"Content Selection"' : '"What content do you do?"'}; that is where you will switch them on.</li>
+						<li><strong>No raids yet.</strong> Raid loot is not planned for. The raids are already listed, greyed out, under {NEW_LAYOUT ? '"Content Selection"' : '"What content do you do?"'}; that is where you will switch them on.</li>
 						<li><strong>No tanks.</strong> There is no number for survival.</li>
 						<li><strong>One target, one standard fight</strong> unless you change it with "Sim setup" under the simulation. Movement, mistakes and your group's real buffs are not in it.</li>
 						<li><strong>Some item effects are unknown.</strong> Where WoWSims has no trigger rate for an effect, the item is left out instead of guessed. "News" lists them under "On the radar".</li>

@@ -32,8 +32,8 @@ const GROUP_STEPS: TourStep[] = [
 	{ target: '.group-switches', title: 'What counts and how it looks', text: '"Planned items only" counts what each one has in their plan, "Every upgrade" anything better than what they wear. Sort by gain or by people, as cards or as a list.' },
 	{ target: '.group-dungeon', title: 'The dungeons', text: 'Best for the group first. Each one shows the drops, who needs them and the gain. Click it for the bosses, and "Got it" when someone has their item.' },
 ];
-/** On trial on Dev: the pages in their new order (content first, Customize before the simulator check), and the tour with them. */
-const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+/** The layout of 26 Nov (first tried on Dev): the pages in their new order (content first, Customize before the simulator check), and the tour with them. */
+const NEW_LAYOUT = true;
 const DEV_MAIN_STEPS: TourStep[] = [
 	...MAIN_STEPS.slice(0, 3),
 	{ target: '.tabs', title: 'The pages', text: 'From left to right: check your gear, say what content you do, change single slots if you like, check the plan with the simulator, farm it. Group up is for playing with friends.', needsCharacter: true },
@@ -52,7 +52,7 @@ const DEV_GROUP_STEPS: TourStep[] = [
 	{ target: '.group-switches', title: 'What counts and how it looks', text: '"Planned items only" counts what each one has in their plan, "Every upgrade" anything better than what they wear. Sort by gain or by people, as cards or as a list.' },
 	{ target: '.group-dungeon', title: 'The dungeons', text: 'Best for the group first. "Who wants what" opens a table below the card: every drop, who needs it and the gain. Press "Got it" when someone has their item.' },
 ];
-const TOURS: Record<TourId, TourStep[]> = IS_DEV ? { main: DEV_MAIN_STEPS, group: DEV_GROUP_STEPS } : { main: MAIN_STEPS, group: GROUP_STEPS };
+const TOURS: Record<TourId, TourStep[]> = NEW_LAYOUT ? { main: DEV_MAIN_STEPS, group: DEV_GROUP_STEPS } : { main: MAIN_STEPS, group: GROUP_STEPS };
 
 const stored = (id: TourId) => {
 	try {

@@ -38,8 +38,8 @@ const BOSS_DROPS_SHOWN = 4;
 const formatPerRun = (value: number) => `+${value >= 10 ? Math.round(value) : value.toFixed(value >= 1 ? 1 : 2)} ${unit()}`;
 const formatDelta = formatDps;
 
-/** On trial on Dev: the explanation as a folded table. */
-const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+/** The layout of 26 Nov (first tried on Dev): the explanation as a folded table. */
+const NEW_LAYOUT = true;
 
 export function FarmTab({ spec, character, data, filter, onChange }: Props) {
 	// One character's plan, or what the whole group has to gain per dungeon.
@@ -161,8 +161,8 @@ export function FarmTab({ spec, character, data, filter, onChange }: Props) {
 
 			<section className="panel" aria-labelledby="farm-dungeons">
 				<h2 id="farm-dungeons">Dungeons by upgrades</h2>
-				{/* On trial on Dev: no explanation here at all. */}
-				{!IS_DEV && (
+				{/* The layout of 26 Nov (first tried on Dev): no explanation here at all. */}
+				{!NEW_LAYOUT && (
 				<p className="hint farm-hint">
 						"Up to" is the best upgrade per slot over your equipped gear, added up. "Per run" is what one run is worth on average: each upgrade's gain times its chance to drop, best one per slot. Drop chances are Wowhead's Forever numbers
 						from {lootDate} where we have them; the rest are the rates from WoW Classic (AtlasLoot), marked "Classic rate", which Forever may have changed. Items without any number are left out of "per run". Bosses that are not there on every

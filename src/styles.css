@@ -8162,54 +8162,54 @@ details.content-fold,
 	display: grid;
 }
 
-/* On trial on Dev: the worn pieces without their stat lines (they are in the hover and summed up in "Stats from gear"). */
-:root:root[data-channel='dev'] .sheet .slot-body > .slot-stats {
+/* Since 26 Nov: the worn pieces without their stat lines (they are in the hover and summed up in "Stats from gear"). */
+:root:root:root .sheet .slot-body > .slot-stats {
 	display: none;
 }
 
 .source-detail > .content-tiles {
 	display: grid;
 }
-/* On trial on Dev: no sentence under the hit bar (the bar says it; the rest is in the hover). */
-:root:root[data-channel='dev'] .sheet .hit-note {
+/* Since 26 Nov: no sentence under the hit bar (the bar says it; the rest is in the hover). */
+:root:root:root .sheet .hit-note {
 	display: none;
 }
-/* On trial on Dev: the slot's name as a small line of its own above the item, never cut off. */
-:root:root[data-channel='dev'] .sheet .slot-body {
+/* Since 26 Nov: the slot's name as a small line of its own above the item, never cut off. */
+:root:root:root .sheet .slot-body {
 	grid-template-columns: minmax(0, 1fr);
 	row-gap: 0.1rem;
 	align-content: center;
 }
-:root:root[data-channel='dev'] .sheet .slot-body > .slot-label {
+:root:root:root .sheet .slot-body > .slot-label {
 	grid-column: 1;
 	grid-row: 1;
 	color: var(--haze);
 	font-size: 0.6875rem;
 	letter-spacing: 0.04em;
 }
-:root:root[data-channel='dev'] .sheet .slot-body > .slot-item {
+:root:root:root .sheet .slot-body > .slot-item {
 	grid-column: 1;
 	grid-row: 2;
 }
-:root:root[data-channel='dev'] .sheet .slot-blocked .slot-body > .slot-source {
+:root:root:root .sheet .slot-blocked .slot-body > .slot-source {
 	grid-row: 3;
 }
-/* On trial on Dev: an option's row shows only what changes against the worn piece, as small marks. Its own stats are in the hover. */
-:root[data-channel='dev'] .slot-stats-compared:has(+ .stat-diff) {
+/* Since 26 Nov: an option's row shows only what changes against the worn piece, as small marks. Its own stats are in the hover. */
+:root:root .slot-stats-compared:has(+ .stat-diff) {
 	display: none;
 }
-:root[data-channel='dev'] .stat-diff {
+:root:root .stat-diff {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 0.3rem;
 	margin: 0.25rem 0 0.2rem;
 }
-:root[data-channel='dev'] .stat-diff .diff-sep,
-:root[data-channel='dev'] .stat-diff-label {
+:root:root .stat-diff .diff-sep,
+:root:root .stat-diff-label {
 	display: none;
 }
-:root[data-channel='dev'] .stat-diff .diff-part {
+:root:root .stat-diff .diff-part {
 	padding: 0.05rem 0.45rem;
 	border-radius: 999px;
 	border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
@@ -8224,15 +8224,15 @@ details.content-fold,
 .group-want-tags {
 	display: contents;
 }
-/* On trial on Dev: an open dungeon as a tidy table. The item at the left, below it who wants it, one line each, columns in line down the whole list. */
-:root[data-channel='dev'] .group-boss h3 {
+/* Since 26 Nov: an open dungeon as a tidy table. The item at the left, below it who wants it, one line each, columns in line down the whole list. */
+:root:root .group-boss h3 {
 	margin: 1.1rem 0 0.4rem;
 	padding-bottom: 0.3rem;
 	font-family: var(--serif);
 	font-size: 1.05rem;
 	border-bottom: 1px solid var(--brass-deep);
 }
-:root[data-channel='dev'] .group-item {
+:root:root .group-item {
 	display: grid;
 	grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
 	align-items: start;
@@ -8241,19 +8241,19 @@ details.content-fold,
 	border-top: 0;
 	border-radius: 6px;
 }
-:root[data-channel='dev'] .group-item:nth-child(even) {
+:root:root .group-item:nth-child(even) {
 	background: rgb(255 255 255 / 0.025);
 }
-:root[data-channel='dev'] .group-item-name {
+:root:root .group-item-name {
 	grid-column: 1;
 	min-width: 0;
 }
-:root[data-channel='dev'] .group-item-name > span:last-child {
+:root:root .group-item-name > span:last-child {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
-:root[data-channel='dev'] .group-contested {
+:root:root .group-contested {
 	grid-column: 1;
 	justify-self: start;
 	margin-left: 2.6rem;
@@ -8262,14 +8262,14 @@ details.content-fold,
 	color: var(--ember);
 	background: none;
 }
-:root[data-channel='dev'] .group-wants {
+:root:root .group-wants {
 	grid-column: 2;
 	grid-row: 1 / span 2;
 	display: grid;
 	gap: 0.2rem;
 	margin: 0;
 }
-:root[data-channel='dev'] .group-want {
+:root:root .group-want {
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) 3.6rem minmax(0, 13.5rem) auto;
 	align-items: center;
@@ -8281,51 +8281,51 @@ details.content-fold,
 	border-radius: 0;
 	opacity: 1;
 }
-:root[data-channel='dev'] .group-want-first {
+:root:root .group-want-first {
 	border-left-color: var(--brass);
 }
-:root[data-channel='dev'] .group-want-extra .group-want-name {
+:root:root .group-want-extra .group-want-name {
 	color: var(--haze);
 }
-:root[data-channel='dev'] .group-want-name {
+:root:root .group-want-name {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
-:root[data-channel='dev'] .group-want-gain {
+:root:root .group-want-gain {
 	text-align: right;
 	font-weight: 600;
 	color: #6fdc7a;
 }
-:root[data-channel='dev'] .group-want-tags {
+:root:root .group-want-tags {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.3rem;
 }
-:root[data-channel='dev'] .group-want .group-tag-upgrade {
+:root:root .group-want .group-tag-upgrade {
 	padding: 0;
 	border: 0;
 	background: none;
 	font-size: 0.8125rem;
 }
 @media (max-width: 46rem) {
-	:root[data-channel='dev'] .group-item {
+	:root:root .group-item {
 		grid-template-columns: minmax(0, 1fr);
 	}
-	:root[data-channel='dev'] .group-wants {
+	:root:root .group-wants {
 		grid-column: 1;
 		grid-row: auto;
 	}
-	:root[data-channel='dev'] .group-want {
+	:root:root .group-want {
 		grid-template-columns: minmax(0, 1fr) auto auto;
 	}
-	:root[data-channel='dev'] .group-want-tags {
+	:root:root .group-want-tags {
 		grid-column: 1 / -1;
 		grid-row: 2;
 	}
 }
-/* On trial on Dev: the three switches as one bar, each with its name in front. */
-:root[data-channel='dev'] .group-switches {
+/* Since 26 Nov: the three switches as one bar, each with its name in front. */
+:root:root .group-switches {
 	align-items: center;
 	gap: 0.5rem 1.6rem;
 	padding: 0.5rem 0.75rem;
@@ -8333,14 +8333,14 @@ details.content-fold,
 	border: 1px solid var(--ridge);
 	border-radius: 8px;
 }
-:root[data-channel='dev'] .group-switches .farm-order {
+:root:root .group-switches .farm-order {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 0;
 	margin: 0;
 }
-:root[data-channel='dev'] .group-switches .farm-order > .slot-source {
+:root:root .group-switches .farm-order > .slot-source {
 	display: inline-flex;
 	align-items: center;
 	gap: 0.3rem;
@@ -8348,48 +8348,48 @@ details.content-fold,
 	font-size: 0.875rem;
 	color: var(--haze);
 }
-:root[data-channel='dev'] .group-switches .farm-order > .slot-source::after {
+:root:root .group-switches .farm-order > .slot-source::after {
 	content: ':';
 	margin-left: -0.25rem;
 }
-/* On trial on Dev: with the slot's name above the item, the suffix choice and what the enchant gives go below the
+/* Since 26 Nov: with the slot's name above the item, the suffix choice and what the enchant gives go below the
    name as lines of their own, and only the enchant's button stays at the right. Nothing lies on top of the name. */
-:root:root[data-channel='dev'] .sheet .slot,
-:root:root[data-channel='dev'] .sheet .slot-mirrored {
+:root:root:root .sheet .slot,
+:root:root:root .sheet .slot-mirrored {
 	grid-template-columns: 2.5rem minmax(0, 1fr) auto;
 	grid-template-rows: auto auto auto;
 	align-content: center;
 	padding: 0.3rem 0.5rem;
 }
-:root:root[data-channel='dev'] .sheet .slot-foot,
-:root:root[data-channel='dev'] .sheet .slot-enchant {
+:root:root:root .sheet .slot-foot,
+:root:root:root .sheet .slot-enchant {
 	display: contents;
 }
-:root:root[data-channel='dev'] .sheet .slot > .slot-button {
+:root:root:root .sheet .slot > .slot-button {
 	grid-column: 1;
 	grid-row: 1;
 	align-self: center;
 }
-:root:root[data-channel='dev'] .sheet .slot > .slot-body {
+:root:root:root .sheet .slot > .slot-body {
 	grid-column: 2;
 	grid-row: 1;
 }
-:root:root[data-channel='dev'] .sheet .slot-foot > .slot-select {
+:root:root:root .sheet .slot-foot > .slot-select {
 	grid-column: 2;
 	grid-row: 2;
 	justify-self: start;
 	max-width: 100%;
 	margin-top: 0.15rem;
 }
-:root:root[data-channel='dev'] .sheet .slot-enchant > .enchant-gives,
-:root:root[data-channel='dev'] .sheet .slot-enchant > .slot-source {
+:root:root:root .sheet .slot-enchant > .enchant-gives,
+:root:root:root .sheet .slot-enchant > .slot-source {
 	grid-column: 2;
 	grid-row: 3;
 	min-width: 0;
 	font-size: 0.75rem;
 	line-height: 1.3;
 }
-:root:root[data-channel='dev'] .sheet .slot-enchant > .enchant-button {
+:root:root:root .sheet .slot-enchant > .enchant-button {
 	grid-column: 3;
 	grid-row: 1;
 	align-self: center;
@@ -8397,7 +8397,7 @@ details.content-fold,
 .drop-tags {
 	display: inline;
 }
-/* On trial on Dev, Farm it: the explanation as a folded table of terms. */
+/* Since 26 Nov, Farm it: the explanation as a folded table of terms. */
 .farm-legend {
 	margin: 0.4rem 0 0.9rem;
 }
@@ -8433,13 +8433,13 @@ details.content-fold,
 .farm-legend dd {
 	color: var(--mist);
 }
-/* On trial on Dev, Farm it: a dungeon's bosses as one tidy table. A line per drop: item, gain, chance, tags, columns in line. */
-:root[data-channel='dev'] .bosses {
+/* Since 26 Nov, Farm it: a dungeon's bosses as one tidy table. A line per drop: item, gain, chance, tags, columns in line. */
+:root:root .bosses {
 	grid-template-columns: minmax(0, 1fr);
 	gap: 0;
 	padding: 0.25rem 1rem 1rem;
 }
-:root[data-channel='dev'] .boss h4 {
+:root:root .boss h4 {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: baseline;
@@ -8451,27 +8451,27 @@ details.content-fold,
 	color: var(--brass);
 	border-bottom: 1px solid var(--brass-deep);
 }
-:root[data-channel='dev'] .boss h4 .boss-spawn {
+:root:root .boss h4 .boss-spawn {
 	font: 400 0.8125rem var(--sans);
 }
-:root[data-channel='dev'] .boss-drop {
+:root:root .boss-drop {
 	grid-template-columns: 2.25rem minmax(0, 1fr) 5.5rem minmax(0, 17rem) minmax(0, 12rem);
 	align-items: center;
 	gap: 0.2rem 0.9rem;
 	padding: 0.35rem 0.4rem;
 	border-radius: 6px;
 }
-:root[data-channel='dev'] .boss-drop:nth-child(even) {
+:root:root .boss-drop:nth-child(even) {
 	background: rgb(255 255 255 / 0.025);
 }
-:root[data-channel='dev'] .boss-drop > .slot-icon {
+:root:root .boss-drop > .slot-icon {
 	grid-column: 1;
 	grid-row: 1;
 }
-:root[data-channel='dev'] .boss-drop > .drop-text {
+:root:root .boss-drop > .drop-text {
 	display: contents;
 }
-:root[data-channel='dev'] .boss-drop .drop-name {
+:root:root .boss-drop .drop-name {
 	grid-column: 2;
 	grid-row: 1;
 	min-width: 0;
@@ -8479,25 +8479,25 @@ details.content-fold,
 	flex-direction: column;
 	line-height: 1.25;
 }
-:root[data-channel='dev'] .boss-drop .drop-name .slot-source {
+:root:root .boss-drop .drop-name .slot-source {
 	font-size: 0.75rem;
 }
-:root[data-channel='dev'] .boss-drop > .num {
+:root:root .boss-drop > .num {
 	grid-column: 3;
 	grid-row: 1;
 	font-weight: 600;
 }
-:root[data-channel='dev'] .boss-drop .effort {
+:root:root .boss-drop .effort {
 	grid-column: 4;
 	grid-row: 1;
 	font-size: 0.8125rem;
 	line-height: 1.3;
 	color: var(--haze);
 }
-:root[data-channel='dev'] .boss-drop .effort::before {
+:root:root .boss-drop .effort::before {
 	content: none;
 }
-:root[data-channel='dev'] .boss-drop .drop-tags {
+:root:root .boss-drop .drop-tags {
 	grid-column: 5;
 	grid-row: 1;
 	display: flex;
@@ -8505,30 +8505,30 @@ details.content-fold,
 	justify-content: flex-end;
 	gap: 0.25rem;
 }
-:root[data-channel='dev'] .boss-drop .drop-tags .badge {
+:root:root .boss-drop .drop-tags .badge {
 	margin: 0;
 }
-:root[data-channel='dev'] .boss-drop .farm-tag-alt {
+:root:root .boss-drop .farm-tag-alt {
 	padding: 0;
 	border: 0;
 	background: none;
 	color: var(--haze);
 }
 @media (max-width: 52rem) {
-	:root[data-channel='dev'] .boss-drop {
+	:root:root .boss-drop {
 		grid-template-columns: 2.25rem minmax(0, 1fr) auto;
 	}
-	:root[data-channel='dev'] .boss-drop .effort {
+	:root:root .boss-drop .effort {
 		grid-column: 2 / -1;
 		grid-row: 2;
 	}
-	:root[data-channel='dev'] .boss-drop .drop-tags {
+	:root:root .boss-drop .drop-tags {
 		grid-column: 2 / -1;
 		grid-row: 3;
 		justify-content: flex-start;
 	}
 }
-/* On trial on Dev, the healer's scenario: facts and weights as tiles. */
+/* Since 26 Nov, the healer's scenario: facts and weights as tiles. */
 .healing-tidy h3 {
 	display: flex;
 	align-items: center;
@@ -8596,7 +8596,7 @@ details.content-fold,
 	color: var(--haze);
 	text-align: center;
 }
-/* On trial on Dev, Build plan: a heading that says what the slot cards show. */
+/* Since 26 Nov, Build plan: a heading that says what the slot cards show. */
 .plan-gear-head {
 	margin: 1.2rem 0 0.7rem;
 	padding-bottom: 0.5rem;
@@ -8630,7 +8630,7 @@ details.content-fold,
 	border-color: var(--brass);
 	color: var(--brass);
 }
-/* On trial on Dev, Customize: the slots as one row of item icons, like the strip on the Group up cards.
+/* Since 26 Nov, Customize: the slots as one row of item icons, like the strip on the Group up cards.
    Gold = planned, green = a better option is open, dim = nothing better than what is worn. */
 .slot-bar .slot-strip {
 	display: grid;
@@ -8730,8 +8730,8 @@ details.content-fold,
 		height: 2.2rem;
 	}
 }
-/* On trial on Dev, Check gear: the enchant under an item as its icon and name; what it gives is in the hover. */
-:root:root[data-channel='dev'] .sheet .slot-enchant > .enchant-gives {
+/* Since 26 Nov, Check gear: the enchant under an item as its icon and name; what it gives is in the hover. */
+:root:root:root .sheet .slot-enchant > .enchant-gives {
 	display: flex;
 	align-items: center;
 	gap: 0.3rem;
@@ -8741,7 +8741,7 @@ details.content-fold,
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-/* On trial on Dev, Build plan as one whole: the tools as a fold inside "Your plan", enchants and professions
+/* Since 26 Nov, Build plan as one whole: the tools as a fold inside "Your plan", enchants and professions
    below the planned gear in the same panel, without frames of their own. */
 .plan-tools-fold {
 	margin: 0.9rem 0;
@@ -8838,15 +8838,15 @@ details.content-fold,
 	}
 }
 
-/* On trial on Dev, Customize: an option's row shows the gain only; its stats and what changes are in the hover of the number. */
-:root[data-channel='dev'] .candidate .stat-diff,
-:root[data-channel='dev'] .candidate .slot-stats-compared {
+/* Since 26 Nov, Customize: an option's row shows the gain only; its stats and what changes are in the hover of the number. */
+:root:root .candidate .stat-diff,
+:root:root .candidate .slot-stats-compared {
 	display: none;
 }
-:root[data-channel='dev'] .candidate .candidate-delta {
+:root:root .candidate .candidate-delta {
 	cursor: help;
 }
-/* On trial on Dev, Build plan: the key to the slot cards as four short entries side by side. */
+/* Since 26 Nov, Build plan: the key to the slot cards as four short entries side by side. */
 .plan-gear-legend {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
@@ -8890,9 +8890,25 @@ details.content-fold,
 	width: 0.9rem;
 	height: 0.9rem;
 }
-:root[data-channel='dev'] .plan-slot-done {
+:root:root .plan-slot-done {
 	border-color: #2f7d3a55;
 }
-:root[data-channel='dev'] .plan-slot-done::before {
+:root:root .plan-slot-done::before {
 	--c: #3fa04c;
+}
+/* Since 26 Nov, Customize: the slots and the bar above them on the same lighter ground as the panels of the other pages. */
+:root:root .upgrades .slot-bar {
+	padding: 0.6rem 0.8rem 0.5rem;
+	background: var(--slate);
+	border: 1px solid var(--ridge);
+	border-radius: 6px;
+}
+:root:root .upgrades .slot-bar .slot-nav {
+	background: none;
+}
+:root:root .panel.upgrade-slot {
+	margin-top: 1rem;
+}
+:root:root .panel.upgrade-slot .candidate {
+	background: #0a0806;
 }

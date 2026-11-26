@@ -63,8 +63,8 @@ function cheerBurst(from: HTMLElement) {
 const gain = (value: number) => `+${value >= 10 ? value.toFixed(0) : value.toFixed(1)}`;
 
 /** The farm plan of several saved characters at once: per dungeon and boss, who wants which drop. */
-/** On trial on Dev: the page's explanations behind question marks. */
-const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+/** The layout of 26 Nov (first tried on Dev): the page's explanations behind question marks. */
+const NEW_LAYOUT = true;
 
 export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRosterChange: (next: Roster) => void }) {
 	// While the simulator check runs, nobody's gear changes.
@@ -217,14 +217,14 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 		<section className="panel group-farm" aria-labelledby="group-farm">
 			<h2 id="group-farm">
 				Farm plan for the group
-				{IS_DEV && (
+				{NEW_LAYOUT && (
 					<Help label="How to build the group">
 						Tick your own character, then add your friends: have them press "Copy character link" under "Check gear" and send you what it copies; paste it here. Friends are kept on this page only and get no tile among
 						your characters. Their later changes need a new copy: nothing is synced.
 					</Help>
 				)}
 			</h2>
-			{!IS_DEV && (
+			{!NEW_LAYOUT && (
 				<p className="hint">
 					Tick your own character, then add your friends: have them press "Copy character link" under "Check gear" and send you what it copies; paste it here. Friends are kept on this page only and get no tile among your
 					characters. Their later changes need a new copy: nothing is synced.
@@ -328,7 +328,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 				<div className="farm-order" role="group" aria-label="Order of the dungeons">
 					<span className="slot-source">
 						Sort by
-						{IS_DEV && mixed && <Help label="How the totals count">The group has healers and damage dealers: a healer's gain is healing per second, the others' damage per second. The totals add both.</Help>}
+						{NEW_LAYOUT && mixed && <Help label="How the totals count">The group has healers and damage dealers: a healer's gain is healing per second, the others' damage per second. The totals add both.</Help>}
 					</span>
 					<button className="button button-small" aria-pressed={saved.sort === 'total'} onClick={() => change({ sort: 'total' })}>
 						Total gain
@@ -360,7 +360,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 					</button>
 				</p>
 			)}
-			{mixed && !IS_DEV && <p className="hint">The group has healers and damage dealers: a healer's gain is healing per second, the others' damage per second. The totals add both.</p>}
+			{mixed && !NEW_LAYOUT && <p className="hint">The group has healers and damage dealers: a healer's gain is healing per second, the others' damage per second. The totals add both.</p>}
 			{waiting && <p className="hint">Loading the item data of the group's builds…</p>}
 			{!waiting && members.length === 0 && <p className="farm-empty">Tick at least one character.</p>}
 			{!waiting && members.length > 0 && dungeons.length === 0 && (
