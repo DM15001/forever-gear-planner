@@ -11,7 +11,7 @@ import { applicableEnchants } from '../lib/enchants';
 import { EVERYTHING, type Candidate, clash, type Gear, oneRandomRoll, pairedSlot, plannedGear, scoreSet, setChanges, setStandings, slotCandidates, slotInUse, type SourceFilter, usableSources, withItem } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
 import { measureWeights, weightRuns } from '../lib/sim/live';
-import { conditionalLines, matchesFight, pieceStats, STAT_LABELS, statLine, wowheadItemUrl, wowheadData } from '../lib/stats';
+import { conditionalLines, matchesFight, pieceStats, STAT_LABELS, statLine, wowheadItemUrl, wowheadData, wowheadEnchantUrl, wowheadEnchantData } from '../lib/stats';
 import { ItemIcon } from './ItemIcon';
 import { SuffixNote, suffixText } from './SuffixNote';
 import { SourceLabel, SourceList } from './SourceLabel';
@@ -515,7 +515,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 const slotPiece = gear[index];
 const slotItem = slotPiece ? data.itemById.get(slotPiece.id) : undefined;
 const slotEnchantFound = slotPiece?.enchant && slotItem ? applicableEnchants(index, slotItem, data).find(e => e.effectId === slotPiece.enchant) : undefined;
-const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, open: character.gear[index]?.enchant !== slotEnchantFound.effectId || character.gear[index]?.id !== slotPiece?.id } : undefined;
+const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, url: wowheadEnchantUrl(slotEnchantFound), tip: wowheadEnchantData(slotEnchantFound), open: character.gear[index]?.enchant !== slotEnchantFound.effectId || character.gear[index]?.id !== slotPiece?.id } : undefined;
 				const wornScore = plannedItem
 					? scoreSet(
 							gear.map((piece, i) => (i === index ? character.gear[index] : piece)),
@@ -556,7 +556,13 @@ const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, open: char
 							</p>
 							{slotEnchant && (
 								<p className={slotEnchant.open ? 'plan-enchant plan-enchant-open' : 'plan-enchant'}>
-									{slotEnchant.name}
+									{slotEnchant.url ? (
+										<a className="item-link" href={slotEnchant.url} data-wowhead={slotEnchant.tip} target="_blank" rel="noreferrer">
+											{slotEnchant.name}
+										</a>
+									) : (
+										slotEnchant.name
+									)}
 									<span className="plan-enchant-state">{slotEnchant.open ? 'enchant to get' : 'enchant, you have it'}</span>
 								</p>
 							)}
@@ -1057,7 +1063,14 @@ function SetStatus({ worn, planned, data }: { worn: Gear; planned: Gear; data: G
 						<li key={set.setId} className={broken ? 'set-row set-row-broken' : 'set-row'}>
 							<strong>{set.name}</strong>: {samePlan ? `${was?.count ?? 0} pieces worn` : `${was?.count ?? 0} worn, ${will?.count ?? 0} planned`}.{' '}
 							{set.ignored
-								? 'You switched its bonus off under Content, so the lists do not count it.'
+								? (
+									<>
+										You switched its bonus off under "Set bonuses" in Content Selection, so the lists do not count it.{' '}
+										<button className="link" onClick={() => window.dispatchEvent(new CustomEvent('fgp-go', { detail: 'content' }))}>
+											Change it there
+										</button>
+									</>
+								)
 								: !set.measured
 									? 'Bonuses not measured for this build yet, so the lists do not count them.'
 								: !steps

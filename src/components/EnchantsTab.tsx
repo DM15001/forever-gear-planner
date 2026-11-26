@@ -5,7 +5,7 @@ import { formatDps, unit } from '../lib/format';
 import { bestEnchants, enchantOverview, professionValues } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
 import { type Gear, plannedGear, scoreSet, type SourceFilter } from '../lib/scoring';
-import { statLine, wowheadEnchantUrl, wowheadItemUrl, wowheadData } from '../lib/stats';
+import { statLine, wowheadEnchantUrl, wowheadEnchantData, wowheadItemUrl, wowheadData } from '../lib/stats';
 import type { Character, Enchant, SpecConfig } from '../lib/types';
 import { ItemIcon } from './ItemIcon';
 import { SourceSymbol } from './Ornaments';
@@ -223,7 +223,7 @@ function EnchantName({ enchant, inline = false }: { enchant: Enchant; inline?: b
 	const url = wowheadEnchantUrl(enchant);
 	const className = inline ? 'item-link' : 'enchant-name item-link';
 	return url ? (
-		<a className={className} href={url} target="_blank" rel="noreferrer">
+		<a className={className} href={url} data-wowhead={wowheadEnchantData(enchant)} target="_blank" rel="noreferrer">
 			{enchant.name}
 		</a>
 	) : (

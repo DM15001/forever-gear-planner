@@ -6,7 +6,7 @@ import { PresetContext, PresetField } from './Presets';
 import { GEAR_SLOTS, PROFESSIONS, SHEET_LAYOUT } from '../lib/constants';
 import { applicableEnchants, enchantLine } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
-import { gearStats, hitSummary, pieceStats, STAT_LABELS, statLine, wowheadEnchantUrl, wowheadItemUrl, wowheadData } from '../lib/stats';
+import { gearStats, hitSummary, pieceStats, STAT_LABELS, statLine, wowheadEnchantUrl, wowheadEnchantData, wowheadItemUrl, wowheadData } from '../lib/stats';
 import type { Character, GearPiece, SpecConfig, Stats, Item } from '../lib/types';
 import { EVERYTHING, withItem } from '../lib/scoring';
 import { FactionMark } from './CharacterBar';
@@ -446,7 +446,7 @@ function GearSlot({ index, mirrored, piece, data, onChange, onPick, onEnchant, b
 					{(enchants.length > 0 || piece.enchant) && (
 						<div className="slot-enchant">
 							{enchant ? (
-								<a className="enchant-gives" href={wowheadEnchantUrl(enchant)} target="_blank" rel="noreferrer" title={NEW_LAYOUT ? enchantLine(enchant) : enchant.name}>
+								<a className="enchant-gives" href={wowheadEnchantUrl(enchant)} data-wowhead={wowheadEnchantData(enchant)} target="_blank" rel="noreferrer" title={NEW_LAYOUT ? enchantLine(enchant) : enchant.name}>
 									{NEW_LAYOUT ? (
 										<>
 											<ItemIcon icon={enchant.icon ?? 'trade_engraving'} quality={enchant.quality} inline /> {enchant.name}

@@ -202,5 +202,8 @@ export function wowheadSourceLink(source: ItemSource | undefined): { url: string
 }
 export const wowheadSpellUrl = (id: number) => `https://www.wowhead.com/forever/spell=${id}`;
 /** An enchanter's enchant is a spell on Wowhead; a kit, oil or arcanum is the item that applies it. */
+/** What Wowhead's tooltip script needs to show an enchant's tooltip on hover: the spell or the item, as its link leads to. */
+export const wowheadEnchantData = (enchant: { name: string; itemId?: number; spellId?: number }) =>
+	enchant.spellId && (enchant.name.startsWith('Enchant ') || !enchant.itemId) ? wowheadData('spell', enchant.spellId) : enchant.itemId ? wowheadData('item', enchant.itemId) : undefined;
 export const wowheadEnchantUrl = (enchant: { name: string; itemId?: number; spellId?: number }) =>
 	enchant.spellId && (enchant.name.startsWith('Enchant ') || !enchant.itemId) ? wowheadSpellUrl(enchant.spellId) : enchant.itemId ? wowheadItemUrl(enchant.itemId) : undefined;

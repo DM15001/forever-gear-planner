@@ -14,7 +14,7 @@ import { EMPTY_SLOT, EVERYTHING, isUnmeasured, lockedSlots, plannedGear, scoreSe
 import { simClient } from '../lib/sim/client';
 import { measureWeights, REFINE_DEPTH, REFINE_DEPTHS, weightRuns } from '../lib/sim/live';
 import { planKeyOf, refineJob, useRefineJob } from '../lib/sim/refineJob';
-import { sourceLine, statLine, wowheadItemUrl, wowheadData, wowheadEnchantUrl, wowheadSourceLink } from '../lib/stats';
+import { sourceLine, statLine, wowheadItemUrl, wowheadData, wowheadEnchantUrl, wowheadEnchantData, wowheadSourceLink } from '../lib/stats';
 import type { Character, Enchant, Item, SpecConfig } from '../lib/types';
 import { ContentPicker, useContentOpen } from './ContentPicker';
 import { ItemIcon } from './ItemIcon';
@@ -497,7 +497,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 										<>
 											{NEW_LAYOUT && <ItemIcon icon={goalEnchant.icon ?? 'trade_engraving'} quality={goalEnchant.quality} inline />}
 											{wowheadEnchantUrl(goalEnchant) ? (
-												<a className="plan-enchant-name" href={wowheadEnchantUrl(goalEnchant)} target="_blank" rel="noreferrer">
+												<a className="plan-enchant-name" href={wowheadEnchantUrl(goalEnchant)} data-wowhead={wowheadEnchantData(goalEnchant)} target="_blank" rel="noreferrer">
 													{goalEnchant.name}
 												</a>
 											) : (

@@ -850,6 +850,17 @@ export function App() {
 		window.addEventListener('fgp-sim-setup', open);
 		return () => window.removeEventListener('fgp-sim-setup', open);
 	}, []);
+	// A link elsewhere on the site that leads to another page ("Change it there").
+	useEffect(() => {
+		const go = (event: Event) => {
+			const to = (event as CustomEvent<string>).detail;
+			if (!TABS.some(t => t.id === to)) return;
+			setTab(to);
+			window.scrollTo({ top: 0 });
+		};
+		window.addEventListener('fgp-go', go);
+		return () => window.removeEventListener('fgp-go', go);
+	}, []);
 	const baseSpec = specOf(character);
 	const [weightsVersion, setWeightsVersion] = useState(0);
 	// A healer has one set of weights per healing scenario; the character's choice picks it.
