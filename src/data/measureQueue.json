@@ -4,10 +4,7 @@
 		"druid-balance": 24,
 		"druid-cat": 24
 	},
-	"weights": {
-		"druid-balance": 24,
-		"druid-cat": 24
-	},
+	"weights": {},
 	"weapons": {
 		"druid-cat": 24
 	}
