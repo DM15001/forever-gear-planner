@@ -7975,3 +7975,62 @@ button.source-report {
 	border: 0;
 	cursor: pointer;
 }
+
+/* Narrow screens: nothing may be wider than the page. Grid children may shrink, long controls may wrap. */
+.plan {
+	grid-template-columns: minmax(0, 1fr);
+}
+.plan > *,
+.plan-slot,
+.plan-slot-body,
+details.content-fold,
+.content-picker,
+.content-fold-group {
+	min-width: 0;
+}
+@media (max-width: 46rem) {
+	.refine-depth {
+		white-space: normal;
+		flex-wrap: wrap;
+		width: 100%;
+	}
+	.refine-depth select,
+	main select {
+		max-width: 100%;
+	}
+	details.content-fold > summary {
+		flex-wrap: wrap;
+	}
+	details.content-fold > summary .slot-source {
+		white-space: normal;
+	}
+}
+@media (max-width: 46rem) {
+	.plan .actions {
+		flex-wrap: wrap;
+	}
+	.plan .actions > .button {
+		flex: 1 1 100%;
+	}
+	.refine-depth select {
+		flex: 1 1 12rem;
+		min-width: 0;
+		width: 100%;
+	}
+}
+.modal > *,
+.modal .panel {
+	min-width: 0;
+	max-width: 100%;
+}
+@media (max-width: 46rem) {
+	/* A note that opens next to a question mark spans the screen instead of running off its edge. */
+	.powered-pop {
+		position: fixed;
+		top: auto;
+		left: 4vw;
+		right: 4vw;
+		width: auto;
+		margin-top: 1.6rem;
+	}
+}

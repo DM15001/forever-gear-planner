@@ -96,6 +96,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "No more sideways scrolling on a phone",
+							"text": "On a narrow screen \"Build plan\" was almost twice as wide as the screen, so the whole page slid sideways. The plan cards, the check controls and the content rows now fit the width, and the notes behind question marks open across the screen.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Tell the planner where an item drops",
 							"text": "Under an item whose source is missing or only guessed, \"know where it drops?\" (on a plan card: \"Source?\") opens a small window. Write what you know and either copy the report to paste it in a chat, which needs no account, or send it on GitHub. Reports are checked before they go in. The first one is in: Southern Watch Leggings come from the quest Snargl's Snout.",
 							"source": "Gear Planner",
