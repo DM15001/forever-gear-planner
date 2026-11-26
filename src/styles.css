@@ -8097,7 +8097,7 @@ details.content-fold,
 	cursor: not-allowed;
 }
 
-/* Content Selection: a panel per kind of content, grey until it counts, the finer choice below the grid. */
+/* Content Selection: a large picture panel per kind of content, grey until it counts, the finer choice below the grid. */
 .content-step-head h2 {
 	margin: 0 0 0.2rem;
 }
@@ -8106,93 +8106,154 @@ details.content-fold,
 }
 .source-panels {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
-	gap: 0.6rem;
-	margin: 0.9rem 0 1rem;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 0.9rem;
+	margin: 1rem 0 1.2rem;
 }
 .source-panel {
 	position: relative;
 	min-width: 0;
 }
 .source-panel-main {
+	position: relative;
 	display: grid;
+	grid-template-rows: 1fr auto auto;
 	justify-items: center;
-	gap: 0.35rem;
+	align-items: center;
+	gap: 0.2rem;
 	width: 100%;
-	padding: 0.8rem 0.5rem 0.6rem;
-	border: 1px solid var(--ridge);
-	border-radius: 8px;
-	background: var(--slate-raised);
-	color: inherit;
+	aspect-ratio: 4 / 3;
+	padding: 0.9rem 0.6rem 0.75rem;
+	overflow: hidden;
+	border: 2px solid var(--ridge);
+	border-radius: 10px;
+	background: var(--well);
+	color: var(--mist);
 	font: inherit;
 	cursor: pointer;
-	opacity: 0.6;
-	transition: opacity 0.15s, border-color 0.15s, box-shadow 0.15s;
+	transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
 }
 .source-panel-main:hover {
-	opacity: 0.85;
+	transform: translateY(-2px);
+}
+/* The picture: the kind's icon, blown up and softened into a backdrop, darkened towards the name. */
+.source-panel-back {
+	position: absolute;
+	inset: -12%;
+	background-size: cover;
+	background-position: center;
+	filter: blur(14px) grayscale(1) brightness(0.45);
+	transition: filter 0.25s;
+}
+.source-panel-main::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(180deg, transparent 35%, rgba(0, 0, 0, 0.8));
+}
+.source-panel-art,
+.source-panel-name,
+.source-panel-count,
+.source-panel-check {
+	position: relative;
+	z-index: 1;
 }
 .source-panel-art {
 	display: flex;
 	justify-content: center;
-	min-height: 2.6rem;
-	filter: grayscale(1);
-	transition: filter 0.2s;
+	align-items: center;
+	filter: grayscale(1) brightness(0.7);
+	transition: filter 0.25s;
 }
-.source-panel-art > * {
-	margin: 0 -0.3rem;
+.source-panel-art .dungeon-icon {
+	width: 3.4rem;
+	height: 3.4rem;
+	margin: 0 -0.45rem;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
 }
 .source-panel-art > :nth-child(2) {
-	transform: scale(1.25);
+	width: 4.6rem;
+	height: 4.6rem;
 	z-index: 1;
 }
 .source-panel-name {
-	font-size: 0.95rem;
+	font-family: var(--display);
+	font-size: 1.15rem;
+	letter-spacing: 0.03em;
 	text-align: center;
+	text-shadow: 0 1px 3px #000;
 	overflow-wrap: anywhere;
 }
 .source-panel-count {
-	font-size: 0.8rem;
-	opacity: 0.75;
+	font-size: 0.85rem;
+	color: var(--haze);
 	min-height: 1.1em;
 }
+.source-panel-check {
+	position: absolute;
+	top: 0.5rem;
+	left: 0.5rem;
+	display: grid;
+	place-items: center;
+	width: 1.5rem;
+	height: 1.5rem;
+	border: 2px solid var(--ridge);
+	border-radius: 50%;
+	background: rgba(0, 0, 0, 0.55);
+	color: var(--on-brass);
+	font-size: 0.9rem;
+	font-weight: 700;
+	line-height: 1;
+}
 .source-panel-on .source-panel-main {
-	opacity: 1;
 	border-color: var(--brass);
-	box-shadow: inset 0 0 0 1px var(--brass);
+	box-shadow: 0 0 18px color-mix(in srgb, var(--brass) 30%, transparent);
+}
+.source-panel-on .source-panel-back {
+	filter: blur(14px) brightness(0.75) saturate(1.2);
 }
 .source-panel-on .source-panel-art {
 	filter: none;
 }
 .source-panel-on .source-panel-count {
 	color: var(--brass);
-	opacity: 1;
+}
+.source-panel-on .source-panel-check {
+	border-color: var(--brass);
+	background: var(--brass);
 }
 .source-panel-open .source-panel-main {
-	box-shadow: inset 0 0 0 1px var(--brass), 0 0 0 2px color-mix(in srgb, var(--brass) 35%, transparent);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--brass) 45%, transparent), 0 0 18px color-mix(in srgb, var(--brass) 30%, transparent);
 }
 .source-panel-soon .source-panel-main {
 	cursor: default;
 	border-style: dashed;
 }
+.source-panel-soon .source-panel-main:hover {
+	transform: none;
+}
+.source-panel-soon .source-panel-check {
+	display: none;
+}
 .source-panel-off {
 	position: absolute;
-	top: 0.25rem;
-	right: 0.25rem;
-	width: 1.5rem;
-	height: 1.5rem;
+	z-index: 2;
+	top: 0.45rem;
+	right: 0.45rem;
+	width: 1.7rem;
+	height: 1.7rem;
 	border: 0;
 	border-radius: 50%;
-	background: transparent;
-	color: inherit;
-	font-size: 1.1rem;
+	background: rgba(0, 0, 0, 0.55);
+	color: var(--mist);
+	font-size: 1.15rem;
 	line-height: 1;
 	cursor: pointer;
-	opacity: 0.55;
+	opacity: 0.7;
 }
 .source-panel-off:hover {
 	opacity: 1;
-	background: color-mix(in srgb, currentColor 15%, transparent);
+	background: rgba(0, 0, 0, 0.85);
 }
 .source-detail {
 	margin: 0 0 0.8rem;
@@ -8214,9 +8275,26 @@ details.content-fold,
 .source-detail-close {
 	margin-left: auto;
 }
+@media (max-width: 62rem) {
+	.source-panels {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
 @media (max-width: 46rem) {
 	.source-panels {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.6rem;
+	}
+	.source-panel-art .dungeon-icon {
+		width: 2.4rem;
+		height: 2.4rem;
+	}
+	.source-panel-art > :nth-child(2) {
+		width: 3.2rem;
+		height: 3.2rem;
+	}
+	.source-panel-name {
+		font-size: 0.95rem;
 	}
 }
 
@@ -8231,4 +8309,24 @@ details.content-fold,
 /* On trial on Dev: no sentence under the hit bar (the bar says it; the rest is in the hover). */
 :root:root[data-channel='dev'] .sheet .hit-note {
 	display: none;
+}
+/* On trial on Dev: the slot's name as a small line of its own above the item, never cut off. */
+:root:root[data-channel='dev'] .sheet .slot-body {
+	grid-template-columns: minmax(0, 1fr);
+	row-gap: 0.1rem;
+	align-content: center;
+}
+:root:root[data-channel='dev'] .sheet .slot-body > .slot-label {
+	grid-column: 1;
+	grid-row: 1;
+	color: var(--haze);
+	font-size: 0.6875rem;
+	letter-spacing: 0.04em;
+}
+:root:root[data-channel='dev'] .sheet .slot-body > .slot-item {
+	grid-column: 1;
+	grid-row: 2;
+}
+:root:root[data-channel='dev'] .sheet .slot-blocked .slot-body > .slot-source {
+	grid-row: 3;
 }

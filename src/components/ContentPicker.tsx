@@ -7,7 +7,7 @@ import { unit } from '../lib/format';
 import { pieceStats, statLine } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
 import DUNGEON_ICONS from '../config/dungeonIcons.json';
-import { DungeonIcon, ItemIcon } from './ItemIcon';
+import { DungeonIcon, ICON_SOURCES, ItemIcon } from './ItemIcon';
 
 const SLOT_NAMES: Record<string, string> = { head: 'Head', neck: 'Neck', shoulder: 'Shoulders', back: 'Back', chest: 'Chest', wrist: 'Wrists', hands: 'Hands', waist: 'Waist', legs: 'Legs', feet: 'Feet', finger: 'Ring', trinket: 'Trinket', weapon: 'Weapon', ranged: 'Ranged' };
 
@@ -577,6 +577,10 @@ export function ContentPicker({ spec, character, data, filter, onChange, panels 
 									if (!on && def.allOn) def.allOn();
 									if (def.hasDetail) setOpened(before => ({ ...before, [def.key]: on || soon ? !open : true }));
 								}}>
+								<span className="source-panel-back" aria-hidden="true" style={{ backgroundImage: ICON_SOURCES.map(source => `url(${source((PANEL_ICONS[def.key] ?? [])[1] ?? '')})`).join(', ') }} />
+								<span className="source-panel-check" aria-hidden="true">
+									{on ? '✓' : ''}
+								</span>
 								<span className="source-panel-art" aria-hidden="true">
 									{(PANEL_ICONS[def.key] ?? []).map(icon => (
 										<DungeonIcon key={icon} icons={[icon]} />
