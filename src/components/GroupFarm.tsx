@@ -1,3 +1,4 @@
+import { Help } from './Help';
 import { useRefineJob } from '../lib/sim/refineJob';
 import { ordinal } from '../lib/format';
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
@@ -62,6 +63,9 @@ function cheerBurst(from: HTMLElement) {
 const gain = (value: number) => `+${value >= 10 ? value.toFixed(0) : value.toFixed(1)}`;
 
 /** The farm plan of several saved characters at once: per dungeon and boss, who wants which drop. */
+/** On trial on Dev: the page's explanations behind question marks. */
+const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+
 export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRosterChange: (next: Roster) => void }) {
 	// While the simulator check runs, nobody's gear changes.
 	const checking = useRefineJob().running;
@@ -183,13 +187,15 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 													<span className="group-wants">
 														{wants.map((want, order) => (
 															<span key={want.member.index} className={`group-want${order === 0 && wants.length > 1 ? ' group-want-first' : ''}${!want.planned && saved.scope === 'plan' ? ' group-want-extra' : ''}`}>
-																{want.member.label} <span className="num">{gain(want.delta)}</span>
+																<span className="group-want-name">{want.member.label}</span> <span className="num group-want-gain">{gain(want.delta)}</span>
+																<span className="group-want-tags">
 																{want.planned && <span className="badge badge-plan group-tag-planned" title="In this character's plan">planned</span>}
 																{want.best ? (
 																	<span className="badge badge-plan group-tag-bis" title="Nothing in the game is better for this character in that slot">BiS</span>
 																) : (
 																	<span className="badge badge-plan group-tag-upgrade" title={`Better than what this character wears, but not their best option: the ${ordinal(want.rank)} best upgrade for that slot`}>alternative, {ordinal(want.rank)} best</span>
 																)}
+																</span>
 																<button className="button button-small" disabled={checking} onClick={event => {
 																		cheerBurst(event.currentTarget);
 																		got(want.member, want.slotIndex, item);
@@ -209,11 +215,21 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 
 	return (
 		<section className="panel group-farm" aria-labelledby="group-farm">
-			<h2 id="group-farm">Farm plan for the group</h2>
-			<p className="hint">
-				Tick your own character, then add your friends: have them press "Copy character link" under "Check gear" and send you what it copies; paste it here. Friends are kept on this page only and get no tile among your
-				characters. Their later changes need a new copy: nothing is synced.
-			</p>
+			<h2 id="group-farm">
+				Farm plan for the group
+				{IS_DEV && (
+					<Help label="How to build the group">
+						Tick your own character, then add your friends: have them press "Copy character link" under "Check gear" and send you what it copies; paste it here. Friends are kept on this page only and get no tile among
+						your characters. Their later changes need a new copy: nothing is synced.
+					</Help>
+				)}
+			</h2>
+			{!IS_DEV && (
+				<p className="hint">
+					Tick your own character, then add your friends: have them press "Copy character link" under "Check gear" and send you what it copies; paste it here. Friends are kept on this page only and get no tile among your
+					characters. Their later changes need a new copy: nothing is synced.
+				</p>
+			)}
 			<form
 				className="group-add"
 				onSubmit={event => {
@@ -310,7 +326,10 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 					</button>
 				</div>
 				<div className="farm-order" role="group" aria-label="Order of the dungeons">
-					<span className="slot-source">Sort by</span>
+					<span className="slot-source">
+						Sort by
+						{IS_DEV && mixed && <Help label="How the totals count">The group has healers and damage dealers: a healer's gain is healing per second, the others' damage per second. The totals add both.</Help>}
+					</span>
 					<button className="button button-small" aria-pressed={saved.sort === 'total'} onClick={() => change({ sort: 'total' })}>
 						Total gain
 					</button>
@@ -341,7 +360,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 					</button>
 				</p>
 			)}
-			{mixed && <p className="hint">The group has healers and damage dealers: a healer's gain is healing per second, the others' damage per second. The totals add both.</p>}
+			{mixed && !IS_DEV && <p className="hint">The group has healers and damage dealers: a healer's gain is healing per second, the others' damage per second. The totals add both.</p>}
 			{waiting && <p className="hint">Loading the item data of the group's builds…</p>}
 			{!waiting && members.length === 0 && <p className="farm-empty">Tick at least one character.</p>}
 			{!waiting && members.length > 0 && dungeons.length === 0 && (

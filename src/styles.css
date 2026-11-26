@@ -8456,3 +8456,106 @@ details.content-fold,
 	box-shadow: none;
 	border-bottom-width: 1px;
 }
+.group-want-tags {
+	display: contents;
+}
+/* On trial on Dev: an open dungeon as a tidy table. The item at the left, below it who wants it, one line each, columns in line down the whole list. */
+:root[data-channel='dev'] .group-boss h3 {
+	margin: 1.1rem 0 0.4rem;
+	padding-bottom: 0.3rem;
+	font-family: var(--serif);
+	font-size: 1.05rem;
+	border-bottom: 1px solid var(--brass-deep);
+}
+:root[data-channel='dev'] .group-item {
+	display: grid;
+	grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
+	align-items: start;
+	gap: 0.15rem 1.2rem;
+	padding: 0.5rem 0.4rem;
+	border-top: 0;
+	border-radius: 6px;
+}
+:root[data-channel='dev'] .group-item:nth-child(even) {
+	background: rgb(255 255 255 / 0.025);
+}
+:root[data-channel='dev'] .group-item-name {
+	grid-column: 1;
+	min-width: 0;
+}
+:root[data-channel='dev'] .group-item-name > span:last-child {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+:root[data-channel='dev'] .group-contested {
+	grid-column: 1;
+	justify-self: start;
+	margin-left: 2.6rem;
+	padding: 0;
+	font-weight: 400;
+	color: var(--ember);
+	background: none;
+}
+:root[data-channel='dev'] .group-wants {
+	grid-column: 2;
+	grid-row: 1 / span 2;
+	display: grid;
+	gap: 0.2rem;
+	margin: 0;
+}
+:root[data-channel='dev'] .group-want {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 3.6rem minmax(0, 13.5rem) auto;
+	align-items: center;
+	gap: 0.7rem;
+	padding: 0.15rem 0.2rem 0.15rem 0.6rem;
+	background: none;
+	border: 0;
+	border-left: 3px solid transparent;
+	border-radius: 0;
+	opacity: 1;
+}
+:root[data-channel='dev'] .group-want-first {
+	border-left-color: var(--brass);
+}
+:root[data-channel='dev'] .group-want-extra .group-want-name {
+	color: var(--haze);
+}
+:root[data-channel='dev'] .group-want-name {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+:root[data-channel='dev'] .group-want-gain {
+	text-align: right;
+	font-weight: 600;
+	color: #6fdc7a;
+}
+:root[data-channel='dev'] .group-want-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.3rem;
+}
+:root[data-channel='dev'] .group-want .group-tag-upgrade {
+	padding: 0;
+	border: 0;
+	background: none;
+	font-size: 0.8125rem;
+}
+@media (max-width: 46rem) {
+	:root[data-channel='dev'] .group-item {
+		grid-template-columns: minmax(0, 1fr);
+	}
+	:root[data-channel='dev'] .group-wants {
+		grid-column: 1;
+		grid-row: auto;
+	}
+	:root[data-channel='dev'] .group-want {
+		grid-template-columns: minmax(0, 1fr) auto auto;
+	}
+	:root[data-channel='dev'] .group-want-tags {
+		grid-column: 1 / -1;
+		grid-row: 2;
+	}
+}
