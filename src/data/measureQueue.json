@@ -1,5 +1,5 @@
 {
-	"seq": 22,
+	"seq": 23,
 	"effects": {
 		"druid-balance": 21,
 		"druid-cat": 20,
@@ -12,7 +12,7 @@
 		"hunter-sv": 19,
 		"mage-arcane-fire": 22,
 		"mage-arcane": 22,
-		"mage-ffb": 22,
+		"mage-ffb": 23,
 		"mage-fire": 22,
 		"mage-frost-incin": 22,
 		"mage-frost": 22,
@@ -48,7 +48,7 @@
 		"hunter-sv": 19,
 		"mage-arcane-fire": 22,
 		"mage-arcane": 22,
-		"mage-ffb": 22,
+		"mage-ffb": 23,
 		"mage-fire": 22,
 		"mage-frost-incin": 22,
 		"mage-frost": 22,
