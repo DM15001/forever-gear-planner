@@ -145,8 +145,10 @@ export function hitSummary(stats: Stats, character: Character, spec: SpecConfig)
 	const fromRace = (character.race && spec.raceBonuses[character.race]?.hitPercent) || 0;
 	const fromTalents = spec.hitBonusPercent ?? 0;
 	const total = fromGear + fromRace + fromTalents;
-	const diffRating = Math.round((spec.hitCapPercent - total) * perPercent);
-	return { fromGear, fromRace, fromTalents, total, cap: spec.hitCapPercent, ratingMissing: Math.max(0, diffRating), ratingOver: Math.max(0, -diffRating) };
+	// The character's own target stands in for the cap: hit past it counts as hit past the cap.
+	const cap = character.hitTarget !== undefined && spec.hitCapPercent > 0 ? Math.min(character.hitTarget, spec.hitCapPercent) : spec.hitCapPercent;
+	const diffRating = Math.round((cap - total) * perPercent);
+	return { fromGear, fromRace, fromTalents, total, cap, ratingMissing: Math.max(0, diffRating), ratingOver: Math.max(0, -diffRating) };
 }
 
 /** "+20 Sta, +32 AP, +10 Hit" */

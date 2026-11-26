@@ -10,7 +10,8 @@ import type { GameData } from '../lib/gameData';
 import { guideMarks, markLabel } from '../lib/guides';
 import { buildPlan, fallbacks, gotEnchant, gotItem, type PlanStep, planSteps } from '../lib/plan';
 import { EMPTY_SLOT, EVERYTHING, isUnmeasured, lockedSlots, plannedGear, scoreSet, slotInUse, type SourceFilter, usableSources, withItem, isObtainable } from '../lib/scoring';
-import { REFINE_DEPTH, REFINE_DEPTHS } from '../lib/sim/live';
+import { simClient } from '../lib/sim/client';
+import { measureWeights, REFINE_DEPTH, REFINE_DEPTHS, weightRuns } from '../lib/sim/live';
 import { planKeyOf, refineJob, useRefineJob } from '../lib/sim/refineJob';
 import { sourceLine, statLine, wowheadItemUrl, wowheadData, wowheadEnchantUrl, wowheadSourceLink } from '../lib/stats';
 import type { Character, Enchant, Item, SpecConfig } from '../lib/types';
@@ -21,6 +22,12 @@ import { ItemPicker } from './ItemPicker';
 import { SimSummary, ProgressBar } from './Sim';
 
 interface Props {
+	/** How many earlier plans can be gone back to, and the way back. */
+	undoSteps?: number;
+	onUndo?: () => void;
+	/** The build's own weights, and a way to replace them by ones measured for this character. */
+	defaultWeights?: SpecConfig['weights'];
+	onWeightsChange?: (weights: SpecConfig['weights'] | null) => void;
 	spec: SpecConfig;
 	character: Character;
 	data: GameData;
@@ -34,7 +41,7 @@ interface Props {
 const formatGain = formatDps;
 
 /** The guided view: pick your content, get one plan, tick it off. */
-export function PlanTab({ spec, character, data, filter, onFilterChange, onChange }: Props) {
+export function PlanTab({ spec, character, data, filter, onFilterChange, onChange, undoSteps = 0, onUndo, defaultWeights, onWeightsChange }: Props) {
 	const [contentOpen, setContentOpen] = useContentOpen();
 	const options = useMemo(() => ({ character, data, spec, filter }), [character, data, spec, filter]);
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
@@ -85,6 +92,35 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 		}
 	};
 	const refine = () => void refineJob.start({ character, data, spec, filter }, depth);
+	// Stat weights for these talents: measured with the simulator, then the plan is built again with them.
+	const [measuring, setMeasuring] = useState<string | null>(null);
+	const measuredForMe = /^Measured for this character/.test(spec.weights.source ?? '');
+	const rebuildWithNewWeights = useRef(false);
+	useEffect(() => {
+		if (!rebuildWithNewWeights.current) return;
+		rebuildWithNewWeights.current = false;
+		rebuild();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [spec]);
+	const measureForMe = async () => {
+		if (!defaultWeights || !onWeightsChange) return;
+		setMeasuring('Starting the simulator…');
+		try {
+			const measured = await measureWeights(character, { ...spec, weights: defaultWeights }, simClient, (done, total) => setMeasuring(`Measuring, run ${done} of ${total}…`));
+			rebuildWithNewWeights.current = true;
+			onWeightsChange(measured);
+		} catch {
+			// The button is back; the estimate stays as it was.
+		} finally {
+			setMeasuring(null);
+		}
+	};
+	// The hit the plan aims for.
+	const hitChoices = spec.hitCapPercent > 0 ? [...new Set([spec.hitCapPercent, ...Array.from({ length: Math.ceil(spec.hitCapPercent) - 1 }, (_, n) => Math.ceil(spec.hitCapPercent) - 1 - n), 0])] : [];
+	const setHitTarget = (value: number) => {
+		const next = { ...character, hitTarget: value >= spec.hitCapPercent ? undefined : value };
+		onChange({ ...next, ...buildPlan({ character: next, data, spec, filter }) });
+	};
 	// Locked slots: their planned item stays, and the rest is built around it.
 	const locks = lockedSlots(character);
 	const toggleLock = (index: number) => {
@@ -220,11 +256,34 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 									{equipped.hit.total.toFixed(1)}% hit now, {planned.hit.total.toFixed(1)}% of {planned.hit.cap}% planned
 								</span>
 							)}
+							{hitChoices.length > 0 && (
+								<label className="hit-target" title="How much hit the plan aims for. WoWSims and the guides plan to the cap; a lower target makes the planner stop paying for hit earlier and spend those slots on other stats. Changing it rebuilds the plan.">
+									Hit target
+									<select value={character.hitTarget !== undefined && character.hitTarget < spec.hitCapPercent ? character.hitTarget : spec.hitCapPercent} disabled={refining !== null} onChange={event => setHitTarget(Number(event.target.value))}>
+										{hitChoices.map(value => (
+											<option key={value} value={value}>
+												{value === spec.hitCapPercent ? `The cap, ${value}% (as WoWSims)` : value === 0 ? 'None: hit counts for nothing' : `${value}%`}
+											</option>
+										))}
+									</select>
+								</label>
+							)}
 							{caveats.length > 0 && (
 								<span className="summary-hit estimate-caveat" title={`${caveats.join('; ')}.`}>
 									less exact for you: {caveats.slice(0, -1).join('; ')}
 								</span>
 							)}
+							{talentsDiffer && !measuredForMe && defaultWeights && onWeightsChange && (
+								<button
+									type="button"
+									className="button button-small standard-talents"
+									disabled={measuring !== null || refining !== null}
+									title={`Runs the simulator ${weightRuns(spec)} times with your talents and gear, a few minutes in all, and rebuilds the plan with what it finds. The numbers in the lists then fit your talents.`}
+									onClick={measureForMe}>
+									{measuring ?? 'Fit the estimate to my talents'}
+								</button>
+							)}
+							{measuredForMe && talentsDiffer && <span className="summary-hit">The estimate is measured for your talents.</span>}
 							{talentsDiffer && (
 								<button type="button" className="button button-small standard-talents" title="Sets your talents to the ones this build was measured with. You can change them again under Sim setup." onClick={standardTalents}>
 									Use the build's standard talents
@@ -278,6 +337,11 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						{refining && (
 							<button className="button" onClick={() => refineJob.stop()}>
 								Stop
+							</button>
+						)}
+						{onUndo && (
+							<button className="button" disabled={undoSteps === 0 || refining !== null} title={undoSteps === 0 ? 'Nothing to take back yet' : `Takes back the last change of the plan (${undoSteps} ${undoSteps === 1 ? 'step' : 'steps'} kept)`} onClick={onUndo}>
+								Undo
 							</button>
 						)}
 						<button className="button" title="Throws away your own changes and the simulator's, and builds the plan again from the estimate. Locked slots stay. Use it after changing what you wear." onClick={() => rebuild()} disabled={refining !== null}>

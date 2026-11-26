@@ -627,6 +627,11 @@ function EngineNotice() {
 	);
 }
 
+/** A plan as it stood before a change, to go back to. */
+type PlanSnapshot = Pick<Character, 'plan' | 'planEnchants' | 'planLocks' | 'planTier' | 'hitTarget'>;
+/** How many steps back are kept per character. */
+const PLAN_HISTORY = 20;
+
 export function App() {
 	const [options, setOptions] = useState<ViewOptions>(loadOptions);
 	const changeOptions = useCallback((next: ViewOptions) => {
@@ -671,7 +676,9 @@ export function App() {
 		const stats = mending ? mendingWeights(measured.weights, castingShare({ healing: { pressure: healingKey.split('.')[1] } })) : measured.weights;
 		return { ...baseSpec, weights: { ...baseSpec.weights, stats } };
 	}, [baseSpec, healingKey, mending]);
-	const weightsKey = healingKey ? `${baseSpec.id}.${healingKey}${mending ? '.mending' : ''}` : baseSpec.id;
+	// Weights measured for a character with talents of its own belong to those talents, not to everybody of the build.
+	const ownTalents = character?.talents && character.talents !== baseSpec.talents ? `.t${character.talents}` : '';
+	const weightsKey = (healingKey ? `${baseSpec.id}.${healingKey}${mending ? '.mending' : ''}` : baseSpec.id) + ownTalents;
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const customWeights = useMemo(() => loadWeights(weightsKey), [weightsKey, weightsVersion]);
 	const spec = useMemo(() => (customWeights ? { ...scenarioSpec, weights: customWeights } : scenarioSpec), [scenarioSpec, customWeights]);
@@ -751,13 +758,44 @@ export function App() {
 	// While the simulator check runs, nothing that feeds it may change: the result would be for a set nobody has.
 	const job = useRefineJob();
 	const locked = job.running;
+	// Every change of the plan can be taken back: the plans before it are kept per character while the page is open.
+	const planHistory = useRef(new Map<number, PlanSnapshot[]>());
+	const [, setHistoryTick] = useState(0);
+	const rememberPlan = (before: Character | null | undefined, after: Character) => {
+		if (!before || before.plan === undefined) return;
+		const of = (c: Character): PlanSnapshot => ({ plan: c.plan, planEnchants: c.planEnchants, planLocks: c.planLocks, planTier: c.planTier, hitTarget: c.hitTarget });
+		if (JSON.stringify(of(before)) === JSON.stringify(of(after))) return;
+		const stack = planHistory.current.get(roster.active) ?? [];
+		planHistory.current.set(roster.active, [...stack, of(before)].slice(-PLAN_HISTORY));
+		setHistoryTick(tick => tick + 1);
+	};
+	const undoPlan = () => {
+		const stack = planHistory.current.get(roster.active) ?? [];
+		const last = stack[stack.length - 1];
+		if (!last || !character || refineJob.get().running) return;
+		planHistory.current.set(roster.active, stack.slice(0, -1));
+		changeRoster(replaceActive(roster, { ...character, ...last }));
+		setHistoryTick(tick => tick + 1);
+	};
+	const undoSteps = planHistory.current.get(roster.active)?.length ?? 0;
+	// Another set of characters: the kept plans no longer belong to the tiles they were kept for.
+	const rosterSize = roster.characters.length;
+	useEffect(() => {
+		planHistory.current.clear();
+	}, [rosterSize]);
 	const update = (next: Character) => {
-		if (!refineJob.get().running) changeRoster(replaceActive(roster, next));
+		if (refineJob.get().running) return;
+		rememberPlan(character, next);
+		changeRoster(replaceActive(roster, next));
 	};
 	// The check runs on whatever tab is open; its plan is written here, into the character as it is now.
 	useEffect(() => {
 		if (!job.result) return;
-		if (character) changeRoster(replaceActive(roster, { ...character, plan: job.result.plan, planEnchants: job.result.planEnchants }));
+		if (character) {
+			const next = { ...character, plan: job.result.plan, planEnchants: job.result.planEnchants };
+			rememberPlan(character, next);
+			changeRoster(replaceActive(roster, next));
+		}
 		refineJob.taken();
 	}, [job.result]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -911,7 +949,7 @@ export function App() {
 						{/* The Character page shows both sets itself, so the side panes stay away there. */}
 						{data && tab !== 'character' && tab !== 'group' && tab !== 'faq' && tab !== 'news' && <GearRails spec={spec} character={character} data={data} showEquipped={options.equippedPanel} showPlanned={options.plannedPanel} onShow={(kind, on) => changeOptions({ ...options, [kind === 'equipped' ? 'equippedPanel' : 'plannedPanel']: on })} filter={filter} onChange={update} />}
 						{tab === 'simulate' && baseSpec.role === 'healer' && <div inert={locked}><HealingPicker character={character} spec={spec} onChange={update} /></div>}
-						{tab === 'simulate' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} /> : <p>Loading item data…</p>)}
+						{tab === 'simulate' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} undoSteps={undoSteps} onUndo={undoPlan} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} /> : <p>Loading item data…</p>)}
 						{(tab === 'simulate' || tab === 'upgrades') && data && <div inert={locked}><UpgradesTab part={tab === 'simulate' ? 'tools' : 'list'} spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /></div>}
 						{tab === 'upgrades' && !data && <p>Loading item data…</p>}
 						{tab === 'simulate' && data && (

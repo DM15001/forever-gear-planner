@@ -1,4 +1,5 @@
 import { Help } from './Help';
+import { SIM_FIGHT_LIMITS } from '../lib/sim/request';
 import { useEffect, useMemo, useState } from 'react';
 
 import { simClient } from '../lib/sim/client';
@@ -545,6 +546,46 @@ export function SimSetupTab({ spec, character, data, onChange }: Props) {
 						</>
 					)}
 				</p>
+				{!healer && encounter && (
+					<>
+						<div className="sim-fight">
+							{(
+								[
+									['duration', 'Length (seconds)', encounter.duration ?? 180],
+									['variation', 'Give or take (seconds)', encounter.durationVariation ?? 0],
+									['targets', 'Enemies', encounter.targets?.length ?? 1],
+									['level', 'Enemy level', encounter.targets?.[0]?.level ?? 63],
+								] as const
+							).map(([key, label, shipped]) => (
+								<label key={key}>
+									{label}
+									<input
+										type="number"
+										min={SIM_FIGHT_LIMITS[key][0]}
+										max={SIM_FIGHT_LIMITS[key][1]}
+										value={character.simFight?.[key] ?? shipped}
+										onChange={event => {
+											const value = Number(event.target.value);
+											const next = { ...character.simFight, [key]: !event.target.value || value === shipped ? undefined : value };
+											const kept = Object.fromEntries(Object.entries(next).filter(([, v]) => v !== undefined));
+											onChange({ ...character, simFight: Object.keys(kept).length ? kept : undefined });
+										}}
+									/>
+								</label>
+							))}
+							{character.simFight && (
+								<button className="button button-small" onClick={() => onChange({ ...character, simFight: undefined })}>
+									Back to the WoWSims fight
+								</button>
+							)}
+						</div>
+						<p className="hint">
+							{character.simFight
+								? 'This is not the fight wowsims.com runs by default, so the simulated numbers here will differ from a run there. The estimates in the lists were measured for the WoWSims fight and do not follow this.'
+								: 'As WoWSims ships it. Change a number to simulate a shorter fight, more enemies or enemies of a lower level, as in a dungeon.'}
+						</p>
+					</>
+				)}
 				{BUFF_SCOPES.map(({ scope, title }) => (
 					<fieldset key={scope} className="buff-set">
 						<legend>{title}</legend>

@@ -96,6 +96,38 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Fit the estimate to your talents",
+							"text": "When your talents are not the build's standard ones, Build plan shows \"Fit the estimate to my talents\". It measures the stat weights with the simulator for your talents and gear, which takes a few minutes, and rebuilds the plan with them. The measured weights belong to those talents: other characters of the same build keep the standard ones.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "A hit target of your own",
+							"text": "Build plan has a \"Hit target\" choice under the plan's numbers. The default is the cap, as WoWSims and the guides plan. A lower target, or none at all, makes the planner stop paying for hit earlier and spend those slots on other stats. Changing it rebuilds the plan.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Set the fight of the simulation",
+							"text": "Sim setup, under \"Buffs and fight\": length of the fight, how much it varies, how many enemies and their level can be set, for example a 40 second fight against three level 60 enemies as in a dungeon. The default stays the fight WoWSims ships, and the page says so when yours differs.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Undo for the plan",
+							"text": "Next to \"Rebuild the plan\" there is an \"Undo\" button. It takes back the last change of the plan, whether that was a rebuild, the simulator check, a swap by hand or a lock, up to 20 steps while the page is open.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "No more sideways scrolling on a phone",
 							"text": "On a narrow screen \"Build plan\" was almost twice as wide as the screen, so the whole page slid sideways. The plan cards, the check controls and the content rows now fit the width, and the notes behind question marks open across the screen.",
 							"source": "Gear Planner",

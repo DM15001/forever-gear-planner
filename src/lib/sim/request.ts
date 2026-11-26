@@ -123,6 +123,7 @@ function personalize(request: SimTemplate, character: Character): void {
 	if (encounter && character.fight?.mobType) for (const target of encounter.targets ?? []) target.mobType = `MobType${character.fight.mobType}`;
 	if (encounter && character.fight?.family) for (const target of encounter.targets ?? []) target.creatureFamily = `CreatureFamily${character.fight.family}`;
 	if (encounter && character.fight?.area) encounter.areaTypes = [`AreaType${character.fight.area}`];
+	applySimFight(request, character);
 	// A healer's fight and rotation are the planner's own scenario; WoWSims ships none.
 	if (isHealer(request)) applyHealingFight(request, healingChoice(character));
 	player.profession1 = character.professions[0] ?? 'ProfessionUnknown';
@@ -530,5 +531,28 @@ export function readRotationChecks(json: string | null | undefined): RotationChe
 }
 
 /** Identifies a run, so the same gear is never simulated twice. */
+/** The limits of what the fight can be set to. */
+export const SIM_FIGHT_LIMITS = { duration: [20, 600], variation: [0, 120], targets: [1, 10], level: [55, 63] } as const;
+
+/**
+ * The fight as the character set it: length, how much it varies, how many enemies and their level. More enemies are
+ * copies of the one WoWSims ships, as its own page adds them.
+ */
+export function applySimFight(request: { encounter?: unknown }, character: Character): void {
+	const fight = character.simFight;
+	const encounter = request.encounter as { duration?: number; durationVariation?: number; targets?: Record<string, unknown>[] } | undefined;
+	if (!fight || !encounter) return;
+	const within = (value: number | undefined, [low, high]: readonly [number, number]) => (value === undefined || !Number.isFinite(value) ? undefined : Math.min(high, Math.max(low, Math.round(value))));
+	const duration = within(fight.duration, SIM_FIGHT_LIMITS.duration);
+	const variation = within(fight.variation, SIM_FIGHT_LIMITS.variation);
+	const targets = within(fight.targets, SIM_FIGHT_LIMITS.targets);
+	const level = within(fight.level, SIM_FIGHT_LIMITS.level);
+	if (duration !== undefined) encounter.duration = duration;
+	if (variation !== undefined) encounter.durationVariation = Math.min(variation, (encounter.duration ?? 180) - 10);
+	const first = encounter.targets?.[0];
+	if (first && targets !== undefined) encounter.targets = Array.from({ length: targets }, (_, index) => ({ ...structuredClone(first), ...(index > 0 ? { name: `${String(first.name ?? 'Target')} ${index + 1}` } : {}) }));
+	if (level !== undefined) for (const target of encounter.targets ?? []) target.level = level;
+}
+
 export const simKey = (character: Character, gear: Gear, iterations: number, bonus?: BonusStats) =>
-	JSON.stringify([bonus ?? 0, character.specId ?? '', character.simSettings?.id ?? 0, character.race, character.talents, character.consumables ?? 0, character.buffs ?? 0, character.bookRanks ?? 0, character.fight ?? 0, character.healing ?? 0, character.professions, gear.map(p => (p ? [p.id, p.enchant ?? 0, p.randomSuffix ?? 0] : 0)), iterations]);
+	JSON.stringify([bonus ?? 0, character.specId ?? '', character.simSettings?.id ?? 0, character.race, character.talents, character.consumables ?? 0, character.buffs ?? 0, character.bookRanks ?? 0, character.fight ?? 0, character.simFight ?? 0, character.healing ?? 0, character.professions, gear.map(p => (p ? [p.id, p.enchant ?? 0, p.randomSuffix ?? 0] : 0)), iterations]);

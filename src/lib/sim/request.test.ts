@@ -11,7 +11,7 @@ import { guidePlan } from '../guides';
 import { importCharacter } from '../importCharacter';
 import { plannedGear } from '../scoring';
 import type { Character, SpecConfig } from '../types';
-import { buildSimRequest, indexSimDb, readSimResult, simKey } from './request';
+import { applySimFight, buildSimRequest, indexSimDb, readSimResult, simKey } from './request';
 
 const spec = specJson as unknown as SpecConfig;
 const data = await loadGameData();
@@ -106,6 +106,14 @@ describe('the WebAssembly sim', () => {
 
 	const dpsOf = (character: Character, gear: Character['gear']) => readSimResult(raidSimJson(JSON.stringify(buildSimRequest(character, gear, index, 400).request)), 400).dps;
 
+	it('runs a fight set by hand: short, three enemies of level 60', () => {
+		const plain = dpsOf(dwarf, dwarf.gear);
+		const dungeon = dpsOf({ ...dwarf, simFight: { duration: 40, variation: 5, targets: 3, level: 60 } }, dwarf.gear);
+		expect(dungeon).toBeGreaterThan(0);
+		// Lower-level enemies are hit more often and harder: the number is not the raid one.
+		expect(Math.abs(dungeon - plain)).toBeGreaterThan(1);
+	});
+
 	it('simulates the equipped gear and ranks a guide set above it', () => {
 		const equipped = dpsOf(dwarf, dwarf.gear);
 		expect(equipped).toBeGreaterThan(500);
@@ -113,4 +121,24 @@ describe('the WebAssembly sim', () => {
 		const plan = guidePlan(data.guides.find(g => g.id === 'wowhead')!, dwarf, data, spec).plan;
 		expect(dpsOf(dwarf, plannedGear({ ...dwarf, plan }))).toBeGreaterThan(equipped + 100);
 	}, 60_000);
+});
+
+describe('the fight set by hand', () => {
+	const base = { encounter: { duration: 180, durationVariation: 5, targets: [{ id: 1, name: 'Raid Target', level: 63 }] } };
+	const run = (simFight: Character['simFight']) => {
+		const request = structuredClone(base) as { encounter: { duration: number; durationVariation: number; targets: { name: string; level: number }[] } };
+		applySimFight(request, { gear: [], simFight } as unknown as Character);
+		return request.encounter;
+	};
+	it('leaves the WoWSims fight alone when nothing is set', () => {
+		expect(run(undefined)).toEqual(base.encounter);
+	});
+	it('sets length, variation, enemies and level, within limits', () => {
+		const fight = run({ duration: 45, variation: 500, targets: 3, level: 60 });
+		expect(fight.duration).toBe(45);
+		expect(fight.durationVariation).toBe(35);
+		expect(fight.targets.map(target => target.name)).toEqual(['Raid Target', 'Raid Target 2', 'Raid Target 3']);
+		expect(fight.targets.every(target => target.level === 60)).toBe(true);
+		expect(run({ targets: 99 }).targets).toHaveLength(10);
+	});
 });

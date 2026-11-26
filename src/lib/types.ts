@@ -108,6 +108,18 @@ export interface Fight {
 	family?: string;
 }
 
+/** What of the simulated fight can be set. Whatever is left out is as WoWSims ships it. */
+export interface SimFight {
+	/** Seconds. */
+	duration?: number;
+	/** Seconds the length varies by, up and down. */
+	variation?: number;
+	/** How many enemies stand there. */
+	targets?: number;
+	/** The enemies' level. */
+	level?: number;
+}
+
 export interface Character {
 	name?: string;
 	/** The name of this gear set when the same character is saved several times: "Fire", "vs beasts". */
@@ -153,6 +165,10 @@ export interface Character {
 	planTier?: { asked: number; count: number; cost: number };
 	/** Slots whose planned item is fixed: "Rebuild the plan" and the simulator check keep it and fit the other slots around it. */
 	planLocks?: number[];
+	/** How much hit the plan aims for, in percent in all. Not set: the build's cap. 0: hit on gear counts for nothing. */
+	hitTarget?: number;
+	/** The fight the simulation runs, where it differs from the one WoWSims ships. */
+	simFight?: SimFight;
 	/** Enchants the plan aims for: slot index -> enchant effectId. They apply to the planned gear only. */
 	planEnchants?: Record<number, number>;
 }

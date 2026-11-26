@@ -150,6 +150,14 @@ describe('buildPlan and item sets', () => {
 		expect(scoreWith(DEFAULT_FILTER)).toBeGreaterThanOrEqual(withoutBattlegrounds * 0.995);
 	}, 60000);
 
+	it('plans less hit when the hit target is lowered', () => {
+		const hitOf = (character: Character) => scoreSet(plannedGear({ ...character, ...buildPlan({ ...options, character }) }, data), character, data, spec).hit.fromGear;
+		const toCap = hitOf(dwarf);
+		const none = hitOf({ ...dwarf, hitTarget: 0 });
+		expect(none).toBeLessThanOrEqual(toCap);
+		expect(none).toBeLessThan(Math.max(toCap, 0.01));
+	});
+
 	it('keeps a locked slot and builds the rest around it', () => {
 		const free = buildPlan(options);
 		const freePlan = free.plan ?? {};

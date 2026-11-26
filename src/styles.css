@@ -8034,3 +8034,42 @@ details.content-fold,
 		margin-top: 1.6rem;
 	}
 }
+
+.hit-target {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	margin-top: 0.3rem;
+	font-size: 0.8125rem;
+	color: var(--haze);
+}
+.hit-target select {
+	padding: 0.15rem 0.3rem;
+	font-size: 0.8125rem;
+}
+/* The fight of the simulation, set by hand. */
+.sim-fight {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: end;
+	gap: 0.6rem 1rem;
+	margin: 0.5rem 0 0.2rem;
+}
+.sim-fight label {
+	display: grid;
+	gap: 0.15rem;
+	font-size: 0.8125rem;
+	color: var(--haze);
+}
+.sim-fight input {
+	width: 6rem;
+	padding: 0.3rem 0.4rem;
+	font: inherit;
+	color: var(--mist);
+	background: var(--well);
+	border: 1px solid var(--ridge);
+	border-radius: 4px;
+}
+.hit-target {
+	white-space: nowrap;
+}
