@@ -1,5 +1,7 @@
 import { type ReactNode, useState } from 'react';
 
+/** On trial on Dev: the pages in their new order. The answers that name pages follow it there. */
+const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
 const REPO = 'https://github.com/DM15001/forever-gear-planner';
 
 interface Question {
@@ -40,9 +42,20 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 					<ol>
 						<li>On the start page, paste your character: an export from wowsims.com or a link somebody copied from this site. No export at hand? Load the WoWSims preset for your build and change the items by clicking the slots.</li>
 						<li>Pick your build under "Check gear". Talents, consumables and buffs follow the build; change them with the "Sim setup" button under the simulation on "Build plan".</li>
-						<li>Open "Build plan". Say what content you do and it fills every slot with the best set for it; "Rebuild the plan" does it again. Enchants and professions are a section at the bottom of that page.</li>
-						<li>"Customize" lists the better items for each slot with the gain in front, to pick single ones yourself. What you pick there overrides the plan.</li>
-						<li>"Farm it" sorts the planned items by dungeon.</li>
+						{IS_DEV ? (
+							<>
+								<li>Open "Content Selection" and go through the list: switch on the dungeons, reputations, sets, PvP and other sources you play. The plan is built from that and rebuilt on every change.</li>
+								<li>"Customize" is optional: it lists the better items for each slot with the gain in front, to pick single ones yourself. What you pick is locked.</li>
+								<li>Open "Build plan": your planned gear, with enchants and professions in the same panel. "Check the plan with the simulator" tests it with real simulations and keeps your locked picks.</li>
+								<li>"Farm it" shows how to get the plan, sorted by dungeon. Press "Got it" when an item drops.</li>
+							</>
+						) : (
+							<>
+								<li>Open "Build plan". Say what content you do and it fills every slot with the best set for it; "Rebuild the plan" does it again. Enchants and professions are a section at the bottom of that page.</li>
+								<li>"Customize" lists the better items for each slot with the gain in front, to pick single ones yourself. What you pick there overrides the plan.</li>
+								<li>"Farm it" sorts the planned items by dungeon.</li>
+							</>
+						)}
 					</ol>
 				),
 			},
@@ -50,11 +63,23 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 				q: 'What do the tabs do?',
 				a: (
 					<ul>
-						<li><strong>Character</strong>: what you wear, your build, talents and the link to copy your character.</li>
-						<li><strong>Plan</strong>: your plan slot by slot, what to count (dungeons, crafting, set bonuses) and the simulation.</li>
-						<li><strong>Upgrades</strong>: every better item per slot, with source and gain.</li>
-						<li><strong>Enchants &amp; professions</strong>: the best enchant per slot and what your professions add.</li>
-						<li><strong>Farm it</strong>: where your planned items drop, best dungeon first.</li>
+						{IS_DEV ? (
+							<>
+								<li><strong>Check gear</strong>: what you wear, your build, talents and the link to copy your character.</li>
+								<li><strong>Content Selection</strong>: what counts for the plan: dungeons, reputations, sets, PvP, quests, crafting, drops, vendors.</li>
+								<li><strong>Customize</strong>: every better item per slot with its gain, to pick single ones yourself. Optional.</li>
+								<li><strong>Build plan</strong>: your planned gear slot by slot, the simulation and the check with the simulator, enchants and professions.</li>
+								<li><strong>Farm it</strong>: how to get your plan and where the upgrades drop, best dungeon first.</li>
+							</>
+						) : (
+							<>
+								<li><strong>Character</strong>: what you wear, your build, talents and the link to copy your character.</li>
+								<li><strong>Plan</strong>: your plan slot by slot, what to count (dungeons, crafting, set bonuses) and the simulation.</li>
+								<li><strong>Upgrades</strong>: every better item per slot, with source and gain.</li>
+								<li><strong>Enchants &amp; professions</strong>: the best enchant per slot and what your professions add.</li>
+								<li><strong>Farm it</strong>: where your planned items drop, best dungeon first.</li>
+							</>
+						)}
 						<li><strong>Group up</strong>: the same for several characters at once, with who wants which drop.</li>
 						<li><strong>Sim setup</strong>: talents, rotation, consumables, buffs, the fight.</li>
 						<li><strong>News</strong>: what changed in WoW Forever and in WoWSims, and items the simulator cannot value yet.</li>
@@ -132,7 +157,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 				q: 'An item is missing or its source is wrong. What now?',
 				a: (
 					<>
-						<p>First check "What content do you do?" on "Build plan": items with no known source and items not in the game yet are switched off by default, and a hidden item stays hidden until you bring it back there. Class-only items show only for that class.</p>
+						<p>First check {IS_DEV ? '"Content Selection"' : '"What content do you do?" on "Build plan"'}: items with no known source and items not in the game yet are switched off by default, and a hidden item stays hidden until you bring it back there. Class-only items show only for that class.</p>
 						<p>If the source really is unknown or wrong: next to such items there is a link "know where it drops?", which opens a filled-in report. Or write an <a href={`${REPO}/issues`}>issue</a>.</p>
 					</>
 				),
@@ -146,7 +171,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 				q: 'What can the site not do?',
 				a: (
 					<ul>
-						<li><strong>No raids yet.</strong> Raid loot is not planned for. The raids are already listed, greyed out, under "What content do you do?"; that is where you will switch them on.</li>
+						<li><strong>No raids yet.</strong> Raid loot is not planned for. The raids are already listed, greyed out, under {IS_DEV ? '"Content Selection"' : '"What content do you do?"'}; that is where you will switch them on.</li>
 						<li><strong>No tanks.</strong> There is no number for survival.</li>
 						<li><strong>One target, one standard fight</strong> unless you change it with "Sim setup" under the simulation. Movement, mistakes and your group's real buffs are not in it.</li>
 						<li><strong>Some item effects are unknown.</strong> Where WoWSims has no trigger rate for an effect, the item is left out instead of guessed. "News" lists them under "On the radar".</li>
