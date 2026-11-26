@@ -446,8 +446,14 @@ function GearSlot({ index, mirrored, piece, data, onChange, onPick, onEnchant, b
 					{(enchants.length > 0 || piece.enchant) && (
 						<div className="slot-enchant">
 							{enchant ? (
-								<a className="enchant-gives" href={wowheadEnchantUrl(enchant)} target="_blank" rel="noreferrer" title={enchant.name}>
-									{enchantLine(enchant)}
+								<a className="enchant-gives" href={wowheadEnchantUrl(enchant)} target="_blank" rel="noreferrer" title={IS_DEV ? enchantLine(enchant) : enchant.name}>
+									{IS_DEV ? (
+										<>
+											<ItemIcon icon={enchant.icon ?? 'trade_engraving'} quality={enchant.quality} inline /> {enchant.name}
+										</>
+									) : (
+										enchantLine(enchant)
+									)}
 								</a>
 							) : piece.enchant ? (
 								<span className="slot-source">Enchant #{piece.enchant} does not fit this item</span>

@@ -8791,3 +8791,14 @@ details.content-fold,
 		height: 2.2rem;
 	}
 }
+/* On trial on Dev, Check gear: the enchant under an item as its icon and name; what it gives is in the hover. */
+:root:root[data-channel='dev'] .sheet .slot-enchant > .enchant-gives {
+	display: flex;
+	align-items: center;
+	gap: 0.3rem;
+	margin-top: 0.15rem;
+	text-decoration: none;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
