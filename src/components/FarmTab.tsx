@@ -161,27 +161,8 @@ export function FarmTab({ spec, character, data, filter, onChange }: Props) {
 
 			<section className="panel" aria-labelledby="farm-dungeons">
 				<h2 id="farm-dungeons">Dungeons by upgrades</h2>
-				{IS_DEV ? (
-					<details className="farm-legend fold">
-						<summary>How to read these numbers</summary>
-						<dl>
-							<dt>Up to</dt>
-							<dd>The best upgrade per slot over your equipped gear, added up.</dd>
-							<dt>Per run</dt>
-							<dd>What one run is worth on average: each upgrade's gain times its chance to drop, best one per slot. Items without a drop chance are left out.</dd>
-							<dt>Drop chance</dt>
-							<dd>Wowhead's Forever numbers from {lootDate} where we have them.</dd>
-							<dt>Classic rate</dt>
-							<dd>No Forever number yet: the rate from WoW Classic (AtlasLoot), which Forever may have changed.</dd>
-							<dt>Boss there 1 in N</dt>
-							<dd>The boss is not there on every run.</dd>
-							<dt>Wings</dt>
-							<dd>Blackrock Spire, Dire Maul and Stratholme are split into their wings.</dd>
-							<dt>Content</dt>
-							<dd>Only what you picked under "Content Selection" counts.</dd>
-						</dl>
-					</details>
-				) : (
+				{/* On trial on Dev: no explanation here at all. */}
+				{!IS_DEV && (
 				<p className="hint farm-hint">
 						"Up to" is the best upgrade per slot over your equipped gear, added up. "Per run" is what one run is worth on average: each upgrade's gain times its chance to drop, best one per slot. Drop chances are Wowhead's Forever numbers
 						from {lootDate} where we have them; the rest are the rates from WoW Classic (AtlasLoot), marked "Classic rate", which Forever may have changed. Items without any number are left out of "per run". Bosses that are not there on every
