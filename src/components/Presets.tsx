@@ -1,3 +1,4 @@
+import { Help } from './Help';
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
 
 /** The gear presets of the open character: the same character saved under several names (Main, Fire, vs beasts), each with its own build, worn gear and plan. */
@@ -72,6 +73,9 @@ export function PresetField() {
 		<div className="preset-field">
 			<label className="field-label" htmlFor="preset">
 				Preset
+				<Help label="What a preset is">
+					A preset is this character once more, with its own build, worn gear and plan: one for fire, one for frost, one against beasts. A new preset starts as a copy of the one that is open.
+				</Help>
 			</label>
 			<select id="preset" value={presets.active} onChange={event => presets.select(Number(event.target.value))}>
 				{presets.list.map(preset => (
@@ -99,7 +103,6 @@ export function PresetField() {
 					</button>
 				</div>
 			)}
-			<p className="hint build-note">A preset is this character once more, with its own build, worn gear and plan: one for fire, one for frost, one against beasts. A new preset starts as a copy of the one that is open.</p>
 			{asking && current && (
 				<ConfirmDelete
 					label={current.label}

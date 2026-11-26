@@ -9,6 +9,7 @@ import { gearStats, hitSummary, pieceStats, STAT_LABELS, statLine, wowheadEnchan
 import type { Character, GearPiece, SpecConfig, Stats, Item } from '../lib/types';
 import { EVERYTHING, withItem } from '../lib/scoring';
 import { FactionMark } from './CharacterBar';
+import { Help } from './Help';
 import { ClassIcon } from './ClassIcon';
 import { EnchantPicker } from './EnchantPicker';
 import { IconTile, PROFESSION_ICONS, RaceIcon, raceIcons } from './IconTile';
@@ -163,6 +164,10 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 					<>
 						<label className="field-label" htmlFor="build">
 							Build
+							<Help label="What a build is">
+								The WoWSims preset configurations for this class. Picking one sets its talents, rotation, consumables, buffs, debuffs and class options for the sim; see "Sim setup" under the simulation on
+								"Build plan".
+							</Help>
 						</label>
 						{/* Another build has other stat weights, so the old plan no longer holds. Its talents, consumables and buffs replace the ones set before. */}
 						<select
@@ -178,18 +183,20 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 								</option>
 							))}
 						</select>
-						<p className="hint build-note">
-							The WoWSims preset configurations for this class. Picking one sets its talents, rotation, consumables, buffs, debuffs and class options for the sim; see "Sim setup" under the simulation on "Build plan".
-							{character.talents && (
-								<>
-									{' '}
-									The sim is using your own talents ({character.talents}), not the preset's.{' '}
+						{points && onOpenTalents && (
+							<div className="talent-field">
+								<span className="field-label">Talents</span>
+								<button className="button talent-field-button" onClick={onOpenTalents} title="Opens the talent trees">
+									<strong className="num">{points}</strong>
+									<span>{talentSource}</span>
+								</button>
+								{character.talents && (
 									<button className="link" onClick={() => onChange({ ...character, talents: '' })}>
-										Use the preset's talents
+										Use the build's talents
 									</button>
-								</>
-							)}
-						</p>
+								)}
+							</div>
+						)}
 						<PresetField />
 					</>
 				)}

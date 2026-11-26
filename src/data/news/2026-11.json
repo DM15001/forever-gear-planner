@@ -96,6 +96,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Check gear: smaller slot cards, notes behind question marks, talents in the details",
+							"text": "Slot cards are only as tall as their content, with the enchant right under the item. The notes under Build and Preset moved behind question marks, and Character details has a Talents button that opens the talent trees. The line with class and \"pre-raid\" under the site title is gone.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Sim setup: explanations behind question marks",
 							"text": "The long notes under Talents, Consumables, Buffs and \"What the sim runs\" moved behind a small question mark next to each heading. Hover or tap it to read them.",
 							"source": "Gear Planner",

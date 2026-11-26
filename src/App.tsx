@@ -12,7 +12,6 @@ import { PresetContext, type Presets } from './components/Presets';
 import { NewsTab, newsUnseen } from './components/NewsTab';
 import { GearRails } from './components/GearRail';
 import { CharacterBar } from './components/CharacterBar';
-import { ClassIcon } from './components/ClassIcon';
 import { FarmTab } from './components/FarmTab';
 import { GroupFarm } from './components/GroupFarm';
 import { HealingPicker } from './components/HealingPicker';
@@ -811,10 +810,7 @@ export function App() {
 								Forever Gear Planner
 							</button>
 						</h1>
-						<p className="masthead-sub">
-							{character && <ClassIcon className={baseSpec.className} small />}
-							{character ? `${spec.name}, pre-raid` : 'Pre-raid gear for WoW: Forever'}
-						</p>
+						{!character && <p className="masthead-sub">Pre-raid gear for WoW: Forever</p>}
 					</div>
 				</div>
 				<nav className="masthead-tools" aria-label="Settings, news and questions">
