@@ -43,6 +43,9 @@
       "foodId": 13933,
       "conjuredId": 12662,
       "mhImbueId": 20750,
+      "extraIds": [
+        8423
+      ],
       "elixirIds": [
         13454,
         250343,
