@@ -3,13 +3,7 @@ import type { GameData } from '../lib/gameData';
 import { sourceLine, wowheadSourceLink } from '../lib/stats';
 import type { ItemSource } from '../lib/types';
 import { SourceSymbol } from './Ornaments';
-
-/** Where an item comes from, with the icon of that kind of source in front. */
-/** A pre-filled issue on the project's page, for someone who knows where an item really comes from. */
-const reportUrl = (item: { id: number; name: string }) =>
-	`https://github.com/DM15001/forever-gear-planner/issues/new?title=${encodeURIComponent(`Source of ${item.name} (${item.id})`)}&body=${encodeURIComponent(
-		`Item: ${item.name} (${item.id})\nhttps://www.wowhead.com/forever/item=${item.id}\n\nWhere it comes from (creature and zone, quest, vendor, craft):\n\nHow you know (you looted it, a link, a screenshot):\n`,
-	)}`;
+import { reportSource } from './ReportSource';
 
 /**
  * Where an item comes from, with the icon of that kind of source in front. With `item`, a source that is missing
@@ -31,9 +25,16 @@ export function SourceLabel({ source, data, item }: { source: ItemSource | undef
 			{item && (!source || source.assumed || source.kind === 'unknown') && (
 				<>
 					{' '}
-					<a className="source-report" href={reportUrl(item)} target="_blank" rel="noreferrer" onClick={event => event.stopPropagation()} title="Opens a short form on the project's GitHub page. It needs a GitHub account.">
+					<button
+						type="button"
+						className="link source-report"
+						onClick={event => {
+							event.stopPropagation();
+							reportSource(item);
+						}}
+						title="Tell us where this item really comes from. No account needed.">
 						know where it drops?
-					</a>
+					</button>
 				</>
 			)}
 			{source?.assumed && (

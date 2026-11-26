@@ -96,6 +96,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Tell the planner where an item drops",
+							"text": "Under an item whose source is missing or only guessed, \"know where it drops?\" (on a plan card: \"Source?\") opens a small window. Write what you know and either copy the report to paste it in a chat, which needs no account, or send it on GitHub. Reports are checked before they go in. The first one is in: Southern Watch Leggings come from the quest Snargl's Snout.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Item sources updated from AtlasLoot Continued",
 							"text": "The planner now also reads the loot tables of the AtlasLoot Continued addon (by Okrah and Lag), next to AtlasLoot Classic Forever. 56 items that had no known source got one, 32 of them trash drops: 14 each in The Drowned City and Krol'dok Stronghold, 6 each in Blackmaw Hold and Alcaz Prison, 4 in The Shaper's Terrace, and single items in Zul'Farrak, Blackrock Spire, Dire Maul and the City of Dalaran. 24 more moved from a placeholder dungeon to the real one, now with the boss that drops them. Loot of the world bosses is known too; it counts as raid loot and stays out of the plan until raids are in.",
 							"source": "Gear Planner",

@@ -20,6 +20,7 @@ import { healingChoice, scenarioKey } from './lib/sim/healing';
 import { ImportPanel } from './components/ImportPanel';
 import { BarCap, Emblem } from './components/Ornaments';
 import { PlanTab } from './components/PlanTab';
+import { ReportSource } from './components/ReportSource';
 import { refineJob, useRefineJob } from './lib/sim/refineJob';
 import { SimSetupTab } from './components/SimSetupTab';
 import { Modal, SimProvider } from './components/Sim';
@@ -893,6 +894,7 @@ export function App() {
 					/>
 					</div>
 				)}
+				<ReportSource />
 				{locked && character && !importing && tab !== 'simulate' && (
 					<p className="job-bar" role="status">
 						<span className="job-bar-text">

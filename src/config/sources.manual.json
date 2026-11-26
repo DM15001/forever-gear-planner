@@ -238,6 +238,16 @@
 			"crafted": {
 				"from": "made from a crafted item, mage only"
 			}
+		},
+		"274939": {
+			"_name": "Southern Watch Leggings",
+			"_checked": "Reported in #10: reward of the quest Snargl's Snout, https://www.wowhead.com/forever/quest=94679/snargls-snout (the page could not be opened to confirm; nothing contradicts it) (2026-11-26)",
+			"quests": [
+				{
+					"questId": 94679,
+					"name": "Snargl's Snout"
+				}
+			]
 		}
 	},
 	"npcs": {

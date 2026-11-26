@@ -1,3 +1,4 @@
+import { reportSource } from './ReportSource';
 import { estimateCaveats } from '../lib/caveats';
 import { MeasuredNote } from './MeasuredNote';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -151,6 +152,14 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 		const source = usableSources(item, faction, filter, character.professions)[0] ?? usableSources(item, faction, EVERYTHING)[0];
 		const text = guide ? `${guide.source} (per ${guide.guide.label})` : sourceLine(source, data);
 		const link = wowheadSourceLink(source);
+		// No source, or only a guess: the word asks for the real one.
+		if (!guide && (!source || source.assumed || source.kind === 'unknown')) {
+			return (
+				<button type="button" className="plan-source plan-source-ask" title={`${text}. Know where it really comes from? Click to tell us.`} onClick={() => reportSource(item)}>
+					Source?
+				</button>
+			);
+		}
 		return link ? (
 			<a className="plan-source" href={link.url} title={text} target="_blank" rel="noreferrer">
 				Source
