@@ -2,6 +2,14 @@
 
 What each data update from WoWSims changed in the item list, newest first. Written by `scripts/item-report.mjs` from `.github/workflows/engine.yml`.
 
+## 2026-11-26: WoWSims e745a64c8c
+
+2 other changes
+
+**Other changes (2)**
+- Don Rodrigo's Band (21563, epic 60, finger): classes
+- Magician's Cord (272393, epic 60, waist): classes
+
 ## 2026-11-25: WoWSims df07dfe400
 
 1 other changes

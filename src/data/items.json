@@ -122735,7 +122735,7 @@
 			"hitRating": 10,
 			"critRating": 14
 		},
-		"unique": true,
+		"limitCategory": 722,
 		"sources": [
 			{
 				"kind": "vendor",
@@ -141279,12 +141279,7 @@
 			"spellPiercing": 5,
 			"critRating": 14
 		},
-		"unique": true,
-		"classes": [
-			5,
-			8,
-			9
-		],
+		"limitCategory": 722,
 		"sources": [
 			{
 				"kind": "vendor",
@@ -178824,7 +178819,9 @@
 			"armor": 52
 		},
 		"classes": [
-			8
+			5,
+			8,
+			9
 		],
 		"sources": [
 			{
