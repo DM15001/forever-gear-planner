@@ -1,6 +1,6 @@
 import { applicableEnchants, bestEnchants } from './enchants';
 import type { GameData } from './gameData';
-import { type Candidate, type CandidateOptions, EVERYTHING, filterKey, plannedGear, reputationOf, scoreSet, planWithCost, slotCandidates, tierSets, usableSources } from './scoring';
+import { type Candidate, type CandidateOptions, EMPTY_SLOT, EVERYTHING, lockedSlots, filterKey, plannedGear, reputationOf, scoreSet, planWithCost, slotCandidates, tierSets, usableSources } from './scoring';
 import { effortLine } from './loot';
 import { sourceLine, vendorCurrency } from './stats';
 import type { Character, Enchant, Item, ItemSource } from './types';
@@ -9,8 +9,19 @@ import type { Character, Enchant, Item, ItemSource } from './types';
 export function buildPlan(options: CandidateOptions): Pick<Character, 'plan' | 'planEnchants' | 'planTier'> {
 	const { character, data, spec } = options;
 	const blank: Character = { ...character, plan: {}, planEnchants: {} };
-	const { plan, tierCount, tierCost } = planWithCost({ ...options, character: blank });
+	// Locked slots keep what is planned in them: the search starts with those pieces in place and leaves them alone.
+	const locked = lockedSlots(character);
+	const current = plannedGear(character, data);
+	const start: Character = { ...blank, gear: character.gear.map((piece, slot) => (locked.includes(slot) ? current[slot] : piece)) };
+	const { plan, tierCount, tierCost } = planWithCost({ ...options, character: start, locked });
+	for (const slot of locked) {
+		if (current[slot]?.id !== character.gear[slot]?.id) plan[slot] = current[slot]?.id ?? EMPTY_SLOT;
+	}
 	const planEnchants = bestEnchants(plannedGear({ ...blank, plan }, data), blank, data, spec);
+	for (const slot of locked) {
+		const kept = character.planEnchants?.[slot];
+		if (kept !== undefined) planEnchants[slot] = kept;
+	}
 	return { plan, planEnchants, planTier: tierCount !== undefined ? { asked: options.filter.tierMinimum, count: tierCount, cost: tierCost ?? 0 } : undefined };
 }
 

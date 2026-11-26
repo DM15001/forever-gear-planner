@@ -69,6 +69,19 @@ describe('checking the plan with the simulator', () => {
 		expect(tried.has(best)).toBe(true);
 	});
 
+	it('leaves a locked slot alone', async () => {
+		const options = { character, data, spec, filter: DEFAULT_FILTER };
+		const plan = suggestPlan(options);
+		const neck = 1;
+		const other = [...data.itemById.values()].find(item => item.slot === 'neck' && item.id !== plan[neck])!;
+		const pinned = { ...character, plan: { ...plan, [neck]: other.id }, planLocks: [neck] };
+		// A stand-in that only values strength: it would swap the neck if it were allowed to.
+		const strengthOnly = { ...spec, weights: { ...spec.weights, mainHandDps: 0, offHandDps: 0, stats: { strength: 1 } } };
+		const runner: SimRunner = { run: async (c, gear) => outcome(scoreSet(gear, c, data, strengthOnly).score) };
+		const result = await refinePlan({ ...options, character: pinned }, runner, () => {});
+		expect(result.plan[neck]).toBe(other.id);
+	});
+
 	it('stops when asked', async () => {
 		const runner: SimRunner = { run: async () => outcome(100) };
 		let calls = 0;

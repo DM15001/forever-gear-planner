@@ -1,7 +1,7 @@
 import { GEAR_SLOTS } from '../constants';
 import { bestEnchants, enchantOverview } from '../enchants';
 import { guidePlan } from '../guides';
-import { applicableEnchants, type CandidateOptions, EMPTY_SLOT, type Gear, isObtainable, plannedGear, slotCandidates, slotInUse, withItem } from '../scoring';
+import { applicableEnchants, type CandidateOptions, EMPTY_SLOT, type Gear, isObtainable, lockedSlots, plannedGear, slotCandidates, slotInUse, withItem } from '../scoring';
 import type { Character, SpecConfig } from '../types';
 import type { BonusStats, SimOutcome } from './request';
 
@@ -169,7 +169,10 @@ export async function refinePlan(
 	depth: number = REFINE_DEPTH,
 ): Promise<RefineResult> {
 	const { character, data, spec, filter } = options;
-	const slots = GEAR_SLOTS.map((_, slot) => slot).filter(slot => slotInUse(slot, spec));
+	const allSlots = GEAR_SLOTS.map((_, slot) => slot).filter(slot => slotInUse(slot, spec));
+	// Locked slots keep their planned item: no start, swap or pair touches them. Their enchants are still tried.
+	const locked = lockedSlots(character);
+	const slots = allSlots.filter(slot => !locked.includes(slot));
 	const itemOf = (set: Gear, slot: number) => (set[slot] ? data.itemById.get(set[slot]!.id) : undefined);
 	const run = async (set: Gear, iterations: number) => (await runner.run(character, set, iterations)).dps;
 	const keyOf = (set: Gear) => set.map(piece => (piece ? `${piece.id}.${piece.enchant ?? 0}.${piece.randomSuffix ?? 0}` : '-')).join('|');
@@ -189,10 +192,11 @@ export async function refinePlan(
 		starts.push({ label: `the ${guide.title}`, gear });
 	}
 	starts.push({ label: 'what you wear', gear: character.gear });
+	if (locked.length > 0) for (const start of starts) start.gear = start.gear.map((piece, slot) => (locked.includes(slot) ? planned[slot] : piece));
 	const distinct = starts.filter((start, index) => starts.findIndex(other => keyOf(other.gear) === keyOf(start.gear)) === index);
 
 	const before = await run(planned, REFINE_ITERATIONS);
-	const total = 1 + slots.length * 3 + 3 + REFINE_HIT_PAIRS + 1;
+	const total = 1 + slots.length * 2 + allSlots.length + 3 + REFINE_HIT_PAIRS + 1;
 	let done = 0;
 	let best = before;
 	const step = (label: string) => onProgress({ slot: label, done: Math.min(done++, total - 1), total, dps: best });
@@ -282,7 +286,7 @@ export async function refinePlan(
 	}
 
 	// 2. Enchants.
-	for (const slot of slots) {
+	for (const slot of allSlots) {
 		if (cancelled()) break;
 		step(`${GEAR_SLOTS[slot].label} enchant`);
 		const piece = gear[slot];
@@ -328,7 +332,8 @@ export async function refinePlan(
 	if (!cancelled()) {
 		done = total - 1;
 		step('Winner and runner-up, long run');
-		if (!measured.has(keyOf(character.gear)) && keyOf(character.gear) !== keyOf(gear)) measured.set(keyOf(character.gear), { label: 'what you wear', gear: character.gear, dps: await run(character.gear, REFINE_ITERATIONS) });
+		// With locked slots the worn gear as it is is no answer: the locked pieces would be gone from it.
+		if (locked.length === 0 && !measured.has(keyOf(character.gear)) && keyOf(character.gear) !== keyOf(gear)) measured.set(keyOf(character.gear), { label: 'what you wear', gear: character.gear, dps: await run(character.gear, REFINE_ITERATIONS) });
 		const second = [...measured.entries()].filter(([key]) => key !== keyOf(gear)).sort((x, y) => y[1].dps - x[1].dps)[0]?.[1];
 		if (second) {
 			const winner = await run(gear, FINAL_ITERATIONS);
@@ -348,7 +353,7 @@ export async function refinePlan(
 
 	const plan: Record<number, number> = {};
 	const planEnchants: Record<number, number> = {};
-	for (const slot of slots) {
+	for (const slot of allSlots) {
 		const id = gear[slot]?.id;
 		if (id !== undefined && id !== character.gear[slot]?.id) plan[slot] = id;
 		else if (id === undefined && character.gear[slot]) plan[slot] = EMPTY_SLOT;

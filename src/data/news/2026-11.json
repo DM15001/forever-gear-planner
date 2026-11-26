@@ -96,6 +96,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Lock items in your plan",
+							"text": "Every slot card under \"Build plan\" has a small lock. A locked item stays: \"Rebuild the plan\" and \"Check the plan with the simulator\" keep it and choose the other slots around it, so a locked piece with a lot of hit rating means less hit elsewhere. A note says which slots are locked and what that costs against a free plan, with \"Unlock all\". A lock on one hand holds both hands.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Classic theme rebuilt",
 							"text": "Classic now has exactly the layout of Modern, piece for piece, and only changes the look: a night backdrop, a parchment workspace with dark ink, steel-blue bars, slate gear panes and crisp bronze frames. The old Classic with its menu at the left is gone.",
 							"source": "Gear Planner",

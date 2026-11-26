@@ -8,7 +8,7 @@ import { applicableEnchants } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
 import { guideMarks, markLabel } from '../lib/guides';
 import { buildPlan, fallbacks, gotEnchant, gotItem, type PlanStep, planSteps } from '../lib/plan';
-import { EMPTY_SLOT, EVERYTHING, isUnmeasured, plannedGear, scoreSet, slotInUse, type SourceFilter, usableSources, withItem, isObtainable } from '../lib/scoring';
+import { EMPTY_SLOT, EVERYTHING, isUnmeasured, lockedSlots, plannedGear, scoreSet, slotInUse, type SourceFilter, usableSources, withItem, isObtainable } from '../lib/scoring';
 import { REFINE_DEPTH, REFINE_DEPTHS } from '../lib/sim/live';
 import { planKeyOf, refineJob, useRefineJob } from '../lib/sim/refineJob';
 import { sourceLine, statLine, wowheadItemUrl, wowheadData, wowheadEnchantUrl, wowheadSourceLink } from '../lib/stats';
@@ -84,6 +84,23 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 		}
 	};
 	const refine = () => void refineJob.start({ character, data, spec, filter }, depth);
+	// Locked slots: their planned item stays, and the rest is built around it.
+	const locks = lockedSlots(character);
+	const toggleLock = (index: number) => {
+		const held = lockedSlots({ planLocks: [index] });
+		const next = locks.includes(index) ? locks.filter(slot => !held.includes(slot)) : [...new Set([...locks, ...held])];
+		onChange({ ...character, planLocks: next.length ? next : undefined });
+	};
+	// What the locks cost against a plan with every slot free, as the lists estimate it.
+	const lockCost = useMemo(() => {
+		if (locks.length === 0) return 0;
+		const free = { ...character, planLocks: undefined };
+		const freePlan = buildPlan({ character: free, data, spec, filter });
+		const freeScore = scoreSet(plannedGear({ ...free, ...freePlan }, data), character, data, spec).score;
+		// Against the best plan the locks still allow, not against the plan as it happens to stand.
+		const lockedPlan = buildPlan({ character, data, spec, filter });
+		return Math.max(0, freeScore - scoreSet(plannedGear({ ...character, ...lockedPlan }, data), character, data, spec).score);
+	}, [character, data, spec, filter]); // eslint-disable-line react-hooks/exhaustive-deps
 	// The slot whose planned item is being swapped by hand, if any.
 	const [picking, setPicking] = useState<number | null>(null);
 	const pickItem = (index: number, itemId: number | null) => {
@@ -254,7 +271,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 								Stop
 							</button>
 						)}
-						<button className="button" title="Throws away your own changes and the simulator's, and builds the plan again from the estimate. Use it after changing what you wear." onClick={() => rebuild()} disabled={refining !== null}>
+						<button className="button" title="Throws away your own changes and the simulator's, and builds the plan again from the estimate. Locked slots stay. Use it after changing what you wear." onClick={() => rebuild()} disabled={refining !== null}>
 							Rebuild the plan
 						</button>
 					</div>
@@ -265,6 +282,18 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 								? `You asked for at least ${character.planTier.asked} set pieces, but only ${character.planTier.count} fit the slots you ticked and the content you chose.`
 								: `Built with at least ${character.planTier.asked} set pieces as you asked: ${character.planTier.count} are in the plan.`}{' '}
 							{character.planTier.cost >= 0.05 ? `That costs ${formatGain(-character.planTier.cost)} against the free choice (estimated).` : 'That costs nothing against the free choice.'}
+						</p>
+					)}
+					{locks.length > 0 && (
+						<p className="lock-note" role="status">
+							<strong>
+								{locks.length} {locks.length === 1 ? 'slot is' : 'slots are'} locked
+							</strong>
+							: {locks.map(slot => GEAR_SLOTS[slot].label).join(', ')}. "Rebuild the plan" and the simulator check keep {locks.length === 1 ? 'it' : 'them'} and fit the other slots around {locks.length === 1 ? 'it' : 'them'}.{' '}
+							{lockCost >= 0.05 ? `Against a plan with every slot free that costs ${formatGain(-lockCost)} (estimated).` : 'Against a plan with every slot free that costs nothing (estimated).'}{' '}
+							<button className="link" onClick={() => onChange({ ...character, planLocks: undefined })} disabled={refining !== null}>
+								Unlock all
+							</button>
 						</p>
 					)}
 					{refineNote && (
@@ -309,7 +338,23 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 								<ItemIcon icon={goalItem?.icon} quality={goalItem?.quality} small />
 							</button>
 							<div className="plan-slot-body">
-								<span className="slot-label">{slot.label}</span>
+								<span className="slot-label">
+									{slot.label}
+									{goalItem && (
+										<button
+											type="button"
+											className={`plan-lock${locks.includes(index) ? ' plan-lock-on' : ''}`}
+											aria-pressed={locks.includes(index)}
+											title={locks.includes(index) ? `${goalItem.name} is locked: "Rebuild the plan" and the simulator check keep it and fit the other slots around it. Click to unlock.` : `Lock ${goalItem.name}: the plan keeps it and is built around it`}
+											onClick={() => toggleLock(index)}>
+											<svg viewBox="0 0 16 16" aria-hidden="true">
+												<rect x="3" y="7" width="10" height="7" rx="1.2" fill="currentColor" />
+												<path d={locks.includes(index) ? 'M5 7V5a3 3 0 0 1 6 0v2' : 'M5 7V5a3 3 0 0 1 5.6-1.5'} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+											</svg>
+											{locks.includes(index) ? 'Locked' : 'Lock'}
+										</button>
+									)}
+								</span>
 								{goalItem ? (
 									<span className="plan-row plan-goal">
 										<ItemLink item={goalItem} />

@@ -613,6 +613,18 @@ export interface CandidateOptions {
 	data: GameData;
 	spec: SpecConfig;
 	filter: SourceFilter;
+	/** Slots the plan may not change: what is in them stays, and the others are chosen around it. */
+	locked?: number[];
+}
+
+/**
+ * The slots a character has locked. The two hands go together: a two-hander in one would empty the other, so a lock
+ * on either holds both.
+ */
+export function lockedSlots(character: Pick<Character, 'planLocks'>): number[] {
+	const locks = new Set((character.planLocks ?? []).filter(slot => Number.isInteger(slot) && slot >= 0 && slot < GEAR_SLOTS.length));
+	if (locks.has(MAIN_HAND) || locks.has(OFF_HAND)) [MAIN_HAND, OFF_HAND].forEach(slot => locks.add(slot));
+	return [...locks];
 }
 
 /** All items that could go into a slot of `gear`, best first. */
@@ -666,7 +678,8 @@ export function suggestPlan(options: CandidateOptions): Record<number, number> {
 export function planWithCost(options: CandidateOptions): PlanResult {
 	const { character, data, spec, filter } = options;
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
-	const slots = GEAR_SLOTS.map((_, slot) => slot).filter(slot => slotInUse(slot, spec));
+	const locked = new Set(options.locked ?? []);
+	const slots = GEAR_SLOTS.map((_, slot) => slot).filter(slot => slotInUse(slot, spec) && !locked.has(slot));
 	const put = (set: Gear, slot: number, id: number): Gear => withItem(set, slot, id, data, { character, spec });
 	const scoreOf = (set: Gear) => scoreSet(set, character, data, spec).score;
 

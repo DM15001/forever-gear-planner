@@ -151,6 +151,8 @@ export interface Character {
 	plan?: Record<number, number>;
 	/** Set when the plan was built with a number of dungeon set pieces asked for: how many it holds and what that costs against the free choice. */
 	planTier?: { asked: number; count: number; cost: number };
+	/** Slots whose planned item is fixed: "Rebuild the plan" and the simulator check keep it and fit the other slots around it. */
+	planLocks?: number[];
 	/** Enchants the plan aims for: slot index -> enchant effectId. They apply to the planned gear only. */
 	planEnchants?: Record<number, number>;
 }

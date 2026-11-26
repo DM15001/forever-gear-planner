@@ -7873,3 +7873,63 @@ a.plan-enchant-name:hover {
 .group-member .link {
 	font-size: 0.8125rem;
 }
+
+/* A lock on a plan slot: its item stays, the plan is built around it. */
+.plan-slot .slot-label {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+}
+.plan-lock {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+	padding: 0.05rem 0.4rem 0.05rem 0.25rem;
+	font: inherit;
+	font-size: 0.6875rem;
+	color: var(--haze);
+	background: none;
+	border: 1px solid transparent;
+	border-radius: 999px;
+	cursor: pointer;
+	opacity: 0.55;
+}
+.plan-lock svg {
+	width: 0.8rem;
+	height: 0.8rem;
+}
+.plan-slot:hover .plan-lock,
+.plan-lock:focus-visible {
+	opacity: 1;
+	border-color: var(--ridge);
+}
+.plan-lock-on {
+	opacity: 1;
+	color: var(--brass);
+	border-color: var(--brass-deep);
+	background: rgb(255 209 0 / 0.08);
+}
+.plan-slot:has(.plan-lock-on) {
+	border-color: var(--brass-deep);
+}
+.plan-slot-done:has(.plan-lock-on) {
+	opacity: 1;
+}
+.lock-note {
+	margin: 0.6rem 0 0;
+	padding: 0.45rem 0.75rem;
+	font-size: 0.875rem;
+	color: var(--mist);
+	border-left: 3px solid var(--brass);
+	background: rgb(255 209 0 / 0.06);
+}
+:root[data-theme='classic'] main .plan-lock-on {
+	color: var(--c-edge);
+	background: var(--c-gold-fill);
+	border-color: var(--c-bronze-low);
+}
+:root[data-theme='classic'] main .lock-note {
+	background: var(--c-paper-hi);
+	border-left-color: var(--c-bronze);
+}

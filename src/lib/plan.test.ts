@@ -149,4 +149,16 @@ describe('buildPlan and item sets', () => {
 		const withoutBattlegrounds = scoreWith({ ...DEFAULT_FILTER, excludedReputations: ['Silverwing Sentinels', 'Stormpike Guard', 'The League of Arathor'] });
 		expect(scoreWith(DEFAULT_FILTER)).toBeGreaterThanOrEqual(withoutBattlegrounds * 0.995);
 	}, 60000);
+
+	it('keeps a locked slot and builds the rest around it', () => {
+		const free = buildPlan(options);
+		const freePlan = free.plan ?? {};
+		const neck = 1;
+		// Any neck item the free plan did not choose.
+		const other = [...data.itemById.values()].find(item => item.slot === 'neck' && item.id !== freePlan[neck] && item.id !== dwarf.gear[neck]?.id)!;
+		const pinned: Character = { ...dwarf, ...free, plan: { ...freePlan, [neck]: other.id }, planLocks: [neck] };
+		expect(buildPlan({ ...options, character: pinned }).plan?.[neck]).toBe(other.id);
+		// Without the lock the rebuild goes back to the free choice.
+		expect(buildPlan({ ...options, character: { ...pinned, planLocks: undefined } }).plan?.[neck]).toBe(freePlan[neck]);
+	});
 });
