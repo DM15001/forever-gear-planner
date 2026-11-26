@@ -8376,3 +8376,56 @@ details.content-fold,
 	font-size: 1.1875rem;
 	color: var(--brass);
 }
+/* The plain sources (quests, crafting, drops, vendors): small switches in a row, no picture panel. */
+.source-small-title {
+	margin: 0 0 0.5rem;
+	font-family: var(--serif);
+	font-size: 1.05rem;
+	color: var(--haze);
+}
+.source-panels-small {
+	grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
+	gap: 0.5rem;
+	margin-top: 0;
+}
+.source-panels-small .source-panel-main {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	aspect-ratio: auto;
+	padding: 0.45rem 2.2rem 0.45rem 0.55rem;
+	text-align: left;
+}
+.source-panels-small .source-panel-main:hover {
+	transform: none;
+}
+.source-panels-small .source-panel-main::after,
+.source-panels-small .source-panel-back,
+.source-panels-small .source-panel-check,
+.source-panels-small .source-panel-art > :not(:nth-child(2)) {
+	display: none;
+}
+.source-panels-small .source-panel-art .dungeon-icon,
+.source-panels-small .source-panel-art > :nth-child(2) {
+	width: 2.4rem;
+	height: 2.4rem;
+	margin: 0;
+	box-shadow: none;
+}
+.source-panels-small .source-panel-name {
+	flex: 1;
+	font-family: inherit;
+	font-size: 1rem;
+	font-weight: 600;
+	text-align: left;
+	text-shadow: none;
+	color: var(--haze);
+}
+.source-panels-small .source-panel-on .source-panel-name {
+	color: var(--mist);
+}
+.source-panels-small .source-panel-off {
+	top: 50%;
+	transform: translateY(-50%);
+	background: transparent;
+}

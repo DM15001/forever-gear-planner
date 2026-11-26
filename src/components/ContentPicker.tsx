@@ -75,6 +75,8 @@ const PANEL_ICONS: Record<string, string[]> = {
 };
 /** Short names for the panels, where the row's own title is a sentence. */
 const PANEL_NAMES: Record<string, string> = { raids: 'Raids', tier: 'Dungeon sets', sets: 'Set bonuses' };
+/** Kinds with little or nothing to choose inside: a small switch instead of a picture panel. */
+const SMALL_PANELS = ['quest', 'crafted', 'drop', 'vendors', 'special'];
 interface PanelDef {
 	key: string;
 	title: ReactNode;
@@ -543,25 +545,7 @@ export function ContentPicker({ spec, character, data, filter, onChange, panels 
 		});
 	const standard = options.find(option => option.id === 'standard');
 	const everythingOn = options.find(option => option.id === 'all');
-	return (
-		<div className="content-picker source-picker">
-			<div className="presets" role="group" aria-label="Quick choices">
-				{standard && (
-					<button className="button content-preset" title={standard.hint} aria-pressed={!filter.pvp && defs.filter(def => def.allOn && !['pvp', 'special'].includes(def.key)).every(def => def.counted === def.of)} onClick={() => onChange({ ...standard.filter, hiddenItems: filter.hiddenItems })}>
-						PvE: everything but PvP
-					</button>
-				)}
-				{everythingOn && (
-					<button className="button content-preset" title={everythingOn.hint} aria-pressed={filter.pvp && defs.filter(def => def.allOn && def.key !== 'special').every(def => def.counted === def.of)} onClick={() => onChange({ ...everythingOn.filter, hiddenItems: filter.hiddenItems })}>
-						PvE and PvP
-					</button>
-				)}
-				<button className="button content-preset" title="Switches every kind of content off, to pick from nothing" onClick={clearAll} disabled={defs.every(def => def.counted === 0)}>
-					Clear all
-				</button>
-			</div>
-			<div className="source-panels">
-				{defs.map(def => {
+	const panel = (def: PanelDef) => {
 					const on = def.counted > 0;
 					const open = opened[def.key] ?? false;
 					const soon = !def.allOn;
@@ -604,8 +588,27 @@ export function ContentPicker({ spec, character, data, filter, onChange, panels 
 							)}
 						</div>
 					);
-				})}
+				};
+	return (
+		<div className="content-picker source-picker">
+			<div className="presets" role="group" aria-label="Quick choices">
+				{standard && (
+					<button className="button content-preset" title={standard.hint} aria-pressed={!filter.pvp && defs.filter(def => def.allOn && !['pvp', 'special'].includes(def.key)).every(def => def.counted === def.of)} onClick={() => onChange({ ...standard.filter, hiddenItems: filter.hiddenItems })}>
+						PvE: everything but PvP
+					</button>
+				)}
+				{everythingOn && (
+					<button className="button content-preset" title={everythingOn.hint} aria-pressed={filter.pvp && defs.filter(def => def.allOn && def.key !== 'special').every(def => def.counted === def.of)} onClick={() => onChange({ ...everythingOn.filter, hiddenItems: filter.hiddenItems })}>
+						PvE and PvP
+					</button>
+				)}
+				<button className="button content-preset" title="Switches every kind of content off, to pick from nothing" onClick={clearAll} disabled={defs.every(def => def.counted === 0)}>
+					Clear all
+				</button>
 			</div>
+			<div className="source-panels">{defs.filter(def => !SMALL_PANELS.includes(def.key)).map(panel)}</div>
+			<h3 className="source-small-title">Other sources</h3>
+			<div className="source-panels source-panels-small">{defs.filter(def => SMALL_PANELS.includes(def.key)).map(panel)}</div>
 			{body}
 		</div>
 	);
