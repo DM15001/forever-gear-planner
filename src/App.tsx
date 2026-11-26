@@ -286,6 +286,12 @@ function CheerFriends() {
 				<circle cx="21" cy="127.5" r="1.6" fill="#ffd100" />
 				<path d="M13 133 q3 -2 6 0" fill="none" stroke="#7a2340" strokeWidth="1.8" strokeLinecap="round" />
 			</g>
+			{/* the soul shards he keeps losing: a trail on the ground behind him */}
+			<g><g transform="translate(-18 200) rotate(70) scale(1.0)"><path d="M0 -7 L3.5 -2.5 L2.5 6 L-2.5 6 L-3.5 -2.5 Z" fill="#a45cff" stroke="#4a1f8a" strokeWidth="1" strokeLinejoin="round" /><path d="M0 -7 L0 6 M-3.5 -2.5 L3.5 -2.5" stroke="#d9bcff" strokeWidth="0.7" opacity="0.8" /><path d="M-1.8 -2 L-1.2 4" stroke="#ffffff" strokeWidth="0.9" strokeLinecap="round" opacity="0.8" /></g></g>
+			<g><g transform="translate(-6 202) rotate(-60) scale(0.9)"><path d="M0 -7 L3.5 -2.5 L2.5 6 L-2.5 6 L-3.5 -2.5 Z" fill="#a45cff" stroke="#4a1f8a" strokeWidth="1" strokeLinejoin="round" /><path d="M0 -7 L0 6 M-3.5 -2.5 L3.5 -2.5" stroke="#d9bcff" strokeWidth="0.7" opacity="0.8" /><path d="M-1.8 -2 L-1.2 4" stroke="#ffffff" strokeWidth="0.9" strokeLinecap="round" opacity="0.8" /></g></g>
+			<g><g transform="translate(36 202) rotate(80) scale(1.0)"><path d="M0 -7 L3.5 -2.5 L2.5 6 L-2.5 6 L-3.5 -2.5 Z" fill="#a45cff" stroke="#4a1f8a" strokeWidth="1" strokeLinejoin="round" /><path d="M0 -7 L0 6 M-3.5 -2.5 L3.5 -2.5" stroke="#d9bcff" strokeWidth="0.7" opacity="0.8" /><path d="M-1.8 -2 L-1.2 4" stroke="#ffffff" strokeWidth="0.9" strokeLinecap="round" opacity="0.8" /></g></g>
+			<g><g transform="translate(46 200) rotate(-75) scale(0.85)"><path d="M0 -7 L3.5 -2.5 L2.5 6 L-2.5 6 L-3.5 -2.5 Z" fill="#a45cff" stroke="#4a1f8a" strokeWidth="1" strokeLinejoin="round" /><path d="M0 -7 L0 6 M-3.5 -2.5 L3.5 -2.5" stroke="#d9bcff" strokeWidth="0.7" opacity="0.8" /><path d="M-1.8 -2 L-1.2 4" stroke="#ffffff" strokeWidth="0.9" strokeLinecap="round" opacity="0.8" /></g></g>
+			<g><g transform="translate(-22 193) rotate(20) scale(0.7)"><path d="M0 -7 L3.5 -2.5 L2.5 6 L-2.5 6 L-3.5 -2.5 Z" fill="#a45cff" stroke="#4a1f8a" strokeWidth="1" strokeLinejoin="round" /><path d="M0 -7 L0 6 M-3.5 -2.5 L3.5 -2.5" stroke="#d9bcff" strokeWidth="0.7" opacity="0.8" /><path d="M-1.8 -2 L-1.2 4" stroke="#ffffff" strokeWidth="0.9" strokeLinecap="round" opacity="0.8" /></g></g>
 			<g className="cheer-dragged">
 				{/* the wheelchair: back, handle, seat */}
 				<path d="M40 112 L44 178 H108 M40 112 H30" fill="none" stroke="#8d949c" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
@@ -328,12 +334,31 @@ function CheerFriends() {
 				<path d="M62 166 L106 168" stroke="#6a329c" strokeWidth="17" strokeLinecap="round" />
 				<path d="M108 168 L110 188" stroke="#5b2a86" strokeWidth="14" strokeLinecap="round" />
 				<ellipse cx="116" cy="192" rx="9" ry="5" fill="#2a1840" />
+				{/* soul shards piled in his lap */}
+				<g><g transform="translate(76 158) rotate(-25) scale(1.1)"><path d="M0 -7 L3.5 -2.5 L2.5 6 L-2.5 6 L-3.5 -2.5 Z" fill="#a45cff" stroke="#4a1f8a" strokeWidth="1" strokeLinejoin="round" /><path d="M0 -7 L0 6 M-3.5 -2.5 L3.5 -2.5" stroke="#d9bcff" strokeWidth="0.7" opacity="0.8" /><path d="M-1.8 -2 L-1.2 4" stroke="#ffffff" strokeWidth="0.9" strokeLinecap="round" opacity="0.8" /></g></g>
+				<g><g transform="translate(86 156) rotate(10) scale(1.2)"><path d="M0 -7 L3.5 -2.5 L2.5 6 L-2.5 6 L-3.5 -2.5 Z" fill="#a45cff" stroke="#4a1f8a" strokeWidth="1" strokeLinejoin="round" /><path d="M0 -7 L0 6 M-3.5 -2.5 L3.5 -2.5" stroke="#d9bcff" strokeWidth="0.7" opacity="0.8" /><path d="M-1.8 -2 L-1.2 4" stroke="#ffffff" strokeWidth="0.9" strokeLinecap="round" opacity="0.8" /></g></g>
+				<g><g transform="translate(96 159) rotate(35) scale(1.0)"><path d="M0 -7 L3.5 -2.5 L2.5 6 L-2.5 6 L-3.5 -2.5 Z" fill="#a45cff" stroke="#4a1f8a" strokeWidth="1" strokeLinejoin="round" /><path d="M0 -7 L0 6 M-3.5 -2.5 L3.5 -2.5" stroke="#d9bcff" strokeWidth="0.7" opacity="0.8" /><path d="M-1.8 -2 L-1.2 4" stroke="#ffffff" strokeWidth="0.9" strokeLinecap="round" opacity="0.8" /></g></g>
+				<g><g transform="translate(81 151) rotate(-5) scale(1.0)"><path d="M0 -7 L3.5 -2.5 L2.5 6 L-2.5 6 L-3.5 -2.5 Z" fill="#a45cff" stroke="#4a1f8a" strokeWidth="1" strokeLinejoin="round" /><path d="M0 -7 L0 6 M-3.5 -2.5 L3.5 -2.5" stroke="#d9bcff" strokeWidth="0.7" opacity="0.8" /><path d="M-1.8 -2 L-1.2 4" stroke="#ffffff" strokeWidth="0.9" strokeLinecap="round" opacity="0.8" /></g></g>
+				<g><g transform="translate(91 150) rotate(20) scale(0.9)"><path d="M0 -7 L3.5 -2.5 L2.5 6 L-2.5 6 L-3.5 -2.5 Z" fill="#a45cff" stroke="#4a1f8a" strokeWidth="1" strokeLinejoin="round" /><path d="M0 -7 L0 6 M-3.5 -2.5 L3.5 -2.5" stroke="#d9bcff" strokeWidth="0.7" opacity="0.8" /><path d="M-1.8 -2 L-1.2 4" stroke="#ffffff" strokeWidth="0.9" strokeLinecap="round" opacity="0.8" /></g></g>
+				<g><g transform="translate(102 154) rotate(-30) scale(0.85)"><path d="M0 -7 L3.5 -2.5 L2.5 6 L-2.5 6 L-3.5 -2.5 Z" fill="#a45cff" stroke="#4a1f8a" strokeWidth="1" strokeLinejoin="round" /><path d="M0 -7 L0 6 M-3.5 -2.5 L3.5 -2.5" stroke="#d9bcff" strokeWidth="0.7" opacity="0.8" /><path d="M-1.8 -2 L-1.2 4" stroke="#ffffff" strokeWidth="0.9" strokeLinecap="round" opacity="0.8" /></g></g>
 				<path d="M104 196 H126 M108 178 L112 194" fill="none" stroke="#8d949c" strokeWidth="4" strokeLinecap="round" />
-				{/* a little bag taped under the seat */}
-				<path d="M82 180 q-2 14 6 16 q10 2 10 -8 l-1 -8 Z" fill="#e8f3ea" fillOpacity="0.55" stroke="#cfd4d8" strokeWidth="1" />
-				<path d="M86 188 q2 -3 4 0 q3 -2 3 2 q2 2 -1 4 q-3 2 -6 0 q-2 -3 0 -6 Z" fill="#4f9a3a" />
-				<path d="M88 191 l2 1 M91 189 l1 2" stroke="#2f6b22" strokeWidth="0.9" strokeLinecap="round" />
-				<rect x="80" y="177" width="20" height="5" rx="1" fill="#cfd4d8" opacity="0.9" transform="rotate(-6 90 179)" />
+				{/* a bag taped under the seat, with a hemp leaf on it so nobody misses it */}
+				<path d="M80 180 q-4 20 8 23 q16 3 16 -11 l-2 -12 Z" fill="#e8f3ea" fillOpacity="0.7" stroke="#cfd4d8" strokeWidth="1.2" />
+				<path d="M84 196 q4 4 10 3 q6 -1 8 -5" fill="none" stroke="#4f9a3a" strokeWidth="3" strokeLinecap="round" opacity="0.7" />
+				<g transform="translate(92 195)" fill="#3fae2a" stroke="#1f6b16" strokeWidth="0.7" strokeLinejoin="round">
+					<path d="M0 0 Q2.2 -4.8 0 -9.5 Q-2.2 -4.8 0 0 Z" transform="rotate(0)" />
+					<path d="M0 0 Q2.2 -4.0 0 -8.0 Q-2.2 -4.0 0 0 Z" transform="rotate(-38)" />
+					<path d="M0 0 Q2.2 -4.0 0 -8.0 Q-2.2 -4.0 0 0 Z" transform="rotate(38)" />
+					<path d="M0 0 Q2.2 -3.0 0 -6.0 Q-2.2 -3.0 0 0 Z" transform="rotate(-75)" />
+					<path d="M0 0 Q2.2 -3.0 0 -6.0 Q-2.2 -3.0 0 0 Z" transform="rotate(75)" />
+					<path d="M0 0 Q2.2 -1.8 0 -3.5 Q-2.2 -1.8 0 0 Z" transform="rotate(255)" />
+					<path d="M0 0 Q2.2 -1.8 0 -3.5 Q-2.2 -1.8 0 0 Z" transform="rotate(105)" />
+					<path d="M0 0 V4" fill="none" strokeWidth="1.2" strokeLinecap="round" />
+				</g>
+				<rect x="78" y="176" width="26" height="6" rx="1" fill="#cfd4d8" opacity="0.9" transform="rotate(-6 91 179)" />
+				{/* two more on their way down */}
+				<g className="cheer-coin cheer-coin-1"><g transform="translate(44 170) rotate(-40) scale(0.9)"><path d="M0 -7 L3.5 -2.5 L2.5 6 L-2.5 6 L-3.5 -2.5 Z" fill="#a45cff" stroke="#4a1f8a" strokeWidth="1" strokeLinejoin="round" /><path d="M0 -7 L0 6 M-3.5 -2.5 L3.5 -2.5" stroke="#d9bcff" strokeWidth="0.7" opacity="0.8" /><path d="M-1.8 -2 L-1.2 4" stroke="#ffffff" strokeWidth="0.9" strokeLinecap="round" opacity="0.8" /></g></g>
+				<g className="cheer-coin cheer-coin-3"><g transform="translate(34 160) rotate(25) scale(0.8)"><path d="M0 -7 L3.5 -2.5 L2.5 6 L-2.5 6 L-3.5 -2.5 Z" fill="#a45cff" stroke="#4a1f8a" strokeWidth="1" strokeLinejoin="round" /><path d="M0 -7 L0 6 M-3.5 -2.5 L3.5 -2.5" stroke="#d9bcff" strokeWidth="0.7" opacity="0.8" /><path d="M-1.8 -2 L-1.2 4" stroke="#ffffff" strokeWidth="0.9" strokeLinecap="round" opacity="0.8" /></g></g>
 				{/* wheels */}
 				<circle cx="58" cy="178" r="21" fill="none" stroke="#23232b" strokeWidth="6" />
 				<circle cx="58" cy="178" r="16.5" fill="none" stroke="#8d949c" strokeWidth="2" />
