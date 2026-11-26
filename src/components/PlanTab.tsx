@@ -313,7 +313,25 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 					Check the plan with the simulator
 				</button>
 			)}
-			{!import.meta.env.VITE_NO_SIM && (
+			{!import.meta.env.VITE_NO_SIM && IS_DEV && (
+				<div className="depth-pick" role="radiogroup" aria-label="How thorough the check is">
+					<span className="depth-pick-label">How thorough</span>
+					<div className="depth-pick-row">
+						{REFINE_DEPTHS.map((option, step) => (
+							<button key={option.depth} type="button" role="radio" aria-checked={depth === option.depth} className={depth === option.depth ? 'depth-option depth-option-on' : 'depth-option'} disabled={refining !== null} title={`${option.label}: ${option.note}`} onClick={() => setDepth(option.depth)}>
+								<span className="depth-bars" aria-hidden="true">
+									{REFINE_DEPTHS.map((_, bar) => (
+										<i key={bar} className={bar <= step ? 'on' : undefined} />
+									))}
+								</span>
+								<strong>{option.label}</strong>
+							</button>
+						))}
+					</div>
+					<span className="depth-pick-note">{REFINE_DEPTHS.find(option => option.depth === depth)?.note ?? ''}</span>
+				</div>
+			)}
+			{!import.meta.env.VITE_NO_SIM && !IS_DEV && (
 				<label className="refine-depth">
 					How thorough
 					<select value={depth} onChange={event => setDepth(Number(event.target.value))} disabled={refining !== null}>
