@@ -470,6 +470,143 @@ function CheerFriends() {
 	);
 }
 
+/** Another of the owner's group, drawn to his description: a gnome with a grey full beard and grey hair standing up around a bald crown, in a dark blue robe whose pockets spill gold. A bottle of crystal water and a small raisin swirl hang at his hip; on his necklace two dice that show six on every side. */
+function CheerGnome() {
+	return (
+		<svg className="cheer-gnome" viewBox="0 0 170 240" width="170" height="240" aria-hidden="true">
+			{/* coins already on the floor */}
+			<ellipse cx="34" cy="196" rx="8" ry="3.5" fill="#ffd100" stroke="#8f6d1c" strokeWidth="1" />
+			<ellipse cx="46" cy="199" rx="8" ry="3.5" fill="#ffe45c" stroke="#8f6d1c" strokeWidth="1" />
+			<ellipse cx="132" cy="198" rx="8" ry="3.5" fill="#ffd100" stroke="#8f6d1c" strokeWidth="1" />
+			<ellipse cx="121" cy="195" rx="7" ry="3" fill="#ffe45c" stroke="#8f6d1c" strokeWidth="1" />
+			{/* shoes */}
+			<ellipse cx="68" cy="197" rx="15" ry="7" fill="#3a2414" />
+			<ellipse cx="102" cy="197" rx="15" ry="7" fill="#3a2414" />
+			{/* dark blue robe, wide at the hem, with a gold trim */}
+			<path d="M58 118 Q40 170 46 192 Q85 202 124 192 Q130 170 112 118 Q85 108 58 118 Z" fill="#17275c" stroke="#0c1638" strokeWidth="2" />
+			<path d="M46 184 Q85 196 124 184 L124 192 Q85 202 46 192 Z" fill="#d6a52c" />
+			<path d="M85 122 V186" stroke="#0c1638" strokeWidth="2" />
+			<path d="M70 122 Q85 134 100 122" fill="none" stroke="#2c4296" strokeWidth="3" />
+			{/* sleeves and hands */}
+			<path d="M58 120 Q38 132 36 152 L48 156 Q52 140 64 134 Z" fill="#1d3170" stroke="#0c1638" strokeWidth="1.5" />
+			<path d="M112 120 Q132 132 134 152 L122 156 Q118 140 106 134 Z" fill="#1d3170" stroke="#0c1638" strokeWidth="1.5" />
+			<circle cx="42" cy="156" r="7" fill="#f2c9a8" />
+			<circle cx="128" cy="156" r="7" fill="#f2c9a8" />
+			{/* belt */}
+			<path d="M52 146 Q85 156 118 146 L119 153 Q85 163 51 153 Z" fill="#5c3814" />
+			<rect x="79" y="148" width="12" height="11" rx="2" fill="none" stroke="#d6a52c" strokeWidth="2.5" />
+			{/* the pockets: far too full, coins stacked over the edge */}
+			<path d="M54 160 H76 V178 Q65 184 54 178 Z" fill="#101c47" stroke="#2c4296" strokeWidth="1.5" />
+			<path d="M94 160 H116 V178 Q105 184 94 178 Z" fill="#101c47" stroke="#2c4296" strokeWidth="1.5" />
+			<ellipse cx="59" cy="160" rx="6" ry="3" fill="#ffd100" stroke="#8f6d1c" strokeWidth="1" />
+			<ellipse cx="68" cy="158" rx="6" ry="3" fill="#ffe45c" stroke="#8f6d1c" strokeWidth="1" />
+			<ellipse cx="63" cy="155" rx="6" ry="3" fill="#ffd100" stroke="#8f6d1c" strokeWidth="1" />
+			<ellipse cx="72" cy="161" rx="5" ry="2.5" fill="#ffd100" stroke="#8f6d1c" strokeWidth="1" />
+			<ellipse cx="99" cy="160" rx="6" ry="3" fill="#ffe45c" stroke="#8f6d1c" strokeWidth="1" />
+			<ellipse cx="108" cy="158" rx="6" ry="3" fill="#ffd100" stroke="#8f6d1c" strokeWidth="1" />
+			<ellipse cx="104" cy="155" rx="6" ry="3" fill="#ffe45c" stroke="#8f6d1c" strokeWidth="1" />
+			<ellipse cx="112" cy="161" rx="5" ry="2.5" fill="#ffd100" stroke="#8f6d1c" strokeWidth="1" />
+			{/* and falling out */}
+			<circle className="cheer-coin cheer-coin-1" cx="52" cy="166" r="4" fill="#ffd100" stroke="#8f6d1c" strokeWidth="1" />
+			<circle className="cheer-coin cheer-coin-2" cx="118" cy="166" r="4" fill="#ffe45c" stroke="#8f6d1c" strokeWidth="1" />
+			<circle className="cheer-coin cheer-coin-3" cx="76" cy="168" r="3.5" fill="#ffd100" stroke="#8f6d1c" strokeWidth="1" />
+			<circle className="cheer-coin cheer-coin-1" cx="94" cy="168" r="3.5" fill="#ffe45c" stroke="#8f6d1c" strokeWidth="1" />
+			{/* at the hip, left: a bottle of crystal water on a cord */}
+			<path d="M40 150 Q30 156 30 164" fill="none" stroke="#c9a36a" strokeWidth="1.5" />
+			<rect x="27" y="162" width="6" height="5" rx="1" fill="#8a5a2b" />
+			<path d="M26 167 H34 Q39 172 38 186 Q36 191 30 191 Q24 191 22 186 Q21 172 26 167 Z" fill="#bfeaff" stroke="#5fc4e8" strokeWidth="1.5" opacity="0.92" />
+			<path d="M23.5 178 Q30 175 36.500 178 V186 Q35 189.500 30 189.500 Q25 189.500 23.500 186 Z" fill="#6fd0ff" opacity="0.8" />
+			<path d="M26 171 Q25 178 26 184" fill="none" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" opacity="0.9" />
+			<path className="cheer-bling cheer-bling-2" d="M38 164 l1 3 l3 1 l-3 1 l-1 3 l-1 -3 l-3 -1 l3 -1 Z" fill="#ffffff" />
+			{/* at the hip, right: a small raisin swirl */}
+			<path d="M130 150 Q140 156 140 163" fill="none" stroke="#c9a36a" strokeWidth="1.5" />
+			<circle cx="141" cy="174" r="11" fill="#d9a05a" stroke="#9a6428" strokeWidth="1.5" />
+			<path d="M141 174 q3 -3 5 0 q1 5 -5 6 q-8 0 -8 -7 q1 -8 9 -8 q9 1 9 9" fill="none" stroke="#9a6428" strokeWidth="2" strokeLinecap="round" />
+			<circle cx="136" cy="170" r="1.4" fill="#3a1f2a" />
+			<circle cx="146" cy="178" r="1.4" fill="#3a1f2a" />
+			<circle cx="139" cy="180" r="1.3" fill="#3a1f2a" />
+			<circle cx="147" cy="170" r="1.2" fill="#3a1f2a" />
+			<path d="M133 167 q4 -3 9 -2" fill="none" stroke="#fff6e0" strokeWidth="1.5" strokeLinecap="round" opacity="0.8" />
+			{/* head: big, as gnomes have them, with large ears */}
+			<path d="M52 82 l-14 -8 l10 18 Z M118 82 l14 -8 l-10 18 Z" fill="#f2c9a8" stroke="#d9a587" strokeWidth="1" />
+			<circle cx="85" cy="78" r="32" fill="#f2c9a8" />
+			{/* bald crown with a shine, grey hair standing up at both sides */}
+			<path d="M72 52 Q80 46 90 49" fill="none" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" opacity="0.7" />
+			<path d="M55 76 L40 62 L52 62 L42 44 L56 52 L54 34 L66 50 L68 58 Q58 64 55 76 Z" fill="#b9bec5" stroke="#8d949c" strokeWidth="1.2" strokeLinejoin="round" />
+			<path d="M115 76 L130 62 L118 62 L128 44 L114 52 L116 34 L104 50 L102 58 Q112 64 115 76 Z" fill="#b9bec5" stroke="#8d949c" strokeWidth="1.2" strokeLinejoin="round" />
+			{/* eyes, bushy brows, a round nose */}
+			<ellipse cx="74" cy="76" rx="6" ry="6.5" fill="#ffffff" />
+			<ellipse cx="96" cy="76" rx="6" ry="6.5" fill="#ffffff" />
+			<circle cx="75" cy="77" r="3.4" fill="#4a7fb8" />
+			<circle cx="97" cy="77" r="3.4" fill="#4a7fb8" />
+			<circle cx="75.500" cy="77" r="1.5" fill="#12222c" />
+			<circle cx="97.500" cy="77" r="1.5" fill="#12222c" />
+			<path d="M65 68 Q74 62 82 68 M88 68 Q96 62 105 68" fill="none" stroke="#b9bec5" strokeWidth="4.5" strokeLinecap="round" />
+			<ellipse cx="85" cy="86" rx="7" ry="6" fill="#e8b08e" />
+			{/* the full grey beard, with a moustache and a grin in it */}
+			<path d="M54 84 Q52 118 70 132 Q85 142 100 132 Q118 118 116 84 Q108 96 96 92 Q85 100 74 92 Q62 96 54 84 Z" fill="#c7ccd2" stroke="#8d949c" strokeWidth="1.5" strokeLinejoin="round" />
+			<path d="M64 104 Q68 122 78 130 M85 104 V136 M106 104 Q102 122 92 130" fill="none" stroke="#9aa1a9" strokeWidth="1.5" strokeLinecap="round" />
+			<path d="M85 90 Q74 88 66 96 Q76 100 85 95 Q94 100 104 96 Q96 88 85 90 Z" fill="#dfe3e7" stroke="#8d949c" strokeWidth="1" />
+			<path d="M78 101 Q85 107 92 101" fill="#7a2a2a" stroke="#5a1c1c" strokeWidth="1" />
+			{/* the necklace: two dice, six on every side */}
+			<path d="M62 122 Q85 150 108 122" fill="none" stroke="url(#cheer-gold)" strokeWidth="2.5" strokeLinecap="round" />
+			<g transform="translate(-21 -34) scale(1.25)">
+			<g transform="rotate(-10 76.5 142.5)">
+			<path d="M70 136 l4.94 -4.94 h13 l-4.94 4.94 Z" fill="#ffffff" stroke="#8d949c" strokeWidth="0.6" strokeLinejoin="round" />
+			<path d="M83 136 l4.94 -4.94 v13 l-4.94 4.94 Z" fill="#d9dde2" stroke="#8d949c" strokeWidth="0.6" strokeLinejoin="round" />
+			<rect x="70" y="136" width="13" height="13" rx="1.2" fill="#f4f1e8" stroke="#8d949c" strokeWidth="0.6" />
+			<circle cx="73.64" cy="138.86" r="1.10" fill="#12222c" />
+			<circle cx="73.64" cy="142.50" r="1.10" fill="#12222c" />
+			<circle cx="73.64" cy="146.14" r="1.10" fill="#12222c" />
+			<circle cx="79.36" cy="138.86" r="1.10" fill="#12222c" />
+			<circle cx="79.36" cy="142.50" r="1.10" fill="#12222c" />
+			<circle cx="79.36" cy="146.14" r="1.10" fill="#12222c" />
+			<ellipse cx="76.71" cy="132.54" rx="0.97" ry="0.52" fill="#12222c" />
+			<ellipse cx="74.73" cy="134.52" rx="0.97" ry="0.52" fill="#12222c" />
+			<ellipse cx="79.96" cy="132.54" rx="0.97" ry="0.52" fill="#12222c" />
+			<ellipse cx="77.98" cy="134.52" rx="0.97" ry="0.52" fill="#12222c" />
+			<ellipse cx="83.21" cy="132.54" rx="0.97" ry="0.52" fill="#12222c" />
+			<ellipse cx="81.23" cy="134.52" rx="0.97" ry="0.52" fill="#12222c" />
+			<ellipse cx="84.48" cy="137.38" rx="0.52" ry="0.97" fill="#12222c" />
+			<ellipse cx="84.48" cy="141.02" rx="0.52" ry="0.97" fill="#12222c" />
+			<ellipse cx="84.48" cy="144.66" rx="0.52" ry="0.97" fill="#12222c" />
+			<ellipse cx="86.46" cy="135.40" rx="0.52" ry="0.97" fill="#12222c" />
+			<ellipse cx="86.46" cy="139.04" rx="0.52" ry="0.97" fill="#12222c" />
+			<ellipse cx="86.46" cy="142.68" rx="0.52" ry="0.97" fill="#12222c" />
+			</g>
+			<g transform="rotate(8 95.5 143.5)">
+			<path d="M89 137 l4.94 -4.94 h13 l-4.94 4.94 Z" fill="#ffffff" stroke="#8d949c" strokeWidth="0.6" strokeLinejoin="round" />
+			<path d="M102 137 l4.94 -4.94 v13 l-4.94 4.94 Z" fill="#d9dde2" stroke="#8d949c" strokeWidth="0.6" strokeLinejoin="round" />
+			<rect x="89" y="137" width="13" height="13" rx="1.2" fill="#f4f1e8" stroke="#8d949c" strokeWidth="0.6" />
+			<circle cx="92.64" cy="139.86" r="1.10" fill="#12222c" />
+			<circle cx="92.64" cy="143.50" r="1.10" fill="#12222c" />
+			<circle cx="92.64" cy="147.14" r="1.10" fill="#12222c" />
+			<circle cx="98.36" cy="139.86" r="1.10" fill="#12222c" />
+			<circle cx="98.36" cy="143.50" r="1.10" fill="#12222c" />
+			<circle cx="98.36" cy="147.14" r="1.10" fill="#12222c" />
+			<ellipse cx="95.71" cy="133.54" rx="0.97" ry="0.52" fill="#12222c" />
+			<ellipse cx="93.73" cy="135.52" rx="0.97" ry="0.52" fill="#12222c" />
+			<ellipse cx="98.96" cy="133.54" rx="0.97" ry="0.52" fill="#12222c" />
+			<ellipse cx="96.98" cy="135.52" rx="0.97" ry="0.52" fill="#12222c" />
+			<ellipse cx="102.21" cy="133.54" rx="0.97" ry="0.52" fill="#12222c" />
+			<ellipse cx="100.23" cy="135.52" rx="0.97" ry="0.52" fill="#12222c" />
+			<ellipse cx="103.48" cy="138.38" rx="0.52" ry="0.97" fill="#12222c" />
+			<ellipse cx="103.48" cy="142.02" rx="0.52" ry="0.97" fill="#12222c" />
+			<ellipse cx="103.48" cy="145.66" rx="0.52" ry="0.97" fill="#12222c" />
+			<ellipse cx="105.46" cy="136.40" rx="0.52" ry="0.97" fill="#12222c" />
+			<ellipse cx="105.46" cy="140.04" rx="0.52" ry="0.97" fill="#12222c" />
+			<ellipse cx="105.46" cy="143.68" rx="0.52" ry="0.97" fill="#12222c" />
+			</g>
+			</g>
+			{/* name plate */}
+			<rect x="35" y="210" width="100" height="22" rx="6" fill="#3b1560" stroke="#d6a52c" strokeWidth="2.5" />
+			<text x="85" y="226.5" textAnchor="middle" fontFamily="Cinzel, Georgia, serif" fontWeight="700" fontStyle="italic" fontSize="15" fill="#ffd100">
+				Knallar
+			</text>
+		</svg>
+	);
+}
+
 const THEME_KEY = 'fgp.theme';
 const THEMES: { id: string; name: string; note: string }[] = [
 	{ id: 'forever', name: 'Modern', note: 'Dark and gold: the planner as you know it.' },
@@ -592,6 +729,7 @@ function ChannelSwitch() {
 					<>
 						<CheerFriends />
 						<CheerDwarf />
+						<CheerGnome />
 					</>,
 					document.querySelector('.tab-bar') ?? document.body,
 				)}

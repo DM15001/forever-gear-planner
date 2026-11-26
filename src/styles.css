@@ -8788,3 +8788,62 @@ details.content-fold,
 	color: var(--brass);
 	border-bottom: 1px solid var(--brass-deep);
 }
+/* The gnome of the group picture: he stands at the dwarf's right and loses coins. */
+.cheer-gnome {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 59;
+	margin: -120px 0 0 96px;
+	pointer-events: none;
+	filter: drop-shadow(0 6px 14px rgb(0 0 0 / 0.6));
+	animation: cheer-arrive-right 4s ease-out both;
+}
+.cheer-coin {
+	animation: cheer-drop 1.1s ease-in infinite;
+}
+.cheer-coin-2 {
+	animation-delay: 0.35s;
+}
+.cheer-coin-3 {
+	animation-delay: 0.7s;
+}
+@keyframes cheer-arrive-right {
+	0% {
+		opacity: 0;
+		transform: translateX(140px);
+	}
+	14% {
+		opacity: 1;
+	}
+	60%,
+	88% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+	100% {
+		opacity: 0;
+		transform: translateX(0);
+	}
+}
+@keyframes cheer-drop {
+	from {
+		transform: translateY(0);
+		opacity: 1;
+	}
+	to {
+		transform: translateY(30px);
+		opacity: 0;
+	}
+}
+@media (max-width: 56rem) {
+	.cheer-gnome {
+		display: none;
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.cheer-gnome,
+	.cheer-coin {
+		animation: none;
+	}
+}

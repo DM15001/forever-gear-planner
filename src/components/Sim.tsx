@@ -31,6 +31,9 @@ interface SimApi {
 
 const SimContext = createContext<SimApi | null>(null);
 
+/** On trial on Dev. */
+const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+
 export function SimProvider({ character, children }: { character: Character; children: ReactNode }) {
 	const [results, setResults] = useState<Record<string, SimOutcome>>({});
 	const [running, setRunning] = useState<Set<string>>(new Set());
@@ -725,7 +728,8 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 			</p>
 
 			{breakdownOpen && <BreakdownDialog equipped={equipped} planned={planned} hasPlan={hasPlan} onClose={() => setBreakdownOpen(false)} />}
-			<p className="hint">
+			{/* On trial on Dev: without this paragraph. */}
+			<p className="hint" hidden={IS_DEV}>
 				{unit() === 'HPS'
 					? 'Healing per second over the whole fight, from the WoWSims simulator: its spell data, talents, mana regeneration and consumables, with the healing scenario picked above. Time spent out of mana counts as time without healing.'
 					: `Real DPS from the WoWSims simulator, including procs and set bonuses: full raid buffs, ${sim.character.simFight ? 'the fight you set in Sim setup' : 'a 3-minute single-target fight'}, the default rotation, enchants as set on your gear. Each number has a margin of about ±1 DPS.`}
