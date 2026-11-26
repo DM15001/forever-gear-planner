@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
@@ -377,7 +378,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						</button>
 					)}
 				</p>
-			<nav className={IS_DEV ? 'slot-nav slot-strip' : 'slot-nav'} aria-label="Jump to a slot" ref={nav}>
+			<nav className={IS_DEV ? 'slot-nav slot-strip' : 'slot-nav'} style={IS_DEV ? ({ '--slots': slots.filter(row => row.candidates).length } as CSSProperties) : undefined} aria-label="Jump to a slot" ref={nav}>
 				{slots.map(({ slot, index, candidates }) => {
 					if (!candidates) return null;
 					const best = candidates[0]?.delta ?? 0;

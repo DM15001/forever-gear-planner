@@ -8696,8 +8696,7 @@ details.content-fold,
    Gold = planned, green = a better option is open, dim = nothing better than what is worn. */
 .slot-bar .slot-strip {
 	display: grid;
-	grid-auto-flow: column;
-	grid-auto-columns: minmax(0, 1fr);
+	grid-template-columns: repeat(var(--slots, 17), minmax(0, 1fr));
 	gap: 0.3rem;
 	overflow: visible;
 }
@@ -8729,6 +8728,9 @@ details.content-fold,
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+.slot-strip .slot-chip > span:last-child {
+	margin-left: 0;
 }
 .slot-strip .slot-chip .slot-chip-state {
 	font-size: 0.72rem;
@@ -8778,7 +8780,6 @@ details.content-fold,
 }
 @media (max-width: 62rem) {
 	.slot-bar .slot-strip {
-		grid-auto-flow: row;
 		grid-template-columns: repeat(9, minmax(0, 1fr));
 	}
 }
