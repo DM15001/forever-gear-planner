@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T07:02:32.846Z",
-	"inputs": "5d7ef188f278ae5b",
+	"generatedAt": "2026-11-26T09:28:35.266Z",
+	"inputs": "557b3906506fa3f1",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -280,8 +280,8 @@
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"mainHand": -80.84,
-			"offHand": -13.99
+			"offHand": -13.99,
+			"mainHand": -80.84
 		},
 		"12791": {
 			"name": "Barman Shanker",
@@ -348,8 +348,8 @@
 		},
 		"13182": {
 			"name": "Phase Blade",
-			"mainHand": -68.31,
-			"offHand": -20.18
+			"offHand": -20.18,
+			"mainHand": -68.31
 		},
 		"13183": {
 			"name": "Venomspitter",
@@ -368,8 +368,8 @@
 		},
 		"13218": {
 			"name": "Fang of the Crystal Spider",
-			"mainHand": -106.06,
-			"offHand": -25.37
+			"offHand": -25.37,
+			"mainHand": -106.06
 		},
 		"13246": {
 			"name": "Argent Avenger",
@@ -378,8 +378,8 @@
 		},
 		"13286": {
 			"name": "Rivenspike",
-			"offHand": -26.56,
-			"mainHand": -37.85
+			"mainHand": -37.85,
+			"offHand": -26.56
 		},
 		"13349": {
 			"name": "Scepter of the Unholy",
@@ -465,8 +465,8 @@
 		},
 		"15219": {
 			"name": "Dimensional Blade",
-			"mainHand": -99.54,
-			"offHand": -25.57
+			"offHand": -25.57,
+			"mainHand": -99.54
 		},
 		"15220": {
 			"name": "Battlefell Sabre",
@@ -595,8 +595,8 @@
 		},
 		"17705": {
 			"name": "Thrash Blade",
-			"mainHand": -29.03,
-			"offHand": -15.11
+			"offHand": -15.11,
+			"mainHand": -29.03
 		},
 		"17710": {
 			"name": "Charstone Dirk",
@@ -642,8 +642,8 @@
 		},
 		"18347": {
 			"name": "Well Balanced Axe",
-			"offHand": -15.47,
-			"mainHand": -70.7
+			"mainHand": -70.7,
+			"offHand": -15.47
 		},
 		"18372": {
 			"name": "Blade of the New Moon",
@@ -692,8 +692,8 @@
 		},
 		"18683": {
 			"name": "Hammer of the Vesper",
-			"mainHand": -43.81,
-			"offHand": -17.2
+			"offHand": -17.2,
+			"mainHand": -43.81
 		},
 		"18737": {
 			"name": "Bone Slicing Hatchet",
@@ -707,8 +707,8 @@
 		},
 		"19099": {
 			"name": "Glacial Blade",
-			"mainHand": -85.66,
-			"offHand": -15.65
+			"offHand": -15.65,
+			"mainHand": -85.66
 		},
 		"19100": {
 			"name": "Electrified Dagger",
@@ -893,8 +893,8 @@
 		},
 		"272452": {
 			"name": "Premier High Warlord's Blade",
-			"mainHand": 9.68,
-			"offHand": 4.2
+			"offHand": 4.2,
+			"mainHand": 9.68
 		},
 		"272592": {
 			"name": "Premier High Warlord's Cleaver",
@@ -957,8 +957,8 @@
 		},
 		"272847": {
 			"name": "Premier Grand Marshal's Punisher",
-			"mainHand": 9.68,
-			"offHand": 4.2
+			"offHand": 4.2,
+			"mainHand": 9.68
 		},
 		"272856": {
 			"name": "Premier Grand Marshal's Mageblade",
@@ -980,8 +980,8 @@
 		},
 		"274271": {
 			"name": "Deadhead Blade",
-			"mainHand": -109.09,
-			"offHand": -28.49
+			"offHand": -28.49,
+			"mainHand": -109.09
 		},
 		"274383": {
 			"name": "Kanai's Knife",
@@ -1016,8 +1016,8 @@
 		},
 		"276338": {
 			"name": "Claw of Shalla'kal",
-			"mainHand": -65.38,
-			"offHand": -27.25
+			"offHand": -27.25,
+			"mainHand": -65.38
 		},
 		"276398": {
 			"name": "Scarlet Malice",

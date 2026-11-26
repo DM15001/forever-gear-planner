@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T06:18:32.780Z",
-	"inputs": "88c83e144763390b",
+	"generatedAt": "2026-11-26T07:50:11.155Z",
+	"inputs": "a6b1ba9ea64ddcd6",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -37,8 +37,8 @@
 		},
 		"5267": {
 			"name": "Scarlet Kris",
-			"offHand": -11.83,
-			"mainHand": -62.39
+			"mainHand": -62.39,
+			"offHand": -11.83
 		},
 		"6622": {
 			"name": "Sword of Zeal",
@@ -51,13 +51,13 @@
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"mainHand": -82.06,
-			"offHand": -28.16
+			"offHand": -28.16,
+			"mainHand": -82.06
 		},
 		"8190": {
 			"name": "Hanzo Sword",
-			"offHand": -19.07,
-			"mainHand": -56.73
+			"mainHand": -56.73,
+			"offHand": -19.07
 		},
 		"9379": {
 			"name": "Sang'thraze the Deflector",
@@ -87,13 +87,13 @@
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
-			"offHand": -24.7,
-			"mainHand": -76.08
+			"mainHand": -76.08,
+			"offHand": -24.7
 		},
 		"10797": {
 			"name": "Firebreather",
-			"offHand": -47.19,
-			"mainHand": -41.58
+			"mainHand": -41.58,
+			"offHand": -47.19
 		},
 		"10803": {
 			"name": "Blade of the Wretched",
@@ -187,8 +187,8 @@
 		},
 		"12535": {
 			"name": "Doomforged Straightedge",
-			"offHand": -32.94,
-			"mainHand": -49.79
+			"mainHand": -49.79,
+			"offHand": -32.94
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
@@ -376,8 +376,8 @@
 		},
 		"14555": {
 			"name": "Alcor's Sunrazor",
-			"mainHand": -62.16,
-			"offHand": -5.82
+			"offHand": -5.82,
+			"mainHand": -62.16
 		},
 		"14576": {
 			"name": "Ebon Hilt of Marduk",
@@ -400,8 +400,8 @@
 		},
 		"15219": {
 			"name": "Dimensional Blade",
-			"mainHand": -59.66,
-			"offHand": -25.73
+			"offHand": -25.73,
+			"mainHand": -59.66
 		},
 		"15220": {
 			"name": "Battlefell Sabre",
@@ -439,8 +439,8 @@
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"mainHand": -88.07,
-			"offHand": -28.96
+			"offHand": -28.96,
+			"mainHand": -88.07
 		},
 		"15246": {
 			"name": "Demon Blade",
@@ -584,8 +584,8 @@
 		},
 		"17752": {
 			"name": "Satyr's Lash",
-			"offHand": -27.96,
-			"mainHand": -73.07
+			"mainHand": -73.07,
+			"offHand": -27.96
 		},
 		"17753": {
 			"name": "Verdant Keeper's Aim",
@@ -623,8 +623,8 @@
 		},
 		"18462": {
 			"name": "Jagged Bone Fist",
-			"offHand": -31.57,
-			"mainHand": -54.11
+			"mainHand": -54.11,
+			"offHand": -31.57
 		},
 		"18463": {
 			"name": "Ogre Pocket Knife",
@@ -646,8 +646,8 @@
 		},
 		"18498": {
 			"name": "Hedgecutter",
-			"mainHand": -42.02,
-			"offHand": -34.57
+			"offHand": -34.57,
+			"mainHand": -42.02
 		},
 		"18680": {
 			"name": "Ancient Bone Bow",
@@ -1097,8 +1097,8 @@
 		},
 		"284283": {
 			"name": "Horn of Antilos",
-			"offHand": -62.26,
-			"mainHand": -87.97
+			"mainHand": -87.97,
+			"offHand": -62.26
 		},
 		"286613": {
 			"name": "King Mosh's Tooth",

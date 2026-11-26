@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T06:18:29.470Z",
-	"inputs": "d0078a3108927515",
+	"generatedAt": "2026-11-26T08:11:00.172Z",
+	"inputs": "0aaee7b29bb0fd59",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -44,8 +44,8 @@
 		},
 		"10697": {
 			"name": "Enchanted Azsharite Felbane Dagger",
-			"mainHand": -37.43,
-			"offHand": -12.3
+			"offHand": -12.3,
+			"mainHand": -37.43
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
@@ -96,8 +96,8 @@
 		},
 		"12531": {
 			"name": "Searing Needle",
-			"mainHand": -37.07,
-			"offHand": -19.72
+			"offHand": -19.72,
+			"mainHand": -37.07
 		},
 		"12535": {
 			"name": "Doomforged Straightedge",
@@ -315,8 +315,8 @@
 		},
 		"15706": {
 			"name": "Hunt Tracker Blade",
-			"offHand": -15.01,
-			"mainHand": -43.53
+			"mainHand": -43.53,
+			"offHand": -15.01
 		},
 		"15782": {
 			"name": "Beaststalker Blade",
@@ -365,8 +365,8 @@
 		},
 		"17752": {
 			"name": "Satyr's Lash",
-			"offHand": -16.79,
-			"mainHand": -38.78
+			"mainHand": -38.78,
+			"offHand": -16.79
 		},
 		"17780": {
 			"name": "Blade of Eternal Darkness",
@@ -456,8 +456,8 @@
 		},
 		"19546": {
 			"name": "Sentinel's Blade",
-			"offHand": -8.43,
-			"mainHand": -18.61
+			"mainHand": -18.61,
+			"offHand": -8.43
 		},
 		"19547": {
 			"name": "Sentinel's Blade",
@@ -506,8 +506,8 @@
 		},
 		"24222": {
 			"name": "The Shadowfoot Stabber",
-			"mainHand": -28.21,
-			"offHand": -15.26
+			"offHand": -15.26,
+			"mainHand": -28.21
 		},
 		"250614": {
 			"name": "Thorium Cestus",
@@ -591,8 +591,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"mainHand": 10.62,
-			"offHand": -1.51
+			"offHand": -1.51,
+			"mainHand": 10.62
 		},
 		"272845": {
 			"name": "Premier Grand Marshal's Left Hand Blade",

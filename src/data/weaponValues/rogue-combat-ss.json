@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T06:23:28.831Z",
-	"inputs": "217f20aa2b19e08f",
+	"generatedAt": "2026-11-26T08:35:12.117Z",
+	"inputs": "c85b16a5de9ecd75",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -51,13 +51,13 @@
 		},
 		"6660": {
 			"name": "Julie's Dagger",
-			"mainHand": -109.8,
-			"offHand": -26.15
+			"offHand": -26.15,
+			"mainHand": -109.8
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"mainHand": -111.33,
-			"offHand": -31.77
+			"offHand": -31.77,
+			"mainHand": -111.33
 		},
 		"8190": {
 			"name": "Hanzo Sword",
@@ -122,8 +122,8 @@
 		},
 		"10804": {
 			"name": "Fist of the Damned",
-			"mainHand": -67.93,
-			"offHand": -20.97
+			"offHand": -20.97,
+			"mainHand": -67.93
 		},
 		"10805": {
 			"name": "Eater of the Dead",
@@ -285,8 +285,8 @@
 		},
 		"12792": {
 			"name": "Volcanic Hammer",
-			"mainHand": -45.94,
-			"offHand": -23.23
+			"offHand": -23.23,
+			"mainHand": -45.94
 		},
 		"12794": {
 			"name": "Masterwork Stormhammer",
@@ -304,8 +304,8 @@
 		},
 		"12798": {
 			"name": "Annihilator",
-			"mainHand": -35.39,
-			"offHand": -22.88
+			"offHand": -22.88,
+			"mainHand": -35.39
 		},
 		"12939": {
 			"name": "Dal'Rend's Tribal Guardian",
@@ -344,8 +344,8 @@
 		},
 		"13182": {
 			"name": "Phase Blade",
-			"offHand": -24.35,
-			"mainHand": -59.57
+			"mainHand": -59.57,
+			"offHand": -24.35
 		},
 		"13183": {
 			"name": "Venomspitter",
@@ -490,13 +490,13 @@
 		},
 		"15237": {
 			"name": "Corpse Harvester",
-			"mainHand": -58.42,
-			"offHand": -37.56
+			"offHand": -37.56,
+			"mainHand": -58.42
 		},
 		"15238": {
 			"name": "Warlord's Axe",
-			"mainHand": -64,
-			"offHand": -32.58
+			"offHand": -32.58,
+			"mainHand": -64
 		},
 		"15239": {
 			"name": "Felstone Reaver",
@@ -505,13 +505,13 @@
 		},
 		"15240": {
 			"name": "Demon's Claw",
-			"mainHand": -53.44,
-			"offHand": -29.2
+			"offHand": -29.2,
+			"mainHand": -53.44
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"offHand": -36.37,
-			"mainHand": -118.94
+			"mainHand": -118.94,
+			"offHand": -36.37
 		},
 		"15246": {
 			"name": "Demon Blade",
@@ -703,8 +703,8 @@
 		},
 		"19099": {
 			"name": "Glacial Blade",
-			"mainHand": -74.98,
-			"offHand": -20.4
+			"offHand": -20.4,
+			"mainHand": -74.98
 		},
 		"19100": {
 			"name": "Electrified Dagger",
@@ -733,8 +733,8 @@
 		},
 		"19543": {
 			"name": "Scout's Blade",
-			"offHand": -26.34,
-			"mainHand": -98.7
+			"mainHand": -98.7,
+			"offHand": -26.34
 		},
 		"19546": {
 			"name": "Sentinel's Blade",
@@ -753,8 +753,8 @@
 		},
 		"19551": {
 			"name": "Legionnaire's Sword",
-			"offHand": -31.93,
-			"mainHand": -42.91
+			"mainHand": -42.91,
+			"offHand": -31.93
 		},
 		"19554": {
 			"name": "Protector's Sword",
@@ -763,8 +763,8 @@
 		},
 		"19555": {
 			"name": "Protector's Sword",
-			"mainHand": -42.91,
-			"offHand": -31.93
+			"offHand": -31.93,
+			"mainHand": -42.91
 		},
 		"20070": {
 			"name": "Sageclaw",
@@ -815,8 +815,8 @@
 		},
 		"24222": {
 			"name": "The Shadowfoot Stabber",
-			"offHand": -26.71,
-			"mainHand": -90.04
+			"mainHand": -90.04,
+			"offHand": -26.71
 		},
 		"227935": {
 			"name": "Hammer of the Fallen Thane",
@@ -844,8 +844,8 @@
 		},
 		"260180": {
 			"name": "Scout's Dagger",
-			"mainHand": -106.15,
-			"offHand": -32.45
+			"offHand": -32.45,
+			"mainHand": -106.15
 		},
 		"260209": {
 			"name": "Truesong's Hammer",
@@ -967,8 +967,8 @@
 		},
 		"272859": {
 			"name": "Premier Grand Marshal's Swiftblade",
-			"offHand": 0.31,
-			"mainHand": -34.94
+			"mainHand": -34.94,
+			"offHand": 0.31
 		},
 		"274265": {
 			"name": "Brush Cutter",
@@ -1076,8 +1076,8 @@
 		},
 		"280068": {
 			"name": "Bloody Claws of Attack",
-			"mainHand": -21.12,
-			"offHand": -28.13
+			"offHand": -28.13,
+			"mainHand": -21.12
 		},
 		"280077": {
 			"name": "Fist of Revelation",
@@ -1086,8 +1086,8 @@
 		},
 		"280085": {
 			"name": "Tunnelweb Pincer",
-			"offHand": -22.27,
-			"mainHand": -93.99
+			"mainHand": -93.99,
+			"offHand": -22.27
 		},
 		"281586": {
 			"name": "Elderwild Construction Hammer",
@@ -1105,8 +1105,8 @@
 		},
 		"282023": {
 			"name": "Clack's Claw",
-			"mainHand": -54.08,
-			"offHand": -39.56
+			"offHand": -39.56,
+			"mainHand": -54.08
 		},
 		"284101": {
 			"name": "Blade of Senseless Slaughter",

@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T06:03:17.690Z",
-	"inputs": "227f121d6e814f9e",
+	"generatedAt": "2026-11-26T07:41:31.665Z",
+	"inputs": "fc5b4405ead07e3d",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -27,13 +27,13 @@
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"mainHand": -45.05,
-			"offHand": -15.5
+			"offHand": -15.5,
+			"mainHand": -45.05
 		},
 		"10697": {
 			"name": "Enchanted Azsharite Felbane Dagger",
-			"mainHand": -32.18,
-			"offHand": -8.76
+			"offHand": -8.76,
+			"mainHand": -32.18
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
@@ -60,8 +60,8 @@
 		},
 		"12531": {
 			"name": "Searing Needle",
-			"mainHand": -38.99,
-			"offHand": -13.32
+			"offHand": -13.32,
+			"mainHand": -38.99
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
@@ -96,8 +96,8 @@
 		},
 		"13368": {
 			"name": "Bonescraper",
-			"offHand": -2.28,
-			"mainHand": -18.91
+			"mainHand": -18.91,
+			"offHand": -2.28
 		},
 		"13964": {
 			"name": "Witchblade",
@@ -140,8 +140,8 @@
 		},
 		"15783": {
 			"name": "Beasthunter Dagger",
-			"mainHand": -34.73,
-			"offHand": -11.42
+			"offHand": -11.42,
+			"mainHand": -34.73
 		},
 		"17710": {
 			"name": "Charstone Dirk",
@@ -176,8 +176,8 @@
 		},
 		"19100": {
 			"name": "Electrified Dagger",
-			"mainHand": -20.02,
-			"offHand": -2.21
+			"offHand": -2.21,
+			"mainHand": -20.02
 		},
 		"19324": {
 			"name": "The Lobotomizer",
@@ -228,8 +228,8 @@
 		},
 		"260172": {
 			"name": "Assassin's Dagger",
-			"mainHand": -46.13,
-			"offHand": -15.13
+			"offHand": -15.13,
+			"mainHand": -46.13
 		},
 		"260180": {
 			"name": "Scout's Dagger",
@@ -254,8 +254,8 @@
 		},
 		"272596": {
 			"name": "Premier High Warlord's Razor",
-			"offHand": 5.96,
-			"mainHand": -3.64
+			"mainHand": -3.64,
+			"offHand": 5.96
 		},
 		"272683": {
 			"name": "Premier High Warlord's Spellblade",
@@ -290,8 +290,8 @@
 		},
 		"276738": {
 			"name": "Katerina's Shanker",
-			"offHand": -12.13,
-			"mainHand": -36
+			"mainHand": -36,
+			"offHand": -12.13
 		},
 		"276903": {
 			"name": "Shimmerwine Shanker",
