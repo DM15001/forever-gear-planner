@@ -436,7 +436,10 @@ export function usableSources(item: Item, faction: Faction | undefined, filter: 
 	// A battleground's quartermaster sells it: with that battleground switched off the item is out, also by its plain "PvP" entry.
 	const grounds = (item.sources ?? []).map(battlegroundOf).filter((name): name is string => name !== undefined);
 	if (grounds.length > 0 && grounds.every(name => filter.excludedReputations.includes(name))) return [];
+	// A crafted item that is also listed as a drop: the drop is where its pattern comes from, not the item. Making it is the only way to it.
+	const made = (item.sources ?? []).some(s => s.kind === 'crafted');
 	return (item.sources ?? []).filter(s => {
+		if (made && s.kind === 'drop') return false;
 		if (s.zoneKind === 'raid' || isRaidQuest(s)) return false;
 		if (pvpItem && s.kind === 'vendor' && !filter.pvp) return false;
 		if (s.dungeonKey) {

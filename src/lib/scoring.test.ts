@@ -198,6 +198,14 @@ describe('reputation filter', () => {
 		}
 	});
 
+	it('does not offer a crafted item through the drop of its pattern', () => {
+		// Gloves of Spell Mastery: tailored; the data also lists the creature that drops the pattern.
+		const gloves = data.itemById.get(14146);
+		if (!gloves) return;
+		expect(usableSources(gloves, 'alliance', { ...DEFAULT_FILTER, crafted: false, drop: true })).toHaveLength(0);
+		expect(usableSources(gloves, 'alliance', { ...DEFAULT_FILTER, crafted: true }).map(s => s.kind)).toEqual(['crafted']);
+	});
+
 	it('leaves out a battleground reward when that battleground is switched off, PvP on or not', () => {
 		// Outrider's Plate Legguards: sold by the Warsong Outriders' quartermaster, and also listed as plain "PvP".
 		const pants = [...data.itemById.values()].find(item => item.sources?.some(s => s.kind === 'vendor' && s.npcId === 14754) && item.sources.some(s => s.kind === 'pvp'));
