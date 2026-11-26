@@ -218,7 +218,8 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 	/** What an enchant gives: its stats, or the DPS the simulator measured for its effect. */
 	const enchantGives = (enchant: Enchant) => {
 		const measured = data.simValues.enchants.get(enchant.effectId);
-		return statLine(enchant.stats ?? {}) || (measured !== undefined ? `${formatGain(measured)} from its effect` : '');
+		// Plain stats are in the enchant's own tooltip; only what the tooltip cannot say is written out: the measured worth of a proc.
+		return statLine(enchant.stats ?? {}) ? '' : measured !== undefined ? `${formatGain(measured)} from its effect` : '';
 	};
 
 	// What the estimate does not know about this character: said next to it, before anybody wonders.
@@ -423,24 +424,6 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				{NEW_LAYOUT && (
 					<header className="plan-gear-head">
 						<h3>Your planned gear</h3>
-						<dl className="plan-gear-legend">
-							<div>
-								<dt className="plan-gear-key plan-gear-key-goal">Planned</dt>
-								<dd>The item each card names: what the plan wants you to wear.</dd>
-							</div>
-							<div>
-								<dt className="plan-gear-key">Replaces</dt>
-								<dd>What you wear in that slot now.</dd>
-							</div>
-							<div>
-								<dt className="plan-gear-key">Options</dt>
-								<dd>The next best. Click one to plan it instead.</dd>
-							</div>
-							<div>
-								<dt className="plan-gear-key plan-gear-key-worn">You wear it</dt>
-								<dd>Nothing to do in that slot.</dd>
-							</div>
-						</dl>
 					</header>
 				)}
 				<ul className="plain-list plan-slots" inert={refining !== null}>

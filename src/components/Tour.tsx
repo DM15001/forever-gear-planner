@@ -52,6 +52,9 @@ const DEV_GROUP_STEPS: TourStep[] = [
 	{ target: '.group-switches', title: 'What counts and how it looks', text: '"Planned items only" counts what each one has in their plan, "Every upgrade" anything better than what they wear. Sort by gain or by people, as cards or as a list.' },
 	{ target: '.group-dungeon', title: 'The dungeons', text: 'Best for the group first. "Who wants what" opens a table below the card: every drop, who needs it and the gain. Press "Got it" when someone has their item.' },
 ];
+/** On trial on the Dev copy: several groups. The tour names the row they sit in. */
+if (import.meta.env.VITE_CHANNEL === 'dev')
+	DEV_GROUP_STEPS.splice(1, 0, { target: '.group-tabs', title: 'Your groups', text: 'Keep several groups, one per circle of friends. Each has its own name and its own members. "New group" starts one with your open character in it.' });
 const TOURS: Record<TourId, TourStep[]> = NEW_LAYOUT ? { main: DEV_MAIN_STEPS, group: DEV_GROUP_STEPS } : { main: MAIN_STEPS, group: GROUP_STEPS };
 
 const stored = (id: TourId) => {

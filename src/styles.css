@@ -9155,3 +9155,72 @@ details.content-fold,
 		grid-row: 1;
 	}
 }
+
+/* On trial on Dev, Group up: several groups, as a row of tabs with a small sign each. */
+.group-tabs {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.4rem;
+	margin: 0.6rem 0 0.9rem;
+	padding-bottom: 0.6rem;
+	border-bottom: 1px solid var(--hairline);
+}
+.group-tab {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+	padding: 0.35rem 0.75rem;
+	font: inherit;
+	font-size: 0.9375rem;
+	color: var(--haze);
+	background: #0a0806;
+	border: 1px solid var(--ridge);
+	border-radius: 999px;
+	cursor: pointer;
+}
+.group-tab:hover {
+	border-color: var(--brass-deep);
+	color: var(--mist);
+}
+.group-tab-on {
+	color: var(--brass);
+	border-color: var(--brass);
+	background: linear-gradient(180deg, rgb(214 174 95 / 0.14), transparent 70%), var(--slate-raised);
+	font-weight: 600;
+}
+.group-sign {
+	width: 1.4rem;
+	height: 0.95rem;
+	flex: none;
+}
+.group-tab-count {
+	min-width: 1.3rem;
+	padding: 0 0.3rem;
+	font-size: 0.75rem;
+	text-align: center;
+	color: var(--on-brass);
+	background: var(--brass-deep);
+	border-radius: 999px;
+}
+.group-tab-on .group-tab-count {
+	background: var(--brass);
+}
+.group-tab-new {
+	border-style: dashed;
+}
+.group-tab input {
+	width: 10rem;
+	padding: 0.1rem 0.3rem;
+	font: inherit;
+	color: inherit;
+	background: #0006;
+	border: 1px solid var(--brass-deep);
+	border-radius: 4px;
+}
+.group-tab-tools {
+	display: inline-flex;
+	gap: 0.8rem;
+	margin-left: auto;
+	font-size: 0.8125rem;
+}

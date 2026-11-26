@@ -33,6 +33,40 @@ function loadSaved(): Saved {
 	}
 }
 
+/** On trial on the Dev copy: several groups, each with its own name and its own pick of characters. */
+const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+const GROUPS_KEY = 'fgp.groups';
+interface NamedGroup {
+	name: string;
+	/** The characters in this group, by their place among the saved ones. */
+	members: number[];
+}
+interface GroupsSaved {
+	groups: NamedGroup[];
+	at: number;
+}
+function loadGroups(): GroupsSaved | null {
+	try {
+		const saved = JSON.parse(localStorage.getItem(GROUPS_KEY) ?? 'null') as Partial<GroupsSaved> | null;
+		if (!saved || !Array.isArray(saved.groups) || saved.groups.length === 0) return null;
+		const groups = saved.groups.filter(group => group && typeof group.name === 'string' && Array.isArray(group.members)).map(group => ({ name: group.name.slice(0, 40), members: group.members.filter(Number.isInteger) }));
+		if (groups.length === 0) return null;
+		return { groups, at: Number.isInteger(saved.at) && saved.at! >= 0 && saved.at! < groups.length ? saved.at! : 0 };
+	} catch {
+		return null;
+	}
+}
+/** A small sign for a group: three heads. */
+const GroupSign = () => (
+	<svg className="group-sign" viewBox="0 0 24 16" aria-hidden="true">
+		<circle cx="6" cy="6" r="3" fill="currentColor" opacity="0.6" />
+		<circle cx="18" cy="6" r="3" fill="currentColor" opacity="0.6" />
+		<path d="M0.5 16 Q1 10 6 10 Q9 10 10 12 M23.500 16 Q23 10 18 10 Q15 10 14 12" fill="none" stroke="currentColor" strokeWidth="2" opacity="0.6" />
+		<circle cx="12" cy="5" r="3.6" fill="currentColor" />
+		<path d="M5.5 16 Q6 9.500 12 9.500 Q18 9.500 18.500 16 Z" fill="currentColor" />
+	</svg>
+);
+
 /** A tiny Bogdan: hat, shades, beard. Drawn here so it needs no image file. */
 const MINI_BOGDAN =
 	'<svg viewBox="0 0 40 40" width="40" height="40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="12" fill="#dba77e"/><path d="M9 22 Q8 38 20 39 Q32 38 31 22 Q26 28 20 28 Q14 28 9 22 Z" fill="#b5531f"/><path d="M14 30 Q20 36 26 30 Q20 33 14 30 Z" fill="#fff"/><ellipse cx="20" cy="12" rx="17" ry="4" fill="#4a1f70"/><path d="M11 12 Q10 1 20 1 Q30 1 29 12 Z" fill="#6a329c"/><path d="M11 9 Q20 12 29 9 V12 Q20 15 11 12 Z" fill="#e2a93a"/><path d="M10 17 H19 V20 Q19 24 14.5 24 Q10 24 10 20 Z M21 17 H30 V20 Q30 24 25.5 24 Q21 24 21 20 Z" fill="#0a0908" stroke="#ffd100" stroke-width="0.8"/><path d="M9 17 H31" stroke="#0a0908" stroke-width="1.5"/></svg>';
@@ -79,6 +113,30 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 			// Without storage the choice lasts until the page is closed.
 		}
 	};
+	// Dev trial: named groups. Each keeps who is in it; the first one starts from the ticks there were before.
+	const [many, setMany] = useState<GroupsSaved>(() => loadGroups() ?? { groups: [{ name: 'Group 1', members: roster.characters.map((_, index) => index).filter(index => !saved.out.includes(index)) }], at: 0 });
+	const saveMany = (next: GroupsSaved) => {
+		setMany(next);
+		try {
+			localStorage.setItem(GROUPS_KEY, JSON.stringify(next));
+		} catch {
+			// Without storage the groups last until the page is closed.
+		}
+	};
+	const group = many.groups[many.at] ?? many.groups[0];
+	const [renaming, setRenaming] = useState(false);
+	/** Who is left out of the group that is open: on Dev whoever is not in it, elsewhere the unticked ones. */
+	const out = IS_DEV ? roster.characters.map((_, index) => index).filter(index => !group.members.includes(index)) : saved.out;
+	const setIn = (index: number, on: boolean) => {
+		if (!IS_DEV) return change({ out: on ? saved.out.filter(i => i !== index) : [...saved.out, index] });
+		saveMany({ ...many, groups: many.groups.map((g, i) => (i === many.at ? { ...g, members: on ? [...new Set([...g.members, index])] : g.members.filter(m => m !== index) } : g)) });
+	};
+	/** New characters at the end of the saved ones join the open group. */
+	const joinGroup = (from: number, count: number) =>
+		IS_DEV && count > 0 && saveMany({ ...many, groups: many.groups.map((g, i) => (i === many.at ? { ...g, members: [...g.members, ...Array.from({ length: count }, (_, k) => from + k)] } : g)) });
+	/** A character was removed: everybody after it moves up one place, in every group. */
+	const dropFromGroups = (index: number) =>
+		IS_DEV && saveMany({ ...many, groups: many.groups.map(g => ({ ...g, members: g.members.filter(m => m !== index).map(m => (m > index ? m - 1 : m)) })) });
 	const [undo, setUndo] = useState<{ text: string; index: number; before: Character } | null>(null);
 	const [open, setOpen] = useState<Set<string>>(new Set());
 	const [pasted, setPasted] = useState('');
@@ -95,7 +153,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 		);
 	};
 
-	const picked = roster.characters.map((character, index) => ({ character, index })).filter(({ index }) => !saved.out.includes(index));
+	const picked = roster.characters.map((character, index) => ({ character, index })).filter(({ index }) => !out.includes(index));
 	const chosen = picked.slice(0, MOST);
 	// The item data is narrowed to a build, so each build in the group loads its own once.
 	const specIds = [...new Set(chosen.map(({ character }) => specOf(character).id))].sort().join(' ');
@@ -150,7 +208,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 				return [{ index, label: characterLabel(character, index, spec), options: { character, spec, filter, data: dataFor(base, character.fight, filter.ignoredSets) } }];
 			}),
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[roster, saved.out.join(','), loaded],
+		[roster, out.join(','), loaded],
 	);
 	const dungeons = useMemo(() => sortGroup(groupFarm(members, saved.scope), saved.sort), [members, saved.scope, saved.sort]);
 	// How many dungeons there would be with every upgrade counted: so "planned only" can say what it leaves out.
@@ -230,6 +288,58 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 					characters. Their later changes need a new copy: nothing is synced.
 				</p>
 			)}
+			{IS_DEV && (
+				<div className="group-tabs" role="tablist" aria-label="Your groups">
+					{many.groups.map((g, i) =>
+						i === many.at && renaming ? (
+							<form
+								key={i}
+								className="group-tab group-tab-on"
+								onSubmit={event => {
+									event.preventDefault();
+									setRenaming(false);
+								}}>
+								<GroupSign />
+								<input
+									autoFocus
+									value={g.name}
+									maxLength={40}
+									aria-label="Name of the group"
+									onChange={event => saveMany({ ...many, groups: many.groups.map((other, k) => (k === i ? { ...other, name: event.target.value } : other)) })}
+									onBlur={() => setRenaming(false)}
+								/>
+							</form>
+						) : (
+							<button key={i} type="button" role="tab" aria-selected={i === many.at} className={i === many.at ? 'group-tab group-tab-on' : 'group-tab'} onClick={() => saveMany({ ...many, at: i })} title={i === many.at ? undefined : `Open ${g.name}`}>
+								<GroupSign />
+								<span>{g.name.trim() || `Group ${i + 1}`}</span>
+								<span className="group-tab-count num">{g.members.filter(m => m < roster.characters.length).length}</span>
+							</button>
+						),
+					)}
+					<button
+						type="button"
+						className="group-tab group-tab-new"
+						title="A new, empty group: your open character is in it, add friends to it from there"
+						onClick={() => saveMany({ groups: [...many.groups, { name: `Group ${many.groups.length + 1}`, members: [roster.active] }], at: many.groups.length })}>
+						+ New group
+					</button>
+					<span className="group-tab-tools">
+						<button type="button" className="link" onClick={() => setRenaming(true)}>
+							Rename
+						</button>
+						{many.groups.length > 1 && (
+							<button
+								type="button"
+								className="link link-danger"
+								title="Deletes this group. The characters stay saved and can be ticked in another group."
+								onClick={() => saveMany({ groups: many.groups.filter((_, i) => i !== many.at), at: Math.max(0, many.at - 1) })}>
+								Delete group
+							</button>
+						)}
+					</span>
+				</div>
+			)}
 			<form
 				className="group-add"
 				onSubmit={event => {
@@ -237,6 +347,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 					const friend = characterFromShareText(pasted);
 					if (friend) {
 						onRosterChange({ ...addCharacter(roster, { ...friend, name: friend.name ?? 'Shared character', friend: true }), active: roster.active });
+						joinGroup(roster.characters.length, 1);
 						setPasted('');
 						setAddNote(`${friend.name ?? 'The character'} was added to the group.`);
 						return;
@@ -246,6 +357,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 						if (!group) return setAddNote('That is not a character or a group copied from this site.');
 						const { roster: next, added } = addGroup(roster, group);
 						onRosterChange(next);
+						joinGroup(roster.characters.length, added);
 						setPasted('');
 						setAddNote(added ? `${added} character${added === 1 ? '' : 's'} added to the group.` : 'Everyone in that group is already here.');
 					});
@@ -283,7 +395,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 							return (
 								<span key={index} className="group-member">
 									<label className="check">
-										<input type="checkbox" checked={!saved.out.includes(index)} onChange={event => change({ out: event.target.checked ? saved.out.filter(i => i !== index) : [...saved.out, index] })} />
+										<input type="checkbox" checked={!out.includes(index)} onChange={event => setIn(index, event.target.checked)} />
 										{characterLabel(character, index, spec)} <span className="slot-source">{spec.name}</span>
 									</label>
 									{friends ? (
@@ -297,6 +409,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 												onClick={() => {
 													onRosterChange(removeAt(roster, index));
 													change({ out: saved.out.filter(i => i !== index).map(i => (i > index ? i - 1 : i)) });
+													dropFromGroups(index);
 												}}>
 												remove
 											</button>
