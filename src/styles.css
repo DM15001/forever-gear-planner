@@ -8092,3 +8092,7 @@ details.content-fold,
 .sheet-details > * {
 	min-width: 0;
 }
+.shopping-got:disabled {
+	opacity: 0.45;
+	cursor: not-allowed;
+}

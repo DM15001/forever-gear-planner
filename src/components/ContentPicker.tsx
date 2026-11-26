@@ -2,7 +2,7 @@ import { type ReactNode, useMemo, useState } from 'react';
 
 import { contentCatalog, presets, sameFilter, toggled } from '../lib/content';
 import type { GameData } from '../lib/gameData';
-import { type SourceFilter, TIER_SLOTS, tierSets, PVP_RANKS, usableSources } from '../lib/scoring';
+import { type SourceFilter, TIER_SLOTS, tierSets, PVP_RANKS, usableSources, CLOSED_REPUTATIONS } from '../lib/scoring';
 import { unit } from '../lib/format';
 import { pieceStats, statLine } from '../lib/stats';
 import type { Character, Item, SpecConfig } from '../lib/types';
@@ -127,7 +127,8 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 	);
 	const dungeonIcons = (key: string) => (DUNGEON_ICONS as unknown as Record<string, string[] | undefined>)[key.split(':')[0]] ?? [];
 	const allDungeonKeys = [...catalog.dungeons.map(d => d.key), ...catalog.lowDungeonKeys];
-	const plainReputations = catalog.reputations.filter(r => !r.battleground).map(r => r.name);
+	// A faction that is not in the game yet is shown, switched off, and counts for nothing.
+	const plainReputations = catalog.reputations.filter(r => !r.battleground && !CLOSED_REPUTATIONS.includes(r.name)).map(r => r.name);
 	const battlegrounds = catalog.reputations.filter(r => r.battleground).map(r => r.name);
 	// Which rows the visitor opened or shut by hand; the others follow what they hold.
 	const [opened, setOpened] = useState<Record<string, boolean>>({});
@@ -248,7 +249,11 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				{tile('Any reputation', ['inv_misc_note_02', 'inv_scroll_03'], filter.rep, on => set({ rep: on }), false, 'The switch for all of them')}
 				{catalog.reputations
 					.filter(r => !r.battleground)
-					.map(r => tile(r.name, ['inv_misc_tournaments_banner_human', 'inv_scroll_03'], filter.rep && !filter.excludedReputations.includes(r.name), on => set({ excludedReputations: toggled(filter.excludedReputations, [r.name], on) }), !filter.rep))}
+					.map(r =>
+						CLOSED_REPUTATIONS.includes(r.name)
+							? tile(r.name, ['inv_misc_tournaments_banner_human', 'inv_scroll_03'], false, () => {}, true, 'Not in the game yet')
+							: tile(r.name, ['inv_misc_tournaments_banner_human', 'inv_scroll_03'], filter.rep && !filter.excludedReputations.includes(r.name), on => set({ excludedReputations: toggled(filter.excludedReputations, [r.name], on) }), !filter.rep),
+					)}
 				</>,
 			)}
 

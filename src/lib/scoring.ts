@@ -11,6 +11,8 @@ import { addStats, type HitSummary, hitSummary, pieceStats, vendorCurrency, vend
 const RAID_QUESTS: Record<string, string> = quests.raidQuests;
 const CLOSED_NPCS: Record<string, string> = notAvailable.npcs;
 const CLOSED_ZONES: Record<string, string> = notAvailable.zones;
+/** Factions that cannot be gained in the game yet: left out of every content choice, whatever was saved. */
+export const CLOSED_REPUTATIONS: string[] = Object.keys(notAvailable.reputations);
 const CLOSED_TAGS: Record<string, string> = notAvailable.tags;
 const CLOSED_ICON_WORDS = Object.entries(notAvailable.iconWords as Record<string, string>);
 const CLOSED_ITEMS: Record<string, string> = notAvailable.items;
@@ -363,7 +365,7 @@ export const DEFAULT_FILTER: SourceFilter = {
 	ownCraftsOnly: false,
 	excludedDungeons: [],
 	// Off unless asked for: the grind is long and few play it.
-	excludedReputations: [],
+	excludedReputations: [...CLOSED_REPUTATIONS],
 };
 
 export type SourceKindKey = Exclude<keyof SourceFilter, 'tierSlots' | 'tier05' | 'ignoredSets' | 'tierMinimum' | 'randomSuffix' | 'notYetAvailable' | 'unknownProcs' | 'hiddenItems' | 'ownCraftsOnly' | 'excludedDungeons' | 'excludedReputations'>;

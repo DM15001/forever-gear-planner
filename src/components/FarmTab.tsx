@@ -1,3 +1,4 @@
+import { useRefineJob } from '../lib/sim/refineJob';
 import { useMemo, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
@@ -219,6 +220,8 @@ function whereText(entry: PlanEntry, data: GameData, inDungeon: boolean): string
 }
 
 function ShoppingRow({ entry, data, inDungeon, onGot, guideSource }: { entry: PlanEntry; data: GameData; inDungeon: boolean; onGot: () => void; guideSource?: { source?: string; guide: { label: string } } }) {
+	// While the simulator check runs, worn gear and plan stay as they are.
+	const locked = useRefineJob().running;
 	const effort = guideSource ? {} : effortParts(entry.source);
 	return (
 		<li className="shopping-row" title={guideSource ? undefined : effortLine(entry.source)}>
@@ -250,7 +253,7 @@ function ShoppingRow({ entry, data, inDungeon, onGot, guideSource }: { entry: Pl
 					</span>
 				)}
 			</span>
-			<button className="shopping-got" onClick={onGot} title="Moves the item to your equipped gear and takes it off the plan.">
+			<button className="shopping-got" onClick={onGot} disabled={locked} title={locked ? 'The simulator check is running: gear and plan are locked until it is done.' : 'Moves the item to your equipped gear and takes it off the plan.'}>
 				<svg viewBox="0 0 16 16" aria-hidden="true">
 					<circle cx="8" cy="8" r="6.5" />
 					<path d="M5 8.2l2.1 2.1L11 6.2" />

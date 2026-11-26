@@ -1,3 +1,4 @@
+import { useRefineJob } from '../lib/sim/refineJob';
 import { ordinal } from '../lib/format';
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 
@@ -62,6 +63,8 @@ const gain = (value: number) => `+${value >= 10 ? value.toFixed(0) : value.toFix
 
 /** The farm plan of several saved characters at once: per dungeon and boss, who wants which drop. */
 export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRosterChange: (next: Roster) => void }) {
+	// While the simulator check runs, nobody's gear changes.
+	const checking = useRefineJob().running;
 	const [saved, setSaved] = useState<Saved>(loadSaved);
 	const change = (next: Partial<Saved>) => {
 		const merged = { ...saved, ...next };
@@ -187,7 +190,7 @@ export function GroupFarm({ roster, onRosterChange }: { roster: Roster; onRoster
 																) : (
 																	<span className="badge badge-plan group-tag-upgrade" title={`Better than what this character wears, but not their best option: the ${ordinal(want.rank)} best upgrade for that slot`}>alternative, {ordinal(want.rank)} best</span>
 																)}
-																<button className="button button-small" onClick={event => {
+																<button className="button button-small" disabled={checking} onClick={event => {
 																		cheerBurst(event.currentTarget);
 																		got(want.member, want.slotIndex, item);
 																	}} title={`${item.name} dropped for ${want.member.label}: equip it and take it out of the plan`}>

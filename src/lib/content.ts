@@ -63,7 +63,7 @@ export interface Preset {
 export function presets(_catalog: ContentCatalog): Preset[] {
 	return [
 		{ id: 'standard', label: 'Everything but PvP', hint: 'All content except PvP: no rank rewards, no battleground reputations or quests.', filter: DEFAULT_FILTER },
-		{ id: 'all', label: 'Everything', hint: 'Nothing left out.', filter: { ...DEFAULT_FILTER, pvp: true, excludedReputations: [] } },
+		{ id: 'all', label: 'Everything', hint: 'Nothing left out that is in the game.', filter: { ...DEFAULT_FILTER, pvp: true } },
 		{
 			id: 'dungeons',
 			label: 'Dungeons and quests only',

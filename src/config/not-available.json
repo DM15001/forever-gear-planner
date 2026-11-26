@@ -1,5 +1,5 @@
 {
-	"_comment": "Items the WoWSims database lists as released (it marks every item phase 1) but that cannot be had in WoW Forever yet. Kept by hand; checked 2026-11-22. `tags`: every item with this line under its name. `iconWords`: every item whose icon name holds this word. `zones`: every drop in these zones. `npcs`: every drop of these creatures. `items`: single items, with the reason.",
+	"_comment": "Items the WoWSims database lists as released (it marks every item phase 1) but that cannot be had in WoW Forever yet. Kept by hand; checked 2026-11-22. `tags`: every item with this line under its name. `iconWords`: every item whose icon name holds this word. `zones`: every drop in these zones. `npcs`: every drop of these creatures. `items`: single items, with the reason. `reputations`: factions that cannot be gained yet; their rewards stay out of every plan until the line is taken out here.",
 	"tags": {
 		"Crafted": "A crafted class set (Spiritcaller, Grovekeeper, Glory, Demonheart, Grimstitch, Manaflare, Conviction): its patterns come from raids"
 	},
@@ -68,6 +68,11 @@
 	},
 	"enchantStats": {
 		"_comment": "By the enchant's item id: stats where the game differs from the WoWSims database. The simulator still counts its own value.",
-		"249511": { "agility": 15 }
+		"249511": {
+			"agility": 15
+		}
+	},
+	"reputations": {
+		"The Watchers": "The faction is not in the game yet (reported by players, 2026-11-26)"
 	}
 }
