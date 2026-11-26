@@ -26,9 +26,9 @@
 				"enchant": 8492
 			},
 			{
-				"id": 13409,
+				"id": 10256,
 				"enchant": 7665,
-				"randomSuffix": 13055
+				"randomSuffix": 12734
 			},
 			{
 				"id": 226777,
@@ -58,13 +58,10 @@
 				"id": 13968
 			},
 			{
-				"id": 2243,
-				"enchant": 8217
+				"id": 13937,
+				"enchant": 7662
 			},
-			{
-				"id": 19315,
-				"enchant": 7659
-			},
+			null,
 			{
 				"id": 272430
 			}
