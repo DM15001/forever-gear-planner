@@ -20,6 +20,7 @@ import { healingChoice, scenarioKey } from './lib/sim/healing';
 import { ImportPanel } from './components/ImportPanel';
 import { BarCap, Emblem } from './components/Ornaments';
 import { PlanTab } from './components/PlanTab';
+import { ContentStep } from './components/ContentStep';
 import { ReportSource } from './components/ReportSource';
 import { refineJob, useRefineJob } from './lib/sim/refineJob';
 import { SimSetupTab } from './components/SimSetupTab';
@@ -37,15 +38,16 @@ import type { Character, SpecConfig } from './lib/types';
 
 /** The planner's sections, in the bar. */
 // The way through, in order (Customize is the step you may skip); Group up stands apart.
-const TABS = [
+const ALL_TABS = [
 	{ id: 'character', label: 'Check gear', step: true },
+	{ id: 'content', label: 'Content Selection', step: true },
 	{ id: 'simulate', label: 'Build plan', step: true },
 	{ id: 'upgrades', label: 'Customize', step: true, optional: true, hint: 'Optional: pick single items yourself, slot by slot. What you pick overrides the plan.' },
 	{ id: 'farm', label: 'Farm it', step: true },
 	{ id: 'group', label: 'Group up' },
 ];
 /** Where each step of the way leads next. */
-const NEXT_STEP: Record<string, { to: string; label: string }> = {
+const ALL_NEXT: Record<string, { to: string; label: string }> = {
 	character: { to: 'simulate', label: 'Next: build your plan' },
 	simulate: { to: 'farm', label: 'Next: farm it' },
 	upgrades: { to: 'farm', label: 'Next: farm it' },
@@ -59,6 +61,11 @@ const SIDE_TABS = [
 
 /** Two copies of the site are published: the live one, and under dev/ the one with changes still being tried out. Both read the same saved characters. */
 const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+// On trial on Dev: the content choice as a step of its own, before the plan.
+const TABS = ALL_TABS.filter(t => IS_DEV || t.id !== 'content');
+const NEXT_STEP: Record<string, { to: string; label: string }> = IS_DEV
+	? { ...ALL_NEXT, character: { to: 'content', label: 'Next: content selection' }, content: { to: 'simulate', label: 'Next: build your plan' } }
+	: ALL_NEXT;
 
 /**
  * Everything needed to see what a visitor sees: all the planner has saved in this browser (characters with their
@@ -948,8 +955,9 @@ export function App() {
 					<SimProvider character={character}>
 						{/* The Character page shows both sets itself, so the side panes stay away there. */}
 						{data && tab !== 'character' && tab !== 'group' && tab !== 'faq' && tab !== 'news' && <GearRails spec={spec} character={character} data={data} showEquipped={options.equippedPanel} showPlanned={options.plannedPanel} onShow={(kind, on) => changeOptions({ ...options, [kind === 'equipped' ? 'equippedPanel' : 'plannedPanel']: on })} filter={filter} onChange={update} />}
+						{tab === 'content' && (data ? <ContentStep spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} locked={locked} /> : <p>Loading item data…</p>)}
 						{tab === 'simulate' && baseSpec.role === 'healer' && <div inert={locked}><HealingPicker character={character} spec={spec} onChange={update} /></div>}
-						{tab === 'simulate' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} undoSteps={undoSteps} onUndo={undoPlan} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} /> : <p>Loading item data…</p>)}
+						{tab === 'simulate' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} hideContent={IS_DEV} undoSteps={undoSteps} onUndo={undoPlan} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} /> : <p>Loading item data…</p>)}
 						{(tab === 'simulate' || tab === 'upgrades') && data && <div inert={locked}><UpgradesTab part={tab === 'simulate' ? 'tools' : 'list'} spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /></div>}
 						{tab === 'upgrades' && !data && <p>Loading item data…</p>}
 						{tab === 'simulate' && data && (

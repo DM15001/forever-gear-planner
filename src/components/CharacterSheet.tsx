@@ -308,7 +308,7 @@ function StatsPanel({ stats, character, spec }: { stats: Stats; character: Chara
 		<div className="stats">
 			{/* A healer's spells cannot miss: no hit cap to show. */}
 			<div className={`hit${hit.ratingOver > 0 ? ' hit-over' : ''}`} hidden={spec.hitCapPercent <= 0}>
-				<div className="hit-head">
+				<div className="hit-head" title={`${hitNote}. ${percent(hit.fromGear)} from gear${hit.fromRace ? `, ${percent(hit.fromRace)} racial` : ''}${hit.fromTalents ? `, ${percent(hit.fromTalents)} from the build's talents` : ''}.`}>
 					<span>Hit</span>
 					<span className="num">
 						{percent(hit.total)} of {hit.cap}%
@@ -376,7 +376,7 @@ function GearSlot({ index, mirrored, piece, data, onChange, onPick, onEnchant, b
 			<button className="slot-button" onClick={onPick} disabled={!data || !!blockedBy} title={blockedBy ? undefined : `Change the ${label.toLowerCase()} item`} aria-label={blockedBy ? `${label}: taken by ${blockedBy.name}` : `Change the ${label.toLowerCase()} item`}>
 				<ItemIcon icon={blockedBy ? blockedBy.icon : item?.icon} quality={blockedBy ? 'none' : quality} />
 			</button>
-			<div className="slot-body">
+			<div className="slot-body" title={stats || undefined}>
 				<span className="slot-label">
 					{label}
 					{data && !blockedBy && (

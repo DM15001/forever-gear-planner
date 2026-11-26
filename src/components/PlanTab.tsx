@@ -36,12 +36,14 @@ interface Props {
 	onChange: (next: Character) => void;
 	/** 'sim': the plan's numbers, the simulation and the content choice. 'list': the planned items and the to-do list. */
 	part?: 'all';
+	/** The content choice has a page of its own. */
+	hideContent?: boolean;
 }
 
 const formatGain = formatDps;
 
 /** The guided view: pick your content, get one plan, tick it off. */
-export function PlanTab({ spec, character, data, filter, onFilterChange, onChange, undoSteps = 0, onUndo, defaultWeights, onWeightsChange }: Props) {
+export function PlanTab({ spec, character, data, filter, onFilterChange, onChange, undoSteps = 0, onUndo, defaultWeights, onWeightsChange, hideContent = false }: Props) {
 	const [contentOpen, setContentOpen] = useContentOpen();
 	const options = useMemo(() => ({ character, data, spec, filter }), [character, data, spec, filter]);
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
@@ -222,7 +224,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 	return (
 		<div className="plan">
 			{/* First what counts, then the plan and its simulation. */}
-			{(
+			{!hideContent && (
 				<details className="content-fold fold" inert={refining !== null} open={contentOpen} onToggle={event => setContentOpen(event.currentTarget.open)}>
 					<summary>
 						What content do you do?<span className="slot-source">Dungeons, reputations, PvP, crafting and more. The plan is rebuilt on every change.</span>

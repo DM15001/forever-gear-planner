@@ -55,10 +55,38 @@ interface Props {
 	data: GameData;
 	filter: SourceFilter;
 	onChange: (next: SourceFilter) => void;
+	/** The choice as a page of its own: a panel per kind of content, grey until it counts, the finer choice below. */
+	panels?: boolean;
+}
+
+/** The pictures on the panels: the game's own icons for each kind of content. */
+const PANEL_ICONS: Record<string, string[]> = {
+	dungeons: ['achievement_boss_generaldrakkisath', 'inv_misc_key_14', 'spell_shadow_summonfelguard'],
+	raids: ['achievement_boss_ragnaros', 'achievement_boss_onyxia', 'achievement_boss_nefarion'],
+	reputations: ['inv_misc_tournaments_banner_human', 'inv_misc_tournaments_banner_orc', 'inv_scroll_03'],
+	tier: ['inv_helmet_41', 'inv_shoulder_02', 'inv_chest_plate03'],
+	sets: ['inv_misc_gem_pearl_05', 'inv_jewelry_ring_03', 'inv_belt_13'],
+	pvp: ['inv_bannerpvp_02', 'inv_bannerpvp_01', 'ability_dualwield'],
+	quest: ['inv_misc_note_02', 'inv_scroll_03', 'inv_misc_book_09'],
+	crafted: ['trade_blacksmithing', 'trade_tailoring', 'trade_leatherworking'],
+	drop: ['inv_misc_bag_08', 'inv_box_01', 'inv_jewelry_ring_03'],
+	vendors: ['inv_misc_coin_02', 'inv_misc_coin_01', 'inv_misc_bag_10'],
+	special: ['inv_misc_questionmark', 'inv_misc_pocketwatch_01', 'spell_nature_lightning'],
+};
+/** Short names for the panels, where the row's own title is a sentence. */
+const PANEL_NAMES: Record<string, string> = { raids: 'Raids', tier: 'Dungeon sets', sets: 'Set bonuses' };
+interface PanelDef {
+	key: string;
+	title: ReactNode;
+	counted: number;
+	of: number;
+	allOn: (() => void) | null;
+	allOff: (() => void) | null;
+	hasDetail: boolean;
 }
 
 /** "What content do you do?" Every source of gear as a switch, with presets on top. */
-export function ContentPicker({ spec, character, data, filter, onChange }: Props) {
+export function ContentPicker({ spec, character, data, filter, onChange, panels = false }: Props) {
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
 	const catalog = useMemo(() => contentCatalog(data, faction), [data, faction]);
 	const options = useMemo(() => presets(catalog), [catalog]);
@@ -137,9 +165,42 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 	 * One kind of content as a row that folds: a line with what counts and two switches for all of it. Every row
 	 * starts shut; opening it is for the finer choice.
 	 */
+	// As panels: each kind is noted for the grid on top, and shows its finer choice below only while it is open.
+	const defs: PanelDef[] = [];
 	const group = (key: string, title: ReactNode, counted: number, of: number, allOn: (() => void) | null, allOff: (() => void) | null, children: ReactNode, extra = '', body = 'content-tiles') => {
 		const everything = of > 0 && counted === of;
 		const isOpen = opened[key] ?? false;
+		if (panels) {
+			defs.push({ key, title, counted, of, allOn, allOff, hasDetail: children !== null });
+			if (!isOpen || children === null) return null;
+			return (
+				<section key={key} className={`source-detail ${extra}`} aria-label={typeof title === 'string' ? title : key}>
+					<header className="source-detail-head">
+						<h3>{title}</h3>
+						{of > 1 && (
+							<span className="content-meter-text">
+								<strong className="num">{counted}</strong>
+								<span className="num">/{of}</span>
+							</span>
+						)}
+						{allOn && allOff && of > 1 && (
+							<span className="content-switch" role="group" aria-label={`All of ${key}`}>
+								<button type="button" aria-pressed={everything} onClick={() => !everything && allOn()}>
+									All on
+								</button>
+								<button type="button" aria-pressed={counted === 0} onClick={() => counted > 0 && allOff()}>
+									All off
+								</button>
+							</span>
+						)}
+						<button type="button" className="link source-detail-close" onClick={() => setOpened(before => ({ ...before, [key]: false }))}>
+							Close
+						</button>
+					</header>
+					<div className={body}>{children}</div>
+				</section>
+			);
+		}
 		return (
 			<details className={`content-group content-fold-group ${extra}`} open={isOpen} onToggle={event => {
 				const now = event.currentTarget.open; if (now !== isOpen) setOpened(before => ({ ...before, [key]: now }));
@@ -193,9 +254,32 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 		);
 	};
 
-	return (
-		<div className="content-picker">
-			<div className="presets" role="group" aria-label="Presets">
+	// The catch-all row of the folded layout; as panels its parts stand on their own.
+	const OTHER_ROW = panels ? null : group(
+				'other',
+				'Everything else',
+				OTHER_SOURCES.filter(key => filter[key]).length,
+				OTHER_SOURCES.length,
+				() => set(Object.fromEntries(OTHER_SOURCES.map(key => [key, true]))),
+				() => set(Object.fromEntries(OTHER_SOURCES.map(key => [key, false]))),
+				<>
+				<p className="hint tier-hint">All on and All off switch the six ordinary sources. "Only my professions" and the last three are special cases and stay as you set them.</p>
+				{tile('Quest rewards', ['inv_scroll_03'], filter.quest, on => set({ quest: on }))}
+				{tile('Crafted items', ['trade_blacksmithing'], filter.crafted, on => set({ crafted: on }))}
+				{tile('Only my professions', ['trade_engineering', 'trade_blacksmithing'], filter.crafted && filter.ownCraftsOnly, on => set({ ownCraftsOnly: on }), !filter.crafted, character.professions.length ? character.professions.join(', ') : 'Crafts from your own professions only')}
+				{tile('World drops', ['inv_misc_bag_08'], filter.drop, on => set({ drop: on }))}
+				{tile('Random-suffix items', ['inv_jewelry_ring_03'], filter.randomSuffix, on => set({ randomSuffix: on }), false, '"of Shadow Wrath", best roll')}
+				{tile('Currency vendors', ['inv_misc_coin_02', 'inv_misc_coin_01'], filter.currency, on => set({ currency: on }), false, 'Tarnished Undermine Reals')}
+				{tile('Other vendors', ['inv_misc_coin_01'], filter.vendor, on => set({ vendor: on }))}
+				{tile('Not in the game yet', ['inv_misc_pocketwatch_01'], filter.notYetAvailable, on => set({ notYetAvailable: on }), false, 'Later raids, events, closed content')}
+				{tile('Procs unknown', ['spell_nature_lightning'], filter.unknownProcs, on => set({ unknownProcs: on }), false, 'The simulator overvalues them')}
+				{tile('No known source', ['inv_misc_questionmark'], filter.unknown, on => set({ unknown: on }), false, 'Nobody knows where they drop')}
+				</>,
+			);
+
+	const body = (
+		<>
+			{!panels && <div className="presets" role="group" aria-label="Presets">
 				{options.map(preset => (
 					<button key={preset.id} className="button content-preset" aria-pressed={sameFilter({ ...filter, hiddenItems: [], randomSuffix: true, notYetAvailable: false, unknownProcs: false }, preset.filter)} title={preset.hint} onClick={() => onChange({ ...preset.filter, hiddenItems: filter.hiddenItems, randomSuffix: filter.randomSuffix, notYetAvailable: filter.notYetAvailable, unknownProcs: filter.unknownProcs })}>
 						{preset.label}
@@ -204,7 +288,7 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				<button className="button content-preset" disabled title="Raid loot is not in the planner yet.">
 					Dungeons and raids <span className="badge badge-plan">coming soon</span>
 				</button>
-			</div>
+			</div>}
 
 			{group(
 				'dungeons',
@@ -364,27 +448,62 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 				</>,
 			)}
 
-			{group(
-				'other',
-				'Everything else',
-				OTHER_SOURCES.filter(key => filter[key]).length,
-				OTHER_SOURCES.length,
-				() => set(Object.fromEntries(OTHER_SOURCES.map(key => [key, true]))),
-				() => set(Object.fromEntries(OTHER_SOURCES.map(key => [key, false]))),
-				<>
-				<p className="hint tier-hint">All on and All off switch the six ordinary sources. "Only my professions" and the last three are special cases and stay as you set them.</p>
-				{tile('Quest rewards', ['inv_scroll_03'], filter.quest, on => set({ quest: on }))}
-				{tile('Crafted items', ['trade_blacksmithing'], filter.crafted, on => set({ crafted: on }))}
-				{tile('Only my professions', ['trade_engineering', 'trade_blacksmithing'], filter.crafted && filter.ownCraftsOnly, on => set({ ownCraftsOnly: on }), !filter.crafted, character.professions.length ? character.professions.join(', ') : 'Crafts from your own professions only')}
-				{tile('World drops', ['inv_misc_bag_08'], filter.drop, on => set({ drop: on }))}
-				{tile('Random-suffix items', ['inv_jewelry_ring_03'], filter.randomSuffix, on => set({ randomSuffix: on }), false, '"of Shadow Wrath", best roll')}
-				{tile('Currency vendors', ['inv_misc_coin_02', 'inv_misc_coin_01'], filter.currency, on => set({ currency: on }), false, 'Tarnished Undermine Reals')}
-				{tile('Other vendors', ['inv_misc_coin_01'], filter.vendor, on => set({ vendor: on }))}
-				{tile('Not in the game yet', ['inv_misc_pocketwatch_01'], filter.notYetAvailable, on => set({ notYetAvailable: on }), false, 'Later raids, events, closed content')}
-				{tile('Procs unknown', ['spell_nature_lightning'], filter.unknownProcs, on => set({ unknownProcs: on }), false, 'The simulator overvalues them')}
-				{tile('No known source', ['inv_misc_questionmark'], filter.unknown, on => set({ unknown: on }), false, 'Nobody knows where they drop')}
-				</>,
-			)}
+			{!panels && OTHER_ROW}
+			{panels && group('quest', 'Quests', filter.quest ? 1 : 0, 1, () => set({ quest: true }), () => set({ quest: false }), null)}
+			{panels &&
+				group(
+					'crafted',
+					'Crafted',
+					filter.crafted ? 1 : 0,
+					1,
+					() => set({ crafted: true }),
+					() => set({ crafted: false }),
+					<>
+						{tile('Crafted items', ['trade_blacksmithing'], filter.crafted, on => set({ crafted: on }))}
+						{tile('Only my professions', ['trade_engineering', 'trade_blacksmithing'], filter.crafted && filter.ownCraftsOnly, on => set({ ownCraftsOnly: on }), !filter.crafted, character.professions.length ? character.professions.join(', ') : 'None picked yet')}
+					</>,
+				)}
+			{panels &&
+				group(
+					'drop',
+					'World drops',
+					filter.drop ? 1 : 0,
+					1,
+					() => set({ drop: true }),
+					() => set({ drop: false }),
+					<>
+						{tile('World drops', ['inv_misc_bag_08'], filter.drop, on => set({ drop: on }))}
+						{tile('Random-suffix items', ['inv_jewelry_ring_03'], filter.randomSuffix, on => set({ randomSuffix: on }), false, '"of Shadow Wrath", best roll')}
+					</>,
+				)}
+			{panels &&
+				group(
+					'vendors',
+					'Vendors',
+					(filter.currency ? 1 : 0) + (filter.vendor ? 1 : 0),
+					2,
+					() => set({ currency: true, vendor: true }),
+					() => set({ currency: false, vendor: false }),
+					<>
+						{tile('Currency vendors', ['inv_misc_coin_02', 'inv_misc_coin_01'], filter.currency, on => set({ currency: on }), false, 'Tarnished Undermine Reals')}
+						{tile('Other vendors', ['inv_misc_coin_01'], filter.vendor, on => set({ vendor: on }))}
+					</>,
+				)}
+			{panels &&
+				group(
+					'special',
+					'Special cases',
+					[filter.notYetAvailable, filter.unknownProcs, filter.unknown].filter(Boolean).length,
+					3,
+					() => set({ notYetAvailable: true, unknownProcs: true, unknown: true }),
+					() => set({ notYetAvailable: false, unknownProcs: false, unknown: false }),
+					<>
+						<p className="hint tier-hint">Items most people want left out. Switch one on only if you know why.</p>
+						{tile('Not in the game yet', ['inv_misc_pocketwatch_01'], filter.notYetAvailable, on => set({ notYetAvailable: on }), false, 'Later raids, events, closed content')}
+						{tile('Procs unknown', ['spell_nature_lightning'], filter.unknownProcs, on => set({ unknownProcs: on }), false, 'The simulator overvalues them')}
+						{tile('No known source', ['inv_misc_questionmark'], filter.unknown, on => set({ unknown: on }), false, 'Nobody knows where they drop')}
+					</>,
+				)}
 			{!faction && <p className="field-error">Pick a race under "Check gear" to hide the other faction's items.</p>}
 			{filter.hiddenItems.length > 0 && (
 				<fieldset className="content-group hidden-items">
@@ -396,6 +515,94 @@ export function ContentPicker({ spec, character, data, filter, onChange }: Props
 					))}
 				</fieldset>
 			)}
+		</>
+	);
+	if (!panels) return <div className="content-picker">{body}</div>;
+
+	// The panels: grey until something in them counts. A click on a grey one switches all of it on and opens its
+	// finer choice; a click on a lit one opens or shuts that choice. Off is the small cross.
+	// One change for all of it: each kind's own "off" starts from the same choice, so calling them in a row would keep only the last.
+	const clearAll = () =>
+		onChange({
+			...filter,
+			excludedDungeons: [...new Set([...filter.excludedDungeons, ...allDungeonKeys])],
+			ignoredSets: [...new Set([...filter.ignoredSets, ...setChoices.flatMap(choice => choice.setIds)])],
+			rep: false,
+			pvp: false,
+			tier05: false,
+			tierSlots: [],
+			quest: false,
+			crafted: false,
+			drop: false,
+			randomSuffix: false,
+			currency: false,
+			vendor: false,
+			notYetAvailable: false,
+			unknownProcs: false,
+			unknown: false,
+		});
+	const standard = options.find(option => option.id === 'standard');
+	const everythingOn = options.find(option => option.id === 'all');
+	return (
+		<div className="content-picker source-picker">
+			<div className="presets" role="group" aria-label="Quick choices">
+				{standard && (
+					<button className="button content-preset" title={standard.hint} aria-pressed={!filter.pvp && defs.filter(def => def.allOn && !['pvp', 'special'].includes(def.key)).every(def => def.counted === def.of)} onClick={() => onChange({ ...standard.filter, hiddenItems: filter.hiddenItems })}>
+						PvE: everything but PvP
+					</button>
+				)}
+				{everythingOn && (
+					<button className="button content-preset" title={everythingOn.hint} aria-pressed={filter.pvp && defs.filter(def => def.allOn && def.key !== 'special').every(def => def.counted === def.of)} onClick={() => onChange({ ...everythingOn.filter, hiddenItems: filter.hiddenItems })}>
+						PvE and PvP
+					</button>
+				)}
+				<button className="button content-preset" title="Switches every kind of content off, to pick from nothing" onClick={clearAll} disabled={defs.every(def => def.counted === 0)}>
+					Clear all
+				</button>
+			</div>
+			<div className="source-panels">
+				{defs.map(def => {
+					const on = def.counted > 0;
+					const open = opened[def.key] ?? false;
+					const soon = !def.allOn;
+					return (
+						<div key={def.key} className={`source-panel${on ? ' source-panel-on' : ''}${open ? ' source-panel-open' : ''}${soon ? ' source-panel-soon' : ''}`}>
+							<button
+								type="button"
+								className="source-panel-main"
+								aria-pressed={on}
+								aria-expanded={def.hasDetail ? open : undefined}
+								title={soon ? 'Not in the planner yet' : on ? (def.hasDetail ? 'Open or close the finer choice' : 'Counts. The cross switches it off.') : 'Switch it on'}
+								onClick={() => {
+									if (!on && def.allOn) def.allOn();
+									if (def.hasDetail) setOpened(before => ({ ...before, [def.key]: on || soon ? !open : true }));
+								}}>
+								<span className="source-panel-art" aria-hidden="true">
+									{(PANEL_ICONS[def.key] ?? []).map(icon => (
+										<DungeonIcon key={icon} icons={[icon]} />
+									))}
+								</span>
+								<strong className="source-panel-name">{PANEL_NAMES[def.key] ?? def.title}</strong>
+								<span className="source-panel-count num">{soon ? 'Coming soon' : def.of > 1 ? `${def.counted}/${def.of}` : on ? 'On' : 'Off'}</span>
+							</button>
+							{on && def.allOff && (
+								<button
+									type="button"
+									className="source-panel-off"
+									aria-label={`Switch ${typeof def.title === 'string' ? def.title : def.key} off`}
+									title="Switch all of it off"
+									onClick={() => {
+										def.allOff?.();
+										setOpened(before => ({ ...before, [def.key]: false }));
+									}}>
+									×
+								</button>
+							)}
+						</div>
+					);
+				})}
+			</div>
+			{body}
 		</div>
 	);
 }
