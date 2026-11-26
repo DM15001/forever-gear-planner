@@ -1,7 +1,7 @@
 {
-	"seq": 20,
+	"seq": 21,
 	"effects": {
-		"druid-balance": 20,
+		"druid-balance": 21,
 		"druid-cat": 20,
 		"elemental-shaman": 19,
 		"enhancement-shaman": 19,
@@ -37,7 +37,7 @@
 		"warrior-fury": 19
 	},
 	"weights": {
-		"druid-balance": 20,
+		"druid-balance": 21,
 		"druid-cat": 20,
 		"elemental-shaman": 19,
 		"enhancement-shaman": 19,
