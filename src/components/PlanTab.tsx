@@ -528,7 +528,8 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				)}
 			</section>
 
-			{(
+			{/* On trial on Dev: where to get the plan is Farm it's job ("How to get your plan"), so the list is not repeated here. */}
+			{!IS_DEV && (
 			<section className="panel" aria-labelledby="plan-todo">
 				<h2 id="plan-todo">To do, biggest gain first</h2>
 				{steps.length === 0 ? (

@@ -61,6 +61,9 @@ const VERIFY_TOP = 5;
 const ALTERNATIVES = 5;
 const LONG_LIST = 25;
 
+/** On trial on Dev. */
+const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+
 export function UpgradesTab({ spec, character, data, onChange, filter, onFilterChange: setFilter, defaultWeights, onWeightsChange, part, onShowList }: Props) {
 	const [expanded, setExpanded] = useState<Set<number>>(new Set());
 	const [guideNotice, setGuideNotice] = useState<{
@@ -374,7 +377,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						</button>
 					)}
 				</p>
-			<nav className="slot-nav" aria-label="Jump to a slot" ref={nav}>
+			<nav className={IS_DEV ? 'slot-nav slot-strip' : 'slot-nav'} aria-label="Jump to a slot" ref={nav}>
 				{slots.map(({ slot, index, candidates }) => {
 					if (!candidates) return null;
 					const best = candidates[0]?.delta ?? 0;
@@ -388,9 +391,24 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 							className={`${isPlanned ? 'slot-chip slot-chip-planned' : best > 0 ? 'slot-chip slot-chip-open' : 'slot-chip'}${here === slot.key ? ' slot-chip-here' : ''}`}
 							title={isPlanned ? 'Planned' : best > 0 ? 'An upgrade is available' : 'Nothing better with these filters'}
 						>
+							{IS_DEV ? (
+								<>
+									{isPlanned && (
+										<b className="slot-chip-check" aria-hidden="true">
+											✓
+										</b>
+									)}
+									<ItemIcon icon={data.itemById.get(character.plan?.[index] ?? character.gear[index]?.id ?? -1)?.icon ?? SLOT_ICONS[slot.kind]} quality={data.itemById.get(character.plan?.[index] ?? character.gear[index]?.id ?? -1)?.quality} />
+									<strong>{slot.label}</strong>
+									<span className="slot-chip-state">{isPlanned ? 'planned' : best > 0 ? <span className="num">{formatDelta(best).replace(` ${unit()}`, '')} open</span> : 'best worn'}</span>
+								</>
+							) : (
+								<>
 							<ItemIcon icon={SLOT_ICONS[slot.kind]} quality={undefined} inline />
 							<strong>{slot.label}</strong>
 							{best > 0 ? <span className="num delta-up">{formatDelta(best).replace(` ${unit()}`, '')}</span> : isPlanned ? <span className="slot-chip-mark">planned</span> : null}
+								</>
+							)}
 						</a>
 					);
 				})}

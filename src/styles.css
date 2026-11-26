@@ -8692,3 +8692,102 @@ details.content-fold,
 	border-color: var(--brass);
 	color: var(--brass);
 }
+/* On trial on Dev, Customize: the slots as one row of item icons, like the strip on the Group up cards.
+   Gold = planned, green = a better option is open, dim = nothing better than what is worn. */
+.slot-bar .slot-strip {
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: minmax(0, 1fr);
+	gap: 0.3rem;
+	overflow: visible;
+}
+.slot-strip .slot-chip {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.25rem;
+	min-width: 0;
+	padding: 0.45rem 0.1rem 0.4rem;
+	background: none;
+	border: 1px solid transparent;
+	border-radius: 8px;
+	text-decoration: none;
+}
+.slot-strip .slot-chip .slot-icon {
+	width: 2.6rem;
+	height: 2.6rem;
+	margin: 0;
+	filter: none;
+	opacity: 1;
+}
+.slot-strip .slot-chip strong {
+	max-width: 100%;
+	font-size: 0.72rem;
+	font-weight: 400;
+	color: var(--haze);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.slot-strip .slot-chip .slot-chip-state {
+	font-size: 0.72rem;
+	color: var(--ridge);
+	white-space: nowrap;
+}
+.slot-strip .slot-chip:not(.slot-chip-planned):not(.slot-chip-open) .slot-icon {
+	opacity: 0.55;
+}
+.slot-strip .slot-chip-planned .slot-icon {
+	box-shadow: 0 0 0 2px var(--brass), 0 0 8px -1px var(--brass);
+}
+.slot-strip .slot-chip-planned .slot-chip-state {
+	color: var(--brass);
+}
+.slot-strip .slot-chip-open .slot-icon {
+	box-shadow: 0 0 0 2px #6fdc7a;
+}
+.slot-strip .slot-chip-open .slot-chip-state {
+	color: #6fdc7a;
+	font-weight: 700;
+}
+.slot-strip .slot-chip-check {
+	position: absolute;
+	z-index: 1;
+	top: 0.2rem;
+	left: calc(50% + 0.8rem);
+	width: 0.95rem;
+	height: 0.95rem;
+	border-radius: 50%;
+	background: var(--brass);
+	color: var(--on-brass);
+	font: 700 0.6rem/0.95rem var(--sans);
+	text-align: center;
+}
+.slot-strip .slot-chip:hover {
+	border-color: var(--brass-deep);
+	background: none;
+}
+.slot-strip .slot-chip-here {
+	border-color: var(--brass);
+	background: linear-gradient(180deg, rgb(214 174 95 / 0.14), transparent 70%), var(--slate-raised);
+}
+.slot-strip .slot-chip-here strong {
+	color: var(--brass);
+	font-weight: 600;
+}
+@media (max-width: 62rem) {
+	.slot-bar .slot-strip {
+		grid-auto-flow: row;
+		grid-template-columns: repeat(9, minmax(0, 1fr));
+	}
+}
+@media (max-width: 46rem) {
+	.slot-bar .slot-strip {
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+	}
+	.slot-strip .slot-chip .slot-icon {
+		width: 2.2rem;
+		height: 2.2rem;
+	}
+}
