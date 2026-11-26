@@ -198,6 +198,16 @@ describe('reputation filter', () => {
 		}
 	});
 
+	it('leaves out a battleground reward when that battleground is switched off, PvP on or not', () => {
+		// Outrider's Plate Legguards: sold by the Warsong Outriders' quartermaster, and also listed as plain "PvP".
+		const pants = [...data.itemById.values()].find(item => item.sources?.some(s => s.kind === 'vendor' && s.npcId === 14754) && item.sources.some(s => s.kind === 'pvp'));
+		if (!pants) return;
+		const pvpOn = { ...DEFAULT_FILTER, pvp: true };
+		expect(usableSources(pants, 'horde', pvpOn).length).toBeGreaterThan(0);
+		expect(usableSources(pants, 'horde', { ...pvpOn, excludedReputations: [...pvpOn.excludedReputations, 'Warsong Outriders'] })).toHaveLength(0);
+		expect(usableSources(pants, 'horde', DEFAULT_FILTER)).toHaveLength(0);
+	});
+
 	it('counts quests done inside a battleground as PvP of that battleground', () => {
 		// Alterac Valley quest rewards, listed as plain quests: Ice Barbed Spear, Cold Forged Hammer.
 		const spear = [19106, 20648].map(id => data.itemById.get(id)).find(Boolean)!;

@@ -9224,3 +9224,26 @@ details.content-fold,
 	margin-left: auto;
 	font-size: 0.8125rem;
 }
+/* Customize: the set bonuses as one slim strip, the heading in the same line as the sets. */
+.panel.set-status {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.2rem 1rem;
+	padding: 0.55rem 1rem;
+}
+.panel.set-status h3 {
+	margin: 0;
+	font-size: 1rem;
+	white-space: nowrap;
+}
+.panel.set-status ul {
+	flex: 1 1 24rem;
+	margin: 0;
+}
+.panel.set-status .set-row {
+	margin: 0;
+	padding: 0.1rem 0;
+	font-size: 0.875rem;
+	line-height: 1.4;
+}

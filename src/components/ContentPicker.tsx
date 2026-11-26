@@ -330,6 +330,7 @@ export function ContentPicker({ spec, character, data, filter, onChange, panels 
 				() => set({ rep: true, excludedReputations: filter.excludedReputations.filter(name => !plainReputations.includes(name)) }),
 				() => set({ rep: false }),
 				<>
+				{panels && <p className="hint tier-hint">Battleground reputations (Warsong Outriders, Frostwolf Clan and the like) are switched under PvP.</p>}
 				{tile('Any reputation', ['inv_misc_note_02', 'inv_scroll_03'], filter.rep, on => set({ rep: on }), false, 'The switch for all of them')}
 				{catalog.reputations
 					.filter(r => !r.battleground)

@@ -1065,20 +1065,20 @@ function SetStatus({ worn, planned, data }: { worn: Gear; planned: Gear; data: G
 							{set.ignored
 								? (
 									<>
-										You switched its bonus off under "Set bonuses" in Content Selection, so the lists do not count it.{' '}
+										Bonus switched off in Content Selection.{' '}
 										<button className="link" onClick={() => window.dispatchEvent(new CustomEvent('fgp-go', { detail: 'content' }))}>
 											Change it there
 										</button>
 									</>
 								)
 								: !set.measured
-									? 'Bonuses not measured for this build yet, so the lists do not count them.'
+									? 'Bonuses not measured for this build yet.'
 								: !steps
 									? 'Its bonuses are worth nothing measurable for this build.'
 									: (will?.reached ?? 0) > 0
-										? `${will!.reached}-piece bonus active (${formatDelta(will!.worth)}). Bonuses that count for this build at: ${steps} pieces.`
-										: `No bonus active. Bonuses that count for this build at: ${steps} pieces.`}
-							{broken && ` Your plan gives up the ${was!.reached}-piece bonus you have now (${formatDelta((will?.worth ?? 0) - was!.worth)}); the numbers below already include that.`}
+										? `${will!.reached}-piece bonus active (${formatDelta(will!.worth)}). Bonuses at ${steps} pieces.`
+										: `No bonus active. Bonuses at ${steps} pieces.`}
+							{broken && ` The plan drops your ${was!.reached}-piece bonus (${formatDelta((will?.worth ?? 0) - was!.worth)}, already counted).`}
 						</li>
 					);
 				})}

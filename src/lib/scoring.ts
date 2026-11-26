@@ -433,6 +433,9 @@ export function usableSources(item: Item, faction: Faction | undefined, filter: 
 	const pvpItem = (item.sources ?? []).some(s => s.kind === 'pvp' || battlegroundOf(s));
 	// A reward of a rank above the one the character will reach is out of reach, whoever sells it.
 	if (filter.pvp && pvpRankOf(item) > (filter.pvpMaxRank ?? 14)) return [];
+	// A battleground's quartermaster sells it: with that battleground switched off the item is out, also by its plain "PvP" entry.
+	const grounds = (item.sources ?? []).map(battlegroundOf).filter((name): name is string => name !== undefined);
+	if (grounds.length > 0 && grounds.every(name => filter.excludedReputations.includes(name))) return [];
 	return (item.sources ?? []).filter(s => {
 		if (s.zoneKind === 'raid' || isRaidQuest(s)) return false;
 		if (pvpItem && s.kind === 'vendor' && !filter.pvp) return false;
