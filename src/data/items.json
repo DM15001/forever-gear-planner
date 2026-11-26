@@ -3042,7 +3042,7 @@
 			{
 				"name": "Shadow Bolt (18138)",
 				"kind": "proc",
-				"ppm": 1.05
+				"ppm": 1
 			}
 		]
 	},
@@ -49231,6 +49231,11 @@
 			"healingPower": 15,
 			"spellDamage": 5
 		},
+		"fightTags": {
+			"areas": [
+				"Mountainous"
+			]
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -55043,7 +55048,8 @@
 			{
 				"name": "Stun (56)",
 				"kind": "proc",
-				"durationMs": 3000
+				"durationMs": 3000,
+				"ppm": 1.05
 			}
 		],
 		"sources": [
@@ -55718,7 +55724,7 @@
 				"name": "Felstriker (16551)",
 				"kind": "proc",
 				"durationMs": 3000,
-				"ppm": 0.55
+				"ppm": 0.5
 			}
 		],
 		"sources": [
@@ -63768,7 +63774,7 @@
 			{
 				"name": "Hand of Timmy (17505)",
 				"kind": "proc",
-				"ppm": 2.15
+				"ppm": 2.05
 			}
 		],
 		"sources": [
@@ -65450,6 +65456,11 @@
 		"ilvl": 63,
 		"stats": {
 			"dodgeRating": 12
+		},
+		"fightTags": {
+			"areas": [
+				"StrongholdsCities"
+			]
 		},
 		"unique": true,
 		"effects": [
@@ -72361,7 +72372,8 @@
 		"effects": [
 			{
 				"name": "Firebolt (18833)",
-				"kind": "proc"
+				"kind": "proc",
+				"ppm": 1.95
 			}
 		]
 	},
@@ -88390,7 +88402,7 @@
 			{
 				"name": "Lightning Bolt (19874)",
 				"kind": "proc",
-				"ppm": 1.85
+				"ppm": 2.05
 			}
 		],
 		"sources": [
@@ -120954,7 +120966,7 @@
 			{
 				"name": "Lightning Bolt (23592)",
 				"kind": "proc",
-				"ppm": 1.25
+				"ppm": 1.35
 			}
 		],
 		"sources": [
@@ -135338,6 +135350,12 @@
 		"stats": {
 			"healingPower": 15,
 			"spellDamage": 15
+		},
+		"fightTags": {
+			"areas": [
+				"Wasteland",
+				"Haunted"
+			]
 		},
 		"unique": true,
 		"classes": [
