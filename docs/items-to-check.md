@@ -5,20 +5,20 @@ Items whose source the planner does not know: it either guesses "World drop (ass
 `scripts/items-to-check.ts`; do not edit by hand. To fix one, add its source to `src/config/sources.manual.json`
 (or to `src/config/not-available.json` when it cannot be had), or open an issue saying where it comes from.
 
-## In a build's top 10 for a slot (69)
+## In a build's top 10 for a slot (70)
 
 Most builds first. "best #2" = second-best item of its slot for at least one build, starting from empty gear.
 
-- [Horn of Ve'han](https://www.wowhead.com/forever/item=275736) (275736, rare 61, neck): no source; 25 builds, best #3 (Enhancement Shaman, Elemental Shaman, Warlock: Destro, Warlock: Demo (Fire Brand), …)
+- [Horn of Ve'han](https://www.wowhead.com/forever/item=275736) (275736, rare 61, neck): no source; 24 builds, best #3 (Enhancement Shaman, Elemental Shaman, Warlock: Destro, Warlock: Demo (Fire Brand), …)
 - [Cleansed Vilebranch Medallion](https://www.wowhead.com/forever/item=270275) (270275, uncommon 51, trinket): no source; 19 builds, best #3 (Enhancement Shaman, Mage: Frost Med, Mage: Frost Incin, Mage: Arcane Fire, …)
 - [Highborne Research Tablet](https://www.wowhead.com/forever/item=260205) (260205, uncommon 55, trinket): no source; 18 builds, best #1 (Enhancement Shaman, Priest: Smite Testing, Mage: Arcane, Warrior: Fury (Pre-BiS), …)
 - [Staff of Sorrow](https://www.wowhead.com/forever/item=280082) (280082, rare 57, weapon): no source; 16 builds, best #3 (Elemental Shaman, Warlock: SM/Ruin, Warlock: Destro, Warlock: Aff (Wrack), …)
 - [Cleansed Vilebranch Icon](https://www.wowhead.com/forever/item=270276) (270276, uncommon 51, trinket): no source; 15 builds, best #4 (Elemental Shaman, Warlock: SM/Ruin, Warlock: Destro, Warlock: Aff (Wrack), …)
 - [Jewel of the Guard Captain](https://www.wowhead.com/forever/item=270225) (270225, uncommon 51, trinket): no source; 15 builds, best #5 (Elemental Shaman, Warlock: SM/Ruin, Warlock: Destro, Warlock: Aff (Wrack), …)
 - [Furbolg Rib Protector](https://www.wowhead.com/forever/item=280084) (280084, rare 57, chest): no source; 10 builds, best #2 (Enhancement Shaman, Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Hunter: Marksmanship, …)
+- [Conqueror's Pendant](https://www.wowhead.com/forever/item=270126) (270126, rare 58, neck): no source; 9 builds, best #5 (Elemental Shaman, Warlock: SM/Ruin, Warlock: Destro, Warlock: Aff (Wrack), …)
 - [Truesight Rifle](https://www.wowhead.com/forever/item=280083) (280083, rare 57, ranged): no source; 9 builds, best #5 (Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Rogue: Combat SS, Rogue: Combat BS, …)
-- [Everstaring Abomination Eye](https://www.wowhead.com/forever/item=284097) (284097, rare 60, neck): no source; 9 builds, best #6 (Enhancement Shaman, Elemental Shaman, Mage: Fire, Mage: Frost Med, …)
-- [Conqueror's Pendant](https://www.wowhead.com/forever/item=270126) (270126, rare 58, neck): no source; 8 builds, best #5 (Warlock: SM/Ruin, Warlock: Destro, Warlock: Aff (Wrack), Warlock: Demo (Fire Brand), …)
+- [Everstaring Abomination Eye](https://www.wowhead.com/forever/item=284097) (284097, rare 60, neck): no source; 8 builds, best #6 (Enhancement Shaman, Mage: Fire, Mage: Frost Med, Mage: Frost Incin, …)
 - [Shadowblade](https://www.wowhead.com/forever/item=2163) (2163, epic 53, weapon): no source; 7 builds, best #1 (Rogue: Combat BS, Rogue: Asn Muti, Rogue: Subtlety Hemo, Rogue: Hemo Seal Fate, …)
 - [Belt of Shadows](https://www.wowhead.com/forever/item=260196) (260196, uncommon 55, waist): no source; 7 builds, best #4 (Rogue: Combat SS, Rogue: Combat BS, Rogue: Combat Venom, Rogue: Asn Muti, …)
 - [Escape Plan](https://www.wowhead.com/forever/item=287026) (287026, rare 54, ranged): no source; 7 builds, best #6 (Rogue: Combat SS, Rogue: Combat BS, Rogue: Combat Venom, Rogue: Asn Muti, …)
@@ -75,6 +75,7 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Assassination Blade](https://www.wowhead.com/forever/item=13036) (13036, rare 57, weapon): no source; 1 build, best #9 (Hunter: Beast Mastery)
 - [Blade of Senseless Slaughter](https://www.wowhead.com/forever/item=284101) (284101, rare 62, weapon): no source; 1 build, best #10 (Hunter: Survival (melee))
 - [Museum Keeper's Chain](https://www.wowhead.com/forever/item=281636) (281636, rare 58, neck): no source; 1 build, best #10 (Priest: Smite Testing)
+- [Illegible Dogtags](https://www.wowhead.com/forever/item=274384) (274384, uncommon 58, neck): no source; 1 build, best #10 (Druid: Balance)
 - [Elder Wizard's Mantle](https://www.wowhead.com/forever/item=13013) (13013, rare 56, shoulder): no source; 1 build, best #10 (Mage: Arcane)
 - [Gryphon Rider's Crop](https://www.wowhead.com/forever/item=270112) (270112, uncommon 53, weapon): no source; 1 build, best #10 (Priest: Smite Testing)
 - [Guardian's Maulers](https://www.wowhead.com/forever/item=277244) (277244, rare 45, weapon): no source; 1 build, best #10 (Hunter: Survival (melee))
