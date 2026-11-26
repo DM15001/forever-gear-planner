@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T20:34:31.948Z",
-	"inputs": "691c617d91ea06ed",
+	"generatedAt": "2026-11-25T22:43:32.798Z",
+	"inputs": "a90d945e54fde83c",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -17,18 +17,18 @@
 		},
 		"5267": {
 			"name": "Scarlet Kris",
-			"offHand": -4.03,
-			"mainHand": -20.76
+			"mainHand": -20.76,
+			"offHand": -4.03
 		},
 		"6660": {
 			"name": "Julie's Dagger",
-			"offHand": -12.77,
-			"mainHand": -29.62
+			"mainHand": -29.62,
+			"offHand": -12.77
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"offHand": -15.5,
-			"mainHand": -45.05
+			"mainHand": -45.05,
+			"offHand": -15.5
 		},
 		"10697": {
 			"name": "Enchanted Azsharite Felbane Dagger",
@@ -87,8 +87,8 @@
 		},
 		"13218": {
 			"name": "Fang of the Crystal Spider",
-			"mainHand": -29.11,
-			"offHand": -11.37
+			"offHand": -11.37,
+			"mainHand": -29.11
 		},
 		"13360": {
 			"name": "Gift of the Elven Magi",
@@ -130,8 +130,8 @@
 		},
 		"15247": {
 			"name": "Bloodstrike Dagger",
-			"mainHand": -34.39,
-			"offHand": -14.07
+			"offHand": -14.07,
+			"mainHand": -34.39
 		},
 		"15706": {
 			"name": "Hunt Tracker Blade",
@@ -196,8 +196,8 @@
 		},
 		"19546": {
 			"name": "Sentinel's Blade",
-			"mainHand": -21.31,
-			"offHand": -3.64
+			"offHand": -3.64,
+			"mainHand": -21.31
 		},
 		"19547": {
 			"name": "Sentinel's Blade",

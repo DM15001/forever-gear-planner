@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T19:58:01.928Z",
-	"inputs": "90d49dcf7d20fb00",
+	"generatedAt": "2026-11-25T22:18:36.839Z",
+	"inputs": "6b469883b02c934f",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -51,7 +51,7 @@
 		},
 		"13146": {
 			"name": "Shell Launcher Shotgun",
-			"ranged": -8.72
+			"ranged": -0.34
 		},
 		"13380": {
 			"name": "Willey's Portable Howitzer",

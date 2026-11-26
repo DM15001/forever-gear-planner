@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T20:11:05.752Z",
-	"inputs": "5a673046c5231feb",
+	"generatedAt": "2026-11-25T22:41:00.990Z",
+	"inputs": "905f11b5e04a44a7",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -219,7 +219,7 @@
 		},
 		"13146": {
 			"name": "Shell Launcher Shotgun",
-			"ranged": -76.86
+			"ranged": -70.33
 		},
 		"13161": {
 			"name": "Trindlehaven Staff",

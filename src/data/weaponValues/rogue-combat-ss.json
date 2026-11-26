@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-25T21:27:58.871Z",
-	"inputs": "7c8823eb758f520d",
+	"generatedAt": "2026-11-25T23:39:01.973Z",
+	"inputs": "f1e8f3511dca7188",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -28,8 +28,8 @@
 		},
 		"2163": {
 			"name": "Shadowblade",
-			"mainHand": -77.99,
-			"offHand": -19.63
+			"offHand": -19.63,
+			"mainHand": -77.99
 		},
 		"2243": {
 			"name": "Hand of Edward the Odd",
@@ -113,8 +113,8 @@
 		},
 		"10797": {
 			"name": "Firebreather",
-			"offHand": -25.61,
-			"mainHand": -56.22
+			"mainHand": -56.22,
+			"offHand": -25.61
 		},
 		"10803": {
 			"name": "Blade of the Wretched",
@@ -219,8 +219,8 @@
 		},
 		"12062": {
 			"name": "Skilled Fighting Blade",
-			"offHand": -24.74,
-			"mainHand": -106.67
+			"mainHand": -106.67,
+			"offHand": -24.74
 		},
 		"12527": {
 			"name": "Ribsplitter",
@@ -238,8 +238,8 @@
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
-			"offHand": -26.82,
-			"mainHand": -84.37
+			"mainHand": -84.37,
+			"offHand": -26.82
 		},
 		"12590": {
 			"name": "Felstriker",
@@ -354,8 +354,8 @@
 		},
 		"13198": {
 			"name": "Hurd Smasher",
-			"mainHand": -61.9,
-			"offHand": -30.33
+			"offHand": -30.33,
+			"mainHand": -61.9
 		},
 		"13204": {
 			"name": "Bashguuder",
@@ -364,8 +364,8 @@
 		},
 		"13218": {
 			"name": "Fang of the Crystal Spider",
-			"offHand": -27.12,
-			"mainHand": -95.08
+			"mainHand": -95.08,
+			"offHand": -27.12
 		},
 		"13246": {
 			"name": "Argent Avenger",
@@ -500,8 +500,8 @@
 		},
 		"15239": {
 			"name": "Felstone Reaver",
-			"mainHand": -68.95,
-			"offHand": -25.64
+			"offHand": -25.64,
+			"mainHand": -68.95
 		},
 		"15240": {
 			"name": "Demon's Claw",
@@ -688,8 +688,8 @@
 		},
 		"18683": {
 			"name": "Hammer of the Vesper",
-			"mainHand": -40.38,
-			"offHand": -22.7
+			"offHand": -22.7,
+			"mainHand": -40.38
 		},
 		"18737": {
 			"name": "Bone Slicing Hatchet",
@@ -844,8 +844,8 @@
 		},
 		"260180": {
 			"name": "Scout's Dagger",
-			"offHand": -32.45,
-			"mainHand": -106.15
+			"mainHand": -106.15,
+			"offHand": -32.45
 		},
 		"260209": {
 			"name": "Truesong's Hammer",
@@ -913,8 +913,8 @@
 		},
 		"272600": {
 			"name": "Premier High Warlord's Bludgeon",
-			"offHand": -6.74,
-			"mainHand": 10.01
+			"mainHand": 10.01,
+			"offHand": -6.74
 		},
 		"272681": {
 			"name": "Premier High Warlord's Battle Mace",
@@ -941,8 +941,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"mainHand": -50.28,
-			"offHand": -12.08
+			"offHand": -12.08,
+			"mainHand": -50.28
 		},
 		"272844": {
 			"name": "Premier Grand Marshal's Right Hand Blade",
@@ -1013,8 +1013,8 @@
 		},
 		"276338": {
 			"name": "Claw of Shalla'kal",
-			"mainHand": -50.16,
-			"offHand": -38.09
+			"offHand": -38.09,
+			"mainHand": -50.16
 		},
 		"276398": {
 			"name": "Scarlet Malice",
@@ -1076,8 +1076,8 @@
 		},
 		"280068": {
 			"name": "Bloody Claws of Attack",
-			"mainHand": -21.12,
-			"offHand": -28.13
+			"offHand": -28.13,
+			"mainHand": -21.12
 		},
 		"280077": {
 			"name": "Fist of Revelation",
