@@ -1,5 +1,5 @@
 {
-	"simVersion": "b6c9efc485",
+	"simVersion": "4269136e8f",
 	"simDate": "2026-11-26",
 	"builds": {
 		"druid-balance": {
@@ -59,75 +59,75 @@
 		"hunter-bm": {
 			"effects": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weapons": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weights": {
 				"at": "2026-11-26",
-				"current": true,
+				"current": false,
 				"held": false
 			}
 		},
 		"hunter-mm": {
 			"effects": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weapons": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weights": {
 				"at": "2026-11-26",
-				"current": true,
+				"current": false,
 				"held": false
 			}
 		},
 		"hunter-sv-melee": {
 			"effects": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weapons": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weights": {
 				"at": "2026-11-26",
-				"current": true,
+				"current": false,
 				"held": false
 			}
 		},
 		"hunter-sv-weave": {
 			"effects": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weapons": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weights": {
 				"at": "2026-11-26",
-				"current": true,
+				"current": false,
 				"held": false
 			}
 		},
 		"hunter-sv": {
 			"effects": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weapons": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weights": {
 				"at": "2026-11-26",
-				"current": true,
+				"current": false,
 				"held": false
 			}
 		},

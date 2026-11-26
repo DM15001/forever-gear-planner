@@ -1,6 +1,24 @@
 {
-	"seq": 24,
-	"effects": {},
-	"weights": {},
-	"weapons": {}
+	"seq": 25,
+	"effects": {
+		"hunter-bm": 25,
+		"hunter-mm": 25,
+		"hunter-sv-melee": 25,
+		"hunter-sv-weave": 25,
+		"hunter-sv": 25
+	},
+	"weights": {
+		"hunter-bm": 25,
+		"hunter-mm": 25,
+		"hunter-sv-melee": 25,
+		"hunter-sv-weave": 25,
+		"hunter-sv": 25
+	},
+	"weapons": {
+		"hunter-bm": 25,
+		"hunter-mm": 25,
+		"hunter-sv-melee": 25,
+		"hunter-sv-weave": 25,
+		"hunter-sv": 25
+	}
 }
