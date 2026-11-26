@@ -50,6 +50,9 @@ const formatGain = formatDps;
 /** The layout of 26 Nov (first tried on Dev). */
 const NEW_LAYOUT = true;
 
+/** On trial on the Dev copy: the head of the plan as "before → after" with the simulator check as the next step. */
+const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+
 export function PlanTab({ spec, character, data, filter, onFilterChange, onChange, undoSteps = 0, onUndo, defaultWeights, onWeightsChange, hideContent = false, tools, extras }: Props) {
 	const [contentOpen, setContentOpen] = useContentOpen();
 	const options = useMemo(() => ({ character, data, spec, filter }), [character, data, spec, filter]);
@@ -232,6 +235,117 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 	// A locked slot keeps its item whatever the content says: then "Rebuild the plan" cannot replace it.
 	const staleLocked = stale.filter(row => lockedSlots(character).includes(row.index)).length;
 
+	// The parts of the plan's head: the same ones on both copies, laid out differently on the Dev copy.
+	const scores = (
+		<>
+			<div className="summary-scores">
+				<div>
+					<span className="field-label">The plan, estimated</span>
+					<span className="score num delta-up">{hasPlan ? formatGain(planned.score - equipped.score) : 'Nothing to change'}</span>
+					{spec.hitCapPercent > 0 && (
+						<span className="summary-hit">
+							{equipped.hit.total.toFixed(1)}% hit now, {planned.hit.total.toFixed(1)}% of {planned.hit.cap}% planned
+						</span>
+					)}
+					{hitChoices.length > 0 && (
+						<label className="hit-target" title="How much hit the plan aims for. WoWSims and the guides plan to the cap; a lower target makes the planner stop paying for hit earlier and spend those slots on other stats. Changing it rebuilds the plan.">
+							Hit target
+							<select value={character.hitTarget !== undefined && character.hitTarget < spec.hitCapPercent ? character.hitTarget : spec.hitCapPercent} disabled={refining !== null} onChange={event => setHitTarget(Number(event.target.value))}>
+								{hitChoices.map(value => (
+									<option key={value} value={value}>
+										{value === spec.hitCapPercent ? `The cap, ${value}% (as WoWSims)` : value === 0 ? 'None: hit counts for nothing' : `${value}%`}
+									</option>
+								))}
+							</select>
+						</label>
+					)}
+					{caveats.length > 0 && (
+						<span className="summary-hit estimate-caveat" title={`${caveats.join('; ')}.`}>
+							less exact for you: {caveats.slice(0, -1).join('; ')}
+						</span>
+					)}
+					{talentsDiffer && !measuredForMe && defaultWeights && onWeightsChange && (
+						<button
+							type="button"
+							className="button button-small standard-talents"
+							disabled={measuring !== null || refining !== null}
+							title={`Runs the simulator ${weightRuns(spec)} times with your talents and gear, a few minutes in all, and rebuilds the plan with what it finds. The numbers in the lists then fit your talents.`}
+							onClick={measureForMe}>
+							{measuring ?? 'Fit the estimate to my talents'}
+						</button>
+					)}
+					{measuredForMe && talentsDiffer && <span className="summary-hit">The estimate is measured for your talents.</span>}
+					{talentsDiffer && (
+						<button type="button" className="button button-small standard-talents" title="Sets your talents to the ones this build was measured with. You can change them again under Sim setup." onClick={standardTalents}>
+							Use the build's standard talents
+						</button>
+					)}
+				</div>
+				<div>
+					<span className="field-label">Still to do</span>
+					<span className="score num">{openCount}</span>
+					<span className="summary-hit">{openCount === 1 ? 'change' : 'changes'}</span>
+				</div>
+			</div>
+		</>
+	);
+	const simSummary = (
+		<>
+			<SimSummary equipped={character.gear} planned={gear} hasPlan={hasPlan} auto estimated={hasPlan ? planned.score - equipped.score : undefined} caveats={caveats} onStandardTalents={talentsDiffer ? standardTalents : undefined} />
+		</>
+	);
+	const callout = !import.meta.env.VITE_NO_SIM && hasPlan && !refining && checkedPlan !== planKey && (
+						<p className="check-callout" role="note">
+							<svg className="check-callout-sign" viewBox="0 0 24 22" aria-hidden="true">
+								<path d="M12 1.5 23 20.5H1Z" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+								<path d="M12 8v6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+								<circle cx="12" cy="17.2" r="1.3" fill="currentColor" />
+							</svg>
+							<span>
+								<strong>This plan is an estimate.</strong> "Check the plan with the simulator" tests it for real and swaps in what is better. A few minutes, once per plan.
+							</span>
+						</p>
+					);
+	const checkButtons = (
+		<>
+			{!import.meta.env.VITE_NO_SIM && (
+				<button className="button button-primary" onClick={refine} disabled={refining !== null}>
+					Check the plan with the simulator
+				</button>
+			)}
+			{!import.meta.env.VITE_NO_SIM && (
+				<label className="refine-depth">
+					How thorough
+					<select value={depth} onChange={event => setDepth(Number(event.target.value))} disabled={refining !== null}>
+						{REFINE_DEPTHS.map(option => (
+							<option key={option.depth} value={option.depth}>
+								{option.label}: {option.note}
+							</option>
+						))}
+					</select>
+				</label>
+			)}
+			{refining && (
+				<button className="button" onClick={() => refineJob.stop()}>
+					Stop
+				</button>
+			)}
+		</>
+	);
+	const toolButtons = (
+		<>
+			{onUndo && (
+				<button className="button" disabled={undoSteps === 0 || refining !== null} title={undoSteps === 0 ? 'Nothing to take back yet' : `Takes back the last change of the plan (${undoSteps} ${undoSteps === 1 ? 'step' : 'steps'} kept)`} onClick={onUndo}>
+					Undo
+				</button>
+			)}
+			<button className="button" title="Throws away your own changes and the simulator's, and builds the plan again from the estimate. Locked slots stay. Use it after changing what you wear." onClick={() => rebuild()} disabled={refining !== null}>
+				Rebuild the plan
+			</button>
+		</>
+	);
+	const progress = refining && <ProgressBar done={refineSteps.done} total={refineSteps.total} label={`Checking the plan: ${refining}`} />;
+
 	return (
 		<div className="plan">
 			{/* First what counts, then the plan and its simulation. */}
@@ -259,57 +373,31 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				<h2 id="plan-result">Your plan</h2>
 				{(
 					<>
-				<div className="summary">
-					<div className="summary-scores">
-						<div>
-							<span className="field-label">The plan, estimated</span>
-							<span className="score num delta-up">{hasPlan ? formatGain(planned.score - equipped.score) : 'Nothing to change'}</span>
-							{spec.hitCapPercent > 0 && (
-								<span className="summary-hit">
-									{equipped.hit.total.toFixed(1)}% hit now, {planned.hit.total.toFixed(1)}% of {planned.hit.cap}% planned
-								</span>
-							)}
-							{hitChoices.length > 0 && (
-								<label className="hit-target" title="How much hit the plan aims for. WoWSims and the guides plan to the cap; a lower target makes the planner stop paying for hit earlier and spend those slots on other stats. Changing it rebuilds the plan.">
-									Hit target
-									<select value={character.hitTarget !== undefined && character.hitTarget < spec.hitCapPercent ? character.hitTarget : spec.hitCapPercent} disabled={refining !== null} onChange={event => setHitTarget(Number(event.target.value))}>
-										{hitChoices.map(value => (
-											<option key={value} value={value}>
-												{value === spec.hitCapPercent ? `The cap, ${value}% (as WoWSims)` : value === 0 ? 'None: hit counts for nothing' : `${value}%`}
-											</option>
-										))}
-									</select>
-								</label>
-							)}
-							{caveats.length > 0 && (
-								<span className="summary-hit estimate-caveat" title={`${caveats.join('; ')}.`}>
-									less exact for you: {caveats.slice(0, -1).join('; ')}
-								</span>
-							)}
-							{talentsDiffer && !measuredForMe && defaultWeights && onWeightsChange && (
-								<button
-									type="button"
-									className="button button-small standard-talents"
-									disabled={measuring !== null || refining !== null}
-									title={`Runs the simulator ${weightRuns(spec)} times with your talents and gear, a few minutes in all, and rebuilds the plan with what it finds. The numbers in the lists then fit your talents.`}
-									onClick={measureForMe}>
-									{measuring ?? 'Fit the estimate to my talents'}
-								</button>
-							)}
-							{measuredForMe && talentsDiffer && <span className="summary-hit">The estimate is measured for your talents.</span>}
-							{talentsDiffer && (
-								<button type="button" className="button button-small standard-talents" title="Sets your talents to the ones this build was measured with. You can change them again under Sim setup." onClick={standardTalents}>
-									Use the build's standard talents
-								</button>
-							)}
+				<div className={IS_DEV ? 'summary plan-hero' : 'summary'}>
+					{IS_DEV ? (
+						<div className="plan-hero-grid">
+							<div className="plan-hero-main">
+								{simSummary}
+								{scores}
+								<div className="actions plan-hero-tools">{toolButtons}</div>
+							</div>
+							<aside className={checkedPlan === planKey && !refining ? 'plan-next plan-next-done' : 'plan-next'} aria-label="Check the plan with the simulator">
+								<h3>{refining ? 'Checking the plan…' : checkedPlan === planKey ? 'Checked with the simulator' : 'Next: check it for real'}</h3>
+								<p>
+									{checkedPlan === planKey && !refining
+										? 'This plan was tested with real simulations. Check again after you change it.'
+										: 'This plan is an estimate. The simulator tests it and swaps in what is better. A few minutes, once per plan.'}
+								</p>
+								<div className="plan-next-actions">{checkButtons}</div>
+								{progress}
+							</aside>
 						</div>
-						<div>
-							<span className="field-label">Still to do</span>
-							<span className="score num">{openCount}</span>
-							<span className="summary-hit">{openCount === 1 ? 'change' : 'changes'}</span>
-						</div>
-					</div>
-					<SimSummary equipped={character.gear} planned={gear} hasPlan={hasPlan} auto estimated={hasPlan ? planned.score - equipped.score : undefined} caveats={caveats} onStandardTalents={talentsDiffer ? standardTalents : undefined} />
+					) : (
+						<>
+							{scores}
+							{simSummary}
+						</>
+					)}
 					{staleCount > 0 && (
 						<p className="notice" role="status">
 							{staleCount === 1 ? 'One planned item comes' : `${staleCount} planned items come`} from content that is switched off in Content Selection (marked "not in your content" below).{' '}
@@ -320,51 +408,14 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 									: `"Rebuild the plan" replaces ${staleCount === 1 ? 'it' : 'them'}.`}
 						</p>
 					)}
-					{!import.meta.env.VITE_NO_SIM && hasPlan && !refining && checkedPlan !== planKey && (
-						<p className="check-callout" role="note">
-							<svg className="check-callout-sign" viewBox="0 0 24 22" aria-hidden="true">
-								<path d="M12 1.5 23 20.5H1Z" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-								<path d="M12 8v6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
-								<circle cx="12" cy="17.2" r="1.3" fill="currentColor" />
-							</svg>
-							<span>
-								<strong>This plan is an estimate.</strong> "Check the plan with the simulator" tests it for real and swaps in what is better. A few minutes, once per plan.
-							</span>
-						</p>
+					{!IS_DEV && callout}
+					{!IS_DEV && (
+						<div className="actions">
+							{checkButtons}
+							{toolButtons}
+						</div>
 					)}
-					<div className="actions">
-						{!import.meta.env.VITE_NO_SIM && (
-							<button className="button button-primary" onClick={refine} disabled={refining !== null}>
-								Check the plan with the simulator
-							</button>
-						)}
-						{!import.meta.env.VITE_NO_SIM && (
-							<label className="refine-depth">
-								How thorough
-								<select value={depth} onChange={event => setDepth(Number(event.target.value))} disabled={refining !== null}>
-									{REFINE_DEPTHS.map(option => (
-										<option key={option.depth} value={option.depth}>
-											{option.label}: {option.note}
-										</option>
-									))}
-								</select>
-							</label>
-						)}
-						{refining && (
-							<button className="button" onClick={() => refineJob.stop()}>
-								Stop
-							</button>
-						)}
-						{onUndo && (
-							<button className="button" disabled={undoSteps === 0 || refining !== null} title={undoSteps === 0 ? 'Nothing to take back yet' : `Takes back the last change of the plan (${undoSteps} ${undoSteps === 1 ? 'step' : 'steps'} kept)`} onClick={onUndo}>
-								Undo
-							</button>
-						)}
-						<button className="button" title="Throws away your own changes and the simulator's, and builds the plan again from the estimate. Locked slots stay. Use it after changing what you wear." onClick={() => rebuild()} disabled={refining !== null}>
-							Rebuild the plan
-						</button>
-					</div>
-					{refining && <ProgressBar done={refineSteps.done} total={refineSteps.total} label={`Checking the plan: ${refining}`} />}
+					{!IS_DEV && progress}
 					{character.planTier && character.planTier.asked > 0 && (
 						<p className={character.planTier.count < character.planTier.asked ? 'notice notice-error' : 'notice'} role="status">
 							{character.planTier.count < character.planTier.asked

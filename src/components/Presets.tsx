@@ -95,11 +95,11 @@ export function PresetField() {
 				/>
 			) : (
 				<div className="preset-buttons">
-					<button className="button" onClick={() => setNaming(true)}>
-						Create preset
+					<button className="button" onClick={() => setNaming(true)} title="Create a preset: a copy of this one under a name of your choice">
+						Create<span className="preset-word"> preset</span>
 					</button>
 					<button className="button" disabled={only} onClick={() => setAsking(true)} title={only ? 'This is the only preset of this character.' : `Delete the preset "${current?.label}"`}>
-						Delete preset
+						Delete<span className="preset-word"> preset</span>
 					</button>
 				</div>
 			)}

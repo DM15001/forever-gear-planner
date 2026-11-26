@@ -9247,3 +9247,210 @@ details.content-fold,
 	font-size: 0.875rem;
 	line-height: 1.4;
 }
+/* Check gear, Character details: the preset's two buttons say "Create" and "Delete" only, so the row fits the narrow column. */
+:root:root .sheet-details .preset-buttons .preset-word {
+	display: none;
+}
+:root:root .sheet-details .preset-field {
+	grid-template-columns: minmax(0, 1fr) auto;
+}
+:root:root .sheet-details .preset-field > select {
+	min-width: 0;
+}
+
+/* On trial on Dev, Build plan: the head as "before → after", the simulator check as the next step in a card of its own. */
+.plan-hero-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(16rem, 22rem);
+	gap: 1.4rem;
+	align-items: start;
+}
+.plan-hero-main {
+	min-width: 0;
+}
+.plan-hero .sim-summary > .field-label {
+	display: none;
+}
+.plan-hero .sim-numbers {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	gap: 0.6rem 1.6rem;
+	margin: 0.2rem 0 0.4rem;
+}
+.plan-hero .sim-was,
+.plan-hero .sim-will {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	line-height: 1.1;
+}
+.plan-hero .sim-word {
+	font-size: 0.8125rem;
+	color: var(--haze);
+}
+.plan-hero .sim-numbers strong {
+	font-family: var(--display);
+	font-size: 2.4rem;
+	font-weight: 700;
+}
+.plan-hero .sim-will strong {
+	color: var(--brass);
+}
+/* The arrow between the two numbers, and the gain as a mark above the planned one. */
+.plan-hero .sim-will {
+	padding-left: 5.5rem;
+}
+.plan-hero .sim-will::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: 0.9rem;
+	width: 4.2rem;
+	height: 2px;
+	background: linear-gradient(90deg, var(--ridge), #6fdc7a);
+}
+.plan-hero .sim-will::after {
+	content: '';
+	position: absolute;
+	left: 4rem;
+	bottom: calc(0.9rem - 5px);
+	border: 6px solid transparent;
+	border-left-color: #6fdc7a;
+}
+.plan-hero .sim-gain {
+	position: absolute;
+	left: 0;
+	bottom: 1.75rem;
+	width: 4.4rem;
+	padding: 0.05rem 0;
+	text-align: center;
+	font-size: 0.875rem;
+	font-weight: 700;
+	background: #0f2a14;
+	border: 1px solid #2f7d3a;
+	border-radius: 999px;
+}
+.plan-hero .sim-gain.delta-down {
+	background: #2a1410;
+	border-color: #8a3d2a;
+}
+/* The facts in one quiet line. */
+.plan-hero .summary-scores {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.3rem 1.6rem;
+	margin: 0.5rem 0 0;
+	padding: 0;
+	border: 0;
+	font-size: 0.875rem;
+	color: var(--haze);
+}
+.plan-hero .summary-scores > div {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.3rem 0.9rem;
+}
+.plan-hero .summary-scores .field-label {
+	margin: 0;
+	font-size: 0.875rem;
+}
+.plan-hero .summary-scores .score {
+	font-family: var(--sans);
+	font-size: 1rem;
+	font-weight: 700;
+}
+.plan-hero .summary-scores .summary-hit,
+.plan-hero .summary-scores .hit-target {
+	margin: 0;
+	font-size: 0.875rem;
+}
+/* One gold button only: the breakdown is a tool like the others. */
+.plan-hero .breakdown-open {
+	margin: 0.8rem 0 0;
+}
+.plan-hero .breakdown-open .button-primary {
+	padding: 0.35rem 0.8rem;
+	font: inherit;
+	font-size: 0.875rem;
+	letter-spacing: 0;
+	text-transform: none;
+	color: var(--mist);
+	background: var(--slate-raised);
+	border: 1px solid var(--ridge);
+	box-shadow: none;
+}
+.plan-hero .breakdown-open .button,
+.plan-hero-tools .button {
+	padding: 0.35rem 0.8rem;
+	font-size: 0.875rem;
+}
+.plan-hero-tools {
+	margin: 0.45rem 0 0;
+}
+.plan-next {
+	padding: 0.9rem 1rem 1rem;
+	background: linear-gradient(180deg, rgb(214 174 95 / 0.14), transparent 70%), var(--slate-raised);
+	border: 1px solid var(--brass);
+	border-radius: 8px;
+}
+.plan-next h3 {
+	margin: 0 0 0.35rem;
+	font: 700 0.9375rem var(--sans);
+	color: var(--brass);
+	letter-spacing: 0;
+	text-transform: none;
+}
+.plan-next p {
+	margin: 0 0 0.75rem;
+	font-size: 0.875rem;
+	line-height: 1.45;
+	color: var(--mist);
+}
+.plan-next-actions {
+	display: grid;
+	gap: 0.5rem;
+}
+.plan-next-actions .button-primary {
+	width: 100%;
+}
+.plan-next-actions .refine-depth {
+	display: grid;
+	gap: 0.2rem;
+	font-size: 0.8125rem;
+	color: var(--haze);
+}
+.plan-next-actions .refine-depth select {
+	width: 100%;
+	min-width: 0;
+}
+.plan-next-done {
+	border-color: #2f7d3a;
+	background: linear-gradient(180deg, rgb(111 220 122 / 0.1), transparent 70%), var(--slate-raised);
+}
+.plan-next-done h3 {
+	color: #6fdc7a;
+}
+@media (max-width: 52rem) {
+	.plan-hero-grid {
+		grid-template-columns: minmax(0, 1fr);
+	}
+	.plan-hero .sim-numbers strong {
+		font-size: 1.9rem;
+	}
+	.plan-hero .sim-will {
+		padding-left: 4.2rem;
+	}
+	.plan-hero .sim-will::before {
+		width: 3rem;
+	}
+	.plan-hero .sim-will::after {
+		left: 2.8rem;
+	}
+	.plan-hero .sim-gain {
+		width: 3.6rem;
+		font-size: 0.75rem;
+	}
+}

@@ -641,13 +641,13 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 		<div className="sim-summary">
 			<span className="field-label">Simulated with WoWSims</span>
 			<div className="sim-numbers">
-				<span>
-					Equipped <strong className="num">{show(a)}</strong>
+				<span className="sim-was">
+					<span className="sim-word">Equipped</span> <strong className="num">{show(a)}</strong>
 				</span>
 				{hasPlan && (
-					<span>
-						Planned <strong className="num">{show(b)}</strong>
-						{a && b && <span className={`num ${b.dps >= a.dps ? 'delta-up' : 'delta-down'}`}> {signed(b.dps - a.dps, 0)}</span>}
+					<span className="sim-will">
+						<span className="sim-word">Planned</span> <strong className="num">{show(b)}</strong>
+						{a && b && <span className={`sim-gain num ${b.dps >= a.dps ? 'delta-up' : 'delta-down'}`}> {signed(b.dps - a.dps, 0)}</span>}
 					</span>
 				)}
 				{!complete && (
