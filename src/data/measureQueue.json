@@ -37,23 +37,5 @@
 		"warrior-fury": 19
 	},
 	"weights": {},
-	"weapons": {
-		"druid-cat": 20,
-		"enhancement-shaman": 19,
-		"hunter-bm": 19,
-		"hunter-mm": 19,
-		"hunter-sv-melee": 19,
-		"hunter-sv-weave": 19,
-		"hunter-sv": 19,
-		"paladin-ret-holy-shock": 19,
-		"paladin-ret": 19,
-		"rogue-asn-muti": 19,
-		"rogue-combat-bs": 19,
-		"rogue-combat-ss": 19,
-		"rogue-combat-venom": 19,
-		"rogue-hemo-sf": 19,
-		"rogue-sub-hemo": 19,
-		"warrior-arms": 19,
-		"warrior-fury": 19
-	}
+	"weapons": {}
 }
