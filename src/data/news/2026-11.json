@@ -96,6 +96,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Item sources updated from AtlasLoot Continued",
+							"text": "The planner now also reads the loot tables of the AtlasLoot Continued addon (by Okrah and Lag), next to AtlasLoot Classic Forever. 56 items that had no known source got one, 32 of them trash drops: 14 each in The Drowned City and Krol'dok Stronghold, 6 each in Blackmaw Hold and Alcaz Prison, 4 in The Shaper's Terrace, and single items in Zul'Farrak, Blackrock Spire, Dire Maul and the City of Dalaran. 24 more moved from a placeholder dungeon to the real one, now with the boss that drops them. Loot of the world bosses is known too; it counts as raid loot and stays out of the plan until raids are in.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Lock items in your plan",
 							"text": "Every slot card under \"Build plan\" has a small lock. A locked item stays: \"Rebuild the plan\" and \"Check the plan with the simulator\" keep it and choose the other slots around it, so a locked piece with a lot of hit rating means less hit elsewhere. A note says which slots are locked and what that costs against a free plan, with \"Unlock all\". A lock on one hand holds both hands.",
 							"source": "Gear Planner",

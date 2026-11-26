@@ -122,7 +122,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 				a: (
 					<ul>
 						<li><strong>Items, stats, sets, enchants, the simulator itself</strong>: <a href="https://github.com/wowsims/forever">WoWSims Forever</a>.</li>
-						<li><strong>Where items drop</strong>: <a href="https://github.com/Hoizame/AtlasLootClassic">AtlasLootClassic</a> and <a href="https://www.curseforge.com/wow/addons/atlasloot-forever">AtlasLoot Classic Forever</a>, drop chances and guide picks from <a href="https://www.wowhead.com/forever">Wowhead</a>, and a hand-kept list for what those miss.</li>
+						<li><strong>Where items drop</strong>: <a href="https://github.com/Hoizame/AtlasLootClassic">AtlasLootClassic</a> and <a href="https://www.curseforge.com/wow/addons/atlasloot-forever">AtlasLoot Classic Forever</a> and AtlasLoot Continued (by Okrah and Lag), drop chances and guide picks from <a href="https://www.wowhead.com/forever">Wowhead</a>, and a hand-kept list for what those miss.</li>
 						<li><strong>Icons</strong>: Blizzard's and Wowhead's image servers. Item tooltips are Wowhead's.</li>
 						<li><strong>News</strong>: written by hand from official posts and the WoWSims changes, with links.</li>
 					</ul>
