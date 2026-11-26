@@ -1,9 +1,6 @@
 {
 	"seq": 24,
-	"effects": {
-		"druid-balance": 24,
-		"druid-cat": 24
-	},
+	"effects": {},
 	"weights": {},
 	"weapons": {
 		"druid-cat": 24
