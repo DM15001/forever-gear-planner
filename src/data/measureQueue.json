@@ -1,8 +1,8 @@
 {
-	"seq": 19,
+	"seq": 20,
 	"effects": {
-		"druid-balance": 19,
-		"druid-cat": 19,
+		"druid-balance": 20,
+		"druid-cat": 20,
 		"elemental-shaman": 19,
 		"enhancement-shaman": 19,
 		"hunter-bm": 19,
@@ -37,8 +37,8 @@
 		"warrior-fury": 19
 	},
 	"weights": {
-		"druid-balance": 19,
-		"druid-cat": 19,
+		"druid-balance": 20,
+		"druid-cat": 20,
 		"elemental-shaman": 19,
 		"enhancement-shaman": 19,
 		"hunter-bm": 19,
@@ -71,7 +71,7 @@
 		"warrior-fury": 19
 	},
 	"weapons": {
-		"druid-cat": 19,
+		"druid-cat": 20,
 		"enhancement-shaman": 19,
 		"hunter-bm": 19,
 		"hunter-mm": 19,
