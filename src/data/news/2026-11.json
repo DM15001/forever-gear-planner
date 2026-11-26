@@ -97,7 +97,7 @@
 					"items": [
 						{
 							"title": "Check gear on one screen",
-							"text": "The compact layout that was tried on the Dev copy is now on the Live site: four columns (slots, character details, stats, slots) with the weapons in a row below. Each slot is one row with icon, name, slot and one line of stats, and the enchant as a small button on the right. Click the icon to change an item.",
+							"text": "The compact layout that was tried on the Dev copy is now on the Live site: four columns (slots, character details, stats, slots) with the weapons in a row below. Each slot is one row with icon, name, slot and one line of stats, and the enchant as a small button on the right. Click the icon to change an item. Talents are shown once, in the chip under the name; the second copy in Character details is gone.",
 							"source": "Gear Planner",
 							"tags": [
 								"Planner"

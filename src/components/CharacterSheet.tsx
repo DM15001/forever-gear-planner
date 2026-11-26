@@ -183,20 +183,6 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 								</option>
 							))}
 						</select>
-						{points && onOpenTalents && (
-							<div className="talent-field">
-								<span className="field-label">Talents</span>
-								<button className="button talent-field-button" onClick={onOpenTalents} title="Opens the talent trees">
-									<strong className="num">{points}</strong>
-									<span>{talentSource}</span>
-								</button>
-								{character.talents && (
-									<button className="link" onClick={() => onChange({ ...character, talents: '' })}>
-										Use the build's talents
-									</button>
-								)}
-							</div>
-						)}
 						<PresetField />
 					</>
 				)}
