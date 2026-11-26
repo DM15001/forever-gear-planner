@@ -210,7 +210,7 @@
 			},
 			"weapons": {
 				"at": "2026-11-26",
-				"current": false
+				"current": true
 			},
 			"weights": {
 				"at": "2026-11-26",
@@ -225,7 +225,7 @@
 			},
 			"weapons": {
 				"at": "2026-11-26",
-				"current": false
+				"current": true
 			},
 			"weights": {
 				"at": "2026-11-26",
@@ -430,7 +430,7 @@
 			},
 			"weapons": {
 				"at": "2026-11-26",
-				"current": false
+				"current": true
 			},
 			"weights": {
 				"at": "2026-11-26",
@@ -445,7 +445,7 @@
 			},
 			"weapons": {
 				"at": "2026-11-26",
-				"current": false
+				"current": true
 			},
 			"weights": {
 				"at": "2026-11-26",
