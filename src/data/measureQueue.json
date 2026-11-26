@@ -12,10 +12,5 @@
 		"warrior-arms": 32,
 		"warrior-fury": 32
 	},
-	"weapons": {
-		"paladin-ret-holy-shock": 32,
-		"paladin-ret": 32,
-		"warrior-arms": 32,
-		"warrior-fury": 32
-	}
+	"weapons": {}
 }
