@@ -9666,18 +9666,3 @@ details.content-fold,
 	font-size: 0.8125rem;
 	color: var(--mist);
 }
-/* Dev trial: the check card at the left, the numbers at the right. */
-.plan-hero-grid {
-	grid-template-columns: minmax(17rem, 23rem) minmax(0, 1fr);
-}
-.plan-hero-grid > .plan-next {
-	order: -1;
-}
-@media (max-width: 52rem) {
-	.plan-hero-grid {
-		grid-template-columns: minmax(0, 1fr);
-	}
-	.plan-hero-grid > .plan-next {
-		order: 0;
-	}
-}
