@@ -156,6 +156,8 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 	};
 	const planItem = (index: number, itemId: number) => {
 		const next: Record<number, number> = { ...character.plan, [index]: itemId };
+		// On trial on Dev, where Customize comes before the simulator check: an item picked by hand is locked, so the check builds around it.
+		const picked = IS_DEV ? [...new Set([...(character.planLocks ?? []), index])] : character.planLocks;
 		// A ring or trinket that excludes the planned one in the other slot takes its place.
 		const other = pairedSlot(index);
 		if (other !== undefined && next[other] !== undefined && clash(data.itemById.get(itemId), data.itemById.get(next[other]))) delete next[other];
@@ -164,7 +166,13 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 		if (enchant && enchant !== gear[index]?.enchant) {
 			setGuideNotice(null);
 			setUndo(null);
-			onChange({ ...character, plan: next, planEnchants: { ...character.planEnchants, [index]: enchant } });
+			onChange({ ...character, plan: next, planEnchants: { ...character.planEnchants, [index]: enchant }, planLocks: picked });
+			return;
+		}
+		if (IS_DEV) {
+			setGuideNotice(null);
+			setUndo(null);
+			onChange({ ...character, plan: next, planLocks: picked });
 			return;
 		}
 		setPlan(next);

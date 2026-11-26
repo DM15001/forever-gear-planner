@@ -28,6 +28,14 @@ export function ContentStep({ spec, character, data, filter, onFilterChange, onC
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [filter, data]);
 
+	// A character that has never had a plan gets one here, so the next step has a list to work on.
+	const built = useRef(false);
+	useEffect(() => {
+		if (!built.current && character.plan === undefined && !locked) onChange({ ...character, ...buildPlan({ character, data, spec, filter }) });
+		built.current = true;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	return (
 		<div className="content-step" inert={locked}>
 			<header className="content-step-head">

@@ -62,9 +62,20 @@ const SIDE_TABS = [
 /** Two copies of the site are published: the live one, and under dev/ the one with changes still being tried out. Both read the same saved characters. */
 const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
 // On trial on Dev: the content choice as a step of its own, before the plan.
-const TABS = ALL_TABS.filter(t => IS_DEV || t.id !== 'content');
+// Also on trial there: Customize before Build plan. The plan exists as soon as the content is chosen; you change
+// what you want by hand, then Build plan checks the rest with the simulator around your picks.
+const DEV_ORDER = ['character', 'content', 'upgrades', 'simulate', 'farm', 'group'];
+const TABS = IS_DEV
+	? DEV_ORDER.map(id => ALL_TABS.find(t => t.id === id)!).map(t => (t.id === 'upgrades' ? { ...t, hint: 'Optional: pick single items yourself, slot by slot. What you pick is locked, and the simulator check in Build plan works around it.' } : t))
+	: ALL_TABS.filter(t => t.id !== 'content');
 const NEXT_STEP: Record<string, { to: string; label: string }> = IS_DEV
-	? { ...ALL_NEXT, character: { to: 'content', label: 'Next: content selection' }, content: { to: 'simulate', label: 'Next: build your plan' } }
+	? {
+			character: { to: 'content', label: 'Next: content selection' },
+			content: { to: 'upgrades', label: 'Next: customize (or skip to Build plan)' },
+			upgrades: { to: 'simulate', label: 'Next: check the plan with the simulator' },
+			simulate: { to: 'farm', label: 'Next: farm it' },
+			farm: ALL_NEXT.farm,
+		}
 	: ALL_NEXT;
 
 /**
