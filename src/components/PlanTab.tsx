@@ -227,7 +227,10 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 	// An empty string means "the build's own talents".
 	const talentsDiffer = Boolean(character.talents && spec.talents && character.talents !== spec.talents);
 	const standardTalents = () => onChange({ ...character, talents: '' });
-	const staleCount = slots.filter(row => row.isChange && row.goalItem && !isObtainable(row.goalItem, character, faction, filter, spec)).length;
+	const stale = slots.filter(row => row.isChange && row.goalItem && !isObtainable(row.goalItem, character, faction, filter, spec));
+	const staleCount = stale.length;
+	// A locked slot keeps its item whatever the content says: then "Rebuild the plan" cannot replace it.
+	const staleLocked = stale.filter(row => lockedSlots(character).includes(row.index)).length;
 
 	return (
 		<div className="plan">
@@ -309,8 +312,12 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 					<SimSummary equipped={character.gear} planned={gear} hasPlan={hasPlan} auto estimated={hasPlan ? planned.score - equipped.score : undefined} caveats={caveats} onStandardTalents={talentsDiffer ? standardTalents : undefined} />
 					{staleCount > 0 && (
 						<p className="notice" role="status">
-							{staleCount === 1 ? 'One planned item comes' : `${staleCount} planned items come`} from content that is switched off above (marked "not in your content" below). The plan was made before
-							that choice. "Rebuild the plan" replaces {staleCount === 1 ? 'it' : 'them'}.
+							{staleCount === 1 ? 'One planned item comes' : `${staleCount} planned items come`} from content that is switched off in Content Selection (marked "not in your content" below).{' '}
+							{staleLocked === staleCount
+								? `${staleCount === 1 ? 'Its slot is' : 'Their slots are'} locked, so the plan keeps ${staleCount === 1 ? 'it' : 'them'}: unlock to have ${staleCount === 1 ? 'it' : 'them'} replaced.`
+								: staleLocked > 0
+									? `"Rebuild the plan" replaces the unlocked ones; ${staleLocked} ${staleLocked === 1 ? 'is' : 'are'} in a locked slot and stay until you unlock.`
+									: `"Rebuild the plan" replaces ${staleCount === 1 ? 'it' : 'them'}.`}
 						</p>
 					)}
 					{!import.meta.env.VITE_NO_SIM && hasPlan && !refining && checkedPlan !== planKey && (
