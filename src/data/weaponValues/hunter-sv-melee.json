@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T12:13:12.579Z",
-	"inputs": "e771e33043994ddb",
+	"generatedAt": "2026-11-26T14:42:28.695Z",
+	"inputs": "8ee0b15082708896",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -46,8 +46,8 @@
 		},
 		"6660": {
 			"name": "Julie's Dagger",
-			"mainHand": -80.83,
-			"offHand": -12.81
+			"offHand": -12.81,
+			"mainHand": -80.83
 		},
 		"7947": {
 			"name": "Ebon Shiv",
@@ -113,8 +113,8 @@
 		},
 		"10847": {
 			"name": "Dragon's Call",
-			"offHand": -42.67,
-			"mainHand": -12.09
+			"offHand": -44.66,
+			"mainHand": -14.96
 		},
 		"11086": {
 			"name": "Jang'thraze the Protector",
@@ -233,8 +233,8 @@
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"offHand": -25.79,
-			"mainHand": -51.37
+			"mainHand": -51.37,
+			"offHand": -25.79
 		},
 		"12791": {
 			"name": "Barman Shanker",
@@ -419,8 +419,8 @@
 		},
 		"15237": {
 			"name": "Corpse Harvester",
-			"offHand": -62.73,
-			"mainHand": -48.31
+			"mainHand": -48.31,
+			"offHand": -62.73
 		},
 		"15238": {
 			"name": "Warlord's Axe",
@@ -429,8 +429,8 @@
 		},
 		"15239": {
 			"name": "Felstone Reaver",
-			"offHand": -44.73,
-			"mainHand": -54.46
+			"mainHand": -54.46,
+			"offHand": -44.73
 		},
 		"15240": {
 			"name": "Demon's Claw",
@@ -439,8 +439,8 @@
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"mainHand": -92.16,
-			"offHand": -30.41
+			"offHand": -30.41,
+			"mainHand": -92.16
 		},
 		"15246": {
 			"name": "Demon Blade",
@@ -449,8 +449,8 @@
 		},
 		"15247": {
 			"name": "Bloodstrike Dagger",
-			"offHand": -31.94,
-			"mainHand": -72.31
+			"mainHand": -72.31,
+			"offHand": -31.94
 		},
 		"15288": {
 			"name": "Blasthorn Bow",
@@ -623,8 +623,8 @@
 		},
 		"18462": {
 			"name": "Jagged Bone Fist",
-			"offHand": -35.17,
-			"mainHand": -58.09
+			"mainHand": -58.09,
+			"offHand": -35.17
 		},
 		"18463": {
 			"name": "Ogre Pocket Knife",
@@ -687,8 +687,8 @@
 		},
 		"19103": {
 			"name": "Frostbite",
-			"offHand": -56.01,
-			"mainHand": -15.28
+			"mainHand": -15.28,
+			"offHand": -56.01
 		},
 		"19107": {
 			"name": "Bloodseeker",
@@ -730,8 +730,8 @@
 		},
 		"19551": {
 			"name": "Legionnaire's Sword",
-			"offHand": -61.24,
-			"mainHand": -35.16
+			"mainHand": -35.16,
+			"offHand": -61.24
 		},
 		"19554": {
 			"name": "Protector's Sword",
@@ -818,8 +818,8 @@
 		},
 		"260172": {
 			"name": "Assassin's Dagger",
-			"offHand": -35.06,
-			"mainHand": -84.17
+			"mainHand": -84.17,
+			"offHand": -35.06
 		},
 		"260180": {
 			"name": "Scout's Dagger",
@@ -915,8 +915,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"offHand": -22.91,
-			"mainHand": -31.21
+			"mainHand": -31.21,
+			"offHand": -22.91
 		},
 		"272844": {
 			"name": "Premier Grand Marshal's Right Hand Blade",
@@ -941,8 +941,8 @@
 		},
 		"274265": {
 			"name": "Brush Cutter",
-			"offHand": -62.65,
-			"mainHand": -32.56
+			"mainHand": -32.56,
+			"offHand": -62.65
 		},
 		"274271": {
 			"name": "Deadhead Blade",
@@ -951,13 +951,13 @@
 		},
 		"274383": {
 			"name": "Kanai's Knife",
-			"offHand": -26.13,
-			"mainHand": -72.87
+			"mainHand": -72.87,
+			"offHand": -26.13
 		},
 		"274517": {
 			"name": "Unerring Purpose",
-			"offHand": -59.51,
-			"mainHand": -34.3
+			"mainHand": -34.3,
+			"offHand": -59.51
 		},
 		"275296": {
 			"name": "Deadwood Boomstick",
@@ -1008,8 +1008,8 @@
 		},
 		"279474": {
 			"name": "Dustwallow Dirk",
-			"mainHand": -73.15,
-			"offHand": -29.4
+			"offHand": -29.4,
+			"mainHand": -73.15
 		},
 		"279908": {
 			"name": "Crystal-Infused Cleaver",

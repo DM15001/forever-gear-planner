@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T08:11:00.172Z",
-	"inputs": "0aaee7b29bb0fd59",
+	"generatedAt": "2026-11-26T14:46:08.287Z",
+	"inputs": "a47f8466115d99dc",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -12,8 +12,8 @@
 	"weapons": {
 		"2163": {
 			"name": "Shadowblade",
-			"mainHand": -18.73,
-			"offHand": -7.11
+			"offHand": -7.11,
+			"mainHand": -18.73
 		},
 		"2243": {
 			"name": "Hand of Edward the Odd",
@@ -66,7 +66,7 @@
 		},
 		"10847": {
 			"name": "Dragon's Call",
-			"offHand": -4.07
+			"offHand": -7.29
 		},
 		"11635": {
 			"name": "Hookfang Shanker",
@@ -96,8 +96,8 @@
 		},
 		"12531": {
 			"name": "Searing Needle",
-			"offHand": -19.72,
-			"mainHand": -37.07
+			"mainHand": -37.07,
+			"offHand": -19.72
 		},
 		"12535": {
 			"name": "Doomforged Straightedge",
@@ -134,8 +134,8 @@
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"mainHand": -14.29,
-			"offHand": -8.63
+			"offHand": -8.63,
+			"mainHand": -14.29
 		},
 		"12791": {
 			"name": "Barman Shanker",
@@ -212,8 +212,8 @@
 		},
 		"13368": {
 			"name": "Bonescraper",
-			"mainHand": -23.16,
-			"offHand": -2.96
+			"offHand": -2.96,
+			"mainHand": -23.16
 		},
 		"13399": {
 			"name": "Gargoyle Shredder Talons",
@@ -428,8 +428,8 @@
 		},
 		"19100": {
 			"name": "Electrified Dagger",
-			"mainHand": -13.32,
-			"offHand": -8.84
+			"offHand": -8.84,
+			"mainHand": -13.32
 		},
 		"19103": {
 			"name": "Frostbite",
@@ -451,8 +451,8 @@
 		},
 		"19543": {
 			"name": "Scout's Blade",
-			"mainHand": -35.79,
-			"offHand": -15.87
+			"offHand": -15.87,
+			"mainHand": -35.79
 		},
 		"19546": {
 			"name": "Sentinel's Blade",
@@ -524,13 +524,13 @@
 		},
 		"260172": {
 			"name": "Assassin's Dagger",
-			"offHand": -21.11,
-			"mainHand": -44.96
+			"mainHand": -44.96,
+			"offHand": -21.11
 		},
 		"260180": {
 			"name": "Scout's Dagger",
-			"mainHand": -44.96,
-			"offHand": -21.11
+			"offHand": -21.11,
+			"mainHand": -44.96
 		},
 		"260213": {
 			"name": "Great Bear Claw",
@@ -562,8 +562,8 @@
 		},
 		"272596": {
 			"name": "Premier High Warlord's Razor",
-			"mainHand": 10.62,
-			"offHand": -1.51
+			"offHand": -1.51,
+			"mainHand": 10.62
 		},
 		"272598": {
 			"name": "Premier High Warlord's Left Claw",
@@ -591,8 +591,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"offHand": -1.51,
-			"mainHand": 10.62
+			"mainHand": 10.62,
+			"offHand": -1.51
 		},
 		"272845": {
 			"name": "Premier Grand Marshal's Left Hand Blade",
@@ -621,8 +621,8 @@
 		},
 		"274383": {
 			"name": "Kanai's Knife",
-			"mainHand": -35.11,
-			"offHand": -14.26
+			"offHand": -14.26,
+			"mainHand": -35.11
 		},
 		"274517": {
 			"name": "Unerring Purpose",

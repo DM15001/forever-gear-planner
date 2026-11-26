@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T07:41:31.665Z",
-	"inputs": "fc5b4405ead07e3d",
+	"generatedAt": "2026-11-26T14:37:51.167Z",
+	"inputs": "0fc932a18fb2fa9b",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -12,33 +12,33 @@
 	"weapons": {
 		"2163": {
 			"name": "Shadowblade",
-			"mainHand": -21.18,
-			"offHand": -1.09
+			"offHand": -1.09,
+			"mainHand": -21.18
 		},
 		"5267": {
 			"name": "Scarlet Kris",
-			"offHand": -4.03,
-			"mainHand": -20.76
+			"mainHand": -20.76,
+			"offHand": -4.03
 		},
 		"6660": {
 			"name": "Julie's Dagger",
-			"mainHand": -29.62,
-			"offHand": -12.77
+			"offHand": -12.77,
+			"mainHand": -29.62
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"offHand": -15.5,
-			"mainHand": -45.05
+			"mainHand": -45.05,
+			"offHand": -15.5
 		},
 		"10697": {
 			"name": "Enchanted Azsharite Felbane Dagger",
-			"offHand": -8.76,
-			"mainHand": -32.18
+			"mainHand": -32.18,
+			"offHand": -8.76
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
-			"mainHand": -38.67,
-			"offHand": -14.94
+			"offHand": -14.94,
+			"mainHand": -38.67
 		},
 		"10828": {
 			"name": "Dire Nail",
@@ -60,8 +60,8 @@
 		},
 		"12531": {
 			"name": "Searing Needle",
-			"offHand": -13.32,
-			"mainHand": -38.99
+			"mainHand": -38.99,
+			"offHand": -13.32
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
@@ -78,8 +78,8 @@
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"mainHand": -20.5,
-			"offHand": -3.56
+			"offHand": -3.56,
+			"mainHand": -20.5
 		},
 		"12791": {
 			"name": "Barman Shanker",
@@ -140,8 +140,8 @@
 		},
 		"15783": {
 			"name": "Beasthunter Dagger",
-			"offHand": -11.42,
-			"mainHand": -34.73
+			"mainHand": -34.73,
+			"offHand": -11.42
 		},
 		"17710": {
 			"name": "Charstone Dirk",
@@ -176,8 +176,8 @@
 		},
 		"19100": {
 			"name": "Electrified Dagger",
-			"offHand": -2.21,
-			"mainHand": -20.02
+			"mainHand": -20.02,
+			"offHand": -2.21
 		},
 		"19324": {
 			"name": "The Lobotomizer",
@@ -228,8 +228,8 @@
 		},
 		"260172": {
 			"name": "Assassin's Dagger",
-			"offHand": -15.13,
-			"mainHand": -46.13
+			"mainHand": -46.13,
+			"offHand": -15.13
 		},
 		"260180": {
 			"name": "Scout's Dagger",

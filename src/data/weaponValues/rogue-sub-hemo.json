@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T09:16:59.553Z",
-	"inputs": "a982bd10415cad75",
+	"generatedAt": "2026-11-26T15:30:48.133Z",
+	"inputs": "d967ba931b8d3d10",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -37,8 +37,8 @@
 		},
 		"2243": {
 			"name": "Hand of Edward the Odd",
-			"mainHand": -81.09,
-			"offHand": -24.09
+			"offHand": -24.09,
+			"mainHand": -81.09
 		},
 		"2244": {
 			"name": "Krol Blade",
@@ -46,8 +46,8 @@
 		},
 		"5267": {
 			"name": "Scarlet Kris",
-			"mainHand": -28.17,
-			"offHand": -7.61
+			"offHand": -7.61,
+			"mainHand": -28.17
 		},
 		"6622": {
 			"name": "Sword of Zeal",
@@ -147,8 +147,8 @@
 		},
 		"10847": {
 			"name": "Dragon's Call",
-			"mainHand": -23.62,
-			"offHand": -10.97
+			"mainHand": -27.11,
+			"offHand": -13.7
 		},
 		"11086": {
 			"name": "Jang'thraze the Protector",
@@ -223,8 +223,8 @@
 		},
 		"12062": {
 			"name": "Skilled Fighting Blade",
-			"offHand": -9.93,
-			"mainHand": -41.7
+			"mainHand": -41.7,
+			"offHand": -9.93
 		},
 		"12527": {
 			"name": "Ribsplitter",
@@ -357,8 +357,8 @@
 		},
 		"13198": {
 			"name": "Hurd Smasher",
-			"mainHand": -59.65,
-			"offHand": -21.17
+			"offHand": -21.17,
+			"mainHand": -59.65
 		},
 		"13204": {
 			"name": "Bashguuder",
@@ -523,8 +523,8 @@
 		},
 		"15247": {
 			"name": "Bloodstrike Dagger",
-			"offHand": -19.88,
-			"mainHand": -38.34
+			"mainHand": -38.34,
+			"offHand": -19.88
 		},
 		"15705": {
 			"name": "Tidecrest Blade",
@@ -692,13 +692,13 @@
 		},
 		"18737": {
 			"name": "Bone Slicing Hatchet",
-			"mainHand": -49.81,
-			"offHand": -10.91
+			"offHand": -10.91,
+			"mainHand": -49.81
 		},
 		"18758": {
 			"name": "Specter's Blade",
-			"offHand": -13.18,
-			"mainHand": -22.64
+			"mainHand": -22.64,
+			"offHand": -13.18
 		},
 		"19099": {
 			"name": "Glacial Blade",
@@ -742,13 +742,13 @@
 		},
 		"19547": {
 			"name": "Sentinel's Blade",
-			"mainHand": -40.06,
-			"offHand": -16.01
+			"offHand": -16.01,
+			"mainHand": -40.06
 		},
 		"19550": {
 			"name": "Legionnaire's Sword",
-			"mainHand": -31.03,
-			"offHand": -26.91
+			"offHand": -26.91,
+			"mainHand": -31.03
 		},
 		"19551": {
 			"name": "Legionnaire's Sword",
@@ -757,8 +757,8 @@
 		},
 		"19554": {
 			"name": "Protector's Sword",
-			"mainHand": -31.03,
-			"offHand": -26.91
+			"offHand": -26.91,
+			"mainHand": -31.03
 		},
 		"19555": {
 			"name": "Protector's Sword",
@@ -925,8 +925,8 @@
 		},
 		"272684": {
 			"name": "Premier High Warlord's Quickblade",
-			"offHand": -2.84,
-			"mainHand": -29.71
+			"mainHand": -29.71,
+			"offHand": -2.84
 		},
 		"272693": {
 			"name": "Premier Grand Marshal's Longsword",
@@ -981,8 +981,8 @@
 		},
 		"274383": {
 			"name": "Kanai's Knife",
-			"mainHand": -39.35,
-			"offHand": -14.24
+			"offHand": -14.24,
+			"mainHand": -39.35
 		},
 		"274517": {
 			"name": "Unerring Purpose",
@@ -1065,13 +1065,13 @@
 		},
 		"280022": {
 			"name": "Scaleguard Scimitar",
-			"offHand": -20.16,
-			"mainHand": -43.42
+			"mainHand": -43.42,
+			"offHand": -20.16
 		},
 		"280029": {
 			"name": "Cinderedge Crescent",
-			"offHand": -19.33,
-			"mainHand": -36.73
+			"mainHand": -36.73,
+			"offHand": -19.33
 		},
 		"280068": {
 			"name": "Bloody Claws of Attack",
@@ -1080,8 +1080,8 @@
 		},
 		"280077": {
 			"name": "Fist of Revelation",
-			"offHand": -32.02,
-			"mainHand": -82.04
+			"mainHand": -82.04,
+			"offHand": -32.02
 		},
 		"280085": {
 			"name": "Tunnelweb Pincer",
@@ -1113,8 +1113,8 @@
 		},
 		"284157": {
 			"name": "Ranger Lord's Longsword",
-			"mainHand": -47.19,
-			"offHand": -24.56
+			"offHand": -24.56,
+			"mainHand": -47.19
 		},
 		"284230": {
 			"name": "Rage Paw",

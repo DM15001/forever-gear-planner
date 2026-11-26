@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T08:20:07.425Z",
-	"inputs": "d33253388769bc24",
+	"generatedAt": "2026-11-26T15:36:13.660Z",
+	"inputs": "b6ac391153a8d90b",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -28,8 +28,8 @@
 		},
 		"2163": {
 			"name": "Shadowblade",
-			"offHand": -8.36,
-			"mainHand": -59.21
+			"mainHand": -59.21,
+			"offHand": -8.36
 		},
 		"2243": {
 			"name": "Hand of Edward the Odd",
@@ -56,13 +56,13 @@
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"mainHand": -89.46,
-			"offHand": -21.85
+			"offHand": -21.85,
+			"mainHand": -89.46
 		},
 		"8190": {
 			"name": "Hanzo Sword",
-			"offHand": -16.93,
-			"mainHand": -50.77
+			"mainHand": -50.77,
+			"offHand": -16.93
 		},
 		"8708": {
 			"name": "Hammer of Expertise",
@@ -99,8 +99,8 @@
 		},
 		"10697": {
 			"name": "Enchanted Azsharite Felbane Dagger",
-			"offHand": -14.74,
-			"mainHand": -75.67
+			"mainHand": -75.67,
+			"offHand": -14.74
 		},
 		"10744": {
 			"name": "Axe of the Ebon Drake",
@@ -113,8 +113,8 @@
 		},
 		"10797": {
 			"name": "Firebreather",
-			"offHand": -20.22,
-			"mainHand": -43.5
+			"mainHand": -43.5,
+			"offHand": -20.22
 		},
 		"10803": {
 			"name": "Blade of the Wretched",
@@ -122,8 +122,8 @@
 		},
 		"10804": {
 			"name": "Fist of the Damned",
-			"offHand": -17.3,
-			"mainHand": -48.58
+			"mainHand": -48.58,
+			"offHand": -17.3
 		},
 		"10805": {
 			"name": "Eater of the Dead",
@@ -143,8 +143,8 @@
 		},
 		"10847": {
 			"name": "Dragon's Call",
-			"mainHand": -11.04,
-			"offHand": -5.69
+			"mainHand": -13.94,
+			"offHand": -7.78
 		},
 		"11086": {
 			"name": "Jang'thraze the Protector",
@@ -238,8 +238,8 @@
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
-			"mainHand": -66.39,
-			"offHand": -14.83
+			"offHand": -14.83,
+			"mainHand": -66.39
 		},
 		"12590": {
 			"name": "Felstriker",
@@ -485,8 +485,8 @@
 		},
 		"15236": {
 			"name": "Moon Cleaver",
-			"offHand": -28.1,
-			"mainHand": -62.14
+			"mainHand": -62.14,
+			"offHand": -28.1
 		},
 		"15237": {
 			"name": "Corpse Harvester",
@@ -510,8 +510,8 @@
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"mainHand": -94.17,
-			"offHand": -28.78
+			"offHand": -28.78,
+			"mainHand": -94.17
 		},
 		"15246": {
 			"name": "Demon Blade",
@@ -520,8 +520,8 @@
 		},
 		"15247": {
 			"name": "Bloodstrike Dagger",
-			"mainHand": -75.94,
-			"offHand": -19.63
+			"offHand": -19.63,
+			"mainHand": -75.94
 		},
 		"15705": {
 			"name": "Tidecrest Blade",
@@ -530,8 +530,8 @@
 		},
 		"15706": {
 			"name": "Hunt Tracker Blade",
-			"mainHand": -80.88,
-			"offHand": -17.46
+			"offHand": -17.46,
+			"mainHand": -80.88
 		},
 		"15782": {
 			"name": "Beaststalker Blade",
@@ -629,8 +629,8 @@
 		},
 		"18310": {
 			"name": "Fiendish Machete",
-			"mainHand": -30.04,
-			"offHand": -15.8
+			"offHand": -15.8,
+			"mainHand": -30.04
 		},
 		"18321": {
 			"name": "Energetic Rod",
@@ -688,8 +688,8 @@
 		},
 		"18683": {
 			"name": "Hammer of the Vesper",
-			"mainHand": -28.97,
-			"offHand": -20.44
+			"offHand": -20.44,
+			"mainHand": -28.97
 		},
 		"18737": {
 			"name": "Bone Slicing Hatchet",
@@ -723,8 +723,8 @@
 		},
 		"19324": {
 			"name": "The Lobotomizer",
-			"mainHand": -57.27,
-			"offHand": -11.59
+			"offHand": -11.59,
+			"mainHand": -57.27
 		},
 		"19542": {
 			"name": "Scout's Blade",
@@ -738,8 +738,8 @@
 		},
 		"19546": {
 			"name": "Sentinel's Blade",
-			"mainHand": -61.7,
-			"offHand": -9.36
+			"offHand": -9.36,
+			"mainHand": -61.7
 		},
 		"19547": {
 			"name": "Sentinel's Blade",
@@ -815,8 +815,8 @@
 		},
 		"24222": {
 			"name": "The Shadowfoot Stabber",
-			"offHand": -14.94,
-			"mainHand": -70.99
+			"mainHand": -70.99,
+			"offHand": -14.94
 		},
 		"227935": {
 			"name": "Hammer of the Fallen Thane",
@@ -834,18 +834,18 @@
 		},
 		"250618": {
 			"name": "Bagh Nakh",
-			"mainHand": -16.04,
-			"offHand": -16.94
+			"offHand": -16.94,
+			"mainHand": -16.04
 		},
 		"260172": {
 			"name": "Assassin's Dagger",
-			"offHand": -20.57,
-			"mainHand": -85.82
+			"mainHand": -85.82,
+			"offHand": -20.57
 		},
 		"260180": {
 			"name": "Scout's Dagger",
-			"mainHand": -85.82,
-			"offHand": -20.57
+			"offHand": -20.57,
+			"mainHand": -85.82
 		},
 		"260209": {
 			"name": "Truesong's Hammer",
@@ -926,8 +926,8 @@
 		},
 		"272684": {
 			"name": "Premier High Warlord's Quickblade",
-			"mainHand": -15.69,
-			"offHand": 3.31
+			"offHand": 3.31,
+			"mainHand": -15.69
 		},
 		"272693": {
 			"name": "Premier Grand Marshal's Longsword",
@@ -936,8 +936,8 @@
 		},
 		"272839": {
 			"name": "Premier Grand Marshal's Handaxe",
-			"offHand": -5.46,
-			"mainHand": 14.07
+			"mainHand": 14.07,
+			"offHand": -5.46
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
@@ -977,8 +977,8 @@
 		},
 		"274271": {
 			"name": "Deadhead Blade",
-			"offHand": -17.37,
-			"mainHand": -77.37
+			"mainHand": -77.37,
+			"offHand": -17.37
 		},
 		"274383": {
 			"name": "Kanai's Knife",
@@ -1013,8 +1013,8 @@
 		},
 		"276338": {
 			"name": "Claw of Shalla'kal",
-			"mainHand": -44.15,
-			"offHand": -27.66
+			"offHand": -27.66,
+			"mainHand": -44.15
 		},
 		"276398": {
 			"name": "Scarlet Malice",
@@ -1032,8 +1032,8 @@
 		},
 		"276738": {
 			"name": "Katerina's Shanker",
-			"offHand": -18.08,
-			"mainHand": -78.29
+			"mainHand": -78.29,
+			"offHand": -18.08
 		},
 		"276903": {
 			"name": "Shimmerwine Shanker",
@@ -1071,8 +1071,8 @@
 		},
 		"280029": {
 			"name": "Cinderedge Crescent",
-			"offHand": -14.42,
-			"mainHand": -24.32
+			"mainHand": -24.32,
+			"offHand": -14.42
 		},
 		"280068": {
 			"name": "Bloody Claws of Attack",
