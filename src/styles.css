@@ -7342,9 +7342,6 @@ a.plan-enchant-name:hover {
 }
 
 /* Dev trial: Check gear on one screen. Slots as single rows left and right, details and stats between them. */
-:root[data-channel='dev']:not([data-theme='classic']) .page:has(.sheet-panel) {
-	max-width: min(94rem, calc(100vw - 9rem));
-}
 :root[data-channel='dev'] .page:has(.sheet-panel) .character-bar {
 	margin-bottom: 0.6rem;
 }
@@ -7630,9 +7627,9 @@ a.plan-enchant-name:hover {
 :root[data-channel='dev'] .sheet-center .stats > .hint {
 	display: none;
 }
-@container sheet (min-width: 68rem) {
+@container sheet (min-width: 60rem) {
 	:root[data-channel='dev'] .sheet {
-		grid-template-columns: minmax(0, 1fr) 21rem 13rem minmax(0, 1fr);
+		grid-template-columns: minmax(0, 1fr) 18.5rem 12rem minmax(0, 1fr);
 	}
 	:root[data-channel='dev'] .sheet-center {
 		display: contents;
@@ -7821,4 +7818,14 @@ a.plan-enchant-name:hover {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+:root[data-channel='dev'] .sheet .slot-body {
+	overflow: hidden;
+}
+:root[data-channel='dev'] .sheet-details .preset-field {
+	grid-template-columns: minmax(6.5rem, 1fr) auto;
+}
+:root[data-channel='dev'] .sheet-details .preset-buttons .button {
+	padding: 0.3rem 0.4rem;
+	font-size: 0.75rem;
 }
