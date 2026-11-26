@@ -1,7 +1,7 @@
 {
-	"seq": 33,
+	"seq": 34,
 	"effects": {
-		"druid-balance": 33,
+		"druid-balance": 34,
 		"druid-cat": 33,
 		"elemental-shaman": 33,
 		"enhancement-shaman": 33,
@@ -37,7 +37,7 @@
 		"warrior-fury": 33
 	},
 	"weights": {
-		"druid-balance": 33,
+		"druid-balance": 34,
 		"druid-cat": 33,
 		"elemental-shaman": 33,
 		"enhancement-shaman": 33,
