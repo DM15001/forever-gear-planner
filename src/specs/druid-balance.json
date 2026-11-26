@@ -3,7 +3,7 @@
 	"wowsims": "druid.balance.defaults",
 	"name": "Druid: Balance",
 	"preset": "Moonkin",
-	"talents": "5232220115501351--5053",
+	"talents": "5532220115001351--505302",
 	"classId": 11,
 	"className": "druid",
 	"simKey": "balanceDruid",
