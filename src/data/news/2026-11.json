@@ -96,6 +96,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Classic theme rebuilt",
+							"text": "Classic now has exactly the layout of Modern, piece for piece, and only changes the look: a night backdrop, a parchment workspace with dark ink, steel-blue bars, slate gear panes and crisp bronze frames. The old Classic with its menu at the left is gone.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Smaller character tiles",
 							"text": "The tiles under the tabs are two lines high: name, then race icon, build and level. The faction shows as the coloured edge. More characters fit in one row.",
 							"source": "Gear Planner",

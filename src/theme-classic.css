@@ -1,190 +1,287 @@
 /*
- * Theme "2006": the look of a fan site from the first years of the game. Night-blue page, a parchment
- * column in a gold frame, blue bars with gold lettering, small Verdana. Our own drawing of that era,
- * made of plain CSS: no artwork, logo or layout of anybody's site.
- *
- * How it works: inside the page column the palette turns light (parchment, brown ink, blue for what
- * was gold). Boxes that carry their own dark background get the dark palette back, so their text stays
- * readable. The list of those boxes is the second block; a new dark box in styles.css belongs in it.
+ * Classic. The same page as Modern, piece for piece: nothing moves, nothing is hidden, nothing gets wider. Only the
+ * skin changes, to the look of a game site of the mid-2000s: a night backdrop, a parchment workspace with ink on it,
+ * steel-blue bars, dark slate for the gear panes and the menu, and every panel in a crisp stepped bronze frame.
+ * All of it is drawn here in CSS; there is no picture in it.
  */
 :root[data-theme='classic'] {
-	--storm: #000;
-	--storm-glow: #0c2b3d;
-	--sans: Verdana, Geneva, Tahoma, Arial, sans-serif;
-	--serif: Georgia, 'Times New Roman', serif;
+	/* Backdrop and deep shadow */
+	--c-night: #0a0e13;
+	--c-night-high: #151d26;
+	--c-edge: #0d0804;
+	--c-shadow: #140d05;
+	/* Bronze and brass: the frame, from its lit edge to its dark one */
+	--c-gold-hi: #f4d380;
+	--c-gold: #d6aa4f;
+	--c-brass: #c4953b;
+	--c-bronze-hi: #8d6426;
+	--c-bronze: #5b3c17;
+	--c-bronze-low: #3b260e;
+	--c-bronze-dark: #261809;
+	--c-rim: #181007;
+	/* Steel blue and slate */
+	--c-steel-hi: #94b1cf;
+	--c-steel: #5a799b;
+	--c-steel-mid: #364d67;
+	--c-steel-low: #233345;
+	--c-slate-hi: #202935;
+	--c-slate: #161c24;
+	--c-steel-text: #e7f1fa;
+	/* Parchment */
+	--c-paper-hi: #f3e6ca;
+	--c-paper: #ead9b7;
+	--c-paper-mid: #dfc89e;
+	--c-paper-low: #d2b888;
+	--c-paper-head: #c9b084;
+	--c-paper-line: #b59a6c;
+	--c-paper-card: #e4d1ac;
+	/* Ink */
+	--c-ink: #24190e;
+	--c-ink-soft: #5b462d;
+	--c-status: #46b85a;
+	/* The frame of a panel, as layers of shadow: dark outer edge, lit bevel, bronze body, dark bevel, inner rim. */
+	--c-frame:
+		inset 0 0 0 1px var(--c-rim),
+		inset 0 0 0 2px rgb(243 230 202 / 0.35),
+		0 0 0 1px var(--c-bronze-dark),
+		-1px -1px 0 2px var(--c-gold),
+		1px 1px 0 2px var(--c-bronze-dark),
+		0 0 0 4px var(--c-bronze),
+		-1px -1px 0 5px var(--c-brass),
+		1px 1px 0 5px var(--c-shadow),
+		0 0 0 6px var(--c-edge);
+	--c-frame-thin:
+		inset 0 0 0 1px rgb(243 230 202 / 0.45),
+		0 0 0 1px var(--c-bronze-hi),
+		0 0 0 2px var(--c-edge);
+	--c-paper-fill:
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .1 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E"),
+		linear-gradient(180deg, var(--c-paper) 0%, var(--c-paper-mid) 55%, var(--c-paper-low) 100%);
+	--c-steel-fill: linear-gradient(180deg, var(--c-steel) 0%, var(--c-steel-mid) 55%, var(--c-steel-low) 100%);
+	--c-slate-fill: linear-gradient(180deg, var(--c-slate-hi), var(--c-slate));
+	--c-gold-fill: linear-gradient(180deg, var(--c-gold-hi), #e6b85c 55%, var(--c-brass));
 }
+
+/* The backdrop: night over a wood, drawn with light and dark only. Tall dark shapes at the sides, a pale sky behind. */
 :root[data-theme='classic'] body {
-	font-size: 14px;
+	color: #d9d2c0;
 	background:
-		radial-gradient(ellipse 34rem 46rem at 8% 12rem, rgb(24 78 92 / 0.55), transparent 70%),
-		radial-gradient(ellipse 34rem 46rem at 92% 12rem, rgb(34 52 110 / 0.55), transparent 70%),
-		linear-gradient(180deg, #071019 0, #000 46rem);
+		radial-gradient(ellipse 120% 80% at 50% 0%, transparent 40%, rgb(0 0 0 / 0.75) 100%),
+		radial-gradient(ellipse 55rem 26rem at 50% -6rem, #24364a 0%, transparent 70%),
+		repeating-linear-gradient(90deg, transparent 0 7rem, rgb(0 0 0 / 0.28) 7rem 7.6rem, transparent 7.6rem 12rem, rgb(0 0 0 / 0.2) 12rem 13.4rem, transparent 13.4rem 19rem),
+		linear-gradient(180deg, var(--c-night-high) 0%, var(--c-night) 60%, #06090d 100%);
 	background-attachment: fixed;
 }
-/* The strip along the top: riveted stone. */
 :root[data-theme='classic'] body::before {
-	height: 18px;
-	background:
-		radial-gradient(circle at 12px 9px, #9aa0a6 0 2px, transparent 3px) 0 0 / 48px 18px,
-		linear-gradient(180deg, #5d6166, #2b2e32 55%, #15171a);
-	border-bottom: 2px solid #000;
-	box-shadow: 0 1px 0 #6b5326;
+	background: linear-gradient(90deg, transparent, var(--c-bronze) 20%, var(--c-gold) 50%, var(--c-bronze) 80%, transparent);
 }
 
-/* Sections: blue metal bars with gold lettering. */
-:root[data-theme='classic'] .tabs {
-	padding: 3px;
-	background: #05070d;
-	border: 1px solid #000;
-	box-shadow:
-		inset 0 0 0 1px #8a6d2a,
-		0 4px 10px rgb(0 0 0 / 0.7);
+/* The title and the tools at the top: outside the workspace, on the night. */
+:root[data-theme='classic'] .masthead h1,
+:root[data-theme='classic'] .masthead-home {
+	color: var(--c-gold-hi);
+	text-shadow: 0 1px 0 #000, 0 0 14px rgb(214 170 79 / 0.25);
+}
+:root[data-theme='classic'] .masthead-sub {
+	color: #9fb0c2;
+}
+:root[data-theme='classic'] .masthead-tools :is(.button, .tool-link, .preset-menu-button) {
+	color: var(--c-gold-hi);
+	background: var(--c-slate-fill);
+	border: 1px solid var(--c-edge);
+	border-radius: 0;
+	box-shadow: var(--c-frame-thin);
+}
+:root[data-theme='classic'] .masthead-tools :is(.button, .tool-link):hover,
+:root[data-theme='classic'] .masthead-tools .tool-link[aria-current] {
+	color: var(--c-edge);
+	background: var(--c-gold-fill);
+}
+
+/* The path of tabs: a slate bar in a bronze frame, the open step in gold. */
+:root[data-theme='classic'] .tab-bar {
+	background: var(--c-slate-fill);
+	border: 1px solid var(--c-edge);
+	border-radius: 0;
+	box-shadow: var(--c-frame-thin), 0 8px 24px rgb(0 0 0 / 0.6);
 }
 :root[data-theme='classic'] .tab {
-	margin: 1px;
-	color: #ffd75a;
-	text-shadow: 0 1px 0 #000;
-	background: linear-gradient(180deg, #3a3024, #1c160e 48%, #0c0906 52%, #18120b);
-	border: 1px solid #000;
+	color: #c9d4e0;
 	border-radius: 0;
-	box-shadow: inset 0 0 0 1px rgb(255 220 150 / 0.16);
 }
-:root[data-theme='classic'] .tab:hover {
-	color: #fff;
-	background: linear-gradient(180deg, #5a4a34, #2c2216 48%, #15100a 52%, #241b10);
+:root[data-theme='classic'] .tab:hover:not(:disabled) {
+	color: var(--c-gold-hi);
 }
 :root[data-theme='classic'] .tab[aria-current='page'] {
-	color: #1a1203;
+	color: var(--c-edge);
+	background: var(--c-gold-fill);
+	box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.35), 0 0 0 1px var(--c-edge);
 	text-shadow: none;
-	background: linear-gradient(180deg, #fff4b3, #ffd100 45%, #b8860b);
-	box-shadow: inset 0 0 0 1px #fff7cc;
 }
-:root[data-theme='classic'] .tool-link {
-	color: #ffe98a;
-	text-shadow: 0 1px 0 #000;
-	background: linear-gradient(180deg, #2f7d3a, #14401b 50%, #0a2a10);
-	border: 1px solid #000;
-	border-radius: 0;
-	box-shadow:
-		inset 0 0 0 1px rgb(170 255 170 / 0.3),
-		0 0 0 1px #8a6d2a;
-}
-:root[data-theme='classic'] .tool-link:nth-child(odd) {
-	background: linear-gradient(180deg, #2c4a86, #14244f 50%, #0a1430);
-	box-shadow:
-		inset 0 0 0 1px rgb(255 220 150 / 0.2),
-		0 0 0 1px #8a6d2a;
-}
-:root[data-theme='classic'] .tool-link[aria-current='page'] {
-	color: #1a1203;
-	text-shadow: none;
-	background: linear-gradient(180deg, #fff4b3, #ffd100 45%, #b8860b);
+:root[data-theme='classic'] :is(.tab-arrow, .tab-divide) {
+	color: var(--c-brass);
 }
 
-/* The page column: parchment in a gold frame, brown ink, blue where the dark theme has gold. */
+/* The workspace: aged parchment in the heavy frame, dark ink on it. It keeps the place and the width it has in Modern. */
 :root[data-theme='classic'] main {
-	--mist: #2a1c0a;
-	--haze: #5e4b2a;
-	--slate: #efe0b0;
-	--slate-raised: #e6d4a0;
-	--well: #dccb93;
-	--hairline: #c7b27a;
-	--ridge: #8c7440;
-	--brass: #5a2d0c;
-	--brass-deep: #9b7a45;
-	--on-brass: #ffd75a;
-	--metal-light: #8a5a24;
+	--mist: var(--c-ink);
+	--haze: var(--c-ink-soft);
+	--slate: var(--c-paper-card);
+	--slate-raised: var(--c-paper-hi);
+	--well: var(--c-paper-low);
+	--hairline: var(--c-paper-head);
+	--ridge: var(--c-paper-line);
+	--brass: var(--c-bronze);
+	--brass-deep: var(--c-bronze-hi);
+	--on-brass: var(--c-gold-hi);
+	--metal-light: var(--c-bronze-hi);
 	--ember: #a8451a;
 	--q-uncommon: #17780f;
 	--q-rare: #0b4fb0;
 	--q-epic: #7a1fb8;
 	--q-legendary: #b85a00;
-	margin-top: 0.5rem;
-	padding: 1rem 1rem 1.5rem;
-	color: var(--mist);
-	background:
-		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .1 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E"),
-		linear-gradient(180deg, #e6d2a0, #d9c28a);
-	border: 9px solid #3a2412;
-	border-image: linear-gradient(90deg, #2a180a, #6a4320 18%, #3a2412 40%, #7a5028 62%, #3a2412 82%, #2a180a) 1;
+	padding: 1rem 1rem 1.25rem;
+	color: var(--c-ink);
+	background: var(--c-paper-fill);
+	border: 1px solid var(--c-edge);
 	border-radius: 0;
-	box-shadow:
-		inset 0 0 0 1px #000,
-		inset 0 0 0 3px #c9a85a,
-		inset 0 0 0 4px #5a431a,
-		inset 0 0 14px 4px rgb(90 62 20 / 0.35),
-		0 0 0 1px #000,
-		0 0 0 3px #a5873e,
-		0 0 0 4px #000,
-		0 12px 40px #000;
+	box-shadow: var(--c-frame), 0 14px 40px #000;
 }
 :root[data-theme='classic'] main a {
-	color: #14306a;
+	color: #1c3f73;
 }
-:root[data-theme='classic'] main .panel {
-	border: 1px solid #6b5326;
-	border-radius: 0;
-	box-shadow:
-		inset 0 0 0 1px #f8eecb,
-		2px 2px 0 rgb(74 58 23 / 0.35);
+:root[data-theme='classic'] main :is(h2, h3, legend, .dungeon-name, .content-group-title) {
+	color: var(--c-bronze-low);
+	text-shadow: 0 1px 0 rgb(243 230 202 / 0.6);
 }
-/* A panel's title: the blue bar. */
-:root[data-theme='classic'] main .panel > h2:first-child,
-:root[data-theme='classic'] main .news-day > h3 {
-	margin: -1rem -1.1rem 0.9rem;
-	padding: 0.4rem 0.9rem;
-	font-size: 1.15rem;
-	color: #ffd75a;
-	text-shadow: 0 1px 0 #000;
-	background: linear-gradient(180deg, #34425f, #172036 50%, #0b101e 54%, #141c30);
-	border: 1px solid #000;
-	border-image: none;
-	box-shadow: inset 0 0 0 1px rgb(255 220 150 / 0.2);
-}
-:root[data-theme='classic'] main .panel > h2:first-child::after {
-	display: none;
-}
-:root[data-theme='classic'] main h2,
-:root[data-theme='classic'] main h3,
-:root[data-theme='classic'] main h4 {
-	text-shadow: none;
-}
-:root[data-theme='classic'] main .button {
-	border-radius: 0;
-	box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.35);
-}
-:root[data-theme='classic'] main .button-primary,
-:root[data-theme='classic'] main .button-plan {
-	color: #ffd75a;
-	background: linear-gradient(180deg, #8a5a24, #5a3210 50%, #33190a);
-	border-color: #000;
-}
-:root[data-theme='classic'] main :is(input, select, textarea) {
-	color: #2a1c0a;
-	background: #fbf3d6;
-	border-color: #8c7440;
-	border-radius: 0;
-}
-:root[data-theme='classic'] main .delta-up,
-:root[data-theme='classic'] main .diff-up,
-:root[data-theme='classic'] main .set-pop-bonus {
+:root[data-theme='classic'] main :is(.delta-up, .diff-up) {
 	color: #17780f;
 }
-:root[data-theme='classic'] main .delta-down,
-:root[data-theme='classic'] main .diff-down {
+:root[data-theme='classic'] main :is(.delta-down, .diff-down) {
 	color: #b0300f;
 }
-:root[data-theme='classic'] main .stat-spell {
-	color: #6a2fb0;
+
+/* Panels on the parchment: a recessed sheet in a fine stepped frame, square at the corners. */
+:root[data-theme='classic'] main .panel {
+	background: linear-gradient(180deg, var(--c-paper-card), #dcc79d);
+	border: 1px solid var(--c-edge);
+	border-radius: 0;
+	box-shadow:
+		inset 0 0 0 1px var(--c-paper-hi),
+		inset 0 0 0 2px var(--c-paper-line),
+		0 0 0 1px var(--c-brass),
+		1px 1px 0 2px var(--c-bronze-dark),
+		0 0 0 3px var(--c-edge);
 }
-:root[data-theme='classic'] main .stat-healing {
-	color: #0d7d70;
+:root[data-theme='classic'] main :is(.plan-slot, .slot, .card, .fold, .content-tile, .fight-tile, .character-tile, .group-dungeon, .todo-step, .candidate) {
+	border-radius: 0;
 }
-:root[data-theme='classic'] main :is(.faq-item h4, .faq-answer strong) {
-	color: #2a1c0a;
+:root[data-theme='classic'] main .plan-slot::before {
+	--c: var(--c-bronze);
 }
-:root[data-theme='classic'] main .notice {
-	color: #2a1c0a;
+
+/* Steel-blue bars: the folds that open a section. */
+:root[data-theme='classic'] main details.content-fold > summary,
+:root[data-theme='classic'] main .fold > summary {
+	color: var(--c-steel-text);
+	text-shadow: 0 1px 0 #000;
+	background: var(--c-steel-fill);
+	border: 1px solid #121b24;
+	border-radius: 0;
+	box-shadow: inset 0 1px 0 var(--c-steel-hi), inset 0 -1px 0 #121b24, 0 0 0 1px var(--c-edge);
+	padding: 0.45rem 0.8rem;
+}
+:root[data-theme='classic'] main details.content-fold > summary .slot-source,
+:root[data-theme='classic'] main .fold > summary .slot-source,
+:root[data-theme='classic'] main .content-fold-toggle {
+	color: #c5d6e8;
+	text-shadow: none;
+}
+:root[data-theme='classic'] main .todo-head {
+	color: var(--c-steel-text);
+	background: var(--c-steel-fill);
+	border: 1px solid #121b24;
+	box-shadow: inset 0 1px 0 var(--c-steel-hi);
+	padding: 0.35rem 0.7rem;
+}
+:root[data-theme='classic'] main .todo-head :is(h3, .num) {
+	color: var(--c-steel-text);
+	text-shadow: 0 1px 0 #000;
+}
+
+/* Buttons: brass-rimmed parchment, the main one in gold. Inputs are a well in the paper. */
+:root[data-theme='classic'] main .button {
+	color: var(--c-ink);
+	background: linear-gradient(180deg, var(--c-paper-hi), var(--c-paper-mid));
+	border: 1px solid var(--c-bronze-low);
+	border-radius: 0;
+	box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.5), 1px 1px 0 rgb(38 24 9 / 0.35);
+}
+:root[data-theme='classic'] main .button:hover:not(:disabled) {
+	border-color: var(--c-edge);
+	background: linear-gradient(180deg, #fff6df, var(--c-paper));
+}
+:root[data-theme='classic'] main .button[aria-pressed='true'] {
+	color: var(--c-edge);
+	background: var(--c-gold-fill);
+	border-color: var(--c-bronze-low);
+}
+:root[data-theme='classic'] main .button-primary,
+:root[data-theme='classic'] main .button-primary:hover:not(:disabled) {
+	color: var(--c-edge);
+	background: var(--c-gold-fill);
+	border-color: var(--c-edge);
+	box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.45), 0 0 0 1px var(--c-bronze), 0 0 0 2px var(--c-edge);
+	text-shadow: none;
+}
+:root[data-theme='classic'] main .button:disabled {
+	color: #8a7654;
+	background: var(--c-paper-mid);
+	border-color: var(--c-paper-line);
+	box-shadow: none;
+}
+:root[data-theme='classic'] main :is(select, input[type='text'], input[type='search'], input[type='number'], textarea) {
+	color: var(--c-ink);
+	background: var(--c-paper-hi);
+	border: 1px solid var(--c-bronze-hi);
+	border-radius: 0;
+	box-shadow: inset 1px 1px 2px rgb(38 24 9 / 0.25);
+}
+:root[data-theme='classic'] main .content-switch {
+	border-color: var(--c-bronze-low);
+	border-radius: 0;
+	background: var(--c-paper-hi);
+}
+:root[data-theme='classic'] main .content-switch button {
+	color: var(--c-ink-soft);
+}
+:root[data-theme='classic'] main .content-switch button[aria-pressed='true'] {
+	color: var(--c-edge);
+	background: var(--c-gold-fill);
+}
+:root[data-theme='classic'] main .content-meter-bar {
+	background: var(--c-paper-head);
+}
+:root[data-theme='classic'] main :is(.content-meter-bar > span, .hit-bar span, .progress-fill) {
+	background: linear-gradient(180deg, var(--c-gold), var(--c-bronze-hi));
+}
+:root[data-theme='classic'] main .powered-pop {
+	color: var(--c-ink);
+	background: var(--c-paper-hi);
+	border: 1px solid var(--c-edge);
+	border-radius: 0;
+	box-shadow: var(--c-frame-thin), 0 10px 24px rgb(0 0 0 / 0.5);
+}
+:root[data-theme='classic'] main .job-bar {
+	color: var(--c-steel-text);
+	background: var(--c-steel-fill);
+	border: 1px solid #121b24;
+	border-radius: 0;
+	box-shadow: inset 0 1px 0 var(--c-steel-hi);
+}
+:root[data-theme='classic'] main .status-dot,
+:root[data-theme='classic'] .news-dot {
+	background: var(--c-status);
 }
 
 /* What stays dark on purpose: little screens and gauges. They keep the dark palette so their text stays readable. */
@@ -194,11 +291,11 @@
 ) {
 	--mist: #ebe4d6;
 	--haze: #a79b84;
-	--slate: #16120e;
-	--slate-raised: #231c14;
-	--well: #050403;
-	--hairline: #2a2219;
-	--ridge: #4b3e2b;
+	--slate: #161c24;
+	--slate-raised: #202935;
+	--well: #0a0e13;
+	--hairline: #233345;
+	--ridge: #364d67;
 	--brass: #ffd100;
 	--brass-deep: #8f6d1c;
 	--on-brass: #1a1203;
@@ -221,17 +318,14 @@
 }
 :root[data-theme='classic'] main :is(.gear-rail, .preset-menu-list, .set-pop) :is(input, select, .preset-menu-button) {
 	color: #ebe4d6;
-	background: #0a0806;
-	border-color: #4b3e2b;
+	background: #0d1117;
+	border-color: #364d67;
 }
 :root[data-theme='classic'] main .gear-rail {
-	background: #1a140d;
-	border: 1px solid #000;
+	background: var(--c-slate-fill);
+	border: 1px solid var(--c-edge);
 	border-radius: 0;
-	box-shadow:
-		0 0 0 1px #8a6d2a,
-		0 0 0 2px #000,
-		0 8px 24px #000;
+	box-shadow: var(--c-frame-thin), 0 8px 24px #000;
 }
 
 /* Everything else that was a dark box is paper now: cream cards, brown lines, brown ink. */
@@ -241,22 +335,22 @@
 	.candidates .candidate, .preset-confirm, .modal, .faq-item, .chip, .news-day, .enchant-option, .shopping-row, .picker-row, .character-tile-ask
 ) {
 	color: var(--mist);
-	background: #f5e9c4;
-	border-color: #9b8248;
+	background: #e4d1ac;
+	border-color: #b59a6c;
 	border-radius: 0;
 }
 :root[data-theme='classic'] main :is(.card, .view-choice, .character-tile, .group-dungeon, .group-detail, .fight-card, .faq-item, .news-day, .farm .dungeon, .farm .shopping-card) {
 	box-shadow:
-		inset 0 0 0 1px #fffbe6,
+		inset 0 0 0 1px #f3e6ca,
 		2px 2px 0 rgb(74 58 23 / 0.3);
 }
 :root[data-theme='classic'] main .candidates .candidate:nth-child(even),
 :root[data-theme='classic'] main .group-dungeons-list .group-dungeon:nth-child(even) {
-	background: #ead9a8;
+	background: #dfc89e;
 }
 :root[data-theme='classic'] main :is(.candidates .candidate, .shopping-row, .enchant-option, .character-tile, .content-tile, .fight-pick, .view-choice, .picker-row):hover {
-	background: #fffadf;
-	border-color: #5a2d0c;
+	background: #f3e6ca;
+	border-color: #5b3c17;
 }
 /* What is chosen: a wash of the blue. */
 :root[data-theme='classic'] main :is(
@@ -265,29 +359,29 @@
 	.shopping-got, .view-switch .button[aria-pressed='true']
 ) {
 	color: var(--mist);
-	background: linear-gradient(180deg, #f9e7a6, #edd281);
-	border-color: #5a2d0c;
+	background: linear-gradient(180deg, #f4d380, #e6b85c);
+	border-color: #5b3c17;
 }
 :root[data-theme='classic'] main .enchant-winner {
-	background: #e2efcf;
+	background: #d9e3b9;
 }
 :root[data-theme='classic'] main :is(.progress-track, .result-bar) {
-	background: #d9c88f;
+	background: #c9b084;
 }
 :root[data-theme='classic'] main :is(.slot-bar, .slot-nav) {
-	background: #e8d7a3;
-	border-color: #9b8248;
+	background: #dfc89e;
+	border-color: #b59a6c;
 }
 :root[data-theme='classic'] main .slot-nav .slot-chip {
 	color: var(--mist);
-	background: #f5e9c4;
-	border-color: #9b8248;
+	background: #e4d1ac;
+	border-color: #b59a6c;
 	border-radius: 0;
 }
 :root[data-theme='classic'] main .slot-nav .slot-chip-planned {
-	color: #5a2d0c;
-	background: linear-gradient(180deg, #f9e7a6, #edd281);
-	border-color: #5a2d0c;
+	color: #5b3c17;
+	background: linear-gradient(180deg, #f4d380, #e6b85c);
+	border-color: #5b3c17;
 }
 :root[data-theme='classic'] main .slot-nav .slot-chip-open {
 	border-color: #17780f;
@@ -295,45 +389,7 @@
 :root[data-theme='classic'] main .slot-nav .slot-chip:hover,
 :root[data-theme='classic'] main .slot-nav .slot-chip-here {
 	color: #000;
-	box-shadow: 0 0 0 1px #5a2d0c;
-}
-:root[data-theme='classic'] main details.content-fold > summary,
-:root[data-theme='classic'] main .fold > summary {
-	color: #ffd75a;
-	text-shadow: 0 1px 0 #000;
-	background: linear-gradient(180deg, #34425f, #172036 50%, #0b101e 54%, #141c30);
-	border: 1px solid #000;
-	border-radius: 0;
-	box-shadow: inset 0 0 0 1px rgb(255 220 150 / 0.2);
-	padding: 0.45rem 0.8rem;
-}
-:root[data-theme='classic'] main .fold > summary .slot-source,
-:root[data-theme='classic'] main .content-fold-toggle {
-	color: #e6d6a8;
-	text-shadow: none;
-}
-/* The little box at the end of a bar: minus when open, plus when shut. */
-:root[data-theme='classic'] main .panel > h2:first-child::before,
-:root[data-theme='classic'] main .fold > summary::after {
-	content: '–';
-	float: right;
-	width: 1.05rem;
-	height: 1.05rem;
-	margin-top: 0.15rem;
-	font: 700 0.8rem/0.95rem Verdana, sans-serif;
-	text-align: center;
-	text-shadow: none;
-	color: #ffd75a;
-	background: #120c05;
-	border: 1px solid #ffd75a;
-	box-shadow: 0 0 0 1px #000;
-}
-:root[data-theme='classic'] main .fold:not([open]) > summary::after {
-	content: '+';
-}
-:root[data-theme='classic'] main .fold > summary .content-fold-toggle {
-	float: none;
-	margin-left: 0.8rem;
+	box-shadow: 0 0 0 1px #5b3c17;
 }
 /* Bright colours made for a dark page, turned into ink. */
 :root[data-theme='classic'] main :is(.enchant-gives, .stat-pair.stat-bonus, .set-change-activates, .plan-enchant, .talent-open .talent-rank, .slot-versus-on, .result-dps, .set-pop-bonus) {
@@ -364,15 +420,15 @@
 	color: #a8231a;
 }
 :root[data-theme='classic'] main .candidate-actions .sim-button {
-	color: #5a2d0c;
-	border-color: #5a2d0c;
+	color: #5b3c17;
+	border-color: #5b3c17;
 }
 :root[data-theme='classic'] main .group-tag-bis {
 	color: #a84f00;
 	border-color: #a84f00;
 }
 :root[data-theme='classic'] main :is(.character-tile-on .character-tile-text .character-tile-spec, .content-tile-on .content-tile-text strong, .fight-pick-on strong, .faq-item h4, .faq-answer strong) {
-	color: #2a1c0a;
+	color: #24190e;
 }
 :root[data-theme='classic'] main .content-tile .dungeon-icon {
 	filter: grayscale(0.85) opacity(0.6);
@@ -381,48 +437,48 @@
 	filter: none;
 }
 :root[data-theme='classic'] main .group-prio strong {
-	color: #ffd75a;
-	background: linear-gradient(180deg, #8a5a24, #33190a);
+	color: #f4d380;
+	background: linear-gradient(180deg, #8d6426, #3b260e);
 	border-color: #000;
-	box-shadow: 0 0 0 1px #b89a52;
+	box-shadow: 0 0 0 1px #c4953b;
 }
 :root[data-theme='classic'] main .group-dungeon-top .group-prio strong {
 	color: #1a1203;
 	background: linear-gradient(180deg, #fff4b3, #ffd100 45%, #b8860b);
 }
 :root[data-theme='classic'] main :is(.set-chip, .group-tag-planned, .group-contested, .group-strip-count) {
-	color: #ffd75a;
-	background: #5a2d0c;
+	color: #f4d380;
+	background: #5b3c17;
 	border-color: #000;
 }
 :root[data-theme='classic'] main .badge {
-	color: #5a2d0c;
-	border-color: #5a2d0c;
+	color: #5b3c17;
+	border-color: #5b3c17;
 }
 :root[data-theme='classic'] main .group-dungeons-list {
-	border: 1px solid #6b5326;
+	border: 1px solid #8d6426;
 }
 :root[data-theme='classic'] main .group-dungeons-list .group-dungeon-top {
-	background: linear-gradient(90deg, #f3dc94, #f5e9c4 60%);
-	border-left-color: #5a2d0c;
+	background: linear-gradient(90deg, #f4d380, #e4d1ac 60%);
+	border-left-color: #5b3c17;
 }
 :root[data-theme='classic'] main .preset-menu-button {
-	color: #5a2d0c;
-	background: #fbf3d6;
-	border-color: #5a2d0c;
+	color: #5b3c17;
+	background: #f3e6ca;
+	border-color: #5b3c17;
 	border-radius: 0;
 }
 :root[data-theme='classic'] main .gear-rail .preset-menu-button {
 	color: #ffd100;
-	background: #0a0806;
+	background: #0d1117;
 	border-color: #8f6d1c;
 }
 :root[data-theme='classic'] main .presets .content-preset[aria-pressed='true'] {
-	color: #ffd75a;
-	background: linear-gradient(180deg, #8a5a24, #5a3210 50%, #33190a);
+	color: #f4d380;
+	background: linear-gradient(180deg, #8d6426, #5b3c17 50%, #3b260e);
 }
 :root[data-theme='classic'] main .content-tile-on {
-	background: linear-gradient(90deg, #f3dc94, #f5e9c4 75%);
+	background: linear-gradient(90deg, #f4d380, #e4d1ac 75%);
 }
 :root[data-theme='classic'] main .candidates .candidate-rare {
 	border-left-color: #0b4fb0;
@@ -434,114 +490,15 @@
 	border-left-color: #17780f;
 }
 
-/* The menu at the left, where menus were: a column of blue bars under the title. */
-@media (min-width: 64rem) {
-	:root[data-theme='classic'] .page {
-		display: grid;
-		grid-template-columns: 12rem minmax(0, 1fr);
-		column-gap: 1rem;
-		max-width: 80rem;
-	}
-	:root[data-theme='classic'] .masthead {
-		display: contents;
-	}
-	:root[data-theme='classic'] .masthead-title {
-		grid-column: 1 / -1;
-		grid-row: 1;
-		margin-bottom: 0.9rem;
-	}
-	:root[data-theme='classic'] .masthead-tools {
-		grid-column: 2;
-		grid-row: 1;
-		justify-self: end;
-	}
-
-	:root[data-theme='classic'] main {
-		grid-column: 2;
-		grid-row: 2;
-		margin-top: 0;
-	}
-	:root[data-theme='classic'] .page > footer {
-		grid-column: 1 / -1;
-	}
-	:root[data-theme='classic'] .tab-bar {
-		display: block;
-		grid-area: auto;
-		grid-column: 1;
-		grid-row: 2;
-		align-self: start;
-		justify-self: stretch;
-		position: sticky;
-		top: 0.75rem;
-	}
-	:root[data-theme='classic'] .tab-bar::before {
-		content: 'Planner';
-		display: block;
-		padding: 0.35rem 0.6rem;
-		font: 700 0.95rem var(--display);
-		letter-spacing: 0.04em;
-		color: #1a1203;
-		background: linear-gradient(180deg, #fff4b3, #ffd100 45%, #b8860b);
-		border: 1px solid #000;
-		box-shadow: inset 0 0 0 1px #fff7cc;
-	}
-	:root[data-theme='classic'] .bar-cap {
-		display: none;
-	}
-	:root[data-theme='classic'] .tabs {
-		flex-direction: column;
-		flex-wrap: nowrap;
-		padding: 3px;
-	}
-	:root[data-theme='classic'] .tab {
-		position: relative;
-		padding: 0.5rem 1.6rem 0.5rem 0.6rem;
-		text-align: left;
-		white-space: normal;
-	}
-	/* The small diamond at the end of every menu line. */
-	:root[data-theme='classic'] .tab::after {
-		content: '';
-		position: absolute;
-		top: 50%;
-		right: 0.55rem;
-		width: 0.42rem;
-		height: 0.42rem;
-		background: #ffd75a;
-		border: 1px solid #000;
-		transform: translateY(-50%) rotate(45deg);
-	}
-	:root[data-theme='classic'] .tab[aria-current='page']::after {
-		background: #5a2d0c;
-	}
-}
-/* The gear panes sit beside the page; the page is wider here, so they get their room from what is left. */
-@media (min-width: 90rem) {
-	:root[data-theme='classic'] .gear-rail {
-		--gutter: calc((100vw - 80rem) / 2);
-	}
-}
-@media (max-width: 101rem) {
-	:root[data-theme='classic'] :is(.gear-rail, .gear-rail-show) {
-		display: none;
-	}
-}
-:root[data-theme='classic'] .gear-rail-show {
-	color: #ffd75a;
-	background: linear-gradient(90deg, #33190a, #8a5a24);
-	border-color: #000;
-	border-radius: 0;
-}
-
 /* Jump buttons and small floating things, in the blue of the bars. */
 :root[data-theme='classic'] .back-to-top {
-	color: #ffd75a;
-	background: linear-gradient(180deg, #8a5a24, #5a3210 50%, #33190a);
+	color: #f4d380;
+	background: linear-gradient(180deg, #8d6426, #5b3c17 50%, #3b260e);
 	border: 1px solid #000;
 	border-radius: 0;
 	box-shadow:
 		inset 0 0 0 1px rgb(255 220 150 / 0.2),
-		0 0 0 1px #8a6d2a,
+		0 0 0 1px #c4953b,
 		0 4px 14px #000a;
 }
 :root[data-theme='classic'] .back-to-top:hover {
@@ -550,48 +507,40 @@
 :root[data-theme='classic'] .channel-switch {
 	border-radius: 0;
 }
+
 :root[data-theme='classic'] .theme-menu-list {
-	background: #f1e3b6;
-	border: 1px solid #000;
+	background: var(--c-slate);
+	border: 1px solid var(--c-edge);
 	border-radius: 0;
-	box-shadow:
-		0 0 0 1px #8a6d2a,
-		0 10px 28px #000;
+	box-shadow: var(--c-frame-thin), 0 10px 28px #000;
 }
 :root[data-theme='classic'] .theme-menu-list button {
-	color: #2a1c0a;
+	color: #d9e3ee;
 	border-radius: 0;
 }
 :root[data-theme='classic'] .theme-menu-list button span {
-	color: #5e4b2a;
+	color: #9fb0c2;
 }
 :root[data-theme='classic'] .theme-menu-list button[aria-pressed='true'] {
-	border-color: #5a2d0c;
-	background: linear-gradient(180deg, #f9e7a6, #edd281);
+	color: var(--c-edge);
+	border-color: var(--c-edge);
+	background: var(--c-gold-fill);
 }
-/* Notes and warnings: a slip of yellowed paper with a red edge. */
-:root[data-theme='classic'] main :is(.notice, .measured-note) {
-	color: #2a1c0a;
-	background: #f6e7a8;
-	border: 1px solid #9b8248;
-	border-left: 4px solid #a8231a;
-	border-radius: 0;
-}
-/* Lists as they were: a small square dot. */
-:root[data-theme='classic'] main :is(.faq-answer, .notice) ul {
-	list-style: square;
-}
-:root[data-theme='classic'] .masthead-sub {
-	color: #b9c7d6;
-}
-:root[data-theme='classic'] h1 .masthead-home {
-	letter-spacing: 0.02em;
+:root[data-theme='classic'] .theme-menu-list button[aria-pressed='true'] span {
+	color: var(--c-bronze-low);
 }
 
-
-/* The foot of the page, outside the column */
-:root[data-theme='classic'] footer {
-	font-size: 11px;
+/* The foot of the page, on the night. */
+:root[data-theme='classic'] .page > footer {
+	color: #8fa0b3;
+	border-top-color: var(--c-steel-low);
+}
+:root[data-theme='classic'] .page > footer a,
+:root[data-theme='classic'] .page > footer .link {
+	color: var(--c-gold);
+}
+:root[data-theme='classic'] main :is(.news, .faq) a:visited {
+	color: #5a2a82;
 }
 
 /* The menu that picks the theme */
@@ -636,291 +585,40 @@
 	background: rgb(214 174 95 / 0.14);
 }
 
-/* Two things every site of the time had. */
-:root[data-theme='classic'] .page > footer::after {
-	content: 'Best viewed at 1024 × 768 with Internet Explorer 6.';
-	display: block;
-	margin-top: 0.4rem;
-	color: #7d8a99;
+/* The open tab: dark letters on gold, whatever the dark theme does with them. */
+:root[data-theme='classic'] .tab-bar .tab[aria-current='page'],
+:root[data-theme='classic'] .tab-bar .tab[aria-current='page'] * {
+	color: var(--c-edge);
+	-webkit-text-fill-color: var(--c-edge);
+	text-shadow: none;
 }
-:root[data-theme='classic'] main :is(.news, .faq) a:visited {
-	color: #5a2a82;
-}
-/* The title sits on a thin gold rule, as a masthead did. */
-@media (min-width: 64rem) {
-	:root[data-theme='classic'] .masthead-title {
-		padding-bottom: 0.7rem;
-		border-bottom: 1px solid #000;
-		box-shadow:
-			0 1px 0 #8a6d2a,
-			0 2px 0 #000;
-	}
+/* The gear panes are slate: their headings and labels are light. */
+:root[data-theme='classic'] main .gear-rail :is(h2, h3, legend) {
+	color: var(--c-gold-hi);
+	text-shadow: 0 1px 0 #000;
 }
 
-/* Flourishes. Drawn here, in gold line: scrollwork for the corners of the page, a curl at the start of every bar,
-   curls beside the menu's head, a scroll under the page. Our own ornaments, in the manner of the time. */
-:root[data-theme='classic'] main {
-	position: relative;
+/* Stat colours as ink: the number takes the colour of its label. */
+:root[data-theme='classic'] main .stat-pair.stat-bonus .num {
+	color: #17780f;
 }
-:root[data-theme='classic'] main::before,
-:root[data-theme='classic'] main::after {
-	content: '';
-	position: absolute;
-	top: -15px;
-	width: 74px;
-	height: 74px;
-	pointer-events: none;
-	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 74 74'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M4 70V26C4 12 12 4 26 4h44' stroke='%23000' stroke-width='7'/%3E%3Cpath d='M4 70V26C4 12 12 4 26 4h44' stroke='%23d9b550' stroke-width='3.5'/%3E%3Cpath d='M4 70V26C4 12 12 4 26 4h44' stroke='%23fff3b8' stroke-width='1'/%3E%3Cpath d='M14 60c0-12 3-22 12-26 7-3 13 2 11 8-2 5-9 5-10 0M60 14c-12 0-22 3-26 12-3 7 2 13 8 11 5-2 5-9 0-10' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M14 60c0-12 3-22 12-26 7-3 13 2 11 8-2 5-9 5-10 0M60 14c-12 0-22 3-26 12-3 7 2 13 8 11 5-2 5-9 0-10' stroke='%23e6c25a' stroke-width='2.4'/%3E%3Cpath d='M14 46c-5-2-7-8-3-11M46 14c-2-5-8-7-11-3' stroke='%23e6c25a' stroke-width='2'/%3E%3C/g%3E%3Ccircle cx='15' cy='15' r='6' fill='%23000'/%3E%3Ccircle cx='15' cy='15' r='4.2' fill='%23d9b550'/%3E%3Ccircle cx='13.6' cy='13.6' r='1.4' fill='%23fff3b8'/%3E%3C/svg%3E") no-repeat;
-	z-index: 2;
+:root[data-theme='classic'] main .stat-pair.stat-agi .num {
+	color: #8a6a00;
 }
-:root[data-theme='classic'] main::before {
-	left: -15px;
+:root[data-theme='classic'] main .stat-pair.stat-str .num {
+	color: #a83a1c;
 }
-:root[data-theme='classic'] main::after {
-	right: -15px;
-	transform: scaleX(-1);
+:root[data-theme='classic'] main .stat-pair.stat-sta .num {
+	color: #a45f10;
 }
-/* A curl before the words on every bar. */
-:root[data-theme='classic'] main .panel > h2:first-child,
-:root[data-theme='classic'] main .news-day > h3 {
-	padding-left: 2.6rem;
-	background:
-		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 24'%3E%3Cg fill='none' stroke='%23e6c25a' stroke-width='1.8' stroke-linecap='round'%3E%3Cpath d='M2 12c5-9 14-9 16-3 1 4-4 6-6 3M2 12c5 9 14 9 16 3M18 12h14'/%3E%3C/g%3E%3Cpath d='M28 12l3-3 3 3-3 3z' fill='%23ffd75a'/%3E%3C/svg%3E") 0.5rem 50% / 1.8rem auto no-repeat,
-		linear-gradient(180deg, #34425f, #172036 50%, #0b101e 54%, #141c30);
-	border: 1px solid #000;
-	box-shadow:
-		inset 0 0 0 1px rgb(255 220 150 / 0.2),
-		0 0 0 1px #a5873e;
+:root[data-theme='classic'] main .stat-pair.stat-int .num {
+	color: #1557a8;
 }
-:root[data-theme='classic'] main details.content-fold > summary,
-:root[data-theme='classic'] main .fold > summary {
-	box-shadow:
-		inset 0 0 0 1px rgb(255 220 150 / 0.2),
-		0 0 0 1px #a5873e;
+:root[data-theme='classic'] main .stat-pair.stat-spi .num {
+	color: #6a2fb0;
 }
-/* Headings inside the page in the dark red of old chapter titles, with a small scroll after them. */
-:root[data-theme='classic'] main :is(h3, legend, .faq-group h3) {
-	color: #6a1c0a;
-}
-:root[data-theme='classic'] main :is(.gear-rail, .set-pop, .preset-menu-list) :is(h2, h3) {
-	color: #ffd100;
-}
-:root[data-theme='classic'] main .news-day > h3 {
-	color: #ffd75a;
-}
-:root[data-theme='classic'] main .faq-group h3::after,
-:root[data-theme='classic'] main .panel > h2:not(:first-child)::after {
-	content: '';
-	display: block;
-	width: 9rem;
-	height: 10px;
-	margin-top: 0.25rem;
-	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 144 10'%3E%3Cg fill='none' stroke='%238a5a24' stroke-width='1.4' stroke-linecap='round'%3E%3Cpath d='M2 5h52M90 5h52M54 5c4-5 10-5 12 0 2 5 8 5 12 0M78 5c4-5 10-5 12 0'/%3E%3C/g%3E%3Cpath d='M72 1l3 4-3 4-3-4z' fill='%238a5a24'/%3E%3C/svg%3E") no-repeat;
-}
-/* The menu's head between two curls. */
-@media (min-width: 64rem) {
-	:root[data-theme='classic'] .tab-bar::before {
-		padding-left: 2rem;
-		background:
-			url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 12c4-8 12-8 14-3 1 4-3 6-5 3M3 12c4 8 12 8 14 3' fill='none' stroke='%235a2d0c' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") 0.35rem 50% / 1.3rem auto no-repeat,
-			url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21 12c-4-8-12-8-14-3-1 4 3 6 5 3M21 12c-4 8-12 8-14 3' fill='none' stroke='%235a2d0c' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") calc(100% - 0.35rem) 50% / 1.3rem auto no-repeat,
-			linear-gradient(180deg, #fff4b3, #ffd100 45%, #b8860b);
-	}
-	:root[data-theme='classic'] .tab {
-		color: #f8c12a;
-		font-weight: 700;
-	}
-}
-/* A long scroll closes the page. */
-:root[data-theme='classic'] .page > footer::before {
-	content: '';
-	display: block;
-	height: 18px;
-	margin: 0.6rem auto 0.8rem;
-	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 18'%3E%3Cg fill='none' stroke='%23b89a52' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M4 9h112M204 9h112M116 9c8-10 20-9 22-1 1 5-5 7-7 3M204 9c-8-10-20-9-22-1-1 5 5 7 7 3M116 9c8 10 20 9 22 1M204 9c-8 10-20 9-22 1'/%3E%3C/g%3E%3Cpath d='M160 2l6 7-6 7-6-7z' fill='%23d9b550'/%3E%3Ccircle cx='4' cy='9' r='2' fill='%23b89a52'/%3E%3Ccircle cx='316' cy='9' r='2' fill='%23b89a52'/%3E%3C/svg%3E") 50% 50% / 320px 18px no-repeat;
-}
-/* Paper with a little more age: darker at the edges. */
-:root[data-theme='classic'] main .panel {
-	background-image: radial-gradient(ellipse at 50% 40%, transparent 55%, rgb(120 84 30 / 0.12));
-}
-
-
-/* ---- Heavy frames. Every large piece of the page sits in a thick cast-gold frame with rivets at the corners and
-   engraving along the bars; behind them dark planks, inside them leather or paper. All of it drawn here. ---- */
-:root[data-theme='classic'] {
-	--frame: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23fff0b0'/%3E%3Cstop offset='.18' stop-color='%23e0b548'/%3E%3Cstop offset='.38' stop-color='%238f6114'/%3E%3Cstop offset='.55' stop-color='%23f3d478'/%3E%3Cstop offset='.75' stop-color='%23a8791f'/%3E%3Cstop offset='1' stop-color='%235d3b0a'/%3E%3C/linearGradient%3E%3CradialGradient id='r' cx='.35' cy='.35' r='.7'%3E%3Cstop offset='0' stop-color='%23fff6cc'/%3E%3Cstop offset='.45' stop-color='%23d9aa3c'/%3E%3Cstop offset='1' stop-color='%234a2f08'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect x='17' y='17' width='86' height='86' fill='none' stroke='%23170d04' stroke-width='34'/%3E%3Crect x='13' y='13' width='94' height='94' fill='none' stroke='url(%23g)' stroke-width='20'/%3E%3Crect x='3.5' y='3.5' width='113' height='113' fill='none' stroke='%23fff3c0' stroke-opacity='.75' stroke-width='1'/%3E%3Crect x='8' y='8' width='104' height='104' fill='none' stroke='%234a2f08' stroke-opacity='.8' stroke-width='1.5'/%3E%3Crect x='9.5' y='9.5' width='101' height='101' fill='none' stroke='%23fff0b0' stroke-opacity='.45' stroke-width='1'/%3E%3Crect x='18' y='18' width='84' height='84' fill='none' stroke='%23fff0b0' stroke-opacity='.4' stroke-width='1'/%3E%3Crect x='19.5' y='19.5' width='81' height='81' fill='none' stroke='%233a2406' stroke-opacity='.85' stroke-width='1.5'/%3E%3Crect x='23.5' y='23.5' width='73' height='73' fill='none' stroke='%23120a02' stroke-width='1.5'/%3E%3Crect x='28' y='28' width='64' height='64' fill='none' stroke='%23c79a3a' stroke-width='2'/%3E%3Crect x='30' y='30' width='60' height='60' fill='none' stroke='%23fff0b0' stroke-opacity='.35' stroke-width='.8'/%3E%3Cg fill='%233a2406'%3E%3Cpath d='M60 9l5 5-5 5-5-5zM60 101l5 5-5 5-5-5zM9 60l5-5 5 5-5 5zM101 60l5-5 5 5-5 5z'/%3E%3Ccircle cx='48' cy='14' r='1.6'/%3E%3Ccircle cx='72' cy='14' r='1.6'/%3E%3Ccircle cx='48' cy='106' r='1.6'/%3E%3Ccircle cx='72' cy='106' r='1.6'/%3E%3Ccircle cx='14' cy='48' r='1.6'/%3E%3Ccircle cx='14' cy='72' r='1.6'/%3E%3Ccircle cx='106' cy='48' r='1.6'/%3E%3Ccircle cx='106' cy='72' r='1.6'/%3E%3C/g%3E%3Cg fill='%23fff0b0' fill-opacity='.7'%3E%3Cpath d='M60 11l3 3-3 3-3-3zM60 103l3 3-3 3-3-3zM11 60l3-3 3 3-3 3zM103 60l3-3 3 3-3 3z'/%3E%3C/g%3E%3Cg id='c'%3E%3Cpath d='M1 1h34v10c-10 0-14 4-14 14v10H1z' fill='url(%23g)' stroke='%23120a02' stroke-width='2'/%3E%3Cpath d='M5 5h26v3c-10 1-13 4-14 14v9H5z' fill='none' stroke='%23fff3c0' stroke-opacity='.6'/%3E%3Ccircle cx='13' cy='13' r='6.5' fill='%23120a02'/%3E%3Ccircle cx='13' cy='13' r='5' fill='url(%23r)'/%3E%3Cpath d='M27 15c5 0 8 3 7 7-1 3-5 3-5 0M15 27c0 5 3 8 7 7 3-1 3-5 0-5' fill='none' stroke='%23120a02' stroke-width='3.4' stroke-linecap='round'/%3E%3Cpath d='M27 15c5 0 8 3 7 7-1 3-5 3-5 0M15 27c0 5 3 8 7 7 3-1 3-5 0-5' fill='none' stroke='%23e9c765' stroke-width='1.6' stroke-linecap='round'/%3E%3C/g%3E%3Cuse href='%23c' transform='translate(120 0) scale(-1 1)'/%3E%3Cuse href='%23c' transform='translate(0 120) scale(1 -1)'/%3E%3Cuse href='%23c' transform='translate(120 120) scale(-1 -1)'/%3E%3C/svg%3E");
-	--leather: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='l'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .7 0 0 0 0 .45 0 0 0 0 .2 0 0 0 .5 -.1'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23l)' opacity='.3'/%3E%3C/svg%3E");
-}
-:root[data-theme='classic'] body {
-	font-size: 15px;
-	line-height: 1.55;
-	background:
-		radial-gradient(ellipse 70rem 34rem at 50% -8rem, rgb(34 58 104 / 0.42), transparent 70%),
-		radial-gradient(ellipse at 50% 40%, transparent 35%, rgb(0 0 0 / 0.72) 100%),
-		repeating-linear-gradient(90deg, transparent 0 158px, rgb(0 0 0 / 0.6) 158px 160px, rgb(255 214 140 / 0.05) 160px 161px),
-		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 640' preserveAspectRatio='none'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.45 .006' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .3 0 0 0 0 .12 .9 0 0 0 -.25'/%3E%3C/filter%3E%3Crect width='320' height='640' filter='url(%23w)' opacity='.5'/%3E%3C/svg%3E"),
-		linear-gradient(180deg, #2a1a0e, #170d06 60%, #0c0603);
-	background-size: auto, auto, auto, 320px 100vh, auto;
-	background-attachment: fixed;
-}
-:root[data-theme='classic'] body::before {
-	height: 14px;
-	background: linear-gradient(180deg, #fff0b0, #d9aa3c 18%, #8f6114 52%, #5d3b0a 56%, #b98a2a 82%, #3a2406);
-	border-bottom: 2px solid #000;
-	box-shadow: 0 1px 0 #6b5326, 0 6px 14px rgb(0 0 0 / 0.6);
-}
-:root[data-theme='classic'] :is(main, .masthead-title, .tab-bar, .gear-rail) {
-	border: 22px solid #6b4a14;
-	border-image: var(--frame) 40 / 22px round;
-	border-radius: 0;
-}
-:root[data-theme='classic'] main {
-	padding: 1.4rem 1.6rem 2rem;
-	box-shadow:
-		inset 0 0 0 1px rgb(60 38 8 / 0.5),
-		inset 0 0 46px rgb(96 64 18 / 0.3),
-		0 18px 50px rgb(0 0 0 / 0.85);
-}
-/* The corner curls of the old frame: the cast corners do that job now. */
-:root[data-theme='classic'] main::before,
-:root[data-theme='classic'] main::after {
-	display: none;
-}
-:root[data-theme='classic'] .masthead-title {
-	padding: 0.9rem 1.3rem;
-	background: var(--leather), radial-gradient(ellipse at 30% 0, #3a2614, #1a0f07 70%);
-	box-shadow:
-		inset 0 0 30px rgb(0 0 0 / 0.7),
-		0 14px 36px rgb(0 0 0 / 0.8);
-}
-:root[data-theme='classic'] .masthead-sub {
-	color: #d8c49a;
-}
-:root[data-theme='classic'] h1 {
-	filter: drop-shadow(0 2px 1px #000) drop-shadow(0 0 14px rgb(255 200 80 / 0.25));
-}
-:root[data-theme='classic'] .tab-bar {
-	border-width: 18px;
-	border-image-width: 18px;
-	background: var(--leather), linear-gradient(180deg, #2c1b0d, #150c05);
-	box-shadow:
-		inset 0 0 22px rgb(0 0 0 / 0.8),
-		0 14px 36px rgb(0 0 0 / 0.8);
-}
-:root[data-theme='classic'] .tabs {
-	padding: 4px;
-	background: none;
-	border: 0;
-	box-shadow: none;
-}
-:root[data-theme='classic'] .tab {
-	margin: 2px 0;
-	background: linear-gradient(180deg, #4a321a, #2a1a0c 48%, #170d05 52%, #24160a);
-	box-shadow: inset 0 0 0 1px rgb(255 214 140 / 0.22), 0 1px 0 rgb(255 214 140 / 0.12);
-}
-:root[data-theme='classic'] .tab:hover {
-	background: linear-gradient(180deg, #6a4a26, #3a2512 48%, #22140a 52%, #33200f);
-}
-:root[data-theme='classic'] .tab[aria-current='page'] {
-	background: linear-gradient(180deg, #fff0b0, #e6bb4c 40%, #a9781c 58%, #d9aa3c);
-	box-shadow: inset 0 0 0 1px #fff3c0, 0 0 12px rgb(255 200 80 / 0.35);
-}
-:root[data-theme='classic'] .tool-link,
-:root[data-theme='classic'] .tool-link:nth-child(odd) {
-	color: #ffe39a;
-	background: linear-gradient(180deg, #5a3d1e, #2e1c0d 50%, #1a0f06 54%, #2a1a0c);
-	border: 1px solid #000;
-	box-shadow:
-		inset 0 0 0 1px rgb(255 214 140 / 0.28),
-		0 0 0 1px #c79a3a,
-		0 0 0 2px #000,
-		0 3px 8px rgb(0 0 0 / 0.6);
-}
-:root[data-theme='classic'] .tool-link:hover {
-	color: #fff;
-	background: linear-gradient(180deg, #76522a, #3d2612 50%, #24150a 54%, #38230f);
-}
-:root[data-theme='classic'] .tool-link[aria-current='page'] {
-	color: #1a1203;
-	background: linear-gradient(180deg, #fff0b0, #e6bb4c 40%, #a9781c 58%, #d9aa3c);
-}
-:root[data-theme='classic'] main .gear-rail {
-	border: 16px solid #6b4a14;
-	border-image: var(--frame) 40 / 16px round;
-	background: var(--leather), linear-gradient(180deg, #24160b, #120a04);
-	box-shadow:
-		inset 0 0 20px rgb(0 0 0 / 0.8),
-		0 12px 30px rgb(0 0 0 / 0.85);
-}
-/* Panels on the paper: a fine double line in old gold, more air inside. */
-:root[data-theme='classic'] main .panel {
-	padding: 1.1rem 1.25rem 1.25rem;
-	border: 1px solid #5a3f12;
-	outline: 1px solid #c79a3a;
-	outline-offset: -5px;
-	box-shadow:
-		inset 0 0 0 1px #f8eecb,
-		inset 0 0 22px rgb(120 84 30 / 0.16),
-		0 2px 6px rgb(60 38 8 / 0.3);
-}
-:root[data-theme='classic'] main .panel + .panel {
-	margin-top: 1.4rem;
-}
-:root[data-theme='classic'] .page > footer {
-	color: #b9a67c;
-}
-:root[data-theme='classic'] .page > footer::after {
-	color: #8c7a55;
-}
-@media (min-width: 64rem) {
-	:root[data-theme='classic'] .page {
-		grid-template-columns: 14rem minmax(0, 1fr);
-		column-gap: 1.5rem;
-		max-width: 84rem;
-	}
-	:root[data-theme='classic'] .masthead-title {
-		margin-bottom: 1.5rem;
-	}
-	:root[data-theme='classic'] .masthead-tools {
-		align-self: center;
-		margin: 0 2.4rem 1.5rem 0;
-		position: relative;
-		z-index: 1;
-	}
-	:root[data-theme='classic'] .tab-bar::before {
-		margin: 4px 4px 2px;
-		border: 1px solid #000;
-		background: linear-gradient(180deg, #fff0b0, #e6bb4c 40%, #a9781c 58%, #d9aa3c);
-	}
-	:root[data-theme='classic'] .tab {
-		padding: 0.6rem 1.6rem 0.6rem 0.7rem;
-	}
-}
-@media (min-width: 90rem) {
-	:root[data-theme='classic'] .gear-rail {
-		--gutter: calc((100vw - 84rem) / 2);
-	}
-}
-@media (max-width: 110rem) {
-	:root[data-theme='classic'] :is(.gear-rail, .gear-rail-show) {
-		display: none;
-	}
-}
-@media (max-width: 63.99rem) {
-	:root[data-theme='classic'] :is(main, .masthead-title, .tab-bar) {
-		border-width: 12px;
-		border-image-width: 12px;
-	}
-	:root[data-theme='classic'] main {
-		padding: 0.9rem 0.8rem 1.4rem;
-	}
-}
-:root[data-theme='classic'] main .farm-tag-bis {
-	color: #a24a00;
-	border-color: #a24a00;
-}
-:root[data-theme='classic'] main .farm-tag-planned {
-	color: #ffd75a;
-	background: #5a2d0c;
-	border-color: #2a1505;
+/* On slate the same pairs keep their bright colours. */
+:root[data-theme='classic'] main .gear-rail .stat-pair.stat-bonus,
+:root[data-theme='classic'] main .gear-rail .stat-pair.stat-bonus .num {
+	color: #1eff00;
 }
