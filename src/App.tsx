@@ -488,10 +488,10 @@ function CheerGnome() {
 			<path d="M85 122 V186" stroke="#0c1638" strokeWidth="2" />
 			<path d="M70 122 Q85 134 100 122" fill="none" stroke="#2c4296" strokeWidth="3" />
 			{/* sleeves and hands */}
-			<path d="M58 120 Q38 132 36 152 L48 156 Q52 140 64 134 Z" fill="#1d3170" stroke="#0c1638" strokeWidth="1.5" />
-			<path d="M112 120 Q132 132 134 152 L122 156 Q118 140 106 134 Z" fill="#1d3170" stroke="#0c1638" strokeWidth="1.5" />
-			<circle cx="42" cy="156" r="7" fill="#f2c9a8" />
-			<circle cx="128" cy="156" r="7" fill="#f2c9a8" />
+			<path d="M60 120 Q42 122 26 104 L34 94 Q48 108 66 108 Z" fill="#1d3170" stroke="#0c1638" strokeWidth="1.5" />
+			<path d="M110 120 Q128 122 144 104 L136 94 Q122 108 104 108 Z" fill="#1d3170" stroke="#0c1638" strokeWidth="1.5" />
+			<circle cx="28" cy="97" r="7" fill="#f2c9a8" />
+			<circle cx="142" cy="97" r="7" fill="#f2c9a8" />
 			{/* belt */}
 			<path d="M52 146 Q85 156 118 146 L119 153 Q85 163 51 153 Z" fill="#5c3814" />
 			<rect x="79" y="148" width="12" height="11" rx="2" fill="none" stroke="#d6a52c" strokeWidth="2.5" />
@@ -511,22 +511,26 @@ function CheerGnome() {
 			<circle className="cheer-coin cheer-coin-2" cx="118" cy="166" r="4" fill="#ffe45c" stroke="#8f6d1c" strokeWidth="1" />
 			<circle className="cheer-coin cheer-coin-3" cx="76" cy="168" r="3.5" fill="#ffd100" stroke="#8f6d1c" strokeWidth="1" />
 			<circle className="cheer-coin cheer-coin-1" cx="94" cy="168" r="3.5" fill="#ffe45c" stroke="#8f6d1c" strokeWidth="1" />
-			{/* at the hip, left: a bottle of crystal water on a cord */}
-			<path d="M40 150 Q30 156 30 164" fill="none" stroke="#c9a36a" strokeWidth="1.5" />
-			<rect x="27" y="162" width="6" height="5" rx="1" fill="#8a5a2b" />
-			<path d="M26 167 H34 Q39 172 38 186 Q36 191 30 191 Q24 191 22 186 Q21 172 26 167 Z" fill="#bfeaff" stroke="#5fc4e8" strokeWidth="1.5" opacity="0.92" />
-			<path d="M23.5 178 Q30 175 36.500 178 V186 Q35 189.500 30 189.500 Q25 189.500 23.500 186 Z" fill="#6fd0ff" opacity="0.8" />
-			<path d="M26 171 Q25 178 26 184" fill="none" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" opacity="0.9" />
-			<path className="cheer-bling cheer-bling-2" d="M38 164 l1 3 l3 1 l-3 1 l-1 3 l-1 -3 l-3 -1 l3 -1 Z" fill="#ffffff" />
-			{/* at the hip, right: a small raisin swirl */}
-			<path d="M130 150 Q140 156 140 163" fill="none" stroke="#c9a36a" strokeWidth="1.5" />
-			<circle cx="141" cy="174" r="11" fill="#d9a05a" stroke="#9a6428" strokeWidth="1.5" />
-			<path d="M141 174 q3 -3 5 0 q1 5 -5 6 q-8 0 -8 -7 q1 -8 9 -8 q9 1 9 9" fill="none" stroke="#9a6428" strokeWidth="2" strokeLinecap="round" />
-			<circle cx="136" cy="170" r="1.4" fill="#3a1f2a" />
-			<circle cx="146" cy="178" r="1.4" fill="#3a1f2a" />
-			<circle cx="139" cy="180" r="1.3" fill="#3a1f2a" />
-			<circle cx="147" cy="170" r="1.2" fill="#3a1f2a" />
-			<path d="M133 167 q4 -3 9 -2" fill="none" stroke="#fff6e0" strokeWidth="1.5" strokeLinecap="round" opacity="0.8" />
+			{/* at the left hip, tied to the belt: a bottle of crystal water */}
+			<g transform="translate(16 2)">
+				<path d="M38 150 Q32 154 30 162" fill="none" stroke="#c9a36a" strokeWidth="2" strokeLinecap="round" />
+				<rect x="27" y="162" width="6" height="5" rx="1" fill="#8a5a2b" />
+				<path d="M26 167 H34 Q39 172 38 186 Q36 191 30 191 Q24 191 22 186 Q21 172 26 167 Z" fill="#bfeaff" stroke="#5fc4e8" strokeWidth="1.5" opacity="0.92" />
+				<path d="M23.5 178 Q30 175 36.5 178 V186 Q35 189.5 30 189.5 Q25 189.5 23.5 186 Z" fill="#6fd0ff" opacity="0.8" />
+				<path d="M26 171 Q25 178 26 184" fill="none" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" opacity="0.9" />
+				<path className="cheer-bling cheer-bling-2" d="M40 166 l1 3 l3 1 l-3 1 l-1 3 l-1 -3 l-3 -1 l3 -1 Z" fill="#ffffff" />
+			</g>
+			{/* at the right hip, tied to the belt: a small raisin swirl */}
+			<g transform="translate(-16 2)">
+				<path d="M132 150 Q138 154 140 163" fill="none" stroke="#c9a36a" strokeWidth="2" strokeLinecap="round" />
+				<circle cx="141" cy="174" r="11" fill="#d9a05a" stroke="#9a6428" strokeWidth="1.5" />
+				<path d="M141 174 q3 -3 5 0 q1 5 -5 6 q-8 0 -8 -7 q1 -8 9 -8 q9 1 9 9" fill="none" stroke="#9a6428" strokeWidth="2" strokeLinecap="round" />
+				<circle cx="136" cy="170" r="1.4" fill="#3a1f2a" />
+				<circle cx="146" cy="178" r="1.4" fill="#3a1f2a" />
+				<circle cx="139" cy="180" r="1.3" fill="#3a1f2a" />
+				<circle cx="147" cy="170" r="1.2" fill="#3a1f2a" />
+				<path d="M133 167 q4 -3 9 -2" fill="none" stroke="#fff6e0" strokeWidth="1.5" strokeLinecap="round" opacity="0.8" />
+			</g>
 			{/* head: big, as gnomes have them, with large ears */}
 			<path d="M52 82 l-14 -8 l10 18 Z M118 82 l14 -8 l-10 18 Z" fill="#f2c9a8" stroke="#d9a587" strokeWidth="1" />
 			<circle cx="85" cy="78" r="32" fill="#f2c9a8" />
@@ -537,8 +541,8 @@ function CheerGnome() {
 			{/* eyes, bushy brows, a round nose */}
 			<ellipse cx="74" cy="76" rx="6" ry="6.5" fill="#ffffff" />
 			<ellipse cx="96" cy="76" rx="6" ry="6.5" fill="#ffffff" />
-			<circle cx="75" cy="77" r="3.4" fill="#4a7fb8" />
-			<circle cx="97" cy="77" r="3.4" fill="#4a7fb8" />
+			<circle cx="75" cy="77" r="3.4" fill="#9b4fe0" />
+			<circle cx="97" cy="77" r="3.4" fill="#9b4fe0" />
 			<circle cx="75.500" cy="77" r="1.5" fill="#12222c" />
 			<circle cx="97.500" cy="77" r="1.5" fill="#12222c" />
 			<path d="M65 68 Q74 62 82 68 M88 68 Q96 62 105 68" fill="none" stroke="#b9bec5" strokeWidth="4.5" strokeLinecap="round" />
@@ -546,8 +550,9 @@ function CheerGnome() {
 			{/* the full grey beard, with a moustache and a grin in it */}
 			<path d="M54 84 Q52 118 70 132 Q85 142 100 132 Q118 118 116 84 Q108 96 96 92 Q85 100 74 92 Q62 96 54 84 Z" fill="#c7ccd2" stroke="#8d949c" strokeWidth="1.5" strokeLinejoin="round" />
 			<path d="M64 104 Q68 122 78 130 M85 104 V136 M106 104 Q102 122 92 130" fill="none" stroke="#9aa1a9" strokeWidth="1.5" strokeLinecap="round" />
-			<path d="M85 90 Q74 88 66 96 Q76 100 85 95 Q94 100 104 96 Q96 88 85 90 Z" fill="#dfe3e7" stroke="#8d949c" strokeWidth="1" />
-			<path d="M78 101 Q85 107 92 101" fill="#7a2a2a" stroke="#5a1c1c" strokeWidth="1" />
+			<path d="M85 90 Q70 86 52 98 Q56 102 62 100 Q74 104 85 96 Q96 104 108 100 Q114 102 118 98 Q100 86 85 90 Z" fill="#dfe3e7" stroke="#8d949c" strokeWidth="1" strokeLinejoin="round" />
+			<path d="M70 103 Q85 118 100 103 Q85 108 70 103 Z" fill="#7a2a2a" stroke="#5a1c1c" strokeWidth="1" strokeLinejoin="round" />
+			<path d="M75 105.500 Q85 109 95 105.500 L93 108 Q85 111 77 108 Z" fill="#ffffff" />
 			{/* the necklace: two dice, six on every side */}
 			<path d="M62 122 Q85 150 108 122" fill="none" stroke="url(#cheer-gold)" strokeWidth="2.5" strokeLinecap="round" />
 			<g transform="translate(-21 -34) scale(1.25)">

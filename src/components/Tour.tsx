@@ -32,7 +32,27 @@ const GROUP_STEPS: TourStep[] = [
 	{ target: '.group-switches', title: 'What counts and how it looks', text: '"Planned items only" counts what each one has in their plan, "Every upgrade" anything better than what they wear. Sort by gain or by people, as cards or as a list.' },
 	{ target: '.group-dungeon', title: 'The dungeons', text: 'Best for the group first. Each one shows the drops, who needs them and the gain. Click it for the bosses, and "Got it" when someone has their item.' },
 ];
-const TOURS: Record<TourId, TourStep[]> = { main: MAIN_STEPS, group: GROUP_STEPS };
+/** On trial on Dev: the pages in their new order (content first, Customize before the simulator check), and the tour with them. */
+const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+const DEV_MAIN_STEPS: TourStep[] = [
+	...MAIN_STEPS.slice(0, 3),
+	{ target: '.tabs', title: 'The pages', text: 'From left to right: check your gear, say what content you do, change single slots if you like, check the plan with the simulator, farm it. Group up is for playing with friends.', needsCharacter: true },
+	MAIN_STEPS[4],
+	{ target: '.tab[data-tab="character"]', title: 'Check gear', text: 'What you wear now, slot by slot. Click an icon to change an item, hover it for its stats. Set race, professions and talents here.', needsCharacter: true },
+	{ target: '.tab[data-tab="content"]', title: 'Content Selection', text: 'One list to go through: dungeons, reputations, sets, PvP, quests, crafting. Switch on what you play. The plan is built from that and rebuilt on every change.', needsCharacter: true },
+	{ target: '.tab[data-tab="upgrades"]', title: 'Customize', text: 'Optional. Every slot with its better items, to pick single ones yourself. What you pick is locked, so the simulator check works around it.', needsCharacter: true },
+	{ target: '.tab[data-tab="simulate"]', title: 'Build plan', text: 'Your planned gear with enchants in one place. "Check the plan with the simulator" tests it with real simulations and swaps in whatever is really better.', needsCharacter: true },
+	{ target: '.tab[data-tab="farm"]', title: 'Farm it', text: 'How to get your plan: sorted by dungeon, with drop chances and how many runs to expect. Press "Got it" when an item drops. "Group up" does the same for several characters.', needsCharacter: true },
+	MAIN_STEPS[8],
+];
+const DEV_GROUP_STEPS: TourStep[] = [
+	GROUP_STEPS[0],
+	{ target: '.group-add', title: 'Bring your friends in', text: 'Each friend presses "Copy character link" under "Check gear" and sends you the text; paste it here. A group link adds everybody at once, and "Share the whole group" makes one.' },
+	{ target: '.group-members', title: 'Who is in', text: 'Your own characters and your friends, in two lists. Friends stay on this page only and get no tile among your characters. Untick the ones who are not coming along.' },
+	{ target: '.group-switches', title: 'What counts and how it looks', text: '"Planned items only" counts what each one has in their plan, "Every upgrade" anything better than what they wear. Sort by gain or by people, as cards or as a list.' },
+	{ target: '.group-dungeon', title: 'The dungeons', text: 'Best for the group first. "Who wants what" opens a table below the card: every drop, who needs it and the gain. Press "Got it" when someone has their item.' },
+];
+const TOURS: Record<TourId, TourStep[]> = IS_DEV ? { main: DEV_MAIN_STEPS, group: DEV_GROUP_STEPS } : { main: MAIN_STEPS, group: GROUP_STEPS };
 
 const stored = (id: TourId) => {
 	try {

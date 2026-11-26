@@ -175,7 +175,7 @@ export function ContentPicker({ spec, character, data, filter, onChange, panels 
 			// One list to work through: every kind is a section, open, with its count and the switch for all of it.
 			const soon = !allOn;
 			return (
-				<section key={key} className={`source-section${counted > 0 ? ' source-section-on' : ''}${soon ? ' source-section-soon' : ''} ${extra}`} aria-label={typeof title === 'string' ? title : key}>
+				<section key={key} className={`panel source-section${counted > 0 ? ' source-section-on' : ''}${soon ? ' source-section-soon' : ''} ${extra}`} aria-label={typeof title === 'string' ? title : key}>
 					<header className="source-section-head">
 						<span className="source-section-mark" aria-hidden="true">
 							{counted > 0 ? '✓' : ''}

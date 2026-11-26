@@ -525,7 +525,7 @@ const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, open: char
 						).score
 					: planned.score;
 				return (
-					<section key={slot.key} className="card upgrade-slot" aria-labelledby={`slot-${slot.key}`}>
+					<section key={slot.key} className={IS_DEV ? 'card panel upgrade-slot' : 'card upgrade-slot'} aria-labelledby={`slot-${slot.key}`}>
 						<header className="upgrade-head">
 							<h3 id={`slot-${slot.key}`}>{slot.label}</h3>
 							<p className="upgrade-current">
@@ -770,7 +770,7 @@ function CandidateRow({ candidate, note, current, healWeights, marks, base, vari
 	);
 	return (
 		<li className={`candidate candidate-${item.quality ?? 'common'}`}>
-			<span className={`candidate-delta num ${delta > 0 ? 'delta-up' : 'delta-down'}`}>
+			<span className={`candidate-delta num ${delta > 0 ? 'delta-up' : 'delta-down'}`} title={IS_DEV ? [stats, current ? `Against your item: ${statChange(pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data), current)}` : ''].filter(Boolean).join('\n') || undefined : undefined}>
 				{formatDelta(delta)}
 				{note && <span className="candidate-note">{note}</span>}
 			</span>

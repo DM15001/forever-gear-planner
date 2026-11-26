@@ -424,11 +424,24 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				{IS_DEV && (
 					<header className="plan-gear-head">
 						<h3>Your planned gear</h3>
-						<p>
-							<span className="plan-gear-key plan-gear-key-goal">Planned</span> the item each card names is what the plan wants you to wear.
-							<span className="plan-gear-key">Replaces</span> is what you wear now.
-							<span className="plan-gear-key">Options</span> are the next best, click one to plan it instead.
-						</p>
+						<dl className="plan-gear-legend">
+							<div>
+								<dt className="plan-gear-key plan-gear-key-goal">Planned</dt>
+								<dd>The item each card names: what the plan wants you to wear.</dd>
+							</div>
+							<div>
+								<dt className="plan-gear-key">Replaces</dt>
+								<dd>What you wear in that slot now.</dd>
+							</div>
+							<div>
+								<dt className="plan-gear-key">Options</dt>
+								<dd>The next best. Click one to plan it instead.</dd>
+							</div>
+							<div>
+								<dt className="plan-gear-key plan-gear-key-worn">You wear it</dt>
+								<dd>Nothing to do in that slot.</dd>
+							</div>
+						</dl>
 					</header>
 				)}
 				<ul className="plain-list plan-slots" inert={refining !== null}>
@@ -500,7 +513,16 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 									{!goalItem ? (
 										'\u00a0'
 									) : !isChange ? (
-										'You wear it'
+										IS_DEV ? (
+											<span className="plan-worn">
+												<svg viewBox="0 0 16 16" aria-hidden="true">
+													<path d="M3 8.5l3.2 3.2L13 5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+												</svg>
+												You wear it
+											</span>
+										) : (
+											'You wear it'
+										)
 									) : equippedItem ? (
 										<>
 											replaces <ItemLink item={equippedItem} />
