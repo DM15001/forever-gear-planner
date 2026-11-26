@@ -1,6 +1,21 @@
 {
-	"seq": 31,
-	"effects": {},
-	"weights": {},
-	"weapons": {}
+	"seq": 32,
+	"effects": {
+		"paladin-ret-holy-shock": 32,
+		"paladin-ret": 32,
+		"warrior-arms": 32,
+		"warrior-fury": 32
+	},
+	"weights": {
+		"paladin-ret-holy-shock": 32,
+		"paladin-ret": 32,
+		"warrior-arms": 32,
+		"warrior-fury": 32
+	},
+	"weapons": {
+		"paladin-ret-holy-shock": 32,
+		"paladin-ret": 32,
+		"warrior-arms": 32,
+		"warrior-fury": 32
+	}
 }

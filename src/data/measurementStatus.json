@@ -1,5 +1,5 @@
 {
-	"simVersion": "1c7a19b110",
+	"simVersion": "6400c447ee",
 	"simDate": "2026-11-26",
 	"builds": {
 		"druid-balance": {
@@ -206,30 +206,30 @@
 		"paladin-ret-holy-shock": {
 			"effects": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weapons": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weights": {
 				"at": "2026-11-26",
-				"current": true,
+				"current": false,
 				"held": true
 			}
 		},
 		"paladin-ret": {
 			"effects": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weapons": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weights": {
 				"at": "2026-11-26",
-				"current": true,
+				"current": false,
 				"held": true
 			}
 		},
@@ -426,30 +426,30 @@
 		"warrior-arms": {
 			"effects": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weapons": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weights": {
 				"at": "2026-11-26",
-				"current": true,
+				"current": false,
 				"held": false
 			}
 		},
 		"warrior-fury": {
 			"effects": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weapons": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weights": {
 				"at": "2026-11-26",
-				"current": true,
+				"current": false,
 				"held": false
 			}
 		}
