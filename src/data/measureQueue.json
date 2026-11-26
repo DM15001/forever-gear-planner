@@ -2,23 +2,5 @@
 	"seq": 13,
 	"effects": {},
 	"weights": {},
-	"weapons": {
-		"druid-cat": 12,
-		"enhancement-shaman": 12,
-		"hunter-bm": 12,
-		"hunter-mm": 12,
-		"hunter-sv-melee": 12,
-		"hunter-sv-weave": 12,
-		"hunter-sv": 12,
-		"paladin-ret-holy-shock": 12,
-		"paladin-ret": 12,
-		"rogue-asn-muti": 12,
-		"rogue-combat-bs": 12,
-		"rogue-combat-ss": 12,
-		"rogue-combat-venom": 12,
-		"rogue-hemo-sf": 12,
-		"rogue-sub-hemo": 12,
-		"warrior-arms": 12,
-		"warrior-fury": 12
-	}
+	"weapons": {}
 }
