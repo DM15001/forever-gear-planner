@@ -32,7 +32,7 @@
 		"elemental-shaman": {
 			"effects": {
 				"at": "2026-11-26",
-				"current": false
+				"current": true
 			},
 			"weapons": null,
 			"weights": {
@@ -44,7 +44,7 @@
 		"enhancement-shaman": {
 			"effects": {
 				"at": "2026-11-26",
-				"current": false
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-26",

@@ -2,6 +2,173 @@
 	"_comment": "News of one month, newest day first. Written once a day by the scheduled task 'WoW Forever daily news (gear planner)'; nothing is ever deleted, this is also the changelog. Sections in this order when they have items: 'Game' (hotfixes, patch notes, fixed quests, announcements), 'WoWSims' (changes to the simulator). Every item: title, text (own words, one or two sentences), url, source, and tags. Tags, one to three per item, only from this list: Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior, Items, Dungeons, Quests, Professions, PvP, World, Races, Upcoming, WoWSims. A last section 'Gear Planner' holds the planner's own patch notes (tag 'Planner', source 'Gear Planner', no url; the News page shows it as a feed of its own); it is written when the site changes and must be kept when the day's news is added. Never mention the cheering figures (Bogdan, Afly, Larry) in the Gear Planner changelog: they are a surprise.",
 	"entries": [
 		{
+			"date": "2026-11-26",
+			"summary": "Blizzard's hotfix notes of 25 November rework Balance Druid talents, let Hunter and Warlock pets and Paladin's Exorcism crit again, tone down the Revelation enchant on area spells and change Alterac Valley to reward objectives. WoWSims updated its Warlock, Druid, Shaman and Hunter presets.",
+			"sections": [
+				{
+					"title": "Game",
+					"items": [
+						{
+							"title": "Balance Druid talents reworked",
+							"text": "The hotfix of 25 November rebuilds part of the Balance tree. Improved Wrath is now Starlight Wrath and also shortens Starfire's cast by up to 0.5 seconds; Improved Moonfire is now Moon and Stars and protects Starfire from losing cast time when you are hit; Eclipse always adds up to 20% crit to Wrath; and Moonkin Form adds 10% Arcane and Nature damage. Moonfury is gone, replaced by Dreamstate, which gives you up to the full benefit of Innervate when you cast it on someone else.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-25-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Druid"
+							]
+						},
+						{
+							"title": "Druids: Improved Starfire cut to 2 points, talents reset",
+							"text": "Improved Starfire now has 2 ranks instead of 5, with an 8% or 15% chance. Druids who had 3 or more points in it had all talents reset and must spend them again. Also fixed: Hurricane lands its last hit, and Genesis now raises Hurricane damage and Tranquility healing.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-25-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Druid"
+							]
+						},
+						{
+							"title": "Hunter and Warlock pets can crit again",
+							"text": "Pets of both classes had no chance to crit with their plain melee attacks; that is fixed. For Warlocks the Succubus and Incubus lose 5% crit they had by mistake. Beast Mastery's Summoned Hawks get about 5% more crit, attack your target even when the pet is on Passive, and can be dismissed with Dismiss Pet or a right-click.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-25-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Hunter",
+								"Warlock"
+							]
+						},
+						{
+							"title": "Paladin: Exorcism can crit, Judgements refresh",
+							"text": "Exorcism could not crit and now can. Judgements on an enemy are refreshed by attacks again when under 20 seconds remain. Holy's Oath of Light lasts 60 minutes, and Libram of Law now affects Judgement of Command.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-25-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Paladin",
+								"Items"
+							]
+						},
+						{
+							"title": "Shaman, Rogue and Warrior fixes",
+							"text": "Chain Lightning now uses up Clearcasting when a Shaman has it together with 5 Maelstrom Weapon stacks. Poised is removed when a Rogue uses Sap or Distract from Stealth. The Arms talent Weaponmaster comes back properly after dying in a battleground.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-25-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Shaman",
+								"Rogue",
+								"Warrior"
+							]
+						},
+						{
+							"title": "Revelation weapon enchant procs less often on area spells",
+							"text": "The Revelation enchant now rolls its proc once per wave of an area spell instead of once for every target hit, and it no longer covers the whole duration of a channeled spell. Casters who use it mainly on area damage get less out of it.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-25-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Professions",
+								"Items"
+							]
+						},
+						{
+							"title": "Item fixes: trinkets, a renamed totem",
+							"text": "Blackhand's Breadth can no longer be resisted, Chained Essence of Eranikus no longer goes through immunities, and the Night Watchman's Torch works again while mounted or casting. Totem of the Storm is now called Totem of the Maelstrom, and Unerring Purpose sells to vendors for a proper price.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-25-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Items",
+								"Shaman"
+							]
+						},
+						{
+							"title": "Official notes confirm the 24 November changes",
+							"text": "Blizzard's notes now list what was seen yesterday: Blackblade of Shahram's haste buff goes to the wielder, and Rogue poisons and Blinding Powder bind on pickup, which Blizzard calls temporary while a bug is fixed. Paladins and Warlocks who finished their epic mount quest earlier can pick up Journeyman Riding for free from their quest giver.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-25-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Items",
+								"Rogue",
+								"Paladin"
+							]
+						},
+						{
+							"title": "Alterac Valley rewards objectives, not a rush",
+							"text": "Killing the enemy General gives much less reputation and honor; towers, graveyards, mines, lieutenants and enemy NPCs give more reputation, and objectives slightly more honor. The long-match reputation bonus starts after 20 minutes instead of 60. All enemy NPCs are tougher, and Generals and their Warmasters or Marshals are stronger for 20 minutes unless objectives are taken. Blizzard expects about the same honor and more reputation per match. Unlooted Storm Crystals are no longer mailed to you.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-25-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"PvP"
+							]
+						},
+						{
+							"title": "Dungeon fixes: Blackfathom Deeps and Sunken Temple",
+							"text": "The Altar of the Deeps in Blackfathom Deeps can be used again after 3 seconds and gives the Blessing of Blackfathom properly. In the Temple of Atal'Hakkar the Avatar of Hakkar should now always appear.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-25-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Dungeons"
+							]
+						},
+						{
+							"title": "Legacy system fixes",
+							"text": "Reinforce now cuts durability loss by 8% per rank, up to 40%. The Quick and the Dead makes Shadowform, Moonkin Form, Travel Form and Trueshot Aura free as intended. PvP Legacy achievements give credit at Exalted, and Lord Valthalak Laid to Rest gives its Legacy credit.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-25-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"World",
+								"PvP"
+							]
+						},
+						{
+							"title": "Quest and world fixes",
+							"text": "Fixed or eased: the Horde version of the Hunter quest Saving the Best for Last, Encrypted Twilight Texts dropping for three Silithus quests, Blind Vengeance in Hyjal, the Smithing Tuyere quest in Searing Gorge (more Steamsmiths), and the Scarlet Subterfuge disguise now lasts an hour. Magram centaurs in Desolace respawn faster, and Alliance races can no longer declare war on the Kirin Tor or, for Dwarves, the Wildhammer Clan.",
+							"url": "https://us.forums.blizzard.com/en/wow/t/wow-forever-hotfixes-november-25-2026/2403040",
+							"source": "Blizzard forums",
+							"tags": [
+								"Quests",
+								"World",
+								"Races"
+							]
+						}
+					]
+				},
+				{
+					"title": "WoWSims",
+					"items": [
+						{
+							"title": "Warlock presets regeared",
+							"text": "All five Warlock presets got new gear, among it Headmaster's Charge as the weapon in three of them, Belt of the Archmage, Robe of the Void, Burial Shawl and Rune Band of Wizardry.",
+							"url": "https://github.com/wowsims/forever",
+							"source": "WoWSims",
+							"tags": [
+								"WoWSims",
+								"Warlock"
+							]
+						},
+						{
+							"title": "New rotations for Cat Druid and Elemental Shaman",
+							"text": "The Cat Druid preset has a largely rewritten rotation, including a rule for targets that cannot bleed, where Ferocious Bite is the only finisher. The Elemental Shaman rotation now keeps its totems up and uses a different elixir.",
+							"url": "https://github.com/wowsims/forever",
+							"source": "WoWSims",
+							"tags": [
+								"WoWSims",
+								"Druid",
+								"Shaman"
+							]
+						},
+						{
+							"title": "Balance Druid and Hunter preset changes",
+							"text": "The Balance Druid preset now wears enchants on its gear, including Revelation on the weapon, and swaps its ring and weapons. The Beast Mastery and melee Survival Hunter presets no longer set a pet attack speed option.",
+							"url": "https://github.com/wowsims/forever",
+							"source": "WoWSims",
+							"tags": [
+								"WoWSims",
+								"Druid",
+								"Hunter"
+							]
+						}
+					]
+				}
+			]
+		},
+		{
 			"date": "2026-11-25",
 			"summary": "A hotfix on 24 November makes Blackblade of Shahram's haste proc speed up its wielder, binds Rogue poisons on pickup, and fixes long battleground queues on European PvE realms. WoWSims reworked its Balance Druid preset. Planner update: presets per character, the group plan as cards or list, an FAQ, and a changelog of its own.",
 			"sections": [
