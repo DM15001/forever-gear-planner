@@ -96,6 +96,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Check gear on one screen",
+							"text": "The compact layout that was tried on the Dev copy is now on the Live site: four columns (slots, character details, stats, slots) with the weapons in a row below. Each slot is one row with icon, name, slot and one line of stats, and the enchant as a small button on the right. Click the icon to change an item.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Fit the estimate to your talents",
 							"text": "When your talents are not the build's standard ones, Build plan shows \"Fit the estimate to my talents\". It measures the stat weights with the simulator for your talents and gear, which takes a few minutes, and rebuilds the plan with them. The measured weights belong to those talents: other characters of the same build keep the standard ones.",
 							"source": "Gear Planner",

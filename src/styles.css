@@ -7341,37 +7341,37 @@ a.plan-enchant-name:hover {
 	}
 }
 
-/* Dev trial: Check gear on one screen. Slots as single rows left and right, details and stats between them. */
-:root[data-channel='dev'] .page:has(.sheet-panel) .character-bar {
+/* Check gear on one screen. Slots as single rows left and right, details and stats between them. */
+:root:root .page:has(.sheet-panel) .character-bar {
 	margin-bottom: 0.6rem;
 }
-:root[data-channel='dev'] .page:has(.sheet-panel) .next-step {
+:root:root .page:has(.sheet-panel) .next-step {
 	display: none;
 }
-:root[data-channel='dev'] .sheet-panel {
+:root:root .sheet-panel {
 	padding-top: 0.7rem;
 	padding-bottom: 0.7rem;
 	container: sheet / inline-size;
 }
-:root[data-channel='dev'] .sheet-head {
+:root:root .sheet-head {
 	padding-bottom: 0.55rem;
 }
-:root[data-channel='dev'] .sheet {
+:root:root .sheet {
 	gap: 0.6rem;
 	margin-top: 0.6rem;
 }
-:root[data-channel='dev'] .sheet-column, :root[data-channel='dev'] .sheet-weapons {
+:root:root .sheet-column, :root:root .sheet-weapons {
 	grid-auto-rows: auto;
 	gap: 0.3rem;
 	align-content: start;
 }
-:root[data-channel='dev'] .sheet-weapons {
+:root:root .sheet-weapons {
 	gap: 0.6rem;
 	padding-top: 0.5rem;
 }
 
 /* A slot is one row: icon, name over stats, the enchant on the right. The icon is the click to change it. */
-:root[data-channel='dev'] .sheet .slot, :root[data-channel='dev'] .sheet .slot-mirrored {
+:root:root .sheet .slot, :root:root .sheet .slot-mirrored {
 	min-height: 2.9rem;
 	grid-template-columns: 2.5rem minmax(0, 1fr) minmax(0, auto);
 	grid-template-rows: auto;
@@ -7379,45 +7379,45 @@ a.plan-enchant-name:hover {
 	gap: 0 0.6rem;
 	padding: 0.2rem 0.5rem;
 }
-:root[data-channel='dev'] .sheet .slot-mirrored .slot-button {
+:root:root .sheet .slot-mirrored .slot-button {
 	grid-column: 1;
 }
-:root[data-channel='dev'] .sheet .slot-mirrored .slot-body {
+:root:root .sheet .slot-mirrored .slot-body {
 	grid-column: 2;
 }
-:root[data-channel='dev'] .sheet .slot-button .slot-icon {
+:root:root .sheet .slot-button .slot-icon {
 	width: 2.5rem;
 	height: 2.5rem;
 }
-:root[data-channel='dev'] .sheet .slot-body {
+:root:root .sheet .slot-body {
 	min-width: 0;
 	display: grid;
 	grid-template-columns: minmax(0, auto) minmax(0, 1fr);
 	column-gap: 0.5rem;
 	align-items: baseline;
 }
-:root[data-channel='dev'] .sheet .slot-body > .slot-item {
+:root:root .sheet .slot-body > .slot-item {
 	grid-column: 1;
 	grid-row: 1;
 }
-:root[data-channel='dev'] .sheet .slot-body > .slot-label {
+:root:root .sheet .slot-body > .slot-label {
 	grid-column: 2;
 	grid-row: 1;
 	display: block;
 	white-space: nowrap;
 }
-:root[data-channel='dev'] .sheet .slot-body > .slot-stats, :root[data-channel='dev'] .sheet .slot-body > .slot-source {
+:root:root .sheet .slot-body > .slot-stats, :root:root .sheet .slot-body > .slot-source {
 	grid-column: 1 / -1;
 }
-:root[data-channel='dev'] .sheet .slot-label {
+:root:root .sheet .slot-label {
 	margin: 0;
 	font-size: 0.6875rem;
 	line-height: 1.2;
 }
-:root[data-channel='dev'] .sheet .slot-change {
+:root:root .sheet .slot-change {
 	display: none;
 }
-:root[data-channel='dev'] .sheet .slot-item {
+:root:root .sheet .slot-item {
 	font-size: 0.875rem;
 	line-height: 1.25;
 	white-space: nowrap;
@@ -7425,7 +7425,7 @@ a.plan-enchant-name:hover {
 	text-overflow: ellipsis;
 	overflow-wrap: normal;
 }
-:root[data-channel='dev'] .sheet .slot-stats {
+:root:root .sheet .slot-stats {
 	display: block;
 	font-size: 0.75rem;
 	line-height: 1.3;
@@ -7433,14 +7433,14 @@ a.plan-enchant-name:hover {
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-:root[data-channel='dev'] .sheet .slot-body > .slot-source {
+:root:root .sheet .slot-body > .slot-source {
 	display: none;
 }
-:root[data-channel='dev'] .sheet .slot-blocked .slot-body > .slot-source {
+:root:root .sheet .slot-blocked .slot-body > .slot-source {
 	display: block;
 	font-size: 0.75rem;
 }
-:root[data-channel='dev'] .sheet .slot-foot {
+:root:root .sheet .slot-foot {
 	grid-column: 3;
 	grid-row: 1;
 	margin: 0;
@@ -7449,42 +7449,42 @@ a.plan-enchant-name:hover {
 	max-width: 9.5rem;
 	justify-items: end;
 }
-:root[data-channel='dev'] .sheet .slot-enchant {
+:root:root .sheet .slot-enchant {
 	flex-wrap: nowrap;
 	justify-content: flex-end;
 	gap: 0.35rem;
 	min-width: 0;
 }
-:root[data-channel='dev'] .sheet .enchant-gives {
+:root:root .sheet .enchant-gives {
 	font-size: 0.75rem;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-:root[data-channel='dev'] .sheet .enchant-button {
+:root:root .sheet .enchant-button {
 	flex: none;
 	gap: 0;
 	padding: 0.15rem;
 	font-size: 0;
 }
-:root[data-channel='dev'] .sheet .slot-select {
+:root:root .sheet .slot-select {
 	max-width: 9rem;
 	font-size: 0.75rem;
 	padding: 0.1rem 0.2rem;
 }
 
 /* Character details: the fields side by side, race and professions as rows of icons. */
-:root[data-channel='dev'] .sheet-center {
+:root:root .sheet-center {
 	gap: 0.6rem;
 }
-:root[data-channel='dev'] .sheet-center .card {
+:root:root .sheet-center .card {
 	padding: 0.6rem 0.75rem 0.7rem;
 }
-:root[data-channel='dev'] .sheet-center .card h3 {
+:root:root .sheet-center .card h3 {
 	margin: 0 0 0.3rem;
 	font-size: 0.9375rem;
 }
-:root[data-channel='dev'] .sheet-details {
+:root:root .sheet-details {
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 	gap: 0.15rem 0.6rem;
@@ -7492,71 +7492,71 @@ a.plan-enchant-name:hover {
 	columns: auto;
 	margin-top: 0;
 }
-:root[data-channel='dev'] .sheet-details > h3, :root[data-channel='dev'] .sheet-details > .preset-field, :root[data-channel='dev'] .sheet-details > fieldset, :root[data-channel='dev'] .sheet-details > .identity-actions {
+:root:root .sheet-details > h3, :root:root .sheet-details > .preset-field, :root:root .sheet-details > fieldset, :root:root .sheet-details > .identity-actions {
 	grid-column: 1 / -1;
 }
-:root[data-channel='dev'] .sheet-details > label[for='character-name'] {
+:root:root .sheet-details > label[for='character-name'] {
 	grid-column: 1;
 	grid-row: 2;
 }
-:root[data-channel='dev'] .sheet-details > #character-name {
+:root:root .sheet-details > #character-name {
 	grid-column: 1;
 	grid-row: 3;
 }
-:root[data-channel='dev'] .sheet-details > label[for='build'] {
+:root:root .sheet-details > label[for='build'] {
 	grid-column: 2;
 	grid-row: 2;
 }
-:root[data-channel='dev'] .sheet-details > #build {
+:root:root .sheet-details > #build {
 	grid-column: 2;
 	grid-row: 3;
 }
-:root[data-channel='dev'] .sheet-details .field-label {
+:root:root .sheet-details .field-label {
 	margin: 0.2rem 0 0;
 	font-size: 0.75rem;
 }
-:root[data-channel='dev'] .sheet-details input[type='text'], :root[data-channel='dev'] .sheet-details select {
+:root:root .sheet-details input[type='text'], :root:root .sheet-details select {
 	padding-top: 0.3rem;
 	padding-bottom: 0.3rem;
 	font-size: 0.875rem;
 	min-width: 0;
 	width: 100%;
 }
-:root[data-channel='dev'] .sheet-details .build-note {
+:root:root .sheet-details .build-note {
 	display: none;
 }
-:root[data-channel='dev'] .sheet-details .preset-field {
+:root:root .sheet-details .preset-field {
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) auto;
 	gap: 0.15rem 0.4rem;
 	align-items: center;
 	margin-top: 0.2rem;
 }
-:root[data-channel='dev'] .sheet-details .preset-field > label {
+:root:root .sheet-details .preset-field > label {
 	grid-column: 1 / -1;
 }
-:root[data-channel='dev'] .sheet-details .preset-buttons {
+:root:root .sheet-details .preset-buttons {
 	display: flex;
 	gap: 0.3rem;
 	margin: 0;
 }
-:root[data-channel='dev'] .sheet-details .preset-buttons .button {
+:root:root .sheet-details .preset-buttons .button {
 	padding: 0.3rem 0.55rem;
 	font-size: 0.8125rem;
 	white-space: nowrap;
 }
-:root[data-channel='dev'] .sheet-choice {
+:root:root .sheet-choice {
 	margin: 0.35rem 0 0;
 }
-:root[data-channel='dev'] .sheet-choice legend {
+:root:root .sheet-choice legend {
 	font-size: 0.75rem;
 }
-:root[data-channel='dev'] .sheet-choice .fight-tiles {
+:root:root .sheet-choice .fight-tiles {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.25rem;
 }
-:root[data-channel='dev'] .sheet-choice .fight-tile {
+:root:root .sheet-choice .fight-tile {
 	flex: none;
 	width: auto;
 	min-width: 0;
@@ -7564,74 +7564,74 @@ a.plan-enchant-name:hover {
 	padding: 0.15rem;
 	gap: 0;
 }
-:root[data-channel='dev'] .sheet-choice .fight-tile img, :root[data-channel='dev'] .sheet-choice .fight-tile .buff-letters {
+:root:root .sheet-choice .fight-tile img, :root:root .sheet-choice .fight-tile .buff-letters {
 	width: 1.7rem;
 	height: 1.7rem;
 }
-:root[data-channel='dev'] .sheet-choice .fight-tile-label {
+:root:root .sheet-choice .fight-tile-label {
 	position: absolute;
 	width: 1px;
 	height: 1px;
 	overflow: hidden;
 	clip-path: inset(50%);
 }
-:root[data-channel='dev'] .sheet-details .identity-actions {
+:root:root .sheet-details .identity-actions {
 	margin-top: 0.45rem;
 }
-:root[data-channel='dev'] .sheet-details .identity-actions .button {
+:root:root .sheet-details .identity-actions .button {
 	padding: 0.3rem 0.6rem;
 	font-size: 0.8125rem;
 }
 
-:root[data-channel='dev'] .sheet .slot-stats .stat-pair {
+:root:root .sheet .slot-stats .stat-pair {
 	margin-right: 0.45rem;
 }
-:root[data-channel='dev'] .sheet-head-text {
+:root:root .sheet-head-text {
 	grid-template-columns: auto minmax(0, 1fr);
 	column-gap: 1.2rem;
 }
-:root[data-channel='dev'] .sheet-head-text > h2 {
+:root:root .sheet-head-text > h2 {
 	grid-column: 1 / -1;
 }
 
 /* Stats: tight rows. */
-:root[data-channel='dev'] .sheet-center .stats {
+:root:root .sheet-center .stats {
 	font-size: 0.8125rem;
 }
-:root[data-channel='dev'] .sheet-center .hit-bar {
+:root:root .sheet-center .hit-bar {
 	margin: 0.2rem 0;
 }
-:root[data-channel='dev'] .sheet-center .hit-note {
+:root:root .sheet-center .hit-note {
 	font-size: 0.75rem;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-:root[data-channel='dev'] .sheet-center .stat-group {
+:root:root .sheet-center .stat-group {
 	margin-top: 0.25rem;
 }
-:root[data-channel='dev'] .sheet-center .stat-group-title {
+:root:root .sheet-center .stat-group-title {
 	font-size: 0.75rem;
 	margin-bottom: 0.1rem;
 	padding-bottom: 0.05rem;
 }
-:root[data-channel='dev'] .sheet-center .stat-row {
+:root:root .sheet-center .stat-row {
 	line-height: 1.22;
 }
-:root[data-channel='dev'] .sheet-head h2 {
+:root:root .sheet-head h2 {
 	font-size: 1.3rem;
 }
-:root[data-channel='dev'] .sheet-head {
+:root:root .sheet-head {
 	gap: 0.3rem 1.1rem;
 }
-:root[data-channel='dev'] .sheet-center .stats > .hint {
+:root:root .sheet-center .stats > .hint {
 	display: none;
 }
 @container sheet (min-width: 60rem) {
-	:root[data-channel='dev'] .sheet {
+	:root:root .sheet {
 		grid-template-columns: minmax(0, 1fr) 18.5rem 12rem minmax(0, 1fr);
 	}
-	:root[data-channel='dev'] .sheet-center {
+	:root:root .sheet-center {
 		display: contents;
 	}
 }
@@ -7729,17 +7729,17 @@ a.plan-enchant-name:hover {
 	color: #5a2d0c;
 	border-color: #5a2d0c;
 }
-/* Dev trial: the enchant button is the icon alone. */
-:root[data-channel='dev'] .sheet .enchant-button .slot-icon,
-:root[data-channel='dev'] .sheet .enchant-button img {
+/* The enchant button is the icon alone. */
+:root:root .sheet .enchant-button .slot-icon,
+:root:root .sheet .enchant-button img {
 	width: 1.25rem;
 	height: 1.25rem;
 	font-size: 1rem;
 }
-:root[data-channel='dev'] .sheet-head-text {
+:root:root .sheet-head-text {
 	grid-template-columns: minmax(0, 1fr);
 }
-:root[data-channel='dev'] .sheet .enchant-button .slot-icon {
+:root:root .sheet .enchant-button .slot-icon {
 	margin: 0;
 	vertical-align: middle;
 }
@@ -7795,37 +7795,37 @@ a.plan-enchant-name:hover {
 .field-label .help {
 	margin-left: 0.35rem;
 }
-:root[data-channel='dev'] .sheet-details > .talent-field {
+:root:root .sheet-details > .talent-field {
 	grid-column: 1 / -1;
 	grid-template-columns: auto minmax(0, 1fr) auto;
 	align-items: center;
 	gap: 0.5rem;
 	margin-top: 0.3rem;
 }
-:root[data-channel='dev'] .sheet-details .talent-field-button {
+:root:root .sheet-details .talent-field-button {
 	padding: 0.25rem 0.6rem;
 	font-size: 0.875rem;
 }
-:root[data-channel='dev'] .sheet-details > .talent-field {
+:root:root .sheet-details > .talent-field {
 	grid-template-columns: auto minmax(0, 1fr);
 }
-:root[data-channel='dev'] .sheet-details > .talent-field > .link {
+:root:root .sheet-details > .talent-field > .link {
 	grid-column: 2;
 	justify-self: start;
 	font-size: 0.8125rem;
 }
-:root[data-channel='dev'] .sheet-details .talent-field-button span {
+:root:root .sheet-details .talent-field-button span {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-:root[data-channel='dev'] .sheet .slot-body {
+:root:root .sheet .slot-body {
 	overflow: hidden;
 }
-:root[data-channel='dev'] .sheet-details .preset-field {
+:root:root .sheet-details .preset-field {
 	grid-template-columns: minmax(6.5rem, 1fr) auto;
 }
-:root[data-channel='dev'] .sheet-details .preset-buttons .button {
+:root:root .sheet-details .preset-buttons .button {
 	padding: 0.3rem 0.4rem;
 	font-size: 0.75rem;
 }
@@ -8072,4 +8072,23 @@ details.content-fold,
 }
 .hit-target {
 	white-space: nowrap;
+}
+
+/* The sheet never grows past its panel: columns and slots may shrink, names cut off instead. */
+.sheet > *,
+.sheet .slot,
+.sheet .slot-foot {
+	min-width: 0;
+}
+@media (max-width: 46rem) {
+	.sheet {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+.sheet-center {
+	grid-template-columns: minmax(0, 1fr);
+}
+.sheet-center > *,
+.sheet-details > * {
+	min-width: 0;
 }
