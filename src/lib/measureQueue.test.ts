@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 // @ts-expect-error a plain script without types
-import { affected, dbTouches, spellTouches, touches } from '../../scripts/measure-queue.mjs';
+import { affected, dbTouches, namesTouches, spellTouches, touches } from '../../scripts/measure-queue.mjs';
 
 describe('which builds a WoWSims update touches', () => {
 	it('reads a class from its folder, in the simulator and in the presets', () => {
@@ -22,6 +22,43 @@ describe('which builds a WoWSims update touches', () => {
 		expect(mage.every((id: string) => id.startsWith('mage'))).toBe(true);
 		expect(affected(['docs/a.md'])).toEqual([]);
 		expect(affected(['sim/core/spell.go']).length).toBeGreaterThan(30);
+	});
+
+	it('reads the name table of the preset text format class by class, and skips its prose', () => {
+		expect(touches('sim/siml/names.json')).toBe('names');
+		// On its own, without the contents, the table still counts as everybody.
+		expect(affected(['sim/siml/names.json']).length).toBeGreaterThan(30);
+		for (const path of ['sim/siml/llm_head.txt', 'sim/siml/gen/repinned.txt']) expect(touches(path)).toBe('none');
+		// The code next to them is shared by every class.
+		for (const path of ['sim/siml/names.go', 'sim/siml/forms.json', 'sim/siml/gen/generate.go']) expect(touches(path)).toBe('all');
+		const table = (change: (t: any) => void = () => {}) => {
+			const t = {
+				classes: {
+					paladin: { spell: { exorcism: { spellId: 10314, registeredBy: ['retribution_paladin'] } }, aura: {} },
+					mage: { spell: { fireball: { spellId: 10151, registeredBy: ['mage'] } }, aura: {} },
+				},
+				shared: { aura: { flask: { spellId: 17628, registeredBy: ['mage', 'retribution_paladin', 'holy_paladin'] } }, spell: {} },
+				enchants: { crusader: { effectId: 1900 } },
+			} as any;
+			change(t);
+			return JSON.stringify(t);
+		};
+		expect(namesTouches(table(), table())).toEqual([]);
+		expect(namesTouches(table(), table(t => (t.classes.paladin.spell.judgement = { spellId: 20271, registeredBy: ['retribution_paladin'] })))).toEqual(['paladin']);
+		expect(namesTouches(table(), table(t => delete t.classes.mage.spell.fireball))).toEqual(['mage']);
+		expect(namesTouches(table(), table(t => ((t.classes.mage.spell.fireball.spellId = 1), (t.classes.paladin.aura.x = { spellId: 2 })))).sort()).toEqual(['mage', 'paladin']);
+		// A shared name belongs to the classes of the specs that use it.
+		expect(namesTouches(table(), table(t => (t.shared.aura.judgement_increased_damage = { spellId: 1291086, registeredBy: ['holy_paladin', 'protection_paladin', 'retribution_paladin'] })))).toEqual(['paladin']);
+		expect(namesTouches(table(), table(t => (t.shared.aura.flask.spellId = 1))).sort()).toEqual(['mage', 'paladin']);
+		expect(namesTouches(table(), table(t => (t.shared.aura.flask.registeredBy = ['mage', 'dps_warrior']))).sort()).toEqual(['mage', 'paladin', 'warrior']);
+		// A shared name that does not say whose it is: everybody.
+		expect(namesTouches(table(), table(t => (t.shared.spell.thing = { spellId: 5, registeredBy: [] })))).toBe('all');
+		expect(namesTouches(table(), table(t => (t.shared.spell.thing = { spellId: 5 })))).toBe('all');
+		expect(namesTouches(table(), table(t => (t.shared.spell.thing = { spellId: 5, registeredBy: ['some_pet'] })))).toBe('all');
+		// Outside the classes, or a class nobody knows: everybody.
+		expect(namesTouches(table(), table(t => (t.enchants.crusader.effectId = 1)))).toBe('all');
+		expect(namesTouches(table(), table(t => (t.items = {})))).toBe('all');
+		expect(namesTouches(table(), table(t => (t.classes.monk = { spell: {} })))).toBe('all');
 	});
 
 	it('reads the item database entry by entry', () => {

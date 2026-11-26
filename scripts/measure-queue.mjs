@@ -50,6 +50,9 @@ export function touches(path) {
 	const [top, second, third] = path.split('/');
 	if (path === SPELL_FILE) return 'spells'; // read spell by spell (spellTouches below)
 	if (path.startsWith('sim/siml/testdata/') || path === 'proto/ui.proto') return 'none'; // test set-ups; what the interface saves
+	if (path === NAMES_FILE) return 'names'; // read class by class (namesTouches below)
+	// Prose of WoWSims' text format for presets: the guide for writing it, and the record of names that were given a new meaning.
+	if (path === 'sim/siml/llm_head.txt' || path === 'sim/siml/gen/repinned.txt') return 'none';
 	if (top === 'sim') {
 		if (CLASSES.includes(second)) return second;
 		return 'all'; // core, common, siml, encounters, lib, wasm, register_all.go: shared by every class
@@ -72,12 +75,13 @@ export function touches(path) {
 /** The builds an update touches, from the list of changed files. A change of the item database alone counts as every build here. */
 export function affected(paths) {
 	const hit = new Set(paths.map(touches));
-	if (['all', 'db', 'db-twin', 'spells'].some(kind => hit.has(kind))) return specs.map(spec => spec.id);
+	if (['all', 'db', 'db-twin', 'spells', 'names'].some(kind => hit.has(kind))) return specs.map(spec => spec.id);
 	return specs.filter(spec => hit.has(String(spec.className).toLowerCase())).map(spec => spec.id);
 }
 
 const DB_FILE = 'assets/database/db.json';
 const SPELL_FILE = 'sim/core/spelldata/spells_auto_gen.go';
+const NAMES_FILE = 'sim/siml/names.json';
 // The game's number for the class a spell belongs to.
 const SPELL_FAMILY = { 3: 'mage', 4: 'warrior', 5: 'warlock', 6: 'priest', 7: 'druid', 8: 'rogue', 9: 'hunter', 10: 'paladin', 11: 'shaman' };
 
@@ -115,6 +119,48 @@ export function spellTouches(beforeText, afterText) {
 			if (!name) return 'all';
 			classes.add(name);
 		}
+	}
+	return [...classes];
+}
+/**
+ * Which classes a change of WoWSims' name table touches. The table gives every spell and aura the name it has in
+ * WoWSims' text format for presets; it is only read when such a text is turned into settings, never while a fight
+ * is simulated. Still, a new or changed name comes with a change to the class it belongs to, so that class's builds
+ * are measured again: under "classes" the class is the folder, under "shared" each entry lists the specs that use
+ * it ("retribution_paladin", "mage"). Returns the classes, or 'all' when the table changed anywhere else (items,
+ * enchants, suffixes) or an entry does not say whose it is.
+ */
+export function namesTouches(beforeText, afterText) {
+	const [before, after] = [JSON.parse(beforeText), JSON.parse(afterText)];
+	const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+	const classes = new Set();
+	for (const part of new Set([...Object.keys(before), ...Object.keys(after)])) {
+		if (same(before[part], after[part])) continue;
+		const [was, is] = [before[part] ?? {}, after[part] ?? {}];
+		if (part === 'classes') {
+			for (const name of new Set([...Object.keys(was), ...Object.keys(is)])) {
+				if (same(was[name], is[name])) continue;
+				if (!CLASSES.includes(name)) return 'all';
+				classes.add(name);
+			}
+		} else if (part === 'shared') {
+			for (const kind of new Set([...Object.keys(was), ...Object.keys(is)])) {
+				const [old, now] = [was[kind] ?? {}, is[kind] ?? {}];
+				for (const name of new Set([...Object.keys(old), ...Object.keys(now)])) {
+					if (same(old[name], now[name])) continue;
+					for (const entry of [old[name], now[name]]) {
+						if (entry === undefined) continue;
+						const users = entry?.registeredBy;
+						if (!Array.isArray(users) || !users.length) return 'all';
+						for (const user of users) {
+							const owner = CLASSES.find(name => user === name || String(user).endsWith('_' + name));
+							if (!owner) return 'all';
+							classes.add(owner);
+						}
+					}
+				}
+			}
+		} else return 'all';
 	}
 	return [...classes];
 }
@@ -243,13 +289,19 @@ if (command === 'add') {
 			const kinds = [...new Set(paths.map(touches))].filter(kind => kind !== 'none');
 			let spellNote = '';
 			const show = (commit, file) => execFileSync('git', ['-C', repo, 'show', `${commit}:${file}`], { encoding: 'utf8', maxBuffer: 256 << 20, stdio: ['ignore', 'pipe', 'ignore'] });
-			const rest = paths.filter(path => !['db', 'db-twin', 'spells'].includes(touches(path)));
+			const rest = paths.filter(path => !['db', 'db-twin', 'spells', 'names'].includes(touches(path)));
 			ids = affected(rest);
 			if (kinds.includes('spells') && ids.length < specs.length) {
 				const classes = spellTouches(show(from, SPELL_FILE), show(to, SPELL_FILE));
 				const more = classes === 'all' ? specs : specs.filter(spec => classes.includes(String(spec.className).toLowerCase()));
 				ids = [...new Set([...ids, ...more.map(spec => spec.id)])];
 				spellNote = classes === 'all' ? 'a spell of no class changed' : `spells changed for ${classes.join(', ') || 'nobody'}`;
+			}
+			if (kinds.includes('names') && ids.length < specs.length) {
+				const classes = namesTouches(show(from, NAMES_FILE), show(to, NAMES_FILE));
+				const more = classes === 'all' ? specs : specs.filter(spec => classes.includes(String(spec.className).toLowerCase()));
+				ids = [...new Set([...ids, ...more.map(spec => spec.id)])];
+				spellNote += `${spellNote ? '; ' : ''}${classes === 'all' ? 'the name table changed in a part that names no class' : `names changed for ${classes.join(', ') || 'nobody'}`}`;
 			}
 			why = `${paths.length} files changed; touching: ${kinds.length ? kinds.join(', ') : 'nothing that is measured'}`;
 			if (spellNote) why += `; ${spellNote}`;
