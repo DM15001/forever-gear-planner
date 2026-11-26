@@ -38,6 +38,9 @@ const BOSS_DROPS_SHOWN = 4;
 const formatPerRun = (value: number) => `+${value >= 10 ? Math.round(value) : value.toFixed(value >= 1 ? 1 : 2)} ${unit()}`;
 const formatDelta = formatDps;
 
+/** On trial on Dev: the explanation as a folded table. */
+const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
+
 export function FarmTab({ spec, character, data, filter, onChange }: Props) {
 	// One character's plan, or what the whole group has to gain per dungeon.
 	// The last item ticked off, so a slip can be taken back.
@@ -158,11 +161,33 @@ export function FarmTab({ spec, character, data, filter, onChange }: Props) {
 
 			<section className="panel" aria-labelledby="farm-dungeons">
 				<h2 id="farm-dungeons">Dungeons by upgrades</h2>
+				{IS_DEV ? (
+					<details className="farm-legend fold">
+						<summary>How to read these numbers</summary>
+						<dl>
+							<dt>Up to</dt>
+							<dd>The best upgrade per slot over your equipped gear, added up.</dd>
+							<dt>Per run</dt>
+							<dd>What one run is worth on average: each upgrade's gain times its chance to drop, best one per slot. Items without a drop chance are left out.</dd>
+							<dt>Drop chance</dt>
+							<dd>Wowhead's Forever numbers from {lootDate} where we have them.</dd>
+							<dt>Classic rate</dt>
+							<dd>No Forever number yet: the rate from WoW Classic (AtlasLoot), which Forever may have changed.</dd>
+							<dt>Boss there 1 in N</dt>
+							<dd>The boss is not there on every run.</dd>
+							<dt>Wings</dt>
+							<dd>Blackrock Spire, Dire Maul and Stratholme are split into their wings.</dd>
+							<dt>Content</dt>
+							<dd>Only what you picked under "Content Selection" counts.</dd>
+						</dl>
+					</details>
+				) : (
 				<p className="hint farm-hint">
-					"Up to" is the best upgrade per slot over your equipped gear, added up. "Per run" is what one run is worth on average: each upgrade's gain times its chance to drop, best one per slot. Drop chances are Wowhead's Forever numbers
-					from {lootDate} where we have them; the rest are the rates from WoW Classic (AtlasLoot), marked "Classic rate", which Forever may have changed. Items without any number are left out of "per run". Bosses that are not there on every
-					run are marked. Blackrock Spire, Dire Maul and Stratholme are split into their wings. Uses the content you picked under "Build plan".
-				</p>
+						"Up to" is the best upgrade per slot over your equipped gear, added up. "Per run" is what one run is worth on average: each upgrade's gain times its chance to drop, best one per slot. Drop chances are Wowhead's Forever numbers
+						from {lootDate} where we have them; the rest are the rates from WoW Classic (AtlasLoot), marked "Classic rate", which Forever may have changed. Items without any number are left out of "per run". Bosses that are not there on every
+						run are marked. Blackrock Spire, Dire Maul and Stratholme are split into their wings. Uses the content you picked under "Build plan".
+					</p>
+				)}
 				{anyUpgrade && (
 					<p className="farm-order">
 						Show{' '}
@@ -303,10 +328,13 @@ function DungeonCard({ dungeon, open, onToggle }: { dungeon: FarmDungeon; open: 
 									<li key={drop.item.id} className="boss-drop">
 										<span className="num delta-up">{formatDelta(drop.delta)}</span>
 										<ItemIcon icon={drop.item.icon} quality={drop.item.quality} small />
-										<span>
-											<ItemLink item={drop.item} />
-											<span className="slot-source"> {GEAR_SLOTS[drop.slotIndex].label}</span>
+										<span className="drop-text">
+											<span className="drop-name">
+												<ItemLink item={drop.item} />
+												<span className="slot-source"> {GEAR_SLOTS[drop.slotIndex].label}</span>
+											</span>
 											{boss.sources.get(drop.item.id)?.dropChance !== undefined && <span className="effort"> {effortLine(boss.sources.get(drop.item.id))}</span>}
+											<span className="drop-tags">
 											{drop.leadsTo && (
 												<span className="badge badge-plan farm-tag-tier" title={`The Tier 0.5 questline takes this piece and gives you ${drop.leadsTo.name}. The gain shown is the one of ${drop.leadsTo.name}.`}>
 													becomes {drop.leadsTo.name}
@@ -320,6 +348,7 @@ function DungeonCard({ dungeon, open, onToggle }: { dungeon: FarmDungeon; open: 
 													alternative, {ordinal(drop.rank)} best
 												</span>
 											)}
+											</span>
 										</span>
 									</li>
 								))}
