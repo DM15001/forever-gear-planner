@@ -214,7 +214,7 @@
 			},
 			"weights": {
 				"at": "2026-11-26",
-				"current": false,
+				"current": true,
 				"held": true
 			}
 		},
@@ -229,7 +229,7 @@
 			},
 			"weights": {
 				"at": "2026-11-26",
-				"current": false,
+				"current": true,
 				"held": true
 			}
 		},
@@ -434,7 +434,7 @@
 			},
 			"weights": {
 				"at": "2026-11-26",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
@@ -449,7 +449,7 @@
 			},
 			"weights": {
 				"at": "2026-11-26",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		}
