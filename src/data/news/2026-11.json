@@ -170,6 +170,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "The plan stands on its own",
+							"text": "The WoWSims and Wowhead BiS tags on items, the two guide rows on top of every slot in Customize and the \"start from a guide\" buttons are gone. The plan is built from the simulator's own measurements and checked with it, so the lists show one recommendation instead of three. Behind the scenes the simulator check still runs the guides' sets against your plan and starts from the best. And the four \"How thorough\" buttons each got a small picture.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Build plan opens with before and after",
 							"text": "The head of Build plan is one big line: your equipped DPS, an arrow with the gain, the planned DPS. The simulator check has a card of its own next to it, \"Next: check it for real\", which turns green once the plan is checked. \"How thorough\" is four buttons instead of a dropdown. Undo and the reset say what they do, and \"Rebuild the plan\" is now called \"Reset to the automatic plan\": it drops your changes and the simulator's, locked slots stay.",
 							"source": "Gear Planner",

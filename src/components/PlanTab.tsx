@@ -8,7 +8,8 @@ import { GEAR_SLOTS } from '../lib/constants';
 import { formatDps, unit } from '../lib/format';
 import { applicableEnchants } from '../lib/enchants';
 import type { GameData } from '../lib/gameData';
-import { guideMarks, markLabel } from '../lib/guides';
+import { guideMarks } from '../lib/guides';
+import { DepthArt } from './DepthArt';
 import { buildPlan, fallbacks, gotEnchant, gotItem, type PlanStep, planSteps } from '../lib/plan';
 import { EMPTY_SLOT, EVERYTHING, isUnmeasured, lockedSlots, plannedGear, scoreSet, slotInUse, type SourceFilter, usableSources, withItem, isObtainable } from '../lib/scoring';
 import { simClient } from '../lib/sim/client';
@@ -322,11 +323,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 					<div className="depth-pick-row">
 						{REFINE_DEPTHS.map((option, step) => (
 							<button key={option.depth} type="button" role="radio" aria-checked={depth === option.depth} className={depth === option.depth ? 'depth-option depth-option-on' : 'depth-option'} disabled={refining !== null} title={`${option.label}: ${option.note}`} onClick={() => setDepth(option.depth)}>
-								<span className="depth-bars" aria-hidden="true">
-									{REFINE_DEPTHS.map((_, bar) => (
-										<i key={bar} className={bar <= step ? 'on' : undefined} />
-									))}
-								</span>
+								<DepthArt step={step} />
 								<strong>{option.label}</strong>
 							</button>
 						))}
@@ -520,7 +517,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				{tools && (
 					<details className="fold plan-tools-fold">
 						<summary>
-							More options<span className="slot-source">What you are fighting, start from a guide, clear the plan, stat weights</span>
+							More options<span className="slot-source">What you are fighting, clear the plan, stat weights</span>
 						</summary>
 						{tools}
 					</details>
@@ -560,11 +557,6 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 										<ItemLink item={goalItem} />
 										{isChange && sourceWord(goalItem)}
 										{isChange && <SuffixNote item={goalItem} />}
-										{marks.get(goalItem.id)?.map(mark => (
-											<span key={mark.guide.id} className="badge badge-guide">
-												{markLabel(mark)}
-											</span>
-										))}
 										{isChange && !isObtainable(goalItem, character, faction, filter, spec) && (
 											<span className="badge badge-stale" title="This item comes from content you have switched off above, or you hid it. It is still here because it was planned before. 'Rebuild the plan' replaces it.">
 												not in your content

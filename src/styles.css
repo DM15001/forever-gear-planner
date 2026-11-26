@@ -9736,3 +9736,47 @@ details.content-fold,
 	background: #16120e;
 	font-weight: 400;
 }
+/* "How thorough": a small picture on each button. Dim until it is the one chosen. */
+.depth-art {
+	display: block;
+	width: 100%;
+	aspect-ratio: 4 / 3;
+	border-radius: 5px;
+	border: 1px solid var(--ridge);
+	filter: saturate(0.35) brightness(0.7);
+	transition: filter 0.15s;
+}
+.depth-option {
+	padding: 0.3rem 0.3rem 0.4rem;
+}
+.depth-option:hover:not(:disabled) .depth-art {
+	filter: saturate(0.7) brightness(0.9);
+}
+.depth-option-on .depth-art {
+	filter: none;
+	border-color: var(--brass);
+}
+.depth-fly {
+	animation: depth-fly 2.4s ease-in-out infinite alternate;
+}
+.depth-fly-1 {
+	animation-delay: 0.8s;
+}
+.depth-fly-2 {
+	animation-delay: 1.5s;
+}
+@keyframes depth-fly {
+	from {
+		opacity: 0.35;
+		transform: translateY(0);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(-2px);
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.depth-fly {
+		animation: none;
+	}
+}

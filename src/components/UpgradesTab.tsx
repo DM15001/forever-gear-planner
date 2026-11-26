@@ -67,6 +67,9 @@ const LONG_LIST = 25;
 /** The layout of 26 Nov (first tried on Dev). */
 const NEW_LAYOUT = true;
 
+/** The guides' picks (the WoWSims set, the Wowhead list) are no longer shown as recommendations: the plan stands on its own. Their sets still take part in the simulator check, and their notes on where an item comes from are still used. */
+const GUIDES_SHOWN: boolean = false;
+
 export function UpgradesTab({ spec, character, data, onChange, filter, onFilterChange: setFilter, defaultWeights, onWeightsChange, part, onShowList, embedded = false }: Props) {
 	const [expanded, setExpanded] = useState<Set<number>>(new Set());
 	const [guideNotice, setGuideNotice] = useState<{
@@ -291,6 +294,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 					)}
 				</p>
 				{spec.role !== 'healer' && <FightPicker character={character} onChange={onChange} />}
+				{GUIDES_SHOWN && (
 				<div className="guide-sets">
 					<span className="field-label">Or start from a guide</span>
 					{data.guides.map(guide => (
@@ -305,6 +309,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 						</span>
 					))}
 				</div>
+				)}
 				{guideNotice && (
 					<p className="guide-notice" role="status">
 						Planned the {guideNotice.title}.{guideNotice.skipped.length > 0 && ` Left out: ${guideNotice.skipped.join('; ')}.`}
@@ -567,6 +572,7 @@ const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, url: wowhe
 								</p>
 							)}
 						</header>
+						{GUIDES_SHOWN && (
 						<GuidePicks
 							guides={data.guides}
 							slotIndex={index}
@@ -579,6 +585,7 @@ const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, url: wowhe
 							blocked={itemId => blocked(index, itemId)}
 							otherId={pairedSlot(index) !== undefined ? gear[pairedSlot(index)!]?.id : undefined}
 						/>
+						)}
 						{upgrades > 1 && (
 							<p className="verify-line">
 								{verified ? (
@@ -784,7 +791,8 @@ function CandidateRow({ candidate, note, current, healWeights, marks, base, vari
 			<span className="candidate-body">
 				<span className="candidate-name">
 					<ItemName item={item} />
-					{marks?.map(mark => (
+					{GUIDES_SHOWN &&
+						marks?.map(mark => (
 						<span key={mark.guide.id} className="badge badge-guide">
 							{markLabel(mark)}
 						</span>
