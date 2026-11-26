@@ -8559,3 +8559,31 @@ details.content-fold,
 		grid-row: 2;
 	}
 }
+/* On trial on Dev: the three switches as one bar, each with its name in front. */
+:root[data-channel='dev'] .group-switches {
+	align-items: center;
+	gap: 0.5rem 1.6rem;
+	padding: 0.5rem 0.75rem;
+	background: #0a0806;
+	border: 1px solid var(--ridge);
+	border-radius: 8px;
+}
+:root[data-channel='dev'] .group-switches .farm-order {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0;
+	margin: 0;
+}
+:root[data-channel='dev'] .group-switches .farm-order > .slot-source {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.3rem;
+	margin: 0 0.6rem 0 0;
+	font-size: 0.875rem;
+	color: var(--haze);
+}
+:root[data-channel='dev'] .group-switches .farm-order > .slot-source::after {
+	content: ':';
+	margin-left: -0.25rem;
+}
