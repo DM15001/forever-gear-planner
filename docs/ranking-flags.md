@@ -11,4 +11,4 @@ truly special or valued wrongly by the simulator: look at how its effect works b
 - Gut Ripper (2164, epic 45, weapon): top 3 for 1 build (Rogue: Subtlety Hemo #3); its effect is measured at up to 8.9
 - Kang the Decapitator (2291, epic 49, weapon): top 3 for 1 build (Hunter: Survival (melee weave) #3); its effect is measured at up to 16.0
 - Phantom Blade (7961, rare 49, weapon): top 3 for 1 build (Hunter: Survival (melee) #2); its effect is measured at up to 8.3
-- Precisely Calibrated Boomstick (2100, epic 48, ranged): top 3 for 1 build (Hunter: Survival (melee weave) #1)
+- Precisely Calibrated Boomstick (2100, epic 48, ranged): top 3 for 1 build (Hunter: Survival (melee weave) #2)

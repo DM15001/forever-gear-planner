@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T14:37:51.167Z",
-	"inputs": "0fc932a18fb2fa9b",
+	"generatedAt": "2026-11-26T16:36:06.751Z",
+	"inputs": "102a153e6a753eda",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -12,8 +12,8 @@
 	"weapons": {
 		"2163": {
 			"name": "Shadowblade",
-			"offHand": -1.09,
-			"mainHand": -21.18
+			"mainHand": -21.18,
+			"offHand": -1.09
 		},
 		"5267": {
 			"name": "Scarlet Kris",
@@ -27,8 +27,8 @@
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"mainHand": -45.05,
-			"offHand": -15.5
+			"offHand": -15.5,
+			"mainHand": -45.05
 		},
 		"10697": {
 			"name": "Enchanted Azsharite Felbane Dagger",
@@ -78,8 +78,8 @@
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"offHand": -3.56,
-			"mainHand": -20.5
+			"mainHand": -20.5,
+			"offHand": -3.56
 		},
 		"12791": {
 			"name": "Barman Shanker",

@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T14:07:29.197Z",
-	"inputs": "cabfcb07c8e8c351",
+	"generatedAt": "2026-11-26T15:59:16.613Z",
+	"inputs": "425ab1856fb4f60f",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -59,7 +59,7 @@
 		},
 		"11750": {
 			"name": "Kindling Stave",
-			"mainHand": -58.77
+			"mainHand": -57.86
 		},
 		"11803": {
 			"name": "Force of Magma",

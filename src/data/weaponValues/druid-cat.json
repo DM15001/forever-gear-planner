@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T14:22:40.568Z",
-	"inputs": "8bd5790e8abbfe19",
+	"generatedAt": "2026-11-26T16:20:29.009Z",
+	"inputs": "53daef9b06d46013",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -139,7 +139,7 @@
 		},
 		"11750": {
 			"name": "Kindling Stave",
-			"mainHand": -58.03
+			"mainHand": -57.85
 		},
 		"11803": {
 			"name": "Force of Magma",
@@ -703,7 +703,7 @@
 		},
 		"22458": {
 			"name": "Moonshadow Stave",
-			"mainHand": -58.97
+			"mainHand": -58.94
 		},
 		"24222": {
 			"name": "The Shadowfoot Stabber",

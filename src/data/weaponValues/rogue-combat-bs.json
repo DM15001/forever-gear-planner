@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T14:46:08.287Z",
-	"inputs": "a47f8466115d99dc",
+	"generatedAt": "2026-11-26T16:52:54.018Z",
+	"inputs": "e1c505990e2d53df",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -212,8 +212,8 @@
 		},
 		"13368": {
 			"name": "Bonescraper",
-			"offHand": -2.96,
-			"mainHand": -23.16
+			"mainHand": -23.16,
+			"offHand": -2.96
 		},
 		"13399": {
 			"name": "Gargoyle Shredder Talons",
@@ -306,8 +306,8 @@
 		},
 		"15247": {
 			"name": "Bloodstrike Dagger",
-			"mainHand": -33.32,
-			"offHand": -18.42
+			"offHand": -18.42,
+			"mainHand": -33.32
 		},
 		"15705": {
 			"name": "Tidecrest Blade",
@@ -428,8 +428,8 @@
 		},
 		"19100": {
 			"name": "Electrified Dagger",
-			"offHand": -8.84,
-			"mainHand": -13.32
+			"mainHand": -13.32,
+			"offHand": -8.84
 		},
 		"19103": {
 			"name": "Frostbite",
@@ -461,8 +461,8 @@
 		},
 		"19547": {
 			"name": "Sentinel's Blade",
-			"mainHand": -35.79,
-			"offHand": -15.87
+			"offHand": -15.87,
+			"mainHand": -35.79
 		},
 		"19550": {
 			"name": "Legionnaire's Sword",
@@ -506,8 +506,8 @@
 		},
 		"24222": {
 			"name": "The Shadowfoot Stabber",
-			"offHand": -15.26,
-			"mainHand": -28.21
+			"mainHand": -28.21,
+			"offHand": -15.26
 		},
 		"250614": {
 			"name": "Thorium Cestus",
@@ -529,8 +529,8 @@
 		},
 		"260180": {
 			"name": "Scout's Dagger",
-			"offHand": -21.11,
-			"mainHand": -44.96
+			"mainHand": -44.96,
+			"offHand": -21.11
 		},
 		"260213": {
 			"name": "Great Bear Claw",
@@ -591,8 +591,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"mainHand": 10.62,
-			"offHand": -1.51
+			"offHand": -1.51,
+			"mainHand": 10.62
 		},
 		"272845": {
 			"name": "Premier Grand Marshal's Left Hand Blade",
@@ -621,8 +621,8 @@
 		},
 		"274383": {
 			"name": "Kanai's Knife",
-			"offHand": -14.26,
-			"mainHand": -35.11
+			"mainHand": -35.11,
+			"offHand": -14.26
 		},
 		"274517": {
 			"name": "Unerring Purpose",

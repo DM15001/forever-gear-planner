@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T15:36:13.660Z",
-	"inputs": "b6ac391153a8d90b",
+	"generatedAt": "2026-11-26T17:32:50.978Z",
+	"inputs": "4ac5d117625743ed",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -28,8 +28,8 @@
 		},
 		"2163": {
 			"name": "Shadowblade",
-			"mainHand": -59.21,
-			"offHand": -8.36
+			"offHand": -8.36,
+			"mainHand": -59.21
 		},
 		"2243": {
 			"name": "Hand of Edward the Odd",
@@ -51,18 +51,18 @@
 		},
 		"6660": {
 			"name": "Julie's Dagger",
-			"mainHand": -77.44,
-			"offHand": -17.29
+			"offHand": -17.29,
+			"mainHand": -77.44
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"offHand": -21.85,
-			"mainHand": -89.46
+			"mainHand": -89.46,
+			"offHand": -21.85
 		},
 		"8190": {
 			"name": "Hanzo Sword",
-			"mainHand": -50.77,
-			"offHand": -16.93
+			"offHand": -16.93,
+			"mainHand": -50.77
 		},
 		"8708": {
 			"name": "Hammer of Expertise",
@@ -99,8 +99,8 @@
 		},
 		"10697": {
 			"name": "Enchanted Azsharite Felbane Dagger",
-			"mainHand": -75.67,
-			"offHand": -14.74
+			"offHand": -14.74,
+			"mainHand": -75.67
 		},
 		"10744": {
 			"name": "Axe of the Ebon Drake",
@@ -108,8 +108,8 @@
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
-			"mainHand": -80.91,
-			"offHand": -22.82
+			"offHand": -22.82,
+			"mainHand": -80.91
 		},
 		"10797": {
 			"name": "Firebreather",
@@ -219,8 +219,8 @@
 		},
 		"12062": {
 			"name": "Skilled Fighting Blade",
-			"offHand": -16.63,
-			"mainHand": -76.27
+			"mainHand": -76.27,
+			"offHand": -16.63
 		},
 		"12527": {
 			"name": "Ribsplitter",
@@ -266,8 +266,8 @@
 		},
 		"12777": {
 			"name": "Blazing Rapier",
-			"mainHand": -36.33,
-			"offHand": -21.59
+			"offHand": -21.59,
+			"mainHand": -36.33
 		},
 		"12781": {
 			"name": "Serenity",
@@ -276,8 +276,8 @@
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"mainHand": -57.54,
-			"offHand": -9.56
+			"offHand": -9.56,
+			"mainHand": -57.54
 		},
 		"12791": {
 			"name": "Barman Shanker",
@@ -490,8 +490,8 @@
 		},
 		"15237": {
 			"name": "Corpse Harvester",
-			"mainHand": -50.65,
-			"offHand": -30.32
+			"offHand": -30.32,
+			"mainHand": -50.65
 		},
 		"15238": {
 			"name": "Warlord's Axe",
@@ -500,8 +500,8 @@
 		},
 		"15239": {
 			"name": "Felstone Reaver",
-			"mainHand": -51.57,
-			"offHand": -21.6
+			"offHand": -21.6,
+			"mainHand": -51.57
 		},
 		"15240": {
 			"name": "Demon's Claw",
@@ -688,8 +688,8 @@
 		},
 		"18683": {
 			"name": "Hammer of the Vesper",
-			"offHand": -20.44,
-			"mainHand": -28.97
+			"mainHand": -28.97,
+			"offHand": -20.44
 		},
 		"18737": {
 			"name": "Bone Slicing Hatchet",
@@ -703,8 +703,8 @@
 		},
 		"19099": {
 			"name": "Glacial Blade",
-			"mainHand": -57.02,
-			"offHand": -8.89
+			"offHand": -8.89,
+			"mainHand": -57.02
 		},
 		"19100": {
 			"name": "Electrified Dagger",
@@ -824,8 +824,8 @@
 		},
 		"250614": {
 			"name": "Thorium Cestus",
-			"mainHand": -40.32,
-			"offHand": -22.55
+			"offHand": -22.55,
+			"mainHand": -40.32
 		},
 		"250616": {
 			"name": "Bold Dirk",
@@ -844,8 +844,8 @@
 		},
 		"260180": {
 			"name": "Scout's Dagger",
-			"offHand": -20.57,
-			"mainHand": -85.82
+			"mainHand": -85.82,
+			"offHand": -20.57
 		},
 		"260209": {
 			"name": "Truesong's Hammer",
@@ -913,8 +913,8 @@
 		},
 		"272600": {
 			"name": "Premier High Warlord's Bludgeon",
-			"offHand": -5.67,
-			"mainHand": 11
+			"mainHand": 11,
+			"offHand": -5.67
 		},
 		"272681": {
 			"name": "Premier High Warlord's Battle Mace",
@@ -931,13 +931,13 @@
 		},
 		"272693": {
 			"name": "Premier Grand Marshal's Longsword",
-			"mainHand": 14.07,
-			"offHand": -5.46
+			"offHand": -5.46,
+			"mainHand": 14.07
 		},
 		"272839": {
 			"name": "Premier Grand Marshal's Handaxe",
-			"mainHand": 14.07,
-			"offHand": -5.46
+			"offHand": -5.46,
+			"mainHand": 14.07
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
@@ -1013,8 +1013,8 @@
 		},
 		"276338": {
 			"name": "Claw of Shalla'kal",
-			"offHand": -27.66,
-			"mainHand": -44.15
+			"mainHand": -44.15,
+			"offHand": -27.66
 		},
 		"276398": {
 			"name": "Scarlet Malice",
@@ -1061,8 +1061,8 @@
 		},
 		"280021": {
 			"name": "Tooth of the Matriarch",
-			"offHand": -8.08,
-			"mainHand": -60.54
+			"mainHand": -60.54,
+			"offHand": -8.08
 		},
 		"280022": {
 			"name": "Scaleguard Scimitar",
@@ -1071,8 +1071,8 @@
 		},
 		"280029": {
 			"name": "Cinderedge Crescent",
-			"mainHand": -24.32,
-			"offHand": -14.42
+			"offHand": -14.42,
+			"mainHand": -24.32
 		},
 		"280068": {
 			"name": "Bloody Claws of Attack",
