@@ -5,12 +5,12 @@
 		"druid-balance": {
 			"effects": {
 				"at": "2026-11-26",
-				"current": true
+				"current": false
 			},
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-26",
-				"current": true,
+				"current": false,
 				"held": false
 			}
 		},
