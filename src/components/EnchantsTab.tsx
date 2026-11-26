@@ -1,3 +1,4 @@
+import { Help } from './Help';
 import { useMemo, useState } from 'react';
 
 import { GEAR_SLOTS } from '../lib/constants';
@@ -18,13 +19,17 @@ interface Props {
 	data: GameData;
 	filter: SourceFilter;
 	onChange: (next: Character) => void;
+	/** As a part of the plan's own panel: one line per slot, the options behind a click, the explanations behind question marks. */
+	compact?: boolean;
 }
 
 const OPTIONS_SHOWN = 3;
 const CRAFTS_SHOWN = 6;
 const formatDelta = formatDps;
 
-export function EnchantsTab({ spec, character, data, filter, onChange }: Props) {
+export function EnchantsTab({ spec, character, data, filter, onChange, compact = false }: Props) {
+	// In the compact list: the slots whose options are open.
+	const [openSlots, setOpenSlots] = useState<Set<number>>(new Set());
 	const gear = useMemo(() => plannedGear(character, data), [character, data]);
 	const overview = useMemo(() => enchantOverview(gear, character, data, spec), [gear, character, data, spec]);
 	const professions = useMemo(() => professionValues({ character, data, spec, filter }), [character, data, spec, filter]);
@@ -60,10 +65,23 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 	const ownProfessionsWithoutCrafts = character.professions.filter(p => !professions.some(v => v.profession === p));
 
 	return (
-		<div className="enchants">
+		<div className={compact ? 'enchants enchants-compact' : 'enchants'}>
 			<section className="panel" aria-labelledby="enchants-title">
-				<h2 id="enchants-title">Enchants</h2>
-				<p className="hint enchants-hint">
+				<h2 id="enchants-title">
+					Enchants
+					{compact && (
+						<>
+							<span className="enchants-count">
+								{enchanted} of {overview.length} slots
+							</span>
+							<Help label="How the enchant numbers work">
+								Numbers show the change in set score for your {hasPlan ? 'planned' : 'equipped'} gear. Enchants that only add a proc, such as Crusader, cannot be scored; "Sim" runs the real simulator for an enchant and shows
+								its {unit()} against the bare item. The source is where the enchant or its recipe comes from.
+							</Help>
+						</>
+					)}
+				</h2>
+				<p className="hint enchants-hint" hidden={compact}>
 					{enchanted} of {overview.length} enchantable slots have an enchant. Numbers show the change in set score for your {hasPlan ? 'planned' : 'equipped'} gear. Enchants that only add a
 					proc, such as Crusader, cannot be scored; "Sim" runs the real simulator for an enchant and shows its {unit()} against the bare item. The source is where the enchant or its recipe comes from.
 				</p>
@@ -96,8 +114,48 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 										<span className="enchant-none">No enchant yet</span>
 									)}
 								</p>
+								{compact &&
+									(() => {
+										const top = slot.options[0];
+										const better = top && top.enchant.effectId !== slot.current?.effectId && top.delta > slot.currentDelta + 0.05;
+										const total = slot.options.length + slot.unscored.length;
+										const open = openSlots.has(slot.slotIndex);
+										return (
+											<>
+												<span className="enchant-best">
+													{better ? (
+														<>
+															<span className="slot-source">Better:</span> <EnchantName enchant={top.enchant} inline /> <span className="num delta-up">{formatDelta(top.delta - slot.currentDelta)}</span>
+															{character.gear[slot.slotIndex] && (
+																<button className="button button-small" onClick={() => setEnchants({ [slot.slotIndex]: top.enchant.effectId })}>
+																	Use
+																</button>
+															)}
+														</>
+													) : slot.current ? (
+														<span className="enchant-best-ok">Best stat enchant</span>
+													) : (
+														<span className="slot-source">Nothing scored helps here</span>
+													)}
+												</span>
+												<button
+													className="link enchant-more"
+													aria-expanded={open}
+													disabled={total === 0}
+													onClick={() =>
+														setOpenSlots(old => {
+															const next = new Set(old);
+															if (!next.delete(slot.slotIndex)) next.add(slot.slotIndex);
+															return next;
+														})
+													}>
+													{open ? 'Hide options' : `Options (${total})`}
+												</button>
+											</>
+										);
+									})()}
 							</div>
-							<div className="enchant-options">
+							<div className="enchant-options" hidden={compact && !openSlots.has(slot.slotIndex)}>
 								{slot.options.length === 0 && slot.unscored.length === 0 && <p className="slot-source">No enchant helps this spec here.</p>}
 								{(() => {
 									const all = comparing.has(slot.slotIndex);
@@ -178,8 +236,16 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 			</section>
 
 			<section className="panel" aria-labelledby="professions-title">
-				<h2 id="professions-title">Professions</h2>
-				<p className="hint enchants-hint">
+				<h2 id="professions-title">
+					Professions
+					{compact && (
+						<Help label="What the profession list shows">
+							What each crafting profession can make that beats your equipped gear. "Up to" adds the best item per slot. Whether a crafted item can be traded is not in the data, so items from other professions may or may not
+							be buyable.
+						</Help>
+					)}
+				</h2>
+				<p className="hint enchants-hint" hidden={compact}>
 					What each crafting profession can make that beats your equipped gear. "Up to" adds the best item per slot. Whether a crafted item can be traded is not in the data, so items from
 					other professions may or may not be buyable.
 				</p>
@@ -196,7 +262,7 @@ export function EnchantsTab({ spec, character, data, filter, onChange }: Props) 
 							</p>
 							<ul className="plain-list">
 								{items.slice(0, CRAFTS_SHOWN).map(drop => (
-									<li key={drop.item.id} className="boss-drop">
+									<li key={drop.item.id} className="boss-drop craft-drop">
 										<span className="num delta-up">{formatDelta(drop.delta)}</span>
 										<ItemIcon icon={drop.item.icon} quality={drop.item.quality} small />
 										<span>

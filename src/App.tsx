@@ -1043,13 +1043,15 @@ export function App() {
 			onOpenTalents={() => setSimSetupOpen(true)}
 			next={
 				<>
-					<span className="slot-source">Race, professions and enchants right? Then build the plan.</span>
+					{/* The button follows the order of the steps: it leads wherever the step after Check gear is. */}
+					<span className="slot-source">Race, professions and enchants right? Then say what content you do.</span>
 					<button
 						className="button button-primary"
 						onClick={() => {
-							setTab('simulate');
+							setTab(NEXT_STEP.character.to);
+							window.scrollTo({ top: 0 });
 						}}>
-						Build my gear plan
+						{NEXT_STEP.character.to === 'content' ? 'Choose my content' : 'Build my gear plan'}
 					</button>
 				</>
 			}
@@ -1172,7 +1174,7 @@ export function App() {
 						{data && tab !== 'character' && tab !== 'group' && tab !== 'faq' && tab !== 'news' && <GearRails spec={spec} character={character} data={data} showEquipped={options.equippedPanel} showPlanned={options.plannedPanel} onShow={(kind, on) => changeOptions({ ...options, [kind === 'equipped' ? 'equippedPanel' : 'plannedPanel']: on })} filter={filter} onChange={update} />}
 						{tab === 'content' && (data ? <ContentStep spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} locked={locked} /> : <p>Loading item data…</p>)}
 						{tab === 'simulate' && baseSpec.role === 'healer' && <div inert={locked}><HealingPicker character={character} spec={spec} onChange={update} /></div>}
-						{tab === 'simulate' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} hideContent={NEW_LAYOUT} tools={NEW_LAYOUT ? <div inert={locked}><UpgradesTab part="tools" embedded spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /></div> : undefined} extras={NEW_LAYOUT ? <div inert={locked}><EnchantsTab spec={spec} character={character} data={data} filter={filter} onChange={update} /></div> : undefined} undoSteps={undoSteps} onUndo={undoPlan} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} /> : <p>Loading item data…</p>)}
+						{tab === 'simulate' && (data ? <PlanTab spec={spec} character={character} data={data} filter={filter} onFilterChange={setFilter} onChange={update} hideContent={NEW_LAYOUT} tools={NEW_LAYOUT ? <div inert={locked}><UpgradesTab part="tools" embedded spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /></div> : undefined} extras={NEW_LAYOUT ? <div inert={locked}><EnchantsTab compact spec={spec} character={character} data={data} filter={filter} onChange={update} /></div> : undefined} undoSteps={undoSteps} onUndo={undoPlan} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} /> : <p>Loading item data…</p>)}
 						{((tab === 'simulate' && !NEW_LAYOUT) || tab === 'upgrades') && data && <div inert={locked}><UpgradesTab part={tab === 'simulate' ? 'tools' : 'list'} spec={spec} defaultWeights={scenarioSpec.weights} onWeightsChange={changeWeights} character={character} data={data} onChange={update} filter={filter} onFilterChange={setFilter} /></div>}
 						{tab === 'upgrades' && !data && <p>Loading item data…</p>}
 						{tab === 'simulate' && data && !NEW_LAYOUT && (

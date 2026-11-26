@@ -557,14 +557,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 						</li>
 					))}
 				</ul>
-				{extras && (
-					<details className="fold plan-extras">
-						<summary>
-							Enchants and professions<span className="slot-source">Every enchant option per planned slot, and what your professions add</span>
-						</summary>
-						{extras}
-					</details>
-				)}
+				{extras && <div className="plan-extras">{extras}</div>}
 				{picking !== null && <ItemPicker slotIndex={picking} gear={gear} character={character} data={data} spec={spec} filter={filter} onPick={id => pickItem(picking, id)} onEnchant={effectId => { onChange({ ...character, planEnchants: { ...(character.planEnchants ?? {}), [picking]: effectId ?? 0 } }); setPicking(null); }} onClose={() => setPicking(null)} />}
 					</>
 				)}
