@@ -9666,3 +9666,73 @@ details.content-fold,
 	font-size: 0.8125rem;
 	color: var(--mist);
 }
+/* Dev trial: Undo and the reset as buttons that say what they do: a sign, the name, a line below it. */
+.tool-button {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	text-align: left;
+}
+.tool-button svg {
+	flex: none;
+	width: 1.25rem;
+	height: 1.25rem;
+	color: var(--brass);
+}
+.tool-button > span {
+	display: flex;
+	flex-direction: column;
+	line-height: 1.2;
+}
+.tool-button strong {
+	font-size: 0.9375rem;
+	font-weight: 600;
+}
+.tool-button small {
+	font-size: 0.75rem;
+	color: var(--haze);
+}
+.button:disabled .tool-button svg {
+	color: var(--ridge);
+}
+.plan-hero-tools {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+.plan-hero-tools .button {
+	padding: 0.45rem 0.9rem 0.45rem 0.7rem;
+}
+/* Dev trial: the hit target as a proper field: its name, then a framed choice with its own arrow. */
+.plan-hero .hit-target {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.6rem;
+	flex-basis: 100%;
+	margin-top: 0.35rem;
+	color: var(--haze);
+}
+.plan-hero .hit-target select {
+	appearance: none;
+	padding: 0.4rem 2rem 0.4rem 0.75rem;
+	font: inherit;
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: var(--brass);
+	background:
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.500 6 6.500 11 1.500' fill='none' stroke='%23ffd100' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") right 0.7rem center / 0.7rem no-repeat,
+		#0a0806;
+	border: 1px solid var(--brass-deep);
+	border-radius: 999px;
+	cursor: pointer;
+}
+.plan-hero .hit-target select:hover:not(:disabled),
+.plan-hero .hit-target select:focus-visible {
+	border-color: var(--brass);
+	box-shadow: 0 0 8px -3px var(--brass);
+}
+.plan-hero .hit-target select option {
+	color: var(--mist);
+	background: #16120e;
+	font-weight: 400;
+}

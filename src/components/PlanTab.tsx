@@ -53,6 +53,9 @@ const NEW_LAYOUT = true;
 /** On trial on the Dev copy: the head of the plan as "before → after" with the simulator check as the next step. */
 const IS_DEV = import.meta.env.VITE_CHANNEL === 'dev';
 
+/** What the button that builds the plan anew is called: the texts that point at it use the same name. */
+const REBUILD = IS_DEV ? 'Reset to the automatic plan' : 'Rebuild the plan';
+
 export function PlanTab({ spec, character, data, filter, onFilterChange, onChange, undoSteps = 0, onUndo, defaultWeights, onWeightsChange, hideContent = false, tools, extras }: Props) {
 	const [contentOpen, setContentOpen] = useContentOpen();
 	const options = useMemo(() => ({ character, data, spec, filter }), [character, data, spec, filter]);
@@ -354,11 +357,37 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 		<>
 			{onUndo && (
 				<button className="button" disabled={undoSteps === 0 || refining !== null} title={undoSteps === 0 ? 'Nothing to take back yet' : `Takes back the last change of the plan (${undoSteps} ${undoSteps === 1 ? 'step' : 'steps'} kept)`} onClick={onUndo}>
-					Undo
+					{IS_DEV ? (
+						<span className="tool-button">
+							<svg viewBox="0 0 20 20" aria-hidden="true">
+								<path d="M8 4 3.500 8.500 8 13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+								<path d="M4 8.500h7.500a4.500 4.500 0 0 1 0 9H8" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+							</svg>
+							<span>
+								<strong>Undo</strong>
+								<small>{undoSteps === 0 ? 'Nothing to take back' : 'Take back the last change'}</small>
+							</span>
+						</span>
+					) : (
+						'Undo'
+					)}
 				</button>
 			)}
 			<button className="button" title="Throws away your own changes and the simulator's, and builds the plan again from the estimate. Locked slots stay. Use it after changing what you wear." onClick={() => rebuild()} disabled={refining !== null}>
-				Rebuild the plan
+				{IS_DEV ? (
+					<span className="tool-button">
+						<svg viewBox="0 0 20 20" aria-hidden="true">
+							<path d="M16.500 10a6.500 6.500 0 1 1-2-4.700" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+							<path d="M16.800 2.500v3.800H13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+						</svg>
+						<span>
+							<strong>Reset to the automatic plan</strong>
+							<small>Drops your and the simulator's changes. Locked slots stay.</small>
+						</span>
+					</span>
+				) : (
+					'Rebuild the plan'
+				)}
 			</button>
 		</>
 	);
@@ -422,8 +451,8 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 							{staleLocked === staleCount
 								? `${staleCount === 1 ? 'Its slot is' : 'Their slots are'} locked, so the plan keeps ${staleCount === 1 ? 'it' : 'them'}: unlock to have ${staleCount === 1 ? 'it' : 'them'} replaced.`
 								: staleLocked > 0
-									? `"Rebuild the plan" replaces the unlocked ones; ${staleLocked} ${staleLocked === 1 ? 'is' : 'are'} in a locked slot and stay until you unlock.`
-									: `"Rebuild the plan" replaces ${staleCount === 1 ? 'it' : 'them'}.`}
+									? `"${REBUILD}" replaces the unlocked ones; ${staleLocked} ${staleLocked === 1 ? 'is' : 'are'} in a locked slot and stay until you unlock.`
+									: `"${REBUILD}" replaces ${staleCount === 1 ? 'it' : 'them'}.`}
 						</p>
 					)}
 					{!IS_DEV && callout}
@@ -516,7 +545,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 											type="button"
 											className={`plan-lock${locks.includes(index) ? ' plan-lock-on' : ''}`}
 											aria-pressed={locks.includes(index)}
-											title={locks.includes(index) ? `${goalItem.name} is locked: "Rebuild the plan" and the simulator check keep it and fit the other slots around it. Click to unlock.` : `Lock ${goalItem.name}: the plan keeps it and is built around it`}
+											title={locks.includes(index) ? `${goalItem.name} is locked: "${REBUILD}" and the simulator check keep it and fit the other slots around it. Click to unlock.` : `Lock ${goalItem.name}: the plan keeps it and is built around it`}
 											onClick={() => toggleLock(index)}>
 											<svg viewBox="0 0 16 16" aria-hidden="true">
 												<rect x="3" y="7" width="10" height="7" rx="1.2" fill="currentColor" />
