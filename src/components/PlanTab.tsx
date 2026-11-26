@@ -470,6 +470,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 								<span className="plan-row plan-enchant-row">
 									{goalEnchant ? (
 										<>
+											{IS_DEV && <ItemIcon icon={goalEnchant.icon ?? 'trade_engraving'} quality={goalEnchant.quality} inline />}
 											{wowheadEnchantUrl(goalEnchant) ? (
 												<a className="plan-enchant-name" href={wowheadEnchantUrl(goalEnchant)} target="_blank" rel="noreferrer">
 													{goalEnchant.name}
