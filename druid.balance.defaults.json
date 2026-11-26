@@ -1,5 +1,5 @@
 {
-  "apiVersion": 2,
+  "apiVersion": 3,
   "raidBuffs": {
     "arcaneIntellect": true,
     "prayerOfSpirit": true,
@@ -14,27 +14,27 @@
     "manaSpringTotem": "TristateEffectRegular"
   },
   "player": {
-    "apiVersion": 2,
+    "apiVersion": 3,
     "race": "RaceWindshaperSkyborne",
     "class": "ClassDruid",
     "equipment": {
       "items": [
-        {"id":226773,"enchant":2544},
-        {"id":19426,"enchant":8218},
+        {"id":226773},
+        {"id":19426},
         {"id":226778},
-        {"id":272411,"enchant":2621},
-        {"id":226776,"enchant":8492},
-        {"id":13409,"randomSuffix":13055,"enchant":7665},
-        {"id":226777,"enchant":7647},
-        {"id":226772},
-        {"id":252486,"enchant":2544},
-        {"id":226774,"enchant":8492},
-        {"id":272406},
+        {"id":272411},
+        {"id":226776},
+        {"id":226775},
+        {"id":226777},
+        {"id":18405},
+        {"id":252486},
+        {"id":226774},
+        {"id":12543},
         {"id":22339},
         {"id":272438},
         {"id":13968},
-        {"id":2243,"enchant":8217},
-        {"id":19315,"enchant":7659},
+        {"id":20220,"enchant":7662},
+        {},
         {"id":272430}
       ]
     },
@@ -42,8 +42,7 @@
       "flaskId": 13512,
       "foodId": 13933,
       "conjuredId": 12662,
-      "explosiveId": 260814,
-      "mhImbueId": 20749,
+      "mhImbueId": 20750,
       "elixirIds": [
         13454,
         250343,
@@ -54,11 +53,11 @@
       "offensivePotId": 250937
     },
     "bonusStats": {
-      "apiVersion": 2,
+      "apiVersion": 3,
       "stats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       "pseudoStats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     },
-    "itemSwap": {"items":[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],"prepullBonusStats":{"apiVersion":2,"stats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"pseudoStats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}},
+    "itemSwap": {"items":[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],"prepullBonusStats":{"apiVersion":3,"stats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"pseudoStats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}},
     "buffs": {
       "greaterBlessingOfKings": true,
       "greaterBlessingOfWisdom": 1
@@ -71,7 +70,7 @@
         }
       }
     },
-    "talentsString": "5232220115501351--5053",
+    "talentsString": "5532220115001351--505302",
     "profession1": "Enchanting",
     "profession2": "Leatherworking",
     "cooldowns": {
@@ -86,7 +85,7 @@
     }
   },
   "encounter": {
-    "apiVersion": 2,
+    "apiVersion": 3,
     "duration": 180,
     "durationVariation": 5,
     "executeProportion20": 0.2,

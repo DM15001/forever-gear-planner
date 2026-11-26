@@ -1,5 +1,5 @@
 {
-  "apiVersion": 2,
+  "apiVersion": 3,
   "raidBuffs": {
     "arcaneIntellect": true,
     "prayerOfSpirit": true,
@@ -14,7 +14,7 @@
   "partyBuffs": {
   },
   "player": {
-    "apiVersion": 2,
+    "apiVersion": 3,
     "race": "RaceWindshaperSkyborne",
     "class": "ClassShaman",
     "equipment": {
@@ -33,8 +33,8 @@
         {"id":22339},
         {"id":272438},
         {"id":18471},
-        {"id":20214,"enchant":8217},
-        {"id":19315},
+        {"id":20220,"enchant":7662},
+        {},
         {"id":23199}
       ]
     },
@@ -48,7 +48,7 @@
       ],
       "elixirIds": [
         250343,
-        9155,
+        13454,
         250338,
         250341,
         250335
@@ -56,11 +56,11 @@
       "resourcePotId": 13444
     },
     "bonusStats": {
-      "apiVersion": 2,
+      "apiVersion": 3,
       "stats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       "pseudoStats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     },
-    "itemSwap": {"items":[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],"prepullBonusStats":{"apiVersion":2,"stats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"pseudoStats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}},
+    "itemSwap": {"items":[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],"prepullBonusStats":{"apiVersion":3,"stats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"pseudoStats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}},
     "buffs": {
       "greaterBlessingOfKings": true,
       "greaterBlessingOfWisdom": 1
@@ -116,7 +116,7 @@
     }
   },
   "encounter": {
-    "apiVersion": 2,
+    "apiVersion": 3,
     "duration": 180,
     "durationVariation": 5,
     "executeProportion20": 0.2,

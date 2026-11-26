@@ -1,5 +1,5 @@
 {
-  "apiVersion": 2,
+  "apiVersion": 3,
   "raidBuffs": {
     "arcaneIntellect": true,
     "prayerOfSpirit": true,
@@ -24,7 +24,7 @@
     "manaSpringTotem": "TristateEffectRegular"
   },
   "player": {
-    "apiVersion": 2,
+    "apiVersion": 3,
     "race": "RaceHuman",
     "class": "ClassPaladin",
     "equipment": {
@@ -74,12 +74,12 @@
       "offensivePotId": 250937
     },
     "bonusStats": {
-      "apiVersion": 2,
+      "apiVersion": 3,
       "stats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       "pseudoStats": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     },
     "enableItemSwap": true,
-    "itemSwap": {"items":[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{"id":9449,"enchant":7662},{},{}],"prepullBonusStats":{"apiVersion":2,"stats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"pseudoStats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}},
+    "itemSwap": {"items":[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{"id":9449,"enchant":7662},{},{}],"prepullBonusStats":{"apiVersion":3,"stats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"pseudoStats":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}},
     "buffs": {
       "greaterBlessingOfKings": true,
       "greaterBlessingOfMight": 1,
@@ -108,7 +108,7 @@
     }
   },
   "encounter": {
-    "apiVersion": 2,
+    "apiVersion": 3,
     "duration": 180,
     "durationVariation": 5,
     "executeProportion20": 0.2,
