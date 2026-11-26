@@ -206,7 +206,7 @@
 		"paladin-ret-holy-shock": {
 			"effects": {
 				"at": "2026-11-26",
-				"current": false
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-26",
@@ -221,7 +221,7 @@
 		"paladin-ret": {
 			"effects": {
 				"at": "2026-11-26",
-				"current": false
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-26",
@@ -426,7 +426,7 @@
 		"warrior-arms": {
 			"effects": {
 				"at": "2026-11-26",
-				"current": false
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-26",
@@ -441,7 +441,7 @@
 		"warrior-fury": {
 			"effects": {
 				"at": "2026-11-26",
-				"current": false
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-26",
