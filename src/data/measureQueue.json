@@ -2,12 +2,5 @@
 	"seq": 38,
 	"effects": {},
 	"weights": {},
-	"weapons": {
-		"rogue-asn-muti": 38,
-		"rogue-combat-bs": 38,
-		"rogue-combat-ss": 38,
-		"rogue-combat-venom": 38,
-		"rogue-hemo-sf": 38,
-		"rogue-sub-hemo": 38
-	}
+	"weapons": {}
 }
