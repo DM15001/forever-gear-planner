@@ -1,5 +1,5 @@
 {
-	"simVersion": "2efb9fd4a5",
+	"simVersion": "ee6d5076aa",
 	"simDate": "2026-11-27",
 	"builds": {
 		"druid-balance": {
@@ -37,7 +37,7 @@
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-27",
-				"current": true,
+				"current": false,
 				"held": false
 			}
 		},
@@ -48,11 +48,11 @@
 			},
 			"weapons": {
 				"at": "2026-11-27",
-				"current": true
+				"current": false
 			},
 			"weights": {
 				"at": "2026-11-27",
-				"current": true,
+				"current": false,
 				"held": false
 			}
 		},
