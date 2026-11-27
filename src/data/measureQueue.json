@@ -1,27 +1,27 @@
 {
-	"seq": 37,
+	"seq": 38,
 	"effects": {
-		"rogue-asn-muti": 37,
-		"rogue-combat-bs": 37,
-		"rogue-combat-ss": 37,
-		"rogue-combat-venom": 37,
-		"rogue-hemo-sf": 37,
-		"rogue-sub-hemo": 37
+		"rogue-asn-muti": 38,
+		"rogue-combat-bs": 38,
+		"rogue-combat-ss": 38,
+		"rogue-combat-venom": 38,
+		"rogue-hemo-sf": 38,
+		"rogue-sub-hemo": 38
 	},
 	"weights": {
-		"rogue-asn-muti": 37,
-		"rogue-combat-bs": 37,
-		"rogue-combat-ss": 37,
-		"rogue-combat-venom": 37,
-		"rogue-hemo-sf": 37,
-		"rogue-sub-hemo": 37
+		"rogue-asn-muti": 38,
+		"rogue-combat-bs": 38,
+		"rogue-combat-ss": 38,
+		"rogue-combat-venom": 38,
+		"rogue-hemo-sf": 38,
+		"rogue-sub-hemo": 38
 	},
 	"weapons": {
-		"rogue-asn-muti": 37,
-		"rogue-combat-bs": 37,
-		"rogue-combat-ss": 37,
-		"rogue-combat-venom": 37,
-		"rogue-hemo-sf": 37,
-		"rogue-sub-hemo": 37
+		"rogue-asn-muti": 38,
+		"rogue-combat-bs": 38,
+		"rogue-combat-ss": 38,
+		"rogue-combat-venom": 38,
+		"rogue-hemo-sf": 38,
+		"rogue-sub-hemo": 38
 	}
 }
