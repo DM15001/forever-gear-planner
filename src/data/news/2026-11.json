@@ -9,6 +9,22 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Customize shows what is planned",
+							"text": "The planned item of a slot now stands out at the top of its section: a full-size icon, the name large with a \"Planned\" tag and the gain beside it, and below it where it comes from and what it replaces.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "The first raids are listed, a new source, tiles for set slots",
+							"text": "Under Raids in Content Selection, Barrow Deeps and Hyjal Summit are added as \"coming soon\", and the three raids that open first (Barrow Deeps, Hyjal Summit, Onyxia's Lair) lead the list. A player reported where Skyfury Gauntlets come from: the quest The Darkreaver Menace. The slots of the dungeon sets are tiles with icons instead of tick boxes.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Group up can hide low-level dungeons",
 							"text": "Next to View there is a tick \"Hide low-level dungeons\". With it the dungeons below level 60, Deadmines to Maraudon, are left out of the group's list.",
 							"source": "Gear Planner",

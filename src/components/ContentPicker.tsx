@@ -13,8 +13,11 @@ const SLOT_NAMES: Record<string, string> = { head: 'Head', neck: 'Neck', shoulde
 
 /** The raids the planner will cover, with the game's own icon for each. Shown greyed out until their loot is in the data. */
 const RAIDS: [name: string, icon: string][] = [
-	['Molten Core', 'achievement_boss_ragnaros'],
+	// The first three open together, on 9 December 2026: they come first.
+	['Barrow Deeps', 'spell_nature_sentinal'],
+	['Hyjal Summit', 'achievement_zone_mount-hyjal'],
 	["Onyxia's Lair", 'achievement_boss_onyxia'],
+	['Molten Core', 'achievement_boss_ragnaros'],
 	['Blackwing Lair', 'achievement_boss_nefarion'],
 	["Zul'Gurub", 'achievement_boss_hakkar'],
 	["Ruins of Ahn'Qiraj", 'achievement_boss_ossiriantheunscarred'],

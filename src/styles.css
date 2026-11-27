@@ -9788,3 +9788,57 @@ details.content-fold,
 	color: var(--mist);
 	cursor: pointer;
 }
+/* Customize: what is planned for a slot stands out: a full-size icon, the name large, the gain beside it; below it, small, where it comes from and what it replaces. */
+.planned-pick {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 0.45rem 0.9rem 0.45rem 0.5rem;
+	vertical-align: middle;
+	background: linear-gradient(180deg, rgb(214 174 95 / 0.14), transparent 75%), #0a0806;
+	border: 1px solid var(--brass);
+	border-radius: 8px;
+}
+.planned-pick > .slot-icon {
+	width: 3rem;
+	height: 3rem;
+	flex: none;
+}
+.planned-pick-text {
+	display: flex;
+	flex-direction: column;
+	gap: 0.15rem;
+	min-width: 0;
+}
+.planned-pick-top {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.2rem 0.7rem;
+}
+.planned-pick-top > a,
+.planned-pick-top > .item-link {
+	font-size: 1.25rem;
+	font-weight: 700;
+}
+.planned-pick-top > .num {
+	font-size: 1.1rem;
+	font-weight: 700;
+}
+.planned-pick-tag {
+	padding: 0.05rem 0.5rem;
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	color: var(--on-brass);
+	background: var(--brass);
+	border-radius: 999px;
+	align-self: center;
+}
+.planned-pick-sub {
+	font-size: 0.8125rem;
+	color: var(--haze);
+}
+.planned-pick-sub a {
+	font-weight: 400;
+}
