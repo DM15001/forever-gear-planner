@@ -275,8 +275,8 @@
 		},
 		"rogue-asn-muti": {
 			"effects": {
-				"at": "2026-11-26",
-				"current": false
+				"at": "2026-11-27",
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-26",
@@ -290,8 +290,8 @@
 		},
 		"rogue-combat-bs": {
 			"effects": {
-				"at": "2026-11-26",
-				"current": false
+				"at": "2026-11-27",
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-26",
@@ -305,8 +305,8 @@
 		},
 		"rogue-combat-ss": {
 			"effects": {
-				"at": "2026-11-26",
-				"current": false
+				"at": "2026-11-27",
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-26",
@@ -320,8 +320,8 @@
 		},
 		"rogue-combat-venom": {
 			"effects": {
-				"at": "2026-11-26",
-				"current": false
+				"at": "2026-11-27",
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-26",
@@ -335,8 +335,8 @@
 		},
 		"rogue-hemo-sf": {
 			"effects": {
-				"at": "2026-11-26",
-				"current": false
+				"at": "2026-11-27",
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-26",
@@ -350,8 +350,8 @@
 		},
 		"rogue-sub-hemo": {
 			"effects": {
-				"at": "2026-11-26",
-				"current": false
+				"at": "2026-11-27",
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-26",
