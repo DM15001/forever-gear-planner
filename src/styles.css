@@ -9934,3 +9934,8 @@ a .slot-icon,
 button .slot-icon {
 	cursor: inherit;
 }
+.picker-unsure {
+	margin-left: 0.5rem;
+	font-size: 0.72rem;
+	cursor: help;
+}

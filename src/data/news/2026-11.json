@@ -9,6 +9,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Every item can be picked by hand",
+							"text": "\"All items\" in the item picker under Check gear now really lists every item for the slot, also the ones the planner keeps out of its own suggestions: items with no known source and items whose proc the simulator cannot value yet, such as Lord Sakrasis' Scepter. Those carry a \"proc rate unknown\" tag. The planner still does not suggest them on its own unless \"Procs unknown\" is switched on in Content Selection.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Customize shows what is planned",
 							"text": "The planned item of a slot now stands out at the top of its section: a full-size icon, the name large with a \"Planned\" tag and the gain beside it, and below it where it comes from and what it replaces.",
 							"source": "Gear Planner",

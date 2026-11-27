@@ -4,7 +4,7 @@ import { GEAR_SLOTS } from '../lib/constants';
 import { formatDps } from '../lib/format';
 import type { GameData } from '../lib/gameData';
 import { effortLine } from '../lib/loot';
-import { EVERYTHING, type Gear, slotCandidates, type SourceFilter, usableSources } from '../lib/scoring';
+import { EVERYTHING, type Gear, simUnsure, slotCandidates, type SourceFilter, usableSources } from '../lib/scoring';
 import { pieceStats, statLine } from '../lib/stats';
 import type { Character, SpecConfig } from '../lib/types';
 import { EnchantList } from './EnchantPicker';
@@ -33,6 +33,9 @@ interface Props {
 const ROWS_SHOWN = 60;
 const formatDelta = formatDps;
 
+/** "All items" when picking by hand means every item that exists for the slot: also the ones whose source nobody knows and the ones the simulator cannot value. What you wear is yours to say. */
+const ALL_ITEMS: SourceFilter = { ...EVERYTHING, unknown: true, unknownProcs: true };
+
 /** A list of everything that fits a slot, best first, to swap one item by hand. */
 export function ItemPicker({ slotIndex, gear, character, data, spec, filter, startWithAll = false, allowEmpty = false, onPick, onEnchant, onClose }: Props) {
 	const [tab, setTab] = useState<'items' | 'enchants'>('items');
@@ -47,7 +50,7 @@ export function ItemPicker({ slotIndex, gear, character, data, spec, filter, sta
 		if (element && !element.open) element.showModal();
 	}, []);
 
-	const candidates = useMemo(() => slotCandidates(slotIndex, gear, { character, data, spec, filter: all ? EVERYTHING : filter }), [slotIndex, gear, character, data, spec, filter, all]);
+	const candidates = useMemo(() => slotCandidates(slotIndex, gear, { character, data, spec, filter: all ? ALL_ITEMS : filter }), [slotIndex, gear, character, data, spec, filter, all]);
 	const words = search.trim().toLowerCase().split(/\s+/).filter(Boolean);
 	const matching = words.length ? candidates.filter(c => words.every(word => c.item.name.toLowerCase().includes(word))) : candidates;
 	const shown = matching.slice(0, ROWS_SHOWN);
@@ -105,7 +108,7 @@ export function ItemPicker({ slotIndex, gear, character, data, spec, filter, sta
 					</li>
 				)}
 				{shown.map(({ item, delta, incomplete }) => {
-					const source = usableSources(item, faction, all ? EVERYTHING : filter, character.professions)[0] ?? usableSources(item, faction, EVERYTHING)[0];
+					const source = usableSources(item, faction, all ? ALL_ITEMS : filter, character.professions)[0] ?? usableSources(item, faction, EVERYTHING)[0];
 					const stats = statLine(pieceStats(item, { id: item.id, ...(item.bestSuffix ? { randomSuffix: item.bestSuffix } : {}) }, data));
 					const effort = effortLine(source);
 					return (
@@ -116,6 +119,11 @@ export function ItemPicker({ slotIndex, gear, character, data, spec, filter, sta
 									<span className={`picker-name quality-${item.quality}`}>
 										{item.name}
 										{suffixText(item)}
+										{simUnsure(item) && (
+											<span className="tag-estimate picker-unsure" title="WoWSims has no trigger rate for this item's effect yet and lets it trigger on every hit or cast. Its simulated number is far too high.">
+												proc rate unknown
+											</span>
+										)}
 									</span>
 									<span className="slot-source">
 										{item.weapon?.dps ? `${item.weapon.dps.toFixed(1)} DPS${stats ? ', ' : ''}` : ''}
