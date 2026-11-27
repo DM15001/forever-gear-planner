@@ -1,6 +1,6 @@
 {
 	"note": "Stat weights of this build, measured with the WoWSims simulator on its preset by scripts/build-weights.mjs. The planner uses them instead of the weights in src/specs, unless \"held\" is true: then a weight moved so far that a person should look first.",
-	"inputs": "57af3798ff93d7b3",
+	"inputs": "43a153516e2b0dff",
 	"measuredOn": "2026-11-27",
 	"iterations": 8000,
 	"unit": "agility",
