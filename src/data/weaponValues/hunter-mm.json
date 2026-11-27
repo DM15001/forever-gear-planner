@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-27T10:12:29.720Z",
-	"inputs": "c2123c4b26b7c7e8",
+	"generatedAt": "2026-11-27T12:27:35.935Z",
+	"inputs": "d15ceb2961957e19",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {

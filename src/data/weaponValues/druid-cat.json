@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-27T10:48:25.846Z",
-	"inputs": "6abe2ee8e0eb9dfd",
+	"generatedAt": "2026-11-27T12:48:27.418Z",
+	"inputs": "7dc929ddb2519c20",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -211,7 +211,7 @@
 		},
 		"12590": {
 			"name": "Felstriker",
-			"mainHand": -30.18
+			"mainHand": -29.55
 		},
 		"12709": {
 			"name": "Pip's Skinner",
