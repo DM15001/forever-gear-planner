@@ -10,7 +10,7 @@ Items whose source the planner does not know: it either guesses "World drop (ass
 Most builds first. "best #2" = second-best item of its slot for at least one build, starting from empty gear.
 
 - [Horn of Ve'han](https://www.wowhead.com/forever/item=275736) (275736, rare 61, neck): no source; 26 builds, best #3 (Enhancement Shaman, Elemental Shaman, Warlock: Destro, Warlock: Demo (Fire Brand), …)
-- [Cleansed Vilebranch Medallion](https://www.wowhead.com/forever/item=270275) (270275, uncommon 51, trinket): no source; 19 builds, best #3 (Enhancement Shaman, Mage: Frost Med, Mage: Frost Incin, Mage: Arcane Fire, …)
+- [Cleansed Vilebranch Medallion](https://www.wowhead.com/forever/item=270275) (270275, uncommon 51, trinket): no source; 20 builds, best #3 (Enhancement Shaman, Elemental Shaman, Mage: Frost Med, Mage: Frost Incin, …)
 - [Highborne Research Tablet](https://www.wowhead.com/forever/item=260205) (260205, uncommon 55, trinket): no source; 18 builds, best #1 (Enhancement Shaman, Priest: Smite Testing, Mage: Arcane, Warrior: Fury (Pre-BiS), …)
 - [Staff of Sorrow](https://www.wowhead.com/forever/item=280082) (280082, rare 57, weapon): no source; 15 builds, best #3 (Elemental Shaman, Warlock: SM/Ruin, Warlock: Destro, Warlock: Aff (Wrack), …)
 - [Cleansed Vilebranch Icon](https://www.wowhead.com/forever/item=270276) (270276, uncommon 51, trinket): no source; 15 builds, best #5 (Elemental Shaman, Warlock: SM/Ruin, Warlock: Destro, Warlock: Aff (Wrack), …)
