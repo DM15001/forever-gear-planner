@@ -508,12 +508,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 				{(
 					<>
 				{tools && (
-					<details className="fold plan-tools-fold">
-						<summary>
-							More options<span className="slot-source">What you are fighting, clear the plan, stat weights</span>
-						</summary>
-						{tools}
-					</details>
+					<div className="plan-tools-fold plan-tools-open">{tools}</div>
 				)}
 				<MeasuredNote specId={spec.id} />
 				{NEW_LAYOUT && (

@@ -44,6 +44,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Build plan: no more \"More options\" fold",
+							"text": "\"What are you fighting?\" is always shown on Build plan now, with the stat weights and \"How is this calculated?\" right below it. \"Clear plan\" sits under those.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Every item can be picked by hand",
 							"text": "\"All items\" in the item picker under Check gear now really lists every item for the slot, also the ones the planner keeps out of its own suggestions: items with no known source and items whose proc the simulator cannot value yet, such as Lord Sakrasis' Scepter. Those carry a \"proc rate unknown\" tag. The planner still does not suggest them on its own unless \"Procs unknown\" is switched on in Content Selection.",
 							"source": "Gear Planner",

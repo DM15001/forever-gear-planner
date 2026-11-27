@@ -318,7 +318,7 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 				<details className="explain fold">
 					<summary>How is this calculated?</summary>
 					<p className="hint">
-						Every "{unit()}" number in the lists is an estimate: the item's stats times what each stat is worth for {spec.name} (see Stat weights below), plus what the simulator measured for procs, on-use effects and set bonuses. Items marked
+						Every "{unit()}" number in the lists is an estimate: the item's stats times what each stat is worth for {spec.name} (see Stat weights), plus what the simulator measured for procs, on-use effects and set bonuses. Items marked
 						"sim it" have an effect nobody measured and may be better or worse than their number. Each +/- shows how the whole set changes, so hit rating past the cap counts for nothing.
 					</p>
 					<p className="hint">

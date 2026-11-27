@@ -9981,3 +9981,24 @@ button .slot-icon {
 .plan-next-done .plan-next-setup {
 	border-top-color: #2f7d3a88;
 }
+
+/* 27 Nov: no "More options" fold on Build plan. The fight picker is always shown, with the stat weights and
+   "How is this calculated?" below it, then "Clear plan" and the note about hiding. */
+:root:root .plan-tools-open .upgrades {
+	display: flex;
+	flex-direction: column;
+	gap: 0.7rem;
+}
+:root:root .plan-tools-open .plan-tools {
+	display: contents;
+}
+:root:root .plan-tools-open .upgrades > *,
+:root:root .plan-tools-open .plan-tools > * {
+	margin: 0;
+	order: 6;
+}
+:root:root .plan-tools-open .fight-card { order: 1; }
+:root:root .plan-tools-open .weights { order: 2; }
+:root:root .plan-tools-open .explain { order: 3; }
+:root:root .plan-tools-open .plan-tools > .actions { order: 4; }
+:root:root .plan-tools-open .hidden-note { order: 5; }
