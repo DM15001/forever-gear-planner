@@ -5,7 +5,7 @@ Items whose source the planner does not know: it either guesses "World drop (ass
 `scripts/items-to-check.ts`; do not edit by hand. To fix one, add its source to `src/config/sources.manual.json`
 (or to `src/config/not-available.json` when it cannot be had), or open an issue saying where it comes from.
 
-## In a build's top 10 for a slot (71)
+## In a build's top 10 for a slot (72)
 
 Most builds first. "best #2" = second-best item of its slot for at least one build, starting from empty gear.
 
@@ -23,10 +23,10 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Flurry Axe](https://www.wowhead.com/forever/item=871) (871, epic 47, weapon): no source; 6 builds, best #1 (Warrior: Fury (Pre-BiS), Rogue: Combat SS, Rogue: Combat Venom, Rogue: Subtlety Hemo, …)
 - [Sword of Zeal](https://www.wowhead.com/forever/item=6622) (6622, rare 63, weapon): no source; 6 builds, best #2 (Warrior: Fury (Pre-BiS), Rogue: Combat SS, Rogue: Combat Venom, Rogue: Subtlety Hemo, …)
 - [Alcor's Sunrazor](https://www.wowhead.com/forever/item=14555) (14555, epic 63, weapon): no source; 6 builds, best #2 (Rogue: Combat SS, Rogue: Combat BS, Rogue: Combat Venom, Rogue: Asn Muti, …)
+- [King Mosh's Tooth](https://www.wowhead.com/forever/item=286613) (286613, rare 62, weapon): no source; 6 builds, best #3 (Rogue: Combat BS, Rogue: Asn Muti, Rogue: Hemo Seal Fate, Hunter: Marksmanship, …)
 - [Escape Plan](https://www.wowhead.com/forever/item=287026) (287026, rare 54, ranged): no source; 6 builds, best #6 (Rogue: Combat SS, Rogue: Combat BS, Rogue: Combat Venom, Rogue: Asn Muti, …)
 - [Shadowblade](https://www.wowhead.com/forever/item=2163) (2163, epic 53, weapon): no source; 5 builds, best #1 (Rogue: Combat BS, Rogue: Asn Muti, Hunter: Marksmanship, Hunter: Beast Mastery, …)
 - [Satyrhide Armbands](https://www.wowhead.com/forever/item=270125) (270125, rare 57, wrist): no source; 5 builds, best #2 (Hunter: Marksmanship, Hunter: Beast Mastery, Hunter: Survival, Hunter: Survival (melee weave), …)
-- [King Mosh's Tooth](https://www.wowhead.com/forever/item=286613) (286613, rare 62, weapon): no source; 5 builds, best #3 (Rogue: Combat BS, Rogue: Asn Muti, Hunter: Marksmanship, Hunter: Beast Mastery, …)
 - [Gut Ripper](https://www.wowhead.com/forever/item=2164) (2164, epic 45, weapon): no source; 5 builds, best #3 (Rogue: Combat BS, Rogue: Asn Muti, Rogue: Subtlety Hemo, Rogue: Hemo Seal Fate, …)
 - [Signet of the Soulless Rider](https://www.wowhead.com/forever/item=284102) (284102, rare 62, finger): no source; 5 builds, best #4 (Enhancement Shaman, Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Rogue: Hemo Seal Fate, …)
 - [Time-Forgotten Bindings](https://www.wowhead.com/forever/item=287041) (287041, rare 60, wrist): no source; 5 builds, best #4 (Enhancement Shaman, Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Hunter: Survival (melee), …)
@@ -64,11 +64,12 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Queen Guard's Royal Seal](https://www.wowhead.com/forever/item=284282) (284282, rare 50, finger): no source; 1 build, best #6 (Druid: Feral Cat)
 - [Pylon Poker](https://www.wowhead.com/forever/item=287046) (287046, rare 61, weapon): no source; 1 build, best #7 (Druid: Feral Cat)
 - [Ketharas' Linked Belt](https://www.wowhead.com/forever/item=275741) (275741, rare 61, waist): no source; 1 build, best #7 (Paladin: Retribution (Holy Shock))
+- [Hanzo Sword](https://www.wowhead.com/forever/item=8190) (8190, rare 55, weapon): no source; 1 build, best #7 (Rogue: Combat SS)
+- [Scarlet Kris](https://www.wowhead.com/forever/item=5267) (5267, rare 63, weapon): no source; 1 build, best #8 (Rogue: Asn Muti)
 - [Mass of McGowan](https://www.wowhead.com/forever/item=13006) (13006, rare 62, weapon): no source; 1 build, best #8 (Warrior: Fury (Pre-BiS))
 - [Panic Hands](https://www.wowhead.com/forever/item=260211) (260211, rare 56, hands): no source; 1 build, best #8 (Druid: Feral Cat)
 - [Hurricane](https://www.wowhead.com/forever/item=2824) (2824, epic 53, ranged): no source; 1 build, best #8 (Hunter: Survival)
 - [Golden Banana](https://www.wowhead.com/forever/item=270226) (270226, uncommon 50, trinket): no source; 1 build, best #8 (Priest: Discipline (healing))
-- [Scarlet Kris](https://www.wowhead.com/forever/item=5267) (5267, rare 63, weapon): no source; 1 build, best #9 (Rogue: Asn Muti)
 - [Traveler's Leggings](https://www.wowhead.com/forever/item=8300) (8300, uncommon 60, legs): guessed world drop; 1 build, best #9 (Druid: Feral Cat)
 - [Lapidis Tankard of Tidesippe](https://www.wowhead.com/forever/item=4696) (4696, rare 59, weapon): no source; 1 build, best #9 (Warlock: SM/Ruin)
 - [Cultist's Cuffs](https://www.wowhead.com/forever/item=284104) (284104, uncommon 58, wrist): no source; 1 build, best #9 (Priest: Smite Testing)
@@ -81,7 +82,7 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Serpent Slicer](https://www.wowhead.com/forever/item=13035) (13035, rare 49, weapon): no source; 1 build, best #10 (Hunter: Survival (melee))
 - [Bow of Searing Arrows](https://www.wowhead.com/forever/item=2825) (2825, epic 42, ranged): no source; 1 build, best #10 (Hunter: Survival (melee weave))
 
-## Other rare and epic items (334)
+## Other rare and epic items (333)
 
 - [Blade of Hanna](https://www.wowhead.com/forever/item=2801) (2801, epic 64, weapon): no source
 - [Ecks'av's Tribal Guardian](https://www.wowhead.com/forever/item=211940) (211940, rare 64, weapon): no source
@@ -158,7 +159,6 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Windrunner Legguards](https://www.wowhead.com/forever/item=13130) (13130, rare 56, legs): no source
 - [Boots of Requite](https://www.wowhead.com/forever/item=270120) (270120, rare 55, feet): no source
 - [Cliff Walker's Cinch](https://www.wowhead.com/forever/item=260184) (260184, rare 55, waist): no source
-- [Hanzo Sword](https://www.wowhead.com/forever/item=8190) (8190, rare 55, weapon): no source
 - [Hippogryph Hide Boots](https://www.wowhead.com/forever/item=260185) (260185, rare 55, feet): no source
 - [Julie's Dagger](https://www.wowhead.com/forever/item=6660) (6660, rare 55, weapon): no source
 - [Private Rocknot's Spare Bracers](https://www.wowhead.com/forever/item=270121) (270121, rare 55, wrist): no source
@@ -383,3 +383,4 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Drakewing Bands](https://www.wowhead.com/forever/item=12999) (12999, rare 25, wrist): no source
 - [Ranger Bow](https://www.wowhead.com/forever/item=3021) (3021, rare 25, ranged): no source
 - [Black Pearl Ring](https://www.wowhead.com/forever/item=6332) (6332, rare 24, finger): no source
+- [Feet of the Lynx](https://www.wowhead.com/forever/item=1121) (1121, rare 24, feet): no source
