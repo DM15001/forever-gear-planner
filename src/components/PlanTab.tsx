@@ -425,6 +425,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 										: 'This plan is an estimate. The simulator tests it and swaps in what is better. A few minutes, once per plan.'}
 								</p>
 								<div className="plan-next-actions">{checkButtons}</div>
+								<div id="plan-next-setup" className="plan-next-setup" />
 								{progress}
 							</aside>
 						</div>
