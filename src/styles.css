@@ -9926,3 +9926,11 @@ details.content-fold,
 		flex-direction: row;
 	}
 }
+/* A picture that shows its item's tooltip on hover. */
+.slot-icon {
+	cursor: help;
+}
+a .slot-icon,
+button .slot-icon {
+	cursor: inherit;
+}

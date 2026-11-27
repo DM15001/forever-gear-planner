@@ -1,3 +1,4 @@
+import { relayIconHover } from './lib/iconHover';
 import '@fontsource/cinzel/latin-600.css';
 import '@fontsource/cinzel/latin-700.css';
 import './styles.css';
@@ -15,3 +16,5 @@ createRoot(document.getElementById('root')!).render(
 		<App />
 	</StrictMode>,
 );
+
+relayIconHover();
