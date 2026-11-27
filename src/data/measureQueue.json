@@ -1,9 +1,6 @@
 {
 	"seq": 41,
-	"effects": {
-		"elemental-shaman": 41,
-		"enhancement-shaman": 40
-	},
+	"effects": {},
 	"weights": {},
 	"weapons": {}
 }
