@@ -85,7 +85,7 @@ export function HealingPicker({ character, spec, onChange }: { character: Charac
 							{character.talents
 								? `Your talents (${character.talents}) have no point in it: it is the last talent of the Holy tree and needs 31 points there. `
 								: "This build's talents have no point in it. "}
-							If you do play with it, set the point in "Sim setup" (the button under the simulation), Talents; the switch to count it then appears here.
+							If you do play with it, set the point in "Sim setup" (the button in the simulator card), Talents; the switch to count it then appears here.
 						</span>
 					</span>
 				</p>
@@ -167,7 +167,7 @@ export function HealingPicker({ character, spec, onChange }: { character: Charac
 							<strong>Prayer of Mending is not counted</strong>
 							<Help label="Why Prayer of Mending is not counted">
 								{character.talents ? `Your talents (${character.talents}) have no point in it: it is the last talent of the Holy tree and needs 31 points there. ` : "This build's talents have no point in it. "}
-								If you do play with it, set the point in "Sim setup" (the button under the simulation), Talents; the switch to count it then appears here.
+								If you do play with it, set the point in "Sim setup" (the button in the simulator card), Talents; the switch to count it then appears here.
 							</Help>
 						</span>
 					</div>

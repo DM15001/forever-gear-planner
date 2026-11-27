@@ -41,7 +41,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 				a: (
 					<ol>
 						<li>On the start page, paste your character: an export from wowsims.com or a link somebody copied from this site. No export at hand? Load the WoWSims preset for your build and change the items by clicking the slots.</li>
-						<li>Pick your build under "Check gear". Talents, consumables and buffs follow the build; change them with the "Sim setup" button under the simulation on "Build plan".</li>
+						<li>Pick your build under "Check gear". Talents, consumables and buffs follow the build; change them with the "Sim setup" button in the simulator card on "Build plan".</li>
 						{NEW_LAYOUT ? (
 							<>
 								<li>Open "Content Selection" and go through the list: switch on the dungeons, reputations, sets, PvP and other sources you play. The plan is built from that and rebuilt on every change.</li>
@@ -173,7 +173,7 @@ const GROUPS: { title: string; questions: Question[] }[] = [
 					<ul>
 						<li><strong>No raids yet.</strong> Raid loot is not planned for. The raids are already listed, greyed out, under {NEW_LAYOUT ? '"Content Selection"' : '"What content do you do?"'}; that is where you will switch them on.</li>
 						<li><strong>No tanks.</strong> There is no number for survival.</li>
-						<li><strong>One target, one standard fight</strong> unless you change it with "Sim setup" under the simulation. Movement, mistakes and your group's real buffs are not in it.</li>
+						<li><strong>One target, one standard fight</strong> unless you change it with "Sim setup" in the simulator card on "Build plan". Movement, mistakes and your group's real buffs are not in it.</li>
 						<li><strong>Some item effects are unknown.</strong> Where WoWSims has no trigger rate for an effect, the item is left out instead of guessed. "News" lists them under "On the radar".</li>
 						<li><strong>Some sources are unknown.</strong> Forever has new items nobody has documented yet.</li>
 						<li><strong>Drop chances are Wowhead's</strong> and can be off for Forever.</li>
