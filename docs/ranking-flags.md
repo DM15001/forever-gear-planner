@@ -7,5 +7,5 @@ truly special or valued wrongly by the simulator: look at how its effect works b
 
 - Oathbound Bracers (274599, rare 39, wrist): top 3 for 8 builds (Enhancement Shaman #3, Rogue: Combat SS #2, Rogue: Combat BS #3, …)
 - Flurry Axe (871, epic 47, weapon): top 3 for 6 builds (Warrior: Fury (Pre-BiS) #1, Rogue: Combat SS #1, Rogue: Combat Venom #2, …); its effect is measured at up to 28.3
-- Gloves of Holy Might (867, epic 42, hands): top 3 for 6 builds (Rogue: Combat SS #2, Rogue: Combat BS #2, Rogue: Combat Venom #2, …); its effect is measured at up to 7.8
+- Gloves of Holy Might (867, epic 42, hands): top 3 for 6 builds (Rogue: Combat SS #2, Rogue: Combat BS #2, Rogue: Combat Venom #3, …); its effect is measured at up to 7.8
 - Gut Ripper (2164, epic 45, weapon): top 3 for 2 builds (Rogue: Subtlety Hemo #3, Hunter: Survival (melee) #3); its effect is measured at up to 8.0
