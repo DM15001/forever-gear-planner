@@ -9859,3 +9859,70 @@ details.content-fold,
 	line-height: 1;
 	color: var(--brass);
 }
+/* Customize, a slot's head in three fixed places: its name with the count below, the planned item, the two actions; the enchant on a line of its own. */
+:root:root .upgrade-slot .upgrade-head {
+	display: grid;
+	grid-template-columns: 8.5rem minmax(0, 1fr);
+	align-items: center;
+	gap: 0.4rem 1rem;
+	padding-bottom: 0.6rem;
+}
+.upgrade-title {
+	display: flex;
+	flex-direction: column;
+	gap: 0.1rem;
+	min-width: 0;
+}
+:root:root .upgrade-slot .upgrade-title h3 {
+	min-width: 0;
+	margin: 0;
+}
+:root:root .upgrade-slot .upgrade-title .upgrade-count {
+	float: none;
+	margin: 0;
+	font-size: 0.8125rem;
+	color: var(--haze);
+}
+:root:root .upgrade-slot .upgrade-current {
+	margin: 0;
+	min-width: 0;
+}
+.upgrade-current-planned {
+	display: flex;
+	align-items: stretch;
+	gap: 0.6rem;
+}
+.upgrade-current-planned .planned-pick {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+.planned-actions {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 0.35rem;
+	flex: none;
+}
+.planned-actions .button {
+	min-width: 5rem;
+	text-align: center;
+}
+:root:root .upgrade-slot .upgrade-head .plan-enchant {
+	grid-column: 2;
+	margin: 0;
+	font-size: 0.875rem;
+}
+@media (max-width: 46rem) {
+	:root:root .upgrade-slot .upgrade-head {
+		grid-template-columns: minmax(0, 1fr);
+	}
+	:root:root .upgrade-slot .upgrade-head .plan-enchant {
+		grid-column: 1;
+	}
+	.upgrade-current-planned {
+		flex-direction: column;
+	}
+	.planned-actions {
+		flex-direction: row;
+	}
+}

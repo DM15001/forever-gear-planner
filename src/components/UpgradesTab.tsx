@@ -532,8 +532,11 @@ const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, url: wowhe
 				return (
 					<section key={slot.key} className={NEW_LAYOUT ? 'panel upgrade-slot' : 'card upgrade-slot'} aria-labelledby={`slot-${slot.key}`}>
 						<header className="upgrade-head">
-							<h3 id={`slot-${slot.key}`}>{slot.label}</h3>
-							<p className="upgrade-current">
+							<div className="upgrade-title">
+								<h3 id={`slot-${slot.key}`}>{slot.label}</h3>
+								<span className="upgrade-count">{upgrades === 0 ? 'Nothing better' : `${upgrades} upgrade${upgrades === 1 ? '' : 's'}`}</span>
+							</div>
+							<p className={plannedItem ? 'upgrade-current upgrade-current-planned' : 'upgrade-current'}>
 								{plannedItem ? (
 									<>
 										<span className="planned-pick">
@@ -548,13 +551,15 @@ const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, url: wowhe
 													{plannedSource(plannedItem)} · replaces {equippedItem ? <ItemName item={equippedItem} icon worn /> : 'an empty slot'}
 												</span>
 											</span>
-										</span>{' '}
-										<button className="link" onClick={() => unplan(index)}>
+										</span>
+										<span className="planned-actions">
+										<button className="button button-small" onClick={() => unplan(index)} title="Takes it out of the plan: the slot goes back to what you wear.">
 											Undo
-										</button>{' '}
-										<button className="link hide-item" onClick={() => hidePlanned(index, plannedItem)} title="Takes it out of the plan and leaves it out of every list and out of 'Rebuild the plan'. Bring it back under 'What content do you do?', at the bottom.">
+										</button>
+										<button className="button button-small" onClick={() => hidePlanned(index, plannedItem)} title="Takes it out of the plan and leaves it out of every list and out of 'Rebuild the plan'. Bring it back under 'What content do you do?', at the bottom.">
 											Hide
 										</button>
+										</span>
 									</>
 								) : equippedItem ? (
 									<>
@@ -568,7 +573,6 @@ const slotEnchant = slotEnchantFound ? { name: slotEnchantFound.name, url: wowhe
 								) : (
 									'Empty'
 								)}
-								<span className="upgrade-count">{upgrades === 0 ? 'Nothing better with these filters' : `${upgrades} upgrade${upgrades === 1 ? '' : 's'}`}</span>
 							</p>
 							{slotEnchant && (
 								<p className={slotEnchant.open ? 'plan-enchant plan-enchant-open' : 'plan-enchant'}>
