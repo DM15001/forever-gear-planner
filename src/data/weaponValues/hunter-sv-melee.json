@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-26T23:47:47.693Z",
-	"inputs": "6256bad9b20daf15",
+	"generatedAt": "2026-11-27T06:51:45.555Z",
+	"inputs": "0fefa4b1fc9ecc02",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -51,8 +51,8 @@
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"mainHand": -85.75,
-			"offHand": -31.92
+			"offHand": -31.92,
+			"mainHand": -85.75
 		},
 		"8190": {
 			"name": "Hanzo Sword",
@@ -87,8 +87,8 @@
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
-			"offHand": -28.61,
-			"mainHand": -78.73
+			"mainHand": -78.73,
+			"offHand": -28.61
 		},
 		"10797": {
 			"name": "Firebreather",
@@ -233,8 +233,8 @@
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"mainHand": -51.85,
-			"offHand": -25.93
+			"offHand": -25.93,
+			"mainHand": -51.85
 		},
 		"12791": {
 			"name": "Barman Shanker",
@@ -376,8 +376,8 @@
 		},
 		"14555": {
 			"name": "Alcor's Sunrazor",
-			"offHand": -5.66,
-			"mainHand": -59.38
+			"mainHand": -59.38,
+			"offHand": -5.66
 		},
 		"14576": {
 			"name": "Ebon Hilt of Marduk",
@@ -444,8 +444,8 @@
 		},
 		"15246": {
 			"name": "Demon Blade",
-			"mainHand": -75.12,
-			"offHand": -35.68
+			"offHand": -35.68,
+			"mainHand": -75.12
 		},
 		"15247": {
 			"name": "Bloodstrike Dagger",
@@ -505,8 +505,8 @@
 		},
 		"15783": {
 			"name": "Beasthunter Dagger",
-			"mainHand": -74.51,
-			"offHand": -28.85
+			"offHand": -28.85,
+			"mainHand": -74.51
 		},
 		"15800": {
 			"name": "Intrepid Shortsword",
@@ -529,8 +529,8 @@
 		},
 		"15853": {
 			"name": "Windreaper",
-			"mainHand": -40.31,
-			"offHand": -53.77
+			"offHand": -53.77,
+			"mainHand": -40.31
 		},
 		"15862": {
 			"name": "Blitzcleaver",
@@ -597,8 +597,8 @@
 		},
 		"18310": {
 			"name": "Fiendish Machete",
-			"offHand": -48.03,
-			"mainHand": -32.05
+			"mainHand": -32.05,
+			"offHand": -48.03
 		},
 		"18347": {
 			"name": "Well Balanced Axe",
@@ -659,8 +659,8 @@
 		},
 		"18737": {
 			"name": "Bone Slicing Hatchet",
-			"offHand": -23.07,
-			"mainHand": -43.5
+			"mainHand": -43.5,
+			"offHand": -23.07
 		},
 		"18738": {
 			"name": "Carapace Spine Crossbow",
@@ -700,8 +700,8 @@
 		},
 		"19324": {
 			"name": "The Lobotomizer",
-			"mainHand": -55.66,
-			"offHand": -29.69
+			"offHand": -29.69,
+			"mainHand": -55.66
 		},
 		"19542": {
 			"name": "Scout's Blade",
@@ -828,8 +828,8 @@
 		},
 		"260213": {
 			"name": "Great Bear Claw",
-			"mainHand": -42.95,
-			"offHand": -53.41
+			"offHand": -53.41,
+			"mainHand": -42.95
 		},
 		"270107": {
 			"name": "Bloodstained Longbow",
@@ -871,8 +871,8 @@
 		},
 		"272596": {
 			"name": "Premier High Warlord's Razor",
-			"offHand": -21.84,
-			"mainHand": -32.7
+			"mainHand": -32.7,
+			"offHand": -21.84
 		},
 		"272597": {
 			"name": "Premier High Warlord's Right Claw",
@@ -897,8 +897,8 @@
 		},
 		"272693": {
 			"name": "Premier Grand Marshal's Longsword",
-			"offHand": -43.59,
-			"mainHand": 15.82
+			"mainHand": 15.82,
+			"offHand": -43.59
 		},
 		"272839": {
 			"name": "Premier Grand Marshal's Handaxe",
@@ -915,8 +915,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"mainHand": -32.7,
-			"offHand": -21.84
+			"offHand": -21.84,
+			"mainHand": -32.7
 		},
 		"272844": {
 			"name": "Premier Grand Marshal's Right Hand Blade",
@@ -1003,8 +1003,8 @@
 		},
 		"279259": {
 			"name": "Ironwood Blade",
-			"offHand": -43.21,
-			"mainHand": -10.91
+			"mainHand": -10.91,
+			"offHand": -43.21
 		},
 		"279474": {
 			"name": "Dustwallow Dirk",
@@ -1097,8 +1097,8 @@
 		},
 		"284283": {
 			"name": "Horn of Antilos",
-			"offHand": -65.05,
-			"mainHand": -92.52
+			"mainHand": -92.52,
+			"offHand": -65.05
 		},
 		"286613": {
 			"name": "King Mosh's Tooth",
