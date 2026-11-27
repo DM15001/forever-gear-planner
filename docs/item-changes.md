@@ -2,6 +2,32 @@
 
 What each data update from WoWSims changed in the item list, newest first. Written by `scripts/item-report.mjs` from `.github/workflows/engine.yml`.
 
+## 2026-11-27: WoWSims 592535927d
+
+16 stats changed, 2 other changes
+
+**Stats changed (16)**
+- Skullflame Shield (1168, epic 59, weapon): blockValue 53 → 40
+- Blackskull Shield (1169, epic 46, weapon): blockValue 36 → 30
+- The Green Tower (1204, epic 41, weapon): blockValue 30 → 25
+- Wall of the Dead (1979, epic 50, weapon): blockValue 41 → 34
+- Force Reactive Disk (18168, epic 65, weapon): blockValue 58 → 44
+- Grand Marshal's Aegis (18825, epic 78, weapon): blockValue 73 → 55
+- High Warlord's Shield Wall (18826, epic 78, weapon): blockValue 73 → 55
+- The Immovable Object (19321, epic 60, weapon): blockValue 79 → 66
+- Blessed Qiraji Bulwark (21269, epic 79, weapon): blockValue 88 → 70
+- Wormscale Blocker (21610, epic 81, weapon): blockValue 75 → 57
+- Jagged Obsidian Shield (22198, epic 70, weapon): blockValue 63 → 48
+- Premier High Warlord's Shield Wall (272591, epic 65, weapon): blockValue 58 → 44
+- Premier Grand Marshal's Aegis (272838, epic 65, weapon): blockValue 58 → 44
+- Premier Grand Marshal's Barricade (278468, epic 65, weapon): blockValue 58 → 44
+- Premier High Warlord's Barricade (278469, epic 65, weapon): blockValue 58 → 44
+- Evergreen Shield (279262, epic 65, weapon): blockValue 58 → 44
+
+**Other changes (2)**
+- Demonfork (12621, rare 59, weapon): effects
+- Seeping Willow (12969, rare 63, weapon): effects
+
 ## 2026-11-27: WoWSims 49ec497e87
 
 1 new items

@@ -2629,6 +2629,11 @@
 		],
 		"quality": "rare",
 		"hasEffect": true,
+		"effects": [
+			{
+				"ppm": 4
+			}
+		],
 		"sources": [
 			{
 				"kind": "drop",

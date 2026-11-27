@@ -915,7 +915,7 @@
 		"ilvl": 59,
 		"reqLvl": 54,
 		"stats": {
-			"blockValue": 53,
+			"blockValue": 40,
 			"armor": 2256,
 			"fireResistance": 10,
 			"shadowResistance": 10
@@ -948,7 +948,7 @@
 		"stats": {
 			"stamina": 5,
 			"expertiseRating": 10,
-			"blockValue": 36,
+			"blockValue": 30,
 			"armor": 1795,
 			"bonusArmor": 100
 		},
@@ -987,7 +987,7 @@
 		"stats": {
 			"strength": 7,
 			"stamina": 7,
-			"blockValue": 30,
+			"blockValue": 25,
 			"armor": 1308
 		},
 		"weapon": {
@@ -2562,7 +2562,7 @@
 		"stats": {
 			"strength": 11,
 			"stamina": 15,
-			"blockValue": 41,
+			"blockValue": 34,
 			"armor": 1937
 		},
 		"weapon": {
@@ -56226,7 +56226,8 @@
 			{
 				"name": "Demonfork (16603)",
 				"kind": "proc",
-				"durationMs": 5000
+				"durationMs": 5000,
+				"ppm": 3.25
 			}
 		],
 		"sources": [
@@ -57992,7 +57993,7 @@
 				"name": "Seeping Willow (17196)",
 				"kind": "proc",
 				"durationMs": 10000,
-				"ppm": 0.9
+				"ppm": 2.1
 			}
 		],
 		"sources": [
@@ -110099,7 +110100,7 @@
 		"reqLvl": 60,
 		"stats": {
 			"stamina": 11,
-			"blockValue": 58,
+			"blockValue": 44,
 			"armor": 2468,
 			"bonusArmor": 80
 		},
@@ -118230,7 +118231,7 @@
 		"stats": {
 			"strength": 10,
 			"stamina": 23,
-			"blockValue": 73,
+			"blockValue": 55,
 			"armor": 2929
 		},
 		"weapon": {
@@ -118270,7 +118271,7 @@
 		"stats": {
 			"strength": 10,
 			"stamina": 23,
-			"blockValue": 73,
+			"blockValue": 55,
 			"armor": 2929
 		},
 		"weapon": {
@@ -122599,7 +122600,7 @@
 		"reqLvl": 60,
 		"stats": {
 			"stamina": 14,
-			"blockValue": 79,
+			"blockValue": 66,
 			"armor": 2291
 		},
 		"weapon": {
@@ -138098,7 +138099,7 @@
 			"stamina": 20,
 			"defenseRating": 8,
 			"blockRating": 15,
-			"blockValue": 88,
+			"blockValue": 70,
 			"armor": 2964
 		},
 		"weapon": {
@@ -142113,7 +142114,7 @@
 			"intellect": 13,
 			"healingPower": 35,
 			"spellDamage": 12,
-			"blockValue": 75,
+			"blockValue": 57,
 			"armor": 3035,
 			"mp5": 6
 		},
@@ -143532,7 +143533,7 @@
 		"reqLvl": 60,
 		"stats": {
 			"blockRating": 10,
-			"blockValue": 63,
+			"blockValue": 48,
 			"armor": 2645,
 			"arcaneResistance": 5,
 			"fireResistance": 5,
@@ -183223,7 +183224,7 @@
 		"stats": {
 			"strength": 9,
 			"stamina": 21,
-			"blockValue": 58,
+			"blockValue": 44,
 			"armor": 2468
 		},
 		"weapon": {
@@ -188191,7 +188192,7 @@
 		"stats": {
 			"strength": 9,
 			"stamina": 21,
-			"blockValue": 58,
+			"blockValue": 44,
 			"armor": 2468
 		},
 		"weapon": {
@@ -206972,7 +206973,7 @@
 			"intellect": 9,
 			"healingPower": 18,
 			"spellDamage": 6,
-			"blockValue": 58,
+			"blockValue": 44,
 			"armor": 2468
 		},
 		"weapon": {
@@ -206998,7 +206999,7 @@
 			"intellect": 9,
 			"healingPower": 18,
 			"spellDamage": 6,
-			"blockValue": 58,
+			"blockValue": 44,
 			"armor": 2468
 		},
 		"weapon": {
@@ -207414,7 +207415,7 @@
 			"healingPower": 23,
 			"spellDamage": 8,
 			"critRating": 14,
-			"blockValue": 58,
+			"blockValue": 44,
 			"armor": 2468
 		},
 		"weapon": {
