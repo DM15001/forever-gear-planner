@@ -9939,3 +9939,24 @@ button .slot-icon {
 	font-size: 0.72rem;
 	cursor: help;
 }
+/* Customize in the colours of Build plan: the options on the same lighter ground as the plan's slot cards and enchant rows, not near-black. */
+:root:root .panel.upgrade-slot .candidate {
+	background: linear-gradient(180deg, rgb(255 255 255 / 0.035), transparent 45%), var(--slate-raised);
+	border-top-color: var(--ridge);
+	border-right-color: var(--ridge);
+	border-bottom-color: var(--ridge);
+	box-shadow: 0 2px 6px rgb(0 0 0 / 0.35);
+}
+:root:root .panel.upgrade-slot .candidate:nth-child(even) {
+	background: color-mix(in srgb, var(--slate-raised) 82%, #000);
+}
+.planned-pick {
+	background: linear-gradient(180deg, rgb(214 174 95 / 0.16), transparent 75%), var(--slate-raised);
+}
+:root:root .upgrades .slot-bar {
+	background: var(--slate-raised);
+}
+:root:root .panel.upgrade-slot .candidate a[class^='quality-'],
+:root:root .panel.upgrade-slot .candidate .item-link {
+	font-size: 1.0625rem;
+}
