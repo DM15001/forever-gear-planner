@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-27T16:17:38.990Z",
-	"inputs": "fc549649d2902a3e",
+	"generatedAt": "2026-11-27T20:23:32.839Z",
+	"inputs": "240b895b2c4dd89c",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -103,8 +103,8 @@
 		},
 		"10697": {
 			"name": "Enchanted Azsharite Felbane Dagger",
-			"offHand": -16.29,
-			"mainHand": -86.05
+			"mainHand": -86.05,
+			"offHand": -16.29
 		},
 		"10744": {
 			"name": "Axe of the Ebon Drake",
@@ -160,8 +160,8 @@
 		},
 		"11635": {
 			"name": "Hookfang Shanker",
-			"offHand": -13.64,
-			"mainHand": -85.61
+			"mainHand": -85.61,
+			"offHand": -13.64
 		},
 		"11684": {
 			"name": "Ironfoe",
@@ -218,13 +218,13 @@
 		},
 		"12061": {
 			"name": "Blade of Reckoning",
-			"mainHand": -45.94,
-			"offHand": -18.63
+			"offHand": -18.63,
+			"mainHand": -45.94
 		},
 		"12062": {
 			"name": "Skilled Fighting Blade",
-			"offHand": -16.33,
-			"mainHand": -88.32
+			"mainHand": -88.32,
+			"offHand": -16.33
 		},
 		"12527": {
 			"name": "Ribsplitter",
@@ -275,8 +275,8 @@
 		},
 		"12781": {
 			"name": "Serenity",
-			"mainHand": -44.69,
-			"offHand": -24.1
+			"offHand": -24.1,
+			"mainHand": -44.69
 		},
 		"12783": {
 			"name": "Heartseeker",
@@ -363,8 +363,8 @@
 		},
 		"13204": {
 			"name": "Bashguuder",
-			"offHand": -16.69,
-			"mainHand": -49.82
+			"mainHand": -49.82,
+			"offHand": -16.69
 		},
 		"13218": {
 			"name": "Fang of the Crystal Spider",
@@ -499,8 +499,8 @@
 		},
 		"15238": {
 			"name": "Warlord's Axe",
-			"mainHand": -56.7,
-			"offHand": -23.45
+			"offHand": -23.45,
+			"mainHand": -56.7
 		},
 		"15239": {
 			"name": "Felstone Reaver",
@@ -509,13 +509,13 @@
 		},
 		"15240": {
 			"name": "Demon's Claw",
-			"mainHand": -46.69,
-			"offHand": -19.95
+			"offHand": -19.95,
+			"mainHand": -46.69
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"offHand": -28.68,
-			"mainHand": -104.65
+			"mainHand": -104.65,
+			"offHand": -28.68
 		},
 		"15246": {
 			"name": "Demon Blade",
@@ -717,8 +717,8 @@
 		},
 		"19103": {
 			"name": "Frostbite",
-			"mainHand": -19.02,
-			"offHand": -13.51
+			"offHand": -13.51,
+			"mainHand": -19.02
 		},
 		"19104": {
 			"name": "Stormstrike Hammer",
@@ -752,8 +752,8 @@
 		},
 		"19550": {
 			"name": "Legionnaire's Sword",
-			"mainHand": -22.91,
-			"offHand": -15.21
+			"offHand": -15.21,
+			"mainHand": -22.91
 		},
 		"19551": {
 			"name": "Legionnaire's Sword",
@@ -767,8 +767,8 @@
 		},
 		"19555": {
 			"name": "Protector's Sword",
-			"mainHand": -42.06,
-			"offHand": -21.93
+			"offHand": -21.93,
+			"mainHand": -42.06
 		},
 		"20070": {
 			"name": "Sageclaw",
@@ -944,8 +944,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"mainHand": -46.15,
-			"offHand": 2.05
+			"offHand": 2.05,
+			"mainHand": -46.15
 		},
 		"272844": {
 			"name": "Premier Grand Marshal's Right Hand Blade",
@@ -990,8 +990,8 @@
 		},
 		"274517": {
 			"name": "Unerring Purpose",
-			"mainHand": -41.88,
-			"offHand": -20.32
+			"offHand": -20.32,
+			"mainHand": -41.88
 		},
 		"275293": {
 			"name": "Barkskin Scepter",
@@ -1054,8 +1054,8 @@
 		},
 		"279908": {
 			"name": "Crystal-Infused Cleaver",
-			"offHand": -12.96,
-			"mainHand": -30.81
+			"mainHand": -30.81,
+			"offHand": -12.96
 		},
 		"280012": {
 			"name": "Talon of Tor'Rel",
@@ -1069,13 +1069,13 @@
 		},
 		"280022": {
 			"name": "Scaleguard Scimitar",
-			"offHand": -12.43,
-			"mainHand": -37.61
+			"mainHand": -37.61,
+			"offHand": -12.43
 		},
 		"280029": {
 			"name": "Cinderedge Crescent",
-			"offHand": -10.37,
-			"mainHand": -27.94
+			"mainHand": -27.94,
+			"offHand": -10.37
 		},
 		"280068": {
 			"name": "Bloody Claws of Attack",

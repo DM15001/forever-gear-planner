@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-27T15:30:04.286Z",
-	"inputs": "6d9d98d572d0453e",
+	"generatedAt": "2026-11-27T19:36:50.988Z",
+	"inputs": "8bc60e2159ef1467",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -12,8 +12,8 @@
 	"weapons": {
 		"2163": {
 			"name": "Shadowblade",
-			"offHand": -3.68,
-			"mainHand": -22.88
+			"mainHand": -22.88,
+			"offHand": -3.68
 		},
 		"5267": {
 			"name": "Scarlet Kris",
@@ -22,8 +22,8 @@
 		},
 		"6660": {
 			"name": "Julie's Dagger",
-			"mainHand": -33.13,
-			"offHand": -12.99
+			"offHand": -12.99,
+			"mainHand": -33.13
 		},
 		"7947": {
 			"name": "Ebon Shiv",
@@ -110,8 +110,8 @@
 		},
 		"14024": {
 			"name": "Frightalon",
-			"offHand": -5.55,
-			"mainHand": -24.32
+			"mainHand": -24.32,
+			"offHand": -5.55
 		},
 		"14555": {
 			"name": "Alcor's Sunrazor",
@@ -120,8 +120,8 @@
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"offHand": -21.59,
-			"mainHand": -50.49
+			"mainHand": -50.49,
+			"offHand": -21.59
 		},
 		"15246": {
 			"name": "Demon Blade",
@@ -130,8 +130,8 @@
 		},
 		"15247": {
 			"name": "Bloodstrike Dagger",
-			"offHand": -14.73,
-			"mainHand": -37.2
+			"mainHand": -37.2,
+			"offHand": -14.73
 		},
 		"15706": {
 			"name": "Hunt Tracker Blade",
@@ -186,8 +186,8 @@
 		},
 		"19542": {
 			"name": "Scout's Blade",
-			"offHand": -4.68,
-			"mainHand": -23.82
+			"mainHand": -23.82,
+			"offHand": -4.68
 		},
 		"19543": {
 			"name": "Scout's Blade",

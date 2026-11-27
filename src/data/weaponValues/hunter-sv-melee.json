@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-27T15:53:10.056Z",
-	"inputs": "d08754c24cfb6373",
+	"generatedAt": "2026-11-27T19:46:47.193Z",
+	"inputs": "9e4f55808d518058",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -51,8 +51,8 @@
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"offHand": -29.6,
-			"mainHand": -83.51
+			"mainHand": -83.51,
+			"offHand": -29.6
 		},
 		"8190": {
 			"name": "Hanzo Sword",
@@ -173,8 +173,8 @@
 		},
 		"12062": {
 			"name": "Skilled Fighting Blade",
-			"offHand": -14.17,
-			"mainHand": -77.6
+			"mainHand": -77.6,
+			"offHand": -14.17
 		},
 		"12527": {
 			"name": "Ribsplitter",
@@ -314,8 +314,8 @@
 		},
 		"13246": {
 			"name": "Argent Avenger",
-			"offHand": -40.61,
-			"mainHand": -29.12
+			"mainHand": -29.12,
+			"offHand": -40.61
 		},
 		"13286": {
 			"name": "Rivenspike",
@@ -376,8 +376,8 @@
 		},
 		"14555": {
 			"name": "Alcor's Sunrazor",
-			"offHand": -5.33,
-			"mainHand": -59.35
+			"mainHand": -59.35,
+			"offHand": -5.33
 		},
 		"14576": {
 			"name": "Ebon Hilt of Marduk",
@@ -419,8 +419,8 @@
 		},
 		"15237": {
 			"name": "Corpse Harvester",
-			"offHand": -64.1,
-			"mainHand": -49.23
+			"mainHand": -49.23,
+			"offHand": -64.1
 		},
 		"15238": {
 			"name": "Warlord's Axe",
@@ -439,8 +439,8 @@
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"mainHand": -92.46,
-			"offHand": -32.38
+			"offHand": -32.38,
+			"mainHand": -92.46
 		},
 		"15246": {
 			"name": "Demon Blade",
@@ -529,8 +529,8 @@
 		},
 		"15853": {
 			"name": "Windreaper",
-			"offHand": -53.67,
-			"mainHand": -40.65
+			"mainHand": -40.65,
+			"offHand": -53.67
 		},
 		"15862": {
 			"name": "Blitzcleaver",
@@ -623,8 +623,8 @@
 		},
 		"18462": {
 			"name": "Jagged Bone Fist",
-			"mainHand": -58.02,
-			"offHand": -34.73
+			"offHand": -34.73,
+			"mainHand": -58.02
 		},
 		"18463": {
 			"name": "Ogre Pocket Knife",
@@ -659,8 +659,8 @@
 		},
 		"18737": {
 			"name": "Bone Slicing Hatchet",
-			"mainHand": -41.71,
-			"offHand": -20.75
+			"offHand": -20.75,
+			"mainHand": -41.71
 		},
 		"18738": {
 			"name": "Carapace Spine Crossbow",
@@ -705,8 +705,8 @@
 		},
 		"19542": {
 			"name": "Scout's Blade",
-			"offHand": -20.21,
-			"mainHand": -57.2
+			"mainHand": -57.2,
+			"offHand": -20.21
 		},
 		"19543": {
 			"name": "Scout's Blade",
@@ -897,8 +897,8 @@
 		},
 		"272693": {
 			"name": "Premier Grand Marshal's Longsword",
-			"mainHand": 15.83,
-			"offHand": -43.91
+			"offHand": -43.91,
+			"mainHand": 15.83
 		},
 		"272839": {
 			"name": "Premier Grand Marshal's Handaxe",
@@ -951,8 +951,8 @@
 		},
 		"274383": {
 			"name": "Kanai's Knife",
-			"offHand": -24.14,
-			"mainHand": -71.3
+			"mainHand": -71.3,
+			"offHand": -24.14
 		},
 		"274517": {
 			"name": "Unerring Purpose",
@@ -1003,8 +1003,8 @@
 		},
 		"279259": {
 			"name": "Ironwood Blade",
-			"offHand": -44.25,
-			"mainHand": -10.39
+			"mainHand": -10.39,
+			"offHand": -44.25
 		},
 		"279474": {
 			"name": "Dustwallow Dirk",
