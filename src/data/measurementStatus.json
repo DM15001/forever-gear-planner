@@ -37,7 +37,7 @@
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-27",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
@@ -52,7 +52,7 @@
 			},
 			"weights": {
 				"at": "2026-11-27",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
