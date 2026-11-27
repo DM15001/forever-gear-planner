@@ -4,9 +4,6 @@
 		"elemental-shaman": 41,
 		"enhancement-shaman": 40
 	},
-	"weights": {
-		"elemental-shaman": 41,
-		"enhancement-shaman": 40
-	},
+	"weights": {},
 	"weapons": {}
 }
