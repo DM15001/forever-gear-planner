@@ -3,8 +3,43 @@
 	"entries": [
 		{
 			"date": "2026-11-27",
-			"summary": "Gear Planner: Group up can hide low-level dungeons; crafted items stay out when Crafted is off.",
+			"summary": "Blizzard has posted no new hotfix notes since 25 November. WoWSims set or adjusted proc rates for seven weapons and regeared its Hunter and Rogue presets. Gear Planner: Group up can hide low-level dungeons; crafted items stay out when Crafted is off.",
 			"sections": [
+				{
+					"title": "WoWSims",
+					"items": [
+						{
+							"title": "Proc rates set or adjusted for seven weapons",
+							"text": "The Judge's Gavel (stun) and Alcor's Sunrazor (Firebolt) now have a proc rate in the simulator, so their effects can be valued at last. The rates of Shadowblade, Felstriker, The Cruel Hand of Timmy, Shimmering Platinum Warhammer and Electrified Dagger were adjusted slightly, the first three down and the last two up.",
+							"url": "https://github.com/wowsims/forever",
+							"source": "WoWSims",
+							"tags": [
+								"Items",
+								"WoWSims"
+							]
+						},
+						{
+							"title": "Hunter presets regeared",
+							"text": "All five Hunter presets changed gear: Bone Golem Shoulders and Don Julio's Band come in for the ranged builds, with Minor Speed on the boots and a Sniper Scope on the ranged weapon. The melee-weaving Survival preset now uses Arcanite Reaper, Deep Jungle Rifle and Devilsaur gloves and leggings, and the melee Survival preset moved a few talent points.",
+							"url": "https://github.com/wowsims/forever",
+							"source": "WoWSims",
+							"tags": [
+								"Hunter",
+								"WoWSims"
+							]
+						},
+						{
+							"title": "Rogue presets: new elixir, Persuader for the sword builds",
+							"text": "The six Rogue presets drink Elixir of Greater Strength instead of Elixir of Ferocity and carry two more consumables. The Sinister Strike and Venom Combat presets swap Teebu's Blazing Longsword for Persuader in the main hand, with a Dense Weightstone on it.",
+							"url": "https://github.com/wowsims/forever",
+							"source": "WoWSims",
+							"tags": [
+								"Rogue",
+								"WoWSims"
+							]
+						}
+					]
+				},
 				{
 					"title": "Gear Planner",
 					"items": [
