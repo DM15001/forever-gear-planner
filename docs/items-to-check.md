@@ -1,11 +1,11 @@
 # Items to check
 
 Items whose source the planner does not know: it either guesses "World drop (assumed)" or shows "Source unknown".
-1090 such items are in the data; this page lists the ones worth checking first. Written by
+1089 such items are in the data; this page lists the ones worth checking first. Written by
 `scripts/items-to-check.ts`; do not edit by hand. To fix one, add its source to `src/config/sources.manual.json`
 (or to `src/config/not-available.json` when it cannot be had), or open an issue saying where it comes from.
 
-## In a build's top 10 for a slot (72)
+## In a build's top 10 for a slot (71)
 
 Most builds first. "best #2" = second-best item of its slot for at least one build, starting from empty gear.
 
@@ -45,7 +45,6 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Ankh of Life](https://www.wowhead.com/forever/item=1713) (1713, rare 45, trinket): no source; 3 builds, best #4 (Priest: Smite Testing, Priest: Holy (healing), Priest: Discipline (healing))
 - [Engraved Band](https://www.wowhead.com/forever/item=260219) (260219, rare 62, finger): no source; 3 builds, best #5 (Warrior: Fury (Pre-BiS), Warrior: Arms (Pre-BiS), Druid: Feral Cat)
 - [Shadow Council Apprentice's Mantle](https://www.wowhead.com/forever/item=282704) (282704, rare 41, shoulder): no source; 3 builds, best #8 (Enhancement Shaman, Mage: Arcane Fire, Hunter: Survival (melee))
-- [Skyfury Gauntlets](https://www.wowhead.com/forever/item=20133) (20133, epic 62, hands): no source; 2 builds, best #1 (Enhancement Shaman, Elemental Shaman)
 - [Glowing Brightwood Staff](https://www.wowhead.com/forever/item=812) (812, epic 54, weapon): no source; 2 builds, best #1 (Priest: Holy (healing), Priest: Discipline (healing))
 - [Mardenholde Armbands](https://www.wowhead.com/forever/item=278570) (278570, rare 63, wrist): no source; 2 builds, best #3 (Priest: Smite Testing, Paladin: Retribution (Holy Shock))
 - [Ring of Nature's Cycles](https://www.wowhead.com/forever/item=275740) (275740, rare 61, finger): no source; 2 builds, best #3 (Priest: Holy (healing), Priest: Discipline (healing))
