@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-27T20:23:32.839Z",
-	"inputs": "240b895b2c4dd89c",
+	"generatedAt": "2026-11-27T22:06:13.442Z",
+	"inputs": "02e3649a2d684501",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -46,8 +46,8 @@
 		},
 		"5267": {
 			"name": "Scarlet Kris",
-			"mainHand": -73.43,
-			"offHand": -11.09
+			"offHand": -11.09,
+			"mainHand": -73.43
 		},
 		"6622": {
 			"name": "Sword of Zeal",
@@ -60,8 +60,8 @@
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"offHand": -22.05,
-			"mainHand": -99.18
+			"mainHand": -99.18,
+			"offHand": -22.05
 		},
 		"8190": {
 			"name": "Hanzo Sword",
@@ -158,6 +158,10 @@
 			"name": "Belgrom's Hammer",
 			"mainHand": -48.14
 		},
+		"11603": {
+			"name": "Vilerend Slicer",
+			"mainHand": -68.96
+		},
 		"11635": {
 			"name": "Hookfang Shanker",
 			"mainHand": -85.61,
@@ -218,8 +222,8 @@
 		},
 		"12061": {
 			"name": "Blade of Reckoning",
-			"offHand": -18.63,
-			"mainHand": -45.94
+			"mainHand": -45.94,
+			"offHand": -18.63
 		},
 		"12062": {
 			"name": "Skilled Fighting Blade",
@@ -260,8 +264,8 @@
 		},
 		"12773": {
 			"name": "Ornate Thorium Handaxe",
-			"mainHand": -66.24,
-			"offHand": -20.55
+			"offHand": -20.55,
+			"mainHand": -66.24
 		},
 		"12774": {
 			"name": "Dawn's Edge",
@@ -270,8 +274,8 @@
 		},
 		"12777": {
 			"name": "Blazing Rapier",
-			"mainHand": -44.15,
-			"offHand": -18.85
+			"offHand": -18.85,
+			"mainHand": -44.15
 		},
 		"12781": {
 			"name": "Serenity",
@@ -280,8 +284,8 @@
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"mainHand": -66.62,
-			"offHand": -7.61
+			"offHand": -7.61,
+			"mainHand": -66.62
 		},
 		"12791": {
 			"name": "Barman Shanker",
@@ -325,8 +329,8 @@
 		},
 		"13014": {
 			"name": "Axe of Rin'ji",
-			"offHand": -19.24,
-			"mainHand": -61.32
+			"mainHand": -61.32,
+			"offHand": -19.24
 		},
 		"13015": {
 			"name": "Serathil",
@@ -348,8 +352,8 @@
 		},
 		"13182": {
 			"name": "Phase Blade",
-			"offHand": -17.38,
-			"mainHand": -50.71
+			"mainHand": -50.71,
+			"offHand": -17.38
 		},
 		"13183": {
 			"name": "Venomspitter",
@@ -358,13 +362,13 @@
 		},
 		"13198": {
 			"name": "Hurd Smasher",
-			"offHand": -19.06,
-			"mainHand": -54.77
+			"mainHand": -54.77,
+			"offHand": -19.06
 		},
 		"13204": {
 			"name": "Bashguuder",
-			"mainHand": -49.82,
-			"offHand": -16.69
+			"offHand": -16.69,
+			"mainHand": -49.82
 		},
 		"13218": {
 			"name": "Fang of the Crystal Spider",
@@ -494,18 +498,18 @@
 		},
 		"15237": {
 			"name": "Corpse Harvester",
-			"mainHand": -54.56,
-			"offHand": -27.71
+			"offHand": -27.71,
+			"mainHand": -54.56
 		},
 		"15238": {
 			"name": "Warlord's Axe",
-			"offHand": -23.45,
-			"mainHand": -56.7
+			"mainHand": -56.7,
+			"offHand": -23.45
 		},
 		"15239": {
 			"name": "Felstone Reaver",
-			"mainHand": -58.56,
-			"offHand": -20.95
+			"offHand": -20.95,
+			"mainHand": -58.56
 		},
 		"15240": {
 			"name": "Demon's Claw",
@@ -514,8 +518,8 @@
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"mainHand": -104.65,
-			"offHand": -28.68
+			"offHand": -28.68,
+			"mainHand": -104.65
 		},
 		"15246": {
 			"name": "Demon Blade",
@@ -590,8 +594,8 @@
 		},
 		"17055": {
 			"name": "Changuk Smasher",
-			"mainHand": -65.52,
-			"offHand": -23.77
+			"offHand": -23.77,
+			"mainHand": -65.52
 		},
 		"17705": {
 			"name": "Thrash Blade",
@@ -633,8 +637,8 @@
 		},
 		"18310": {
 			"name": "Fiendish Machete",
-			"offHand": -12.31,
-			"mainHand": -34.4
+			"mainHand": -34.4,
+			"offHand": -12.31
 		},
 		"18321": {
 			"name": "Energetic Rod",
@@ -642,8 +646,8 @@
 		},
 		"18347": {
 			"name": "Well Balanced Axe",
-			"mainHand": -45.51,
-			"offHand": -11.01
+			"offHand": -11.01,
+			"mainHand": -45.51
 		},
 		"18372": {
 			"name": "Blade of the New Moon",
@@ -692,8 +696,8 @@
 		},
 		"18683": {
 			"name": "Hammer of the Vesper",
-			"offHand": -18.81,
-			"mainHand": -34.57
+			"mainHand": -34.57,
+			"offHand": -18.81
 		},
 		"18737": {
 			"name": "Bone Slicing Hatchet",
@@ -722,8 +726,8 @@
 		},
 		"19104": {
 			"name": "Stormstrike Hammer",
-			"offHand": -16.35,
-			"mainHand": -18.5
+			"mainHand": -18.5,
+			"offHand": -16.35
 		},
 		"19324": {
 			"name": "The Lobotomizer",
@@ -832,8 +836,8 @@
 		},
 		"250616": {
 			"name": "Bold Dirk",
-			"offHand": -16.24,
-			"mainHand": -87.5
+			"mainHand": -87.5,
+			"offHand": -16.24
 		},
 		"250618": {
 			"name": "Bagh Nakh",
@@ -847,8 +851,8 @@
 		},
 		"260180": {
 			"name": "Scout's Dagger",
-			"mainHand": -97.01,
-			"offHand": -21.93
+			"offHand": -21.93,
+			"mainHand": -97.01
 		},
 		"260209": {
 			"name": "Truesong's Hammer",
@@ -916,8 +920,8 @@
 		},
 		"272600": {
 			"name": "Premier High Warlord's Bludgeon",
-			"mainHand": 10.92,
-			"offHand": -2.59
+			"offHand": -2.59,
+			"mainHand": 10.92
 		},
 		"272681": {
 			"name": "Premier High Warlord's Battle Mace",
@@ -944,8 +948,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"offHand": 2.05,
-			"mainHand": -46.15
+			"mainHand": -46.15,
+			"offHand": 2.05
 		},
 		"272844": {
 			"name": "Premier Grand Marshal's Right Hand Blade",
@@ -1016,8 +1020,8 @@
 		},
 		"276338": {
 			"name": "Claw of Shalla'kal",
-			"mainHand": -50.3,
-			"offHand": -23.22
+			"offHand": -23.22,
+			"mainHand": -50.3
 		},
 		"276398": {
 			"name": "Scarlet Malice",
@@ -1054,8 +1058,8 @@
 		},
 		"279908": {
 			"name": "Crystal-Infused Cleaver",
-			"mainHand": -30.81,
-			"offHand": -12.96
+			"offHand": -12.96,
+			"mainHand": -30.81
 		},
 		"280012": {
 			"name": "Talon of Tor'Rel",
@@ -1069,13 +1073,13 @@
 		},
 		"280022": {
 			"name": "Scaleguard Scimitar",
-			"mainHand": -37.61,
-			"offHand": -12.43
+			"offHand": -12.43,
+			"mainHand": -37.61
 		},
 		"280029": {
 			"name": "Cinderedge Crescent",
-			"mainHand": -27.94,
-			"offHand": -10.37
+			"offHand": -10.37,
+			"mainHand": -27.94
 		},
 		"280068": {
 			"name": "Bloody Claws of Attack",
@@ -1089,8 +1093,8 @@
 		},
 		"280085": {
 			"name": "Tunnelweb Pincer",
-			"offHand": -15.12,
-			"mainHand": -81.03
+			"mainHand": -81.03,
+			"offHand": -15.12
 		},
 		"281586": {
 			"name": "Elderwild Construction Hammer",

@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-27T19:57:11.927Z",
-	"inputs": "ecfcb5d42476e1c2",
+	"generatedAt": "2026-11-27T22:05:51.863Z",
+	"inputs": "ae96fc64b6cc9aae",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -44,8 +44,8 @@
 		},
 		"10697": {
 			"name": "Enchanted Azsharite Felbane Dagger",
-			"offHand": -13.59,
-			"mainHand": -39.76
+			"mainHand": -39.76,
+			"offHand": -13.59
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
@@ -212,8 +212,8 @@
 		},
 		"13368": {
 			"name": "Bonescraper",
-			"mainHand": -25.31,
-			"offHand": -3.29
+			"offHand": -3.29,
+			"mainHand": -25.31
 		},
 		"13399": {
 			"name": "Gargoyle Shredder Talons",
@@ -234,8 +234,8 @@
 		},
 		"14024": {
 			"name": "Frightalon",
-			"mainHand": -29.84,
-			"offHand": -6.82
+			"offHand": -6.82,
+			"mainHand": -29.84
 		},
 		"14487": {
 			"name": "Bonechill Hammer",
@@ -306,8 +306,8 @@
 		},
 		"15247": {
 			"name": "Bloodstrike Dagger",
-			"mainHand": -34.6,
-			"offHand": -19.36
+			"offHand": -19.36,
+			"mainHand": -34.6
 		},
 		"15705": {
 			"name": "Tidecrest Blade",
@@ -418,8 +418,8 @@
 		},
 		"18758": {
 			"name": "Specter's Blade",
-			"offHand": -10.37,
-			"mainHand": -18.64
+			"mainHand": -18.64,
+			"offHand": -10.37
 		},
 		"19099": {
 			"name": "Glacial Blade",
@@ -428,8 +428,8 @@
 		},
 		"19100": {
 			"name": "Electrified Dagger",
-			"offHand": -8.93,
-			"mainHand": -13
+			"mainHand": -13,
+			"offHand": -8.93
 		},
 		"19103": {
 			"name": "Frostbite",
@@ -591,8 +591,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"offHand": -2.28,
-			"mainHand": 12.8
+			"mainHand": 12.8,
+			"offHand": -2.28
 		},
 		"272845": {
 			"name": "Premier Grand Marshal's Left Hand Blade",
@@ -621,8 +621,8 @@
 		},
 		"274383": {
 			"name": "Kanai's Knife",
-			"offHand": -15.06,
-			"mainHand": -36
+			"mainHand": -36,
+			"offHand": -15.06
 		},
 		"274517": {
 			"name": "Unerring Purpose",
@@ -728,8 +728,8 @@
 		},
 		"286613": {
 			"name": "King Mosh's Tooth",
-			"offHand": -4.84,
-			"mainHand": -21.46
+			"mainHand": -21.46,
+			"offHand": -4.84
 		},
 		"287034": {
 			"name": "Grove Subjugator's Blade",

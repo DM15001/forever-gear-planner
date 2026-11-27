@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-27T19:38:40.049Z",
-	"inputs": "5e2e27b4528f293f",
+	"generatedAt": "2026-11-27T21:41:24.411Z",
+	"inputs": "b8c42b08a11f9335",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -120,6 +120,10 @@
 		"11120": {
 			"name": "Belgrom's Hammer",
 			"mainHand": -61.5
+		},
+		"11603": {
+			"name": "Vilerend Slicer",
+			"mainHand": -62.72
 		},
 		"11608": {
 			"name": "Dark Iron Pulverizer",

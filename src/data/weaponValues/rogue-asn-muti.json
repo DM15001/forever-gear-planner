@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-27T19:36:50.988Z",
-	"inputs": "8bc60e2159ef1467",
+	"generatedAt": "2026-11-27T21:35:39.339Z",
+	"inputs": "6d1c9fb2f96b54c9",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -12,18 +12,18 @@
 	"weapons": {
 		"2163": {
 			"name": "Shadowblade",
-			"mainHand": -22.88,
-			"offHand": -3.68
+			"offHand": -3.68,
+			"mainHand": -22.88
 		},
 		"5267": {
 			"name": "Scarlet Kris",
-			"mainHand": -22.95,
-			"offHand": -5.6
+			"offHand": -5.6,
+			"mainHand": -22.95
 		},
 		"6660": {
 			"name": "Julie's Dagger",
-			"offHand": -12.99,
-			"mainHand": -33.13
+			"mainHand": -33.13,
+			"offHand": -12.99
 		},
 		"7947": {
 			"name": "Ebon Shiv",
@@ -37,8 +37,8 @@
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
-			"mainHand": -40.1,
-			"offHand": -16.68
+			"offHand": -16.68,
+			"mainHand": -40.1
 		},
 		"10828": {
 			"name": "Dire Nail",
@@ -60,8 +60,8 @@
 		},
 		"12531": {
 			"name": "Searing Needle",
-			"mainHand": -40.24,
-			"offHand": -16.16
+			"offHand": -16.16,
+			"mainHand": -40.24
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
@@ -228,8 +228,8 @@
 		},
 		"260172": {
 			"name": "Assassin's Dagger",
-			"mainHand": -46.3,
-			"offHand": -17.35
+			"offHand": -17.35,
+			"mainHand": -46.3
 		},
 		"260180": {
 			"name": "Scout's Dagger",
@@ -254,8 +254,8 @@
 		},
 		"272596": {
 			"name": "Premier High Warlord's Razor",
-			"mainHand": -4.06,
-			"offHand": 7.53
+			"offHand": 7.53,
+			"mainHand": -4.06
 		},
 		"272683": {
 			"name": "Premier High Warlord's Spellblade",
