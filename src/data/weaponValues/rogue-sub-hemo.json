@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-27T14:01:22.769Z",
-	"inputs": "43f9585775ee7343",
+	"generatedAt": "2026-11-27T16:45:50.049Z",
+	"inputs": "ba5f3036e1dd9bbb",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -173,8 +173,8 @@
 		},
 		"11744": {
 			"name": "Bloodfist",
-			"mainHand": -56.24,
-			"offHand": -8.68
+			"offHand": -8.68,
+			"mainHand": -56.24
 		},
 		"11784": {
 			"name": "Arbiter's Blade",
@@ -259,8 +259,8 @@
 		},
 		"12773": {
 			"name": "Ornate Thorium Handaxe",
-			"mainHand": -67.37,
-			"offHand": -21.68
+			"offHand": -21.68,
+			"mainHand": -67.37
 		},
 		"12774": {
 			"name": "Dawn's Edge",
@@ -279,8 +279,8 @@
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"mainHand": -16.38,
-			"offHand": -11.02
+			"offHand": -11.02,
+			"mainHand": -16.38
 		},
 		"12791": {
 			"name": "Barman Shanker",
@@ -324,8 +324,8 @@
 		},
 		"13014": {
 			"name": "Axe of Rin'ji",
-			"mainHand": -62.26,
-			"offHand": -20.92
+			"offHand": -20.92,
+			"mainHand": -62.26
 		},
 		"13015": {
 			"name": "Serathil",
@@ -377,8 +377,8 @@
 		},
 		"13286": {
 			"name": "Rivenspike",
-			"mainHand": -36.11,
-			"offHand": -32.19
+			"offHand": -32.19,
+			"mainHand": -36.11
 		},
 		"13349": {
 			"name": "Scepter of the Unholy",
@@ -440,8 +440,8 @@
 		},
 		"14555": {
 			"name": "Alcor's Sunrazor",
-			"mainHand": -20.01,
-			"offHand": -2.91
+			"offHand": -2.91,
+			"mainHand": -20.01
 		},
 		"14576": {
 			"name": "Ebon Hilt of Marduk",
@@ -503,8 +503,8 @@
 		},
 		"15239": {
 			"name": "Felstone Reaver",
-			"mainHand": -60.03,
-			"offHand": -25.91
+			"offHand": -25.91,
+			"mainHand": -60.03
 		},
 		"15240": {
 			"name": "Demon's Claw",
@@ -513,8 +513,8 @@
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"mainHand": -59.79,
-			"offHand": -22.77
+			"offHand": -22.77,
+			"mainHand": -59.79
 		},
 		"15246": {
 			"name": "Demon Blade",
@@ -543,8 +543,8 @@
 		},
 		"15783": {
 			"name": "Beasthunter Dagger",
-			"offHand": -15.44,
-			"mainHand": -39.27
+			"mainHand": -39.27,
+			"offHand": -15.44
 		},
 		"15800": {
 			"name": "Intrepid Shortsword",
@@ -641,8 +641,8 @@
 		},
 		"18347": {
 			"name": "Well Balanced Axe",
-			"mainHand": -48.01,
-			"offHand": -14.15
+			"offHand": -14.15,
+			"mainHand": -48.01
 		},
 		"18372": {
 			"name": "Blade of the New Moon",
@@ -669,8 +669,8 @@
 		},
 		"18484": {
 			"name": "Cho'Rush's Blade",
-			"mainHand": -38.1,
-			"offHand": -21.2
+			"offHand": -21.2,
+			"mainHand": -38.1
 		},
 		"18491": {
 			"name": "Lorespinner",
@@ -687,13 +687,13 @@
 		},
 		"18683": {
 			"name": "Hammer of the Vesper",
-			"mainHand": -37.42,
-			"offHand": -25.67
+			"offHand": -25.67,
+			"mainHand": -37.42
 		},
 		"18737": {
 			"name": "Bone Slicing Hatchet",
-			"mainHand": -49.01,
-			"offHand": -10.51
+			"offHand": -10.51,
+			"mainHand": -49.01
 		},
 		"18758": {
 			"name": "Specter's Blade",
@@ -737,13 +737,13 @@
 		},
 		"19546": {
 			"name": "Sentinel's Blade",
-			"mainHand": -23.22,
-			"offHand": -9.95
+			"offHand": -9.95,
+			"mainHand": -23.22
 		},
 		"19547": {
 			"name": "Sentinel's Blade",
-			"mainHand": -40.01,
-			"offHand": -15.09
+			"offHand": -15.09,
+			"mainHand": -40.01
 		},
 		"19550": {
 			"name": "Legionnaire's Sword",
@@ -814,8 +814,8 @@
 		},
 		"24222": {
 			"name": "The Shadowfoot Stabber",
-			"offHand": -15.84,
-			"mainHand": -31.2
+			"mainHand": -31.2,
+			"offHand": -15.84
 		},
 		"227935": {
 			"name": "Hammer of the Fallen Thane",
@@ -925,8 +925,8 @@
 		},
 		"272684": {
 			"name": "Premier High Warlord's Quickblade",
-			"offHand": -1.36,
-			"mainHand": -27.15
+			"mainHand": -27.15,
+			"offHand": -1.36
 		},
 		"272693": {
 			"name": "Premier Grand Marshal's Longsword",
@@ -976,8 +976,8 @@
 		},
 		"274271": {
 			"name": "Deadhead Blade",
-			"mainHand": -38.03,
-			"offHand": -18.35
+			"offHand": -18.35,
+			"mainHand": -38.03
 		},
 		"274383": {
 			"name": "Kanai's Knife",
@@ -986,8 +986,8 @@
 		},
 		"274517": {
 			"name": "Unerring Purpose",
-			"mainHand": -44.19,
-			"offHand": -29.28
+			"offHand": -29.28,
+			"mainHand": -44.19
 		},
 		"275293": {
 			"name": "Barkskin Scepter",
@@ -1065,8 +1065,8 @@
 		},
 		"280022": {
 			"name": "Scaleguard Scimitar",
-			"mainHand": -41.69,
-			"offHand": -19.77
+			"offHand": -19.77,
+			"mainHand": -41.69
 		},
 		"280029": {
 			"name": "Cinderedge Crescent",
@@ -1085,8 +1085,8 @@
 		},
 		"280085": {
 			"name": "Tunnelweb Pincer",
-			"mainHand": -34.25,
-			"offHand": -11.49
+			"offHand": -11.49,
+			"mainHand": -34.25
 		},
 		"281586": {
 			"name": "Elderwild Construction Hammer",
@@ -1113,8 +1113,8 @@
 		},
 		"284157": {
 			"name": "Ranger Lord's Longsword",
-			"mainHand": -43.02,
-			"offHand": -25.43
+			"offHand": -25.43,
+			"mainHand": -43.02
 		},
 		"284230": {
 			"name": "Rage Paw",

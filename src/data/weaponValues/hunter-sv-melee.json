@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-27T13:10:24.976Z",
-	"inputs": "fce4f7ffb40952b5",
+	"generatedAt": "2026-11-27T15:53:10.056Z",
+	"inputs": "d08754c24cfb6373",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -56,8 +56,8 @@
 		},
 		"8190": {
 			"name": "Hanzo Sword",
-			"mainHand": -60.04,
-			"offHand": -23.14
+			"offHand": -23.14,
+			"mainHand": -60.04
 		},
 		"9379": {
 			"name": "Sang'thraze the Deflector",
@@ -87,13 +87,13 @@
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
-			"offHand": -27.69,
-			"mainHand": -78.63
+			"mainHand": -78.63,
+			"offHand": -27.69
 		},
 		"10797": {
 			"name": "Firebreather",
-			"mainHand": -44.98,
-			"offHand": -48.95
+			"offHand": -48.95,
+			"mainHand": -44.98
 		},
 		"10803": {
 			"name": "Blade of the Wretched",
@@ -187,8 +187,8 @@
 		},
 		"12535": {
 			"name": "Doomforged Straightedge",
-			"mainHand": -51.12,
-			"offHand": -35.88
+			"offHand": -35.88,
+			"mainHand": -51.12
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
@@ -233,8 +233,8 @@
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"mainHand": -51.59,
-			"offHand": -27.28
+			"offHand": -27.28,
+			"mainHand": -51.59
 		},
 		"12791": {
 			"name": "Barman Shanker",
@@ -269,8 +269,8 @@
 		},
 		"13015": {
 			"name": "Serathil",
-			"mainHand": -45.77,
-			"offHand": -37.34
+			"offHand": -37.34,
+			"mainHand": -45.77
 		},
 		"13022": {
 			"name": "Gryphonwing Long Bow",
@@ -439,8 +439,8 @@
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"offHand": -32.38,
-			"mainHand": -92.46
+			"mainHand": -92.46,
+			"offHand": -32.38
 		},
 		"15246": {
 			"name": "Demon Blade",
@@ -529,8 +529,8 @@
 		},
 		"15853": {
 			"name": "Windreaper",
-			"mainHand": -40.65,
-			"offHand": -53.67
+			"offHand": -53.67,
+			"mainHand": -40.65
 		},
 		"15862": {
 			"name": "Blitzcleaver",
@@ -584,8 +584,8 @@
 		},
 		"17752": {
 			"name": "Satyr's Lash",
-			"mainHand": -77.29,
-			"offHand": -29.61
+			"offHand": -29.61,
+			"mainHand": -77.29
 		},
 		"17753": {
 			"name": "Verdant Keeper's Aim",
@@ -623,8 +623,8 @@
 		},
 		"18462": {
 			"name": "Jagged Bone Fist",
-			"offHand": -34.73,
-			"mainHand": -58.02
+			"mainHand": -58.02,
+			"offHand": -34.73
 		},
 		"18463": {
 			"name": "Ogre Pocket Knife",
@@ -659,8 +659,8 @@
 		},
 		"18737": {
 			"name": "Bone Slicing Hatchet",
-			"offHand": -20.75,
-			"mainHand": -41.71
+			"mainHand": -41.71,
+			"offHand": -20.75
 		},
 		"18738": {
 			"name": "Carapace Spine Crossbow",
@@ -710,8 +710,8 @@
 		},
 		"19543": {
 			"name": "Scout's Blade",
-			"mainHand": -72.27,
-			"offHand": -25.16
+			"offHand": -25.16,
+			"mainHand": -72.27
 		},
 		"19546": {
 			"name": "Sentinel's Blade",
@@ -828,8 +828,8 @@
 		},
 		"260213": {
 			"name": "Great Bear Claw",
-			"mainHand": -41.84,
-			"offHand": -53.22
+			"offHand": -53.22,
+			"mainHand": -41.84
 		},
 		"270107": {
 			"name": "Bloodstained Longbow",
@@ -915,8 +915,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"offHand": -23.91,
-			"mainHand": -32.75
+			"mainHand": -32.75,
+			"offHand": -23.91
 		},
 		"272844": {
 			"name": "Premier Grand Marshal's Right Hand Blade",
@@ -936,13 +936,13 @@
 		},
 		"272859": {
 			"name": "Premier Grand Marshal's Swiftblade",
-			"mainHand": -19.48,
-			"offHand": -14.13
+			"offHand": -14.13,
+			"mainHand": -19.48
 		},
 		"274265": {
 			"name": "Brush Cutter",
-			"offHand": -62.91,
-			"mainHand": -34.25
+			"mainHand": -34.25,
+			"offHand": -62.91
 		},
 		"274271": {
 			"name": "Deadhead Blade",

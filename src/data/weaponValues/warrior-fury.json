@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-27T14:52:09.742Z",
-	"inputs": "e8f3550f3afcf0d1",
+	"generatedAt": "2026-11-27T17:17:02.269Z",
+	"inputs": "d949b75f03e654a9",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -60,8 +60,8 @@
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"mainHand": -122.94,
-			"offHand": -32.69
+			"offHand": -32.69,
+			"mainHand": -122.94
 		},
 		"8190": {
 			"name": "Hanzo Sword",
@@ -112,8 +112,8 @@
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
-			"mainHand": -118.32,
-			"offHand": -32.61
+			"offHand": -32.61,
+			"mainHand": -118.32
 		},
 		"10797": {
 			"name": "Firebreather",
@@ -173,8 +173,8 @@
 		},
 		"11744": {
 			"name": "Bloodfist",
-			"offHand": -16.92,
-			"mainHand": -90.82
+			"mainHand": -90.82,
+			"offHand": -16.92
 		},
 		"11784": {
 			"name": "Arbiter's Blade",
@@ -223,8 +223,8 @@
 		},
 		"12062": {
 			"name": "Skilled Fighting Blade",
-			"mainHand": -123.33,
-			"offHand": -25.35
+			"offHand": -25.35,
+			"mainHand": -123.33
 		},
 		"12527": {
 			"name": "Ribsplitter",
@@ -270,8 +270,8 @@
 		},
 		"12777": {
 			"name": "Blazing Rapier",
-			"mainHand": -57.91,
-			"offHand": -23.07
+			"offHand": -23.07,
+			"mainHand": -57.91
 		},
 		"12781": {
 			"name": "Serenity",
@@ -348,8 +348,8 @@
 		},
 		"13182": {
 			"name": "Phase Blade",
-			"mainHand": -68.31,
-			"offHand": -20.18
+			"offHand": -20.18,
+			"mainHand": -68.31
 		},
 		"13183": {
 			"name": "Venomspitter",
@@ -368,8 +368,8 @@
 		},
 		"13218": {
 			"name": "Fang of the Crystal Spider",
-			"mainHand": -106.06,
-			"offHand": -25.37
+			"offHand": -25.37,
+			"mainHand": -106.06
 		},
 		"13246": {
 			"name": "Argent Avenger",
@@ -436,8 +436,8 @@
 		},
 		"14487": {
 			"name": "Bonechill Hammer",
-			"mainHand": -43.17,
-			"offHand": -18.79
+			"offHand": -18.79,
+			"mainHand": -43.17
 		},
 		"14555": {
 			"name": "Alcor's Sunrazor",
@@ -558,8 +558,8 @@
 		},
 		"15806": {
 			"name": "Mirah's Song",
-			"mainHand": -68.12,
-			"offHand": -9.76
+			"offHand": -9.76,
+			"mainHand": -68.12
 		},
 		"15814": {
 			"name": "Hameya's Slayer",
@@ -792,8 +792,8 @@
 		},
 		"22317": {
 			"name": "Lefty's Brass Knuckle",
-			"offHand": -7.4,
-			"mainHand": -78.82
+			"mainHand": -78.82,
+			"offHand": -7.4
 		},
 		"22322": {
 			"name": "The Jaw Breaker",
@@ -934,8 +934,8 @@
 		},
 		"272693": {
 			"name": "Premier Grand Marshal's Longsword",
-			"mainHand": 9.68,
-			"offHand": 4.2
+			"offHand": 4.2,
+			"mainHand": 9.68
 		},
 		"272839": {
 			"name": "Premier Grand Marshal's Handaxe",
@@ -957,8 +957,8 @@
 		},
 		"272847": {
 			"name": "Premier Grand Marshal's Punisher",
-			"mainHand": 9.68,
-			"offHand": 4.2
+			"offHand": 4.2,
+			"mainHand": 9.68
 		},
 		"272856": {
 			"name": "Premier Grand Marshal's Mageblade",
@@ -1049,13 +1049,13 @@
 		},
 		"279474": {
 			"name": "Dustwallow Dirk",
-			"mainHand": -107.82,
-			"offHand": -26.55
+			"offHand": -26.55,
+			"mainHand": -107.82
 		},
 		"279908": {
 			"name": "Crystal-Infused Cleaver",
-			"mainHand": -37.92,
-			"offHand": -12.87
+			"offHand": -12.87,
+			"mainHand": -37.92
 		},
 		"280012": {
 			"name": "Talon of Tor'Rel",
@@ -1069,13 +1069,13 @@
 		},
 		"280022": {
 			"name": "Scaleguard Scimitar",
-			"offHand": -15.55,
-			"mainHand": -53.78
+			"mainHand": -53.78,
+			"offHand": -15.55
 		},
 		"280029": {
 			"name": "Cinderedge Crescent",
-			"offHand": -12.34,
-			"mainHand": -39.45
+			"mainHand": -39.45,
+			"offHand": -12.34
 		},
 		"280068": {
 			"name": "Bloody Claws of Attack",
@@ -1108,8 +1108,8 @@
 		},
 		"282023": {
 			"name": "Clack's Claw",
-			"mainHand": -66.61,
-			"offHand": -26.26
+			"offHand": -26.26,
+			"mainHand": -66.61
 		},
 		"284101": {
 			"name": "Blade of Senseless Slaughter",
@@ -1131,8 +1131,8 @@
 		},
 		"286613": {
 			"name": "King Mosh's Tooth",
-			"mainHand": -96.35,
-			"offHand": -15.1
+			"offHand": -15.1,
+			"mainHand": -96.35
 		},
 		"287034": {
 			"name": "Grove Subjugator's Blade",

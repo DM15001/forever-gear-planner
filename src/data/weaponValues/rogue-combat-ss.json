@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-27T14:01:26.230Z",
-	"inputs": "5d17780bafdab5e2",
+	"generatedAt": "2026-11-27T16:22:28.690Z",
+	"inputs": "236f28c2c8ae0e4d",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -223,8 +223,8 @@
 		},
 		"12062": {
 			"name": "Skilled Fighting Blade",
-			"offHand": -26.84,
-			"mainHand": -113.66
+			"mainHand": -113.66,
+			"offHand": -26.84
 		},
 		"12527": {
 			"name": "Ribsplitter",
@@ -265,8 +265,8 @@
 		},
 		"12774": {
 			"name": "Dawn's Edge",
-			"offHand": -22.3,
-			"mainHand": -62.05
+			"mainHand": -62.05,
+			"offHand": -22.3
 		},
 		"12777": {
 			"name": "Blazing Rapier",
@@ -325,8 +325,8 @@
 		},
 		"13014": {
 			"name": "Axe of Rin'ji",
-			"mainHand": -77.66,
-			"offHand": -22.51
+			"offHand": -22.51,
+			"mainHand": -77.66
 		},
 		"13015": {
 			"name": "Serathil",
@@ -348,8 +348,8 @@
 		},
 		"13182": {
 			"name": "Phase Blade",
-			"mainHand": -62.46,
-			"offHand": -25.38
+			"offHand": -25.38,
+			"mainHand": -62.46
 		},
 		"13183": {
 			"name": "Venomspitter",
@@ -368,8 +368,8 @@
 		},
 		"13218": {
 			"name": "Fang of the Crystal Spider",
-			"offHand": -29.66,
-			"mainHand": -101.01
+			"mainHand": -101.01,
+			"offHand": -29.66
 		},
 		"13246": {
 			"name": "Argent Avenger",
@@ -494,8 +494,8 @@
 		},
 		"15237": {
 			"name": "Corpse Harvester",
-			"offHand": -39.01,
-			"mainHand": -59.75
+			"mainHand": -59.75,
+			"offHand": -39.01
 		},
 		"15238": {
 			"name": "Warlord's Axe",
@@ -524,8 +524,8 @@
 		},
 		"15247": {
 			"name": "Bloodstrike Dagger",
-			"mainHand": -103.13,
-			"offHand": -30.92
+			"offHand": -30.92,
+			"mainHand": -103.13
 		},
 		"15705": {
 			"name": "Tidecrest Blade",
@@ -568,8 +568,8 @@
 		},
 		"15853": {
 			"name": "Windreaper",
-			"offHand": -27.43,
-			"mainHand": -52.61
+			"mainHand": -52.61,
+			"offHand": -27.43
 		},
 		"15862": {
 			"name": "Blitzcleaver",
@@ -707,8 +707,8 @@
 		},
 		"19099": {
 			"name": "Glacial Blade",
-			"mainHand": -80.86,
-			"offHand": -21.52
+			"offHand": -21.52,
+			"mainHand": -80.86
 		},
 		"19100": {
 			"name": "Electrified Dagger",
@@ -722,8 +722,8 @@
 		},
 		"19104": {
 			"name": "Stormstrike Hammer",
-			"mainHand": -22.82,
-			"offHand": -36.59
+			"offHand": -36.59,
+			"mainHand": -22.82
 		},
 		"19324": {
 			"name": "The Lobotomizer",
@@ -762,13 +762,13 @@
 		},
 		"19554": {
 			"name": "Protector's Sword",
-			"mainHand": -23.13,
-			"offHand": -26.09
+			"offHand": -26.09,
+			"mainHand": -23.13
 		},
 		"19555": {
 			"name": "Protector's Sword",
-			"mainHand": -44.09,
-			"offHand": -32.92
+			"offHand": -32.92,
+			"mainHand": -44.09
 		},
 		"20070": {
 			"name": "Sageclaw",
@@ -818,8 +818,8 @@
 		},
 		"24222": {
 			"name": "The Shadowfoot Stabber",
-			"mainHand": -96.13,
-			"offHand": -28.54
+			"offHand": -28.54,
+			"mainHand": -96.13
 		},
 		"227935": {
 			"name": "Hammer of the Fallen Thane",
@@ -832,8 +832,8 @@
 		},
 		"250616": {
 			"name": "Bold Dirk",
-			"mainHand": -103.35,
-			"offHand": -29.56
+			"offHand": -29.56,
+			"mainHand": -103.35
 		},
 		"250618": {
 			"name": "Bagh Nakh",
@@ -903,8 +903,8 @@
 		},
 		"272596": {
 			"name": "Premier High Warlord's Razor",
-			"mainHand": -53.42,
-			"offHand": -12.37
+			"offHand": -12.37,
+			"mainHand": -53.42
 		},
 		"272597": {
 			"name": "Premier High Warlord's Right Claw",
@@ -944,8 +944,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"mainHand": -53.42,
-			"offHand": -12.37
+			"offHand": -12.37,
+			"mainHand": -53.42
 		},
 		"272844": {
 			"name": "Premier Grand Marshal's Right Hand Blade",
@@ -957,8 +957,8 @@
 		},
 		"272847": {
 			"name": "Premier Grand Marshal's Punisher",
-			"mainHand": 12.08,
-			"offHand": -23.86
+			"offHand": -23.86,
+			"mainHand": 12.08
 		},
 		"272856": {
 			"name": "Premier Grand Marshal's Mageblade",
@@ -990,8 +990,8 @@
 		},
 		"274517": {
 			"name": "Unerring Purpose",
-			"mainHand": -40.97,
-			"offHand": -32.32
+			"offHand": -32.32,
+			"mainHand": -40.97
 		},
 		"275293": {
 			"name": "Barkskin Scepter",
@@ -1054,8 +1054,8 @@
 		},
 		"279908": {
 			"name": "Crystal-Infused Cleaver",
-			"offHand": -24.75,
-			"mainHand": -32.52
+			"mainHand": -32.52,
+			"offHand": -24.75
 		},
 		"280012": {
 			"name": "Talon of Tor'Rel",
@@ -1069,8 +1069,8 @@
 		},
 		"280022": {
 			"name": "Scaleguard Scimitar",
-			"mainHand": -46.38,
-			"offHand": -19.85
+			"offHand": -19.85,
+			"mainHand": -46.38
 		},
 		"280029": {
 			"name": "Cinderedge Crescent",

@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-27T13:05:08.072Z",
-	"inputs": "5eb70bacf96734ba",
+	"generatedAt": "2026-11-27T15:30:04.286Z",
+	"inputs": "6d9d98d572d0453e",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -22,8 +22,8 @@
 		},
 		"6660": {
 			"name": "Julie's Dagger",
-			"offHand": -12.99,
-			"mainHand": -33.13
+			"mainHand": -33.13,
+			"offHand": -12.99
 		},
 		"7947": {
 			"name": "Ebon Shiv",
@@ -60,8 +60,8 @@
 		},
 		"12531": {
 			"name": "Searing Needle",
-			"offHand": -16.16,
-			"mainHand": -40.24
+			"mainHand": -40.24,
+			"offHand": -16.16
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
@@ -110,8 +110,8 @@
 		},
 		"14024": {
 			"name": "Frightalon",
-			"mainHand": -24.32,
-			"offHand": -5.55
+			"offHand": -5.55,
+			"mainHand": -24.32
 		},
 		"14555": {
 			"name": "Alcor's Sunrazor",
@@ -120,8 +120,8 @@
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
-			"mainHand": -50.49,
-			"offHand": -21.59
+			"offHand": -21.59,
+			"mainHand": -50.49
 		},
 		"15246": {
 			"name": "Demon Blade",
@@ -130,8 +130,8 @@
 		},
 		"15247": {
 			"name": "Bloodstrike Dagger",
-			"mainHand": -37.2,
-			"offHand": -14.73
+			"offHand": -14.73,
+			"mainHand": -37.2
 		},
 		"15706": {
 			"name": "Hunt Tracker Blade",
@@ -140,8 +140,8 @@
 		},
 		"15783": {
 			"name": "Beasthunter Dagger",
-			"offHand": -12.02,
-			"mainHand": -37.58
+			"mainHand": -37.58,
+			"offHand": -12.02
 		},
 		"17710": {
 			"name": "Charstone Dirk",
@@ -149,8 +149,8 @@
 		},
 		"17752": {
 			"name": "Satyr's Lash",
-			"offHand": -12.7,
-			"mainHand": -37.6
+			"mainHand": -37.6,
+			"offHand": -12.7
 		},
 		"17780": {
 			"name": "Blade of Eternal Darkness",
@@ -277,8 +277,8 @@
 		},
 		"274383": {
 			"name": "Kanai's Knife",
-			"offHand": -9.72,
-			"mainHand": -36.52
+			"mainHand": -36.52,
+			"offHand": -9.72
 		},
 		"275647": {
 			"name": "Cleansed Ritual Kris",
@@ -290,8 +290,8 @@
 		},
 		"276738": {
 			"name": "Katerina's Shanker",
-			"offHand": -12.79,
-			"mainHand": -38.6
+			"mainHand": -38.6,
+			"offHand": -12.79
 		},
 		"276903": {
 			"name": "Shimmerwine Shanker",
