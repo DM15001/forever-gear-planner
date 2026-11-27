@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-27T04:25:18.540Z",
-	"inputs": "779311e27c69addc",
+	"generatedAt": "2026-11-27T11:03:50.232Z",
+	"inputs": "653626b5daa112ca",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -44,8 +44,8 @@
 		},
 		"10697": {
 			"name": "Enchanted Azsharite Felbane Dagger",
-			"mainHand": -36.83,
-			"offHand": -12.2
+			"offHand": -12.2,
+			"mainHand": -36.83
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
@@ -96,8 +96,8 @@
 		},
 		"12531": {
 			"name": "Searing Needle",
-			"mainHand": -36.23,
-			"offHand": -19.99
+			"offHand": -19.99,
+			"mainHand": -36.23
 		},
 		"12535": {
 			"name": "Doomforged Straightedge",
@@ -105,8 +105,8 @@
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
-			"offHand": -15.43,
-			"mainHand": -22.88
+			"mainHand": -22.88,
+			"offHand": -15.43
 		},
 		"12590": {
 			"name": "Felstriker",
@@ -134,8 +134,8 @@
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"offHand": -10.63,
-			"mainHand": -13.21
+			"mainHand": -13.21,
+			"offHand": -10.63
 		},
 		"12791": {
 			"name": "Barman Shanker",
@@ -212,8 +212,8 @@
 		},
 		"13368": {
 			"name": "Bonescraper",
-			"mainHand": -22.57,
-			"offHand": -3.88
+			"offHand": -3.88,
+			"mainHand": -22.57
 		},
 		"13399": {
 			"name": "Gargoyle Shredder Talons",
@@ -234,8 +234,8 @@
 		},
 		"14024": {
 			"name": "Frightalon",
-			"mainHand": -27.04,
-			"offHand": -7.37
+			"offHand": -7.37,
+			"mainHand": -27.04
 		},
 		"14487": {
 			"name": "Bonechill Hammer",
@@ -418,8 +418,8 @@
 		},
 		"18758": {
 			"name": "Specter's Blade",
-			"mainHand": -16.66,
-			"offHand": -10.62
+			"offHand": -10.62,
+			"mainHand": -16.66
 		},
 		"19099": {
 			"name": "Glacial Blade",
@@ -451,8 +451,8 @@
 		},
 		"19543": {
 			"name": "Scout's Blade",
-			"offHand": -14.37,
-			"mainHand": -35.12
+			"mainHand": -35.12,
+			"offHand": -14.37
 		},
 		"19546": {
 			"name": "Sentinel's Blade",
@@ -529,8 +529,8 @@
 		},
 		"260180": {
 			"name": "Scout's Dagger",
-			"offHand": -22.04,
-			"mainHand": -43.62
+			"mainHand": -43.62,
+			"offHand": -22.04
 		},
 		"260213": {
 			"name": "Great Bear Claw",
@@ -562,8 +562,8 @@
 		},
 		"272596": {
 			"name": "Premier High Warlord's Razor",
-			"offHand": -0.5,
-			"mainHand": 11.73
+			"mainHand": 11.73,
+			"offHand": -0.5
 		},
 		"272598": {
 			"name": "Premier High Warlord's Left Claw",

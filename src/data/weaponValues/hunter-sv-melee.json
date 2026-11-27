@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-27T06:51:45.555Z",
-	"inputs": "0fefa4b1fc9ecc02",
+	"generatedAt": "2026-11-27T10:36:31.432Z",
+	"inputs": "a8fedd19ba8d54e9",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -269,8 +269,8 @@
 		},
 		"13015": {
 			"name": "Serathil",
-			"mainHand": -46.41,
-			"offHand": -36.23
+			"offHand": -36.23,
+			"mainHand": -46.41
 		},
 		"13022": {
 			"name": "Gryphonwing Long Bow",
@@ -376,8 +376,8 @@
 		},
 		"14555": {
 			"name": "Alcor's Sunrazor",
-			"mainHand": -59.38,
-			"offHand": -5.66
+			"offHand": -5.66,
+			"mainHand": -59.38
 		},
 		"14576": {
 			"name": "Ebon Hilt of Marduk",
@@ -444,8 +444,8 @@
 		},
 		"15246": {
 			"name": "Demon Blade",
-			"offHand": -35.68,
-			"mainHand": -75.12
+			"mainHand": -75.12,
+			"offHand": -35.68
 		},
 		"15247": {
 			"name": "Bloodstrike Dagger",
@@ -505,8 +505,8 @@
 		},
 		"15783": {
 			"name": "Beasthunter Dagger",
-			"offHand": -28.85,
-			"mainHand": -74.51
+			"mainHand": -74.51,
+			"offHand": -28.85
 		},
 		"15800": {
 			"name": "Intrepid Shortsword",
@@ -597,8 +597,8 @@
 		},
 		"18310": {
 			"name": "Fiendish Machete",
-			"mainHand": -32.05,
-			"offHand": -48.03
+			"offHand": -48.03,
+			"mainHand": -32.05
 		},
 		"18347": {
 			"name": "Well Balanced Axe",
@@ -715,8 +715,8 @@
 		},
 		"19546": {
 			"name": "Sentinel's Blade",
-			"offHand": -22.53,
-			"mainHand": -59.52
+			"mainHand": -59.52,
+			"offHand": -22.53
 		},
 		"19547": {
 			"name": "Sentinel's Blade",
@@ -828,8 +828,8 @@
 		},
 		"260213": {
 			"name": "Great Bear Claw",
-			"offHand": -53.41,
-			"mainHand": -42.95
+			"mainHand": -42.95,
+			"offHand": -53.41
 		},
 		"270107": {
 			"name": "Bloodstained Longbow",
@@ -897,8 +897,8 @@
 		},
 		"272693": {
 			"name": "Premier Grand Marshal's Longsword",
-			"mainHand": 15.82,
-			"offHand": -43.59
+			"offHand": -43.59,
+			"mainHand": 15.82
 		},
 		"272839": {
 			"name": "Premier Grand Marshal's Handaxe",
@@ -915,8 +915,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"offHand": -21.84,
-			"mainHand": -32.7
+			"mainHand": -32.7,
+			"offHand": -21.84
 		},
 		"272844": {
 			"name": "Premier Grand Marshal's Right Hand Blade",
@@ -941,8 +941,8 @@
 		},
 		"274265": {
 			"name": "Brush Cutter",
-			"offHand": -64.19,
-			"mainHand": -33.21
+			"mainHand": -33.21,
+			"offHand": -64.19
 		},
 		"274271": {
 			"name": "Deadhead Blade",
@@ -985,8 +985,8 @@
 		},
 		"276338": {
 			"name": "Claw of Shalla'kal",
-			"mainHand": -45.43,
-			"offHand": -59.31
+			"offHand": -59.31,
+			"mainHand": -45.43
 		},
 		"276738": {
 			"name": "Katerina's Shanker",
@@ -1003,8 +1003,8 @@
 		},
 		"279259": {
 			"name": "Ironwood Blade",
-			"mainHand": -10.91,
-			"offHand": -43.21
+			"offHand": -43.21,
+			"mainHand": -10.91
 		},
 		"279474": {
 			"name": "Dustwallow Dirk",

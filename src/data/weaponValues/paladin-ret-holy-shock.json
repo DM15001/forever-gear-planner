@@ -1,10 +1,10 @@
 {
-	"generatedAt": "2026-11-27T06:17:53.943Z",
-	"inputs": "4da3853fe79d5c90",
+	"generatedAt": "2026-11-27T10:33:26.426Z",
+	"inputs": "0d3743ce7e0b04b2",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
-		"dps": 906.15,
+		"dps": 906.05,
 		"mainHand": 647,
 		"ranged": 23203
 	},
@@ -15,7 +15,7 @@
 		},
 		"2801": {
 			"name": "Blade of Hanna",
-			"mainHand": -54.39
+			"mainHand": -54.38
 		},
 		"2915": {
 			"name": "Taran Icebreaker",
@@ -59,7 +59,7 @@
 		},
 		"11816": {
 			"name": "Angerforge's Battle Axe",
-			"mainHand": -56.26
+			"mainHand": -56.25
 		},
 		"11864": {
 			"name": "White Bone Spear",
@@ -67,7 +67,7 @@
 		},
 		"11907": {
 			"name": "Beastslayer",
-			"mainHand": -58.93
+			"mainHand": -58.92
 		},
 		"11921": {
 			"name": "Impervious Giant",
@@ -103,7 +103,7 @@
 		},
 		"12764": {
 			"name": "Thorium Greatsword",
-			"mainHand": -48.79
+			"mainHand": -48.78
 		},
 		"12772": {
 			"name": "Inlaid Thorium Hammer",
@@ -111,7 +111,7 @@
 		},
 		"12775": {
 			"name": "Huge Thorium Battleaxe",
-			"mainHand": -49.27
+			"mainHand": -49.26
 		},
 		"12776": {
 			"name": "Enchanted Battlehammer",
@@ -135,7 +135,7 @@
 		},
 		"12802": {
 			"name": "Darkspear",
-			"mainHand": -43.21
+			"mainHand": -43.2
 		},
 		"12969": {
 			"name": "Seeping Willow",
@@ -147,7 +147,7 @@
 		},
 		"13044": {
 			"name": "Demonslayer",
-			"mainHand": -48.92
+			"mainHand": -48.91
 		},
 		"13046": {
 			"name": "Blanchard's Stout",
@@ -175,7 +175,7 @@
 		},
 		"13060": {
 			"name": "The Needler",
-			"mainHand": -69.36
+			"mainHand": -69.35
 		},
 		"13163": {
 			"name": "Relentless Scythe",
@@ -191,7 +191,7 @@
 		},
 		"13348": {
 			"name": "Demonshear",
-			"mainHand": -12.92
+			"mainHand": -12.91
 		},
 		"13393": {
 			"name": "Malown's Slam",
@@ -203,7 +203,7 @@
 		},
 		"13982": {
 			"name": "Warblade of Caer Darrow",
-			"mainHand": -18.47
+			"mainHand": -18.46
 		},
 		"13983": {
 			"name": "Gravestone War Axe",
@@ -219,7 +219,7 @@
 		},
 		"15253": {
 			"name": "Beheading Blade",
-			"mainHand": -59.54
+			"mainHand": -59.53
 		},
 		"15254": {
 			"name": "Dark Espadon",
@@ -243,7 +243,7 @@
 		},
 		"15263": {
 			"name": "Royal Mallet",
-			"mainHand": -85.72
+			"mainHand": -85.71
 		},
 		"15264": {
 			"name": "Backbreaker",
@@ -259,7 +259,7 @@
 		},
 		"15267": {
 			"name": "Brutehammer",
-			"mainHand": -44.35
+			"mainHand": -44.34
 		},
 		"15271": {
 			"name": "Colossal Great Axe",
@@ -339,7 +339,7 @@
 		},
 		"19323": {
 			"name": "The Unstoppable Force",
-			"mainHand": -7.5
+			"mainHand": -7.49
 		},
 		"20504": {
 			"name": "Lightforged Blade",
@@ -359,11 +359,11 @@
 		},
 		"211940": {
 			"name": "Ecks'av's Tribal Guardian",
-			"mainHand": -22.84
+			"mainHand": -22.83
 		},
 		"221518": {
 			"name": "Whisper",
-			"mainHand": -35.75
+			"mainHand": -35.74
 		},
 		"250613": {
 			"name": "Thorium Greatmace",
@@ -391,7 +391,7 @@
 		},
 		"270108": {
 			"name": "Bloodied Longmace",
-			"mainHand": -85.72
+			"mainHand": -85.71
 		},
 		"271924": {
 			"name": "Rebels' Rugged Reaper",
@@ -427,7 +427,7 @@
 		},
 		"272682": {
 			"name": "Premier High Warlord's Destroyer",
-			"mainHand": 10.2
+			"mainHand": 10.19
 		},
 		"272840": {
 			"name": "Premier Grand Marshal's Sunderer",
@@ -447,7 +447,7 @@
 		},
 		"272858": {
 			"name": "Premier Grand Marshal's Demolisher",
-			"mainHand": 10.2
+			"mainHand": 10.19
 		},
 		"274270": {
 			"name": "Weed Whacker",
@@ -455,7 +455,7 @@
 		},
 		"274419": {
 			"name": "Bear Poking Stick",
-			"mainHand": -42.44
+			"mainHand": -42.43
 		},
 		"275645": {
 			"name": "Reforged Spear",
@@ -471,7 +471,7 @@
 		},
 		"276069": {
 			"name": "Gravetoll Gavel",
-			"mainHand": -54.03
+			"mainHand": -54.02
 		},
 		"276335": {
 			"name": "Polished Doomguard Edge",
@@ -507,7 +507,7 @@
 		},
 		"280080": {
 			"name": "Claymore of Two Moons",
-			"mainHand": -48.93
+			"mainHand": -48.92
 		},
 		"281588": {
 			"name": "Nature's Cull",
