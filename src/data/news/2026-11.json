@@ -44,6 +44,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Damage breakdown is easier to find",
+							"text": "The breakdown button under the DPS numbers on Build plan now has a gold outline and a chart mark, so it no longer looks like a side tool.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Build plan: no more \"More options\" fold",
 							"text": "\"What are you fighting?\" is always shown on Build plan now, with the stat weights and \"How is this calculated?\" right below it. \"Clear plan\" sits under those.",
 							"source": "Gear Planner",

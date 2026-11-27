@@ -729,8 +729,14 @@ export function SimSummary({ equipped, planned, hasPlan, auto = false, estimated
 			)}
 			<p className="breakdown-open">
 				{(a?.breakdown || b?.breakdown) && (
-					<button className="button button-primary" title="Every spell, a graph and a timeline, for the equipped or the planned gear." onClick={() => setBreakdownOpen(true)}>
+					<button className="button button-primary breakdown-button" title="Every spell, a graph and a timeline, for the equipped or the planned gear." onClick={() => setBreakdownOpen(true)}>
+						<svg className="breakdown-button-icon" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
+							<rect x="2" y="11" width="4" height="7" rx="1" />
+							<rect x="8" y="6" width="4" height="12" rx="1" />
+							<rect x="14" y="2" width="4" height="16" rx="1" />
+						</svg>
 						{(a?.healing ?? b?.healing) ? 'Healing breakdown' : 'Damage breakdown'}
+						<span className="breakdown-button-go" aria-hidden="true">›</span>
 					</button>
 				)}
 				{setupSlot ? createPortal(setupTools, setupSlot) : setupTools}

@@ -10002,3 +10002,32 @@ button .slot-icon {
 :root:root .plan-tools-open .explain { order: 3; }
 :root:root .plan-tools-open .plan-tools > .actions { order: 4; }
 :root:root .plan-tools-open .hidden-note { order: 5; }
+
+/* 27 Nov: the breakdown button under the DPS numbers stands out: gold outline and text, a bar-chart mark. The gold
+   filled button stays the simulator check alone. */
+:root:root .plan-hero .breakdown-open .breakdown-button {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.55rem;
+	padding: 0.6rem 1.1rem;
+	font-size: 1rem;
+	font-weight: 600;
+	color: var(--brass);
+	background: linear-gradient(180deg, rgb(214 174 95 / 0.2), rgb(214 174 95 / 0.07));
+	border: 1px solid rgb(214 174 95 / 0.75);
+	box-shadow: 0 0 0 1px rgb(0 0 0 / 0.5), 0 0 14px rgb(214 174 95 / 0.16);
+}
+:root:root .plan-hero .breakdown-open .breakdown-button:hover,
+:root:root .plan-hero .breakdown-open .breakdown-button:focus-visible {
+	color: #fff3cf;
+	background: linear-gradient(180deg, rgb(214 174 95 / 0.32), rgb(214 174 95 / 0.14));
+	border-color: rgb(232 195 106);
+}
+.breakdown-button-icon {
+	flex: none;
+	fill: currentColor;
+}
+.breakdown-button-go {
+	font-size: 1.2em;
+	line-height: 1;
+}
