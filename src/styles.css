@@ -9842,3 +9842,20 @@ details.content-fold,
 .planned-pick-sub a {
 	font-weight: 400;
 }
+/* Build plan head: "Still to do" fills its tile: the label, the number large, the word below, all in the middle. */
+.plan-hero .summary-scores > div:last-child {
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: center;
+	gap: 0.15rem;
+	text-align: center;
+}
+.plan-hero .summary-scores > div:last-child .field-label {
+	flex-basis: auto;
+}
+.plan-hero .summary-scores > div:last-child .score {
+	font-size: 3rem;
+	line-height: 1;
+	color: var(--brass);
+}
