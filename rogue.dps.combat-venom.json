@@ -37,7 +37,7 @@
         {"id":272408},
         {"id":11815},
         {"id":22321},
-        {"id":1728,"enchant":1900},
+        {"id":22384,"enchant":1900},
         {"id":871,"enchant":1900},
         {"id":18323}
       ]
@@ -45,15 +45,17 @@
     "consumables": {
       "foodId": 250072,
       "conjuredId": 7676,
-      "mhImbueId": 12404,
+      "mhImbueId": 12643,
       "ohImbueId": 12404,
       "extraIds": [
-        12460
+        12460,
+        8412,
+        12217
       ],
       "elixirIds": [
         13452,
         250335,
-        250350
+        9206
       ],
       "mhWeaponImbueId": 8928,
       "ohWeaponImbueId": 8985,

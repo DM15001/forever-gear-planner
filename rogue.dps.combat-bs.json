@@ -48,12 +48,14 @@
       "mhImbueId": 12404,
       "ohImbueId": 12404,
       "extraIds": [
-        12460
+        12460,
+        8412,
+        12217
       ],
       "elixirIds": [
         13452,
         250335,
-        250350
+        9206
       ],
       "mhWeaponImbueId": 8928,
       "ohWeaponImbueId": 8985,
