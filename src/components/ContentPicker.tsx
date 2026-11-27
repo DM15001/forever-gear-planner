@@ -93,6 +93,8 @@ interface PanelDef {
 /** "What content do you do?" Every source of gear as a switch, with presets on top. */
 export function ContentPicker({ spec, character, data, filter, onChange, panels = false }: Props) {
 	const faction = spec.races.find(r => r.id === character.race)?.faction;
+	// The character's own side on everything PvP: the Horde's banner or the Alliance's.
+	const banner = faction === 'horde' ? 'inv_bannerpvp_01' : 'inv_bannerpvp_02';
 	const catalog = useMemo(() => contentCatalog(data, faction), [data, faction]);
 	const options = useMemo(() => presets(catalog), [catalog]);
 	const set = (patch: Partial<SourceFilter>) => onChange({ ...filter, ...patch });
@@ -182,7 +184,7 @@ export function ContentPicker({ spec, character, data, filter, onChange, panels 
 			return (
 				<section key={key} className={`panel source-section${counted > 0 ? ' source-section-on' : ''}${soon ? ' source-section-soon' : ''} ${extra}`} aria-label={typeof title === 'string' ? title : key}>
 					<header className="source-section-head">
-						<DungeonIcon icons={[(PANEL_ICONS[key] ?? [])[1] ?? '']} />
+						<DungeonIcon icons={[key === 'pvp' ? banner : ((PANEL_ICONS[key] ?? [])[1] ?? '')]} />
 						<h3>{PANEL_NAMES[key] ?? title}</h3>
 						{!soon && (
 							<span className="content-meter-text">
@@ -437,10 +439,10 @@ export function ContentPicker({ spec, character, data, filter, onChange, panels 
 				() => set({ pvp: true, excludedReputations: filter.excludedReputations.filter(name => !battlegrounds.includes(name)) }),
 				() => set({ pvp: false }),
 				<>
-				{tile('PvP', ['inv_bannerpvp_02', 'inv_bannerpvp_01'], filter.pvp, on => set({ pvp: on }), false, 'Rank rewards and battlegrounds')}
+				{tile('PvP', [banner], filter.pvp, on => set({ pvp: on }), false, 'Rank rewards and battlegrounds')}
 				{catalog.reputations
 					.filter(r => r.battleground)
-					.map(r => tile(r.name, ['inv_bannerpvp_01', 'inv_bannerpvp_02'], filter.pvp && !filter.excludedReputations.includes(r.name), on => set({ excludedReputations: toggled(filter.excludedReputations, [r.name], on) }), !filter.pvp, 'Battleground faction'))}
+					.map(r => tile(r.name, [banner], filter.pvp && !filter.excludedReputations.includes(r.name), on => set({ excludedReputations: toggled(filter.excludedReputations, [r.name], on) }), !filter.pvp, 'Battleground faction'))}
 				{filter.pvp && (
 					<label className="tier-minimum content-wide">
 						Highest honor rank you will reach
