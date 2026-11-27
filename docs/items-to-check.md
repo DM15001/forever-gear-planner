@@ -1,7 +1,7 @@
 # Items to check
 
 Items whose source the planner does not know: it either guesses "World drop (assumed)" or shows "Source unknown".
-1089 such items are in the data; this page lists the ones worth checking first. Written by
+1090 such items are in the data; this page lists the ones worth checking first. Written by
 `scripts/items-to-check.ts`; do not edit by hand. To fix one, add its source to `src/config/sources.manual.json`
 (or to `src/config/not-available.json` when it cannot be had), or open an issue saying where it comes from.
 
@@ -79,7 +79,7 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Guardian's Maulers](https://www.wowhead.com/forever/item=277244) (277244, rare 45, weapon): no source; 1 build, best #10 (Hunter: Survival (melee))
 - [Bow of Searing Arrows](https://www.wowhead.com/forever/item=2825) (2825, epic 42, ranged): no source; 1 build, best #10 (Hunter: Survival (melee weave))
 
-## Other rare and epic items (335)
+## Other rare and epic items (336)
 
 - [Blade of Hanna](https://www.wowhead.com/forever/item=2801) (2801, epic 64, weapon): no source
 - [Ecks'av's Tribal Guardian](https://www.wowhead.com/forever/item=211940) (211940, rare 64, weapon): no source
@@ -191,6 +191,7 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Cow King's Hide](https://www.wowhead.com/forever/item=13009) (13009, rare 51, chest): no source
 - [Lei of Lilies](https://www.wowhead.com/forever/item=1315) (1315, epic 51, neck): no source
 - [Six Demon Bag](https://www.wowhead.com/forever/item=7734) (7734, rare 51, trinket): no source
+- [Vilerend Slicer](https://www.wowhead.com/forever/item=11603) (11603, rare 51, weapon): no source
 - [Wyrmslayer Spaulders](https://www.wowhead.com/forever/item=13066) (13066, rare 51, shoulder): no source
 - [Blanchard's Stout](https://www.wowhead.com/forever/item=13046) (13046, rare 50, weapon): no source
 - [Bloodrazor](https://www.wowhead.com/forever/item=809) (809, epic 50, weapon): no source
@@ -380,4 +381,3 @@ Most builds first. "best #2" = second-best item of its slot for at least one bui
 - [Blackfang](https://www.wowhead.com/forever/item=2236) (2236, rare 25, weapon): no source
 - [Diamond Hammer](https://www.wowhead.com/forever/item=2194) (2194, rare 25, weapon): no source
 - [Drakewing Bands](https://www.wowhead.com/forever/item=12999) (12999, rare 25, wrist): no source
-- [Ranger Bow](https://www.wowhead.com/forever/item=3021) (3021, rare 25, ranged): no source

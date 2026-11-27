@@ -2,6 +2,13 @@
 
 What each data update from WoWSims changed in the item list, newest first. Written by `scripts/item-report.mjs` from `.github/workflows/engine.yml`.
 
+## 2026-11-27: WoWSims 49ec497e87
+
+1 new items
+
+**New items (1)**
+- Vilerend Slicer (11603, rare 51, weapon): no source
+
 ## 2026-11-26: WoWSims 08af2bab2a
 
 7 other changes
