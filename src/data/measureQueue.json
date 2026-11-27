@@ -1,9 +1,9 @@
 {
-	"seq": 40,
+	"seq": 41,
 	"effects": {
 		"druid-balance": 39,
 		"druid-cat": 39,
-		"elemental-shaman": 40,
+		"elemental-shaman": 41,
 		"enhancement-shaman": 40,
 		"hunter-bm": 39,
 		"hunter-mm": 39,
@@ -37,7 +37,7 @@
 		"warrior-fury": 39
 	},
 	"weights": {
-		"elemental-shaman": 40,
+		"elemental-shaman": 41,
 		"enhancement-shaman": 40
 	},
 	"weapons": {
