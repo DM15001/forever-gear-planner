@@ -1,22 +1,22 @@
 {
 	"note": "Stat weights of this build, measured with the WoWSims simulator on its preset by scripts/build-weights.mjs. The planner uses them instead of the weights in src/specs, unless \"held\" is true: then a weight moved so far that a person should look first.",
-	"inputs": "1de2e4a384b390d9",
+	"inputs": "b7fa461dc838c942",
 	"measuredOn": "2026-11-27",
 	"iterations": 8000,
 	"unit": "attackPower",
-	"referenceDps": 898.2,
+	"referenceDps": 898.3,
 	"dpsPerPoint": 0.3133,
 	"stats": {
-		"agility": 1.88,
+		"agility": 1.9,
 		"strength": 1.1,
-		"critRating": 1.6,
-		"hasteRating": 1.25,
+		"critRating": 1.63,
+		"hasteRating": 1.24,
 		"expertiseRating": 2.35,
 		"armorPenetration": 0.29,
-		"spellPiercing": 0.6,
+		"spellPiercing": 0.58,
 		"attackPower": 1,
-		"hitRating": 3.38
+		"hitRating": 3.31
 	},
-	"hitCapPercent": 5.6,
-	"hitRatingOverCap": 1.45
+	"hitCapPercent": 5.8,
+	"hitRatingOverCap": 1.42
 }
