@@ -165,7 +165,7 @@ export function CharacterSheet({ spec, character, data, onChange, names, builds,
 						<label className="field-label" htmlFor="build">
 							Build
 							<Help label="What a build is">
-								The WoWSims preset configurations for this class. Picking one sets its talents, rotation, consumables, buffs, debuffs and class options for the sim; see "Sim setup" under the simulation on
+								The WoWSims preset configurations for this class. Picking one sets its talents, rotation, consumables, buffs, debuffs and class options for the sim; see "Sim setup" in the simulator card on "Build plan" on
 								"Build plan".
 							</Help>
 						</label>
