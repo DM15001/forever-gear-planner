@@ -1,3 +1,4 @@
+import { GEAR_SLOTS } from './constants';
 import { applicableEnchants, bestEnchants } from './enchants';
 import type { GameData } from './gameData';
 import { type Candidate, type CandidateOptions, EMPTY_SLOT, EVERYTHING, lockedSlots, filterKey, plannedGear, reputationOf, scoreSet, planWithCost, slotCandidates, tierSets, usableSources } from './scoring';
@@ -162,4 +163,4 @@ export function gotEnchant(character: Character, slotIndex: number): Character {
 /** How many steps of the plan are still open. */
 export const openSteps = (character: Character, data: GameData): number =>
 	Object.entries(character.plan ?? {}).filter(([slot, id]) => character.gear[Number(slot)]?.id !== id && data.itemById.has(id)).length +
-	Object.entries(character.planEnchants ?? {}).filter(([slot, id]) => character.gear[Number(slot)]?.enchant !== id).length;
+	Object.entries(character.planEnchants ?? {}).filter(([slot, id]) => character.gear[Number(slot)]?.enchant !== id && !data.closedEnchants?.get(GEAR_SLOTS[Number(slot)].kind)?.has(id)).length;

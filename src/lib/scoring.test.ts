@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import specJson from '../specs/enhancement-shaman.json';
 import simExport from './__fixtures__/sim-export.json';
 import { GEAR_SLOTS } from './constants';
-import { dataFor, loadGameData } from './gameData';
+import { dataFor, type GameData, loadGameData } from './gameData';
 import { importCharacter } from './importCharacter';
 import { clash, DEFAULT_FILTER, notYetAvailable, type Gear, oneRandomRoll, plannedGear, planWithCost, scoreSet, setChanges, setStandings, slotCandidates, type SourceFilter, suggestPlan, tierSets, usableSources } from './scoring';
 import { vendorReputation } from './stats';
@@ -435,5 +435,15 @@ describe('PvP ranks', () => {
 		expect(usableSources(reward("Warlord's Silk Cowl"), undefined, { ...filter, pvpMaxRank: 13 }).length).toBeGreaterThan(0);
 		expect(usableSources(reward("General's Silk Cowl"), undefined, { ...filter, pvpMaxRank: 12 }).length).toBeGreaterThan(0);
 		expect(usableSources(reward('Stormpike Insignia Rank 6'), undefined, { ...filter, pvpMaxRank: 0 }).length).toBeGreaterThan(0);
+	});
+});
+
+describe('an enchant marked as not obtainable yet', () => {
+	it('is dropped from a saved plan, and the slot keeps what is worn', () => {
+		const gear = GEAR_SLOTS.map((_, index) => (index === 6 ? { id: 1, enchant: 8206 } : null));
+		const character = { gear, plan: {}, planEnchants: { 6: 2564 } } as unknown as Character;
+		const data = { itemById: new Map(), closedEnchants: new Map([['hands', new Set([2564])]]) } as unknown as GameData;
+		expect(plannedGear(character, data)[6]).toEqual({ id: 1, enchant: 8206 });
+		expect(plannedGear(character, { itemById: new Map() } as unknown as GameData)[6]).toEqual({ id: 1, enchant: 2564 });
 	});
 });

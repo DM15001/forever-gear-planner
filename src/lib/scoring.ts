@@ -62,7 +62,7 @@ export function clash(a: Item | undefined, b: Item | undefined): boolean {
 /** In a plan: the slot is to be left empty (a two-hander takes the place of main hand and off hand). */
 export const EMPTY_SLOT = 0;
 
-export function plannedGear(character: Character, data?: Pick<GameData, 'itemById'> & Partial<Pick<GameData, 'enchantsBySlot'>>): Gear {
+export function plannedGear(character: Character, data?: Pick<GameData, 'itemById'> & Partial<Pick<GameData, 'enchantsBySlot' | 'closedEnchants'>>): Gear {
 	const gear = character.gear.map((piece, index) => {
 		const plannedId = character.plan?.[index];
 		if (plannedId === EMPTY_SLOT) return null;
@@ -70,7 +70,9 @@ export function plannedGear(character: Character, data?: Pick<GameData, 'itemByI
 		if (!id) return null;
 		// The worn enchant moves to a planned item only if it can sit on it.
 		const worn = id === piece?.id || !data?.enchantsBySlot ? piece?.enchant : carriedEnchant(piece?.enchant, index, data.itemById.get(id), data as Pick<GameData, 'enchantsBySlot'>);
-		const enchant = character.planEnchants?.[index] ?? worn;
+		// A planned enchant that has since been marked as not obtainable yet is dropped: the slot keeps what is worn.
+		const asked = character.planEnchants?.[index];
+		const enchant = (asked !== undefined && data?.closedEnchants?.get(GEAR_SLOTS[index].kind)?.has(asked) ? undefined : asked) ?? worn;
 		// The equipped item keeps the suffix it has; a planned one counts with the suffix that suits the spec best.
 		const randomSuffix = id === piece?.id ? piece?.randomSuffix : data?.itemById.get(id)?.bestSuffix;
 		return { id, ...(enchant ? { enchant } : {}), ...(randomSuffix ? { randomSuffix } : {}) };

@@ -12,6 +12,8 @@ export interface GameData {
 	ignoredSets?: Set<number>;
 	itemById: Map<number, Item>;
 	enchantsBySlot: Map<SlotKind, Enchant[]>;
+	/** Per slot, the effect ids of enchants that cannot be had yet (src/config/not-available.json): a saved plan that still names one drops it. */
+	closedEnchants?: Map<SlotKind, Set<number>>;
 	suffixById: Map<number, RandomSuffix>;
 	zoneById: Map<number, Zone>;
 	npcById: Map<number, Npc>;
@@ -48,6 +50,14 @@ export async function loadGameData(spec: SpecConfig = DEFAULT_SPEC): Promise<Gam
 	const specEnchants = (enchants.default as unknown as Enchant[])
 		.filter(enchant => enchantUsableBy(enchant, spec) && !(enchant.itemId && closed[enchant.itemId]))
 		.map(enchant => (enchant.itemId && fixed[enchant.itemId] ? { ...enchant, stats: fixed[enchant.itemId] } : enchant));
+	const closedEnchants = new Map<SlotKind, Set<number>>();
+	for (const enchant of enchants.default as unknown as Enchant[]) {
+		if (!enchant.itemId || !closed[enchant.itemId]) continue;
+		for (const slot of enchant.slots) {
+			if (!closedEnchants.has(slot)) closedEnchants.set(slot, new Set());
+			closedEnchants.get(slot)!.add(enchant.effectId);
+		}
+	}
 	for (const enchant of specEnchants) {
 		for (const slot of enchant.slots) {
 			if (!enchantsBySlot.has(slot)) enchantsBySlot.set(slot, []);
@@ -81,6 +91,7 @@ export async function loadGameData(spec: SpecConfig = DEFAULT_SPEC): Promise<Gam
 	return {
 		itemById,
 		enchantsBySlot,
+		closedEnchants,
 		suffixById,
 		zoneById,
 		npcById,
