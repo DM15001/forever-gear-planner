@@ -70,23 +70,5 @@
 		"warrior-arms": 53,
 		"warrior-fury": 53
 	},
-	"weapons": {
-		"druid-cat": 53,
-		"enhancement-shaman": 53,
-		"hunter-bm": 53,
-		"hunter-mm": 53,
-		"hunter-sv-melee": 53,
-		"hunter-sv-weave": 53,
-		"hunter-sv": 53,
-		"paladin-ret-holy-shock": 53,
-		"paladin-ret": 53,
-		"rogue-asn-muti": 53,
-		"rogue-combat-bs": 53,
-		"rogue-combat-ss": 53,
-		"rogue-combat-venom": 53,
-		"rogue-hemo-sf": 53,
-		"rogue-sub-hemo": 53,
-		"warrior-arms": 53,
-		"warrior-fury": 53
-	}
+	"weapons": {}
 }
