@@ -1,5 +1,5 @@
 {
-	"simVersion": "dc09e002f0",
+	"simVersion": "83a20e6601",
 	"simDate": "2026-11-28",
 	"builds": {
 		"druid-balance": {
@@ -366,60 +366,60 @@
 		"warlock-affliction": {
 			"effects": {
 				"at": "2026-11-28",
-				"current": true
+				"current": false
 			},
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-28",
-				"current": true,
+				"current": false,
 				"held": false
 			}
 		},
 		"warlock-demo-fire": {
 			"effects": {
 				"at": "2026-11-28",
-				"current": true
+				"current": false
 			},
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-28",
-				"current": true,
+				"current": false,
 				"held": false
 			}
 		},
 		"warlock-demo-shadow": {
 			"effects": {
 				"at": "2026-11-28",
-				"current": true
+				"current": false
 			},
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-28",
-				"current": true,
+				"current": false,
 				"held": false
 			}
 		},
 		"warlock-destruction": {
 			"effects": {
 				"at": "2026-11-28",
-				"current": true
+				"current": false
 			},
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-28",
-				"current": true,
+				"current": false,
 				"held": false
 			}
 		},
 		"warlock-sm-ruin": {
 			"effects": {
 				"at": "2026-11-28",
-				"current": true
+				"current": false
 			},
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-28",
-				"current": true,
+				"current": false,
 				"held": false
 			}
 		},
