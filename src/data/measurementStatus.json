@@ -371,7 +371,7 @@
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-28",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
@@ -383,7 +383,7 @@
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-28",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
@@ -395,7 +395,7 @@
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-28",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
@@ -407,7 +407,7 @@
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-28",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
@@ -419,7 +419,7 @@
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-28",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
