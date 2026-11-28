@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 // @ts-expect-error a plain script without types
-import { affected, dbTouches, namesTouches, spellTouches, touches } from '../../scripts/measure-queue.mjs';
+import { affected, dbTouches, focusTouches, goCode, namesTouches, spellTouches, touches } from '../../scripts/measure-queue.mjs';
 
 describe('which builds a WoWSims update touches', () => {
 	it('reads a class from its folder, in the simulator and in the presets', () => {
@@ -113,5 +113,40 @@ describe('which builds a WoWSims update touches', () => {
 		expect(spellTouches(file('1', '1'), file('2', '1'))).toEqual(['warrior']);
 		expect(spellTouches(file('1', '1'), file('1', '2'))).toBe('all');
 		expect(spellTouches(file('1', '1'), file('1', '1', 'package other'))).toBe('all');
+	});
+
+	it('gives the focus bar to the classes that switch one on', () => {
+		expect(touches('sim/core/focus.go')).toBe('focus');
+		// On its own, without a look at who uses it, the file still counts as everybody.
+		expect(affected(['sim/core/focus.go']).length).toBeGreaterThan(30);
+		expect(focusTouches(['sim/hunter/pets.go', 'sim/core/focus.go', 'sim/core/focus_test.go'])).toEqual(['hunter']);
+		expect(focusTouches(['sim/hunter/pets.go', 'sim/druid/cat.go']).sort()).toEqual(['druid', 'hunter']);
+		expect(focusTouches([])).toEqual([]);
+		// Shared code that switches a bar on: everybody.
+		expect(focusTouches(['sim/hunter/pets.go', 'sim/core/pet.go'])).toBe('all');
+		expect(focusTouches(['sim/common/forever/items_trinkets.go'])).toBe('all');
+	});
+
+	it('sees through a Go file that only changed in its comments or layout', () => {
+		const same = (a: string, b: string) => goCode(a) === goCode(b);
+		const code = 'package x\n\n// Old words.\nfunc A() int {\n\treturn 1 // one\n}\n';
+		expect(same(code, 'package x\n\n// New words,\n// on two lines.\nfunc A() int {\n\treturn 1 /* uno */\n}\n')).toBe(true);
+		expect(same(code, 'package x\nfunc A() int {\n\n\t\treturn   1\n}')).toBe(true);
+		// The code itself: a real change.
+		expect(same(code, code.replace('return 1', 'return 2'))).toBe(false);
+		expect(same(code, code.replace('// one', '+ 1 // one'))).toBe(false);
+		// A line break ends a statement in Go, so one that comes or goes counts.
+		expect(same('a := 1\nb()', 'a := 1 b()')).toBe(false);
+		expect(same('a := 1 /* x */ + 2', 'a := 1 /* x\n */ + 2')).toBe(false);
+		// What looks like a comment inside a text is text.
+		expect(same('s := "a // b"', 's := "a // c"')).toBe(false);
+		expect(same('s := `\n// one\n`', 's := `\n// two\n`')).toBe(false);
+		expect(same('s := `a\n\nb`', 's := `a\nb`')).toBe(false);
+		expect(same('s := "a \\" // b"', 's := "a \\" // c"')).toBe(false);
+		expect(same("r := '\"' // x\nt := 1", "r := '\"' // y\nt := 1")).toBe(true);
+		// Orders to the compiler are written as comments.
+		expect(same('//go:build js\npackage x', '//go:build !js\npackage x')).toBe(false);
+		expect(same('//go:generate a\npackage x', 'package x')).toBe(false);
+		expect(same('package x\n// int one();\nimport "C"', 'package x\n// int two();\nimport "C"')).toBe(false);
 	});
 });

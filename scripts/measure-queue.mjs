@@ -51,6 +51,7 @@ export function touches(path) {
 	if (path === SPELL_FILE) return 'spells'; // read spell by spell (spellTouches below)
 	if (path.startsWith('sim/siml/testdata/') || path === 'proto/ui.proto') return 'none'; // test set-ups; what the interface saves
 	if (path === NAMES_FILE) return 'names'; // read class by class (namesTouches below)
+	if (path === FOCUS_FILE) return 'focus'; // the focus bar: whoever switches one on (focusTouches below)
 	// Prose of WoWSims' text format for presets: the guide for writing it, and the record of names that were given a new meaning.
 	if (path === 'sim/siml/llm_head.txt' || path === 'sim/siml/gen/repinned.txt') return 'none';
 	if (top === 'sim') {
@@ -75,13 +76,15 @@ export function touches(path) {
 /** The builds an update touches, from the list of changed files. A change of the item database alone counts as every build here. */
 export function affected(paths) {
 	const hit = new Set(paths.map(touches));
-	if (['all', 'db', 'db-twin', 'spells', 'names'].some(kind => hit.has(kind))) return specs.map(spec => spec.id);
+	if (['all', 'db', 'db-twin', 'spells', 'names', 'focus'].some(kind => hit.has(kind))) return specs.map(spec => spec.id);
 	return specs.filter(spec => hit.has(String(spec.className).toLowerCase())).map(spec => spec.id);
 }
 
 const DB_FILE = 'assets/database/db.json';
 const SPELL_FILE = 'sim/core/spelldata/spells_auto_gen.go';
 const NAMES_FILE = 'sim/siml/names.json';
+const FOCUS_FILE = 'sim/core/focus.go';
+const FOCUS_SWITCH = 'EnableFocusBar(';
 // The game's number for the class a spell belongs to.
 const SPELL_FAMILY = { 3: 'mage', 4: 'warrior', 5: 'warlock', 6: 'priest', 7: 'druid', 8: 'rogue', 9: 'hunter', 10: 'paladin', 11: 'shaman' };
 
@@ -164,6 +167,76 @@ export function namesTouches(beforeText, afterText) {
 	}
 	return [...classes];
 }
+/**
+ * Which classes a change of the focus bar touches. Focus is the resource of hunter pets; the file holds the bar
+ * and the cost of spells paid in focus, and does nothing for a unit that has no bar. Takes the files that switch a
+ * bar on (the ones calling EnableFocusBar, before and after the update) and returns the classes whose folders they
+ * are in, or 'all' when shared code switches one on.
+ */
+export function focusTouches(callerPaths) {
+	const classes = new Set();
+	for (const path of callerPaths) {
+		const [top, second] = path.split('/');
+		if (path === FOCUS_FILE || path.endsWith('_test.go')) continue;
+		if (top !== 'sim' || !CLASSES.includes(second)) return 'all';
+		classes.add(second);
+	}
+	return [...classes];
+}
+
+/**
+ * A Go file without its comments, and with every stretch of blank space outside of texts drawn together (to one
+ * line break when it holds one, else to one space). Two versions of a file that come out the same here differ in
+ * comments and layout only, so the simulator built from them is the same. Texts in quotes are kept letter by
+ * letter. Comments that are orders to the compiler (//go:..., // +build, //export, //line) are kept as code, and
+ * a file that brings in C code (where the comment above the import is the C code) is left as it is.
+ */
+export function goCode(text) {
+	if (text.includes('"C"') || text.includes('/*line ')) return text;
+	let out = '';
+	let gap = ''; // blank space waiting to be written: '', ' ' or a line break
+	const space = breaks => {
+		if (breaks) gap = '\n';
+		else if (!gap) gap = ' ';
+	};
+	const put = piece => {
+		out += gap + piece;
+		gap = '';
+	};
+	for (let i = 0; i < text.length; ) {
+		const ch = text[i];
+		if (ch === '/' && text[i + 1] === '/') {
+			let end = text.indexOf('\n', i);
+			if (end < 0) end = text.length;
+			const line = text.slice(i, end);
+			if (/^\/\/(go:|line |export |extern )|^\/\/ ?\+build/.test(line)) put(line);
+			i = end;
+		} else if (ch === '/' && text[i + 1] === '*') {
+			let end = text.indexOf('*/', i + 2);
+			end = end < 0 ? text.length : end + 2;
+			space(text.slice(i, end).includes('\n'));
+			i = end;
+		} else if (ch === '`') {
+			let end = text.indexOf('`', i + 1);
+			end = end < 0 ? text.length : end + 1;
+			put(text.slice(i, end));
+			i = end;
+		} else if (ch === '"' || ch === "'") {
+			let end = i + 1;
+			while (end < text.length && text[end] !== ch && text[end] !== '\n') end += text[end] === '\\' ? 2 : 1;
+			put(text.slice(i, end + 1));
+			i = end + 1;
+		} else if (/\s/.test(ch)) {
+			space(ch === '\n');
+			i += 1;
+		} else {
+			put(ch);
+			i += 1;
+		}
+	}
+	return out;
+}
+
 // Parts of the database no measurement reads: names of places and creatures, pictures.
 const DB_QUIET = new Set(['zones', 'npcs', 'factions', 'itemIcons', 'spellIcons']);
 // The numbers WoWSims uses for kinds of items, as in scripts/build-data.mjs.
@@ -285,17 +358,44 @@ if (command === 'add') {
 		const [repo, from, to] = [flag('--repo'), flag('--from'), flag('--to')];
 		try {
 			if (!repo || !from || !to) throw new Error('--repo, --from and --to are needed');
-			const paths = execFileSync('git', ['-C', repo, 'diff', '--name-only', from, to], { encoding: 'utf8', maxBuffer: 64 << 20, stdio: ['ignore', 'pipe', 'ignore'] }).split('\n').filter(Boolean);
-			const kinds = [...new Set(paths.map(touches))].filter(kind => kind !== 'none');
+			const every = execFileSync('git', ['-C', repo, 'diff', '--name-only', from, to], { encoding: 'utf8', maxBuffer: 64 << 20, stdio: ['ignore', 'pipe', 'ignore'] }).split('\n').filter(Boolean);
 			let spellNote = '';
 			const show = (commit, file) => execFileSync('git', ['-C', repo, 'show', `${commit}:${file}`], { encoding: 'utf8', maxBuffer: 256 << 20, stdio: ['ignore', 'pipe', 'ignore'] });
-			const rest = paths.filter(path => !['db', 'db-twin', 'spells', 'names'].includes(touches(path)));
+			// Go files that only changed in their comments or layout build the same simulator: left out.
+			const sameCode = path => {
+				if (!path.endsWith('.go') || ['none', 'spells'].includes(touches(path))) return false;
+				try {
+					return goCode(show(from, path)) === goCode(show(to, path));
+				} catch {
+					return false; // new or removed: a real change
+				}
+			};
+			const quiet = every.filter(sameCode);
+			const paths = every.filter(path => !quiet.includes(path));
+			const kinds = [...new Set(paths.map(touches))].filter(kind => kind !== 'none');
+			const rest = paths.filter(path => !['db', 'db-twin', 'spells', 'names', 'focus'].includes(touches(path)));
 			ids = affected(rest);
+			if (kinds.includes('focus') && ids.length < specs.length) {
+				// Who switches a focus bar on, before and after the update.
+				const callers = [from, to].flatMap(commit => {
+					try {
+						const found = execFileSync('git', ['-C', repo, 'grep', '-l', '-F', FOCUS_SWITCH, commit, '--', 'sim'], { encoding: 'utf8', maxBuffer: 64 << 20, stdio: ['ignore', 'pipe', 'ignore'] });
+						return found.split('\n').filter(Boolean).map(line => line.slice(line.indexOf(':') + 1));
+					} catch (error) {
+						if (error.status === 1) return []; // git grep found nothing
+						throw error;
+					}
+				});
+				const classes = focusTouches(callers);
+				const more = classes === 'all' ? specs : specs.filter(spec => classes.includes(String(spec.className).toLowerCase()));
+				ids = [...new Set([...ids, ...more.map(spec => spec.id)])];
+				spellNote = classes === 'all' ? 'shared code uses the focus bar' : `the focus bar is used by ${classes.join(', ') || 'nobody'}`;
+			}
 			if (kinds.includes('spells') && ids.length < specs.length) {
 				const classes = spellTouches(show(from, SPELL_FILE), show(to, SPELL_FILE));
 				const more = classes === 'all' ? specs : specs.filter(spec => classes.includes(String(spec.className).toLowerCase()));
 				ids = [...new Set([...ids, ...more.map(spec => spec.id)])];
-				spellNote = classes === 'all' ? 'a spell of no class changed' : `spells changed for ${classes.join(', ') || 'nobody'}`;
+				spellNote += `${spellNote ? '; ' : ''}${classes === 'all' ? 'a spell of no class changed' : `spells changed for ${classes.join(', ') || 'nobody'}`}`;
 			}
 			if (kinds.includes('names') && ids.length < specs.length) {
 				const classes = namesTouches(show(from, NAMES_FILE), show(to, NAMES_FILE));
@@ -303,7 +403,8 @@ if (command === 'add') {
 				ids = [...new Set([...ids, ...more.map(spec => spec.id)])];
 				spellNote += `${spellNote ? '; ' : ''}${classes === 'all' ? 'the name table changed in a part that names no class' : `names changed for ${classes.join(', ') || 'nobody'}`}`;
 			}
-			why = `${paths.length} files changed; touching: ${kinds.length ? kinds.join(', ') : 'nothing that is measured'}`;
+			why = `${every.length} files changed; touching: ${kinds.length ? kinds.join(', ') : 'nothing that is measured'}`;
+			if (quiet.length) why += `; ${quiet.length} Go ${quiet.length === 1 ? 'file' : 'files'} changed in comments only`;
 			if (spellNote) why += `; ${spellNote}`;
 			if (kinds.includes('db-twin') && !kinds.includes('db')) {
 				// The binary database changed without the readable one: no way to tell what, so everything.
