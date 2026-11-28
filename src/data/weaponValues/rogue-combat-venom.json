@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-28T00:37:15.203Z",
-	"inputs": "c3c1726a2a4a163c",
+	"generatedAt": "2026-11-28T06:46:42.064Z",
+	"inputs": "b790455b54d002a2",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -112,8 +112,8 @@
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
-			"mainHand": -90.14,
-			"offHand": -23.92
+			"offHand": -23.92,
+			"mainHand": -90.14
 		},
 		"10797": {
 			"name": "Firebreather",
@@ -251,8 +251,8 @@
 		},
 		"12590": {
 			"name": "Felstriker",
-			"mainHand": -47.14,
-			"offHand": 0.19
+			"offHand": 0.19,
+			"mainHand": -47.14
 		},
 		"12621": {
 			"name": "Demonfork",
@@ -284,8 +284,8 @@
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"mainHand": -66.62,
-			"offHand": -7.61
+			"offHand": -7.61,
+			"mainHand": -66.62
 		},
 		"12791": {
 			"name": "Barman Shanker",
@@ -362,8 +362,8 @@
 		},
 		"13198": {
 			"name": "Hurd Smasher",
-			"offHand": -19.06,
-			"mainHand": -54.77
+			"mainHand": -54.77,
+			"offHand": -19.06
 		},
 		"13204": {
 			"name": "Bashguuder",
@@ -377,13 +377,13 @@
 		},
 		"13246": {
 			"name": "Argent Avenger",
-			"mainHand": -27.91,
-			"offHand": -6.87
+			"offHand": -6.87,
+			"mainHand": -27.91
 		},
 		"13286": {
 			"name": "Rivenspike",
-			"mainHand": -28.98,
-			"offHand": -23.17
+			"offHand": -23.17,
+			"mainHand": -28.98
 		},
 		"13349": {
 			"name": "Scepter of the Unholy",
@@ -493,8 +493,8 @@
 		},
 		"15236": {
 			"name": "Moon Cleaver",
-			"mainHand": -69.58,
-			"offHand": -26.61
+			"offHand": -26.61,
+			"mainHand": -69.58
 		},
 		"15237": {
 			"name": "Corpse Harvester",
@@ -503,18 +503,18 @@
 		},
 		"15238": {
 			"name": "Warlord's Axe",
-			"mainHand": -56.7,
-			"offHand": -23.45
+			"offHand": -23.45,
+			"mainHand": -56.7
 		},
 		"15239": {
 			"name": "Felstone Reaver",
-			"offHand": -20.95,
-			"mainHand": -58.56
+			"mainHand": -58.56,
+			"offHand": -20.95
 		},
 		"15240": {
 			"name": "Demon's Claw",
-			"mainHand": -46.69,
-			"offHand": -19.95
+			"offHand": -19.95,
+			"mainHand": -46.69
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
@@ -701,23 +701,23 @@
 		},
 		"18737": {
 			"name": "Bone Slicing Hatchet",
-			"mainHand": -46.84,
-			"offHand": -8.03
+			"offHand": -8.03,
+			"mainHand": -46.84
 		},
 		"18758": {
 			"name": "Specter's Blade",
-			"offHand": -10.32,
-			"mainHand": -71.34
+			"mainHand": -71.34,
+			"offHand": -10.32
 		},
 		"19099": {
 			"name": "Glacial Blade",
-			"mainHand": -66,
-			"offHand": -8.63
+			"offHand": -8.63,
+			"mainHand": -66
 		},
 		"19100": {
 			"name": "Electrified Dagger",
-			"mainHand": -66.12,
-			"offHand": -8.76
+			"offHand": -8.76,
+			"mainHand": -66.12
 		},
 		"19103": {
 			"name": "Frostbite",
@@ -726,8 +726,8 @@
 		},
 		"19104": {
 			"name": "Stormstrike Hammer",
-			"offHand": -16.35,
-			"mainHand": -18.5
+			"mainHand": -18.5,
+			"offHand": -16.35
 		},
 		"19324": {
 			"name": "The Lobotomizer",
@@ -756,8 +756,8 @@
 		},
 		"19550": {
 			"name": "Legionnaire's Sword",
-			"mainHand": -22.91,
-			"offHand": -15.21
+			"offHand": -15.21,
+			"mainHand": -22.91
 		},
 		"19551": {
 			"name": "Legionnaire's Sword",
@@ -836,8 +836,8 @@
 		},
 		"250616": {
 			"name": "Bold Dirk",
-			"mainHand": -87.5,
-			"offHand": -16.24
+			"offHand": -16.24,
+			"mainHand": -87.5
 		},
 		"250618": {
 			"name": "Bagh Nakh",
@@ -851,8 +851,8 @@
 		},
 		"260180": {
 			"name": "Scout's Dagger",
-			"offHand": -21.93,
-			"mainHand": -97.01
+			"mainHand": -97.01,
+			"offHand": -21.93
 		},
 		"260209": {
 			"name": "Truesong's Hammer",
@@ -920,8 +920,8 @@
 		},
 		"272600": {
 			"name": "Premier High Warlord's Bludgeon",
-			"offHand": -2.59,
-			"mainHand": 10.92
+			"mainHand": 10.92,
+			"offHand": -2.59
 		},
 		"272681": {
 			"name": "Premier High Warlord's Battle Mace",
@@ -933,8 +933,8 @@
 		},
 		"272684": {
 			"name": "Premier High Warlord's Quickblade",
-			"offHand": 4.5,
-			"mainHand": -23.32
+			"mainHand": -23.32,
+			"offHand": 4.5
 		},
 		"272693": {
 			"name": "Premier Grand Marshal's Longsword",
@@ -943,8 +943,8 @@
 		},
 		"272839": {
 			"name": "Premier Grand Marshal's Handaxe",
-			"offHand": 0.71,
-			"mainHand": 12.16
+			"mainHand": 12.16,
+			"offHand": 0.71
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
@@ -961,8 +961,8 @@
 		},
 		"272847": {
 			"name": "Premier Grand Marshal's Punisher",
-			"mainHand": 10.92,
-			"offHand": -2.59
+			"offHand": -2.59,
+			"mainHand": 10.92
 		},
 		"272856": {
 			"name": "Premier Grand Marshal's Mageblade",
@@ -974,8 +974,8 @@
 		},
 		"272859": {
 			"name": "Premier Grand Marshal's Swiftblade",
-			"offHand": 4.5,
-			"mainHand": -23.32
+			"mainHand": -23.32,
+			"offHand": 4.5
 		},
 		"274265": {
 			"name": "Brush Cutter",
@@ -994,8 +994,8 @@
 		},
 		"274517": {
 			"name": "Unerring Purpose",
-			"offHand": -20.32,
-			"mainHand": -41.88
+			"mainHand": -41.88,
+			"offHand": -20.32
 		},
 		"275293": {
 			"name": "Barkskin Scepter",
@@ -1063,8 +1063,8 @@
 		},
 		"280012": {
 			"name": "Talon of Tor'Rel",
-			"mainHand": -41.07,
-			"offHand": -5.79
+			"offHand": -5.79,
+			"mainHand": -41.07
 		},
 		"280021": {
 			"name": "Tooth of the Matriarch",
@@ -1078,13 +1078,13 @@
 		},
 		"280029": {
 			"name": "Cinderedge Crescent",
-			"mainHand": -27.94,
-			"offHand": -10.37
+			"offHand": -10.37,
+			"mainHand": -27.94
 		},
 		"280068": {
 			"name": "Bloody Claws of Attack",
-			"offHand": -13.28,
-			"mainHand": -24.21
+			"mainHand": -24.21,
+			"offHand": -13.28
 		},
 		"280077": {
 			"name": "Fist of Revelation",

@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-28T00:34:57.862Z",
-	"inputs": "a01f89560a2ad0ee",
+	"generatedAt": "2026-11-28T06:27:34.143Z",
+	"inputs": "8ab1f4655a8a99b1",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -60,8 +60,8 @@
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"mainHand": -118.71,
-			"offHand": -33.45
+			"offHand": -33.45,
+			"mainHand": -118.71
 		},
 		"8190": {
 			"name": "Hanzo Sword",
@@ -112,8 +112,8 @@
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
-			"offHand": -33.46,
-			"mainHand": -111.99
+			"mainHand": -111.99,
+			"offHand": -33.46
 		},
 		"10797": {
 			"name": "Firebreather",
@@ -222,8 +222,8 @@
 		},
 		"12061": {
 			"name": "Blade of Reckoning",
-			"mainHand": -52.82,
-			"offHand": -27.42
+			"offHand": -27.42,
+			"mainHand": -52.82
 		},
 		"12062": {
 			"name": "Skilled Fighting Blade",
@@ -372,13 +372,13 @@
 		},
 		"13218": {
 			"name": "Fang of the Crystal Spider",
-			"offHand": -29.66,
-			"mainHand": -101.01
+			"mainHand": -101.01,
+			"offHand": -29.66
 		},
 		"13246": {
 			"name": "Argent Avenger",
-			"offHand": -14.96,
-			"mainHand": -37.04
+			"mainHand": -37.04,
+			"offHand": -14.96
 		},
 		"13286": {
 			"name": "Rivenspike",
@@ -400,8 +400,8 @@
 		},
 		"13368": {
 			"name": "Bonescraper",
-			"offHand": -15.1,
-			"mainHand": -97.27
+			"mainHand": -97.27,
+			"offHand": -15.1
 		},
 		"13399": {
 			"name": "Gargoyle Shredder Talons",
@@ -513,8 +513,8 @@
 		},
 		"15240": {
 			"name": "Demon's Claw",
-			"offHand": -28.48,
-			"mainHand": -55.82
+			"mainHand": -55.82,
+			"offHand": -28.48
 		},
 		"15245": {
 			"name": "Vorpal Dagger",
@@ -696,8 +696,8 @@
 		},
 		"18683": {
 			"name": "Hammer of the Vesper",
-			"offHand": -39.92,
-			"mainHand": -41.79
+			"mainHand": -41.79,
+			"offHand": -39.92
 		},
 		"18737": {
 			"name": "Bone Slicing Hatchet",
@@ -711,18 +711,18 @@
 		},
 		"19099": {
 			"name": "Glacial Blade",
-			"mainHand": -80.86,
-			"offHand": -21.52
+			"offHand": -21.52,
+			"mainHand": -80.86
 		},
 		"19100": {
 			"name": "Electrified Dagger",
-			"mainHand": -81.08,
-			"offHand": -21.4
+			"offHand": -21.4,
+			"mainHand": -81.08
 		},
 		"19103": {
 			"name": "Frostbite",
-			"offHand": -24.37,
-			"mainHand": -18.9
+			"mainHand": -18.9,
+			"offHand": -24.37
 		},
 		"19104": {
 			"name": "Stormstrike Hammer",
@@ -746,8 +746,8 @@
 		},
 		"19546": {
 			"name": "Sentinel's Blade",
-			"offHand": -20.36,
-			"mainHand": -88.29
+			"mainHand": -88.29,
+			"offHand": -20.36
 		},
 		"19547": {
 			"name": "Sentinel's Blade",
@@ -756,13 +756,13 @@
 		},
 		"19550": {
 			"name": "Legionnaire's Sword",
-			"mainHand": -23.13,
-			"offHand": -26.09
+			"offHand": -26.09,
+			"mainHand": -23.13
 		},
 		"19551": {
 			"name": "Legionnaire's Sword",
-			"mainHand": -44.09,
-			"offHand": -32.92
+			"offHand": -32.92,
+			"mainHand": -44.09
 		},
 		"19554": {
 			"name": "Protector's Sword",
@@ -836,8 +836,8 @@
 		},
 		"250616": {
 			"name": "Bold Dirk",
-			"mainHand": -103.35,
-			"offHand": -29.56
+			"offHand": -29.56,
+			"mainHand": -103.35
 		},
 		"250618": {
 			"name": "Bagh Nakh",
@@ -938,8 +938,8 @@
 		},
 		"272693": {
 			"name": "Premier Grand Marshal's Longsword",
-			"mainHand": 16.64,
-			"offHand": -11.55
+			"offHand": -11.55,
+			"mainHand": 16.64
 		},
 		"272839": {
 			"name": "Premier Grand Marshal's Handaxe",
@@ -989,8 +989,8 @@
 		},
 		"274383": {
 			"name": "Kanai's Knife",
-			"offHand": -25.99,
-			"mainHand": -104.62
+			"mainHand": -104.62,
+			"offHand": -25.99
 		},
 		"274517": {
 			"name": "Unerring Purpose",
@@ -1020,8 +1020,8 @@
 		},
 		"276338": {
 			"name": "Claw of Shalla'kal",
-			"offHand": -39.44,
-			"mainHand": -52.27
+			"mainHand": -52.27,
+			"offHand": -39.44
 		},
 		"276398": {
 			"name": "Scarlet Malice",

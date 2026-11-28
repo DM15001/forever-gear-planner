@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-28T00:11:02.758Z",
-	"inputs": "60ae653d4b25f0b3",
+	"generatedAt": "2026-11-28T05:59:11.272Z",
+	"inputs": "912f5c41b40720ce",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -37,8 +37,8 @@
 		},
 		"5267": {
 			"name": "Scarlet Kris",
-			"offHand": -13.85,
-			"mainHand": -65.55
+			"mainHand": -65.55,
+			"offHand": -13.85
 		},
 		"6622": {
 			"name": "Sword of Zeal",
@@ -177,8 +177,8 @@
 		},
 		"12062": {
 			"name": "Skilled Fighting Blade",
-			"mainHand": -77.6,
-			"offHand": -14.17
+			"offHand": -14.17,
+			"mainHand": -77.6
 		},
 		"12527": {
 			"name": "Ribsplitter",
@@ -201,8 +201,8 @@
 		},
 		"12590": {
 			"name": "Felstriker",
-			"offHand": -17.03,
-			"mainHand": -35.52
+			"mainHand": -35.52,
+			"offHand": -17.03
 		},
 		"12621": {
 			"name": "Demonfork",
@@ -237,8 +237,8 @@
 		},
 		"12783": {
 			"name": "Heartseeker",
-			"mainHand": -51.59,
-			"offHand": -27.28
+			"offHand": -27.28,
+			"mainHand": -51.59
 		},
 		"12791": {
 			"name": "Barman Shanker",
@@ -273,8 +273,8 @@
 		},
 		"13015": {
 			"name": "Serathil",
-			"offHand": -37.34,
-			"mainHand": -45.77
+			"mainHand": -45.77,
+			"offHand": -37.34
 		},
 		"13022": {
 			"name": "Gryphonwing Long Bow",
@@ -332,8 +332,8 @@
 		},
 		"13361": {
 			"name": "Skullforge Reaver",
-			"mainHand": -16.51,
-			"offHand": -52.14
+			"offHand": -52.14,
+			"mainHand": -16.51
 		},
 		"13368": {
 			"name": "Bonescraper",
@@ -399,8 +399,8 @@
 		},
 		"15218": {
 			"name": "Crystal Sword",
-			"mainHand": -53.64,
-			"offHand": -56.96
+			"offHand": -56.96,
+			"mainHand": -53.64
 		},
 		"15219": {
 			"name": "Dimensional Blade",
@@ -423,8 +423,8 @@
 		},
 		"15237": {
 			"name": "Corpse Harvester",
-			"offHand": -64.1,
-			"mainHand": -49.23
+			"mainHand": -49.23,
+			"offHand": -64.1
 		},
 		"15238": {
 			"name": "Warlord's Axe",
@@ -509,13 +509,13 @@
 		},
 		"15783": {
 			"name": "Beasthunter Dagger",
-			"mainHand": -72.28,
-			"offHand": -26.52
+			"offHand": -26.52,
+			"mainHand": -72.28
 		},
 		"15800": {
 			"name": "Intrepid Shortsword",
-			"offHand": -50.73,
-			"mainHand": -55.85
+			"mainHand": -55.85,
+			"offHand": -50.73
 		},
 		"15801": {
 			"name": "Valiant Shortsword",
@@ -676,8 +676,8 @@
 		},
 		"18758": {
 			"name": "Specter's Blade",
-			"mainHand": -59.78,
-			"offHand": -26.85
+			"offHand": -26.85,
+			"mainHand": -59.78
 		},
 		"19099": {
 			"name": "Glacial Blade",
@@ -729,8 +729,8 @@
 		},
 		"19550": {
 			"name": "Legionnaire's Sword",
-			"offHand": -56.89,
-			"mainHand": -18.44
+			"mainHand": -18.44,
+			"offHand": -56.89
 		},
 		"19551": {
 			"name": "Legionnaire's Sword",
@@ -919,8 +919,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"mainHand": -32.75,
-			"offHand": -23.91
+			"offHand": -23.91,
+			"mainHand": -32.75
 		},
 		"272844": {
 			"name": "Premier Grand Marshal's Right Hand Blade",
@@ -989,8 +989,8 @@
 		},
 		"276338": {
 			"name": "Claw of Shalla'kal",
-			"offHand": -57.9,
-			"mainHand": -45.2
+			"mainHand": -45.2,
+			"offHand": -57.9
 		},
 		"276738": {
 			"name": "Katerina's Shanker",

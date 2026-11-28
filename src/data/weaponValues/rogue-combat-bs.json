@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-27T23:57:04.576Z",
-	"inputs": "02b59385e9d5a3be",
+	"generatedAt": "2026-11-28T06:21:05.966Z",
+	"inputs": "a73ad69dd6f30792",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -31,8 +31,8 @@
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"offHand": -22.08,
-			"mainHand": -50.22
+			"mainHand": -50.22,
+			"offHand": -22.08
 		},
 		"8190": {
 			"name": "Hanzo Sword",
@@ -44,8 +44,8 @@
 		},
 		"10697": {
 			"name": "Enchanted Azsharite Felbane Dagger",
-			"offHand": -13.59,
-			"mainHand": -39.76
+			"mainHand": -39.76,
+			"offHand": -13.59
 		},
 		"10750": {
 			"name": "Lifeforce Dirk",
@@ -212,8 +212,8 @@
 		},
 		"13368": {
 			"name": "Bonescraper",
-			"mainHand": -25.31,
-			"offHand": -3.29
+			"offHand": -3.29,
+			"mainHand": -25.31
 		},
 		"13399": {
 			"name": "Gargoyle Shredder Talons",
@@ -306,8 +306,8 @@
 		},
 		"15247": {
 			"name": "Bloodstrike Dagger",
-			"offHand": -19.36,
-			"mainHand": -34.6
+			"mainHand": -34.6,
+			"offHand": -19.36
 		},
 		"15705": {
 			"name": "Tidecrest Blade",
@@ -418,18 +418,18 @@
 		},
 		"18758": {
 			"name": "Specter's Blade",
-			"mainHand": -18.64,
-			"offHand": -10.37
+			"offHand": -10.37,
+			"mainHand": -18.64
 		},
 		"19099": {
 			"name": "Glacial Blade",
-			"offHand": -9.27,
-			"mainHand": -13.16
+			"mainHand": -13.16,
+			"offHand": -9.27
 		},
 		"19100": {
 			"name": "Electrified Dagger",
-			"offHand": -8.93,
-			"mainHand": -13
+			"mainHand": -13,
+			"offHand": -8.93
 		},
 		"19103": {
 			"name": "Frostbite",
@@ -446,8 +446,8 @@
 		},
 		"19542": {
 			"name": "Scout's Blade",
-			"offHand": -9.7,
-			"mainHand": -19.51
+			"mainHand": -19.51,
+			"offHand": -9.7
 		},
 		"19543": {
 			"name": "Scout's Blade",
@@ -456,8 +456,8 @@
 		},
 		"19546": {
 			"name": "Sentinel's Blade",
-			"offHand": -9.7,
-			"mainHand": -19.51
+			"mainHand": -19.51,
+			"offHand": -9.7
 		},
 		"19547": {
 			"name": "Sentinel's Blade",
@@ -506,8 +506,8 @@
 		},
 		"24222": {
 			"name": "The Shadowfoot Stabber",
-			"offHand": -15.23,
-			"mainHand": -29.13
+			"mainHand": -29.13,
+			"offHand": -15.23
 		},
 		"250614": {
 			"name": "Thorium Cestus",
@@ -529,8 +529,8 @@
 		},
 		"260180": {
 			"name": "Scout's Dagger",
-			"offHand": -21.85,
-			"mainHand": -46.06
+			"mainHand": -46.06,
+			"offHand": -21.85
 		},
 		"260213": {
 			"name": "Great Bear Claw",
@@ -562,8 +562,8 @@
 		},
 		"272596": {
 			"name": "Premier High Warlord's Razor",
-			"offHand": -2.28,
-			"mainHand": 12.8
+			"mainHand": 12.8,
+			"offHand": -2.28
 		},
 		"272598": {
 			"name": "Premier High Warlord's Left Claw",
@@ -591,8 +591,8 @@
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
-			"offHand": -2.28,
-			"mainHand": 12.8
+			"mainHand": 12.8,
+			"offHand": -2.28
 		},
 		"272845": {
 			"name": "Premier Grand Marshal's Left Hand Blade",
@@ -621,8 +621,8 @@
 		},
 		"274383": {
 			"name": "Kanai's Knife",
-			"offHand": -15.06,
-			"mainHand": -36
+			"mainHand": -36,
+			"offHand": -15.06
 		},
 		"274517": {
 			"name": "Unerring Purpose",

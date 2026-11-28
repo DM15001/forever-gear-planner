@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-28T01:00:09.599Z",
-	"inputs": "0228565b14800835",
+	"generatedAt": "2026-11-28T07:08:09.997Z",
+	"inputs": "4c326e38daffbe0c",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -60,8 +60,8 @@
 		},
 		"7947": {
 			"name": "Ebon Shiv",
-			"mainHand": -122.94,
-			"offHand": -32.69
+			"offHand": -32.69,
+			"mainHand": -122.94
 		},
 		"8190": {
 			"name": "Hanzo Sword",
@@ -164,8 +164,8 @@
 		},
 		"11635": {
 			"name": "Hookfang Shanker",
-			"offHand": -23.98,
-			"mainHand": -121.68
+			"mainHand": -121.68,
+			"offHand": -23.98
 		},
 		"11684": {
 			"name": "Ironfoe",
@@ -246,8 +246,8 @@
 		},
 		"12582": {
 			"name": "Keris of Zul'Serak",
-			"mainHand": -96.79,
-			"offHand": -24.82
+			"offHand": -24.82,
+			"mainHand": -96.79
 		},
 		"12590": {
 			"name": "Felstriker",
@@ -264,8 +264,8 @@
 		},
 		"12773": {
 			"name": "Ornate Thorium Handaxe",
-			"mainHand": -89.96,
-			"offHand": -22.84
+			"offHand": -22.84,
+			"mainHand": -89.96
 		},
 		"12774": {
 			"name": "Dawn's Edge",
@@ -329,8 +329,8 @@
 		},
 		"13014": {
 			"name": "Axe of Rin'ji",
-			"mainHand": -86.33,
-			"offHand": -24.17
+			"offHand": -24.17,
+			"mainHand": -86.33
 		},
 		"13015": {
 			"name": "Serathil",
@@ -357,8 +357,8 @@
 		},
 		"13183": {
 			"name": "Venomspitter",
-			"mainHand": -73.74,
-			"offHand": -19.24
+			"offHand": -19.24,
+			"mainHand": -73.74
 		},
 		"13198": {
 			"name": "Hurd Smasher",
@@ -400,8 +400,8 @@
 		},
 		"13368": {
 			"name": "Bonescraper",
-			"mainHand": -105.51,
-			"offHand": -14.41
+			"offHand": -14.41,
+			"mainHand": -105.51
 		},
 		"13399": {
 			"name": "Gargoyle Shredder Talons",
@@ -469,8 +469,8 @@
 		},
 		"15219": {
 			"name": "Dimensional Blade",
-			"offHand": -25.57,
-			"mainHand": -99.54
+			"mainHand": -99.54,
+			"offHand": -25.57
 		},
 		"15220": {
 			"name": "Battlefell Sabre",
@@ -498,13 +498,13 @@
 		},
 		"15237": {
 			"name": "Corpse Harvester",
-			"offHand": -32.66,
-			"mainHand": -67.28
+			"mainHand": -67.28,
+			"offHand": -32.66
 		},
 		"15238": {
 			"name": "Warlord's Axe",
-			"mainHand": -73.7,
-			"offHand": -29.13
+			"offHand": -29.13,
+			"mainHand": -73.7
 		},
 		"15239": {
 			"name": "Felstone Reaver",
@@ -533,8 +533,8 @@
 		},
 		"15705": {
 			"name": "Tidecrest Blade",
-			"mainHand": -57.48,
-			"offHand": -25.48
+			"offHand": -25.48,
+			"mainHand": -57.48
 		},
 		"15706": {
 			"name": "Hunt Tracker Blade",
@@ -562,8 +562,8 @@
 		},
 		"15806": {
 			"name": "Mirah's Song",
-			"mainHand": -68.12,
-			"offHand": -9.76
+			"offHand": -9.76,
+			"mainHand": -68.12
 		},
 		"15814": {
 			"name": "Hameya's Slayer",
@@ -696,8 +696,8 @@
 		},
 		"18683": {
 			"name": "Hammer of the Vesper",
-			"offHand": -17.2,
-			"mainHand": -43.81
+			"mainHand": -43.81,
+			"offHand": -17.2
 		},
 		"18737": {
 			"name": "Bone Slicing Hatchet",
@@ -731,8 +731,8 @@
 		},
 		"19324": {
 			"name": "The Lobotomizer",
-			"mainHand": -84.95,
-			"offHand": -20.16
+			"offHand": -20.16,
+			"mainHand": -84.95
 		},
 		"19542": {
 			"name": "Scout's Blade",
@@ -822,8 +822,8 @@
 		},
 		"24222": {
 			"name": "The Shadowfoot Stabber",
-			"offHand": -24.23,
-			"mainHand": -100.52
+			"mainHand": -100.52,
+			"offHand": -24.23
 		},
 		"227935": {
 			"name": "Hammer of the Fallen Thane",
@@ -851,8 +851,8 @@
 		},
 		"260180": {
 			"name": "Scout's Dagger",
-			"offHand": -28.94,
-			"mainHand": -115.34
+			"mainHand": -115.34,
+			"offHand": -28.94
 		},
 		"260209": {
 			"name": "Truesong's Hammer",
@@ -938,13 +938,13 @@
 		},
 		"272693": {
 			"name": "Premier Grand Marshal's Longsword",
-			"mainHand": 9.68,
-			"offHand": 4.2
+			"offHand": 4.2,
+			"mainHand": 9.68
 		},
 		"272839": {
 			"name": "Premier Grand Marshal's Handaxe",
-			"offHand": 4.2,
-			"mainHand": 9.68
+			"mainHand": 9.68,
+			"offHand": 4.2
 		},
 		"272843": {
 			"name": "Premier Grand Marshal's Dirk",
@@ -1121,8 +1121,8 @@
 		},
 		"284157": {
 			"name": "Ranger Lord's Longsword",
-			"mainHand": -54.09,
-			"offHand": -21.9
+			"offHand": -21.9,
+			"mainHand": -54.09
 		},
 		"284230": {
 			"name": "Rage Paw",
@@ -1140,8 +1140,8 @@
 		},
 		"287034": {
 			"name": "Grove Subjugator's Blade",
-			"offHand": -32.11,
-			"mainHand": -126
+			"mainHand": -126,
+			"offHand": -32.11
 		}
 	},
 	"failed": [],
