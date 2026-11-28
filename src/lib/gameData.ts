@@ -155,7 +155,7 @@ const MEASURED = import.meta.glob<{ default: RawMeasured }>('../data/simValues/*
 interface RawWeaponValues {
 	reference: { mainHand?: number; offHand?: number; ranged?: number };
 	emptyOffHand?: number;
-	weapons: Record<string, { mainHand?: number; offHand?: number; ranged?: number }>;
+	weapons: Record<string, { mainHand?: number; offHand?: number; ranged?: number; inFight?: Record<string, { mainHand?: number; offHand?: number; ranged?: number }> }>;
 }
 const WEAPONS = import.meta.glob<{ default: RawWeaponValues }>('../data/weaponValues/*.json');
 
@@ -167,6 +167,7 @@ async function withWeapons(values: SimValues, specId: string): Promise<SimValues
 		...values,
 		weapons: {
 			byItem: new Map(Object.entries(raw.weapons).map(([id, { mainHand, offHand, ranged }]) => [Number(id), { mainHand, offHand, ranged }])),
+			inFight: new Map(Object.entries(raw.weapons).flatMap(([id, weapon]) => (weapon.inFight ? [[Number(id), weapon.inFight] as const] : []))),
 			reference: raw.reference,
 			emptyOffHand: raw.emptyOffHand,
 		},
@@ -223,17 +224,34 @@ function readSimValues(raw: RawSimValues, factor: number): SimValues {
  */
 function inFight(data: GameData, fight: Fight | undefined): GameData {
 	const measured = data.simValues.itemsInFight;
-	if (!measured?.size || !fight) return data;
+	const weaponsIn = data.simValues.weapons?.inFight;
+	if ((!measured?.size && !weaponsIn?.size) || !fight) return data;
 	const tags = [fight.mobType && `mobType:${fight.mobType}`, fight.family && `family:${fight.family}`, fight.area && `area:${fight.area}`].filter((tag): tag is string => Boolean(tag));
 	const items = new Map(data.simValues.items);
-	for (const [id, byTag] of measured) {
+	for (const [id, byTag] of measured ?? []) {
 		const values = tags.filter(tag => tag in byTag).map(tag => byTag[tag]);
 		if (!values.length) continue;
 		const value = Math.max(...values);
 		if (value) items.set(id, value);
 		else items.delete(id);
 	}
-	return { ...data, simValues: { ...data.simValues, items } };
+	// A weapon measured as a whole: per hand, its worth in this fight where that was measured.
+	let weapons = data.simValues.weapons;
+	if (weapons && weaponsIn?.size) {
+		const byItem = new Map(weapons.byItem);
+		for (const [id, byTag] of weaponsIn) {
+			const hits = tags.filter(tag => tag in byTag).map(tag => byTag[tag]);
+			if (!hits.length) continue;
+			const best = (hand: 'mainHand' | 'offHand' | 'ranged') => {
+				const values = hits.map(hit => hit[hand]).filter((value): value is number => value !== undefined);
+				return values.length ? Math.max(...values) : undefined;
+			};
+			const plain = byItem.get(id) ?? {};
+			byItem.set(id, { mainHand: best('mainHand') ?? plain.mainHand, offHand: best('offHand') ?? plain.offHand, ranged: best('ranged') ?? plain.ranged });
+		}
+		weapons = { ...weapons, byItem };
+	}
+	return { ...data, simValues: { ...data.simValues, items, weapons } };
 }
 
 /** The data as one character scores with it: its fight, and without the bonuses of the sets it switched off. */

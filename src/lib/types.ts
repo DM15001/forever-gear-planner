@@ -271,6 +271,8 @@ export interface SimValues {
 
 export interface WeaponValues {
 	byItem: Map<number, { mainHand?: number; offHand?: number; ranged?: number }>;
+	/** Item id -> "mobType:Dragonkin" and the like -> the weapon's worth per hand in that fight, against the preset in that fight. */
+	inFight?: Map<number, Record<string, { mainHand?: number; offHand?: number; ranged?: number }>>;
 	/** The preset's weapons: the zero point of each hand. */
 	reference: { mainHand?: number; offHand?: number; ranged?: number };
 	/** What an empty off hand is worth next to a one-handed main hand (negative). */

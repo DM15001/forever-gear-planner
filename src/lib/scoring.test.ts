@@ -460,3 +460,13 @@ describe('an effect tied to an enemy kind', () => {
 		expect(values.items.get(22268)).toBe(6.43);
 	});
 });
+
+describe('a weapon with a bonus against one kind of creature', () => {
+	const weapons = { byItem: new Map([[11684, { mainHand: -14.09 }]]), inFight: new Map([[11684, { 'family:Orc': { mainHand: 9.62 } }]]), reference: {} };
+	const base = { simValues: { items: new Map(), weapons } } as unknown as GameData;
+	it('counts with what was measured in that fight, and plainly otherwise', () => {
+		expect(dataFor(base, { family: 'Orc' }, undefined).simValues.weapons?.byItem.get(11684)?.mainHand).toBe(9.62);
+		expect(dataFor(base, { family: 'Troll' }, undefined).simValues.weapons?.byItem.get(11684)?.mainHand).toBe(-14.09);
+		expect(dataFor(base, undefined, undefined).simValues.weapons?.byItem.get(11684)?.mainHand).toBe(-14.09);
+	});
+});

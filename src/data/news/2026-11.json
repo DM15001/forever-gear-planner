@@ -9,6 +9,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Weapons against one kind of enemy",
+							"text": "Weapons with a bonus against an enemy kind, a creature or in a terrain (Ironfoe against orcs, Drakefang Butcher against Dragonkin and others) are now measured in that fight as well, for melee builds and Hunters. With the enemy picked, the lists use that value. The new numbers appear once the next weapon measurement has run.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Effects against one kind of enemy now count in the lists",
 							"text": "Items whose effect is tied to an enemy kind, creature or terrain (Draconic Infused Emblem against Dragonkin, Second Wind in mountains and about 80 more) are now measured in that fight too. With the enemy picked, the list numbers use that value. Until now the lists always showed the value against a target of no kind, and only \"Sim this\" and the simulator check saw the difference. The new numbers appear once the next measurement has run.",
 							"source": "Gear Planner",

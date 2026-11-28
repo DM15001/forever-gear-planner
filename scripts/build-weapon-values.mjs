@@ -60,8 +60,16 @@ if (!isMainThread) {
 	const itemById = new Map(db.items.map(i => [i.id, i]));
 
 	/** DPS of `gear` (17 pieces, each { id } or null). */
-	const dps = gear => {
+	const dps = (gear, fight) => {
 		const request = structuredClone(template);
+		// The enemy kind, creature or terrain a weapon's bonus is tied to, set the way the planner sets it (src/lib/sim/request.ts).
+		if (fight && request.encounter) {
+			for (const target of request.encounter.targets ?? []) {
+				if (fight.mobType) target.mobType = `MobType${fight.mobType}`;
+				if (fight.family) target.creatureFamily = `CreatureFamily${fight.family}`;
+			}
+			if (fight.area) request.encounter.areaTypes = [`AreaType${fight.area}`];
+		}
 		const player = request.raid.parties[0].players[0];
 		player.equipment = { items: gear.map(piece => (piece?.id ? { id: piece.id } : {})) };
 		// The preset's stone was picked for the preset's weapon: every candidate gets the stone that goes on it.
@@ -95,7 +103,7 @@ if (!isMainThread) {
 
 	parentPort.on('message', task => {
 		try {
-			parentPort.postMessage({ task, dps: dps(task.gear) });
+			parentPort.postMessage({ task, dps: dps(task.gear, task.fight) });
 		} catch (err) {
 			parentPort.postMessage({ task, error: String(err.message ?? err) });
 		}
@@ -211,6 +219,22 @@ if (isMainThread) {
 		}
 	}
 
+	// A weapon with a bonus against an enemy kind, a creature or in a terrain is measured once more per such tag,
+	// with the fight set to it, against the preset in that same fight (the preset's gear can have such bonuses too).
+	const tagsOf = item => [...(item.fightTags?.mobTypes ?? []).map(tag => ['mobType', tag]), ...(item.fightTags?.families ?? []).map(tag => ['family', tag]), ...(item.fightTags?.areas ?? []).map(tag => ['area', tag])];
+	const fightRuns = [];
+	const fightReferences = new Map();
+	for (const task of tasks) {
+		const item = task.id ? byId.get(task.id) : undefined;
+		for (const [kind, tag] of item ? tagsOf(item) : []) {
+			const key = `${kind}:${tag}`;
+			const fight = { [kind]: tag };
+			if (!fightReferences.has(key)) fightReferences.set(key, { kind: 'fightReference', tag: key, fight, gear: reference });
+			fightRuns.push({ ...task, tag: key, fight });
+		}
+	}
+	tasks.push(...fightReferences.values(), ...fightRuns);
+
 	console.log(`${specId}: ${tasks.length} simulations of ${ITERATIONS} fights on ${threads} thread(s).`);
 	const started = Date.now();
 	const results = [];
@@ -257,8 +281,17 @@ if (isMainThread) {
 		weapons: previous?.weapons ?? {},
 		failed: [],
 	};
+	const referenceIn = new Map(results.filter(r => r.task.kind === 'fightReference' && typeof r.dps === 'number').map(r => [r.task.tag, r.dps]));
 	for (const { task, dps, error } of results.sort((a, b) => (a.task.id ?? 0) - (b.task.id ?? 0))) {
-		if (task.kind === 'reference') continue;
+		if (task.kind === 'reference' || task.kind === 'fightReference') continue;
+		if (task.tag) {
+			// "inFight": { "mobType:Dragonkin": { "mainHand": 12.3 } }: the weapon's worth in that fight, against the preset in that fight.
+			const base = referenceIn.get(task.tag);
+			if (error || typeof dps !== 'number' || base === undefined) continue;
+			const entry = (out.weapons[task.id] ??= { name: byId.get(task.id)?.name });
+			((entry.inFight ??= {})[task.tag] ??= {})[task.kind] = round(dps - base);
+			continue;
+		}
 		if (error || typeof dps !== 'number') {
 			// A weapon the sim will not put next to the preset's other hand (a unique pair, for one) keeps the stat estimate.
 			if (task.id) out.failed.push({ id: task.id, hand: task.kind, error: String(error).slice(0, 120) });
