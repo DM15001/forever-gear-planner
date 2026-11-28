@@ -1,5 +1,5 @@
 {
-	"generatedAt": "2026-11-28T12:56:46.169Z",
+	"generatedAt": "2026-11-28T14:02:03.858Z",
 	"specs": [
 		"druid-balance",
 		"druid-cat",
@@ -61,7 +61,7 @@
 			"waist": 585
 		},
 		"itemsWithoutSource": 2160,
-		"itemsWithEffects": 893,
+		"itemsWithEffects": 891,
 		"enchants": 223,
 		"zones": {
 			"world": 45,

@@ -2,6 +2,14 @@
 
 What each data update from WoWSims changed in the item list, newest first. Written by `scripts/item-report.mjs` from `.github/workflows/engine.yml`.
 
+## 2026-11-28: WoWSims cc90c0baf4
+
+2 other changes
+
+**Other changes (2)**
+- Seal of the Dawn (13209, rare 61, trinket): effects
+- Rune of the Dawn (19812, rare 61, trinket): effects
+
 ## 2026-11-27: WoWSims 592535927d
 
 16 stats changed, 2 other changes

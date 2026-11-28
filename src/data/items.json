@@ -46964,6 +46964,12 @@
 			"healingPower": 18,
 			"spellDamage": 6
 		},
+		"fightTags": {
+			"areas": [
+				"Wasteland",
+				"Haunted"
+			]
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -61784,18 +61790,23 @@
 		"slot": "trinket",
 		"quality": "rare",
 		"ilvl": 61,
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"attackPower": 78,
+					"rangedAttackPower": 78
+				}
+			}
+		],
 		"fightTags": {
 			"mobTypes": [
 				"Undead"
 			]
 		},
 		"limitCategory": 498,
-		"effects": [
-			{
-				"name": "Seal of the Dawn (23930)",
-				"kind": "passive"
-			}
-		],
 		"sources": [
 			{
 				"kind": "quest",
@@ -72411,6 +72422,11 @@
 		"reqLvl": 58,
 		"stats": {
 			"defenseRating": 8
+		},
+		"fightTags": {
+			"areas": [
+				"StrongholdsCities"
+			]
 		},
 		"unique": true,
 		"effects": [
@@ -122164,6 +122180,11 @@
 		"quality": "epic",
 		"ilvl": 65,
 		"reqLvl": 60,
+		"fightTags": {
+			"areas": [
+				"StrongholdsCities"
+			]
+		},
 		"unique": true,
 		"effects": [
 			{
@@ -127271,18 +127292,22 @@
 		"slot": "trinket",
 		"quality": "rare",
 		"ilvl": 61,
+		"versus": [
+			{
+				"mobTypes": [
+					"Undead"
+				],
+				"stats": {
+					"spellDamage": 46
+				}
+			}
+		],
 		"fightTags": {
 			"mobTypes": [
 				"Undead"
 			]
 		},
 		"limitCategory": 498,
-		"effects": [
-			{
-				"name": "Rune of the Dawn (24198)",
-				"kind": "passive"
-			}
-		],
 		"sources": [
 			{
 				"kind": "quest",
@@ -175217,6 +175242,12 @@
 			"armor": 35,
 			"mp5": 4
 		},
+		"fightTags": {
+			"areas": [
+				"Wasteland",
+				"Haunted"
+			]
+		},
 		"setId": 2133,
 		"setName": "Rotmender's Raiment",
 		"sources": [
@@ -175385,6 +175416,12 @@
 			"healingPower": 15,
 			"spellDamage": 5,
 			"armor": 29
+		},
+		"fightTags": {
+			"areas": [
+				"Wasteland",
+				"Haunted"
+			]
 		},
 		"setId": 2133,
 		"setName": "Rotmender's Raiment",
@@ -189628,6 +189665,11 @@
 			"spellDamage": 9,
 			"armor": 49
 		},
+		"fightTags": {
+			"areas": [
+				"StrongholdsCities"
+			]
+		},
 		"setId": 2134,
 		"setName": "Violet Sorcerer's Vestments",
 		"effects": [
@@ -189791,6 +189833,11 @@
 			"intellect": 9,
 			"spellPiercing": 4,
 			"armor": 38
+		},
+		"fightTags": {
+			"areas": [
+				"StrongholdsCities"
+			]
 		},
 		"setId": 2134,
 		"setName": "Violet Sorcerer's Vestments",
@@ -201331,6 +201378,11 @@
 		"stats": {
 			"frostResistance": 20
 		},
+		"fightTags": {
+			"areas": [
+				"Snowy"
+			]
+		},
 		"limitCategory": 709,
 		"effects": [
 			{
@@ -201959,6 +202011,11 @@
 			"defenseRating": 13,
 			"armor": 490
 		},
+		"fightTags": {
+			"areas": [
+				"StrongholdsCities"
+			]
+		},
 		"setId": 2135,
 		"setName": "Krol'dok Battlegear",
 		"sources": [
@@ -201983,6 +202040,11 @@
 			"stamina": 10,
 			"spirit": 10,
 			"armor": 398
+		},
+		"fightTags": {
+			"areas": [
+				"StrongholdsCities"
+			]
 		},
 		"setId": 2135,
 		"setName": "Krol'dok Battlegear",
@@ -205555,6 +205617,11 @@
 			"critRating": 7,
 			"armor": 115
 		},
+		"fightTags": {
+			"areas": [
+				"Swamp"
+			]
+		},
 		"setId": 2136,
 		"setName": "Defias Enforcer's Garb",
 		"sources": [
@@ -205693,6 +205760,11 @@
 			"hitRating": 10,
 			"armor": 138,
 			"fireResistance": 16
+		},
+		"fightTags": {
+			"areas": [
+				"Swamp"
+			]
 		},
 		"setId": 2136,
 		"setName": "Defias Enforcer's Garb",
@@ -216019,6 +216091,12 @@
 			"spellDamage": 4,
 			"armor": 41
 		},
+		"fightTags": {
+			"areas": [
+				"Wasteland",
+				"Haunted"
+			]
+		},
 		"setId": 2133,
 		"setName": "Rotmender's Raiment",
 		"sources": [
@@ -216044,6 +216122,12 @@
 			"spirit": 8,
 			"armor": 25
 		},
+		"fightTags": {
+			"areas": [
+				"Wasteland",
+				"Haunted"
+			]
+		},
 		"setId": 2133,
 		"setName": "Rotmender's Raiment",
 		"sources": [
@@ -216068,6 +216152,12 @@
 			"stamina": 6,
 			"intellect": 6,
 			"armor": 22
+		},
+		"fightTags": {
+			"areas": [
+				"Wasteland",
+				"Haunted"
+			]
 		},
 		"setId": 2133,
 		"setName": "Rotmender's Raiment",
@@ -216304,6 +216394,11 @@
 			"intellect": 11,
 			"armor": 34
 		},
+		"fightTags": {
+			"areas": [
+				"StrongholdsCities"
+			]
+		},
 		"setId": 2134,
 		"setName": "Violet Sorcerer's Vestments",
 		"sources": [
@@ -216343,6 +216438,11 @@
 			"spirit": 5,
 			"armor": 44
 		},
+		"fightTags": {
+			"areas": [
+				"StrongholdsCities"
+			]
+		},
 		"setId": 2134,
 		"setName": "Violet Sorcerer's Vestments",
 		"sources": [
@@ -216379,6 +216479,11 @@
 			"intellect": 9,
 			"hitRating": 10,
 			"armor": 31
+		},
+		"fightTags": {
+			"areas": [
+				"StrongholdsCities"
+			]
 		},
 		"setId": 2134,
 		"setName": "Violet Sorcerer's Vestments",
@@ -216928,6 +217033,11 @@
 			"parryRating": 15,
 			"armor": 300
 		},
+		"fightTags": {
+			"areas": [
+				"StrongholdsCities"
+			]
+		},
 		"setId": 2135,
 		"setName": "Krol'dok Battlegear"
 	},
@@ -216944,6 +217054,11 @@
 			"stamina": 19,
 			"defenseRating": 8,
 			"armor": 429
+		},
+		"fightTags": {
+			"areas": [
+				"StrongholdsCities"
+			]
 		},
 		"setId": 2135,
 		"setName": "Krol'dok Battlegear"
@@ -216962,6 +217077,11 @@
 			"hitRating": 10,
 			"armor": 368,
 			"bonusArmor": 50
+		},
+		"fightTags": {
+			"areas": [
+				"StrongholdsCities"
+			]
 		},
 		"setId": 2135,
 		"setName": "Krol'dok Battlegear"
@@ -217054,6 +217174,11 @@
 			"expertiseRating": 10,
 			"armor": 124
 		},
+		"fightTags": {
+			"areas": [
+				"Swamp"
+			]
+		},
 		"setId": 2136,
 		"setName": "Defias Enforcer's Garb"
 	},
@@ -217072,6 +217197,11 @@
 			"stamina": 11,
 			"armor": 156
 		},
+		"fightTags": {
+			"areas": [
+				"Swamp"
+			]
+		},
 		"setId": 2136,
 		"setName": "Defias Enforcer's Garb"
 	},
@@ -217089,6 +217219,11 @@
 			"attackPower": 28,
 			"rangedAttackPower": 28,
 			"armor": 105
+		},
+		"fightTags": {
+			"areas": [
+				"Swamp"
+			]
 		},
 		"setId": 2136,
 		"setName": "Defias Enforcer's Garb"
