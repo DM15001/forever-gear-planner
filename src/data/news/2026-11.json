@@ -2,6 +2,33 @@
 	"_comment": "News of one month, newest day first. Written once a day by the scheduled task 'WoW Forever daily news (gear planner)'; nothing is ever deleted, this is also the changelog. Sections in this order when they have items: 'Game' (hotfixes, patch notes, fixed quests, announcements), 'WoWSims' (changes to the simulator). Every item: title, text (own words, one or two sentences), url, source, and tags. Tags, one to three per item, only from this list: Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior, Items, Dungeons, Quests, Professions, PvP, World, Races, Upcoming, WoWSims. A last section 'Gear Planner' holds the planner's own patch notes (tag 'Planner', source 'Gear Planner', no url; the News page shows it as a feed of its own); it is written when the site changes and must be kept when the day's news is added. Never mention the cheering figures (Bogdan, Afly, Larry) in the Gear Planner changelog: they are a surprise.",
 	"entries": [
 		{
+			"date": "2026-11-28",
+			"summary": "Gear Planner: Ahn'Qiraj glove and cloak enchants are out until the raid opens; the fight card on Build plan shows game icons.",
+			"sections": [
+				{
+					"title": "Gear Planner",
+					"items": [
+						{
+							"title": "Ahn'Qiraj glove and cloak enchants taken out",
+							"text": "Seven enchants whose formulas only drop in the Temple of Ahn'Qiraj are no longer suggested or listed, because the raid is not open yet: Gloves - Shadow Power, Frost Power, Fire Power, Healing Power and Superior Agility, and Cloak - Stealth and Dodge. They come back when the raid opens.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Icons on the fight card",
+							"text": "\"What are you fighting?\" on Build plan shows a game icon for Enemy, Creature and Terrain even while nothing is picked, instead of a question mark.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						}
+					]
+				}
+			]
+		},
+		{
 			"date": "2026-11-27",
 			"summary": "Blizzard has posted no new hotfix notes since 25 November. WoWSims set or adjusted proc rates for seven weapons and regeared its Hunter and Rogue presets. Gear Planner: Group up can hide low-level dungeons; crafted items stay out when Crafted is off.",
 			"sections": [

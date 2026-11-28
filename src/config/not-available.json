@@ -64,7 +64,14 @@
 		"273607": "Enchant Weapon - Grand Crusader: Season of Discovery",
 		"273608": "Enchant 2H Weapon - Grand Arcanist: Season of Discovery",
 		"273609": "Enchant Weapon - Grand Sorcerer: Season of Discovery",
-		"273610": "Enchant 2H Weapon - Grand Inquisitor: Season of Discovery"
+		"273610": "Enchant 2H Weapon - Grand Inquisitor: Season of Discovery",
+		"20727": "Enchant Gloves - Shadow Power: Ahn'Qiraj: the formula drops in the Temple of Ahn'Qiraj, which is not open yet (reported by a player, 2026-11-28)",
+		"20730": "Enchant Gloves - Healing Power: Ahn'Qiraj: the formula drops in the Temple of Ahn'Qiraj, which is not open yet (reported by a player, 2026-11-28)",
+		"20731": "Enchant Gloves - Superior Agility: Ahn'Qiraj: the formula drops in the Temple of Ahn'Qiraj, which is not open yet (reported by a player, 2026-11-28)",
+		"20728": "Enchant Gloves - Frost Power: Ahn'Qiraj: the formula drops in the Temple of Ahn'Qiraj, which is not open yet (same formula set, no source in WoW Forever's data)",
+		"20729": "Enchant Gloves - Fire Power: Ahn'Qiraj: the formula drops in the Temple of Ahn'Qiraj, which is not open yet (same formula set, no source in WoW Forever's data)",
+		"20734": "Enchant Cloak - Stealth: Ahn'Qiraj: the formula drops in the Temple of Ahn'Qiraj, which is not open yet (same formula set, no source in WoW Forever's data)",
+		"20736": "Enchant Cloak - Dodge: Ahn'Qiraj: the formula drops in the Temple of Ahn'Qiraj, which is not open yet (same formula set, no source in WoW Forever's data)"
 	},
 	"enchantStats": {
 		"_comment": "By the enchant's item id: stats where the game differs from the WoWSims database. The simulator still counts its own value.",

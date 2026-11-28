@@ -10031,3 +10031,14 @@ button .slot-icon {
 	font-size: 1.2em;
 	line-height: 1;
 }
+
+/* 28 Nov: the three picks on the fight card show a default game icon while nothing is chosen, a little muted. */
+.fight-pick .fight-pick-default {
+	opacity: 0.6;
+	filter: saturate(0.6);
+}
+.fight-pick:hover .fight-pick-default,
+.fight-pick:focus-visible .fight-pick-default {
+	opacity: 0.9;
+	filter: none;
+}

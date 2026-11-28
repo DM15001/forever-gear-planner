@@ -45,6 +45,13 @@ const ICONS: Record<string, string> = {
 	StrongholdsCities: 'inv_misc_key_03',
 };
 
+/** The picture on the card while nothing is chosen: a skull for any enemy, tracks for any creature, a map for any terrain. */
+const ANY_ICONS: Record<string, string> = {
+	Enemy: 'inv_misc_bone_humanskull_01',
+	Creature: 'ability_tracking',
+	Terrain: 'inv_misc_map_01',
+};
+
 function Tile({ id, label, active, onClick }: { id: string; label: string; active: boolean; onClick: () => void }) {
 	const [attempt, setAttempt] = useState(0);
 	const icon = ICONS[id];
@@ -57,10 +64,10 @@ function Tile({ id, label, active, onClick }: { id: string; label: string; activ
 }
 
 /** The picture of a chosen enemy or terrain on the encounter card; a plain mark while nothing is chosen. */
-function PickIcon({ id }: { id: string | undefined }) {
+function PickIcon({ id, kind }: { id: string | undefined; kind: string }) {
 	const [attempt, setAttempt] = useState(0);
-	const icon = id ? ICONS[id] : undefined;
-	return icon && attempt < ICON_SOURCES.length ? <img src={ICON_SOURCES[attempt](icon)} alt="" loading="lazy" onError={() => setAttempt(attempt + 1)} /> : <span className="fight-pick-any" aria-hidden="true">?</span>;
+	const icon = id ? ICONS[id] : ANY_ICONS[kind];
+	return icon && attempt < ICON_SOURCES.length ? <img className={id ? undefined : 'fight-pick-default'} src={ICON_SOURCES[attempt](icon)} alt="" loading="lazy" onError={() => setAttempt(attempt + 1)} /> : <span className="fight-pick-any" aria-hidden="true">?</span>;
 }
 
 /** The enemy kind and terrain the character fights in. Some items are only strong against one of them. */
@@ -97,7 +104,7 @@ export function FightPicker({ character, onChange }: { character: Character; onC
 					] as [string, string | undefined, string | undefined][]
 				).map(([kind, id, label]) => (
 					<button key={kind} className={id ? 'fight-pick fight-pick-on' : 'fight-pick'} onClick={() => setOpen(true)} title={`Choose the ${kind.toLowerCase()}`}>
-						<PickIcon id={id} />
+						<PickIcon key={id ?? kind} id={id} kind={kind} />
 						<span>
 							<span className="slot-source">{kind}</span>
 							<strong>{label ?? 'Any'}</strong>
