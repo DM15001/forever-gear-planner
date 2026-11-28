@@ -10042,3 +10042,24 @@ button .slot-icon {
 	opacity: 0.9;
 	filter: none;
 }
+
+/* 28 Nov: fight items that are already worn or planned are named above the list instead of being offered again. */
+.fight-held {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem 1.2rem;
+	margin: 0 0 0.6rem;
+	padding: 0.5rem 0.75rem;
+	border: 1px solid rgb(120 190 110 / 0.35);
+	border-radius: 6px;
+	background: rgb(120 190 110 / 0.08);
+	font-size: 0.92rem;
+}
+.fight-picks .candidate-note {
+	white-space: normal;
+}
+@media (min-width: 700px) {
+	:root:root .fight-picks .candidate {
+		grid-template-columns: 11rem 2.25rem minmax(0, 1fr) auto;
+	}
+}

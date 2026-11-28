@@ -9,6 +9,14 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Fight items: clearer comparison",
+							"text": "\"Items with a bonus for this fight\" on Customize now names the item each number is measured against. An item that is already in your plan is listed as such instead of being offered again for the second trinket or ring slot, where its number looked like a loss.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Ahn'Qiraj glove and cloak enchants taken out",
 							"text": "Seven enchants whose formulas only drop in the Temple of Ahn'Qiraj are no longer suggested or listed, because the raid is not open yet: Gloves - Shadow Power, Frost Power, Fire Power, Healing Power and Superior Agility, and Cloak - Stealth and Dodge. They come back when the raid opens.",
 							"source": "Gear Planner",

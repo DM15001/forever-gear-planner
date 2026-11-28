@@ -115,12 +115,23 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 		for (const { index, candidates } of slots) {
 			for (const candidate of candidates ?? []) {
 				if (!matchesFight(candidate.item, data.fight)) continue;
+				// An item that already sits in the plan is not offered for its twin slot: its number there would be
+				// against the other trinket or ring and read as if the item were bad.
+				if (gear.some(piece => piece?.id === candidate.item.id)) continue;
 				const known = best.get(candidate.item.id);
 				if (!known || candidate.delta > known.candidate.delta) best.set(candidate.item.id, { index, candidate });
 			}
 		}
 		return [...best.values()].sort((a, b) => b.candidate.delta - a.candidate.delta);
-	}, [slots, data.fight]);
+	}, [slots, data.fight, gear]);
+	// The fight items that are already worn or planned, named under the list.
+	const fightHeld = useMemo(() => {
+		if (!data.fight) return [];
+		return gear.flatMap((piece, index) => {
+			const item = piece ? data.itemById.get(piece.id) : undefined;
+			return item && matchesFight(item, data.fight) ? [{ index, item, worn: character.gear[index]?.id === item.id }] : [];
+		});
+	}, [gear, data, character.gear]);
 
 	// Slots with nothing better in the lists: what the content choice leaves out there. Worked out after
 	// the page is drawn, since it looks at every item again.
@@ -335,18 +346,27 @@ export function UpgradesTab({ spec, character, data, onChange, filter, onFilterC
 			{fightPicks && (
 				<section className="panel fight-picks" aria-label="Items for this fight">
 					<h3>Items with a bonus for this fight</h3>
+					{fightHeld.length > 0 && (
+						<p className="fight-held">
+							{fightHeld.map(({ index, item, worn }) => (
+								<span key={index} className="fight-held-item">
+									<strong>{item.name}</strong> {worn ? 'you wear it' : 'is in your plan'} ({GEAR_SLOTS[index].label})
+								</span>
+							))}
+						</p>
+					)}
 					{fightPicks.length === 0 ? (
-						<p className="slot-source">No item you can use has a bonus for what you picked, with the current content choice.</p>
+						<p className="slot-source">{fightHeld.length > 0 ? 'No other item you can use has a bonus for what you picked, with the current content choice.' : 'No item you can use has a bonus for what you picked, with the current content choice.'}</p>
 					) : (
 						<>
-							<p className="slot-source">Every item with a bonus for the enemy, creature or terrain you picked, best first. The number is the estimated change against your current item in that slot; use "Sim this" for items with an effect.</p>
+							<p className="slot-source">Every item with a bonus for the enemy, creature or terrain you picked, best first. Each number is the estimated change against the item named under it, so two items in different slots are not measured against the same thing. Use "Sim this" for items with an effect.</p>
 							<ul className="candidates">
 								{fightPicks.slice(0, FIGHT_PICKS).map(({ index, candidate }) => (
 									<CandidateRow
 											healWeights={healWeights}
 										key={`${index}-${candidate.item.id}`}
 										candidate={candidate}
-										note={GEAR_SLOTS[index].label}
+										note={`${GEAR_SLOTS[index].label}, vs ${(gear[index] ? data.itemById.get(gear[index]!.id)?.name : undefined) ?? 'an empty slot'}`}
 										marks={marks.get(candidate.item.id)}
 										base={gear}
 										variant={withItem(gear, index, candidate.item.id, data, { character, spec })}
