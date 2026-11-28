@@ -1,6 +1,18 @@
 {
-	"seq": 50,
-	"effects": {},
-	"weights": {},
+	"seq": 51,
+	"effects": {
+		"warlock-affliction": 51,
+		"warlock-demo-fire": 51,
+		"warlock-demo-shadow": 51,
+		"warlock-destruction": 51,
+		"warlock-sm-ruin": 51
+	},
+	"weights": {
+		"warlock-affliction": 51,
+		"warlock-demo-fire": 51,
+		"warlock-demo-shadow": 51,
+		"warlock-destruction": 51,
+		"warlock-sm-ruin": 51
+	},
 	"weapons": {}
 }
