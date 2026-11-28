@@ -35,8 +35,25 @@ const subscribe = (listener: () => void) => {
 	return () => listeners.delete(listener);
 };
 
+/**
+ * What a check with the simulator was made for: the gear, the plan, and what the fights were simulated with
+ * (enemy kind and terrain, the fight from Sim setup, talents, buffs, consumables, spell ranks, healing scenario).
+ * A change to any of it asks for a new check.
+ */
 export const planKeyOf = (character: CandidateOptions['character'], plan = character.plan ?? {}, planEnchants = character.planEnchants ?? {}) =>
-	JSON.stringify([character.gear.map(piece => piece?.id ?? 0), plan, planEnchants]);
+	JSON.stringify([
+		character.gear.map(piece => piece?.id ?? 0),
+		plan,
+		planEnchants,
+		character.fight ?? 0,
+		character.simFight ?? 0,
+		character.healing ?? 0,
+		character.simSettings?.id ?? 0,
+		character.talents ?? '',
+		character.buffs ?? 0,
+		character.consumables ?? 0,
+		character.bookRanks ?? 0,
+	]);
 
 export const refineJob = {
 	get: () => state,

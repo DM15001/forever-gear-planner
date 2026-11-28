@@ -9,6 +9,22 @@
 					"title": "Gear Planner",
 					"items": [
 						{
+							"title": "Effects against one kind of enemy now count in the lists",
+							"text": "Items whose effect is tied to an enemy kind, creature or terrain (Draconic Infused Emblem against Dragonkin, Second Wind in mountains and about 80 more) are now measured in that fight too. With the enemy picked, the list numbers use that value. Until now the lists always showed the value against a target of no kind, and only \"Sim this\" and the simulator check saw the difference. The new numbers appear once the next measurement has run.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
+							"title": "Changing the enemy asks for a new check",
+							"text": "After you change the enemy, creature or terrain, the sim setup, talents or buffs, Build plan no longer says \"Checked with the simulator\". The check was made for the old fight, so it is offered again.",
+							"source": "Gear Planner",
+							"tags": [
+								"Planner"
+							]
+						},
+						{
 							"title": "Fight items: clearer comparison",
 							"text": "\"Items with a bonus for this fight\" on Customize now names the item each number is measured against. An item that is already in your plan is listed as such instead of being offered again for the second trinket or ring slot, where its number looked like a loss.",
 							"source": "Gear Planner",

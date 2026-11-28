@@ -252,6 +252,12 @@ export interface SimValues {
 	enchantsOffHand?: Map<number, number>;
 	/** Set id -> piece count -> worth of the bonuses active at that count. */
 	sets: Map<number, Map<number, number>>;
+	/**
+	 * Item id -> "mobType:Dragonkin", "family:Plant", "area:Mountainous" -> the worth of the item's effect in a
+	 * fight against that enemy kind, creature or terrain. Only for effects tied to one; `items` holds the worth
+	 * against a target of no kind.
+	 */
+	itemsInFight?: Map<number, Record<string, number>>;
 	/** What was measured at all; anything else with an effect is still unknown. */
 	measuredItems: Set<number>;
 	measuredEnchants: Set<number>;

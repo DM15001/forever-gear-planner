@@ -94,7 +94,7 @@ export function conditionalLines(item: Item, fight: Fight | undefined): { text: 
 	const named = (tag: string) => AREAS.find(([key]) => key === tag)?.[1].toLowerCase() ?? spaced(tag);
 	return [
 		...conditionalStats(item).map(line => ({ text: `${line.label}: ${statLine(line.stats)}`, active: line.active(fight) })),
-		...(effects.length ? [{ text: `Effect for ${effects.map(named).join(', ')}: only the simulator can value it`, active: effects.some(tag => tag === fight?.mobType || tag === fight?.family || tag === fight?.area) }] : []),
+		...(effects.length ? [{ text: `Effect for ${effects.map(named).join(', ')}: valued from the simulator's measurement in that fight`, active: effects.some(tag => tag === fight?.mobType || tag === fight?.family || tag === fight?.area) }] : []),
 	];
 }
 

@@ -142,6 +142,7 @@ interface RawSimValues {
 /** One file per build, written by scripts/build-sim-values.mjs: item effects, proc enchants and set bonuses in DPS. */
 interface RawMeasured {
 	items: Record<string, { dps: number }>;
+	itemsInFight?: Record<string, Record<string, number>>;
 	enchants: Record<string, { dps: number }>;
 	enchantsOffHand?: Record<string, { dps: number }>;
 	sets: Record<string, { byCount: Record<string, { dps: number }> }>;
@@ -176,6 +177,7 @@ function readMeasured(raw: RawMeasured): SimValues {
 	const dpsMap = (record: Record<string, { dps: number }>) => new Map(Object.entries(record).map(([id, value]) => [Number(id), value.dps]));
 	return {
 		items: dpsMap(raw.items),
+		itemsInFight: raw.itemsInFight ? new Map(Object.entries(raw.itemsInFight).map(([id, byTag]) => [Number(id), byTag])) : undefined,
 		enchants: dpsMap(raw.enchants),
 		enchantsOffHand: raw.enchantsOffHand ? dpsMap(raw.enchantsOffHand) : undefined,
 		sets: new Map(Object.entries(raw.sets).map(([id, set]) => [Number(id), dpsMap(set.byCount)])),
@@ -215,8 +217,28 @@ function readSimValues(raw: RawSimValues, factor: number): SimValues {
 	};
 }
 
+/**
+ * With an enemy kind, creature or terrain picked: an item whose effect is tied to it counts with what the
+ * simulator measured in that fight, in place of its worth against a target of no kind.
+ */
+function inFight(data: GameData, fight: Fight | undefined): GameData {
+	const measured = data.simValues.itemsInFight;
+	if (!measured?.size || !fight) return data;
+	const tags = [fight.mobType && `mobType:${fight.mobType}`, fight.family && `family:${fight.family}`, fight.area && `area:${fight.area}`].filter((tag): tag is string => Boolean(tag));
+	const items = new Map(data.simValues.items);
+	for (const [id, byTag] of measured) {
+		const values = tags.filter(tag => tag in byTag).map(tag => byTag[tag]);
+		if (!values.length) continue;
+		const value = Math.max(...values);
+		if (value) items.set(id, value);
+		else items.delete(id);
+	}
+	return { ...data, simValues: { ...data.simValues, items } };
+}
+
 /** The data as one character scores with it: its fight, and without the bonuses of the sets it switched off. */
-export function dataFor(data: GameData, fight: Fight | undefined, ignoredSets: number[] | undefined): GameData {
+export function dataFor(base: GameData, fight: Fight | undefined, ignoredSets: number[] | undefined): GameData {
+	const data = inFight(base, fight);
 	if (!ignoredSets?.length) return { ...data, fight };
 	const ignored = new Set(ignoredSets);
 	return { ...data, fight, ignoredSets: ignored, simValues: { ...data.simValues, sets: new Map([...data.simValues.sets].filter(([setId]) => !ignored.has(setId))) } };

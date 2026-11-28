@@ -421,7 +421,7 @@ export function PlanTab({ spec, character, data, filter, onFilterChange, onChang
 								<h3>{refining ? 'Checking the plan…' : checkedPlan === planKey ? 'Checked with the simulator' : 'Next: check it for real'}</h3>
 								<p>
 									{checkedPlan === planKey && !refining
-										? 'This plan was tested with real simulations. Check again after you change it.'
+										? 'This plan was tested with real simulations. It asks for a new check when you change the plan, the enemy or the sim setup.'
 										: 'This plan is an estimate. The simulator tests it and swaps in what is better. A few minutes, once per plan.'}
 								</p>
 								<div className="plan-next-actions">{checkButtons}</div>

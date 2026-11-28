@@ -447,3 +447,16 @@ describe('an enchant marked as not obtainable yet', () => {
 		expect(plannedGear(character, { itemById: new Map() } as unknown as GameData)[6]).toEqual({ id: 1, enchant: 2564 });
 	});
 });
+
+describe('an effect tied to an enemy kind', () => {
+	const values = { items: new Map([[22268, 6.43]]), itemsInFight: new Map([[22268, { 'mobType:Dragonkin': 12.25 }], [13382, { 'mobType:Undead': 0 }]]) };
+	const base = { simValues: values } as unknown as GameData;
+	it('counts with what was measured against that enemy', () => {
+		expect(dataFor(base, { mobType: 'Dragonkin' }, undefined).simValues.items.get(22268)).toBe(12.25);
+	});
+	it('keeps its plain worth against anything else, and with no enemy picked', () => {
+		expect(dataFor(base, { mobType: 'Demon' }, undefined).simValues.items.get(22268)).toBe(6.43);
+		expect(dataFor(base, undefined, undefined).simValues.items.get(22268)).toBe(6.43);
+		expect(values.items.get(22268)).toBe(6.43);
+	});
+});

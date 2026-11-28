@@ -75,8 +75,16 @@ async function startSim() {
 	 * DPS of `gear` (17 pieces). `strip` removes what a record contributes beyond its stats:
 	 * { effects: Set<itemId>, sets: Set<itemId>, enchants: Set<effectId> }. `bonusAp` adds attack power.
 	 */
-	return function dps(gear, iterations, strip = {}, bonusAp = 0) {
+	return function dps(gear, iterations, strip = {}, bonusAp = 0, fight = null) {
 		const request = structuredClone(template);
+		// The enemy kind, creature or terrain an item's effect is tied to, set the way the planner sets it (src/lib/sim/request.ts).
+		if (fight && request.encounter) {
+			for (const target of request.encounter.targets ?? []) {
+				if (fight.mobType) target.mobType = `MobType${fight.mobType}`;
+				if (fight.family) target.creatureFamily = `CreatureFamily${fight.family}`;
+			}
+			if (fight.area) request.encounter.areaTypes = [`AreaType${fight.area}`];
+		}
 		const player = request.raid.parties[0].players[0];
 		if (bonusAp) {
 			player.bonusStats ??= { stats: [] };
@@ -153,7 +161,7 @@ if (!isMainThread) {
 				result = { referenceDps: dps(reference, 3000).avg };
 			} else if (task.kind === 'item') {
 				const gear = reference.map((p, i) => (i === task.slotIndex ? { id: task.id } : i === task.clear ? null : p));
-				result = difference(n => ({ with: dps(gear, n), without: dps(gear, n, { effects: new Set([task.id]) }) }));
+				result = difference(n => ({ with: dps(gear, n, {}, 0, task.fight), without: dps(gear, n, { effects: new Set([task.id]) }, 0, task.fight) }));
 			} else if (task.kind === 'enchant') {
 				const gear = reference.map((p, i) => (i === task.slotIndex && p ? { id: p.id, enchant: task.effectId } : p));
 				result = difference(n => ({ with: dps(gear, n), without: dps(gear, n, { enchants: new Set([task.effectId]) }) }));
@@ -261,6 +269,19 @@ if (isMainThread) {
 	};
 	const tooLow = item => (item.ilvl ?? 0) < LOWEST_ITEM_LEVEL && item.slot !== 'trinket';
 	const tasks = [{ kind: 'ap' }];
+	/**
+	 * An item whose effect is tied to an enemy kind, creature or terrain is measured once more per such tag, with
+	 * the fight set to it: the plain run has a target of no kind, where the effect does less or nothing.
+	 * Tags the planner already counts as plain stats (item.versus, item.inArea) are left out, as in src/lib/stats.ts.
+	 */
+	const fightTasks = (item, task) => {
+		const tags = item.fightTags;
+		if (!tags) return [];
+		const inStats = new Set([...(item.versus ?? []).flatMap(entry => entry.mobTypes), ...(item.inArea ?? []).map(entry => entry.area)]);
+		return [...(tags.mobTypes ?? []).map(tag => ['mobType', tag]), ...(tags.families ?? []).map(tag => ['family', tag]), ...(tags.areas ?? []).map(tag => ['area', tag])]
+			.filter(([, tag]) => !inStats.has(tag))
+			.map(([kind, tag]) => ({ ...task, fight: { [kind]: tag }, tag: `${kind}:${tag}` }));
+	};
 
 	// Items whose record has effects or special stats.
 	for (const item of items) {
@@ -274,12 +295,14 @@ if (isMainThread) {
 		if (hand === 'offHand') {
 			// Shields, held items and off-hand weapons go next to the preset's main hand, unless that is a two-hander.
 			if (twoHandReference || (spec.weaponNeeds?.offHand && !spec.weaponNeeds.offHand.includes(item.weapon?.type))) continue;
-			tasks.push({ kind: 'item', id: item.id, name: item.name, slotIndex: OFF_HAND });
+			const task = { kind: 'item', id: item.id, name: item.name, slotIndex: OFF_HAND };
+			tasks.push(task, ...fightTasks(item, task));
 			continue;
 		}
 		if (item.slot === 'weapon' && (!fitsMainHand(item) || (spec.weaponNeeds?.mainHand && !spec.weaponNeeds.mainHand.includes(item.weapon?.type)))) continue;
 		// A two-hander leaves no room for the preset's off hand.
-		tasks.push({ kind: 'item', id: item.id, name: item.name, slotIndex: SLOT_OF_KIND[item.slot], ...(hand === 'twoHand' ? { clear: OFF_HAND } : {}) });
+		const task = { kind: 'item', id: item.id, name: item.name, slotIndex: SLOT_OF_KIND[item.slot], ...(hand === 'twoHand' ? { clear: OFF_HAND } : {}) };
+		tasks.push(task, ...fightTasks(item, task));
 	}
 
 	if (!only) {
@@ -365,6 +388,8 @@ if (isMainThread) {
 		note: "Worth of item effects, proc enchants and set bonuses for this build, in DPS (HPS for a healer, in its default healing fight), measured with the WoWSims simulator in the build's preset gear. Values within the noise of the measurement are left out.",
 		reference: { dps: round(ap.referenceDps), iterations: FINAL_ITERATIONS },
 		items: {},
+		// Item id -> "mobType:Dragonkin" and the like -> the effect's worth in that fight, where it was measured there.
+		itemsInFight: {},
 		enchants: {},
 		enchantsOffHand: {},
 		sets: {},
@@ -372,7 +397,10 @@ if (isMainThread) {
 	};
 	for (const { task, result, error } of results.sort((a, b) => (a.task.id ?? a.task.effectId ?? a.task.setId ?? 0) - (b.task.id ?? b.task.effectId ?? b.task.setId ?? 0))) {
 		if (error || !result) continue;
-		if (task.kind === 'item') {
+		if (task.kind === 'item' && task.tag) {
+			// Stored even when it is nothing: "does nothing against this enemy" is a finding of its own.
+			(out.itemsInFight[task.id] ??= {})[task.tag] = clear(result) ? round(result.dps) : 0;
+		} else if (task.kind === 'item') {
 			out.measured.items.push(task.id);
 			if (clear(result)) out.items[task.id] = { name: task.name, dps: round(result.dps) };
 		} else if (task.kind === 'enchant' && task.off) {
@@ -390,8 +418,8 @@ if (isMainThread) {
 	}
 
 	if (only) {
-		for (const r of results) if (r.task.kind === 'item') console.log(r.task.name, r.error ?? `${r.result.dps.toFixed(2)} DPS, margin ${r.result.margin.toFixed(2)}`);
-		console.log(JSON.stringify({ reference: out.reference, items: out.items }, null, 2));
+		for (const r of results) if (r.task.kind === 'item') console.log(r.task.name, r.task.tag ?? '', r.error ?? `${r.result.dps.toFixed(2)} DPS, margin ${r.result.margin.toFixed(2)}`);
+		console.log(JSON.stringify({ reference: out.reference, items: out.items, itemsInFight: out.itemsInFight }, null, 2));
 	} else {
 		mkdirSync(dirname(outFile), { recursive: true });
 		writeFileSync(outFile, JSON.stringify(out) + '\n');
