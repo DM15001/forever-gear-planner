@@ -4,8 +4,8 @@
 	"builds": {
 		"druid-balance": {
 			"effects": {
-				"at": "2026-11-27",
-				"current": false
+				"at": "2026-11-28",
+				"current": true
 			},
 			"weapons": null,
 			"weights": {
@@ -16,8 +16,8 @@
 		},
 		"druid-cat": {
 			"effects": {
-				"at": "2026-11-27",
-				"current": false
+				"at": "2026-11-28",
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-28",
@@ -31,8 +31,8 @@
 		},
 		"elemental-shaman": {
 			"effects": {
-				"at": "2026-11-27",
-				"current": false
+				"at": "2026-11-28",
+				"current": true
 			},
 			"weapons": null,
 			"weights": {
@@ -43,8 +43,8 @@
 		},
 		"enhancement-shaman": {
 			"effects": {
-				"at": "2026-11-27",
-				"current": false
+				"at": "2026-11-28",
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-28",
@@ -58,8 +58,8 @@
 		},
 		"hunter-bm": {
 			"effects": {
-				"at": "2026-11-27",
-				"current": false
+				"at": "2026-11-28",
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-28",
@@ -73,8 +73,8 @@
 		},
 		"hunter-mm": {
 			"effects": {
-				"at": "2026-11-27",
-				"current": false
+				"at": "2026-11-28",
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-28",
@@ -89,7 +89,7 @@
 		"hunter-sv-melee": {
 			"effects": {
 				"at": "2026-11-28",
-				"current": false
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-28",
@@ -104,7 +104,7 @@
 		"hunter-sv-weave": {
 			"effects": {
 				"at": "2026-11-28",
-				"current": false
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-28",
@@ -118,8 +118,8 @@
 		},
 		"hunter-sv": {
 			"effects": {
-				"at": "2026-11-27",
-				"current": false
+				"at": "2026-11-28",
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-28",
@@ -133,8 +133,8 @@
 		},
 		"mage-arcane-fire": {
 			"effects": {
-				"at": "2026-11-27",
-				"current": false
+				"at": "2026-11-28",
+				"current": true
 			},
 			"weapons": null,
 			"weights": {
@@ -145,8 +145,8 @@
 		},
 		"mage-arcane": {
 			"effects": {
-				"at": "2026-11-27",
-				"current": false
+				"at": "2026-11-28",
+				"current": true
 			},
 			"weapons": null,
 			"weights": {
@@ -157,8 +157,8 @@
 		},
 		"mage-ffb": {
 			"effects": {
-				"at": "2026-11-27",
-				"current": false
+				"at": "2026-11-28",
+				"current": true
 			},
 			"weapons": null,
 			"weights": {
@@ -169,8 +169,8 @@
 		},
 		"mage-fire": {
 			"effects": {
-				"at": "2026-11-27",
-				"current": false
+				"at": "2026-11-28",
+				"current": true
 			},
 			"weapons": null,
 			"weights": {
@@ -181,8 +181,8 @@
 		},
 		"mage-frost-incin": {
 			"effects": {
-				"at": "2026-11-27",
-				"current": false
+				"at": "2026-11-28",
+				"current": true
 			},
 			"weapons": null,
 			"weights": {
@@ -193,8 +193,8 @@
 		},
 		"mage-frost": {
 			"effects": {
-				"at": "2026-11-27",
-				"current": false
+				"at": "2026-11-28",
+				"current": true
 			},
 			"weapons": null,
 			"weights": {
@@ -206,7 +206,7 @@
 		"paladin-ret-holy-shock": {
 			"effects": {
 				"at": "2026-11-28",
-				"current": false
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-28",
@@ -221,7 +221,7 @@
 		"paladin-ret": {
 			"effects": {
 				"at": "2026-11-28",
-				"current": false
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-28",
@@ -235,24 +235,24 @@
 		},
 		"priest-disc": {
 			"effects": {
-				"at": "2026-11-27",
-				"current": false
+				"at": "2026-11-28",
+				"current": true
 			},
 			"weapons": null,
 			"weights": null
 		},
 		"priest-holy": {
 			"effects": {
-				"at": "2026-11-27",
-				"current": false
+				"at": "2026-11-28",
+				"current": true
 			},
 			"weapons": null,
 			"weights": null
 		},
 		"priest-shadow": {
 			"effects": {
-				"at": "2026-11-27",
-				"current": false
+				"at": "2026-11-28",
+				"current": true
 			},
 			"weapons": null,
 			"weights": {
@@ -263,8 +263,8 @@
 		},
 		"priest-smite": {
 			"effects": {
-				"at": "2026-11-27",
-				"current": false
+				"at": "2026-11-28",
+				"current": true
 			},
 			"weapons": null,
 			"weights": {
@@ -276,7 +276,7 @@
 		"rogue-asn-muti": {
 			"effects": {
 				"at": "2026-11-28",
-				"current": false
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-28",
@@ -291,7 +291,7 @@
 		"rogue-combat-bs": {
 			"effects": {
 				"at": "2026-11-28",
-				"current": false
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-28",
@@ -306,7 +306,7 @@
 		"rogue-combat-ss": {
 			"effects": {
 				"at": "2026-11-28",
-				"current": false
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-28",
@@ -321,7 +321,7 @@
 		"rogue-combat-venom": {
 			"effects": {
 				"at": "2026-11-28",
-				"current": false
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-28",
@@ -336,7 +336,7 @@
 		"rogue-hemo-sf": {
 			"effects": {
 				"at": "2026-11-28",
-				"current": false
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-28",
@@ -351,7 +351,7 @@
 		"rogue-sub-hemo": {
 			"effects": {
 				"at": "2026-11-28",
-				"current": false
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-28",
@@ -426,7 +426,7 @@
 		"warrior-arms": {
 			"effects": {
 				"at": "2026-11-28",
-				"current": false
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-28",
@@ -441,7 +441,7 @@
 		"warrior-fury": {
 			"effects": {
 				"at": "2026-11-28",
-				"current": false
+				"current": true
 			},
 			"weapons": {
 				"at": "2026-11-28",
