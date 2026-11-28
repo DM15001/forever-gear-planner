@@ -10,7 +10,7 @@
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-27",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
@@ -25,7 +25,7 @@
 			},
 			"weights": {
 				"at": "2026-11-27",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
@@ -37,7 +37,7 @@
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-27",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
@@ -52,7 +52,7 @@
 			},
 			"weights": {
 				"at": "2026-11-27",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
@@ -67,7 +67,7 @@
 			},
 			"weights": {
 				"at": "2026-11-27",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
@@ -82,7 +82,7 @@
 			},
 			"weights": {
 				"at": "2026-11-27",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
@@ -97,7 +97,7 @@
 			},
 			"weights": {
 				"at": "2026-11-27",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
@@ -112,7 +112,7 @@
 			},
 			"weights": {
 				"at": "2026-11-27",
-				"current": false,
+				"current": true,
 				"held": true
 			}
 		},
@@ -127,7 +127,7 @@
 			},
 			"weights": {
 				"at": "2026-11-27",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
@@ -139,7 +139,7 @@
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-27",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
@@ -151,7 +151,7 @@
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-27",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
@@ -163,7 +163,7 @@
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-27",
-				"current": false,
+				"current": true,
 				"held": true
 			}
 		},
@@ -175,7 +175,7 @@
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-27",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
@@ -187,7 +187,7 @@
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-27",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
@@ -199,7 +199,7 @@
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-27",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
@@ -213,8 +213,8 @@
 				"current": true
 			},
 			"weights": {
-				"at": "2026-11-27",
-				"current": false,
+				"at": "2026-11-28",
+				"current": true,
 				"held": true
 			}
 		},
@@ -228,8 +228,8 @@
 				"current": true
 			},
 			"weights": {
-				"at": "2026-11-27",
-				"current": false,
+				"at": "2026-11-28",
+				"current": true,
 				"held": true
 			}
 		},
@@ -257,7 +257,7 @@
 			"weapons": null,
 			"weights": {
 				"at": "2026-11-27",
-				"current": false,
+				"current": true,
 				"held": false
 			}
 		},
@@ -268,8 +268,8 @@
 			},
 			"weapons": null,
 			"weights": {
-				"at": "2026-11-27",
-				"current": false,
+				"at": "2026-11-28",
+				"current": true,
 				"held": false
 			}
 		},
@@ -283,8 +283,8 @@
 				"current": true
 			},
 			"weights": {
-				"at": "2026-11-27",
-				"current": false,
+				"at": "2026-11-28",
+				"current": true,
 				"held": false
 			}
 		},
@@ -298,8 +298,8 @@
 				"current": true
 			},
 			"weights": {
-				"at": "2026-11-27",
-				"current": false,
+				"at": "2026-11-28",
+				"current": true,
 				"held": false
 			}
 		},
@@ -313,8 +313,8 @@
 				"current": true
 			},
 			"weights": {
-				"at": "2026-11-27",
-				"current": false,
+				"at": "2026-11-28",
+				"current": true,
 				"held": false
 			}
 		},
@@ -328,8 +328,8 @@
 				"current": true
 			},
 			"weights": {
-				"at": "2026-11-27",
-				"current": false,
+				"at": "2026-11-28",
+				"current": true,
 				"held": false
 			}
 		},
@@ -343,8 +343,8 @@
 				"current": true
 			},
 			"weights": {
-				"at": "2026-11-27",
-				"current": false,
+				"at": "2026-11-28",
+				"current": true,
 				"held": false
 			}
 		},
@@ -358,8 +358,8 @@
 				"current": true
 			},
 			"weights": {
-				"at": "2026-11-27",
-				"current": false,
+				"at": "2026-11-28",
+				"current": true,
 				"held": false
 			}
 		},
@@ -370,8 +370,8 @@
 			},
 			"weapons": null,
 			"weights": {
-				"at": "2026-11-27",
-				"current": false,
+				"at": "2026-11-28",
+				"current": true,
 				"held": false
 			}
 		},
@@ -382,8 +382,8 @@
 			},
 			"weapons": null,
 			"weights": {
-				"at": "2026-11-27",
-				"current": false,
+				"at": "2026-11-28",
+				"current": true,
 				"held": false
 			}
 		},
@@ -394,8 +394,8 @@
 			},
 			"weapons": null,
 			"weights": {
-				"at": "2026-11-27",
-				"current": false,
+				"at": "2026-11-28",
+				"current": true,
 				"held": false
 			}
 		},
@@ -406,8 +406,8 @@
 			},
 			"weapons": null,
 			"weights": {
-				"at": "2026-11-27",
-				"current": false,
+				"at": "2026-11-28",
+				"current": true,
 				"held": false
 			}
 		},
@@ -418,8 +418,8 @@
 			},
 			"weapons": null,
 			"weights": {
-				"at": "2026-11-27",
-				"current": false,
+				"at": "2026-11-28",
+				"current": true,
 				"held": false
 			}
 		},
@@ -433,8 +433,8 @@
 				"current": true
 			},
 			"weights": {
-				"at": "2026-11-27",
-				"current": false,
+				"at": "2026-11-28",
+				"current": true,
 				"held": false
 			}
 		},
@@ -448,8 +448,8 @@
 				"current": true
 			},
 			"weights": {
-				"at": "2026-11-27",
-				"current": false,
+				"at": "2026-11-28",
+				"current": true,
 				"held": false
 			}
 		}
