@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-27T21:35:39.339Z",
-	"inputs": "6d1c9fb2f96b54c9",
+	"generatedAt": "2026-11-27T23:42:26.450Z",
+	"inputs": "16479c8c5f2d8c4b",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -17,13 +17,13 @@
 		},
 		"5267": {
 			"name": "Scarlet Kris",
-			"offHand": -5.6,
-			"mainHand": -22.95
+			"mainHand": -22.95,
+			"offHand": -5.6
 		},
 		"6660": {
 			"name": "Julie's Dagger",
-			"mainHand": -33.13,
-			"offHand": -12.99
+			"offHand": -12.99,
+			"mainHand": -33.13
 		},
 		"7947": {
 			"name": "Ebon Shiv",
@@ -176,8 +176,8 @@
 		},
 		"19100": {
 			"name": "Electrified Dagger",
-			"mainHand": -20.58,
-			"offHand": -4.75
+			"offHand": -4.75,
+			"mainHand": -20.58
 		},
 		"19324": {
 			"name": "The Lobotomizer",
@@ -218,8 +218,8 @@
 		},
 		"24222": {
 			"name": "The Shadowfoot Stabber",
-			"mainHand": -33.7,
-			"offHand": -11.55
+			"offHand": -11.55,
+			"mainHand": -33.7
 		},
 		"250616": {
 			"name": "Bold Dirk",

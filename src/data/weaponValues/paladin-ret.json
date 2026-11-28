@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-27T21:35:54.548Z",
-	"inputs": "d40d842d71775859",
+	"generatedAt": "2026-11-27T23:39:10.488Z",
+	"inputs": "48e64fe5b1929c53",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -139,7 +139,7 @@
 		},
 		"12969": {
 			"name": "Seeping Willow",
-			"mainHand": -38.23
+			"mainHand": -32.27
 		},
 		"13003": {
 			"name": "Lord Alexander's Battle Axe",

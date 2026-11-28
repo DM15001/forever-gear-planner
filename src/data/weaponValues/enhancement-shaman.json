@@ -1,6 +1,6 @@
 {
-	"generatedAt": "2026-11-27T21:09:08.017Z",
-	"inputs": "abca429c4e4cf8c2",
+	"generatedAt": "2026-11-27T23:11:27.765Z",
+	"inputs": "854e0b376c6a7e07",
 	"note": "What each weapon is worth as a whole for this build, in DPS against the weapon the build's preset holds in that hand (which is 0), measured with the WoWSims simulator in the preset gear. It covers the weapon's damage, speed, stats and proc. A two-hander is measured without an off hand.",
 	"iterations": 2500,
 	"reference": {
@@ -119,7 +119,7 @@
 		},
 		"12969": {
 			"name": "Seeping Willow",
-			"mainHand": -10.44
+			"mainHand": -4.55
 		},
 		"13000": {
 			"name": "Staff of Hale Magefire",
